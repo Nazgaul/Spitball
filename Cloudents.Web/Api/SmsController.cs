@@ -33,7 +33,6 @@ namespace Cloudents.Web.Api
         private readonly SbUserManager _userManager;
         private readonly ISmsSender _client;
         private readonly ICommandBus _commandBus;
-        //private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
@@ -42,14 +41,12 @@ namespace Cloudents.Web.Api
 
         public SmsController(SignInManager<User> signInManager, SbUserManager userManager,
             ISmsSender client, ICommandBus commandBus,
-            //IStringLocalizer<DataAnnotationSharedResource> localizer,
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _client = client;
             _commandBus = commandBus;
-            // _localizer = localizer;
             _logger = logger;
             _smsLocalizer = smsLocalizer;
         }
@@ -103,23 +100,6 @@ namespace Cloudents.Web.Api
             var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user,
                 model.PhoneNumber, model.CountryCode.ToString(), token);
 
-            //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
-            //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
-            //if (country != null)
-            //{
-            //    if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
-            //        var t1 = _commandBus.DispatchAsync(command2, token);
-            //        await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
-            //        ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
-            //        var t2 = _signInManager.SignOutAsync();
-            //        await Task.WhenAll(t1, t2);
-            //        return BadRequest(ModelState);
-
-            //    }
-            //}
-
             if (retVal.Succeeded)
             {
                 if (User.Identity.IsAuthenticated)
@@ -135,8 +115,6 @@ namespace Cloudents.Web.Api
 
             if (retVal.Errors.Any(a => a.Code == "CountryNotSupported"))
             {
-                //var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
-                //var t1 = _commandBus.DispatchAsync(command2, token);
                 await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
                 ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["CountryNotSupported"]);
                 var t2 = _signInManager.SignOutAsync();

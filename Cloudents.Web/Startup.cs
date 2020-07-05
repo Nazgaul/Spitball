@@ -351,7 +351,7 @@ namespace Cloudents.Web
             }
 
             app.UseRewriter(reWriterOptions);
-
+            app.UseHttpsRedirection();
 
             app.UseResponseCaching();
 

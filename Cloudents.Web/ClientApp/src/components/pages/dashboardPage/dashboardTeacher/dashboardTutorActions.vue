@@ -17,7 +17,14 @@
                     <button class="tutorUrl me-4 mb-4" :class="{'text-truncate': isMobile}" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
-                        :to="myProfileRedirect"
+                        :to="{
+                            name: this.profileName,
+                            params: {
+                                id: this.userId,
+                                name: this.userName
+                            },
+                            hash: '#tutorEdit'
+                        }"
                         v-if="isEditActionComplete"
                         rounded
                         outlined

@@ -32,7 +32,7 @@ const Calendar = {
         };
         this.date = date.FormatDateToString();
         this.time = `${date.getHours().toString().padStart(2,'0')}:00`  //_calendarTime(date);
-        this.datex = date;
+       // this.datex = date;
     },
     //Avaibilty
     Day:function(objInit){

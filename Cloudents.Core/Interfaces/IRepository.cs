@@ -64,10 +64,9 @@ namespace Cloudents.Core.Interfaces
 
     public interface ITutorRepository : IRepository<Tutor>
     {
-        Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, string country, CancellationToken token);
     }
 
-    
+
 
 
 
@@ -86,10 +85,10 @@ namespace Cloudents.Core.Interfaces
     //    Task<CourseSubject?> GetCourseSubjectByNameAsync(string name, CancellationToken token);
     //}
 
-    public interface ILeadRepository : IRepository<Lead>
-    {
-        Task<bool> NeedToSendMoreTutorsAsync(long userId, CancellationToken token);
-    }
+    //public interface ILeadRepository : IRepository<Lead>
+    //{
+    //    Task<bool> NeedToSendMoreTutorsAsync(long userId, CancellationToken token);
+    //}
 
     public interface IReadTutorRepository : IRepository<ReadTutor>
     {

@@ -1,9 +1,9 @@
 ﻿import { connectivityModule } from "./connectivity.module"
 import {Item} from './Dto/item.js';
 
-const getFeeds = (params) => {
-    return connectivityModule.http.get("/feed", { params });
-};
+// const getFeeds = (params) => {
+//     return connectivityModule.http.get("/feed", { params });
+// };
 
 // const getNextPage = ({ url }) => {
 //     return connectivityModule.http.get(url, { baseURL: "" });
@@ -74,48 +74,48 @@ function createDocumentItem(objInit) {
 }
 
 
-/* Question Card Result */
-let transferResultQuestion = (data) => {
-    return (!data) ? [] : createQuestionItem(data);
-};
+// /* Question Card Result */
+// let transferResultQuestion = (data) => {
+//     return (!data) ? [] : createQuestionItem(data);
+// };
+//
+// /* Study Document Card Result */
+// let transferResultDocument = (data) => {
+//     return (!data) ? [] : createDocumentItem(data);
+// };
+//
+// /* Tutor Card Result */
+// let transferResultTutor = (data) => {
+//     return (!data) ? [] : createTutorItem(data);
+// };
 
-/* Study Document Card Result */
-let transferResultDocument = (data) => {    
-    return (!data) ? [] : createDocumentItem(data);
-};
+// const transferMap = {
+//     Question: (res) => transferResultQuestion(res),
+//     Document: (res) => transferResultDocument(res),
+//     Tutor: (res) => transferResultTutor(res)
+// };
 
-/* Tutor Card Result */
-let transferResultTutor = (data) => {
-    return (!data) ? [] : createTutorItem(data);
-};
-
-const transferMap = {
-    Question: (res) => transferResultQuestion(res),
-    Document: (res) => transferResultDocument(res),
-    Tutor: (res) => transferResultTutor(res)
-};
-
-let transferResult = ({data}) => {
-    let documents = data.result.map((doc) => {
-        return transferMap[doc.type](doc);
-    });
-
-    return {
-        filters: data.filters,
-        data: documents,
-    };
-};
+// let transferResult = ({data}) => {
+//     let documents = data.result.map((doc) => {
+//         return transferMap[doc.type](doc);
+//     });
+//
+//     return {
+//         filters: data.filters,
+//         data: documents,
+//     };
+// };
 
 // let transferNextPage = (res) => {
 //     return transferResult(res);
 // };
 
 export default {
-    activateFunction: {
-        feed(params) {
-            return getFeeds(params).then(transferResult);
-        },
-    },
+    // activateFunction: {
+    //     feed(params) {
+    //         return getFeeds(params).then(transferResult);
+    //     },
+    // },
     // nextPage: (params) => {
     //     return getNextPage(params).then(transferNextPage);
     // },

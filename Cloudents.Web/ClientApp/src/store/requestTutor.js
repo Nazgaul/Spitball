@@ -11,7 +11,6 @@ const state = {
     currentTutorReqStep:'tutorRequestCourseInfo',
     courseDescription:'',
     selectedCourse:'',
-    moreTutors:false,
     currentTutorPhoneNumber: null,
     registerStepFromTutorRequest: false,
 };
@@ -23,8 +22,7 @@ const getters = {
     getCurrentTutorReqStep: state => state.currentTutorReqStep,
     getCourseDescription: state => state.courseDescription,
     getSelectedCourse: state => state.selectedCourse,
-    getMoreTutors: state => state.moreTutors,
-    getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
+getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
     getIsFromTutorStep: state => state.registerStepFromTutorRequest,
 };
 
@@ -52,13 +50,9 @@ const mutations = {
         state.currentTutorReqStep = 'tutorRequestCourseInfo';
         state.courseDescription = '';
         state.selectedCourse = '';
-        state.moreTutors = false;
         state.currentTutorPhoneNumber = null;
         state.registerStepFromTutorRequest = false
         state.currTutor = null
-    },
-    setMoreTutors(state, val) {
-        state.moreTutors = val;
     },
     setCurrentTutorPhoneNumber(state, number) {
         state.currentTutorPhoneNumber = number;
@@ -116,9 +110,7 @@ const actions = {
             analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
         }
     },
-    updateMoreTutors({commit},val){
-        commit('setMoreTutors',val);
-    },
+    
 };
 export default {
     state,

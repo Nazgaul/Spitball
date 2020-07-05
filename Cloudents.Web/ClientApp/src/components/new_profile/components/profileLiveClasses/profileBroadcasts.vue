@@ -1,7 +1,7 @@
 <template>
-    <div v-if="liveSessions.length">
+    <div v-if="broadcastSessions.length">
         <div class="profileBroadcast pa-4 pb-0 pa-sm-0">
-            <div class="mainTitle text-sm-center mb-8" v-t="'my_live_classes'"></div>
+            <div class="mainTitle text-sm-center mb-5">{{broadCastTitle}}</div>
             <div 
                 v-for="session in sessionsList"
                 class="broadcastList"
@@ -25,9 +25,9 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pe-0 ps-0">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pr-sm-4">
 
-                        <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
+                        <div class="header d-flex justify-space-between mb-3" v-if="!isMobile">
                             <div>
                                 <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
                                 <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="center">
-                            <div class="sessionTitle mb-3" v-if="!isMobile">{{session.name}}</div>
+                            <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
                             <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
                             <template>
                                 <div class="description">
@@ -52,10 +52,10 @@
                             </template>
                         </div>
 
-                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-6': session.description}">
+                        <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
-                                    @click="enterRoom(session.id)"
+                                    @click="$router.push({name: studyroomRoute, params: { id: session.id } })"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -89,9 +89,9 @@
                                 </v-btn>
                             <div class="subscription">
                                 <span v-t="'regular'"></span>
-                                <span class="number text-left ms-sm1">{{$price(session.price.amount, session.price.currency, true)}}</span>
+                                <span class="number text-left ms-sm-1">{{$price(session.price.amount, session.price.currency, true)}}</span>
                             </div>
-                            <div class="subscription">
+                            <div class="subscription" v-if="isTutorSubscription">
                                 <span v-t="'subscriber'"></span>
                                 <span class="number text-left ms-sm-1">{{$price(0, session.price.currency, true)}}</span>
                             </div>
@@ -102,8 +102,10 @@
             </div>
         </div>
 
-        <div class="showMore text-center pb-3" v-if="liveSessions.length > 2">
-            <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="26" @click="isExpand = !isExpand"/>
+        <div class="showMore text-center mt-n2">
+            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand"  v-if="broadcastSessions.length > 2">
+                <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
+            </v-btn>
         </div>
 
         <v-snackbar
@@ -120,10 +122,11 @@
 </template>
 
 <script>
-import * as routeNames from '../../../../routes/routeNames'
+import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
-import arrowDownIcon from './group-3-copy-12.svg'
+import arrowDownIcon from './group-3-copy-16.svg'
+
 export default {
     name: 'profileLiveClasses',
     components: {
@@ -131,23 +134,36 @@ export default {
         arrowDownIcon  
     },
     props: {
-        id: {
+        userId: {
             required: true
         }
     },
     data() {
         return {
+            studyroomRoute: StudyRoom,
             defOpen:false,
-            liveSessions: [],
             showSnack: false,
             color: '',
             toasterText: '',
             isExpand: false,
         }
     },
+    watch: {
+        isExpand(val) {
+            if(!val) {
+                this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
+            }
+        }
+    },
     computed: {
+        broadCastTitle() {
+            return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
+        },
+        // buttonShowMore() {
+        //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
+        // },
         liveImage() {
-            return this.isMobile ? require('./live-banner-copy@3x.png') : require('./live-banner.png')
+            return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
         },
         readBtnText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
@@ -164,15 +180,15 @@ export default {
                 }
             })
         },
+        broadcastSessions() {
+            return this.$store.getters.getProfileLiveSessions
+        },
         liveSessionsList() {
-            let liveList = this.liveSessions
+            let liveList = this.broadcastSessions
             if(this.isExpand) {
                 return liveList
             }
             return liveList.slice(0, 2)
-        },
-        tutorFirstName() {
-            return this.$store.getters.getProfile?.user?.firstName
         },
         isMyProfile(){
             return this.$store.getters.getIsMyProfile
@@ -184,7 +200,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly
         },
         textLimit(){
-            return this.isMobile ? 110 : 260;
+            return this.isMobile ? 110 : 214;
         },
         isOpen :{
             get(){
@@ -201,16 +217,15 @@ export default {
                 this.$store.commit('setComponent', 'register')
                 return
             }
-
             let session = {
-                userId: this.id,
+                userId: this.userId,
                 studyRoomId
             }
             let self = this
             this.$store.dispatch('updateStudyroomLiveSessions', session)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.liveSessions.filter(s => s.id === studyRoomId)[0]
+                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
                     self.color = 'error'
@@ -219,20 +234,7 @@ export default {
                 }).finally(() => {
                     self.showSnack = true
                 })
-        },
-        enterRoom(studyRoomId) {
-            this.$router.push({name: routeNames.StudyRoom, params: { id: studyRoomId } })
-        },
-        getLiveSessions() {
-            let self = this;
-            this.$store.dispatch('getStudyroomLiveSessions', this.id)
-                .then(res => {
-                    self.liveSessions = res
-                    self.$emit('isComponentReady')
-                }).catch(ex => {
-                    self.$appInsights.trackException(ex);
-                })
-        },
+        }
     },
     filters: {
         truncate(val = '', isOpen, suffix, textLimit){
@@ -243,18 +245,10 @@ export default {
                 return val + ' ';
             }
             return val;
-        },
-        // restOfText(val = '', isOpen, suffix, textLimit){
-        //     if (val.length > textLimit && !isOpen) {
-        //         return val.substring(textLimit) ;
-        //     }
-        //     if (val.length > textLimit && isOpen) {
-        //         return '';
-        //     }
-        // }
+        }
     },
     created() {
-        this.getLiveSessions()
+        this.$store.dispatch('getStudyroomLiveSessions', this.userId)
     }
 }
 </script>
@@ -275,15 +269,13 @@ export default {
     
     .mainTitle {
         font-size: 36px;
-        // padding: 0 270px;
-        max-width: 400px;
         margin: 0 auto;
         font-weight: 600;
         color: #363637;
         
         @media(max-width: @screen-xs) {
             padding: 0;
-            font-size: 30px;
+            font-size: 23px;
             text-align: left;
             max-width: 350px;
             margin: 0;
@@ -294,16 +286,18 @@ export default {
     }
     .restOfText {
         height: 0;
+        opacity: 0;
         visibility: hidden;
-        transition: all .3s;
+        transition: all .6s;
     }
     .toggleCheckbox[type=checkbox]:checked  {
         & ~.description {
             display: none !important;
         }
         & ~ .restOfText {
-        //label
+            //label
             line-height: 1.5;
+            opacity: 1;
             height: auto;
             visibility: visible;
         }
@@ -313,16 +307,16 @@ export default {
     }
     .broadcastList {
         margin-bottom: 28px;
-        &:nth-child(3) {
-            margin-bottom: 20px;   
-        }
+        // &:nth-child(3) {
+        //     margin-bottom: 20px;   
+        // }
         &.expandLastChild {
             &:nth-child(3) {
                 margin-bottom: 28px;   
             }
-            &:last-child{
-                margin-bottom: 20px;
-            }
+            // &:last-child{
+            //     margin-bottom: 20px;
+            // }
             
         }
         .listWrapper{
@@ -340,12 +334,13 @@ export default {
             .rightSide {
                 .center {
                     color: #363637;
-
                     .description {
+                        font-size: 16px;
                         line-height: 1.5;
                         display: contents;
                     }
                     .readMore {
+                        font-weight: 600;
                         cursor: pointer;
                     }
                 }
@@ -359,11 +354,15 @@ export default {
                         font-size: 18px;
                         font-weight: 600;
                         @media(max-width: @screen-xs) {
+                            font-size: 16px;
                             display: block;
                         }
                     }
                     .subscription {
-                        padding: 0 10px;
+                        padding: 0 0 0 10px;
+                        @media(max-width: @screen-xs) {
+                            font-size: 14px;
+                        }
                     }
                 }
             }
@@ -381,7 +380,15 @@ export default {
     }
 }
 .showMore {
+    margin-bottom: 60px;
+    @media (max-width: @screen-xs) {
+        margin-bottom: unset;
+    }
+    .showBtn {
+        border: 1px solid #d4d6da !important;
+    }
     .arrowIcon {
+        padding-top: 1px;
         cursor: pointer;
         &.exapnd {
             transform: scaleY(-1);

@@ -5,17 +5,18 @@
          <div class="profileReviewsBox_state_container">
             <div class="profileReviewsBox_state_score">
                <div class="profileReviewsBox_state_score_title">
-                  {{getProfile.user.tutorData.rate.toFixed(1)}}
+                  {{getAverageRate.toFixed(1)}}
                </div>
                <div class="profileReviewsBox_state_score_rating">
-                  <userRating class="state_score_rating" :showRateNumber="false" :rating="getProfile.user.tutorData.rate" :size="'20'" />
-                  <span class="state_score_rating_span pl-1" >{{$tc('resultTutor_review_one',getProfile.user.tutorData.reviewCount)}}</span>
+                  <userRating class="state_score_rating" :showRateNumber="false" :rating="getAverageRate" :size="'20'" />
+                  <span class="state_score_rating_span pl-1" >{{$tc('resultTutor_review_one',getProfile.user.reviewCount)}}</span>
                 
                </div>
             </div>
             <div class="profileReviewsBox_state_stats">
                <div class="profileReviewsBox_state_stats_lines" v-if="!$vuetify.breakpoint.xsOnly">
-                  <v-progress-linear v-for="(rate, index) in rates" :key="index" class="mr-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
+                  <v-progress-linear v-for="(rate, index) in rates" 
+                  :key="index" class="mr-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
                </div>
                <div class="profileReviewsBox_state_stats_stars">
                   <div class="profileReviewsBox_state_stats_stars_row" v-for="(rate, index) in rates" :key="index">
@@ -55,7 +56,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getProfile','getProfileReviews']),
+      ...mapGetters(['getProfile','getProfileReviews','getAverageRate']),
       reviewsText() {
          if(this.isExpand) {
             return this.$t('reviewBox_see_less')
@@ -96,7 +97,7 @@ export default {
   margin: 0 auto;
 //   height: 512px;
   border-radius: 8px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+//   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
   padding: 14px;
   padding-top: 12px;
@@ -112,7 +113,7 @@ export default {
   }
   .profileReviewsBox_state{
       .profileReviewsBox_state_title{
-         font-size: 18px;
+         font-size: 24px;
          font-weight: 600;
          padding-bottom: 12px;
          text-transform: capitalize;
