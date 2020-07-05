@@ -277,7 +277,6 @@ export default {
                 color: #43425d;
             }
             .coverPhoto {
-                object-fit: contain;
                 .responsive-property(height, 212px, null, 107px);
                 border-radius: 3px;
                 border: solid 1px #c6cdda;
