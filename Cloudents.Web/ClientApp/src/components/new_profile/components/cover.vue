@@ -146,15 +146,6 @@ export default {
   z-index: 2;
   color: #fff;
   border-radius: 6px;
-  .editIcon {
-    path {
-      fill: #fff;
-    }
-  }
-  .editText {
-    font-size: 16px;
-    font-weight: 600;
-  }
   .attach-icon {
     cursor: pointer;
   }

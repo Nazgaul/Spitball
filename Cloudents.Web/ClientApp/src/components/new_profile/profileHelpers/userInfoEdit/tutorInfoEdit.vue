@@ -55,7 +55,7 @@
                     <v-text-field
                         v-model.trim="lastName"
                         :rules="[rules.required, rules.minimumChars]"
-                        :label="$t('profile_firstName_label')"
+                        :label="$t('profile_lastName_label')"
                         dense
                         height="44"
                         outlined
@@ -279,7 +279,7 @@ export default {
                 color: #43425d;
             }
             .coverPhoto {
-                height: 212px;
+                .responsive-property(height, 212px, null, 107px);
                 border-radius: 3px;
                 border: solid 1px #c6cdda;
             }
