@@ -15,7 +15,7 @@
             />
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
-            <profileItemsBox v-if="showItems" class="mt-sm-12 mt-8" />
+            <profileItemsBox class="mt-sm-12 mt-8" />
             <profileReviewsBox class="my-10 mt-2" />
         </div>
         <profileFooter />
@@ -99,9 +99,9 @@ export default {
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
         },
-        showItems(){
-            return this.$store.getters.getProfileDocuments?.result?.length
-        },
+        // showItems(){
+        //     return this.$store.getters.getProfileDocuments?.result?.length
+        // },
         showCalendarTab() {
             let isCalendar = this.$store.getters.getProfileIsCalendar
             if(this.isMyProfile) {

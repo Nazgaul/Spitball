@@ -7,7 +7,8 @@ let cancelTokenList;
 
 const state = {
    profile: null,
-   documents: [],
+   // documents: [],
+   documents: {},
    profileReviews: null,
    profileLiveSessions: [],
    showEditDataDialog: false,
@@ -76,22 +77,22 @@ const mutations = {
       }
    },
    setProfileDocuments(state, data) {
-      state.documents = new Document(data)
+      state.documents = Object.keys(data).map(objData => new Document(objData, data[objData]))
 
-      function Document(objInit) {
-         this.result = objInit.result.map(objData => new DocumentItem(objData));
-         this.count = objInit.count;         
+      function Document(name, objInit) {
+         this.result = Object.keys(objInit).map(objData => new DocumentItem(objInit[objData]));
+         this.courseName = name
       }
 
       function DocumentItem(objInit) {
          this.id = objInit.id;
-         this.type = objInit.type;
+         // this.type = objInit.type;
          this.course = objInit.course;
          this.dateTime = new Date(objInit.dateTime);
          this.documentType = objInit.documentType;
          this.preview = objInit.preview;
          this.title = objInit.title;
-         this.url = objInit.url;
+         this.url = `/document/${this.course}/${this.title}/${this.id}`;
          this.snippet = objInit.snippet
          this.itemDuration = objInit.duration
          this.template = 'result-note';
