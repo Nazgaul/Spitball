@@ -1,7 +1,7 @@
 <template>
     <cover :fixedHeight="true">
         <template v-if="loading">
-            <div class="profileCover coverupload uploadBtn" v-if="$store.getters.getIsMyProfile">
+            <div class="profileCover profileUploadBtn ma-2" v-if="$store.getters.getIsMyProfile">
                 <v-btn class="white--text" color="rgba(0,0,0,.6)" @click="openEdit" depressed v-ripple="false">
                     <editIcon class="editIcon me-3" width="17" />
                     <span class="editText" v-t="'edit'"></span>
@@ -35,8 +35,7 @@ export default {
 </script>
 
 <style lang="less">
-.uploadBtn {
-    top: 70px;
+.profileUploadBtn {
     position: fixed;
     .editIcon {
         path {
