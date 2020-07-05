@@ -1,7 +1,7 @@
 <template>
     <v-dialog :value="true" :content-class="'edit-dialog'" persistent max-width="760px" :fullscreen="$vuetify.breakpoint.xsOnly">
         <v-card class="user-edit-wrap pb-4">
-            <v-form class="userEditForm d-flex d-sm-block flex-column justify-space-between" v-model="validUserForm" ref="formUser" @submit.prevent>
+            <v-form class="userEditForm d-flex d-sm-block flex-column justify-space-between pb-4 pb-sm-0" v-model="validUserForm" ref="formUser" @submit.prevent>
                 <div class="userEditFlexWrap">
                     <v-layout class="header pa-4 pt-3 mb-4">
                         <v-flex>
