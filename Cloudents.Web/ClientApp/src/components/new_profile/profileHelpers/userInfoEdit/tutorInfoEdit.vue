@@ -71,6 +71,7 @@
                         :label="$t('profile_description_label')"
                         dense
                         height="44"
+                        :placeholder="$t('title placeholder')"
                     ></v-textarea>
                 </v-col>
                 <v-col cols="12">
@@ -276,6 +277,7 @@ export default {
                 color: #43425d;
             }
             .coverPhoto {
+                object-fit: cover;
                 .responsive-property(height, 212px, null, 107px);
                 border-radius: 3px;
                 border: solid 1px #c6cdda;
