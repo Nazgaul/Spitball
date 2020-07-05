@@ -2,7 +2,6 @@ import axios from 'axios'
 import analyticsService from '../services/analytics.service';
 import intercomeService from '../services/intercomService';
 import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
-import insightService from '../services/insightService';
 import { dollarCalculate } from "./constants";
 
 const accountInstance = axios.create({
