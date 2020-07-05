@@ -24,7 +24,7 @@ export default {
         //     return this.$store.getters.getIsMyProfile
         // },
         bio() {
-            return this.$store.getters.getProfileParagraph.trimStart()
+            return this.$store.getters.getProfileParagraph
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
