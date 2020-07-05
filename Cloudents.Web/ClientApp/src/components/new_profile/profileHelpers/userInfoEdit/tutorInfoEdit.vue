@@ -82,15 +82,13 @@
                         :counter="SHORTPARAGRAPG_MAX"
                         :label="$t('Short paragraph')"
                         :placeholder="$t('shortParagraph placeholder')"
-                        dense
-                        height="44"
                     ></v-textarea>
                 </v-col>
                 <v-col>
                     <v-textarea
                         rows="5"
                         outlined
-                        :rules="[rules.minimum, rules.maximumChars]"
+                        :rules="[rules.minimum]"
                         v-model="bio"
                         class="tutor-edit-bio"
                         :label="$t('profile_bio_label')"
