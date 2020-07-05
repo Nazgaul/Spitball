@@ -271,7 +271,7 @@ export default {
         .profileCover {
             position: relative;
             .coverTitle {
-                .responsive-property(font-size, 22px, null, 16px);
+                .responsive-property(font-size, 18px, null, 16px);
                 font-weight: 600;
                 color: #43425d;
             }
