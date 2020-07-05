@@ -29,9 +29,9 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
         public class ExtensionMethodsWrapper : IExtensionMethodsWrapper
         {
-            public string DocumentUrlWrapper<T>(IUrlHelper myObj,  string course, long id, string name)
+            public string DocumentUrlWrapper<T>(IUrlHelper myObj, string course, long id, string name)
             {
-                return myObj.DocumentUrl( course, id, name);
+                return myObj.DocumentUrl(course, id, name);
             }
         }
 
@@ -45,17 +45,21 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 var page = 0;
                 var pageSize = 20;
                 var cancellationToken = CancellationToken.None;
-                var result = new ListWithCountDto<DocumentFeedDto>()
-                {
-                    Result = new[] {new DocumentFeedDto()
+
+                var result2 =
+
+
+                    new[]
                     {
-                        Id = 159039,
-                        //University = "SOME UNIVERSITY",
-                        Course = "some course",
-                        Title = "some name"
-                    }},
-                    Count = 1
-                };
+                        new DocumentFeedDto()
+                        {
+                            Id = 159039,
+                            Course = "some course",
+                            Title = "some name"
+                        }
+                    };
+                var result =
+                                result2.GroupBy(g => g.Course);
 
 
                 // The AutoMock class will inject a mock IDependency
@@ -96,14 +100,13 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
                 var retVal = await sut.GetDocumentsAsync(new Models.ProfileDocumentsRequest()
                 {
-                    Id = id, 
-                    Page = page, 
-                    PageSize = pageSize
+                    Id = id,
+                 
                 },
                     cancellationToken);
                 mock.Mock<IQueryBus>().Verify(x => x.QueryAsync(It.IsAny<UserDocumentsQuery>(), cancellationToken));
 
-                retVal.Result.First().Url.Should().NotBeNullOrEmpty();
+                retVal.Select(s => s.First()).First().Url.Should().NotBeNullOrEmpty();
 
             }
         }
