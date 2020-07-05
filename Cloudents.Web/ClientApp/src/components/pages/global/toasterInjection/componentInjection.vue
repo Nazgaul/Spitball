@@ -170,8 +170,16 @@ export default {
         componentsList:{
             deep:true,
             immediate:true,
-            handler(){}
-        },
+            handler(val){
+                if (val.length) {
+                    if (this.$vuetify.breakpoint.xs) {
+                        document.getElementsByTagName("body")[0].className = "noscroll";
+                    }
+                } else {
+                    document.body.removeAttribute("class", "noscroll");
+                }
+            }
+        }
     },
     computed: {
         componentsList(){
