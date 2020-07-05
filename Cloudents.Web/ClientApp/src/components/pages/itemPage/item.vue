@@ -113,12 +113,6 @@
             class="itemPage__main__carousel__header__title"
             v-t="'documentPage_related_content'"
           ></div>
-          <router-link
-            v-t="'documentPage_full_list'"
-            :to="{name: 'feed', query: {Course: courseName}}"
-            class="itemPage__main__carousel__header--seeAll"
-            color="#4c59ff"
-          ></router-link>
         </div>
 
         <div style="direction:ltr">
@@ -648,10 +642,6 @@ export default {
           color: #43425d;
           font-size: 18px;
           font-weight: 700;
-        }
-        &--seeAll {
-          color: #4c59ff !important;
-          font-size: 14px;
         }
       }
       &--margin {

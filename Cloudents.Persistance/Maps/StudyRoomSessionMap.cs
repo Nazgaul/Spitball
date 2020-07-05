@@ -13,6 +13,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Ended);
             //Map(x => x.RejoinCount);
             Map(x => x.Duration);
+            Map(x => x.DurationTicks).Column("Duration").ReadOnly();
             Map(x => x.RealDuration);
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);

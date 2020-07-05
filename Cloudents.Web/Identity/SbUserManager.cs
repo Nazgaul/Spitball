@@ -56,7 +56,7 @@ namespace Cloudents.Web.Identity
                 });
             }
 
-            user.PhoneNumber = phoneNumber;
+            user.PhoneNumber = result.phoneNumber;
             user.PhoneNumberConfirmed = false;
             //await Store.SetPhoneNumberAsync(user, phoneNumber, CancellationToken);
             //await Store.SetPhoneNumberConfirmedAsync(user, false, CancellationToken);

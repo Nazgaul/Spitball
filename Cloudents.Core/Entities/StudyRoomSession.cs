@@ -42,6 +42,9 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
 
+        
+        public virtual long? DurationTicks { get; protected set; }
+
 
         //public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
@@ -87,6 +90,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? PaymentApproved { get; protected set; }
         [Obsolete]
         public virtual TimeSpan? AdminDuration { get; protected set; }
+        [Obsolete]
         public virtual TimeSpan? RealDuration { get; protected set; }
 
 

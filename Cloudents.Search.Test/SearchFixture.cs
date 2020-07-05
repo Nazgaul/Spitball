@@ -5,7 +5,6 @@ using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
-using Cloudents.Search.Document;
 using System;
 using Cloudents.Search.Tutor;
 
