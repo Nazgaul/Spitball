@@ -36,6 +36,8 @@ export default {
 
 <style lang="less">
 .profileCover {
+    top: 70px;
+    position: fixed;
     .editIcon {
         path {
             fill: #fff;
