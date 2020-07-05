@@ -66,7 +66,7 @@
                         rows="2"
                         outlined
                         v-model="title"
-                        :rules="[rules.minimum, rules.titleMaxChars]"
+                        :rules="[rules.titleMaxChars]"
                         :counter="TITLE_MAX"
                         :label="$t('profile_description_label')"
                         dense
@@ -78,7 +78,7 @@
                         rows="2"
                         outlined
                         v-model="shortParagraph"
-                        :rules="[rules.minimum, rules.shortParagraphMaxChars]"
+                        :rules="[rules.shortParagraphMaxChars]"
                         :counter="SHORTPARAGRAPG_MAX"
                         :label="$t('Short paragraph')"
                         :placeholder="$t('shortParagraph placeholder')"
@@ -88,7 +88,6 @@
                     <v-textarea
                         rows="5"
                         outlined
-                        :rules="[rules.minimum]"
                         v-model="bio"
                         class="tutor-edit-bio"
                         :label="$t('profile_bio_label')"
@@ -310,6 +309,7 @@ export default {
                 }
             }
             textarea {
+                resize: none;
                 margin-top: 10px !important;
                 &::placeholder {
                     color: #a4a7ab;
