@@ -71,6 +71,7 @@
                         :label="$t('profile_description_label')"
                         dense
                         height="44"
+                        :placeholder="$t('title placeholder')"
                     ></v-textarea>
                 </v-col>
                 <v-col cols="12">
