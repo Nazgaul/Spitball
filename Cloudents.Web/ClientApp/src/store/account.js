@@ -99,7 +99,7 @@ const actions = {
     
                 analyticsService.sb_setUserId(userAccount.id);
                 intercomeService.startService(userAccount);
-                insightService.authenticate.set(userAccount.id);
+                global.appInsights.setAuthenticatedUserContext(`${userAccount.id}`);
                 //dispatch("getAllConversations");
                 commit('updateTotalUnread',userAccount.chatUnread || 0)
                 commit("changeLoginStatus", true);
