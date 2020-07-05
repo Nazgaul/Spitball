@@ -161,7 +161,6 @@ if(touchSupported){
 
 utilitiesService.init();
 
-debugger;
 Vue.use(VueAppInsights, {
     //appInsights: global.appInsights,
     id : global.applicationId,
