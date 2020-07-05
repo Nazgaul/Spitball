@@ -194,7 +194,6 @@ export default {
 
             this.$store.dispatch('updateRequestDialog', true);
             this.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-            this.$store.dispatch('toggleProfileFollower', true)
         },
         fromStudyRoom() {
             if(this.$route.name === this.routeNames.StudyRoom){

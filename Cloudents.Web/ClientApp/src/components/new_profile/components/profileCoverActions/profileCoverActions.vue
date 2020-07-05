@@ -1,15 +1,32 @@
     <template>
-    <div class="profileCoverActions text-sm-center px-4">
-        <h1 dir="auto" class="mainTitle mb-3 white--text">{{title}}</h1>
-        <h2 dir="auto" class="subTitle white--text">{{paragraph}}</h2>
-        <div class="mt-5 mb-sm-5">
-            <v-btn class="btn white--text me-3" @click="sendMessage" rounded depressed color="#ff6927" width="200" height="46" :block="isMobile">
+    <div class="profileCoverActions text-sm-center">
+        <h1 dir="auto" class="mainTitle mb-sm-4 mb-2 white--text px-4">{{title}}</h1>
+        <h2 dir="auto" class="subTitle white--text mb-sm-7 mb-5 px-4">{{paragraph}}</h2>
+        <div class="mb-sm-5 actionWrapper text-center d-flex d-sm-block flex-wrap align-end">
+            <v-btn
+                @click="sendMessage"
+                class="btn white--text me-sm-4 mb-sm-0"
+                :width="isMobile ? '166' : '200'"
+                height="46"
+                color="#ff6927"
+                rounded
+                depressed
+            >
                 <chatIcon class="me-2" width="23" />
-                <span class="flex-grow-1 flex-sm-grow-0 pe-7 pe-sm-0" v-t="'message_me'"></span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="'message_me'"></span>
             </v-btn>
-            <v-btn class="btn white--text mt-4 mt-sm-0" @click="openCalendar" v-if="$store.getters.getProfileIsCalendar" rounded depressed color="#4c59ff" width="200" height="46" :block="isMobile">
+            <v-btn
+                v-if="isCalendar && !isMyProfile"
+                @click="openCalendar"
+                class="btn white--text mt-4 mt-sm-0 mb-sm-0"
+                :width="isMobile ? '166' : '200'"
+                height="46"
+                color="#4c59ff"
+                rounded
+                depressed
+            >
                 <calendarIcon class="me-2" width="23" />
-                <span class="flex-grow-1 flex-sm-grow-0 pe-7 pe-sm-0" v-t="'book_lesson'"></span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="'book_lesson'"></span>
             </v-btn>
         </div>
     </div>
@@ -29,7 +46,7 @@ export default {
         calendarIcon
     },
     computed: {
-        IsCalendar() {
+        isCalendar() {
             return this.$store.getters.getProfileIsCalendar
         },
         isMyProfile() {
@@ -53,7 +70,7 @@ export default {
     },
     methods: {
         sendMessage() {
-            if(this.isMyProfile) {return}
+            if(this.isMyProfile) return
             if(!this.isLogged) {
                 let profile = this.user
                 this.$ga.event('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
@@ -88,10 +105,9 @@ export default {
             }
         },
         openCalendar() {
-            if(this.isMyProfile) {return}
+            if(this.isMyProfile) return
             if(this.isLogged) {
                 this.$emit('setCalendarActive', true)
-                // this.activeTab = 5;
                 this.$nextTick(() => {
                     this.$vuetify.goTo(this.$parent.$refs.calendarTab)
                 })
@@ -120,27 +136,26 @@ export default {
     right: 0;
     bottom: 16px;
     .mainTitle {
-        font-size: 44px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.21);
+        max-width: 753px;
+        line-height: 1.2;
+        margin: 0 auto;
         font-weight: 600;
+        .responsive-property(font-size, 50px, null, 30px);
     }
     .subTitle {
-        max-width: 450px;
+        max-width: 565px;
         margin: 0 auto;
-        font-size: 16px;
         font-weight: 500;
-        @media (max-width: @screen-xs) {
-            font-size: 15px;
-        }
+        .responsive-property(font-size, 20px, null, 18px);
     }
-    .btn {
-        text-transform: none;
-        font-size: 16px;
-        font-weight: 600;
-        // &:disabled {
-        //     color: #fff !important;
-        //     background-color: blue !important;
-        //     pointer-events: none;
-        // }
+    .actionWrapper {
+        justify-content: space-evenly;
+        .btn {
+            text-transform: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
     }
 }
 </style>

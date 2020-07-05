@@ -21,7 +21,7 @@
     />
 
     <slot>
-      <div class="coverupload" v-if="$store.getters.getIsMyProfile">
+      <div class="coverupload" v-if="$store.getters.getIsMyProfile && isLoaded">
         <input sel="edit_cover_image"
           class="profile-upload"
           type="file"
@@ -70,7 +70,7 @@ export default {
     coverImageSize() {
       return {
         width: this.windowWidth,
-        height: this.isMobile ? 480 : 594
+        height: this.isMobile ? 420 : 594
       }
     },
     getCoverImage() {
@@ -96,20 +96,28 @@ export default {
       clearTimeout(typeingTimer);
       let self = this;
       typeingTimer = setTimeout(() => {
-        self.windowWidth = window.innerWidth
+        // prevent duplicate request on switch to mobile, coverImageSize computed is already listen to isMobile changes
+        if(!this.isMobile) {
+          self.windowWidth = window.innerWidth
+        }
         self.currentTime = Date.now()
       }, 1000);
     },
     loaded() {
       this.isLoaded = true
-      this.$emit('setLoading')
+      this.$store.commit('setProfileCoverLoading', true)
+    },
+    unLoaded() {
+      this.isLoaded = false
+      this.$store.commit('setProfileCoverLoading', false)
     },
     uploadCoverPicture() {
       let self = this;
+      this.unLoaded()
       let formData = new FormData();
       let file = self.$refs.profileImage.files[0];
       formData.append("file", file);
-      self.$store.dispatch('uploadCoverImage', formData).then(() => {
+      this.$store.dispatch('uploadCoverImage', formData).then(() => {
         // this.updateToasterParams({
         //    // toasterText: this.$t("chat_file_error"),
         //     showToaster: true
@@ -132,18 +140,30 @@ export default {
     position: static;
   }
 }
-// .coverUpload {
-//     .editImage{
-//       position: absolute;
-//       // right: 4px;
-//       text-align: center;
-//       // width: 36px;
-//       // height: 46px;
-//       border-radius: 3px;
-//       background-color: rgba(0,0,0,.6);
-//       z-index: 1;
-//   }
-// }
+.coverupload {
+  position: absolute;
+  padding: 6px;
+  z-index: 2;
+  color: #fff;
+  border-radius: 6px;
+  .attach-icon {
+    cursor: pointer;
+  }
+}
+.imageLinear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 17%, rgba(0, 0, 0, 0.41) 50%, #000000);
+  @media (max-width: @screen-xs) {
+    // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 97%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.94) 18%);
+  }
+  &.noImage {
+    background-image: none
+  }
+}
 .skeletonAvatar {
   &.fixedHeight {
     .v-skeleton-loader__image {

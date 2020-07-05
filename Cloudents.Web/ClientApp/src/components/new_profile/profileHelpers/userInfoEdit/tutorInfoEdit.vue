@@ -5,22 +5,30 @@
                 <div class="mainTitle" v-t="'upload images'"></div>
                 <v-icon class="closeIcon" size="12" @click="closeDialog">{{$vuetify.icons.values.close}}</v-icon>
             </div>
-
             <div class="profilePicture mb-5">
                 <div class="pictureTitle text-center mb-2" v-t="'profile picture'"></div>
-                <uploadImage sel="photo" class="editImage" />
-                <userAvatarNew
-                    sel="avatar_image"
-                    class="pUb_dS_img"
-                    :userName="$store.getters.getAccountName"
-                    :userImageUrl="$store.getters.getAccountImage"
-                    :width="isMobile ? 130: 160"
-                    :height="isMobile ? 161 : 200"
-                    :userId="$store.getters.getAccountId"
-                    :fontSize="36"
-                    :borderRadius="8"
-                    :tile="true"
-                />
+                <div class="profileEditAvatarWrap">
+                    <uploadImage
+                        sel="photo"
+                        class="editImage"
+                        v-show="avatarLoading || !$store.getters.getAccountImage"
+                        @setProfileAvatarLoading="val => avatarLoading = val"
+                    />
+                    <userAvatarNew
+                        sel="avatar_image"
+                        class="pUb_dS_img"
+                        :userName="$store.getters.getAccountName"
+                        :userImageUrl="$store.getters.getAccountImage"
+                        :width="isMobile ? 130: 160"
+                        :height="isMobile ? 161 : 200"
+                        :userId="$store.getters.getAccountId"
+                        :fontSize="36"
+                        :borderRadius="8"
+                        :tile="true"
+                        :loading="avatarLoading"
+                        @setAvatarLoaded="val => avatarLoading = val"
+                    />
+                </div>
             </div>
 
             <div class="profileCover mb-12">
@@ -37,15 +45,19 @@
                         class="me-sm-5"
                         :rules="[rules.required, rules.minimumChars]"
                         :label="$t('profile_firstName_label')"
+                        dense
+                        height="44"
                         v-model.trim="firstName"
                         outlined
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
                     <v-text-field
-                        :rules="[rules.required, rules.minimumChars]"
-                        :label="$t('profile_firstName_label')"
                         v-model.trim="lastName"
+                        :rules="[rules.required, rules.minimumChars]"
+                        :label="$t('profile_lastName_label')"
+                        dense
+                        height="44"
                         outlined
                     ></v-text-field>
                 </v-col>
@@ -57,6 +69,8 @@
                         :rules="[rules.minimum, rules.titleMaxChars]"
                         :counter="TITLE_MAX"
                         :label="$t('profile_description_label')"
+                        dense
+                        height="44"
                     ></v-textarea>
                 </v-col>
                 <v-col cols="12">
@@ -74,7 +88,7 @@
                     <v-textarea
                         rows="5"
                         outlined
-                        :rules="[rules.minimum, rules.maximumChars]"
+                        :rules="[rules.minimum]"
                         v-model="bio"
                         class="tutor-edit-bio"
                         :label="$t('profile_bio_label')"
@@ -118,6 +132,7 @@ export default {
             editedLastName: '',
             valid: false,
             btnLoading: false,
+            avatarLoading: false,
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minimumChars(value, 10),
@@ -130,9 +145,6 @@ export default {
         };
     },
     computed: {
-        coverImage() {
-            return this.$store.getters.getProfileCoverImage
-        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -234,23 +246,26 @@ export default {
                 font-weight: 600;
                 color: #131415;
             }
-            .pUb_dS_img{
-                pointer-events: none !important;
-            }
-            .editImage{
-                position: absolute;
-                // right: 4px;
-                text-align: center;
-                // width: 36px;
-                // height: 46px;
-                border-radius: 3px;
-                background-color: rgba(0,0,0,.6);
-                z-index: 1;
-            }
-            .user-avatar-image-wrap {
-                width: auto !important;
-                .user-avatar-rect-img {
-                    border-radius: 3px !important;
+            .profileEditAvatarWrap {
+                .pUb_dS_img{
+                    pointer-events: none !important;
+                }
+                .editImage{
+                    position: absolute;
+                    // right: 4px;
+                    text-align: center;
+                    // width: 36px;
+                    // height: 46px;
+                    border-radius: 3px;
+                    background-color: rgba(0,0,0,.6);
+                    z-index: 1;
+                }
+                .user-avatar-image-wrap {
+                    width: auto !important;
+                    .user-avatar-rect-img {
+                        border: solid 1px #c6cdda;
+                        border-radius: 3px !important;
+                    }
                 }
             }
         }
@@ -262,11 +277,15 @@ export default {
                 color: #43425d;
             }
             .coverPhoto {
-                height: 212px;
+                .responsive-property(height, 212px, null, 107px);
                 border-radius: 3px;
+                border: solid 1px #c6cdda;
             }
             .coverupload {
                 background: rgba(0,0,0,.6)
+            }
+            .imageLinear {
+                display: none;
             }
         }
         .profileInfo {
@@ -275,11 +294,7 @@ export default {
                 font-weight: 600;
                 color: #43425d;
             }
-            textarea::placeholder {
-                color: #a4a7ab;
-                font-size: 14px;
-            }
-            .v-textarea {
+            .v-textarea, .v-input {
                 .v-input__slot {
                     fieldset {
                         border: 1px solid #b8c0d1;
@@ -294,14 +309,21 @@ export default {
                     }
                 }
             }
-        }
-        .shallow-blue {
-            border: 1px solid @global-blue;
-            color: @color-blue-new;
-            @media (max-width: @screen-xs) {
-                padding: 0 16px ;
+            textarea {
+                margin-top: 10px !important;
+                &::placeholder {
+                    color: #a4a7ab;
+                    font-size: 14px;
+                }
             }
         }
+        // .shallow-blue {
+        //     border: 1px solid @global-blue;
+        //     color: @color-blue-new;
+        //     @media (max-width: @screen-xs) {
+        //         padding: 0 16px ;
+        //     }
+        // }
         // .blue-btn {
         //     @media (max-width: @screen-xs) {
         //         padding: 0 16px ;

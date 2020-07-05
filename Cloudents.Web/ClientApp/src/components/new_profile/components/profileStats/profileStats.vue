@@ -46,19 +46,10 @@ export default {
 // @import '../../../../styles/colors.less';
 
 .profileStats {
-    position: relative;
     color: #363637;
-    &::after {
-        content: '';
-        position: absolute;
-        opacity: 0.4;
-        border-bottom: 1px solid #a4a7ab;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
+    border-bottom: 1px solid rgba(164, 167, 171, .4);
     .statsWrapper {
-        max-width: 960px;
+        max-width: 844px;
         margin: 0 auto;
         .stats {
             position: relative;

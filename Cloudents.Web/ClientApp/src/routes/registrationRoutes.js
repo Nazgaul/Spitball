@@ -1,4 +1,5 @@
 import * as routeName from "./routeNames.js";
+import * as authConstant from '../store/constants/authConstants.js';
 
 export const registrationRoutes = [
     {
@@ -42,7 +43,7 @@ export const registrationRoutes = [
         beforeEnter: (to, from, next) => {
             //TODO why do we need this
             if(global.isAuth) {
-                next('/feed');
+                next('/');
             } else {
                 next();
             }
@@ -60,5 +61,10 @@ export const registrationRoutes = [
                 next();
             }
         }
+    },
+
+    {
+        path: '/register',
+        redirect: {name : routeName.HomePage , query: {authDialog: authConstant.auth_SETTER.register}}
     }
 ]

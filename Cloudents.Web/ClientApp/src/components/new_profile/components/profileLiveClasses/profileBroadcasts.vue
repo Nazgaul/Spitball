@@ -1,7 +1,7 @@
 <template>
     <div v-if="broadcastSessions.length">
         <div class="profileBroadcast pa-4 pb-0 pa-sm-0">
-            <div class="mainTitle text-sm-center mb-6" v-t="'my_live_classes'"></div>
+            <div class="mainTitle text-sm-center mb-5">{{broadCastTitle}}</div>
             <div 
                 v-for="session in sessionsList"
                 class="broadcastList"
@@ -25,9 +25,9 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-1 pt-sm-3 pe-0 ps-0">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pr-sm-4">
 
-                        <div class="header d-flex justify-space-between mb-4" v-if="!isMobile">
+                        <div class="header d-flex justify-space-between mb-3" v-if="!isMobile">
                             <div>
                                 <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
                                 <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
@@ -101,18 +101,11 @@
                 </div>
             </div>
         </div>
-        <div class="showMore text-center mt-n2" v-if="broadcastSessions.length > 2">
 
-            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand">
-              <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22"/>
+        <div class="showMore text-center mt-n2">
+            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand"  v-if="broadcastSessions.length > 2">
+                <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
-
-            <!-- TODO: add text for less -->
-            <!-- <span>{{buttonShowMore}}</span> -->
-
-            <!-- <button class="showBtn" v-if="broadcastSessions.length > 2">
-                <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="24"/>
-            </button> -->
         </div>
 
         <v-snackbar
@@ -163,6 +156,9 @@ export default {
         }
     },
     computed: {
+        broadCastTitle() {
+            return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
+        },
         // buttonShowMore() {
         //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
         // },
@@ -204,7 +200,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly
         },
         textLimit(){
-            return this.isMobile ? 110 : 260;
+            return this.isMobile ? 110 : 214;
         },
         isOpen :{
             get(){
@@ -279,7 +275,7 @@ export default {
         
         @media(max-width: @screen-xs) {
             padding: 0;
-            font-size: 30px;
+            font-size: 23px;
             text-align: left;
             max-width: 350px;
             margin: 0;
@@ -311,16 +307,16 @@ export default {
     }
     .broadcastList {
         margin-bottom: 28px;
-        &:nth-child(3) {
-            margin-bottom: 20px;   
-        }
+        // &:nth-child(3) {
+        //     margin-bottom: 20px;   
+        // }
         &.expandLastChild {
             &:nth-child(3) {
                 margin-bottom: 28px;   
             }
-            &:last-child{
-                margin-bottom: 20px;
-            }
+            // &:last-child{
+            //     margin-bottom: 20px;
+            // }
             
         }
         .listWrapper{
@@ -338,12 +334,13 @@ export default {
             .rightSide {
                 .center {
                     color: #363637;
-
                     .description {
+                        font-size: 16px;
                         line-height: 1.5;
                         display: contents;
                     }
                     .readMore {
+                        font-weight: 600;
                         cursor: pointer;
                     }
                 }
@@ -357,13 +354,14 @@ export default {
                         font-size: 18px;
                         font-weight: 600;
                         @media(max-width: @screen-xs) {
+                            font-size: 16px;
                             display: block;
                         }
                     }
                     .subscription {
-                        padding: 0 10px;
+                        padding: 0 0 0 10px;
                         @media(max-width: @screen-xs) {
-                            font-size: 13px;
+                            font-size: 14px;
                         }
                     }
                 }
@@ -382,16 +380,18 @@ export default {
     }
 }
 .showMore {
+    margin-bottom: 60px;
+    @media (max-width: @screen-xs) {
+        margin-bottom: unset;
+    }
     .showBtn {
         border: 1px solid #d4d6da !important;
     }
     .arrowIcon {
+        padding-top: 1px;
         cursor: pointer;
         &.exapnd {
             transform: scaleY(-1);
-        }
-        path {
-            fill: #ff6f30;
         }
     }
 }
