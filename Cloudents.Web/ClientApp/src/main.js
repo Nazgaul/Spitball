@@ -164,7 +164,10 @@ utilitiesService.init();
 Vue.use(VueAppInsights, {
     //appInsights: global.appInsights,
     id : global.applicationId,
-    router
+    router,
+    appInsightsConfig  : {
+        enableAutoRouteTracking:true
+    }
 });
 
 export {
