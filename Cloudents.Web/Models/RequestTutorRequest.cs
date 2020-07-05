@@ -10,7 +10,6 @@ namespace Cloudents.Web.Models
 
         public long? TutorId { get; set; }
 
-        public bool MoreTutors { get; set; }
 
         [Captcha]
         public string Captcha { get; set; }

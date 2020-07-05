@@ -11,7 +11,6 @@ using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
-using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -143,7 +142,7 @@ namespace Cloudents.Web.Api
                     userId,
 
                     referer.AbsoluteUri,
-                    model.Text, model.TutorId, utmSource, model.MoreTutors);
+                    model.Text, model.TutorId, utmSource);
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (ArgumentException)
