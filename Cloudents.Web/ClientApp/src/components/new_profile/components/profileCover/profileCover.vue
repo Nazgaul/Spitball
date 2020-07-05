@@ -36,6 +36,7 @@ export default {
 
 <style lang="less">
 .profileUploadBtn {
+    z-index: 2;
     position: fixed;
     .editIcon {
         path {
