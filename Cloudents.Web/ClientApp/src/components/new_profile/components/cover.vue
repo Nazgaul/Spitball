@@ -3,10 +3,10 @@
     <v-skeleton-loader
       v-if="!isLoaded"
       class="skeletonAvatar"
-      :class="{'fixedHeight': fixedHeight}"
+      :class="{'mainCoverImage': mainCoverImage}"
       type="image"
-      :min-width="fixedHeight ? coverImageSize.width : '100%'"
-      :height="fixedHeight ? coverImageSize.height : '100%'"
+      :min-width="mainCoverImage ? coverImageSize.width : '100%'"
+      :height="mainCoverImage ? coverImageSize.height : '100%'"
     >
     </v-skeleton-loader>
     <img
@@ -49,7 +49,7 @@ var typeingTimer;
 export default {
   name: "uploadCover",
   props: {
-    fixedHeight: {
+    mainCoverImage: {
       type: Boolean,
       required: false
     }
@@ -130,7 +130,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "../../../styles/mixin";
 .coverPhoto {
   left: 0;
@@ -165,7 +165,7 @@ export default {
   }
 }
 .skeletonAvatar {
-  &.fixedHeight {
+  &.mainCoverImage {
     .v-skeleton-loader__image {
       height: 594px;
     }
