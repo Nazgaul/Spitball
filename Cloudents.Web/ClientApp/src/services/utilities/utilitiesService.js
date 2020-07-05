@@ -26,7 +26,7 @@ const init = function(){
 const proccessImageUrl = function(url, width, height, mode, type){
   let usedMode = mode ? mode : 'crop';
   if(url){
-      let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}&type=${type}`;
+      let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}${type ? `&type=${type}` : ''}`;
       return returnedUrl;
   }else{
       return '';
