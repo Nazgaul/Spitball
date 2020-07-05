@@ -1,7 +1,7 @@
 <template>
   <div class="profileParagraph text-left pa-2 mt-sm-6 px-4">
     <div class="paragraph">
-        {{bio | truncate(isOpen, '...', textLimit)}}
+        <span>{{bio | truncate(isOpen, '...', textLimit)}}</span>
     </div>
     <div class="d-none">{{bio | restOfText(isOpen, '...', textLimit)}}</div>
     <span sel="bio_more" v-if="bio && bio.length >= textLimit" @click="isOpen = !isOpen" class="readMore">{{readMoreText}}</span>
@@ -24,7 +24,7 @@ export default {
         //     return this.$store.getters.getIsMyProfile
         // },
         bio() {
-            return this.$store.getters.getProfileParagraph
+            return this.$store.getters.getProfileParagraph.trimStart()
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
@@ -72,6 +72,7 @@ export default {
     color: #363637;
     .responsive-property(font-size, 18px, null, 16px);
     .paragraph {
+        white-space: pre-line;
         display: contents;
         line-height: 1.7;
     }
