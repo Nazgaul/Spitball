@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -105,25 +104,25 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("teach")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
-        {
-            try
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var command = new TeachCourseCommand(userId, model.Name);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (InvalidOperationException)
-            {
-                ModelState.AddModelError("x", "Not such course");
-                return BadRequest();
-            }
-        }
+        //[HttpPost("teach")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var command = new TeachCourseCommand(userId, model.Name);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        ModelState.AddModelError("x", "Not such course");
+        //        return BadRequest();
+        //    }
+        //}
         //[HttpDelete]
         //public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
         //{

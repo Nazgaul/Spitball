@@ -3,15 +3,15 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    public class CanTeachCourseEvent : IEvent
-    {
-        public CanTeachCourseEvent(UserCourse userCourse)
-        {
-            UserCourse = userCourse;
-        }
+    //public class CanTeachCourseEvent : IEvent
+    //{
+    //    public CanTeachCourseEvent(UserCourse userCourse)
+    //    {
+    //        UserCourse = userCourse;
+    //    }
 
-        public UserCourse UserCourse { get; private set; }
-    }
+    //    public UserCourse UserCourse { get; private set; }
+    //}
 
     //public class CourseChangeSubjectEvent : IEvent
     //{
