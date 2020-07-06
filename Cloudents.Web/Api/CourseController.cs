@@ -1,5 +1,4 @@
 ﻿using Cloudents.Command;
-using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
@@ -82,27 +81,27 @@ namespace Cloudents.Web.Api
         //}
 
 
-        [HttpPost("create")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
-        {
-            try
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var command = new CreateCourseCommand(userId, model.Name);
-                await _commandBus.DispatchAsync(command, token);
-                var user = await _userManager.GetUserAsync(User);
-                await _signInManager.RefreshSignInAsync(user);
-                return Ok(model);
-            }
-            catch (DuplicateRowException)
-            {
-                return Conflict();
-            }
-        }
+        //[HttpPost("create")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status409Conflict)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> CreateCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var command = new CreateCourseCommand(userId, model.Name);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        var user = await _userManager.GetUserAsync(User);
+        //        await _signInManager.RefreshSignInAsync(user);
+        //        return Ok(model);
+        //    }
+        //    catch (DuplicateRowException)
+        //    {
+        //        return Conflict();
+        //    }
+        //}
 
         //[HttpPost("teach")]
         //[ProducesResponseType(StatusCodes.Status200OK)]
