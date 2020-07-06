@@ -30,7 +30,7 @@
                     :items="getSelectedClasses"/>
             </fieldset>
     </v-form>
-        <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
+        <div class="tutorRequest-bottom mt-6">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
                 <span v-t="'tutorRequest_cancel'"/>
             </v-btn>
