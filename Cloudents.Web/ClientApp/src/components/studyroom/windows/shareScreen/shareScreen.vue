@@ -35,6 +35,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+
 export default {
    data() {
       return {
@@ -67,6 +68,7 @@ export default {
       isFooterActive(){
          return this.$store.getters.getStudyRoomFooterState;
       },
+
       tutorScreenTrack(){
          return this.getRoomTutorParticipant?.screen;
       },

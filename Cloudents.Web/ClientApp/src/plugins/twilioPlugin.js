@@ -526,7 +526,7 @@ export default () => {
             networkQuality: {local:2, remote: 2}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
             maxVideoBitrate : isMobileMode ? 500000 : undefined, // problem with screen share maybe we should put in on the student side only cuz he have only 1 video track 
-            video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+            // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 }, // makes problems with share screen... choppy
          }
          if(roomTopologyType == 'PeerToPeer'){
             return defaultRoomSettings

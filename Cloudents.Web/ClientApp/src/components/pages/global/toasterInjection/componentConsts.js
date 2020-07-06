@@ -2,5 +2,11 @@
 // DIALOGS:
 export const PAYMENT_DIALOG = 'PAYMENT_DIALOG';
 
+
+
+// PROFILE PAGE
+
+//TUTOR EDIT PROFILE COMPONENT
+export const TUTOR_EDIT_PROFILE = 'TUTOR_EDIT_PROFILE'
 // AUTHS:
 export const REGISTER = 'register';

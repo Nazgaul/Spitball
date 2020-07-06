@@ -29,10 +29,6 @@
                     :rules="[rules.required]"
                     :items="getSelectedClasses"/>
             </fieldset>
-            <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
-                        :label="$t('tutorRequest_more_tutors', [getCurrTutor.name])" 
-                        v-model="moreTutors" off-icon="sbf-check-box-un" 
-                        on-icon="sbf-check-box-done"/>
     </v-form>
         <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
@@ -60,7 +56,6 @@ export default {
             isReady:false,
             isFromMounted: false,
             isFromQuery:false,
-            moreTutors:false,
             isLoading:false,
             validRequestTutorForm: false,
             checkbox:false,
@@ -116,7 +111,7 @@ export default {
                        'updateSelectedCourse',
                        'resetRequestTutor',
                        'sendTutorRequest',
-                       'updateMoreTutors',
+                      
                        'updateCurrTutor']),
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
@@ -151,7 +146,6 @@ export default {
             if(this.$refs.tutorRequestForm.validate()){
                 this.updateCourseDescription(this.description)
                 this.updateSelectedCourse(this.tutorCourse)
-                this.updateMoreTutors(this.moreTutors)
                 this.updateRequestDialog(false);
                 
                 this.$store.commit('setIsFromTutorStep', true)
@@ -186,7 +180,7 @@ export default {
                     phone: null,
                     course: this.tutorCourse? this.tutorCourse.text || this.tutorCourse : null,
                     tutorId: tutorId,
-                    moreTutors: this.moreTutors
+               
                 }                    
                 let self = this;
                 this.sendTutorRequest(serverObj)

@@ -1,95 +1,79 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Web.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
+﻿//using Cloudents.Core.Entities;
+//using Cloudents.Web.Models;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Mvc;
+//using System.Threading;
+//using System.Threading.Tasks;
 
-namespace Cloudents.Web.Controllers
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public class RegisterController : Controller
-    {
-        private readonly SignInManager<User> _signInManager;
+//namespace Cloudents.Web.Controllers
+//{
+//    [ApiExplorerSettings(IgnoreApi = true)]
+//    public class RegisterController : Controller
+//    {
+//        private readonly SignInManager<User> _signInManager;
 
-        public RegisterController(SignInManager<User> signInManager)
-        {
-            _signInManager = signInManager;
-        }
+//        public RegisterController(SignInManager<User> signInManager)
+//        {
+//            _signInManager = signInManager;
+//        }
 
-        internal const string RegisterRouteName = "Register";
+//       // internal const string RegisterRouteName = "Register";
 
-        internal const string Signin = "SignIn";
+//        //internal const string Signin = "SignIn";
 
-        // GET
+//        // GET
         
-        [Route("register/{page?}", Name = RegisterRouteName)]
-        [Route("signin/{page?}", Name = Signin)]
+//        [Route("register/{page?}", Name = RegisterRouteName)]
+//        [Route("signin/{page?}", Name = Signin)]
 
 
-        public async Task<IActionResult> IndexAsync(string page, CancellationToken token)
-        {
+//        public async Task<IActionResult> IndexAsync(string page, CancellationToken token)
+//        {
 
-            // return View("Index");
-            if (User.Identity.IsAuthenticated)
-            {
-                return Redirect("/");
-            }
+//            // return View("Index");
+//            if (User.Identity.IsAuthenticated)
+//            {
+//                return Redirect("/");
+//            }
 
 
 
-            var step = RegistrationStep.GetStepByUrl(page);
-            if (step is null)
-            {
-                return View("Index");
+//            var step = RegistrationStep.GetStepByUrl(page);
+//            if (step is null)
+//            {
+//                return View("Index");
 
-            }
+//            }
 
-            //if (step.Equals(RegistrationStep.RegisterEmailConfirmed))
-            //{
-            //    var val = TempData.Peek(Api.RegisterController.Email);
-            //    if (val is null)
-            //    {
-            //        return RedirectToRouteWithoutStep();
-            //    }
-            //}
+         
 
-            //if (step.Equals(RegistrationStep.RegisterVerifyPhone))
-            //{
-            //    var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            //    if (userVerified is null)
-            //    {
-            //        return RedirectToRouteWithoutStep();
-            //    }
-            //}
+//            if (step.Equals(RegistrationStep.RegisterSetPhone))
+//            {
+//                var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+//                if (user is null)
+//                {
+//                    return RedirectToRouteWithoutStep();
+//                }
 
-            if (step.Equals(RegistrationStep.RegisterSetPhone))
-            {
-                var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                if (user is null)
-                {
-                    return RedirectToRouteWithoutStep();
-                }
+//                //if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
+//                //{
+//                //   // await _client.SendSmsAsync(user, token);
+//                //    return RedirectToRoute(RegisterRouteName, new
+//                //    {
+//                //        page = RegistrationStep.RegisterVerifyPhone.RoutePath
+//                //    });
+//                //}
+//            }
 
-                //if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
-                //{
-                //   // await _client.SendSmsAsync(user, token);
-                //    return RedirectToRoute(RegisterRouteName, new
-                //    {
-                //        page = RegistrationStep.RegisterVerifyPhone.RoutePath
-                //    });
-                //}
-            }
+//            return View("Index");
+//        }
 
-            return View("Index");
-        }
-
-        private IActionResult RedirectToRouteWithoutStep()
-        {
-            return RedirectToRoute(RegisterRouteName, new
-            {
-                page = (string) null
-            });
-        }
-    }
-}
+//        private IActionResult RedirectToRouteWithoutStep()
+//        {
+//            return RedirectToRoute(RegisterRouteName, new
+//            {
+//                page = (string) null
+//            });
+//        }
+//    }
+//}

@@ -47,15 +47,15 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
-        docViews() {
-            return this.item.views;
-        },
-        docDownloads() {
-            return this.item.downloads;
-        },
-        docPurchased() {
-            return this.item.purchased;
-        },
+        // docViews() {
+        //     return this.item.views;
+        // },
+        // docDownloads() {
+        //     return this.item.downloads;
+        // },
+        // docPurchased() {
+        //     return this.item.purchased;
+        // },
         logged() {
             return this.$store.getters.getUserLoggedInStatus;
         }
