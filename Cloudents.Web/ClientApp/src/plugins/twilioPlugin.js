@@ -136,6 +136,15 @@ function _twilioListeners(room,store) {
       }
       store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,stats)
    });
+   room.localParticipant.on('trackPublicationFailed',(error,localTrack)=>{
+      let params = {
+         errorCode: error?.code,
+         errorMessage: error?.message,
+         publisher: room.localParticipant?.identity,
+         ...localTrack,
+      }
+      _insightEvent('trackPublicationFailed', params, null);
+   })
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
       _changeState(room.localParticipant);
