@@ -171,18 +171,6 @@ export default {
             this.chackValidation = !this.chackValidation;
         },
     },
-    created() {
-        let self = this
-            this.$store.dispatch('getManageCourses').then(courses => {
-                if(courses.length === 0){
-                    // fix shadow overlay issue 
-                    setTimeout(() => {
-                        self.$store.commit('setComponent')
-                    }, 200)
-                    self.$router.push({name: "add Course"})
-                }
-            })
-        }
 }
 </script>
 
