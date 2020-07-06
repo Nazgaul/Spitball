@@ -1,9 +1,8 @@
 <template>
     <div class="profileFAQ mb-10">
-        <div class="text-center">
-            <div class="faqTitle" v-t="'faq'"></div>
-            <div class="faqSubtitle mt-2 mb-8" v-t="'faq subtitle'"></div>
-
+        <div class="text-sm-center ps-6">
+            <div class="faqTitle mb-2" v-t="'faq'"></div>
+            <div class="faqSubtitle mb-8 d-none d-sm-block" v-t="'faq subtitle'"></div>
         </div>
 
         <v-expansion-panels class="faqPanels" accordion>
@@ -35,12 +34,14 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin';
+
 .profileFAQ {
     max-width: 960px;
     margin: 0 auto;
     color: #363637;
     .faqTitle {
-        font-size: 36px;
+        .responsive-property(font-size, 36px, null, 24px);
         font-weight: 600;
     }
     .faqSubtitle {
@@ -50,6 +51,13 @@ export default {
         color: #363637;
         border: solid 1px #dddddd;
         border-radius: 6px;
+
+        @media (max-width: @screen-xs) {
+            border-radius: 0
+        }
+        .v-expansion-panel::before {
+            box-shadow: none;
+        }
         .faqHeader {
             font-size: 16px;
             .sbf-arrow-down {
