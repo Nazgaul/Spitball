@@ -85,6 +85,8 @@ const mutations = {
       function Document(name, objInit) {
          this.result = Object.keys(objInit).map(objData => new DocumentItem(objInit[objData]));
          this.courseName = name
+         this.isExpand = false
+         this.count = objInit.length
       }
 
       function DocumentItem(objInit) {
@@ -191,6 +193,10 @@ const mutations = {
    },
    setProfileCoverLoading(state, val) {
       state.profileCoverLoading = val;
+   },
+   setExpandItems(state, item) {
+      let document = state.documents.filter(doc => doc.courseName === item.courseName)[0]
+      document.isExpand = !document.isExpand
    }
 }
 

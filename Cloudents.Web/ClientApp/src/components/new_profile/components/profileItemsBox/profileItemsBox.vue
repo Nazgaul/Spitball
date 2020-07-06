@@ -1,11 +1,12 @@
 <template>
    <div id="profileItemsBox">
       <div
-         v-for="(item, index) in items"
+         v-for="(item, index) in filterItems"
          :key="index"
          class="itemsContainer"
+         :id="item.courseName"
       >
-         <div class="itemBoxTitle">{{item.courseName}}</div>
+         <div class="itemBoxTitle ps-3">{{item.courseName}}</div>
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
@@ -17,6 +18,11 @@
                </v-card>
             </v-slide-item>
          </v-slide-group>
+         <div class="showMoreItem text-center" v-show="isMobile">
+            <v-btn class="btnMore" color="#fff" fab depressed small dark @click="expandItems(item)" v-if="item.count > 2">
+                <arrowDownIcon class="arrowIcon" :class="{'exapnd': item.isExpand}" width="22" />
+            </v-btn>
+        </div>
       </div>
    </div>
 </template>
@@ -25,16 +31,18 @@
 // const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../../carouselCards/itemCard.vue');
 import itemCard from '../../../carouselCards/itemCard.vue'
 import resultNote from "../../../results/ResultNote.vue";
+import arrowDownIcon from '../profileLiveClasses/group-3-copy-16.svg'
 
 export default {
    name:'profileItemsBox',
    components:{
       itemCard,
-      resultNote
+      resultNote,
+      arrowDownIcon
    },
    data() {
       return {
-         model: false,
+         model: false
       }
    },
    watch: {
@@ -46,13 +54,31 @@ export default {
       }
    },
    computed: {
+      isMobile() {
+         return this.$vuetify.breakpoint.xsOnly
+      },
       items(){
          return this.$store.getters.getProfileDocuments
+      },
+      filterItems() {
+         if(!this.isMobile) return this.items
+         return this.items.map(item => {
+            return {
+               ...item,
+               result: !item.isExpand ? item.result.slice(0,2) : item.result.slice(0)
+            }
+         })
       }
    },
    methods: {
       getItems(){
          this.$store.dispatch('updateProfileItemsByType', this.$route.params.id)
+      },
+      expandItems(item) {
+         this.$store.commit('setExpandItems', item)
+         if(item.isExpand)  {
+            this.$vuetify.goTo(`#${item.courseName}`)
+         }
       }
    }
 }
@@ -112,6 +138,10 @@ export default {
          .profileItemCard {
             margin: 0 10px;
             border-radius: 6px;
+
+            @media (max-width: @screen-xs) {
+               margin: 0;
+            }
             &:first-child {
                margin-left: 0;
             } 
@@ -125,6 +155,30 @@ export default {
             flex: 0 0 32%;
             width: 230px;
             height: 100%;
+         }
+
+         // mobile
+
+         .v-slide-group__content {
+            @media (max-width: @screen-xs) {
+               display: block;
+            }
+         }
+      }
+      .showMoreItem {
+         margin-bottom: 60px;
+         @media (max-width: @screen-xs) {
+            margin-bottom: unset;
+         }
+         .btnMore {
+            border: 1px solid #d4d6da !important;
+         }
+         .arrowIcon {
+            padding-top: 1px;
+            cursor: pointer;
+            &.exapnd {
+                  transform: scaleY(-1);
+            }
          }
       }
    }
