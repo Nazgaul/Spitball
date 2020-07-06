@@ -2,33 +2,33 @@
     <router-link v-if="item.url" :to="item.url" class="itemCarouselCard">
         <div class="imageWrapper" :class="{'subscribed': isSubscribed && !isLearnRoute}">
             <intersection>
-                <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,219,150)" alt="preview image">
+                <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
             <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3">{{subscribeText}}</div>
                 <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
                     <span>{{subscribeBtnText}}</span>
                 </v-btn>
-                <div class="overladyDuration white--text">{{item.itemDuration}}</div>
+                <!-- <div class="overladyDuration white--text">{{item.itemDuration}}</div> -->
             </div>
         </div>
 
-
-        <div class="item-cont flex-grow-1 d-flex flex-column justify-space-between pa-3">
-            <!-- <div class="itemCarouselCard_videoType d-flex align-center justify-space-between mb-1">
+<!-- pa-3 -->
+        <div class="item-cont flex-grow-1 d-flex flex-column justify-space-between pa-2">
+            <div class="itemCarouselCard_videoType d-flex align-center justify-space-between mb-1">
                 <div class="itemDate" >{{$d(item.dateTime, 'short')}}</div>
                 <div class="d-flex align-center" v-if="showVideoDuration">
                     <span class="vidTime pr-1">{{item.itemDuration}}</span>
                     <vidSVG class="vidSvg" width="17" />
                 </div>
-            </div> -->
-            <div class="item-title">{{item.title}}</div>
-            <!-- <div class="item-course text-truncate">
+            </div>
+            <div class="item-title text-truncate mb-1">{{item.title}}</div>
+            <div class="item-course text-truncate">
                 <span class="font-weight-bold" v-t="'itemCardCarousel_course'"></span>
                 <span>{{item.course}}</span>
-            </div> -->
+            </div>
             <div class="item-user d-flex align-center" v-if="!isProfilePage">
-                <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
+                <UserAvatarNew :fontSize="11" :width="34" :height="34" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
                 <div class="ml-2 user-info">
                     <div class="text-truncate" >{{item.user.name}}</div>
                 </div>
@@ -47,9 +47,10 @@ import * as routeNames from '../../routes/routeNames';
 
 import documentPrice from '../pages/global/documentPrice/documentPrice.vue'
 import intersection from '../pages/global/intersection/intersection.vue';
+import vidSVG from '../../components/results/svg/vid.svg'
 
 export default {
-    components:{intersection, documentPrice},
+    components:{vidSVG, intersection, documentPrice},
     props:{
         item:{
             type:Object,
@@ -62,9 +63,9 @@ export default {
         }
     },
     computed: {
-        // showVideoDuration() {
-        //     return (this.item && this.item.documentType === "Video" && this.item.itemDuration);
-        // },
+        showVideoDuration() {
+            return (this.item && this.item.documentType === "Video" && this.item.itemDuration);
+        },
         isLearnRoute() {
             return this.$route.name === routeNames.Learning
         },
@@ -109,8 +110,12 @@ export default {
 @import '../../styles/colors.less';
 
 .itemCarouselCard{
-    width: 219px;
-    height: 263px;
+    // OLD
+    width: 242px;
+    height: 320px;
+    // New
+    // width: 219px;
+    // height: 263px;
     background: white;
     border-radius: 6px;
     border: solid 1px #c1c3d2;
@@ -123,8 +128,9 @@ export default {
     .imageWrapper {
         position: relative;
         margin: 0;
-        min-height: 153px;
+        min-height: 151px;
         .v-lazy {
+            display: flex;
             height: 100%; // extra div added for overlay subscription box, image issue
         }
 
@@ -150,9 +156,10 @@ export default {
                     line-height: 1.47;
                 }
                 .btn {
+                    color: @global-purple; // old
                     width: 100%;
-                    min-width: 153px;
-                    color: @global-purple;
+                    // min-width: 153px;
+                    // color: @global-purple;
                     font-weight: 600;
                 }
                 .overladyDuration {
@@ -175,37 +182,37 @@ export default {
             }
         }
     }
-    // .itemCarouselCard_videoType {
-    //     /*rtl:ignore*/
-    //     .vidTime{
-    //         font-size: 13px;
-    //         vertical-align: top;
-    //     }
-    //     .vidSvg {
-    //         height: 100%;
-    //         path {
-    //             fill: #69687d;
-    //         }
-    //     }
+    .itemCarouselCard_videoType {
+        /*rtl:ignore*/
+        .vidTime{
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .vidSvg {
+            height: 100%;
+            path {
+                fill: #69687d;
+            }
+        }
 
-    //     .itemDate {
-    //         color: #989bac;
-    //         font-size: 13px;
-    //     }
-    //     /*rtl:ignore*/
-    // }
+        .itemDate {
+            color: #989bac;
+            font-size: 13px;
+        }
+        /*rtl:ignore*/
+    }
     .item-cont {
         .item-title {
             overflow: hidden !important;
-            .giveMeEllipsis(2, 22px);
-            font-size: 16px;
+            // .giveMeEllipsis(2, 22px);
+            font-size: 15px;
             font-weight: 600;
             line-height: 1.5;
-            color: #363637;
+            color: @global-purple;
         }
-        // .item-course{
-        //     font-size: 12px;
-        // }
+        .item-course{
+            font-size: 12px;
+        }
         .item-user {
             margin-top: 22px;
             .userImg-item{

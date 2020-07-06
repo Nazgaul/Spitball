@@ -38,6 +38,7 @@ const getters = {
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileDocuments: state => state.documents,
+   getProfileDocumentsLength: state => state.documents.length,
    getProfileCoverLoading: state => state.profileCoverLoading,
 }
 
@@ -196,12 +197,12 @@ const actions = {
          commit('setProfileReviews', data)
       })
    },
-   updateProfileItemsByType({ commit }, {id, params}) {
+   updateProfileItemsByType({ commit }, id) {
       cancelTokenList?.cancel();
       const axiosSource = axios.CancelToken.source();
       cancelTokenList = axiosSource;
 
-      return profileInstance.get(`${id}/documents`, { params, cancelToken : axiosSource.token })
+      return profileInstance.get(`${id}/documents`, { cancelToken : axiosSource.token })
          .then(({data}) => {
             commit('setProfileDocuments', data);
          });

@@ -41,7 +41,7 @@ export default {
       query:{
          deep:true,
          handler() {
-            this.updateItems()
+            this.getItems()
          }
       }
    },
@@ -51,28 +51,8 @@ export default {
       }
    },
    methods: {
-      updateItems(){
-         let type = 'documents'
-         let params = {
-            page: this.query.page -1,
-            pageSize: this.query.pageSize,
-            documentType: this.query.documentType,
-            course: this.query.course,
-         }
-         Object.keys(params).forEach((key) => (params[key] === '') && delete params[key]);
-         this.getItems(type,params).then(()=>{
-            let scrollDiv = document.getElementById("profileItemsBox").offsetTop;
-            window.scrollTo({ top: scrollDiv, behavior: 'smooth'});
-         })
-
-      },
-      getItems(type,params){
-         let dataObj = {
-               id: this.$route.params.id,
-               type,
-               params
-         }
-         return this.$store.dispatch('updateProfileItemsByType',dataObj)
+      getItems(){
+         this.$store.dispatch('updateProfileItemsByType', this.$route.params.id)
       }
    }
 }
@@ -138,6 +118,13 @@ export default {
             &:last-child {
                margin-right: 0;
             }
+         }
+         .itemCarouselCard{
+            border: 1px solid #ddd;
+            box-shadow: none;
+            flex: 0 0 32%;
+            width: 230px;
+            height: 100%;
          }
       }
    }

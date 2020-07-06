@@ -15,7 +15,7 @@
             />
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
-            <profileItemsBox class="mt-sm-12 mt-8" />
+            <profileItemsBox class="mt-sm-12 mt-8" v-if="showItems" />
             <profileReviewsBox class="my-10 mt-2" />
         </div>
         <profileFooter />
@@ -76,14 +76,7 @@ export default {
               })
         },
         getProfileDataItems() {
-          let options = {
-            id: this.id,
-            params: {
-              page: 0,
-              pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8
-            }
-          }
-          let items = this.$store.dispatch('updateProfileItemsByType', options)
+          let items = this.$store.dispatch('updateProfileItemsByType', this.id)
           let reviews = this.$store.dispatch('updateProfileReviews', this.id)
           Promise.all([items, reviews]).catch(ex => {
             console.error(ex);
@@ -99,9 +92,9 @@ export default {
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
         },
-        // showItems(){
-        //     return this.$store.getters.getProfileDocuments?.result?.length
-        // },
+        showItems(){
+            return this.$store.getters.getProfileDocumentsLength
+        },
         showCalendarTab() {
             let isCalendar = this.$store.getters.getProfileIsCalendar
             if(this.isMyProfile) {
