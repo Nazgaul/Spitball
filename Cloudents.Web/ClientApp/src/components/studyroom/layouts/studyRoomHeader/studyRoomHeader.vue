@@ -1,7 +1,7 @@
 <template>
    <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
       <a @click="resetItems()">
-         <logoComponent/>
+         <logoComponent class="studyRoomMainLogo"/>
       </a>
       <div class="roundShape"></div>
       <v-toolbar-title class="white--text mr-7">
@@ -221,8 +221,10 @@ export default {
          padding-top: 10px;
          padding-right: 6px;
       }
-      .logo {
-         fill: #fff;
+      .studyRoomMainLogo {
+         .logo {
+            fill: #fff !important;
+         }
       }
       .tutorNavTab{
          outline: none;
