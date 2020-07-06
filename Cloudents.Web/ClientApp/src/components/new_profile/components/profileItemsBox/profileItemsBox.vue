@@ -78,8 +78,6 @@ export default {
             {name: this.$t('profile_select_item_type_all'),value:''},
             {name: this.$t('profile_select_item_type_docs'),value:0},
             {name: this.$t('profile_select_item_type_videos'),value:1},
-            // {name:'Answer',value:'answers'},
-            // {name:'Question',value:'questions'},
          ],
          selectedModel:{
             itemType:{name: this.$t('profile_select_item_type_all'),value:''},
@@ -110,16 +108,16 @@ export default {
          return this.$t('profile_study_materials',[this.userName]);
       },
       pageCount(){
-         return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
+         return Math.ceil(this.$store.getters.getProfileDocuments?.count / this.query.pageSize);
       },
       items(){
-         return this.getProfile?.documents.result;
+         return this.$store.getters.getProfileDocuments?.result
       },
       userName(){
-         return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
+         return this.getProfile?.user?.firstName ? this.getProfile?.user?.firstName : this.getProfile?.user?.name;
       },
       userCourses(){
-         return this.getProfile?.user.documentCourses;
+         return this.getProfile?.user?.documentCourses || [];
       }
    },
    methods: {
@@ -195,7 +193,7 @@ export default {
       background: #E6E6E6;
    }
    .profileItemsBox_title{
-      .responsive-property(font-size, 18px, null, 16px);
+      .responsive-property(font-size, 24px, null, 16px);
       font-weight: 600;
       @media (max-width: @screen-xs) {
          padding: 10px 14px;
@@ -305,7 +303,11 @@ export default {
    }
    .profileItemBox_pagination{
       padding-bottom: 10px;
+      padding-bottom: 50px;
       text-align: center;
+      @media (max-width: @screen-xs) {
+         padding-bottom: 12px;
+      }
       .v-pagination__item{
          background-color: initial !important;
          box-shadow: none !important;

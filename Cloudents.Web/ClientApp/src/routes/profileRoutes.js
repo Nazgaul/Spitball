@@ -1,7 +1,6 @@
 import { staticComponents } from './routesUtils.js';
 import * as routeName from "./routeNames.js";
 import store from '../store'
-import vuetify from '../plugins/vuetify';
 
 export const profileRoutes = [
     {
@@ -11,7 +10,7 @@ export const profileRoutes = [
             default: () => import(`../components/new_profile/new_profile.vue`),
             ...staticComponents(['banner', 'header'])
         },
-        beforeEnter(to, from, next) {
+        beforeEnter(to, from, next) {          
             if (to.params.id == null) {
                 if (store.getters.getUserLoggedInStatus) {
                     let id = store.getters.getAccountId
@@ -22,17 +21,9 @@ export const profileRoutes = [
                 }
                 return
             }
-            let options = {
-                id: to.params.id,
-                params:{
-                    page: 0,
-                    pageSize: vuetify.framework.breakpoint.xsOnly ? 3 : 8,
-                }
-            }            
-            store.dispatch('syncProfile', options).then(() => {
+            store.dispatch('syncProfile', to.params.id).then(() => {
                 next()
-            }).catch(ex => {
-                console.error(ex);
+            }).catch(() => {
                 let previousLink = from.fullPath || '/';
                 next(previousLink);
             })

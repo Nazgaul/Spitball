@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Microsoft.ApplicationInsights;
 
@@ -21,10 +22,10 @@ namespace Cloudents.Web.Controllers
         public ActionResult Error404(
             [FromHeader(Name = "referer")] string referer)
         {
-            _telemetryClient.TrackTrace("Reaching 404 page", new Dictionary<string, string>()
-            {
-                ["referer"] = referer,
-            });
+            var allHeaders = Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString());
+
+            allHeaders.Add("s-referer",referer);
+            _telemetryClient.TrackTrace("Reaching 404 page", allHeaders);
             Response.StatusCode = 404;
             return View("NotFound");
         }

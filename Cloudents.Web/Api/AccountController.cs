@@ -76,7 +76,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpPost("language")]
-        public async Task<IActionResult> ChangeLanguageAsync([FromBody]ChangeCultureRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeLanguageAsync([FromBody] ChangeCultureRequest model, CancellationToken token)
         {
             var culture = model.Culture;
 
@@ -123,7 +123,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException e)
             {
-                _telemetryClient.TrackException(e,new Dictionary<string, string>()
+                _telemetryClient.TrackException(e, new Dictionary<string, string>()
                 {
                     ["fileName"] = file.FileName,
                     ["contentType"] = file.ContentType
@@ -134,7 +134,7 @@ namespace Cloudents.Web.Api
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserImageCommand(userId,  fileName);
+            var command = new UpdateUserImageCommand(userId, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }
@@ -156,7 +156,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException e)
             {
-                _telemetryClient.TrackException(e,new Dictionary<string, string>()
+                _telemetryClient.TrackException(e, new Dictionary<string, string>()
                 {
                     ["fileName"] = file.FileName,
                     ["contentType"] = file.ContentType
@@ -166,7 +166,7 @@ namespace Cloudents.Web.Api
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserCoverImageCommand(userId,  fileName);
+            var command = new UpdateUserCoverImageCommand(userId, fileName);
             await _commandBus.DispatchAsync(command, token);
 
             var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
@@ -176,12 +176,12 @@ namespace Cloudents.Web.Api
 
         [HttpPost("settings")]
         public async Task<IActionResult> ChangeSettingsAsync(
-            [FromBody]UpdateSettingsRequest model,
+            [FromBody] UpdateSettingsRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio);
+                model.Title, model.ShortParagraph, model.Paragraph);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

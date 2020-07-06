@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Users
@@ -26,29 +27,24 @@ namespace Cloudents.Core.DTOs.Users
         public Country? TutorCountry { get; set; }
 
 
-        public double Rate { get; set; }
         public int ReviewCount { get; set; }
 
-        //public bool HasCoupon { get; set; }
+        public string? Paragraph2 { get; set; }
 
-        //  public decimal? CouponValue { get; set; }
-        //  public CouponType? CouponType { get; set; }
-
-        public string? Bio { get; set; }
-
-        // public IEnumerable<string>? Subjects { get; set; }
-
-        public int Lessons { get; set; }
-
-        //public int ContentCount { get; set; }
-        public int Students { get; set; }
+        public int ContentCount { get; set; }
 
         public Money? SubscriptionPrice { get; set; }
 
         public bool IsSubscriber { get; set; }
 
-        public string? Description { get; set; }
+        public string? Title { get; set; }
 
+        public string? Paragraph3 { get; set; }
+
+
+        [NonSerialized] public long? SessionTaughtTicks;
+
+        public long HoursTaught => SessionTaughtTicks.GetValueOrDefault() / TimeSpan.TicksPerHour;
         public IEnumerable<string>? DocumentCourses { get; set; }
         //public IEnumerable<string>? Courses { get; set; }
 

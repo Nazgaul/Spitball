@@ -323,9 +323,9 @@ export default {
       global.open(routeData.href, "_self");
     },
     copyLink(item) {
-      let link = `${window.origin}/studyroom/${item.id}`;
+      let linkToProfile = `${window.origin}/profile/${item.tutorId}/${item.tutorName}#broadcast`;
       let self = this;
-      this.$copyText(link).then(({ text }) => {
+      this.$copyText(linkToProfile).then(({ text }) => {
         self.currentItemId = item.id;
         self.$ga.event("Share", "Link", text);
         setTimeout(() => {
