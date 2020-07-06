@@ -15,11 +15,11 @@ const state = {
 };
 
 const getters = {
-    getClasses: state => state.classes,
+    // getClasses: state => state.classes,
     getSelectedClasses: state => state.selectedClasses,
-    createDialogVisibility: state => state.createDialog,
-    creationVerified: state => state.creationVerified,
-    getSearchedCourse: state => state.searchedCourse,
+    // createDialogVisibility: state => state.createDialog,
+    // creationVerified: state => state.creationVerified,
+    // getSearchedCourse: state => state.searchedCourse,
 };
 
 const mutations = {
@@ -52,9 +52,9 @@ const mutations = {
     // setSelectedClassesCahce(state, val) {
     //     state.selectedClassesCache = [].concat(val);
     // },
-    updateCachedList(state, val) {
-        state.selectedClassesCache.push(val);
-    },
+    // updateCachedList(state, val) {
+    //     state.selectedClassesCache.push(val);
+    // },
     deleteFromCachedList(state, val){
         let index = state.selectedClassesCache.indexOf(val);
         state.selectedClassesCache.splice(index, 1);
@@ -78,9 +78,9 @@ const mutations = {
     setLock_selectedClass(state, val){
         state.lock_selectedClass = val;
     },
-    setSearchedCourse(state,val){
-        state.searchedCourse = val;
-    }
+    // setSearchedCourse(state,val){
+    //     state.searchedCourse = val;
+    // }
 };
 
 const actions = {
@@ -90,9 +90,9 @@ const actions = {
     // updateTeachingClasses({commit}){
     //     commit('setAllClassesTeaching');
     // },
-    clearClassesCahce({commit}){
-        commit('clearClassesCahce');
-    },
+    // clearClassesCahce({commit}){
+    //     commit('clearClassesCahce');
+    // },
     // syncUniData({dispatch},{courses}) {
     //     dispatch('setLock_selectedClass', true);
     //     dispatch('setSelectedClasses', courses);
@@ -103,30 +103,30 @@ const actions = {
     //         dispatch('releaseResultLock', "class");
     //     }, 2000);
     // },
-    createCourse({dispatch}, courseToCreate) {
-        courseService.createCourse(courseToCreate).then((course) => {
-            dispatch('pushClassToSelectedClasses', course);
-        });
-    },
+    // createCourse({dispatch}, courseToCreate) {
+    //     courseService.createCourse(courseToCreate).then((course) => {
+    //         dispatch('pushClassToSelectedClasses', course);
+    //     });
+    // },
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
     },
-    updateClasses({commit}, val) {
-     return  courseService.getCourse(val).then(data => {
-            commit('setClasses', data);
-            return data;
-     });
-    },
-    addClasses({commit}, val){
-        if(val || val === ''){
-            return courseService.getCourse(val).then(data => {
-                commit('addClasses', data);
-                return data;
-            }, () => {
-                commit('setClasses', []);
-            });
-        }
-    },
+    // updateClasses({commit}, val) {
+    //  return  courseService.getCourse(val).then(data => {
+    //         commit('setClasses', data);
+    //         return data;
+    //  });
+    // },
+    // addClasses({commit}, val){
+    //     if(val || val === ''){
+    //         return courseService.getCourse(val).then(data => {
+    //             commit('addClasses', data);
+    //             return data;
+    //         }, () => {
+    //             commit('setClasses', []);
+    //         });
+    //     }
+    // },
     // clearClasses({commit}) {
     //     commit('setClasses', []);
     // },
@@ -139,34 +139,34 @@ const actions = {
         });
 
     },
-    removeFromCached({commit}, val){
-        commit('deleteFromCachedList', val);
-    },
-    updateSelectedClasses({dispatch}, val) {
-        dispatch('setSelectedClasses', val);
-    },
+    // removeFromCached({commit}, val){
+    //     commit('deleteFromCachedList', val);
+    // },
+    // updateSelectedClasses({dispatch}, val) {
+    //     dispatch('setSelectedClasses', val);
+    // },
     pushClassToSelectedClasses({commit}, val) {
         commit('pushClass', val);
     },
-    assignClasses({dispatch}, course) {
-        let courseName = [{name: course}]
-        return courseService.assaignCourse(courseName).then(() => {
-            //Update Filters in note page
-            dispatch('changeReflectChangeToPage');
-            Promise.resolve(true);
-        });
-    },
+    // assignClasses({dispatch}, course) {
+    //     let courseName = [{name: course}]
+    //     return courseService.assaignCourse(courseName).then(() => {
+    //         //Update Filters in note page
+    //         dispatch('changeReflectChangeToPage');
+    //         Promise.resolve(true);
+    //     });
+    // },
     // assignSelectedClassesCache({commit, state}) {
     //     commit("setSelectedClassesCahce", state.selectedClasses);
     // },
-    addToCachedClasses({commit}, val) {
-        commit("updateCachedList", val);
-    },
-    changeClassesToCachedClasses({state, dispatch}) {
-        if(state.selectedClassesCache.length > 0) {
-            dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
-        }
-    },
+    // addToCachedClasses({commit}, val) {
+    //     commit("updateCachedList", val);
+    // },
+    // changeClassesToCachedClasses({state, dispatch}) {
+    //     if(state.selectedClassesCache.length > 0) {
+    //         dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
+    //     }
+    // },
     // releaseResultLock({commit}, val) {
     //     if(val === "uni") {
     //         commit('openResultLockForSchoolNameChange');
@@ -175,12 +175,12 @@ const actions = {
     //     }
     //
     // },
-    changeCreateDialogState({commit}, val) {
-        commit('updateCreateDialogState', val);
-    },
-    updateVerification({commit}, val) {
-        commit('verifyCreation', val);
-    },
+    // changeCreateDialogState({commit}, val) {
+    //     commit('updateCreateDialogState', val);
+    // },
+    // updateVerification({commit}, val) {
+    //     commit('verifyCreation', val);
+    // },
     setSelectedClasses({commit, dispatch}, val){
         commit('setSelectedClasses', val);
         dispatch('setLock_selectedClass', false);

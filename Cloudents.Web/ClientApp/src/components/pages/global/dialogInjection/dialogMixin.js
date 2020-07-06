@@ -63,14 +63,6 @@ export default {
                 return 'break'
             } 
         },
-        check_courses(){
-            this.$store.dispatch('getManageCourses').then(courses => {
-                if(courses.length === 0){
-                    this.$router.push({name: "addCourse"})
-                    return 'break'
-                }
-            })
-        },
         check_params() {
             if(!Object.keys(this.$route.params).length) {
                 this.component = '';
