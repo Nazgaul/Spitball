@@ -323,7 +323,6 @@ export default {
       global.open(routeData.href, "_self");
     },
     copyLink(item) {
-      debugger;
       let linkToProfile = `${window.origin}/profile/${item.tutorId}/${item.tutorName}#broadcast`;
       let self = this;
       this.$copyText(linkToProfile).then(({ text }) => {
