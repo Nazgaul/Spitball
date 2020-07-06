@@ -17,6 +17,7 @@
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
             <profileItemsBox class="mt-sm-12 mt-8" v-if="showItems" />
             <profileReviewsBox class="my-10 mt-2" />
+            <profileFAQ />
         </div>
         <profileFooter />
     </div>
@@ -32,6 +33,8 @@ import profileSubscription from './components/profileSubscription/profileSubscri
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
+import profileFAQ from './components/profileFAQ/profileFAQ.vue';
+
 import profileFooter from './components/profileFooter/profileFooter.vue';
 
 export default {
@@ -46,6 +49,7 @@ export default {
         profileBroadcasts,
         profileItemsBox,
         profileReviewsBox,
+        profileFAQ,
         profileFooter,
     },
     props: {

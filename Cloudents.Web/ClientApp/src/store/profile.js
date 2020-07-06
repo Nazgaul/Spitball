@@ -8,6 +8,7 @@ let cancelTokenList;
 const state = {
    profile: null,
    // documents: [],
+   faq: [],
    documents: {},
    profileReviews: null,
    profileLiveSessions: [],
@@ -39,6 +40,7 @@ const getters = {
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileDocuments: state => state.documents,
    getProfileDocumentsLength: state => state.documents.length,
+   getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
 }
 
@@ -145,6 +147,15 @@ const mutations = {
          this.description = objInit.description;
       }
    },
+   setProfileFaq(state, data) {
+      state.faq = data.map(faq => new ProfileFaq(faq))
+
+      function ProfileFaq(objInit) {
+         this.id = objInit.id
+         this.title = objInit.title
+         this.answer = objInit.answer
+      }
+   },
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
@@ -230,6 +241,16 @@ const actions = {
       let id = session.userId
       let studyRoomId = session.studyRoomId
       return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
+   },
+   updateProfileFaq({commit}) {
+      // profileInstance.get(``).then(({data}) => {
+         let data = [
+            { id: 1, title: 'title 1', answer: 'answer1'},
+            { id: 2, title: 'title 2', answer: 'answer2'},
+            { id: 3, title: 'title 3', answer: 'answer3'}
+         ]
+         commit('setProfileFaq', data)
+      // })
    }
 }
 
