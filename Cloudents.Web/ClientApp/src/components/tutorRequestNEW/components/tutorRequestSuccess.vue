@@ -42,7 +42,7 @@ import analyticsService from '../../../services/analytics.service';
 export default {
     name:'tutorRequestSuccess',
     computed:{
-        ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber', 'getCourseDescription', 'getMoreTutors']),
+        ...mapGetters(['accountUser', 'getCurrTutor', 'getSelectedCourse', 'getCurrentTutorPhoneNumber', 'getCourseDescription']),
         btnText() {
             return this.isTutor ? this.$t('tutorRequest_close') : this.$t('tutorRequest_message_success_btn_noThanks')
         },
@@ -92,7 +92,7 @@ export default {
                 phone: null,
                 course: this.courseName || this.getSelectedCourse,
                 tutorId: this.tutorId,
-                moreTutors: this.getMoreTutors
+              
             } 
             let self = this;
             this.sendTutorRequest(serverObj)

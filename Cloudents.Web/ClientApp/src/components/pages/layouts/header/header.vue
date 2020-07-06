@@ -9,7 +9,7 @@
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-left mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <!-- <div class="globalHeader_items_left" v-if="!isMobile">
@@ -54,6 +54,8 @@
                                     :userImageUrl="userImageUrl"
                                     :userName="userName"
                                     :fontSize="14"
+                                    :loading="avatarUpdate"
+                                    @setAvatarLoaded="val => avatarUpdate = val"
                                 />
                             </div>
                             <template v-if="loggedIn">
@@ -118,6 +120,7 @@ export default {
 components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
+            avatarUpdate: false,
             drawer: false,
             profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
@@ -132,6 +135,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
     },
     computed: {
         ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance', 'getIsTeacher']),
+        tutorName() {
+            return this.$store.getters.getProfileTutorName
+        },
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -204,6 +210,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             this.$nextTick(() => {
                 this.closeDrawer();
             })
+        })
+        this.$root.$on("avatarUpdate", (val) => {
+            this.avatarUpdate = val
         })
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {

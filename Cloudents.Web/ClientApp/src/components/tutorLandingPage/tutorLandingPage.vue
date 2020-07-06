@@ -147,7 +147,7 @@ export default {
                     page: this.pagination.current -1,
                 },
                 params:{
-                    course: this.query.term
+                    course: this.query.term || undefined
                 }
             }).catch(() => {})
         },
