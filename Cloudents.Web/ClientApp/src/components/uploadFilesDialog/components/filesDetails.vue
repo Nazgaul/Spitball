@@ -165,7 +165,7 @@ export default {
                     }
                 })
             }
-        },300),
+        },200),
     },
 }
 </script>
