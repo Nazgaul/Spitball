@@ -10,9 +10,10 @@
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
+            style="direction: ltr;"
          >
-            <v-slide-item v-for="(result) in item.result" :key="result.id">
-               <v-card class="profileItemCard mb-1 elevation-0">
+            <v-slide-item v-for="(result) in item.result" :key="result.id" >
+               <v-card class="profileItemCard mb-1 elevation-0" >
                   <itemCard class="itemCard-profilePage" v-if="$vuetify.breakpoint.smAndUp" :item="result" />
                   <resultNote v-else :item="result" class="pa-3 mb-2" />
                </v-card>
@@ -129,9 +130,11 @@ export default {
             }
          }
          .v-slide-group__prev {
+            /*rtl:ignore */
             left: -20px;
          }
          .v-slide-group__next {
+            /*rtl:ignore */
             right: -20px;
          }
 
@@ -143,9 +146,11 @@ export default {
                margin: 0;
             }
             &:first-child {
+               /*rtl:ignore */
                margin-left: 0;
             } 
             &:last-child {
+               /*rtl:ignore */
                margin-right: 0;
             }
          }
@@ -158,7 +163,6 @@ export default {
          }
 
          // mobile
-
          .v-slide-group__content {
             @media (max-width: @screen-xs) {
                display: block;
