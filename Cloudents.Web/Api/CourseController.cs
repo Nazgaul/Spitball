@@ -70,16 +70,16 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("set")]
-        public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new UserJoinCoursesCommand(model.Select(s => s.Name), userId);
-            await _commandBus.DispatchAsync(command, token);
-            var user = await _userManager.GetUserAsync(User);
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok(model);
-        }
+        //[HttpPost("set")]
+        //public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new UserJoinCoursesCommand(model.Select(s => s.Name), userId);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    var user = await _userManager.GetUserAsync(User);
+        //    await _signInManager.RefreshSignInAsync(user);
+        //    return Ok(model);
+        //}
 
 
         [HttpPost("create")]

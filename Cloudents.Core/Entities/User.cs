@@ -168,12 +168,12 @@ namespace Cloudents.Core.Entities
         //    AddEvent(new RemoveCourseEvent(Id));
         //}
 
-        public virtual void CanTeachCourse(string courseName)
-        {
-            var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
-            course.ToggleCanTeach();
+        //public virtual void CanTeachCourse(string courseName)
+        //{
+        //    var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
+        //    course.ToggleCanTeach();
 
-        }
+        //}
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
