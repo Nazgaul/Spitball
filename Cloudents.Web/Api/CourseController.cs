@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -125,25 +124,17 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new UserRemoveCourseCommand(userId, name);
-            await _commandBus.DispatchAsync(command, token);
-            var user = await _userManager.GetUserAsync(User);
-            await _signInManager.RefreshSignInAsync(user);
-            return Ok();
-        }
-
-        //[HttpGet("subject"),AllowAnonymous]
-        //public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
-        //    CancellationToken token)
+        //[HttpDelete]
+        //public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
         //{
-        //    var query = new CourseSubjectQuery(courseName);
-        //    var result  = await _queryBus.QueryAsync(query, token);
-        //    return result;
-
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new UserRemoveCourseCommand(userId, name);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    var user = await _userManager.GetUserAsync(User);
+        //    await _signInManager.RefreshSignInAsync(user);
+        //    return Ok();
         //}
+
+        
     }
 }

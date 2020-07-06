@@ -158,15 +158,15 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual void RemoveCourse(Course course)
-        {
-            var p = new UserCourse(this, course);
-            if (_userCourses.Remove(p))
-            {
-                course.Count--;
-            }
-            AddEvent(new RemoveCourseEvent(Id));
-        }
+        //public virtual void RemoveCourse(Course course)
+        //{
+        //    var p = new UserCourse(this, course);
+        //    if (_userCourses.Remove(p))
+        //    {
+        //        course.Count--;
+        //    }
+        //    AddEvent(new RemoveCourseEvent(Id));
+        //}
 
         public virtual void CanTeachCourse(string courseName)
         {
