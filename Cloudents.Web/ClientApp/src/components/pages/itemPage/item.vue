@@ -495,8 +495,8 @@ export default {
     }
     .document-header-large-sagment {
       &--arrow {
-        color: @global-purple;
         transform: none /*rtl:scaleX(-1)*/;
+        color: @global-purple;
       }
     }
   }

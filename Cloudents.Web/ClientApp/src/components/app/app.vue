@@ -6,10 +6,6 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-
-
-      
-
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
