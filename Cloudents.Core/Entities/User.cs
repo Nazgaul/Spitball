@@ -85,16 +85,15 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourses(IEnumerable<Course> courses)
+        public virtual void AssignCourse(Course course)
         {
-            foreach (var course in courses)
+            var p = new UserCourse(this, course);
+            if (_userCourses.Add(p))
             {
-                var p = new UserCourse(this, course);
-                if (_userCourses.Add(p))
-                {
-                    course.Count++;
-                }
+                course.Count++;
+                AddEvent(new CanTeachCourseEvent(p));
             }
+
         }
 
         public virtual void BecomeTutor()
@@ -189,8 +188,8 @@ namespace Cloudents.Core.Entities
 
         public virtual string FirstName { get; protected set; }
         public virtual string? LastName { get; protected set; }
-        [Obsolete]
-        public virtual string Description { get; set; }
+        //[Obsolete]
+        //public virtual string Description { get; set; }
 
         public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }

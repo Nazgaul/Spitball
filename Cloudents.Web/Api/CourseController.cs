@@ -46,7 +46,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
-        [HttpGet, AllowAnonymous]
+        [AllowAnonymous]
 
         public async Task<CoursesResponse> GetAsync(
            [FromQuery] CourseSearchRequest request,
