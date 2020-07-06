@@ -323,8 +323,8 @@ export default {
       global.open(routeData.href, "_self");
     },
     copyLink(item) {
-      let linkToProfile = `${window.origin}/profile/160634/idan1 kall1#broadcast`;
-      // let linkToProfile = `${window.origin}/profile/${item.tutorId}/${item.name}#broadcast`;
+      debugger;
+      let linkToProfile = `${window.origin}/profile/${item.tutorId}/${item.tutorName}#broadcast`;
       let self = this;
       this.$copyText(linkToProfile).then(({ text }) => {
         self.currentItemId = item.id;
