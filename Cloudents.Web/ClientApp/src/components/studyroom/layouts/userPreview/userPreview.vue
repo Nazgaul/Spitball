@@ -121,10 +121,6 @@ export default {
                this.audioTrack = participant.audio;
                let self = this;
                this.$nextTick(()=>{
-                  let previewContainer = document.getElementById(participant.id);
-                  let audioTag = previewContainer.querySelector("audio");
-                  if (audioTag) {previewContainer.removeChild(audioTag)}
-                  previewContainer.appendChild(participant.audio.attach());
                   if(!self.isCurrentParticipant){
                      pollaudiolevel(self.audioTrack,self.onAudioLevelChanged)
                   }
@@ -176,11 +172,6 @@ export default {
    destroyed() {
       if(this.videoTrack){
          this.videoTrack.detach().forEach((detachedElement) => {
-            detachedElement.remove();
-         });
-      }
-      if(this.audioTrack){
-         this.audioTrack.detach().forEach((detachedElement) => {
             detachedElement.remove();
          });
       }
