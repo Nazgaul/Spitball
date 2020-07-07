@@ -34,10 +34,11 @@ export default {
                }
                let audioElement = self.participantAudio.audio.attach();
                previewContainer.appendChild(audioElement);
-               //if () {
+               //https://github.com/twilio/twilio-video.js/issues/922#issuecomment-607038582
+               if (navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)) {
                   audioElement.pause();
                   audioElement.play();
-               //}
+               }
             })
          }
       },
