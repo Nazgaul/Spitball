@@ -41,8 +41,8 @@ u.ImageName as Image,
 u.Online
 from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
-join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
-join sb.[User] u on cu2.UserId = u.Id
+left join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
+left join sb.[User] u on cu2.UserId = u.Id
 where cu.UserId = @id 
 order by cr.UpdateTime desc", new {id = query.UserId});
 
@@ -65,9 +65,12 @@ order by cr.UpdateTime desc", new {id = query.UserId});
                         conversation.Add(v.ConversationId,v);
 
                     }
-
-                    user.Image = _urlBuilder.BuildUserImageEndpoint(user.UserId, user.Image);
-                    v.Users.Add(user);
+                    //If its one person conversation the userid is null
+                    if (user.UserId != default)
+                    {
+                        user.Image = _urlBuilder.BuildUserImageEndpoint(user.UserId, user.Image);
+                        v.Users.Add(user);
+                    }
                 }
                 return conversation.Values;
             }
