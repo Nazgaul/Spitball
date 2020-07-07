@@ -11,6 +11,8 @@
       </v-content>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
+    
+    <studyRoomAudio/>
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
     <slot name="appInjections"></slot>
@@ -28,6 +30,7 @@ const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
 const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
 import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
+const studyRoomAudio = () => import('./layouts/studyRoomAudio/studyRoomAudio.vue');
 
 export default {
   data() {
@@ -44,6 +47,8 @@ export default {
     studyRoomWrapper,
     studyRoomSettingsDialog,
     studyRoomDialogs,
+
+    studyRoomAudio,
 
   },
   computed: {
