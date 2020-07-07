@@ -6,11 +6,12 @@
          class="itemsContainer"
          :id="item.courseName"
       >
-         <div class="itemBoxTitle mx-4 mx-sm-0 pb-2 pb-sm-0">{{item.courseName}}</div>
+         <div class="itemBoxTitle mx-4 mx-sm-0 pb-2 pb-sm-0" dir="auto">{{item.courseName}}</div>
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
             style="direction: ltr;"
+            show-arrows
          >
             <v-slide-item v-for="(result) in item.result" :key="result.id" >
                <v-card class="profileItemCard mb-1 elevation-0" >
@@ -105,7 +106,7 @@ export default {
 
          @media (max-width: @screen-xs) {
             border-bottom: 2px solid #ebecef;
-            margin: 40px 0 8px;
+            margin: 0 0 8px;
          }
       }
 
@@ -184,7 +185,7 @@ export default {
       .showMoreItem {
          margin-bottom: 60px;
          @media (max-width: @screen-xs) {
-            margin-bottom: unset;
+            margin-bottom: 40px;
          }
          .btnMore {
             border: 1px solid #d4d6da !important;

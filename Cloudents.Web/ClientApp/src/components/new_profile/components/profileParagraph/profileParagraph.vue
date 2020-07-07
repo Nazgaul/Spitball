@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph pa-2 mt-sm-6 px-4">
+  <div class="profileParagraph pa-2 mt-sm-6 mt-3 px-4">
     <div class="paragraph">
         <span class="paragraphSpan" dir="auto">{{bio | truncate(isOpen, '...', textLimit)}}</span>
     </div>
