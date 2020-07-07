@@ -45,7 +45,6 @@
     </v-main>
     
     <v-snackbar
-      absolute
       top
       :timeout="getToasterTimeout"
       :class="getShowToasterType"
