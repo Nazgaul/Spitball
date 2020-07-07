@@ -23,7 +23,7 @@
                     v-model="course"
                     :items="suggestsCourses"
                     @keyup="searchCourses"
-                    :rules="[rules.required]"
+                    :rules="[rules.required,rules.minimumChars]"
                     :label="$t('upload_file_course_label')"
                     :append-icon="''"
                     placeholder=" "
