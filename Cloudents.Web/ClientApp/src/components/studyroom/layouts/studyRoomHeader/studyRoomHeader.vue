@@ -54,7 +54,7 @@
       </v-btn>
       <button :class="['endBtn','mb-2',{'ml-2':!isRoomTutor}]" @click="endSession()">
          <div class="btnIcon"></div>
-         <span>{{$t(isRoomTutor?'studyRoom_end':'studyRoom_end_student')}}</span>
+         <span>{{isRoomTutor? $t('studyRoom_end') : $t('studyRoom_end_student')}}</span>
       </button>
       <v-menu offset-y min-width="158" content-class="menuStudyRoom">
          <template v-slot:activator="{ on }">
