@@ -8,6 +8,7 @@ namespace Cloudents.Web.Controllers
         [Route("ask")]
         [Route("tutor")]
         [Route("flashcard")]
+        [Route("note")]
         public IActionResult Index()
         {
             return RedirectPermanent("/");
