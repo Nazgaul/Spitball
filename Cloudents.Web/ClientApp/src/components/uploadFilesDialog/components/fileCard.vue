@@ -37,7 +37,6 @@
                     v-model="item.description"
                     :placeholder="$t('upload_uf_desc')"
                     :label="$t('upload_file_description_label')"
-                    :rules="[rules.required]"
                     color="#4c59ff"
                     height="44"
                     outlined
