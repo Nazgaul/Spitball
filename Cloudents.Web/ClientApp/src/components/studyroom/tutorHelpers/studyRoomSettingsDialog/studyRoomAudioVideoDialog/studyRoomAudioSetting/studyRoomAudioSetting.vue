@@ -23,7 +23,7 @@
                 ></v-select>                      
                 <v-layout class="indicator-audio-meter ml-sm-4 mt-3 mt-sm-0">
                     <microphoneImage class="image mr-1" width="24" />
-                    <div id="audio-input-meter1"></div>
+                    <v-progress-linear rounded color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
                 </v-layout>
             </div>
         </div>
@@ -42,10 +42,9 @@
 </template>
 
 <script>
-import studyRoomAudioSettingService from './studyRoomAudioSettingService';
-
 import microphoneImage from '../../../../images/microphone.svg';
 import speakerImage from '../../images/speaker.svg';
+import pollAudioLevel from '../../../../layouts/userPreview/pollaudiolevel.js';
 
 export default {
     components: {
@@ -59,6 +58,7 @@ export default {
             soundUrl: `https://zboxstorage.blob.core.windows.net/zboxhelp/new/music-check.mp3`,
             audio: null,
             isPlaying: false,
+            audioLevel:0
         }
     },
     methods: {
@@ -88,11 +88,18 @@ export default {
                                 }
                             }
                         });
-                        self.validateMicrophone('audio-input-meter1', self.singleMicrophoneId);
+                        self.validateMicrophone()
                     })
             },
+            onAudioLevelChanged(level){
+                this.audioLevel = level * 10
+            },
             validateMicrophone() {
-                studyRoomAudioSettingService.createAudioContext('audio-input-meter1', this.singleMicrophoneId);
+                navigator.mediaDevices.getUserMedia({audio:{deviceId: this.singleMicrophoneId}})
+                    .then(stream =>{
+                        let mediaStreamTrack = stream.getAudioTracks()[0];
+                        pollAudioLevel({mediaStreamTrack},this.onAudioLevelChanged)
+                    })
                 this.$store.dispatch('updateAudioTrack',this.singleMicrophoneId)
             }
         },
@@ -100,7 +107,6 @@ export default {
             this.getDevices();
         },
         beforeDestroy() {
-            // studyRoomAudioSettingService.stopAudioContext();
             this.stopSound();
         }
 }
@@ -156,11 +162,6 @@ export default {
                 .image {
                     fill: #7a798c;
                     flex-shrink: 0;
-                }
-                .audio-input-meter1 {
-                    background: #16eab1;
-                    height: 6px;
-                    max-width: 150px;
                 }
             }
         .v-input__control{
