@@ -132,6 +132,7 @@ export default {
          }
       },
       handleVideoTrack(participant){
+         
          if(participant.video){
             if(this.videoTrack && participant.video == this.videoTrack.name){
                return;
