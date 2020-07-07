@@ -36,7 +36,8 @@ namespace Cloudents.Command.CommandHandler
             if (course == null)
             {
                 course = new Course(message.Course);
-               
+                await _courseRepository.AddAsync(course, token);
+
             }
             tutor.User.AssignCourse(course);
             var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
