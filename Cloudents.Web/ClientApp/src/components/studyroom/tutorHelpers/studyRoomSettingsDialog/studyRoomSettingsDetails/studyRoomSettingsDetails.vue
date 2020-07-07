@@ -271,7 +271,7 @@ export default {
             width: 100%;
             border-spacing: 0 12px;
             font-weight: 600;
-
+            font-size: 16px;
             td {
                 &:first-child {
                     width: 120px;
