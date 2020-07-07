@@ -54,7 +54,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <div class="uf-sEdit-items" :class="[isMobile ? 'pt-2 px-0' : 'py-4 px-4']">
+        <div class="uf-sEdit-items" :class="[isMobile ? 'pt-2 px-0' : 'py-3 px-3']">
             <v-form ref="filesDetailsForm">
                 <transition-group name="slide-x-transition" class="spanTransition" >
                     <div class="fileWrapper" v-for="(fileItem, index) in fileItems" :key="fileItem.id">
