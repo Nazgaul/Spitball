@@ -114,40 +114,49 @@ export default {
     },
     methods: {
         ...mapActions(['resetUploadData', 'updateToasterParams']),
+        sendFile(fileObj){
+            if(fileObj.error) return Promise.reject();
+            let self = this;
+            let serverFormattedObj = uploadService.createServerFileData(fileObj);
+            return documentService.sendDocumentData(serverFormattedObj)
+                .then(() => {
+                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
+                    analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
+                }).catch(error => {
+                    fileObj.errorText = self.$t("upload_multiple_error_upload_something_wrong");
 
-        sendDocumentData() {
+                    if(error.response?.data?.Name) {
+                        fileObj.errorText = error.response.data.Name[0];
+                    }
+
+                    fileObj.error = true;
+                })
+        },
+        async sendDocumentData() {
             if(!this.lock){
                 this.lock = true;
                 this.loading = true;
-            let docData = this.getFileData;
-            let self = this;
-            docData.forEach((fileObj) => {
-                if(fileObj.error)return;
-                let serverFormattedObj = uploadService.createServerFileData(fileObj);
-                documentService.sendDocumentData(serverFormattedObj)
-                    .then(() => {
-                        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                        analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
-                        self.loading = false;
-                        this.updateToasterParams({
-                            toasterText: self.$t("upload_CreateOk"),
-                            showToaster: true
-                        });
-                        this.closeUpload()
-                    }).catch(error => {
-                        fileObj.errorText = self.$t("upload_multiple_error_upload_something_wrong");
+                let docData = this.getFileData;
+                let self = this;
+                let isError;
 
-                        if(error.response?.data?.Name) {
-                            fileObj.errorText = error.response.data.Name[0];
-                        }
-
-                        fileObj.error = true;
-                        self.loading = false;
-                        })
-                        .finally(()=>{
-                            this.lock = false;
-                        });
-                })
+                for(const fileObj of docData){
+                    try{
+                        await self.sendFile(fileObj);
+                    }
+                    catch(e){
+                        isError = true
+                    }
+                }
+                self.updateToasterParams({
+                    toasterText: self.$t("upload_CreateOk"),
+                    showToaster: true
+                });
+                self.loading = false;
+                self.lock = false;
+                if(!isError){
+                    self.closeUpload()
+                }
             }
         },
         closeUpload() {
