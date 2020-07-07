@@ -60,6 +60,7 @@ const Item = {
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
       this.tutorId = objInit.tutorId;
+      this.tutorName = objInit.tutorName
       this.name = objInit.name;
       this.date = objInit.dateTime;
       this.amountStudent = objInit.userNames.length

@@ -6,9 +6,12 @@ namespace Cloudents.Web.Controllers
     public class RedirectController : Controller
     {
         [Route("ask")]
+        [Route("tutor")]
+        [Route("flashcard")]
+        [Route("note")]
         public IActionResult Index()
         {
-            return Redirect("/");
+            return RedirectPermanent("/");
         }
 
         [Route("api/locale")]

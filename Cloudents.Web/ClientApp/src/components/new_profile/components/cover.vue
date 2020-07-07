@@ -58,8 +58,6 @@ export default {
     return {
       isLoaded: false,
       currentTime: Date.now(),
-      headerHeight: 60,
-      statsHeight: 50,
       windowWidth: window.innerWidth
     }
   },
@@ -97,8 +95,10 @@ export default {
       let self = this;
       typeingTimer = setTimeout(() => {
         // prevent duplicate request on switch to mobile, coverImageSize computed is already listen to isMobile changes
-        if(!this.isMobile) {
+        if(!self.isMobile) {
           self.windowWidth = window.innerWidth
+        } else {
+          self.windowWidth = self.$el.clientWidth
         }
         self.currentTime = Date.now()
       }, 1000);
@@ -126,7 +126,7 @@ export default {
       this.$refs.profileImage.value = "";
       //document.querySelector('#profile-picture').value = ''
     }
-  }
+  },
 };
 </script>
 
