@@ -6,7 +6,7 @@
          class="itemsContainer"
          :id="item.courseName"
       >
-         <div class="itemBoxTitle mx-4 pb-2 pb-sm-0">{{item.courseName}}</div>
+         <div class="itemBoxTitle mx-4 mx-sm-0 pb-2 pb-sm-0">{{item.courseName}}</div>
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
@@ -19,7 +19,7 @@
                </v-card>
             </v-slide-item>
          </v-slide-group>
-         <div class="showMoreItem text-center" v-show="isMobile">
+         <div class="showMoreItem text-center mt-2 mt-sm-0" v-show="isMobile">
             <v-btn class="btnMore" color="#fff" fab depressed small dark @click="expandItems(item)" v-if="item.count > 2">
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': item.isExpand}" width="22" />
             </v-btn>
@@ -90,15 +90,18 @@ export default {
 #profileItemsBox {
    width: 100%;
    max-width: 960px;
-   margin: 0 auto;
+   margin: 80px auto;
    color: #43425d;
+   @media (max-width: @screen-xs) {
+      margin: 50px auto;
+   }
 
    .itemsContainer {
       .itemBoxTitle {
-         .responsive-property(font-size, 26px, null, 20px);
+         .responsive-property(font-size, 22px, null, 20px);
          font-weight: 600;
          color: #363637;
-         margin: 62px 0 16px;
+         margin: 52px 0 16px;
 
          @media (max-width: @screen-xs) {
             border-bottom: 2px solid #ebecef;
@@ -114,6 +117,9 @@ export default {
 
       .profileitemsWrap {
          // vuetify overide arrows buttons
+         @media (max-width: @screen-xs) {
+            background: #f5f5f5;
+         }
          .v-slide-group__prev--disabled , .v-slide-group__next--disabled {
             display: none;
          }
@@ -148,6 +154,7 @@ export default {
 
             @media (max-width: @screen-xs) {
                margin: 0;
+               border-radius: 0;
             }
             &:first-child {
                /*rtl:ignore */
