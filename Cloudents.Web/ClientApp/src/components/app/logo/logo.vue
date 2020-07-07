@@ -12,6 +12,12 @@ import AppLogo from "./logo-spitball.svg";
 import AppMobileLogo from './logo-m-spitball.svg'
 import AppFrymo from "./frymo-logo.svg";
 export default {
+    props: {
+        menuList: {
+            type: Boolean,
+            required: false
+        }
+    },
     components:{
         AppLogo,
         AppMobileLogo,
@@ -20,7 +26,7 @@ export default {
     computed:{
         ...mapGetters(['isFrymo']),
         spLogo() {
-            return this.$vuetify.breakpoint.xsOnly
+            return this.$vuetify.breakpoint.xsOnly && !this.menuList
             ? 'AppMobileLogo'
             : 'AppLogo'
         }
