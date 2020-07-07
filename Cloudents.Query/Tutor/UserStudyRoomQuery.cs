@@ -44,7 +44,9 @@ namespace Cloudents.Query.Tutor
                          (s is BroadCastStudyRoom) ? StudyRoomType.Broadcast : StudyRoomType.Private,
                          (s as BroadCastStudyRoom) != null ? ((BroadCastStudyRoom)s).BroadcastTime : new DateTime?(),
                          s.Users.Select(s2 => s2.User.FirstName).ToList(), 
-                         s.Price))
+                         s.Price,
+                         s.Tutor.Id,
+                         s.Tutor.User.Name))
                      .ToListAsync(token);
             }
         }
