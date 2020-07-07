@@ -6,7 +6,7 @@
          class="itemsContainer"
          :id="item.courseName"
       >
-         <div class="itemBoxTitle mx-3 pb-2 pb-sm-0">{{item.courseName}}</div>
+         <div class="itemBoxTitle mx-4 pb-2 pb-sm-0">{{item.courseName}}</div>
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
