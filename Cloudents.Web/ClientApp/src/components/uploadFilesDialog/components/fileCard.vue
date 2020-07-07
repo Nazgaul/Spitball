@@ -61,7 +61,7 @@
                     dense
                 >
                 </v-select>
-                <v-text-field class="uf_price pt-1"
+                <v-text-field class="uf_price pt-0"
                     v-model="item.price" 
                     v-else
                     type="number"
