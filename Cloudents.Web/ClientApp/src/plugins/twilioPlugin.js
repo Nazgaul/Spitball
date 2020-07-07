@@ -60,6 +60,7 @@ function _insightEvent(...args) {
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
 function _twilioListeners(room,store) { 
+   let isStateInit = false; // to prevent multiple initials 
    store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
    if(!store.getters.getRoomIsBroadcast && room.localParticipant.tracks.size){
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
@@ -136,6 +137,15 @@ function _twilioListeners(room,store) {
       }
       store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,stats)
    });
+   room.localParticipant.on('trackPublicationFailed',(error,localTrack)=>{
+      let params = {
+         errorCode: error?.code,
+         errorMessage: error?.message,
+         publisher: room.localParticipant?.identity,
+         ...localTrack,
+      }
+      _insightEvent('trackPublicationFailed', params, null);
+   })
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
       _changeState(room.localParticipant);
@@ -182,7 +192,7 @@ function _twilioListeners(room,store) {
    // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
-      if (data.type === CURRENT_STATE_UPDATE) {
+      if (data.type === CURRENT_STATE_UPDATE && !isStateInit) {
          if(data.fullScreen){
             store.dispatch('updateFullScreen',data.fullScreen)
          }
@@ -190,6 +200,7 @@ function _twilioListeners(room,store) {
          store.dispatch('updateAudioToggleByRemote',data.mute);
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
+         isStateInit = true; // to prevent multiple initials 
          return;
       }
       if (data.type === "muteAll") {
