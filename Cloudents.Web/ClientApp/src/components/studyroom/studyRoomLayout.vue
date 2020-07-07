@@ -5,9 +5,10 @@
     </template>
     <template v-else>
       <studyRoomDrawer/>
-      <studyRoomHeader/>
+      <studyRoomHeader @roomMuted="showRoomMutedToaster = true"/>
       <v-content>
         <studyRoomWrapper style="height:100%"/>
+        <roomMutedToaster v-if="showRoomMutedToaster"/>
       </v-content>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
@@ -27,12 +28,14 @@ const studyRoomMobile = () => import('./studyRoomMobile.vue');
 const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
 const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
+import roomMutedToaster from './layouts/roomMutedToaster.vue';
 import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
 
 export default {
   data() {
     return {
       id: this.$route.params.id,
+      showRoomMutedToaster:false
     }
   },
   components: {
@@ -44,6 +47,7 @@ export default {
     studyRoomWrapper,
     studyRoomSettingsDialog,
     studyRoomDialogs,
+    roomMutedToaster,
 
   },
   computed: {
@@ -72,6 +76,16 @@ export default {
         }
       }
     },
+    showRoomMutedToaster:{
+      deep:true,
+      handler(newVal){
+        if(newVal){
+          setTimeout(() => {
+            this.showRoomMutedToaster = false
+          }, 1000);
+        }
+      }
+    }
   },
   methods: {
     handleNeedPayment(needPayment){

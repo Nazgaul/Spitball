@@ -48,9 +48,8 @@
       </template>
       <v-btn v-if="isRoomTutor" class="mb-2" :ripple="false" text @click="muteAll()">
          <div class="muteAllBtn">
-            <v-icon v-if="$store.getters.getIsAudioParticipants" size="16">sbf-microphone</v-icon>
-            <v-icon v-else size="16">sbf-mic-ignore</v-icon>
-            <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
+            <v-icon size="16">sbf-microphone</v-icon>
+            <span>{{$t('tutor_mute_room')}}</span>
          </div>
       </v-btn>
       <button :class="['endBtn','mb-2',{'ml-2':!isRoomTutor}]" @click="endSession()">
@@ -196,6 +195,7 @@ export default {
       },
       muteAll(){
          this.$store.dispatch('updateToggleAudioParticipants')
+         this.$emit('roomMuted')
       },
       getIsCurrentMode(modeName){
          if(modeName == this.roomModes.CLASS_SCREEN){
