@@ -107,9 +107,9 @@ export default {
    //    margin: 0 20px;
    // }
   @media (max-width: @screen-xs) {
-     border-radius: 0;
+      border-radius: 0;
       margin: 0;
-     padding: 12px 0;
+      padding: 12px 0;
   }
   .profileReviewsBox_state{
       .profileReviewsBox_state_title{

@@ -16,7 +16,7 @@
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
             <profileItemsBox class="mt-sm-12 mt-8" v-if="showItems" />
-            <profileReviewsBox class="my-10 mt-2" />
+            <profileReviewsBox class="mt-5 mt-sm-10 mb-sm-10" />
             <!-- <profileFAQ /> -->
         </div>
         <profileFooter />

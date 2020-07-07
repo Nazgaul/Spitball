@@ -6,7 +6,7 @@
          class="itemsContainer"
          :id="item.courseName"
       >
-         <div class="itemBoxTitle ps-3">{{item.courseName}}</div>
+         <div class="itemBoxTitle mx-3 pb-2 pb-sm-0">{{item.courseName}}</div>
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
@@ -95,11 +95,15 @@ export default {
 
    .itemsContainer {
       .itemBoxTitle {
-         font-size: 26px;
+         .responsive-property(font-size, 26px, null, 20px);
          font-weight: 600;
          color: #363637;
-   
-         margin: 62px 0 29px;
+         margin: 62px 0 16px;
+
+         @media (max-width: @screen-xs) {
+            border-bottom: 2px solid #ebecef;
+            margin: 40px 0 8px;
+         }
       }
 
       &:first-child {
@@ -165,6 +169,7 @@ export default {
          // mobile
          .v-slide-group__content {
             @media (max-width: @screen-xs) {
+               width: 100%;
                display: block;
             }
          }
