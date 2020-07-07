@@ -166,7 +166,18 @@ export default {
         deleteFile() {
             this.deleteFileByIndex(this.singleFileIndex)
         },
-        searchCourses: debounce(function(ev){
+        searchDeboune: debounce(function(term){
+            courseService.getCourse({term, page:0}).then(data=>{
+                this.suggestsCourses = data;
+                if(this.suggestsCourses.length) {
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.course){
+                            this.course = course
+                        }}) 
+                }
+            })
+        },300),
+        searchCourses(ev){
             let term = ev.target.value.trim()
             if(!term) {
                 this.course = ''
@@ -174,19 +185,10 @@ export default {
                 return 
             }
             if(!!term){
-                courseService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;
-                    if(this.suggestsCourses.length) {
-                        this.suggestsCourses.forEach(course=>{
-                            if(course.text === this.course){
-                                this.course = course
-                            }}) 
-                    } else {
-                        this.course = term
-                    }
-                })
+                this.course = term
+                this.searchDeboune(term) 
             }
-        },300),
+        },
     }
 }
 </script>

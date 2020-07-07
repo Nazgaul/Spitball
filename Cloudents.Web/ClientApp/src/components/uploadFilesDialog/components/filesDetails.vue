@@ -145,7 +145,7 @@ export default {
                 this.setAllCourse(this.tutorCourse)
             }
         },
-        searchCourses: debounce(function(ev){
+        searchCourses(ev){
             let term = ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
@@ -153,18 +153,20 @@ export default {
                 return 
             }
             if(!!term){
-                courseService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;
-                    if(this.suggestsCourses.length) {
-                        this.suggestsCourses.forEach(course=>{
-                            if(course.text === this.tutorCourse){
-                                this.tutorCourse = course
-                            }}) 
-                    } else {
-                        this.tutorCourse = term
-                    }
-                })
+                this.tutorCourse = term;
+                this.searchDebounce(term)
             }
+        },
+        searchDebounce: debounce(function(term){
+            courseService.getCourse({term, page:0}).then(data=>{
+                this.suggestsCourses = data;
+                if(this.suggestsCourses.length) {
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.tutorCourse){
+                            this.tutorCourse = course
+                        }}) 
+                }
+            })
         },200),
     },
 }
