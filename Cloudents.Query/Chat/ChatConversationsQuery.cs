@@ -44,7 +44,6 @@ join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id
 join sb.[User] u on cu2.UserId = u.Id
 where cu.UserId = @id 
-and cr.studyRoomId is null
 order by cr.UpdateTime desc", new {id = query.UserId});
 
                 
