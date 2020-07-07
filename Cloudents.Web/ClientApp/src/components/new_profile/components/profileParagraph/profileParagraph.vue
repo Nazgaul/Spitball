@@ -76,7 +76,7 @@ export default {
         display: contents;
         line-height: 1.7;
         .paragraphSpan {
-            display: inline-block;
+            // display: inline-block;
         }
     }
     .readMore {
