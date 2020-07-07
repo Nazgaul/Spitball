@@ -1,5 +1,5 @@
 <template>
-    <div class="uf-sEdit">
+    <div class="uf-sEdit pt-1">
         <v-row class="uf-sEdit-top ma-0 pa-0 pb-sm-1 px-3 justify-space-between" v-if="fileItems.length > 1 && !isError" dense>
             <v-col cols="12" sm="6" class="pa-0">
                 <v-combobox
