@@ -46,7 +46,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
       
 
-        [Fact]
+        [Fact(Skip ="Need to delete it, not relevant any more")]
         public async Task Teach_CourseAsync()
         {
             await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));

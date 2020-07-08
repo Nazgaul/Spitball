@@ -12,6 +12,8 @@
       </v-content>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
+    
+    <studyRoomAudio/>
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
     <slot name="appInjections"></slot>
@@ -19,17 +21,21 @@
 </template>
 
 <script>
-const studyRoomDrawer = () => import('./layouts/studyRoomDrawer/studyRoomDrawer.vue');
-const studyRoomFooter = () => import('./layouts/studyRoomFooter/studyRoomFooter.vue');
-const studyRoomHeader = () => import('./layouts/studyRoomHeader/studyRoomHeader.vue');
+const studyRoomDrawer = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomDrawer/studyRoomDrawer.vue');
+const studyRoomFooter = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomFooter/studyRoomFooter.vue');
+const studyRoomHeader = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomHeader/studyRoomHeader.vue');
+const studyRoomWrapper = () => import(/* webpackChunkName: "studyroomdesktop" */'./windows/studyRoomWrapper.vue');
+
 import chatService from "../../services/chatService";
 import { mapGetters } from 'vuex';
 const studyRoomMobile = () => import('./studyRoomMobile.vue');
-const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
+
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
-const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
 import roomMutedToaster from './layouts/roomMutedToaster.vue';
+
 import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
+import studyRoomAudio from'./layouts/studyRoomAudio/studyRoomAudio.vue';
+import studyRoomDialogs from './studyRoomDialogs.vue';
 
 export default {
   data() {
@@ -48,6 +54,8 @@ export default {
     studyRoomSettingsDialog,
     studyRoomDialogs,
     roomMutedToaster,
+
+    studyRoomAudio,
 
   },
   computed: {

@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -7,7 +6,7 @@ namespace Cloudents.Web.Models
     {
         public long Id { get; set; }
 
-        [Range(0, int.MaxValue)]
+        [Range(0, 214748)] //small money restriction
         public decimal Price { get; set; }
     }
 }

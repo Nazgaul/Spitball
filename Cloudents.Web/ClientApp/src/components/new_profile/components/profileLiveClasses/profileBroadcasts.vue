@@ -102,8 +102,8 @@
             </div>
         </div>
 
-        <div class="showMore text-center mt-n2">
-            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand"  v-if="broadcastSessions.length > 2">
+        <div class="showMore text-center mt-n2"  v-if="broadcastSessions.length > 2">
+            <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand">
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
         </div>
