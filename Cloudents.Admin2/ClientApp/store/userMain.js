@@ -372,12 +372,12 @@ const actions = {
         }).finally(() => context.commit("setShowLoader", false));
         }
     },
-    verifyUserPhone(context, verifyObj) {
-        return userMainService.verifyPhone(verifyObj).then((resp) => {
-            context.commit('setPhoneConfirmStatus');
-            return resp;
-        });
-    },
+    // verifyUserPhone(context, verifyObj) {
+    //     return userMainService.verifyPhone(verifyObj).then((resp) => {
+    //         context.commit('setPhoneConfirmStatus');
+    //         return resp;
+    //     });
+    // },
     updateUserName({ commit, dispatch }, payload) {
         return userMainService.updateUserName(payload).then(() => {
             dispatch('getUserData', payload.userId);
