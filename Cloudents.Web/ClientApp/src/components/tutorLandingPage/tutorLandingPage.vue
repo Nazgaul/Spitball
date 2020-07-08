@@ -2,7 +2,6 @@
     <div  class="tutor-landing-page-container">
         <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
             <v-flex pt-6 pb-4>
-                <!-- <div v-if="subjectName" class="tutor-landing-title" v-text="$t('tutorListLanding_header_get_lesson_subject',[subjectName])" /> -->
                 <div class="tutor-landing-title" v-t="'tutorListLanding_header_get_lesson'"/>
             </v-flex>
             <v-flex pb-6>
@@ -83,7 +82,6 @@ export default {
             },
             showEmptyState: false,
             topOffset: 0,
-           // subjectName: null,
         }
     },
     computed:{
@@ -131,12 +129,6 @@ export default {
                 self.items = data.result;
                 self.pagination.length = Math.ceil(data.count / self.query.pageSize)
                 self.showEmptyState = true;
-               // self.subjectName = null;
-                // if(this.query.term){
-                //     courseService.getSubject({courseName: this.query.term}).then(res=>{
-                //         self.subjectName = res.name;
-                //     })
-                // }
             })
         },
         goSelected(){

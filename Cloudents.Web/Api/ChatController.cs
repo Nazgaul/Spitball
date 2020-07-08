@@ -48,7 +48,6 @@ namespace Cloudents.Web.Api
             _urlBuilder = urlBuilder;
         }
 
-        // GET: api/<controller>
         [HttpGet]
         public async Task<IEnumerable<ChatDto>> GetAsync(CancellationToken token)
         {

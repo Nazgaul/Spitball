@@ -24,7 +24,6 @@ const mutations = {
                 value: objInit.bookedSession.exists,
                 tutorId: objInit.bookedSession.tutorId
             }
-            this.COURSES = { value: objInit.courses }
             this.STRIPE = { value: objInit.stripeAccount }
             this.CALENDAR = { value: objInit.calendarShared }
             this.TEACH = { value: objInit.haveHours }
