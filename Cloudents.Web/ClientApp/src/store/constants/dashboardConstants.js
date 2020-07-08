@@ -4,7 +4,6 @@ export default {
     EMAIL: "EMAIL",
     EDIT: "EDIT",
     BOOK: "BOOK",
-    COURSES: "COURSES",
     STRIPE: "STRIPE",
     CALENDAR: "CALENDAR",
     TEACH: "TEACH",

@@ -10,7 +10,6 @@ namespace Cloudents.Core.DTOs.Tutors
         public bool EmailVerified { get; set; }
         public bool EditProfile { get; set; }
         public BookedSession? BookedSession { get; set; }
-        public bool Courses { get; set; }
 
         public bool StripeAccount { get; set; }
         public bool CalendarShared { get; set; }

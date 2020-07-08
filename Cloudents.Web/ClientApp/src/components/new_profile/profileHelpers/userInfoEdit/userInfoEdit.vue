@@ -8,9 +8,6 @@
                             <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                             <span>{{$t('profile_edit_user_profile_title')}}</span>
                         </v-flex>
-                        <v-btn :to="{name: courseRoute}" @click="$store.commit('setComponent', '')" icon small>
-                            <editSVG class="editSvg" width="15" />
-                        </v-btn>
                     </v-layout>
                     <v-layout class="px-3 mt-3">
                         <div class="leftSide me-3 d-inline-block">
@@ -99,20 +96,16 @@
 </template>
 
 <script>
-import * as routeName from '../../../../routes/routeNames'
 import { validationRules } from "../../../../services/utilities/formValidationRules";
-import editSVG from '../../images/edit.svg';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
 export default {
     name: "userInfoEdit",
     components: {
-        editSVG,
         uploadImage
     },
     data() {
         return {
-            courseRoute: routeName.EditCourse,
             editedLastName:'',
             editedFirstName:'',
             rules: {
@@ -208,11 +201,6 @@ export default {
                     font-size: 18px;
                     font-weight: bold;
                     letter-spacing: -0.5px;
-                    .editSvg {
-                        path {
-                            fill: @global-purple;
-                        }
-                    }
                 }
                 .subtitle{
                     font-size: 16px;
