@@ -15,8 +15,9 @@
             />
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
-            <profileItemsBox v-if="showItems" class="mt-sm-12 mt-8" />
-            <profileReviewsBox class="my-10 mt-2" />
+            <profileItemsBox v-if="showItems" />
+            <profileReviewsBox />
+            <!-- <profileFAQ /> -->
         </div>
         <profileFooter />
     </div>
@@ -32,6 +33,8 @@ import profileSubscription from './components/profileSubscription/profileSubscri
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
+// import profileFAQ from './components/profileFAQ/profileFAQ.vue';
+
 import profileFooter from './components/profileFooter/profileFooter.vue';
 
 export default {
@@ -46,6 +49,7 @@ export default {
         profileBroadcasts,
         profileItemsBox,
         profileReviewsBox,
+        // profileFAQ,
         profileFooter,
     },
     props: {
@@ -76,14 +80,7 @@ export default {
               })
         },
         getProfileDataItems() {
-          let options = {
-            id: this.id,
-            params: {
-              page: 0,
-              pageSize: this.$vuetify.breakpoint.xsOnly ? 3 : 8
-            }
-          }
-          let items = this.$store.dispatch('updateProfileItemsByType', options)
+          let items = this.$store.dispatch('updateProfileItemsByType', this.id)
           let reviews = this.$store.dispatch('updateProfileReviews', this.id)
           Promise.all([items, reviews]).catch(ex => {
             console.error(ex);
@@ -100,7 +97,7 @@ export default {
           return this.$store.getters.getIsMyProfile
         },
         showItems(){
-            return this.$store.getters.getProfileDocuments?.result?.length
+            return this.$store.getters.getProfileDocumentsLength
         },
         showCalendarTab() {
             let isCalendar = this.$store.getters.getProfileIsCalendar

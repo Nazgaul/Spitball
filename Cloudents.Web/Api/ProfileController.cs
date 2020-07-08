@@ -1,7 +1,6 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -29,15 +27,13 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
-        private readonly IUrlBuilder _urlBuilder;
         private readonly ICommandBus _commandBus;
 
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
-             IUrlBuilder urlBuilder, ICommandBus commandBus)
+              ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _userManager = userManager;
-            _urlBuilder = urlBuilder;
             _commandBus = commandBus;
         }
 
@@ -71,25 +67,13 @@ namespace Cloudents.Web.Api
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
-
-        public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
+        public async Task<IDictionary<string,List<DocumentFeedDto>>> GetDocumentsAsync(
             [FromQuery] ProfileDocumentsRequest request, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize,
-                request.DocumentType, request.Course,userId);
-            var retVal = await _queryBus.QueryAsync(query, token);
-          
-            return new WebResponseWithFacet<DocumentFeedDto>()
-            {
-                Result = retVal.Result.Select(s =>
-                {
-                    s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                    s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                    return s;
-                }),
-                Count = retVal.Count
-            };
+            var query = new UserDocumentsQuery(request.Id, userId);
+            var x = await _queryBus.QueryAsync(query, token);
+            return x;
         }
 
         [HttpGet("{id:long}/studyRoom")]
@@ -104,17 +88,17 @@ namespace Cloudents.Web.Api
         public async Task EnrollUpcomingEventAsync(EnrollStudyRoomRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new EnrollStudyRoomBroadCastCommand(userId,model.StudyRoomId);
+            var command = new EnrollStudyRoomBroadCastCommand(userId, model.StudyRoomId);
             await _commandBus.DispatchAsync(command, token);
-            
+
         }
-        
+
 
         [HttpPost("follow"), Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model,  CancellationToken token)
+        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
             if (model.Id == user)
