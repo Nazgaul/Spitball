@@ -6,28 +6,26 @@
                     <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
-                <!-- <template v-if="isEmailRegister"> -->
-                    <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
+                <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
 
-                    <v-btn 
-                        @click="gmailRegister"
-                        depressed
-                        block
-                        height="40"
-                        sel="gmail"
-                        color="#da6156"
-                        class="btns white--text mb-6"
-                    >
-                        <gIcon class="mr-2" />
-                        <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
-                    </v-btn>
+                <v-btn 
+                    @click="gmailRegister"
+                    depressed
+                    block
+                    height="40"
+                    sel="gmail"
+                    color="#da6156"
+                    class="btns white--text mb-6"
+                >
+                    <gIcon class="mr-2" />
+                    <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
+                </v-btn>
 
-                    <div class="d-flex justify-center text-center mb-6">
-                        <div class="divider"></div>
-                        <div class="or" v-t="'loginRegister_or'"></div>
-                        <div class="divider"></div>
-                    </div>
-                <!-- </template> -->
+                <div class="d-flex justify-center text-center mb-6">
+                    <div class="divider"></div>
+                    <div class="or" v-t="'loginRegister_or'"></div>
+                    <div class="divider"></div>
+                </div>
 
                 <component 
                     :is="component"
@@ -35,10 +33,6 @@
                     :errors="errors"
                     :teacher="teacher"
                 >
-                    <!-- :phone="phoneNumber"
-                    :code="localCode"
-                    @updatePhone="updatePhone"
-                    @updateCode="updateCode" -->
                 </component>
             </div>
 
@@ -47,7 +41,7 @@
                     type="submit"
                     depressed
                     height="40"
-                    :loading="btnLoading && !googleLoading"
+                    :loading="btnLoading"
                     block
                     class="btns white--text"
                     color="#4452fc"
@@ -148,11 +142,10 @@ export default {
             registrationService.emailRegistration(emailRegister)
                 .then(() => {
                     analyticsService.sb_unitedEvent('Registration', 'Start')
-                    // if (data && data.param && data.param.phoneNumber) {
-                        // self.component = data.step.name
-                        // self.phoneNumber = data.param.phoneNumber
-                        // return
-                    // }
+
+                    if(self.presetRouting()) return
+
+                    window.location.reload()
                 }).catch(error => {
                     let { response: { data } } = error
 
