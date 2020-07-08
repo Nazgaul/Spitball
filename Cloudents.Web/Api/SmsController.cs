@@ -1,5 +1,4 @@
-﻿using Cloudents.Command;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Extensions;
@@ -23,6 +22,7 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
+    [Authorize(Policy = "Tutor")]
 
     public class SmsController : Controller
     {
@@ -62,7 +62,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
-        [Authorize(Policy = "Tutor")]
+       
         public async Task<IActionResult> SetUserPhoneNumberAsync(
             [FromBody] PhoneNumberRequest model,
             CancellationToken token)
@@ -113,7 +113,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        [Authorize(Policy = "Tutor")]
+       
         [HttpPost("sendCode")]
         public async Task<IActionResult> SendVerificationCodeAsync(CancellationToken token)
         {
@@ -137,7 +137,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("verify")]
-        [Authorize(Policy = "Tutor")]
+       
         public async Task<IActionResult> VerifySmsAsync(
             [FromBody] CodeRequest model,
             CancellationToken token)
@@ -162,7 +162,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("resend")]
-        [Authorize(Policy = "Tutor")]
+        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -189,7 +189,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("call")]
-        [Authorize(Policy = "Tutor")]
+       
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

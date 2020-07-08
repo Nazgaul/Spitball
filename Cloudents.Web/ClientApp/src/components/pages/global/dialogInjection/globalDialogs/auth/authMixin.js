@@ -14,9 +14,6 @@ export default {
     data() {
         return {
             studyroomRoute: routeNames.StudyRoom,
-            googleLoaded:false,
-            googleLoading: false,
-            googleFailed: false,
             routeNames,
             localCode: '',
             phoneNumber: '',
@@ -80,31 +77,31 @@ export default {
                 })
         },
         gmailRegister() {
-            this.googleLoading = true;
-            let self = this
+            //let self = this
             let userType = this.teacher ? 'tutor' : 'student'
-            registrationService.googleRegistration(userType)
-                .then(({data}) => {
-                    self.googleLoading = false;
-                    if (!data.isSignedIn) {
-                        analyticsService.sb_unitedEvent('Registration', 'Start Google')
-                        if(data.param?.phoneNumber) {
-                            self.component = 'verifyPhone'
-                            return
-                        }
-                        self.component = 'setPhone2'
-                        return
-                    }
-                    analyticsService.sb_unitedEvent('Login', 'Start Google')
+            window.location.replace(`/google?usertype=${userType}`);
+            // registrationService.googleRegistration(userType)
+            //     .then(({data}) => {
+            //         self.googleLoading = false;
+            //         if (!data.isSignedIn) {
+            //             analyticsService.sb_unitedEvent('Registration', 'Start Google')
+            //             if(data.param?.phoneNumber) {
+            //                 self.component = 'verifyPhone'
+            //                 return
+            //             }
+            //             self.component = 'setPhone2'
+            //             return
+            //         }
+            //         analyticsService.sb_unitedEvent('Login', 'Start Google')
                     
-                    if(self.presetRouting()) return
+            //         if(self.presetRouting()) return
 
-                    window.location.reload()
-                }).catch(error => {
-                    self.$emit('showToasterError', error);
-                    self.googleLoading = false;
-                    self.$appInsights.trackException(error)
-                })
+            //         window.location.reload()
+            //     }).catch(error => {
+            //         self.$emit('showToasterError', error);
+            //         self.googleLoading = false;
+            //         self.$appInsights.trackException(error)
+            //     })
         },
         verifyPhone(){
             let childComp = this.$refs.childComponent
@@ -214,22 +211,20 @@ export default {
             this.component = step
         }
     },
-    mounted() {
-        let self = this;
-        this.$nextTick(function () {
-            this.$loadScript("https://apis.google.com/js/client:platform.js")
-                .then(()=>{
-                    //self.$store.dispatch('gapiLoad');
-                    return self.$store.dispatch('gapiLoad').then(() => {
-                        // console.log(x);
-                        // console.log(gapi.auth2.getAuthInstance());
-                        self.googleLoaded = true;
-                    });
-                }).catch(ex => {
-                    self.googleFailed = true;
-                    console.error(ex);
-                    self.$appInsights.trackException(ex);
-                })
-        });
-    }
+    // mounted() {
+    //     // let self = this;
+    //     // this.$nextTick(function () {
+    //     //     this.$loadScript("https://apis.google.com/js/client:platform.js")
+    //     //         .then(()=>{
+    //     //             return self.$store.dispatch('gapiLoad').then(() => {
+    //     //                 self.googleLoaded = true;
+    //     //             });
+    //     //         }).catch(ex => {
+    //     //             debugger;
+    //     //             self.googleFailed = true;
+    //     //             console.error(ex);
+    //     //             self.$appInsights.trackException(ex);
+    //     //         })
+    //     // });
+    // }
 }

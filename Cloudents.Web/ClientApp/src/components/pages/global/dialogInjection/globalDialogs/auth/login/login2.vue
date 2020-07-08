@@ -9,9 +9,7 @@
                 <div class="loginTitle text-center mb-8"  v-t="'loginRegister_setemail_title'"></div>
 
                 <v-btn
-                    :disabled="!googleLoaded"
                     @click="gmailRegister"
-                    :loading="googleLoading"
                     class="btns google white--text mb-6"
                     sel="gmail"
                     block

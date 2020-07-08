@@ -25,7 +25,6 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Exceptions;
 using Microsoft.AspNetCore.Authorization;
-using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Api
 {
@@ -33,7 +32,7 @@ namespace Cloudents.Web.Api
     public class RegisterController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SbSignInManager _signInManager;
+        private readonly SignInManager<User> _signInManager;
 
         private readonly IQueueProvider _queueProvider;
         private readonly IStringLocalizer<RegisterController> _localizer;
@@ -45,7 +44,7 @@ namespace Cloudents.Web.Api
         private const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
-        public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
+        public RegisterController(UserManager<User> userManager, SignInManager<User> signInManager,
              IQueueProvider queueProvider, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider, ICommandBus commandBus)
         {
             _userManager = userManager;
@@ -131,103 +130,103 @@ namespace Cloudents.Web.Api
         //}
 
 
-        [HttpPost("google")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync(
-            [FromBody] GoogleTokenRequest model,
-            [FromServices] IGoogleAuth service,
-            [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromServices] TelemetryClient logClient,
-            [FromServices] IHttpClientFactory clientFactory,
-            [FromHeader(Name = "User-Agent")] string? userAgent,
-            CancellationToken cancellationToken)
-        {
-            var result = await service.LogInAsync(model.Token, cancellationToken);
-            _logger.Info($"received google user {result}");
-            if (result == null)
-            {
-                logClient.TrackTrace("result from google is null");
-                ModelState.AddModelError("Google", _localizer["GoogleNoResponse"]);
-                return BadRequest(ModelState);
-            }
+        //[HttpPost("google")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync(
+        //    [FromBody] GoogleTokenRequest model,
+        //    [FromServices] IGoogleAuth service,
+        //    [FromServices] IUserDirectoryBlobProvider blobProvider,
+        //    [FromServices] TelemetryClient logClient,
+        //    [FromServices] IHttpClientFactory clientFactory,
+        //    [FromHeader(Name = "User-Agent")] string? userAgent,
+        //    CancellationToken cancellationToken)
+        //{
+        //    var result = await service.LogInAsync(model.Token, cancellationToken);
+        //    _logger.Info($"received google user {result}");
+        //    if (result == null)
+        //    {
+        //        logClient.TrackTrace("result from google is null");
+        //        ModelState.AddModelError("Google", _localizer["GoogleNoResponse"]);
+        //        return BadRequest(ModelState);
+        //    }
 
-            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
-            if (result2.Succeeded)
-            {
-                return ReturnSignUserResponse.SignIn();
-                //return new ReturnSignUserResponse(false);
-            }
+        //    var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
+        //    if (result2.Succeeded)
+        //    {
+        //        return ReturnSignUserResponse.SignIn();
+        //        //return new ReturnSignUserResponse(false);
+        //    }
 
-            if (result2.IsLockedOut)
-            {
-                logClient.TrackTrace("user is locked out");
-                ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
-                return BadRequest(ModelState);
-            }
+        //    if (result2.IsLockedOut)
+        //    {
+        //        logClient.TrackTrace("user is locked out");
+        //        ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
+        //        return BadRequest(ModelState);
+        //    }
 
-            var user = await _userManager.FindByEmailAsync(result.Email);
+        //    var user = await _userManager.FindByEmailAsync(result.Email);
 
-            //TODO: check what happens if google user is locked out
-            if (result2.IsNotAllowed && user != null && await _userManager.IsLockedOutAsync(user))
-            {
-                ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
-                return BadRequest(ModelState);
-            }
-            if (user == null)
-            {
-                var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
-                user = new User(result.Email,
-                    result.FirstName, result.LastName,
-                    result.Language, country, model.UserType == UserType.Tutor)
-                {
-                    EmailConfirmed = true
-                };
+        //    //TODO: check what happens if google user is locked out
+        //    if (result2.IsNotAllowed && user != null && await _userManager.IsLockedOutAsync(user))
+        //    {
+        //        ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
+        //        return BadRequest(ModelState);
+        //    }
+        //    if (user == null)
+        //    {
+        //        var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
+        //        user = new User(result.Email,
+        //            result.FirstName, result.LastName,
+        //            result.Language, country, model.UserType == UserType.Tutor)
+        //        {
+        //            EmailConfirmed = true
+        //        };
 
 
-                var result3 = await _userManager.CreateAsync(user);
-                if (result3.Succeeded)
-                {
-                    if (!string.IsNullOrEmpty(result.Picture))
-                    {
-                        using var httpClient = clientFactory.CreateClient();
-                        var message = await httpClient.GetAsync(result.Picture, cancellationToken);
-                        await using var sr = await message.Content.ReadAsStreamAsync();
-                        var mimeType = message.Content.Headers.ContentType;
-                        try
-                        {
-                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
-                                mimeType.ToString(), cancellationToken);
-                            var fileName = uri.AbsolutePath.Split('/').Last();
-                            user.UpdateUserImage(fileName);
-                        }
-                        catch (ArgumentException e)
-                        {
-                            logClient.TrackException(e, new Dictionary<string, string>()
-                            {
-                                ["FromGoogle"] = result.Picture
-                            });
-                        }
-                    }
-                    var t1 =  FinishRegistrationAsync(user, userAgent, cancellationToken);
-                    await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return ReturnSignUserResponse.SignIn();
-                }
-                logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
+        //        var result3 = await _userManager.CreateAsync(user);
+        //        if (result3.Succeeded)
+        //        {
+        //            if (!string.IsNullOrEmpty(result.Picture))
+        //            {
+        //                using var httpClient = clientFactory.CreateClient();
+        //                var message = await httpClient.GetAsync(result.Picture, cancellationToken);
+        //                await using var sr = await message.Content.ReadAsStreamAsync();
+        //                var mimeType = message.Content.Headers.ContentType;
+        //                try
+        //                {
+        //                    var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
+        //                        mimeType.ToString(), cancellationToken);
+        //                    var fileName = uri.AbsolutePath.Split('/').Last();
+        //                    user.UpdateUserImage(fileName);
+        //                }
+        //                catch (ArgumentException e)
+        //                {
+        //                    logClient.TrackException(e, new Dictionary<string, string>()
+        //                    {
+        //                        ["FromGoogle"] = result.Picture
+        //                    });
+        //                }
+        //            }
+        //            var t1 =  FinishRegistrationAsync(user, userAgent, cancellationToken);
+        //            await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
+        //            return ReturnSignUserResponse.SignIn();
+        //        }
+        //        logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
-                ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
-                return BadRequest(ModelState);
-            }
-            if (!user.EmailConfirmed)
-            {
-                user.EmailConfirmed = true;
-                await _userManager.UpdateAsync(user);
-            }
+        //        ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
+        //        return BadRequest(ModelState);
+        //    }
+        //    if (!user.EmailConfirmed)
+        //    {
+        //        user.EmailConfirmed = true;
+        //        await _userManager.UpdateAsync(user);
+        //    }
 
-            await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return ReturnSignUserResponse.SignIn();
-        }
+        //    await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
+        //    return ReturnSignUserResponse.SignIn();
+        //}
 
 
 
