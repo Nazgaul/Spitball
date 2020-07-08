@@ -92,7 +92,7 @@ export default {
                     })
             },
             onAudioLevelChanged(level){
-                this.audioLevel = level * 10
+                this.audioLevel = level * 5
             },
             validateMicrophone() {
                 navigator.mediaDevices.getUserMedia({audio:{deviceId: this.singleMicrophoneId}})
