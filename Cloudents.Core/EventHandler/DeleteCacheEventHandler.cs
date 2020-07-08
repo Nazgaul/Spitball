@@ -81,6 +81,6 @@ namespace Cloudents.Core.EventHandler
     public static class CacheRegions
     {
         public const string DocumentById = "document-by-id2";
-        public const string ProfilePageDocument = "UserDocumentsQuery2";
+        public const string ProfilePageDocument = "UserDocumentsQuery3";
     }
 }
