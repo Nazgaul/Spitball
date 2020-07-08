@@ -1,6 +1,5 @@
 <template>
 <div class="myFollowers">
-   <!-- <div class="myFollowers_title">{{$t('dashboardPage_my_followers_title')}}</div> -->
    <v-data-table 
    v-model="selected"
    calculate-widths
@@ -27,7 +26,7 @@
             <v-spacer></v-spacer>
              <v-text-field
                v-model="search"
-               label="Search"
+               :label="$t('search_search_btn')"
                outlined 
                dense
                ></v-text-field>
@@ -38,7 +37,7 @@
                         rounded
                         :block="$vuetify.breakpoint.xsOnly"
                         color="#5360FC"
-                v-if="selected.length > 0" @click="SendEmail()">Send Email</v-btn>
+                v-if="selected.length > 0" @click="SendEmail()">{{$t('send-email')}}</v-btn>
             </div>
          </template>
       <template v-slot:item.preview="{item}">
@@ -114,10 +113,8 @@ export default {
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
       SendEmail() {
-         console.log(this.selected);
          let emails = this.selected.map(x=>x.email);
          let myEmail = this.getAccountEmail;
-      
          window.open(`mailto:?to=${myEmail}&bcc=${emails.join(';')}`)
       }
    },
@@ -137,9 +134,7 @@ export default {
       color: #43425d;
       font-weight: 600;
       padding: 30px;
-      background-color: #fff;
       line-height: 1.3px;
-    //  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    td:first-child {
       width:1%;
@@ -150,21 +145,17 @@ export default {
          background-color: #f5f5f5;
       }
    }
-  // .myFollowers_table{
    thead{
-      tr{
-         // height: auto;
          th{
             color: #43425d !important;
             font-size: 14px;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            font-weight: normal;
+         //   padding-top: 14px;
+            //padding-bottom: 14px;
+            font-weight: normal; //for title
             min-width: 100px;
          }
          
-      }
-      color: #43425d !important;
+     
    }
    .actions{
       .v-btn{
@@ -193,6 +184,5 @@ export default {
          }
       }
    }
-  // }
 }
 </style>
