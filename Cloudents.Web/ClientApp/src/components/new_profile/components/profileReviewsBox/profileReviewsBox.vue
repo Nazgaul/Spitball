@@ -94,7 +94,7 @@ export default {
 
 .profileReviewsBox{
   max-width: 960px;
-  margin: 0 auto;
+  margin: 80px auto;
 //   height: 512px;
   border-radius: 8px;
 //   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
@@ -107,9 +107,9 @@ export default {
    //    margin: 0 20px;
    // }
   @media (max-width: @screen-xs) {
-     border-radius: 0;
-      margin: 0;
-     padding: 12px 0;
+      border-radius: 0;
+      margin: 0 0 40px;
+      padding: 12px 0;
   }
   .profileReviewsBox_state{
       .profileReviewsBox_state_title{

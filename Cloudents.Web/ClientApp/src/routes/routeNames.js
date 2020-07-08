@@ -28,11 +28,6 @@ export const LoginRedirect = 'loginRedirect';
 // Learn Page:
 export const Learning = 'Learning';
 
-// Course:
-export const EditCourse = 'editCourse';
-//export const AddCourse = 'addCourse';
-//export const SetCourse = 'setCourse';
-
 // Profile:
 export const Profile = 'profile';
 

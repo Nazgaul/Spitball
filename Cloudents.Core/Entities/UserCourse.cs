@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities
@@ -28,17 +27,17 @@ namespace Cloudents.Core.Entities
 
         public virtual bool IsTeach { get; protected set; }
 
-        public virtual void ToggleCanTeach()
-        {
-            IsTeach = !IsTeach;
-            _domainEvents.Add(new CanTeachCourseEvent(this));
-        }
+        //public virtual void ToggleCanTeach()
+        //{
+        //    IsTeach = !IsTeach;
+        //    _domainEvents.Add(new CanTeachCourseEvent(this));
+        //}
 
-        public virtual void CanTeach()
-        {
-            IsTeach = true;
-            //_domainEvents.Add(new CanTeachCourseEvent(this));
-        }
+        //public virtual void CanTeach()
+        //{
+        //    IsTeach = true;
+        //    //_domainEvents.Add(new CanTeachCourseEvent(this));
+        //}
 
         public virtual bool Equals(UserCourse other)
         {

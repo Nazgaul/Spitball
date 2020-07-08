@@ -7,7 +7,9 @@ let cancelTokenList;
 
 const state = {
    profile: null,
-   documents: [],
+   // documents: [],
+   faq: [],
+   documents: {},
    profileReviews: null,
    profileLiveSessions: [],
    showEditDataDialog: false,
@@ -37,6 +39,8 @@ const getters = {
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileDocuments: state => state.documents,
+   getProfileDocumentsLength: state => state.documents.length,
+   getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
 }
 
@@ -76,22 +80,24 @@ const mutations = {
       }
    },
    setProfileDocuments(state, data) {
-      state.documents = new Document(data)
+      state.documents = Object.keys(data).map(objData => new Document(objData, data[objData]))
 
-      function Document(objInit) {
-         this.result = objInit.result.map(objData => new DocumentItem(objData));
-         this.count = objInit.count;         
+      function Document(name, objInit) {
+         this.result = Object.keys(objInit).map(objData => new DocumentItem(objInit[objData]));
+         this.courseName = name
+         this.isExpand = false
+         this.count = objInit.length
       }
 
       function DocumentItem(objInit) {
          this.id = objInit.id;
-         this.type = objInit.type;
+         // this.type = objInit.type;
          this.course = objInit.course;
          this.dateTime = new Date(objInit.dateTime);
          this.documentType = objInit.documentType;
          this.preview = objInit.preview;
          this.title = objInit.title;
-         this.url = objInit.url;
+         this.url = `/document/${this.course}/${this.title}/${this.id}`;
          this.snippet = objInit.snippet
          this.itemDuration = objInit.duration
          this.template = 'result-note';
@@ -143,6 +149,15 @@ const mutations = {
          this.description = objInit.description;
       }
    },
+   setProfileFaq(state, data) {
+      state.faq = data.map(faq => new ProfileFaq(faq))
+
+      function ProfileFaq(objInit) {
+         this.id = objInit.id
+         this.title = objInit.title
+         this.answer = objInit.answer
+      }
+   },
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
@@ -178,6 +193,10 @@ const mutations = {
    },
    setProfileCoverLoading(state, val) {
       state.profileCoverLoading = val;
+   },
+   setExpandItems(state, item) {
+      let document = state.documents.filter(doc => doc.courseName === item.courseName)[0]
+      document.isExpand = !document.isExpand
    }
 }
 
@@ -195,12 +214,12 @@ const actions = {
          commit('setProfileReviews', data)
       })
    },
-   updateProfileItemsByType({ commit }, {id, params}) {
+   updateProfileItemsByType({ commit }, id) {
       cancelTokenList?.cancel();
       const axiosSource = axios.CancelToken.source();
       cancelTokenList = axiosSource;
 
-      return profileInstance.get(`${id}/documents`, { params, cancelToken : axiosSource.token })
+      return profileInstance.get(`${id}/documents`, { cancelToken : axiosSource.token })
          .then(({data}) => {
             commit('setProfileDocuments', data);
          });
@@ -228,6 +247,16 @@ const actions = {
       let id = session.userId
       let studyRoomId = session.studyRoomId
       return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
+   },
+   updateProfileFaq({commit}) {
+      // profileInstance.get(``).then(({data}) => {
+         let data = [
+            { id: 1, title: 'title 1', answer: 'answer1'},
+            { id: 2, title: 'title 2', answer: 'answer2'},
+            { id: 3, title: 'title 3', answer: 'answer3'}
+         ]
+         commit('setProfileFaq', data)
+      // })
    }
 }
 

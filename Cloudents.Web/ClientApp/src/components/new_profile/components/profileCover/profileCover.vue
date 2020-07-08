@@ -1,5 +1,5 @@
 <template>
-    <cover :fixedHeight="true">
+    <cover :mainCoverImage="true">
         <template v-if="loading">
             <div class="profileCover profileUploadBtn ma-2" v-if="$store.getters.getIsMyProfile">
                 <v-btn class="white--text" color="rgba(0,0,0,.6)" @click="openEdit" depressed v-ripple="false">

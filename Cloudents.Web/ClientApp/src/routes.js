@@ -6,11 +6,10 @@ import {landingRoutes} from './routes/landingRoutes.js';
 import {questionRoutes} from './routes/questionRoutes.js';
 import {itemRoutes} from './routes/itemRoutes.js';
 import {feedRoutes} from './routes/feedRoutes.js';
-import {courseRoutes} from './routes/courseRoutes.js';
 import {globalRoutes} from './routes/globalRoutes.js';
 import {marketingRoutes} from './routes/marketingRoutes.js';
 import {messageCenterRoutes} from './routes/messageCenterRoutes.js';
-
+import {courseRoutes} from './routes/courseRoutes.js'
 let routes2 = [
     ...landingRoutes,
     ...registrationRoutes,
@@ -21,8 +20,8 @@ let routes2 = [
     ...questionRoutes,
     ...itemRoutes,
     ...feedRoutes,
-    ...courseRoutes,
     ...globalRoutes,
     ...messageCenterRoutes,
+    ...courseRoutes
 ];
 export const routes = routes2;
