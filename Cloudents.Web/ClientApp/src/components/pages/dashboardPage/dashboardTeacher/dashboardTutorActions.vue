@@ -236,7 +236,7 @@ export default {
             this.$ga.event("Dashboard Video", "Get Started How It Works");
         },
         openPhoneDialog() {
-            this.$store.commit('setComponent', 'verifyPhone')
+            this.$store.commit('setComponent', 'setPhone')
         },
         bookSession() {
             this.$router.push({
