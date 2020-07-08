@@ -87,13 +87,13 @@ export default {
         },
     },
     methods: {
-        goToItem(){
-            if(this.fromCarousel){
-                return false;
-            }else{
-                this.enterItemPage();
-            }
-        },
+        // goToItem(){
+        //     if(this.fromCarousel){
+        //         return false;
+        //     }else{
+        //         this.enterItemPage();
+        //     }
+        // },
         enterItemPage(){
             this.$router.push(this.item.url)
         },

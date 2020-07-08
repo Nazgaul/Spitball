@@ -23,10 +23,10 @@ export const Profile = {
          }
       
    },
-   ProfileItems: function (objInit) {
-      this.result = objInit.result.map(objData => new Item[objData.documentType](objData));
-      this.count = objInit.count;
-   },
+   // ProfileItems: function (objInit) {
+   //    this.result = objInit.result.map(objData => new Item[objData.documentType](objData));
+   //    this.count = objInit.count;
+   // },
    Review: function (objInit) {
       return Object.assign(
          new User.Default(objInit),
@@ -37,29 +37,29 @@ export const Profile = {
          }
       )
    },
-   Reviews: function (objInit) {
-      this.reviews = objInit.reviews ? objInit.reviews.map(review => new Profile.Review(review)) : null;
-      this.rates = new Array(5).fill(undefined).map((val, key) => {
-         return !!objInit.rates[key]? objInit.rates[key] : { rate: 0, users: 0 };
-      })
-   },
-   ProfileUserData: function (objInit) {
-      this.user = new Profile.Profile(objInit);
-      //this.questions = [];
-      this.answers = [];
-      this.documents = [];
-      //this.purchasedDocuments = [];
-   },
-   BroadCastSessions: function(objInit) {
-      this.id = objInit.id;
-      this.name = objInit.name;
-      this.price = {
-         amount: objInit.price.amount,
-         currency: objInit.price.currency
-      }
-      this.isFull= objInit.isFull
-      this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
-      this.enrolled = objInit.enrolled;
-      this.description = objInit.description;
-   }
+   // Reviews: function (objInit) {
+   //    this.reviews = objInit.reviews ? objInit.reviews.map(review => new Profile.Review(review)) : null;
+   //    this.rates = new Array(5).fill(undefined).map((val, key) => {
+   //       return !!objInit.rates[key]? objInit.rates[key] : { rate: 0, users: 0 };
+   //    })
+   // },
+   // ProfileUserData: function (objInit) {
+   //    this.user = new Profile.Profile(objInit);
+   //    //this.questions = [];
+   //    this.answers = [];
+   //    this.documents = [];
+   //    //this.purchasedDocuments = [];
+   // },
+   // BroadCastSessions: function(objInit) {
+   //    this.id = objInit.id;
+   //    this.name = objInit.name;
+   //    this.price = {
+   //       amount: objInit.price.amount,
+   //       currency: objInit.price.currency
+   //    }
+   //    this.isFull= objInit.isFull
+   //    this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
+   //    this.enrolled = objInit.enrolled;
+   //    this.description = objInit.description;
+   // }
 }
