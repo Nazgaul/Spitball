@@ -209,7 +209,7 @@ module.exports = (env) => {
 
             ]
         },
-        //devtool: 'source-map',
+        devtool: isDevBuild ? 'source-map': false,
         optimization: {
             minimize: !isDevBuild,
             minimizer: !isDevBuild ? [
