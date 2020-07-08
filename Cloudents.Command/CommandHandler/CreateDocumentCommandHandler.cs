@@ -32,7 +32,14 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateDocumentCommand message, CancellationToken token)
         {
             var tutor = await _userRepository.LoadAsync(message.UserId, token);
-            var course = await _courseRepository.LoadAsync(message.Course, token);
+            var course = await _courseRepository.GetAsync(message.Course, token);
+            if (course == null)
+            {
+                course = new Course(message.Course);
+                await _courseRepository.AddAsync(course, token);
+
+            }
+            tutor.User.AssignCourse(course);
             var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
 
             if (tutor.HasSubscription() && message.Price > 0)
