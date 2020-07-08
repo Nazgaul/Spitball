@@ -47,7 +47,7 @@
          </v-tooltip>
       </div>
       <template v-if="audioTrack && !isCurrentParticipant">
-         <v-progress-linear class="ma-2" rounded absolute bottom color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
+         <v-progress-linear class="audioMeterUser" rounded absolute color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
       </template>
    </v-card>  
 </template>
@@ -214,6 +214,11 @@ export default {
       z-index: 1;
       top: 2px;
       left: 6px;
+   }
+   .audioMeterUser{
+      width: 80%;
+      left: 10px;
+      bottom: 8px;
    }
    .linear{
       position: absolute;
