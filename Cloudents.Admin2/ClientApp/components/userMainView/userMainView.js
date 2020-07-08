@@ -118,7 +118,7 @@ export default {
           //  "getUserTypes",
            // "updateUserType",
             "setUserCurrentStatus",
-            "verifyUserPhone",
+           // "verifyUserPhone",
             "getUserPurchasedDocuments",
             "clearUserState",
             "updateFilterValue",
@@ -141,17 +141,17 @@ export default {
         closeSuspendDialog() {
             this.setSuspendDialogState(false);
         },
-        userInfoAction(actionItem) {
-            if (actionItem === "phoneNumber") {
-                let userObj = {
-                    id: this.info.id.value
-                };
-                this.verifyUserPhone(userObj).then((resp) => {
-                    console.log(resp);
-                    this.openTokensDialog();
-                });
-            }
-        },
+        // userInfoAction(actionItem) {
+        //     if (actionItem === "phoneNumber") {
+        //         let userObj = {
+        //             id: this.info.id.value
+        //         };
+        //         this.verifyUserPhone(userObj).then((resp) => {
+        //             console.log(resp);
+        //             this.openTokensDialog();
+        //         });
+        //     }
+        // },
         openTokensDialog() {
             this.setTokensDialogState(true);
         },
