@@ -20,6 +20,10 @@ using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
+using Cloudents.Core.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
@@ -35,13 +39,14 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
         private readonly ILogger _logger;
+        private readonly ICommandBus _commandBus;
         private readonly ICountryService _countryProvider;
 
         private const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
-             IQueueProvider queueProvider, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
+             IQueueProvider queueProvider, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider, ICommandBus commandBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -50,6 +55,7 @@ namespace Cloudents.Web.Api
             _loginLocalizer = loginLocalizer;
             _logger = logger;
             _countryProvider = countryProvider;
+            _commandBus = commandBus;
         }
 
         [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
@@ -58,19 +64,12 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
+            [FromHeader(Name = "User-Agent")] string? userAgent,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
-                try
-                {
-                    return await MakeDecisionAsync(user, false, model.Password, token);
-                }
-                catch (ArgumentException)
-                {
-                }
-
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
@@ -82,10 +81,13 @@ namespace Cloudents.Web.Api
 
             if (p.Succeeded)
             {
+                var t1 =  FinishRegistrationAsync(user, userAgent, token);
+                //var command2 = new AddUserLocationCommand(user, HttpContext.GetIpAddress(), userAgent);
                 var t2 = GenerateEmailAsync(user, token);
-                var t1 = _signInManager.TempSignInAsync(user);
+                //var t1 = _signInManager.SignInAsync(user,false);
+                //var t3 = _commandBus.DispatchAsync(command2, token);
                 await Task.WhenAll(t1, t2);
-                return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
+                return ReturnSignUserResponse.SignIn();
             }
 
 
@@ -94,39 +96,39 @@ namespace Cloudents.Web.Api
         }
 
 
-        private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
-            bool isExternal, string? password,
-            CancellationToken token)
-        {
+        //private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
+        //    bool isExternal, string? password,
+        //    CancellationToken token)
+        //{
 
-            if (user.PhoneNumber != null)
-            {
-                if (isExternal)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return ReturnSignUserResponse.SignIn();
-                }
-                throw new ArgumentException();
-            }
+        //    if (user.PhoneNumber != null)
+        //    {
+        //        if (isExternal)
+        //        {
+        //            await _signInManager.SignInAsync(user, false);
+        //            return ReturnSignUserResponse.SignIn();
+        //        }
+        //        throw new ArgumentException();
+        //    }
 
 
-            if (!user.EmailConfirmed)
-            {
-                await GenerateEmailAsync(user, token);
-            }
+        //    if (!user.EmailConfirmed)
+        //    {
+        //        await GenerateEmailAsync(user, token);
+        //    }
 
-            if (!isExternal)
-            {
-                var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
-                if (!result.Succeeded)
-                {
-                    throw new ArgumentException();
-                }
-                //passwod
-            }
-            await _signInManager.TempSignInAsync(user);
-            return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
-        }
+        //    if (!isExternal)
+        //    {
+        //        var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+        //        if (!result.Succeeded)
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //        //passwod
+        //    }
+        //    await _signInManager.TempSignInAsync(user);
+        //    return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
+        //}
 
 
         [HttpPost("google")]
@@ -139,6 +141,7 @@ namespace Cloudents.Web.Api
             [FromServices] IUserDirectoryBlobProvider blobProvider,
             [FromServices] TelemetryClient logClient,
             [FromServices] IHttpClientFactory clientFactory,
+            [FromHeader(Name = "User-Agent")] string? userAgent,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken);
@@ -207,8 +210,9 @@ namespace Cloudents.Web.Api
                             });
                         }
                     }
+                    var t1 =  FinishRegistrationAsync(user, userAgent, cancellationToken);
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecisionAsync(user, true, null, cancellationToken);
+                    return ReturnSignUserResponse.SignIn();
                 }
                 logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
@@ -222,7 +226,7 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecisionAsync(user, true, null, cancellationToken);
+            return ReturnSignUserResponse.SignIn();
         }
 
 
@@ -251,6 +255,38 @@ namespace Cloudents.Web.Api
             TempData[Email] = user.Email;
             var message = new RegistrationEmail(user.Email, HtmlEncoder.Default.Encode(link), CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token);
+        }
+
+        private async Task FinishRegistrationAsync(User user,
+            string userAgent, CancellationToken token)
+        {
+            if (TempData[HomeController.Referral] != null)
+            {
+                if (Base62.TryParse(TempData[HomeController.Referral]?.ToString(), out var base62))
+                {
+                    try
+                    {
+                        var command = new ReferringUserCommand(base62, user.Id);
+                        await _commandBus.DispatchAsync(command, token);
+                    }
+                    catch (UserLockoutException)
+                    {
+                        _logger.Warning($"{user.Id} got locked referring user {TempData[HomeController.Referral]}");
+                    }
+                }
+                else
+                {
+                    _logger.Error($"{user.Id} got wrong referring user {TempData[HomeController.Referral]}");
+                }
+                TempData.Remove(HomeController.Referral);
+            }
+            TempData.Clear();
+
+            var command2 = new AddUserLocationCommand(user, HttpContext.GetIpAddress(), userAgent);
+            var t1 = _commandBus.DispatchAsync(command2, token);
+            var t2 = _signInManager.SignInAsync(user, false);
+            await Task.WhenAll(t1, t2);
+           
         }
 
         [Authorize]
