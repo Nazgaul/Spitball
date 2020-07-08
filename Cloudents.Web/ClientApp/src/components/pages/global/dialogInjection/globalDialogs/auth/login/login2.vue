@@ -35,7 +35,7 @@
                 type="submit"
                 depressed
                 height="40"
-                :loading="btnLoading && !googleLoading"
+                :loading="btnLoading"
                 block
                 class="btns white--text mt-6"
                 color="#4452fc"
