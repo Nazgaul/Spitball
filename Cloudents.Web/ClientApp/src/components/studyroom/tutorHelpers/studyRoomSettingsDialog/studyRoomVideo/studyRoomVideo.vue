@@ -191,7 +191,7 @@ export default {
                 })
         },
         onAudioLevelChanged(level){
-            this.audioLevel = level * 10;
+            this.audioLevel = level * 7;
         },
         validateMicrophone(audioTrack){
             let mediaStreamTrack = audioTrack.getAudioTracks()[0];
