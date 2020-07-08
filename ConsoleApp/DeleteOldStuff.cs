@@ -67,8 +67,8 @@ Select id from sb.tutor t").ListAsync();
 
             foreach (dynamic z in x)
             {
-                var e = new RemoveCourseEvent(z);
-                await eventHandler.PublishAsync(e, default);
+                //var e = new RemoveCourseEvent(z);
+                //await eventHandler.PublishAsync(e, default);
                 //var command = new TeachCourseCommand(z[0], z[1]);
                 //await bus.DispatchAsync(command, default);
             }

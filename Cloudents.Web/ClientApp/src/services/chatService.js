@@ -15,21 +15,31 @@ function createConversationId(arrIds){
 }
 
 function Conversation(objInit){
+    this.unread = objInit.unread;
+    this.conversationId = objInit.conversationId;
+    this.lastMessage = objInit.lastMessage || createLastImageMsg();
+    this.dateTime = objInit.dateTime || new Date().toISOString();
+    this.users = objInit.users || [];
+    if (objInit.conversationId.split('-').length === 5) { //live study room
+
+        //let isRoom = objInit.users.length > 1; 
+        this.image = '';// isRoom? '': objInit.users[0].image;
+        this.online = false;
+        this.name = this.users.map(u=>u.name).join(" ,") || 'Empty Live Session';
+        return
+    }
     if(objInit.users !== undefined){
-        let isRoom = objInit.users.length > 1; 
-        this.image = isRoom? '': objInit.users[0].image;
-        this.online = !isRoom? objInit.users[0].online : false;
-        this.name = objInit.users.map(u=>u.name).join(" ,");
+        let isRoom =  this.users.length > 1; 
+        this.image = isRoom? '':  this.users[0].image;
+        this.online = !isRoom?  this.users[0].online : false;
+        this.name =  this.users.map(u=>u.name).join(" ,");
     }else{
         this.image = objInit.image;
         this.online = objInit.online;
         this.name = objInit.name;
     }
-    this.users = objInit.users || [];
-    this.unread = objInit.unread;
-    this.conversationId = objInit.conversationId;
-    this.lastMessage = objInit.lastMessage || createLastImageMsg();
-    this.dateTime = objInit.dateTime || new Date().toISOString();
+    
+    
 }
 
 function createConversation(objInit){
