@@ -79,7 +79,8 @@ export default {
         gmailRegister() {
             //let self = this
             let userType = this.teacher ? 'tutor' : 'student'
-            window.location.replace(`/google?usertype=${userType}`);
+            //TODO need to add return url
+            window.location.replace(`/External/Google?usertype=${userType}&returnUrl=${window.location}`);
             // registrationService.googleRegistration(userType)
             //     .then(({data}) => {
             //         self.googleLoading = false;

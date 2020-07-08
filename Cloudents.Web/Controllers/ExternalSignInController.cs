@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
-    public class AccountController : Controller
+    public class ExternalSignInController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -25,7 +25,7 @@ namespace Cloudents.Web.Controllers
         private readonly IHttpClientFactory _clientFactory;
         private readonly IUserDirectoryBlobProvider _blobProvider;
 
-        public AccountController(SignInManager<User> signInManager, TelemetryClient logClient, UserManager<User> userManager, IHttpClientFactory clientFactory, IUserDirectoryBlobProvider blobProvider, ICountryService countryProvider)
+        public ExternalSignInController(SignInManager<User> signInManager, TelemetryClient logClient, UserManager<User> userManager, IHttpClientFactory clientFactory, IUserDirectoryBlobProvider blobProvider, ICountryService countryProvider)
         {
             _signInManager = signInManager;
             _logClient = logClient;
@@ -35,7 +35,7 @@ namespace Cloudents.Web.Controllers
             _countryProvider = countryProvider;
         }
 
-        [Route("Google")]
+        [Route("External/Google")]
         public IActionResult Index(string returnUrl, UserType userType)
         {
             var redirectUrl = Url.Action("ExternalCallBack",new
