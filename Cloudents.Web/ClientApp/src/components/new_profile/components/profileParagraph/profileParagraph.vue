@@ -1,7 +1,7 @@
 <template>
-  <div class="profileParagraph pa-2 mt-sm-6 px-4">
+  <div class="profileParagraph pa-2 mt-sm-6 mt-3 px-4" dir="auto">
     <div class="paragraph">
-        <span class="paragraphSpan" dir="auto">{{bio | truncate(isOpen, '...', textLimit)}}</span>
+        <span class="paragraphSpan">{{bio | truncate(isOpen, '...', textLimit)}}</span>
     </div>
     <div class="d-none">{{bio | restOfText(isOpen, '...', textLimit)}}</div>
     <span sel="bio_more" v-if="bio && bio.length >= textLimit" @click="isOpen = !isOpen" class="readMore">{{readMoreText}}</span>
@@ -76,7 +76,7 @@ export default {
         display: contents;
         line-height: 1.7;
         .paragraphSpan {
-            display: inline-block;
+            // display: inline-block;
         }
     }
     .readMore {

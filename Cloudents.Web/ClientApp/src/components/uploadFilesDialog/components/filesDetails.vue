@@ -1,24 +1,21 @@
 <template>
-    <div class="uf-sEdit">
+    <div class="uf-sEdit pt-1">
         <v-row class="uf-sEdit-top ma-0 pa-0 pb-sm-1 px-3 justify-space-between" v-if="fileItems.length > 1 && !isError" dense>
             <v-col cols="12" sm="6" class="pa-0">
                 <v-combobox
-                    v-model="courseForAll"
-                    :items="getSelectedClasses"
-                    :rules="[rules.required,rules.matchCourse]"
+                    v-model="tutorCourse"
+                    :items="suggestsCourses"
+                    :rules="[rules.required]"
+                    @keyup="searchCourses"
                     :label="$t('upload_label_course_name')"
-                    :append-icon="'sbf-menu-down'"
+                    :append-icon="''"
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
-                    autocomplete="off"
-                    hide-no-data
-                    outlined
-                    dense
+                    hide-no-data outlined dense
                 />
             </v-col>
             <v-col cols="6" sm="3" class="pa-0 pl-sm-4">
-                <!-- :placeholder="$t('upload_uf_price')" -->
                 <v-select
                     v-model="currentPrice"
                     :items="currentPriceItems"
@@ -57,7 +54,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <div class="uf-sEdit-items" :class="[isMobile ? 'pt-2 px-0' : 'py-4 px-4']">
+        <div class="uf-sEdit-items" :class="[isMobile ? 'pt-2 px-0' : 'py-3 px-3']">
             <v-form ref="filesDetailsForm">
                 <transition-group name="slide-x-transition" class="spanTransition" >
                     <div class="fileWrapper" v-for="(fileItem, index) in fileItems" :key="fileItem.id">
@@ -70,6 +67,9 @@
     </div>
 </template>
 <script>
+import debounce from "lodash/debounce";
+import courseService from '../../../services/courseService.js'
+
 import { mapGetters, mapActions } from 'vuex';
 
 import { validationRules } from '../../../services/utilities/formValidationRules';
@@ -82,10 +82,11 @@ export default {
     components: {fileCard, fileCardError},
     data() {
         return {
+            tutorCourse: '',
+            suggestsCourses: [],
             someVal: '',
             priceForAll: '',
             fileItems: this.getFileData(),
-            courseForAll:'',
             currentPrice: '',
             currentPriceItems: [
                 { text: this.$t('upload_free_all'), value: 'Free' },
@@ -93,10 +94,6 @@ export default {
             ],
             rules: {
                 required: (value) => validationRules.required(value),
-                matchCourse:() => ((   
-                    this.getSelectedClasses.length && 
-                    this.getSelectedClasses.some(course=> course.text === this.courseForAll?.text)
-                )) || this.$t("tutorRequest_invalid"),
                 integer: (value) => validationRules.integer(value),
                 maximum: (value) => validationRules.maxVal(value, 2147483647),
                 minimum: (value) => validationRules.minVal(value,0),
@@ -104,18 +101,6 @@ export default {
         }
     },
     props: {
-        // propName: {
-        //     type:String,
-        //     default: ''
-        // },
-        // showError: {
-        //     type: Boolean,
-        //     default: false
-        // },
-        // errorText: {
-        //     type:String,
-        //     default: 'testin error'
-        // },
         callBackmethods: {
             type: Object,
             default(){
@@ -135,7 +120,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getSelectedClasses']),
         isTutorSubscribe() {
             return this.$store.getters.getIsTutorSubscription
         },
@@ -157,10 +141,33 @@ export default {
                 }
                 this.setAllPrice({type, value: this.currentPrice})
             }
-            if(!!this.courseForAll){
-                this.setAllCourse(this.courseForAll)
+            if(!!this.tutorCourse){
+                this.setAllCourse(this.tutorCourse)
             }
         },
+        searchCourses(ev){
+            let term = ev.target.value.trim()
+            if(!term) {
+                this.tutorCourse = ''
+                this.suggestsCourses = []
+                return 
+            }
+            if(!!term){
+                this.tutorCourse = term;
+                this.searchDebounce(term)
+            }
+        },
+        searchDebounce: debounce(function(term){
+            courseService.getCourse({term, page:0}).then(data=>{
+                this.suggestsCourses = data;
+                if(this.suggestsCourses.length) {
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.tutorCourse){
+                            this.tutorCourse = course
+                        }}) 
+                }
+            })
+        },200),
     },
 }
 </script>

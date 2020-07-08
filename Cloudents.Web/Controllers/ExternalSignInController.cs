@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
-    public class AccountController : Controller
+    public class ExternalSignInController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -25,7 +25,7 @@ namespace Cloudents.Web.Controllers
         private readonly IHttpClientFactory _clientFactory;
         private readonly IUserDirectoryBlobProvider _blobProvider;
 
-        public AccountController(SignInManager<User> signInManager, TelemetryClient logClient, UserManager<User> userManager, IHttpClientFactory clientFactory, IUserDirectoryBlobProvider blobProvider, ICountryService countryProvider)
+        public ExternalSignInController(SignInManager<User> signInManager, TelemetryClient logClient, UserManager<User> userManager, IHttpClientFactory clientFactory, IUserDirectoryBlobProvider blobProvider, ICountryService countryProvider)
         {
             _signInManager = signInManager;
             _logClient = logClient;
@@ -35,7 +35,7 @@ namespace Cloudents.Web.Controllers
             _countryProvider = countryProvider;
         }
 
-        [Route("Google")]
+        [Route("External/Google")]
         public IActionResult Index(string returnUrl, UserType userType)
         {
             var redirectUrl = Url.Action("ExternalCallBack",new
@@ -68,7 +68,7 @@ namespace Cloudents.Web.Controllers
             if (info == null)
             {
                 _logClient.TrackTrace("result from google is null");
-                return RedirectToPage("/");
+                return Redirect("/");
             }
 
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor : true);
@@ -77,16 +77,25 @@ namespace Cloudents.Web.Controllers
                // _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(returnUrl);
             }
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByEmailAsync(email);
+
             if (result.IsLockedOut)
             {
+                if (user.LockoutEnd == DateTimeOffset.MaxValue)
+                {
+                    return LocalRedirect("/");
+                }
+
+                await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddMinutes(-1));
+                await _signInManager.SignInAsync(user, false);
+                return LocalRedirect(returnUrl);
                 //TODO
-               // return RedirectToPage("./Lockout");
+                // return RedirectToPage("./Lockout");
             }
 
             var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
             var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
-            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-            var user = await _userManager.FindByEmailAsync(email);
             var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
            // return LocalRedirect(returnUrl);
 
@@ -127,6 +136,7 @@ namespace Cloudents.Web.Controllers
                         }
                     }
                     await _userManager.AddLoginAsync(user, info);
+                    await _signInManager.SignInAsync(user, false);
                     return LocalRedirect(returnUrl);
                 }
                 _logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
@@ -138,7 +148,7 @@ namespace Cloudents.Web.Controllers
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
             }
-
+            await _signInManager.SignInAsync(user, false);
             await _userManager.AddLoginAsync(user, info);
             return LocalRedirect(returnUrl);
         }

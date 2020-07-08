@@ -1,6 +1,13 @@
 export const feedRoutes = [
     {
         path: "/feed",
-        redirect : "/"
+        name: 'feed',
+        redirect: "/",
+        children: [
+            {
+                path: '*',
+                redirect: '/',
+            }
+        ]
     },
 ]

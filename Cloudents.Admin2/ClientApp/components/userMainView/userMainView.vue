@@ -326,33 +326,7 @@
             </v-card>
         </v-dialog>
 
-<!-- new -->
-        <!-- <v-dialog v-model="dialogs.type" persistent max-width="600px" lazy v-if="dialogs.type">
-            <v-card>
-                <v-card-title>
-                    <span class="headline">Edit user type</span>
-                </v-card-title>
-                <v-card-text>
-                    <v-container grid-list-md>
-                        <v-layout wrap>
-                            <v-flex xs12 sm12 md12>
-                                <v-select
-                                :items="userTypes"
-                                label="Select user type"
-                                v-model="selectedType"
-                                ></v-select>
-                               
-                                <v-btn @click="editUserType()">Send</v-btn>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" flat @click="dialogs.type = false">Close</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog> -->
+
 
     </v-container>
 </template>

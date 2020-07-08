@@ -75,7 +75,9 @@ export default {
         },
         gmailRegister() {
             let userType = this.teacher ? 'tutor' : 'student'
-            window.location.replace(`/google?usertype=${userType}`);
+            debugger
+            //TODO need to add return url
+            window.location.replace(`/External/Google?usertype=${userType}&returnUrl=${window.location}`);
         },
         verifyPhone(smsCode){
 			let self = this

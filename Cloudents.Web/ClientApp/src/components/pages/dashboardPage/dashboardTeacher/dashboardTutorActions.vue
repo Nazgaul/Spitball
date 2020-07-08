@@ -141,12 +141,6 @@ export default {
                     btnText: this.$t('dashboardTeacher_btn_text_book'),
                     method: this.bookSession
                 },
-                [constants.COURSES]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_courses'),
-                    btnText: this.$t('dashboardTeacher_btn_text_courses'),
-                    routeName: { name: routeName.EditCourse }
-                },
                 [constants.STRIPE]: {
                     color: colors.blue,
                     text: this.$t('dashboardTeacher_link_text_stripe'),

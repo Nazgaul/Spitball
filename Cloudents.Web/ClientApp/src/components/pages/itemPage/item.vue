@@ -400,10 +400,10 @@ export default {
         this.$router.push({ name: "feed" });
       }
     },
-    moveDownToTutorItem() {
-      let elem = this.$el.querySelector(".itemPage__main__tutorCard");
-      elem.scrollIntoView({ behavior: "smooth", block: "center" });
-    },
+    // moveDownToTutorItem() {
+    //   let elem = this.$el.querySelector(".itemPage__main__tutorCard");
+    //   elem.scrollIntoView({ behavior: "smooth", block: "center" });
+    // },
     openBuyTokenDialog() {
       this.updateItemToaster(false);
       this.$openDialog(dialogNames.BuyPoints);
