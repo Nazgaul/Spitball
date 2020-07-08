@@ -121,9 +121,7 @@ export default {
       'myContent',
       'myPurchases',
       'myStudyRooms',
-      'myCalendar',
-      'addCourse',
-      'editCourse'].some(route => this.$route.name === route)
+      'myCalendar'].some(route => this.$route.name === route)
       return isRoutes && !this.getIsTeacher
     },
     isMobile() {

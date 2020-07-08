@@ -22,7 +22,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser', 'getSelectedClasses']),
+        ...mapGetters(['accountUser']),
         userImageUrl() {
             if(this.accountUser && this.accountUser.image.length > 1) {
                 return `${this.accountUser.image}`;
