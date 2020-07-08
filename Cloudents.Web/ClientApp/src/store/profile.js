@@ -9,7 +9,7 @@ const state = {
    profile: null,
    // documents: [],
    faq: [],
-   documents: {},
+   documents: [],
    profileReviews: null,
    profileLiveSessions: [],
    //showEditDataDialog: false,

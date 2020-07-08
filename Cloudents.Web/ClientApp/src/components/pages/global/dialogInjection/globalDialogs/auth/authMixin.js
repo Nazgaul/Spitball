@@ -77,32 +77,8 @@ export default {
                 })
         },
         gmailRegister() {
-            //let self = this
             let userType = this.teacher ? 'tutor' : 'student'
-            //TODO need to add return url
-            window.location.replace(`/External/Google?usertype=${userType}&returnUrl=${window.location}`);
-            // registrationService.googleRegistration(userType)
-            //     .then(({data}) => {
-            //         self.googleLoading = false;
-            //         if (!data.isSignedIn) {
-            //             analyticsService.sb_unitedEvent('Registration', 'Start Google')
-            //             if(data.param?.phoneNumber) {
-            //                 self.component = 'verifyPhone'
-            //                 return
-            //             }
-            //             self.component = 'setPhone2'
-            //             return
-            //         }
-            //         analyticsService.sb_unitedEvent('Login', 'Start Google')
-                    
-            //         if(self.presetRouting()) return
-
-            //         window.location.reload()
-            //     }).catch(error => {
-            //         self.$emit('showToasterError', error);
-            //         self.googleLoading = false;
-            //         self.$appInsights.trackException(error)
-            //     })
+            window.location.replace(`/External/Google?usertype=${userType}&returnUrl=${window.location.pathname+window.location.search}`);
         },
         verifyPhone(){
             let childComp = this.$refs.childComponent
