@@ -7,12 +7,12 @@
                <template v-if="showMediaToaster.mode == 'audio'">
                   <v-icon v-text="isAudioActive?'sbf-microphone':'sbf-mic-ignore'" 
                      class="icon" size="36" color="white"></v-icon>
-                  <p class="text">{{$t(isAudioActive? 'mic_on': 'mic_off')}}</p>
+                  <p class="text">{{isAudioActive? $t('mic_on') : $t('mic_off')}}</p>
                </template>
                <template v-else>
                   <v-icon v-text="isVideoActive?'sbf-videocam':'sbf-videocam-off'" 
                      class="icon" size="36" color="white"></v-icon>
-                  <p class="text">{{$t(isVideoActive? 'vid_on': 'vid_off')}}</p>
+                  <p class="text">{{isVideoActive? $t('vid_on') : $t('vid_off')}}</p>
                </template>
             </div>
          </v-fade-transition>
