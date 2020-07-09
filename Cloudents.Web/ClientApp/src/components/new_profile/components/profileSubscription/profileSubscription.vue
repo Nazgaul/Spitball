@@ -44,6 +44,7 @@ export default {
     methods: {
         subscribeNow() {
             if(!this.isLogged) {
+                sessionStorage.setItem('hash','#subscription');
                 this.$store.commit('setComponent', 'register')
                 return
             }

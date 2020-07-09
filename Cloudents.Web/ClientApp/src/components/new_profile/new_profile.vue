@@ -155,6 +155,11 @@ export default {
         next();
     },
     created() {
+      var hash =  sessionStorage.getItem('hash');
+      if (hash) {
+         this.$router.push({hash:hash});
+         sessionStorage.clear();
+      }
       this.getProfileDataItems()
     }
 }
