@@ -77,7 +77,7 @@ export default {
             let userType = this.teacher ? 'tutor' : 'student'
             //TODO need to add return url
             // window.location.replace(`/External/Google?usertype=${userType}&returnUrl=${this.$route.fullPath}`);
-            window.location.replace(`/External/Google?usertype=${userType}&returnUrl=${window.location.pathname+window.location.search}`);
+            window.location.assign(`/External/Google?usertype=${userType}&returnUrl=${window.location.pathname+window.location.search}`);
         },
         verifyPhone(smsCode){
 			let self = this
