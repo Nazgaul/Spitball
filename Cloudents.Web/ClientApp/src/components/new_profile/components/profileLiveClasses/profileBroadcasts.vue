@@ -214,6 +214,7 @@ export default {
     methods: {
         enrollSession(studyRoomId) {
             if(!this.isLogged) {
+                sessionStorage.setItem('hash','#broadcast');
                 this.$store.commit('setComponent', 'register')
                 return
             }
