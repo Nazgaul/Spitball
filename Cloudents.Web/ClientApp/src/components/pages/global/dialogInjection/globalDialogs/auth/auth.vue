@@ -13,7 +13,7 @@
 
         <v-snackbar
             v-model="showSnackBar"
-            class="error-toaster getStartedToaster"
+            color="#e42222"
             :timeout="5000"
             top
         >

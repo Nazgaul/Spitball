@@ -38,6 +38,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import analyticsService from '../../../services/analytics.service';
+import * as componentConsts from '../../pages/global/toasterInjection/componentConsts.js';
 
 export default {
     name:'tutorRequestSuccess',
@@ -96,14 +97,8 @@ export default {
             } 
             let self = this;
             this.sendTutorRequest(serverObj)
-                .catch(err=>{
-                    let serverResponse = err.response.data || { error : [self.$t('tutorRequest_request_error')]};
-                    let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
-                    self.$store.dispatch('updateToasterParams',{
-                        toasterText: errorMsg,
-                        showToaster: true,
-                        toasterType: 'error-toaster'
-                    });
+                .catch(()=>{
+                    self.$store.commit('addComponent',componentConsts.WENT_WRONG)
                 })
         }
     },

@@ -144,12 +144,12 @@
     <!-- <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload> -->
     <unlockDialog :document="document"></unlockDialog>
     <v-snackbar v-model="snackbar" :top="true" :timeout="8000">
-      <div>
+      <div class="d-flex justify-space-between align-center" >
         <span v-t="'resultNote_unsufficient_fund'"></span>
+        <v-btn class="px-4" outlined rounded @click="openBuyTokenDialog">
+          <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
+        </v-btn>
       </div>
-      <v-btn class="px-4" outlined rounded @click="openBuyTokenDialog">
-        <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
-      </v-btn>
     </v-snackbar>
   </div>
 </template>

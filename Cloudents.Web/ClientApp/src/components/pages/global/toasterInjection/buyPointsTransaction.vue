@@ -1,11 +1,10 @@
 <template>
     <v-snackbar
-        absolute
         top
         :timeout="5000"
         :value="true"
     >
-    <span>{{params.text}}</span>
+    <div class="text-center">{{params.text}}</div>
     </v-snackbar>
 </template>
 
