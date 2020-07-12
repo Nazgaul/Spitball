@@ -137,9 +137,8 @@ const actions = {
             console.error(ex);
         })
     },
-    becomeTutor({ state, commit }) {
-        let params = { id: state.user.id }
-        return accountInstance.post('/becomeTutor', params).finally(() => {
+    becomeTutor({ commit }) {
+        return accountInstance.post('/becomeTutor').finally(() => {
             commit('setComponent', '')
         })
     },
