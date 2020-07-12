@@ -18,12 +18,12 @@
          </v-fade-transition>
 
          <v-btn icon @click="toggleAudio"
-         :class="['btnControl','mediaControl',{'btnIgnore':!isAudioActive},'mb-2','mr-4','elevation-3']" >
+         :class="['btnControl','mediaControl',{'btnIgnore':!isAudioActive},'mb-2','me-4','elevation-3']" >
             <v-icon v-if="isAudioActive" size="20" color="white">sbf-microphone</v-icon>
             <v-icon v-else size="20" color="white">sbf-mic-ignore</v-icon>
          </v-btn>
          
-         <v-btn icon @click="endSession" :class="['elevation-3','btnControl','mediaControl','disconnectBtn','mb-2','mr-4']" >
+         <v-btn icon @click="endSession" :class="['elevation-3','btnControl','mediaControl','disconnectBtn','mb-2','me-4']" >
             <v-icon size="10" color="#f7494a">sbf-callEnd</v-icon>
          </v-btn>
 
