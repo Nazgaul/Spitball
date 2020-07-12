@@ -194,10 +194,10 @@ export default {
             handler(val){
                 if (val.length) {
                     if (this.$vuetify.breakpoint.xs) {
-                        document.getElementsByTagName("body")[0].className = "noscroll";
+                        document.body.classList.add('noscroll')
                     }
                 } else {
-                    document.body.removeAttribute("class", "noscroll");
+                    document.body.classList.remove('noscroll')
                 }
             }
         }

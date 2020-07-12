@@ -60,11 +60,11 @@ export default {
         showDialog() {
             if (!!this.showDialog) {
                 if (this.$vuetify.breakpoint.xs) {
-                    document.getElementsByTagName("body")[0].className = "noscroll";
+                    document.body.classList.add('noscroll')
                 }
                 this.show = true;
             } else {
-                document.body.removeAttribute("class", "noscroll");
+                document.body.classList.remove('noscroll')
                 this.show = false;
             }
         },
