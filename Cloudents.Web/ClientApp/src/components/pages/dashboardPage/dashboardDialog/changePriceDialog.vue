@@ -49,7 +49,7 @@ export default {
          title: this.$t('resultNote_change_price'),
          rules:{
             integer: (value) => validationRules.integer(value),
-            maximum: (value) => validationRules.maxVal(value, 2147483647),
+            maximum: (value) => validationRules.maxVal(value, 214748),
          }
       }
    },

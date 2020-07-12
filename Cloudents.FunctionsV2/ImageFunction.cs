@@ -39,9 +39,11 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
             HttpRequest req, long id, string file,
             [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/cover-default.png")]CloudBlockBlob coverDefault,
             Microsoft.Extensions.Logging.ILogger logger
         )
         {
+            var isCover = req.Query["type"].ToString().Equals("cover", StringComparison.OrdinalIgnoreCase);
             var regex = new Regex(@"[\d]*[.]\D{3,4}");
             var isBlob = regex.IsMatch(file);
             var mutation = ImageMutation.FromQueryString(req.Query);
@@ -63,17 +65,23 @@ namespace Cloudents.FunctionsV2
                 {
                     if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
                     {
-                        return GenerateImageFromName();
+                        return await GenerateImageFromName();
                     }
 
                     throw;
                 }
             }
 
-            return GenerateImageFromName();
+            return await GenerateImageFromName();
 
-            IActionResult GenerateImageFromName()
+            async Task<IActionResult> GenerateImageFromName()
             {
+                if (isCover)
+                {
+                    await using var sr = await coverDefault.OpenReadAsync();
+                    var imageCover = ProcessImage(sr, mutation);
+                    return new ImageResult(imageCover, TimeSpan.FromDays(365));
+                }
                 var image = GenerateImageFromText(file, new Size(mutation.Width, mutation.Height));
                 return new ImageResult(image, TimeSpan.FromDays(30));
 

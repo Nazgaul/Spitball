@@ -82,7 +82,7 @@ export default {
          background-repeat: repeat;
          background-color: #a6bcd8;
          @media(max-width: @screen-xs) {
-            height: calc(~"100% - 112px");
+         //   height: calc(~"100% - 112px");
          }
          .messages-input {
             top: initial !important;

@@ -6,12 +6,13 @@ const MiniCssExtractPluginRtl = require("@automattic/mini-css-extract-plugin-wit
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -243,18 +244,15 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
-            // new webpack.SourceMapDevToolPlugin({
-            //     filename: "[name].js.map", // Remove this line if you prefer inline source maps
-            //     // moduleFilenameTemplate:
-            //     //     path.relative(bundleOutputDir,
-            //     //         "[resourcePath]") // Point sourcemap entries to the original file locations on disk
-            // }),
-            
-            //new BundleAnalyzerPlugin({
-            //    analyzerMode: 'disabled',
-            //    generateStatsFile: true,
-            //    statsOptions: { source: false }
-            //}),
+            new MomentLocalesPlugin({
+                localesToKeep: ['he'],
+            }),
+            // new BundleAnalyzerPlugin({
+            //     analyzerMode: 'disabled',
+            //     generateStatsFile: true,
+            //     statsOptions: { source: false }
+            //  }),
+           
         ].concat(isDevBuild
             ? [
                 new CaseSensitivePathsPlugin(),
@@ -265,7 +263,7 @@ module.exports = (env) => {
                     // Exclude patterns
                     exclude: ['*.test.js', 'font-icon/*','*.spec.js'],
                     root: __dirname,
-                    failOnUnused : true
+                    failOnUnused : false
                     // Root directory (optional)
                    // root: path.join(__dirname, 'ClientApp'),
                 }),
@@ -278,6 +276,7 @@ module.exports = (env) => {
                     // allChunks: true
 
                 }),
+              
                 new webpackRtlPlugin({
                     minify: false
                 }),

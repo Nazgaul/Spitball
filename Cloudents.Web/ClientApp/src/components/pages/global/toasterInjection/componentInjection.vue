@@ -8,7 +8,7 @@
 import * as componentConsts from './componentConsts.js';
 
 const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
-
+const TUTOR_EDIT_PROFILE = () => import('../../../new_profile/profileHelpers/userInfoEdit/tutorInfoEdit.vue');
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
@@ -32,7 +32,7 @@ const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/
 export default {
     components: {
         PAYMENT_DIALOG,
-        
+        TUTOR_EDIT_PROFILE,
         auth,
         simpleToaster,
         simpleErrorToaster,
@@ -53,6 +53,9 @@ export default {
             componentObj: {
                 [componentConsts.PAYMENT_DIALOG]:{
                     name: componentConsts.PAYMENT_DIALOG,
+                },
+                [componentConsts.TUTOR_EDIT_PROFILE]: {
+                    name: componentConsts.TUTOR_EDIT_PROFILE 
                 },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
@@ -167,8 +170,16 @@ export default {
         componentsList:{
             deep:true,
             immediate:true,
-            handler(){}
-        },
+            handler(val){
+                if (val.length) {
+                    if (this.$vuetify.breakpoint.xs) {
+                        document.getElementsByTagName("body")[0].className = "noscroll";
+                    }
+                } else {
+                    document.body.removeAttribute("class", "noscroll");
+                }
+            }
+        }
     },
     computed: {
         componentsList(){

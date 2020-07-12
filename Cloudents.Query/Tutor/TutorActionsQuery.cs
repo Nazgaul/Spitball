@@ -74,10 +74,10 @@ namespace Cloudents.Query.Tutor
                         s.User.SbCountry
                     }).ToFutureValue();
 
-                var coursesFuture = _session.Query<UserCourse>()
-                    .Where(w => w.User.Id == query.UserId)
-                    .Select(s => s.IsTeach)
-                    .ToFutureValue(f => f.Any());
+                //var coursesFuture = _session.Query<UserCourse>()
+                //    .Where(w => w.User.Id == query.UserId)
+                //    .Select(s => s.IsTeach)
+                //    .ToFutureValue(f => f.Any());
 
                 var liveSessionFuture = _session.Query<BroadCastStudyRoom>()
                      .Where(w => w.Tutor.Id == query.UserId)
@@ -105,7 +105,6 @@ namespace Cloudents.Query.Tutor
                     HaveHours = haveHours || userDetails.SbCountry != Country.Israel,
                     PhoneVerified = userDetails.PhoneNumberConfirmed,
                     EmailVerified = userDetails.EmailConfirmed,
-                    Courses = coursesFuture.Value,
                     LiveSession = liveSessionFuture.Value,
                     UploadContent = documentFuture.Value,
                     StripeAccount = stripeConnectFuture.Value != null || !(userDetails.SbCountry == Country.UnitedStates),

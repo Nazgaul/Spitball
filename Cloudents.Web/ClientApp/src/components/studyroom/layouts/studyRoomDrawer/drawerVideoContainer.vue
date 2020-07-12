@@ -16,22 +16,22 @@
             </template>
             <v-tooltip top>
                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isVideoActive}]" icon @click="toggleVideo" sel="video_enabling">
-                     <v-icon v-if="isVideoActive" size="14" class="ms-1" color="white">sbf-video-camera</v-icon>
-                     <v-icon v-else size="22" color="white">sbf-camera-ignore</v-icon>
+                  <v-btn v-on="on" :class="['elevation-3','drawerControlsBtn',{'btnIgnore':!isAudioActive},'me-2']" icon @click="toggleAudio" sel="audio_enabling">
+                     <v-icon v-if="isAudioActive" size="20" color="white">sbf-microphone</v-icon>
+                     <v-icon v-else size="20" color="white">sbf-mic-ignore</v-icon>
                   </v-btn>
                </template>
-               <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
+               <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
             </v-tooltip>
 
             <v-tooltip top>
                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :class="['drawerControlsBtn',{'btnIgnore':!isAudioActive},'ms-2']" icon @click="toggleAudio" sel="audio_enabling">
-                     <v-icon v-if="isAudioActive" size="22" color="white">sbf-microphone</v-icon>
-                     <v-icon v-else size="22" color="white">sbf-mic-ignore</v-icon>
+                  <v-btn v-on="on" :class="['elevation-3','drawerControlsBtn',{'btnIgnore':!isVideoActive},'ms-2']" icon @click="toggleVideo" sel="video_enabling">
+                     <v-icon v-if="isVideoActive" size="14" color="white">sbf-videocam</v-icon>
+                     <v-icon v-else size="20" color="white">sbf-videocam-off</v-icon>
                   </v-btn>
                </template>
-               <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
+               <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
             </v-tooltip>
          </div>
       </div>
@@ -44,7 +44,6 @@ export default {
    data() {
       return {
          elementId: 'tutorVideoDrawer',
-         tutorAudio: null,
          tutorVideo: null,
       }
    },
@@ -72,8 +71,6 @@ export default {
             let localMediaContainer = document.getElementById(this.elementId);
             let videoTag = localMediaContainer.querySelector("video");
             if (videoTag) {localMediaContainer.removeChild(videoTag)} 
-            let audioTag = localMediaContainer.querySelector("audio");
-            if (audioTag) {localMediaContainer.removeChild(audioTag)}
          }
          if(newVal && this.tutorVideo){
             let self = this;
@@ -83,37 +80,6 @@ export default {
                if (videoTag) {localMediaContainer.removeChild(videoTag)} 
                localMediaContainer.appendChild(self.tutorVideo.attach());
             })
-         }
-         if(newVal && this.tutorAudio){
-            let self = this;
-            this.$nextTick(()=>{
-               let localMediaContainer = document.getElementById(self.elementId);
-               let audioTag = localMediaContainer.querySelector("audio");
-               if (audioTag) {localMediaContainer.removeChild(audioTag)} 
-               localMediaContainer.appendChild(self.tutorAudio.attach());
-            })
-         }
-      },
-      tutorAudioTrack:{
-         immediate:true,
-         deep:true,
-         handler(track){
-            if(track){
-               let self = this;
-               this.$nextTick(()=>{
-                  self.tutorAudio = track;
-                  const localMediaContainer = document.getElementById(self.elementId);
-                  if(localMediaContainer){
-                     let audioTag = localMediaContainer.querySelector("audio");
-                     if (audioTag) {localMediaContainer.removeChild(audioTag)}
-                     localMediaContainer.appendChild(track.attach());
-                     return
-                  }
-               })
-            }
-            if(this.tutorAudio && !track){
-               this.tutorAudio = null;
-            }
          }
       },
       tutorVideoTrack:{
@@ -147,13 +113,6 @@ export default {
       isRoomTutor(){
          return this.$store.getters.getRoomIsTutor;
       },
-      tutorAudioTrack(){
-         if(!this.isRoomTutor){
-            return this.getRoomTutorParticipant?.audio;
-         }else{
-            return null
-         }
-      },
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.video;
       },
@@ -167,7 +126,6 @@ export default {
          return this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.CLASS_MODE;
       }
    },
-
 }
 </script>
 <style lang="less">
@@ -206,12 +164,14 @@ export default {
                right: 8px;
             }
             .drawerControlsBtn{
-               width: 46px;
-               height: 46px;
-               background-color: rgba(0, 0, 0, 0.25);
+               width: 44px;
+               height: 44px;
+               background-color: rgba(0, 0, 0, 0.15);
                border-radius: 50%;
+               border: solid 1px #ffffff;
                &.btnIgnore{
-                  background-color: rgba(255, 0, 0, 0.589);
+                  background-color: #f7494a;
+                  border: none;
                }
             }
          }

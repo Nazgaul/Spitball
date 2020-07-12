@@ -8,41 +8,19 @@
                     <cameraBlock class="cameraBlock" width="20" />
                 </i18n>
             </div>
-
-            <div class="bottomIcons d-flex align-end justify-space-between">
-                <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
-                    <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
-                    <div id="audio-input-meter" class="ms-2"></div>
+            <template v-if="isLoggedIn">
+                <div class="bottomIcons d-flex align-end justify-space-between">
+                    <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
+                        <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
+                        <div id="audio-input-meter" class="ms-2"></div>
+                    </div>
+                    <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
                 </div>
-                <!-- <div class="centerIcons d-flex align-center">
-                    <v-btn
-                        class="mx-2"
-                        :class="{'noBorder': !microphoneOn}"
-                        :color="microphoneOn ? 'transparent' : '#cb4243 !important'" @click="toggleMic"
-                        depressed
-                        fab
-                    >
-                        <microphoneImage width="14" v-if="microphoneOn" />
-                        <microphoneImageIgnore width="18" v-else />
-                    </v-btn>
-                    <v-btn 
-                        :loading="cameraInitLoader"
-                        class="mx-2"
-                        :class="{'noBorder': !cameraOn}"
-                        :color="cameraOn ? 'transparent' : '#cb4243 !important'" @click="toggleCamera"
-                        depressed
-                        fab 
-                    >
-                        <videoCameraImage class="videoIcon" width="22" v-if="cameraOn" />
-                        <videoCameraImageIgnore width="18" v-else />
-                    </v-btn>
-                </div> -->
-                <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
-            </div>
 
-            <div id="localTrackEnterRoom" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
-                <video ref="videoEl" autoplay playsinline></video>
-            </div>
+                <div id="localTrackEnterRoom" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}">
+                    <video ref="videoEl" autoplay playsinline></video>
+                </div>
+            </template>
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
     </v-responsive>
@@ -54,15 +32,10 @@
 
 
         <v-dialog v-model="permissionDialogState" width="512" :fullscreen="$vuetify.breakpoint.xsOnly" persistent content-class="premissionDeniedDialog text-center pa-6 pb-4">
-            <template v-if="$vuetify.breakpoint.xsOnly">
-                <video playsinline @loadeddata="playVideo" ref="permissionDialogVideo" loop autoplay muted class="dialogPermissionVideo mb-2" :src="getPermissionBlockedVideo()"></video>
-            </template>
-            <template v-else>
-                <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
-                <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
-                    <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
-                </i18n>
-            </template>
+            <div class="mb-4 mainTitle" v-t="'studyRoomSettings_block_title'"></div>
+            <i18n path="studyRoomSettings_block_permission" tag="div" class="blockPermission mb-6">
+                <cameraBlock class="cameraBlock mx-1 mt-1" width="20" />
+            </i18n>
             <div class="text-center">
                 <v-btn
                     @click="permissionDialogState = false"
@@ -76,6 +49,7 @@
                 </v-btn>
             </div>
         </v-dialog>
+        <mobilePermissionDialog @onClose="mobilePermissionDialogState = false" v-if="$vuetify.breakpoint.xsOnly && mobilePermissionDialogState"></mobilePermissionDialog>
     </div>
 </template>
 
@@ -86,21 +60,17 @@ import studyRoomAudioSettingService from '../studyRoomAudioVideoDialog/studyRoom
 import studyRoomAudioVideoDialog from '../studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
 import microphoneImage from '../../../images/outline-mic-none-24-px-copy-2.svg'
-// import microphoneImageIgnore from '../../../images/mic-ignore.svg';
-// import videoCameraImage from '../../../images/video-camera.svg';
-// import videoCameraImageIgnore from '../../../images/camera-ignore.svg';
 import cameraBlock from '../images/cameraBlock.svg'
 import { mapGetters } from 'vuex';
 import settingMixin from '../settingMixin.js'
+import mobilePermissionDialog from './mobilePermissionDialog.vue';
 
 export default {
     components: {
         studyRoomAudioVideoDialog,
-        // videoCameraImage,
-        // videoCameraImageIgnore,
         microphoneImage,
-        // microphoneImageIgnore,
-        cameraBlock
+        cameraBlock,
+        mobilePermissionDialog
     },
     data(){
         return {
@@ -113,6 +83,8 @@ export default {
             audioDeviceNotFound: false,
             permissionDialogState: false,
             settingDialogState: false,
+
+            mobilePermissionDialogState:false,
         }
     },
     mixins: [settingMixin],
@@ -127,27 +99,52 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getVideoDeviceId','getAudioDeviceId'])
+        ...mapGetters(['getVideoDeviceId','getAudioDeviceId']),
+        isLoggedIn(){
+            return this.$store.getters.getUserLoggedInStatus
+        }
     },
     methods:{
-        getPermissionBlockedVideo(){
-            // eslint-disable-next-line no-undef
-            let isSafari = navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0;
-            if(isSafari){
-                return require('./ISO_VIDEO.mp4').default
-            }else{
-                return require('./ANDROID_VIDEO.mp4').default
-            }
-        },
-        playVideo(){
-            let playPromise = this.$refs.permissionDialogVideo.play()
-            let self = this
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {}).catch(error => {
-                    self.$appInsights.trackException(error)
-                });
-            }
+        createTracks(){
+            let videoDevices = [];
+            let audioDevices = []
+            let self = this;
+            navigator.mediaDevices.enumerateDevices().then(devices=>{
+                devices.forEach(device=>{
+                    if(device.kind == 'audioinput'){
+                        audioDevices.push(device)
+                    }else{
+                        videoDevices.push(device)
+                    }
+                })
+                let params = {
+                    audio: audioDevices.length?{deviceId:self.getAudioDeviceId}:false,
+                    video: videoDevices.length?{deviceId:self.getVideoDeviceId}:false,
+                }
+
+                self.MIXIN_getMediaTrack(params)
+                    .then(stream=>{
+                        if(params.audio){
+                            let audioTrack = new MediaStream()
+                            audioTrack.addTrack(stream.getAudioTracks()[0])
+                            self.connectAudioTrack(audioTrack)
+                        }
+                        if(params.video){
+                            let videoTrack = new MediaStream()
+                            videoTrack.addTrack(stream.getVideoTracks()[0])
+                            self.connectVideoTrack(videoTrack)
+                        }
+                        return
+                    })
+                    .catch(err=>{
+                        if(err.code === 0) {
+                            self.mobilePermissionDialogState = true;
+                        }
+                        self.$store.dispatch('updateVideoDeviceId',null)
+                        self.cameraOn = false
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
+                    })
+            })
         },
         createVideoPreview(deviceId){
             let videoParams = {
@@ -157,15 +154,7 @@ export default {
             let self = this;
             this.MIXIN_getMediaTrack(videoParams)
                 .then(stream=>{
-                    self.MIXIN_addStream(self.streamsArray,stream)
-                    self.$refs.videoEl.srcObject = stream;
-                    self.cameraOn = true
-                    self.placeholder = true
-                    self.videoBlockPermission = false
-                    self.permissionDialogState = false
-                    deviceId = stream.getVideoTracks()[0].getSettings().deviceId
-                    self.$store.dispatch('updateVideoDeviceId',deviceId)
-                    self.$store.commit('settings_setIsVideo',true)
+                    self.connectVideoTrack(stream)
                     return
                 })
                 .catch(err=>{
@@ -175,20 +164,10 @@ export default {
                     }
                     self.$store.dispatch('updateVideoDeviceId',null)
                     self.cameraOn = false
+                    self.microphoneOn = false;
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
                 })
-                .finally(()=>{
-                    self.cameraInitLoader = false;
-                })
             self.cameraOn = false
-        },
-        getAudioDevices(){
-            let self = this;
-            navigator.mediaDevices.enumerateDevices()
-                .then(devices => {
-                    let audioDevice = devices.find(device => device.kind === 'audioinput' && device.label.toLowerCase().includes('default'));
-                    self.checkAudio(audioDevice.deviceId);
-                });
         },
         checkAudio(deviceId){
             let audioParams = {
@@ -198,9 +177,7 @@ export default {
             let self = this;
             this.MIXIN_getMediaTrack(audioParams)
                 .then((stream)=>{
-                    deviceId = stream.getAudioTracks()[0].getSettings().deviceId 
-                    self.microphoneOn = true
-                    self.validateMicrophone(deviceId);
+                    self.connectAudioTrack(stream)
                 })
                 .catch(err=>{
                     if(err.code === 0) {
@@ -222,39 +199,37 @@ export default {
             this.$store.commit('settings_setIsVideo',false)
             this.MIXIN_cleanStreams(this.streamsArray)
         },
-        toggleMic() {
-            if(this.audioBlockPermission) return
-
-            this.microphoneOn = !this.microphoneOn   
-            if(!this.microphoneOn) {
-                studyRoomAudioSettingService.stopAudioContext()
-                this.$store.dispatch('updateAudioDeviceId',null)
-                return
-            }else{
-                this.checkAudio() 
-            }
-
-        },
-        toggleCamera() {
-            if(this.videoBlockPermission) return
-
-            this.cameraOn = !this.cameraOn
-
-            if(!this.cameraOn) {
-                this.clearVideoTrack()
-                this.$store.dispatch('updateVideoDeviceId',null)
-                return
-            }else{
-                this.cameraInitLoader = true;
-                this.createVideoPreview(this.getVideoDeviceId)
-            }
-        },
         startPreview(){
-            this.createVideoPreview(this.getVideoDeviceId)
-            this.checkAudio(this.getAudioDeviceId) 
-        }
+            let isMobile = this.$vuetify.breakpoint.xsOnly;
+            if(isMobile){
+                this.createTracks()
+            }else{
+                this.createVideoPreview(this.getVideoDeviceId)
+                this.checkAudio(this.getAudioDeviceId) 
+            }
+        },
+        connectVideoTrack(videoTrack){
+            let deviceId;
+            this.MIXIN_addStream(this.streamsArray,videoTrack)
+            this.$refs.videoEl.srcObject = videoTrack;
+            this.cameraOn = true
+            this.placeholder = true
+            this.videoBlockPermission = false
+            this.permissionDialogState = false
+            deviceId = videoTrack.getVideoTracks()[0].getSettings().deviceId
+            this.$store.dispatch('updateVideoDeviceId',deviceId)
+            this.$store.commit('settings_setIsVideo',true)
+            return
+        },
+        connectAudioTrack(audioTrack){
+            let self = this;
+            let deviceId = audioTrack.getAudioTracks()[0].getSettings().deviceId 
+            self.microphoneOn = true
+            self.validateMicrophone(deviceId);
+        },
     },
     created(){
+        if(!this.isLoggedIn) return ;
         this.startPreview()
         navigator.mediaDevices.ondevicechange = this.startPreview;
     },
@@ -330,20 +305,6 @@ export default {
                     visibility: hidden;
                 }
             }
-            .videoIcon {
-                fill: #fff;
-            }
-            .centerIcons {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                button {
-                     background-color: rgba(0, 0, 0, 0.15) !important;
-                    &.noBorder {
-                        border: none !important;
-                    }
-                }
-            }
             .settingIcon {
                 position: absolute;
                 right: 0;
@@ -396,9 +357,6 @@ export default {
 .premissionDeniedDialog {
     background: #fff !important;
     border-radius: 8px;
-    .dialogPermissionVideo{
-        max-height: calc(~"100% - 46px");
-    }
     .mainTitle {
         color: @global-purple;
         font-weight: 600;

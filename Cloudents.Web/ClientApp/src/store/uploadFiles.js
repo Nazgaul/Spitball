@@ -15,7 +15,7 @@ const mutations = {
     },
     updateCourseToAll(state, course){
         state.fileData.forEach(file=>{
-            file.course = course.text;
+            file.course = course.text || course;
         });
     },
     updateFileByIndex(state, fileObj){
