@@ -24,6 +24,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Command.Admin;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Extension;
@@ -333,6 +334,16 @@ namespace Cloudents.Web.Api
             {
                 sessionId = result
             });
+        }
+
+
+        [HttpPost("becomeTutor"), Authorize]
+        public async Task<IActionResult> BecomeTutorAsync( CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new BecomeTutorCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

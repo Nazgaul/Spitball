@@ -1,17 +1,13 @@
-﻿using Cloudents.Command;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Courses;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,17 +22,13 @@ namespace Cloudents.Web.Api
     public class CourseController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
-        private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
 
-        public CourseController(IQueryBus queryBus, ICommandBus commandBus, UserManager<User> userManager,
-            SignInManager<User> signInManager)
+        public CourseController(IQueryBus queryBus,  UserManager<User> userManager
+            )
         {
             _queryBus = queryBus;
-            _commandBus = commandBus;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -45,7 +37,7 @@ namespace Cloudents.Web.Api
         /// <param name="request">params</param>
         /// <param name="token"></param>
         /// <returns>list of courses filter by input</returns>
-        [Route("search")]
+        [HttpGet("search")]
         [AllowAnonymous]
 
         public async Task<CoursesResponse> GetAsync(
