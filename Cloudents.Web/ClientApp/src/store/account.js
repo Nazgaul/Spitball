@@ -1,9 +1,7 @@
 import axios from 'axios'
-
 import analyticsService from '../services/analytics.service';
 import intercomeService from '../services/intercomService';
 import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
-import insightService from '../services/insightService';
 import { dollarCalculate } from "./constants";
 
 const accountInstance = axios.create({
@@ -17,7 +15,6 @@ const state = {
 };
 
 const getters = {
-    //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
     getIsTeacher: (state, _getters) => _getters.getUserLoggedInStatus && state.user?.isTutor,
     usersReffered: state => state.usersReferred,
@@ -26,7 +23,6 @@ const getters = {
     getUserBalance: state =>  state.user?.balance.toFixed(0) || 0,
     getIsSold: state => state.user?.isSold,
     getIsTutorSubscription: state => state.user?.subscription,
-    // getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.user?.id === _getters.getProfile?.user.id),
     getAccountId: state => state.user?.id,
     getAccountFirstName: state => state.user?.firstName,
     getAccountLastName: state => state.user?.lastName,
@@ -77,10 +73,15 @@ const mutations = {
         
         state.user = user
     },
-    setStudentInfo(state, studentInfo) {
-        state.user.name = `${studentInfo.firstName} ${studentInfo.lastName}`
-        state.user.firstName = studentInfo.firstName
-        state.user.lastName = studentInfo.lastName
+    setAccountStudentInfo(state, { firstName, lastName }) {
+        state.user.name = `${firstName} ${lastName}`
+        state.user.firstName = firstName
+        state.user.lastName = lastName
+    },
+    setAccountTutorInfo(state, { firstName, lastName }) {
+        state.user.name = `${firstName} ${lastName}`
+        state.user.firstName = firstName
+        state.user.lastName = lastName
     }
 };
 
@@ -97,7 +98,7 @@ const actions = {
     
                 analyticsService.sb_setUserId(userAccount.id);
                 intercomeService.startService(userAccount);
-                insightService.authenticate.set(userAccount.id);
+                global.appInsights.setAuthenticatedUserContext(`${userAccount.id}`);
                 //dispatch("getAllConversations");
                 commit('updateTotalUnread',userAccount.chatUnread || 0)
                 commit("changeLoginStatus", true);
@@ -142,8 +143,23 @@ const actions = {
             commit('setComponent', '')
         })
     },
-    saveUserInfo(context, params) {
-        return accountInstance.post('/settings', params)
+    saveUserInfo({getters, commit}, params) {
+       let passData =  {
+           firstName: params.firstName,
+           lastName: params.lastName,
+           title: params.title,
+           shortParagraph: params.shortParagraph,
+           paragraph: params.bio
+       }
+        return accountInstance.post('/settings', passData).then(() => {
+            if(getters.getIsTeacher) {
+                commit('setProfileTutorInfo', params)
+                commit('setAccountTutorInfo', params)
+                return
+            }
+            commit('setAccountStudentInfo', params)
+            return
+        })
     },
     updateUserStats(context, days) {
         return accountInstance.get('/stats', { params: { days } }).then(({data}) => {

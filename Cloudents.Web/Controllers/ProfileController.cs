@@ -69,7 +69,7 @@ namespace Cloudents.Web.Controllers
             //}
 
             ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
-            ViewBag.metaDescription = _localizer["Description", retVal.Description];
+            ViewBag.metaDescription = _localizer["Description", retVal.Title];
             if (retVal.Image != null)
             {
                 Country country = retVal.TutorCountry ?? Country.UnitedStates;
@@ -83,7 +83,7 @@ namespace Cloudents.Web.Controllers
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
                 ViewBag.ogTitle = retVal.Name;
-                ViewBag.ogDescription = retVal.Description;
+                ViewBag.ogDescription = retVal.Title;
 
 
             }

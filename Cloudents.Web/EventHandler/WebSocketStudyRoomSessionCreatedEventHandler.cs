@@ -23,10 +23,10 @@ namespace Cloudents.Web.EventHandler
             _videoProvider = videoProvider;
         }
 
-        public async Task HandleAsync(StudyRoomSessionCreatedEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(StudyRoomSessionCreatedEvent eventMessage, CancellationToken token)
         {
             var studyRoomSession = eventMessage.StudyRoomSession;
-            await DoProcessAsync(studyRoomSession, token);
+            return DoProcessAsync(studyRoomSession, token);
         }
 
         private Task DoProcessAsync(StudyRoomSession studyRoomSession, CancellationToken token)

@@ -8,7 +8,6 @@ import Account from "./account";
 import Toaster from "./Toaster";
 import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
-import University from "./university";
 import mobileFooter from './mobileFooter';
 import chatStore from './chatStore';
 import userOnlineStatus from './userOnlineStatus';
@@ -81,7 +80,6 @@ const store = new Vuex.Store({
         Question,
         Toaster,
         newQuestionDialog,
-        University,
         uploadFiles,
        // feed,
         document,

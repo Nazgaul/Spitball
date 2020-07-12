@@ -190,12 +190,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, 0, 20, null, null)]
-        [InlineData(638, 0, 20, DocumentType.Document, null)]
-        [InlineData(638, 0, 20, null, "Temp")]
-        public async Task UserDocumentsQueryHandler_Ok(long userId, int page, int pageSize, DocumentType? documentType, string course)
+        [InlineData(638)]
+
+        public async Task UserDocumentsQueryHandler_Ok(long userId)
         {
-            var query = new UserDocumentsQuery(userId, page, pageSize, documentType, course,0);
+            var query = new UserDocumentsQuery(userId, 0);
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -263,6 +262,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(0)]
         [InlineData(638)]
         [InlineData(160634)]
+        [InlineData(161777)]
         public async Task UserProfileTutorQuery_Ok(long userId)
         {
             var id = await fixture.StatelessSession.Query<Tutor>()

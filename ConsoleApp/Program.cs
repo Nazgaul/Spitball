@@ -10,11 +10,13 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,6 +32,8 @@ using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
+using Skarp.HubSpotClient.Contact;
+using Skarp.HubSpotClient.Contact.Dto;
 
 
 namespace ConsoleApp
@@ -97,7 +101,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -113,7 +117,6 @@ namespace ConsoleApp
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
-
 
 
             Container = builder.Build();
@@ -144,29 +147,69 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            await Dbi();
-            //ResourcesMaintenance.DeleteStuffFromJs();
-
-           // await t.InsertBlobReprocessAsync(51657);
-            //await Dbi();
+            var sw = new Stopwatch();
+          
+            Console.WriteLine(TimeSpan.FromTicks(sw.ElapsedTicks).TotalMinutes);
+           
         }
+
+
+        //private static async Task HubSportAsync()
+        //{
+        //    var session = Container.Resolve<IStatelessSession>();
+
+        //    var phoneNumber = await session.Query<User>().Where(w => w.Email == "jaron@spitball.co").Select(s => s.Id)
+        //        .SingleOrDefaultAsync();
+
+        //    //https://api.hubapi.com/contacts/v1/contact/email/jaron@spitball.co/profile?hapikey=57453297-0104-4d83-8a3c-e58588c15a90
+        //    var api = new HubSpotContactClient("57453297-0104-4d83-8a3c-e58588c15a90");
+            
+        //    var contact = await api.GetByEmailAsync<HubSpotExtra>("jaron@spitball.co");
+            
+        //    //contact.Phone = phoneNumber;
+
+        //    //await api.UpdateAsync(contact);
+           
+        //}
+
+     
 
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
+            long i = 0;
 
-            List<PrivateStudyRoom> users;
+            List<Tutor> users;
             do
             {
-                users = await session.Query<PrivateStudyRoom>()
-                    .Where(w => w.TopologyType == StudyRoomTopologyType.PeerToPeer)
+                users = await session.Query<Tutor>()
+                    .Fetch(f => f.User)
+                    .Where(w => w.Id  > i)
                     .Take(100).ToListAsync();
 
                 foreach (var user in users)
                 {
+                    i = user.Id;
                     using var uow = Container.Resolve<IUnitOfWork>();
-                    user.ChangeTopologyDbi();
-                  
+
+                    var title = user.Title;
+                    var p2 = user.Paragraph2;
+                    var p3 = user.Paragraph3;
+
+                    if (p2?.Length > 80)
+                    {
+                        p3 = p2;
+                        p2 = null;
+                    }
+
+                    if (title?.Length > 25)
+                    {
+                        p3 = p2;
+                        p2 = title;
+                        title = null;
+                    }
+
+                    user.UpdateSettings(p2, title, p3);
                     await uow.CommitAsync();
 
                     Console.WriteLine("no");

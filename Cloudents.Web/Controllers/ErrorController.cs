@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Microsoft.ApplicationInsights;
 
@@ -18,13 +19,13 @@ namespace Cloudents.Web.Controllers
         }
 
         [ActionName("NotFound")]
-        public ActionResult Error404(
+        public ActionResult Error404([FromQuery]string? track,
             [FromHeader(Name = "referer")] string referer)
         {
-            _telemetryClient.TrackTrace("Reaching 404 page", new Dictionary<string, string>()
-            {
-                ["referer"] = referer,
-            });
+            var allHeaders = Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString());
+            allHeaders.Add("s-referer",referer);
+            allHeaders.Add("track",track);
+            _telemetryClient.TrackTrace("Reaching 404 page", allHeaders);
             Response.StatusCode = 404;
             return View("NotFound");
         }
@@ -54,7 +55,10 @@ namespace Cloudents.Web.Controllers
             switch (statusCode)
             {
                 case HttpStatusCode.NotFound:
-                    return RedirectToAction("NotFound");
+                    return RedirectToAction("NotFound",new
+                    {
+                        track = System.Diagnostics.Activity.Current.RootId
+                    });
 
                 case HttpStatusCode.Unauthorized:
                     return Redirect("/");

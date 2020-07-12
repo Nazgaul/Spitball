@@ -82,7 +82,7 @@ namespace Cloudents.Core.DTOs
     {
         public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
             string conversationId, DateTime? lastSession, StudyRoomType type,
-            DateTime? scheduled, IEnumerable<string> userNames, Money money)
+            DateTime? scheduled, IEnumerable<string> userNames, Money money,long tutorId, string tutorName)
         {
             Name = name;
             Id = id;
@@ -93,6 +93,8 @@ namespace Cloudents.Core.DTOs
             Scheduled = scheduled;
             UserNames = userNames;
             Price = money;
+            TutorId = tutorId;
+            TutorName = tutorName;
 
         }
 
@@ -113,6 +115,9 @@ namespace Cloudents.Core.DTOs
 
         public IEnumerable<string> UserNames { get; set; }
         public Money Price { get; }
+
+        public long TutorId { get; set; }
+        public string TutorName { get; set; }
 
     }
 

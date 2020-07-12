@@ -2,14 +2,7 @@
    <div class="studyRoomMobile">
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
          <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
-            <span class="tutorName">{{roomTutorName}}</span>
-            <div class="videoLiner">
-               <v-btn icon @click="toggleAudio" sel="audio_enabling"
-               :class="['micControl','drawerControlsBtn',{'btnIgnore':!isAudioActive},'mb-2']" >
-                  <v-icon v-if="isAudioActive" size="30" color="white">sbf-microphone</v-icon>
-                  <v-icon v-else size="30" color="white">sbf-mic-ignore</v-icon>
-               </v-btn>
-            </div>
+            <mobileControllers/>
          </div>
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
@@ -29,78 +22,31 @@
             <chat></chat>
          </v-sheet>
       </div>
-      <!-- hotfix for mobile audios -->
-      <div v-show="false" v-if="roomParticipants">
-         <div v-for="participant in roomParticipants" :key="Object.values(participant)[0].id">
-            <userPreview :participant="Object.values(participant)[0]" class="classRoomCards mx-1"/>
-         </div>
-      </div>
    </div>
 </template>
 
 <script>
-
+import mobileControllers from './layouts/mobileControllers/mobileControllers.vue';
 import chat from '../chat/components/messages.vue';
 import { mapGetters } from 'vuex';
-import userPreview from './layouts/userPreview/userPreview.vue';
 export default {
    components:{
       chat,
-      userPreview
+      mobileControllers
    },
    data() {
       return {
-         tutorAudio:null,
          tutorVideo:null,
          elementId:'studyRoomMobileVideo'
       }
    },
    computed: {
       ...mapGetters(['getRoomTutorParticipant']),
-      tutorAudioTrack(){
-         return this.getRoomTutorParticipant?.audio;
-      },
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
       },
-      roomTutorName(){
-         return this.$store.getters.getRoomTutor.tutorName;
-      },
-      roomParticipants(){
-         if(this.$store.getters.getRoomParticipants){
-            let participants = Object.entries(this.$store.getters.getRoomParticipants).map((e) => ( { [e[0]]: e[1] } ));
-           return participants
-         }else{
-            return null
-         }
-      },
-      isAudioActive() {
-         return this.$store.getters.getIsAudioActive;
-      },
    },
    watch: {
-      tutorAudioTrack:{
-         immediate:true,
-         deep:true,
-         handler(track){
-            if(track){
-               let self = this;
-               this.$nextTick(()=>{
-                  self.tutorAudio = track;
-                  const localMediaContainer = document.getElementById(self.elementId);
-                  if(localMediaContainer){
-                     let audioTag = localMediaContainer.querySelector("audio");
-                     if (audioTag) {localMediaContainer.removeChild(audioTag)}
-                     localMediaContainer.appendChild(track.attach());
-                     return
-                  }
-               })
-            }
-            if(this.tutorAudio && !track){
-               this.tutorAudio = null;
-            }
-         }
-      },
       tutorVideoTrack:{
          immediate:true,
          deep:true,
@@ -124,12 +70,6 @@ export default {
          }
       },
    },
-   methods: {
-      toggleAudio() {
-         this.$ga.event("tutoringRoom", "toggleAudio");
-         this.$store.dispatch("updateAudioToggle");
-      },
-   },
 }
 </script>
 
@@ -148,56 +88,22 @@ export default {
                   background: #bdc0d1 !important;
                   border-radius: 4px !important;
             }
-            height: ~"calc(100vh - 8px)";
+            height: 100vh;
+            //height: -webkit-fill-available; //safari
+            //position: fixed;
+            //left: 0;
+            //right: 0;
+            //top: 0;
+            //bottom: 0;
+            //height: ~"calc(100vh - 8px)";
             @media (max-width: @screen-xs) {
-               height: ~"calc(100vh - 56px)";
+               //height: ~"calc(100vh - 56px)";
             }
          #studyRoomMobileVideo{
             width: 100%;
             min-height: 280px;
             background: black;
             position: relative;
-            .tutorName{
-               position: absolute;
-               font-size: 14px;
-               font-weight: 600;
-               color: #ffffff;
-               top: 6px;
-               left: 8px;
-               z-index: 1;
-            }
-            .videoLiner{
-
-               @media (max-width: @screen-sm) and (orientation: landscape) {
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  width: 100vw;
-                  height: 100vh;
-               }
-
-               position: absolute;
-               width: 100%;
-               height: 100%;
-               background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
-               display: flex;
-               align-items: flex-end;
-               justify-content: center;
-
-               .micControl{
-                  z-index: 1;
-                  &.drawerControlsBtn{
-                  width: 60px;
-                  height: 60px;
-                  background-color: rgba(0, 0, 0, 0.589);
-                  border-radius: 50%;
-                     &.btnIgnore{
-                        background-color: rgba(255, 0, 0, 0.589);
-                     }
-                  }
-               }
-            }
             video {
                width: 100%;
                height: 100%;
@@ -248,10 +154,10 @@ export default {
             }
             .messages-body{
                padding-bottom: 0;
-               margin-bottom: 0;
+               margin-bottom: 14px + 50px;
                .message_wrap{
                   &:last-child{
-                     margin-bottom: 14px;
+                     margin-bottom: 0; //override
                   }
                }
             }
@@ -282,6 +188,14 @@ export default {
                      }
                   } 
                } 
+
+
+               @media (max-width: @screen-sm) and (orientation: portrait) {
+                     position: fixed;
+                     bottom: 0;
+                     left: 0;
+                     right: 0;
+               }
 
             }
          }

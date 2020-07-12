@@ -40,7 +40,7 @@ namespace Cloudents.Query.StudyRooms
             {
                 var roundTo = TimeSpan.FromMinutes(15);
                 return _session.Query<BroadCastStudyRoom>()
-                     .Where(w => w.BroadcastTime >= now.RoundDown(roundTo) && w.BroadcastTime <= now.RoundUp(roundTo))
+                     .Where(w => w.BroadcastTime >= now.RoundDown(roundTo) && w.BroadcastTime < now.RoundUp(roundTo))
                      .SelectMany(s => s.Users, (s, u) => new { s, u })
                      .Select(s => new LiveClassesReminderDto()
                      {

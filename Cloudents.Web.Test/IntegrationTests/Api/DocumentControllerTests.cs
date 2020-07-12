@@ -149,7 +149,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(url);
 
             var p = response.Headers.Location;
-            p.Should().Be("/Error/NotFound");
+            p.ToString().Should().StartWith("/Error/NotFound");
+            //p.LocalPath.Should().Be("/Error/NotFound");
             //Assert.EndsWith("error/notfound", p.AbsolutePath);
         }
 

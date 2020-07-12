@@ -303,8 +303,8 @@ export default {
             let emailObj = { email: this.newEmail, userId: this.userIdentifier };
             this.updateUserEmail(emailObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user email`);
-            }).catch(() => {
-                this.$toaster.error(`ERROR: update user email`);
+            }).catch((e) => {
+                this.$toaster.error(`ERROR: update user email ${e.response.data}`);
             })
             .finally(() => {
                 this.newEmail = '';
