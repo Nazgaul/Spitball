@@ -29,7 +29,6 @@
 import message from "./messageComponents/message.vue"
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
 import {mapGetters, mapActions} from 'vuex';
-import chatService from '../../../services/chatService.js';
 export default {
     components:{
         message,
@@ -54,34 +53,7 @@ export default {
             if(this.getMessages?.length){
                 return this.getMessages;
             }else{
-                let emptyStateMessages = [];
-                let currentActiveConversation = this.$store.getters?.getActiveConversationObj;
-                if(this.$store.getters.getActiveConversationTutor?.id == this.$store.getters.accountUser?.id){
-                    return [];
-                }
-                let messageObject = chatService.createMessage({
-                        dateTime: null,
-                        fromSignalR: false,
-                        name: currentActiveConversation.name,
-                        text: `${this.$t('chat_emptyState_message1')} ${currentActiveConversation.name}`,
-                        type: "text",
-                        isDummy: true,
-                        userId: currentActiveConversation.userId
-                    }, currentActiveConversation.conversationId);
-
-                emptyStateMessages.push(messageObject)
-
-                messageObject = chatService.createMessage({
-                    dateTime: null,
-                    fromSignalR: false,
-                    name: currentActiveConversation.name,
-                    text: `${this.$t('chat_emptyState_message2')}`,
-                    type: "text",
-                    isDummy: true,
-                    userId: currentActiveConversation.userId
-                }, currentActiveConversation.conversationId);
-                emptyStateMessages.push(messageObject)
-                return emptyStateMessages
+                return [];
             }
         },
         typing() {
