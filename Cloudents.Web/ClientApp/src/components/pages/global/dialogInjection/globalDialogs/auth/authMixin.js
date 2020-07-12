@@ -75,7 +75,14 @@ export default {
         },
         gmailRegister() {
             let userType = this.teacher ? 'tutor' : 'student'
-            //TODO need to add return url
+            if(this.isFromTutorReuqest) {
+                sessionStorage.setItem('hash','#tutorRequest');
+                sessionStorage.setItem('tutorRequest', JSON.stringify({
+                    text: this.$store.getters.getCourseDescription ,
+                    course: this.$store.getters.getSelectedCourse?.text || this.$store.getters.getSelectedCourse, 
+                    tutorId: this.$store.getters.getCurrTutor?.userId 
+                }))
+            }
             window.location.assign(`/External/Google?usertype=${userType}&returnUrl=${encodeURIComponent(window.location.pathname+window.location.search)}`);
         },
         verifyPhone(smsCode){
