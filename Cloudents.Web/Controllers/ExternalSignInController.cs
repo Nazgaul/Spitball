@@ -45,7 +45,8 @@ namespace Cloudents.Web.Controllers
 
             });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
-            
+            properties.SetParameter("access_type","offline");
+            properties.SetParameter("prompt","select_account");
             return new ChallengeResult("Google", properties);
             //return Ok("Hi Man");
         }
