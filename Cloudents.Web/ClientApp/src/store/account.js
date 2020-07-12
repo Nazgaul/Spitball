@@ -136,9 +136,11 @@ const actions = {
             console.error(ex);
         })
     },
-    becomeTutor({ state }) {
+    becomeTutor({ state, commit }) {
         let params = { id: state.user.id }
-        return accountInstance.post('/becomeTutor', params)
+        return accountInstance.post('/becomeTutor', params).finally(() => {
+            commit('setComponent', '')
+        })
     },
     saveUserInfo(context, params) {
         return accountInstance.post('/settings', params)

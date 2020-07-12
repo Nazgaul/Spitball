@@ -12,7 +12,7 @@
                 </v-btn>
             </v-layout>
             <v-layout class="px-3" v-if="allowedToBecomeTutor">
-                <v-btn depressed color="blue" @click="becomeTutor">
+                <v-btn depressed color="blue" @click="$store.dispatch('becomeTutor')">
                     <span class="white--text" v-t="'become tutor'"></span>
                 </v-btn>
             </v-layout>
@@ -111,7 +111,7 @@ export default {
     },
     computed: {
         allowedToBecomeTutor() {
-            return global.country !== "IL"
+            return global.country === "US"
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
@@ -148,9 +148,6 @@ export default {
                     this.$store.commit('setComponent', '')
                 })
             }
-        },
-        becomeTutor() {
-            this.$store.dispatch('becomeTutor')
         }
     }
 }
