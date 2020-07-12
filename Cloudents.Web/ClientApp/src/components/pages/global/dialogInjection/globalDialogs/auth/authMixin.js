@@ -1,6 +1,7 @@
 import registrationService from '../../../../../../services/registrationService2';
 import analyticsService from '../../../../../../services/analytics.service.js';
 import * as routeNames from '../../../../../../routes/routeNames'
+import isWebView from  "is-ua-webview";
 export default {
     props: {
         teacher: {
@@ -26,6 +27,10 @@ export default {
     computed: {
         isStudyRoomRoute() {
             return this.$route.name === this.studyroomRoute
+        },
+        cIsWebView() {  
+            const retVal = isWebView(navigator.userAgent);
+            return !retVal;
         },
         isVerifyPhone() {
             return this.component === 'verifyPhone'

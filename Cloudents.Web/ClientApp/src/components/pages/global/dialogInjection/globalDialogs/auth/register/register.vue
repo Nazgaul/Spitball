@@ -7,8 +7,9 @@
                 </div>
 
                 <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
-
+<template v-if="cIsWebView">
                 <v-btn 
+                    
                     @click="gmailRegister"
                     depressed
                     block
@@ -26,6 +27,7 @@
                     <div class="or" v-t="'loginRegister_or'"></div>
                     <div class="divider"></div>
                 </div>
+                </template>
 
                 <component 
                     :is="component"
@@ -84,6 +86,7 @@ import registrationService from '../../../../../../../services/registrationServi
 import analyticsService from '../../../../../../../services/analytics.service.js';
 import authMixin from '../authMixin'
 import VueRecaptcha from "vue-recaptcha";
+
 const emailRegister = () => import('./emailRegister.vue');
 
 import gIcon from '../images/g-icon.svg'
@@ -98,6 +101,7 @@ export default {
     props: {
         params: {},
     },
+  
     data() {
         return {
             component: 'emailRegister',

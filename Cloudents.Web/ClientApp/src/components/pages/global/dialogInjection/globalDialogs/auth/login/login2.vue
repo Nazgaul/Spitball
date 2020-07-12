@@ -8,6 +8,7 @@
             <div class="loginTitle text-center mb-8"  v-t="'loginRegister_setemail_title'"></div>
 
             <v-btn
+                v-if="cIsWebView"
                 @click="gmailRegister"
                 class="btns google white--text mb-6"
                 sel="gmail"
