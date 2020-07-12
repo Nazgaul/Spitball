@@ -55,7 +55,7 @@
                         <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
-                                    @click="$router.push({name: studyroomRoute, params: { id: session.id } })"
+                                    @click="enterRoomById(session.id)"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -140,7 +140,6 @@ export default {
     },
     data() {
         return {
-            studyroomRoute: StudyRoom,
             defOpen:false,
             showSnack: false,
             color: '',
@@ -212,6 +211,13 @@ export default {
         },
     },
     methods: {
+        enterRoomById(id){
+            let routeData = this.$router.resolve({
+                name: StudyRoom,
+                params: { id }
+            });
+            global.open(routeData.href, "_self");
+        },
         enrollSession(studyRoomId) {
             if(!this.isLogged) {
                 this.$store.commit('setComponent', 'register')
