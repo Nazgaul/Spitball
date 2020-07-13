@@ -236,21 +236,26 @@ export default {
                 studyRoomId
             }
             let self = this
-            let x = await this.$store.dispatch('updateStudyroomLiveSessions', session);
-            this.$refs.stripe.redirectToStripe(x);
+            if (/*Need to check price is not free and tutor profile is not IL*/ true) 
+            {
+                let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
+                this.$refs.stripe.redirectToStripe(x);
+                return;
+            }
+           
 
-            // this.$store.dispatch('updateStudyroomLiveSessions', session)
-            //     .then(() => {
-            //         self.toasterText = this.$t('profile_enroll_success')
-            //         let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
-            //         currentSession.enrolled = true
-            //     }).catch(ex => {
-            //         self.color = 'error'
-            //         self.toasterText = this.$t('profile_enroll_error')
-            //         self.$appInsights.trackException(ex);
-            //     }).finally(() => {
-            //         self.showSnack = true
-            //     })
+            this.$store.dispatch('updateStudyroomLiveSessions', session)
+                .then(() => {
+                    self.toasterText = this.$t('profile_enroll_success')
+                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
+                    currentSession.enrolled = true
+                }).catch(ex => {
+                    self.color = 'error'
+                    self.toasterText = this.$t('profile_enroll_error')
+                    self.$appInsights.trackException(ex);
+                }).finally(() => {
+                    self.showSnack = true
+                })
         }
     },
     filters: {
