@@ -185,6 +185,7 @@ export default {
          }
          if(!participant.video && this.videoTrack){
             this.videoTrack = null;
+            this.isExpandVideoMode = false;
          }
       },
       toggleExpandScreen(){
