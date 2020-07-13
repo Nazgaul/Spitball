@@ -78,12 +78,11 @@
 
 
         <v-snackbar
-            absolute
             top
             :timeout="4000"
             :value="verifyEmailState"
         >
-            <div class="text-wrap" v-t="'dashboardTeacher_email_verify'"></div>
+            <div class="text-center" v-t="'dashboardTeacher_email_verify'"></div>
         </v-snackbar>
     </div>
 </template>

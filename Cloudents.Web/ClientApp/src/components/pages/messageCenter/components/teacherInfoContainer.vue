@@ -198,6 +198,7 @@ export default {
                }
             }
             .list{
+               background: none;
                padding: 0;
                overflow-y: auto;
                .dividerList{

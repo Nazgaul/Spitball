@@ -293,6 +293,10 @@
             height: 40px !important; //vuetify
             margin: 0 8px;
             font-weight: 600;
+            @media (max-width: @screen-xs) {
+                // keep the button next to each other on every breakpoint
+                min-width: 42% !important;
+            }
             &.review_btn-back {
                 color: #4452fc;
             }

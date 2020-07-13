@@ -323,7 +323,9 @@ const actions = {
             name: params.name,
             price: params.price,
             conversationId: data.identifier,
-            lastSession: params.date || new Date().toISOString()
+            lastSession: params.date || new Date().toISOString(),
+            tutorId: getters.getAccountId,
+            tutorName: getters.getAccountName
          }
          let myStudyRooms = getters.getStudyRoomItems;
          myStudyRooms.unshift(newStudyRoomParams);
