@@ -2,7 +2,7 @@
    <v-flex xs12 sm6 md4 lg3 class="conversationsContainer">
       <div class="conversationsHeader d-flex align-center flex-grow-0 flex-shrink-0">
          <span class="cHeaderTitle">
-            <v-icon class="mr-2" size="20">sbf-message-icon</v-icon>
+            <v-icon class="me-2" size="20">sbf-message-icon</v-icon>
             {{$t("chat_messages")}}
          </span>
       </div>
@@ -17,7 +17,7 @@
             ></v-text-field>
          </v-flex>
          <div class="d-flex justify-space-between flex-grow-1">            
-            <v-flex class="flex-grow-1" :class="[{'pr-3':isTutor}]">
+            <v-flex class="flex-grow-1" :class="[{'pe-3':isTutor}]">
                <v-select class="filterSelect ma-0"
                   :append-icon="'sbf-arrow-fill'" 
                   :items="[{name: $t('chat_show_all'),value:true},{name:$t('chat_show_unread'),value:false}]"
@@ -26,8 +26,8 @@
                   flat hide-details height="38" dense rounded/>
             </v-flex>
             <v-flex v-if="isTutor" class="flex-grow-0 flex-shrink-0">
-               <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn pl-2 pr-3" height="40" color="#4452fc" rounded outlined>
-                  <v-icon class="pr-1" size="16">sbf-plus-regular</v-icon>
+               <v-btn @click="updateCreateGroupDialogState(true)" class="createBtn ps-2 pe-3" height="40" color="#4452fc" rounded outlined>
+                  <v-icon class="pe-1" size="16">sbf-plus-regular</v-icon>
                   <span>{{$t('chat_create')}}</span>
                </v-btn>
             </v-flex>
