@@ -1,12 +1,13 @@
 <template>
     <v-snackbar
-        absolute
         top
         @input="onCloseToaster"
         :timeout="params.timeout || 3000"
         :value="true"
     >
+    <div class="text-center">
        {{params.text}}
+    </div>
     </v-snackbar>
 </template>
 

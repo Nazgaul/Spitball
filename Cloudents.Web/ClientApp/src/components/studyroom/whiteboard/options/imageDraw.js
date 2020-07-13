@@ -5,6 +5,7 @@ import {
 import whiteBoardService from '../whiteBoardService';
 import canvasFinder from '../utils/canvasFinder';
 import store from '../../../../store/index';
+import * as componentConsts from '../../../pages/global/toasterInjection/componentConsts.js';
 
 const optionType = 'imageDraw';
 
@@ -120,22 +121,14 @@ const handleImage = function (e,isDragged) {
             // self.methods.addShape(localShape, clearLocalShape);
         };
         img.onerror = function () {
-            store.dispatch('updateToasterParams', {
-                toasterText: this.$t("upload_multiple_error_extension_title"),
-                showToaster: true,
-                toasterType: 'error-toaster'
-            });
             store.dispatch("updateImgLoader", false);
+            store.commit('addComponent',componentConsts.FILE_NOT_SUPPORTED)
         }
 
         img.src = url;
     },()=>{
         store.dispatch("updateImgLoader", false);
-        store.dispatch('updateToasterParams', {
-            toasterText: this.$t("upload_multiple_error_extension_title"),
-            showToaster: true,
-            toasterType: 'error-toaster'
-        });
+        store.commit('addComponent',componentConsts.FILE_NOT_SUPPORTED)
     });
     //reset the element to allow same image to be uploaded
     e.target.value = "";

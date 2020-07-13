@@ -109,14 +109,13 @@
         </div>
 
         <v-snackbar
-            absolute
             top
             :timeout="5000"
             :color="color"
             @input="showSnack = false"
             :value="showSnack"
         >
-            <div class="text-wrap white--text">{{toasterText}}</div>
+            <div class="text-center white--text">{{toasterText}}</div>
         </v-snackbar>
     </div>
 </template>
