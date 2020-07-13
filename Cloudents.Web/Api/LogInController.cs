@@ -10,7 +10,6 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
@@ -19,11 +18,11 @@ namespace Cloudents.Web.Api
     public class LogInController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly SbSignInManager _signInManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<User> userManager, SbSignInManager signInManager,
+        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager,
             IStringLocalizer<LogInController> localizer, ICommandBus commandBus)
         {
             _userManager = userManager;

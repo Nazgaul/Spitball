@@ -32,6 +32,7 @@ namespace Cloudents.Core.Entities
             LastName = lastName;
             Language = language;
             Created = DateTime.UtcNow;
+            FinishRegistrationDate = DateTime.UtcNow;
             Country = country;
             SbCountry = Entities.Country.FromCountry(country);
             UserLogins = new List<UserLogin>();
@@ -406,11 +407,11 @@ namespace Cloudents.Core.Entities
             MakeTransaction(new ReferUserTransaction(user, price));
         }
 
-        public virtual void FinishRegistration()
-        {
-            FinishRegistrationDate = DateTime.UtcNow;
-            //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
-        }
+        //public virtual void FinishRegistration()
+        //{
+        //    FinishRegistrationDate = DateTime.UtcNow;
+        //    //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+        //}
 
         public virtual void ConfirmPhoneNumber()
         {
