@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs
@@ -8,10 +7,10 @@ namespace Cloudents.Core.DTOs
     {
         public long UserId { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public DateTime Created { get; set; }
         public string Email { get; set; }
-        public string? PhoneNumber { get; set; }
+       // public string? PhoneNumber { get; set; }
 
         public bool HasCreditCard { get; set; }
     }

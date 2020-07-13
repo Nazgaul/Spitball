@@ -10,11 +10,13 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,6 +32,8 @@ using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
+using Skarp.HubSpotClient.Contact;
+using Skarp.HubSpotClient.Contact.Dto;
 
 
 namespace ConsoleApp
@@ -97,7 +101,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -113,7 +117,6 @@ namespace ConsoleApp
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
-
 
 
             Container = builder.Build();
@@ -144,12 +147,32 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            
-            ResourcesMaintenance.DeleteStuffFromJs();
-
-           // await t.InsertBlobReprocessAsync(51657);
-            //await Dbi();
+            var sw = new Stopwatch();
+          
+            Console.WriteLine(TimeSpan.FromTicks(sw.ElapsedTicks).TotalMinutes);
+           
         }
+
+
+        //private static async Task HubSportAsync()
+        //{
+        //    var session = Container.Resolve<IStatelessSession>();
+
+        //    var phoneNumber = await session.Query<User>().Where(w => w.Email == "jaron@spitball.co").Select(s => s.Id)
+        //        .SingleOrDefaultAsync();
+
+        //    //https://api.hubapi.com/contacts/v1/contact/email/jaron@spitball.co/profile?hapikey=57453297-0104-4d83-8a3c-e58588c15a90
+        //    var api = new HubSpotContactClient("57453297-0104-4d83-8a3c-e58588c15a90");
+            
+        //    var contact = await api.GetByEmailAsync<HubSpotExtra>("jaron@spitball.co");
+            
+        //    //contact.Phone = phoneNumber;
+
+        //    //await api.UpdateAsync(contact);
+           
+        //}
+
+     
 
         private static async Task Dbi()
         {

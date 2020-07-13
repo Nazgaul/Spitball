@@ -86,10 +86,13 @@ export default {
 
 <style lang="less">
 .myMessageContainer{
-   border-radius: 8px 8px 0 8px;
+   &.v-card {
+      // overide vuetify new border radius on v-card 
+      border-radius: 8px 8px 0 8px !important;
+   }
    max-width: 70%;
    width: fit-content;
-   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25) !important;
    margin-right: unset;
    margin-left: auto;
    .messageTitle{

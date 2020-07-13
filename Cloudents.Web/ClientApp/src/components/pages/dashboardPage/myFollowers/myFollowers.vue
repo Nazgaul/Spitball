@@ -1,54 +1,46 @@
 <template>
 <div class="myFollowers">
-   <!-- <div class="myFollowers_title">{{$t('dashboardPage_my_followers_title')}}</div> -->
    <v-data-table 
+   v-model="selected"
    calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
          :items="followersItems"
          :items-per-page="20"
          sort-by
+          :search="search"
          :item-key="'date'"
          class="elevation-1"
+         show-select
          :footer-props="{
             showFirstLastPage: false,
             firstIcon: '',
             lastIcon: '',
-            prevIcon: 'sbf-arrow-left-carousel',
-            nextIcon: 'sbf-arrow-right-carousel',
             itemsPerPageOptions: [20]
          }">
-      <!-- <template v-slot:header="{props}">
-         <thead>
-            <tr>
-               <th class="text-xs-left"
-                  v-for="header in props.headers"
-                  :key="header.value"
-                  :class="['column',{'sortable':header.sortable}]"
-                  @click="changeSort(header.value)">
-                  <span class="text-xs-left">{{ header.text }}
-                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                  </span>
-               </th>
-            </tr>
-         </thead>
-      </template> -->
-       <!-- <tablePreviewTd :item="props.item"/> -->
-                 <!-- <v-avatar :tile="true" tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(props.item.name)" 
-                 :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
-                     <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
-               </v-avatar> -->
          <template v-slot:top >
+            <div class="d-flex pa-2">
             <div class="myFollowers_title">
                   {{$t('dashboardPage_my_followers_title')}}
                   </div>
+            <v-spacer></v-spacer>
+             <v-text-field
+               v-model="search"
+               :label="$t('search_search_btn')"
+               outlined 
+               dense
+               ></v-text-field>
+               
+               <v-btn class="mx-1 white--text"
+                
+                        depressed
+                        rounded
+                        :block="$vuetify.breakpoint.xsOnly"
+                        color="#5360FC"
+                v-if="selected.length > 0" @click="SendEmail()">{{$t('send-email')}}</v-btn>
+            </div>
          </template>
       <template v-slot:item.preview="{item}">
-           <!-- <user-avatar :user-id="item.userId" 
-               :user-image-url="item.image" 
-               :size="'40'" 
-               :user-name="item.name" >
-               </user-avatar> -->
             <userAvatarNew
                class="followersUserAvatar"
                :user-image-url="item.image"
@@ -59,48 +51,16 @@
             />
            
       </template>
-      <!-- <template v-slot:item.name="{item}">
-           <user-avatar :user-id="item.userId" 
-               :user-image-url="item.image" 
-               :size="'40'" 
-               :user-name="item.name" >
-               </user-avatar>
-                <span>{{item.name}}</span>
-      </template>" -->
       <template v-slot:item.date="{item}">
            {{ $d(new Date(item.date)) }}
            
       </template>
         <template v-slot:item.action="{item}">
-         <v-btn class="me-1" icon @click="sendWhatsapp(item)" depressed rounded color="#4caf50" x-small>
-            <v-icon v-text="'sbf-whatsup-share'"/>
-         </v-btn>
          <v-btn link icon :href="`mailto:${item.email}`" depressed rounded  color="#69687d" x-small>
-            <v-icon v-text="'sbf-email'"/>
+            <v-icon>sbf-email</v-icon>
          </v-btn>
       </template>
-         <!-- <template v-slot:item="props">
-            <tr>
-               <user-avatar :user-id="props.item.userId" 
-               :user-image-url="props.item.image" 
-               :size="'80'" 
-               :user-name="props.item.name" >
-               </user-avatar>
-              
-               <td class="text-xs-left">{{props.item.name}}</td>
-               <td class="text-xs-left">{{ $d(new Date(props.item.date)) }}</td>
-               <td class="text-xs-left actions">
-                  <v-btn icon @click="sendWhatsapp(props.item)" depressed rounded color="#4caf50">
-                     <v-icon v-text="'sbf-whatsup-share'"/>
-                  </v-btn>
-                  <v-btn link icon :href="`mailto:${props.item.email}`" depressed rounded  color="#69687d">
-                     <v-icon size="18" v-text="'sbf-email'"/>
-                  </v-btn>
-               </td>
-            </tr>
-         </template> -->
-
-         <slot slot="no-data" name="tableEmptyState"/>
+      <slot slot="no-data" name="tableEmptyState"/>
    </v-data-table>
 </div>
 </template>
@@ -118,6 +78,8 @@ export default {
    },
    data() {
       return {
+         search: '',
+         selected: [],
          paginationModel:{
             page:1
          },
@@ -131,7 +93,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getFollowersItems']),
+      ...mapGetters(['getFollowersItems','getAccountEmail']),
       followersItems(){
          return this.getFollowersItems
       },
@@ -150,11 +112,11 @@ export default {
          this.paginationModel.page = 1;
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
-      sendWhatsapp(user) {
-         let defaultMessage = '';// this.$t("dashboardPage_default_message")
-         window.open(`https://api.whatsapp.com/send?phone=${user.phoneNumber}&text=%20${defaultMessage}`);
-         this.tutorRequestDialogClose();
-      },
+      SendEmail() {
+         let emails = this.selected.map(x=>x.email);
+         let myEmail = this.getAccountEmail;
+         window.open(`mailto:?to=${myEmail}&bcc=${emails.join(';')}`)
+      }
    },
    created() {
       this.updateFollowersItems()
@@ -172,9 +134,7 @@ export default {
       color: #43425d;
       font-weight: 600;
       padding: 30px;
-      background-color: #fff;
       line-height: 1.3px;
-    //  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    td:first-child {
       width:1%;
@@ -185,21 +145,17 @@ export default {
          background-color: #f5f5f5;
       }
    }
-  // .myFollowers_table{
    thead{
-      tr{
-         // height: auto;
          th{
             color: #43425d !important;
             font-size: 14px;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            font-weight: normal;
+         //   padding-top: 14px;
+            //padding-bottom: 14px;
+            font-weight: normal; //for title
             min-width: 100px;
          }
          
-      }
-      color: #43425d !important;
+     
    }
    .actions{
       .v-btn{
@@ -228,6 +184,5 @@ export default {
          }
       }
    }
-  // }
 }
 </style>

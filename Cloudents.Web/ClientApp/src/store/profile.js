@@ -9,10 +9,10 @@ const state = {
    profile: null,
    // documents: [],
    faq: [],
-   documents: {},
+   documents: [],
    profileReviews: null,
    profileLiveSessions: [],
-   showEditDataDialog: false,
+   //showEditDataDialog: false,
    amountOfReviews: 0,
    profileCoverLoading: false
 }
@@ -25,7 +25,7 @@ const getters = {
    getProfileStatsReviews: state => state.profile?.user?.reviewCount,
    getProfileStatsFollowers: state => state.profile?.user?.followers,
    getProfileStatsResources: state => state.profile?.user?.contentCount,
-   getShowEditDataDialog: state => state.showEditDataDialog,
+   // getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
@@ -172,9 +172,9 @@ const mutations = {
          }
       }
    },
-   setEditDialog(state, val) {
-      state.showEditDataDialog = val;
-   },
+   // setEditDialog(state, val) {
+   //    state.showEditDataDialog = val;
+   // },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
@@ -224,21 +224,20 @@ const actions = {
             commit('setProfileDocuments', data);
          });
    },
-   // TODO: check if we need
-   toggleProfileFollower({ state, commit, getters }, val) {
-      let id = getters.getCurrTutor?.id || state.profile?.user?.id    
-      if (val) {
-         return profileInstance.post('follow',{ id }).then(() => {
-            commit('setProfileFollower', true)
-            return Promise.resolve()
-         })
-      } else {
-         return profileInstance.delete(`unfollow/${id}`).then(() => {
-            commit('setProfileFollower', false)
-            return Promise.resolve()
-         })
-      }
-   },
+   // toggleProfileFollower({ state, commit, getters }, val) {
+   //    let id = getters.getCurrTutor?.id || state.profile?.user?.id
+   //    if (val) {
+   //       return profileInstance.post('follow',{ id }).then(() => {
+   //          commit('setProfileFollower', true)
+   //          return Promise.resolve()
+   //       })
+   //    } else {
+   //       return profileInstance.delete(`unfollow/${id}`).then(() => {
+   //          commit('setProfileFollower', false)
+   //          return Promise.resolve()
+   //       })
+   //    }
+   // },
    getStudyroomLiveSessions({ commit }, id) {
       profileInstance.get(`${id}/studyRoom`).then(({data}) => {
          commit('setLiveSession', data)

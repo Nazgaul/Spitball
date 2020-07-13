@@ -191,11 +191,11 @@ export default {
         roomTutor() {
             return this.$store.getters.getRoomTutor
         },
-        roomLink() {
-            // @idan - I think this better approach getting the room id with $route.params instead of passing props
-            // TODO: Make room link getter from store
-            return `${window.origin}/studyroom/${this.$route.params.id}`
-        }
+        // roomLink() {
+        //     // @idan - I think this better approach getting the room id with $route.params instead of passing props
+        //     // TODO: Make room link getter from store
+        //     return `${window.origin}/studyroom/${this.$route.params.id}`
+        // }
     },
     watch: {
         isRoomDisabled(val){

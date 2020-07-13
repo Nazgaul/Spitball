@@ -112,6 +112,7 @@ export default {
                     this.$vuetify.goTo(this.$parent.$refs.calendarTab)
                 })
             } else {
+                sessionStorage.setItem('calendar', true)
                 this.$store.commit('setComponent', 'register')
                 // setTimeout(()=>{
                 //     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
@@ -120,8 +121,9 @@ export default {
         }
     },
     created() {
-        if(this.$route.params.openCalendar) {
+        if(this.$route.params.openCalendar || sessionStorage.getItem('calendar')) {
             this.openCalendar();
+            sessionStorage.clear()
         }
     },
 }

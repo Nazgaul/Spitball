@@ -20,14 +20,6 @@
                   <v-icon color="#41c4bc" size="20">sbf-enter-room</v-icon>
                   <div class="actionName">{{chatText}}</div>
                </v-btn>
-               <v-btn v-if="tutorEmail" target="_blank" :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
-                  <v-icon color="#de5642" size="14">sbf-email-chat</v-icon>
-                  <div class="actionName" v-t="'chat_teacher_btn_mail'"/>
-               </v-btn>
-               <v-btn target="_blank" v-if="tutorPhoneNumber" block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
-                  <v-icon color="#29d367" size="20">sbf-whatsup-share</v-icon>
-                  <div class="actionName" v-t="'chat_teacher_btn_whatsapp'"/>
-               </v-btn>
             </div>
 
             <div v-if="participants" class="participantList">
@@ -77,12 +69,6 @@ export default {
       tutorName(){
          return this.currentTutor?.name
       },
-      tutorEmail(){
-         return this.currentTutor?.email
-      },
-      tutorPhoneNumber(){
-         return this.currentTutor?.phoneNumber
-      },
       tutorAvatar(){
          return this.currentTutor?.image;
       },
@@ -110,7 +96,6 @@ export default {
             return this.$t('chat_teacher_btn_studyroom')
          }
          return this.$t('chat_teacher_btn_studyroom_create');
-        
       }
    },
    methods: {
@@ -126,11 +111,6 @@ export default {
       },
       createStudyRoom(){
          this.$router.push({name:routeNames.MyStudyRooms})
-      },
-      sendWhatsApp(){
-         let phoneNumber = this.currentTutor.phoneNumber.replace('+','')
-         let defaultMessage = encodeURIComponent(this.$t('chat_whatsapp_default'));
-         window.open(`https://wa.me/${phoneNumber}?text=${defaultMessage}`);
       }
    },
 }
@@ -217,6 +197,7 @@ export default {
                }
             }
             .list{
+               background: none;
                padding: 0;
                overflow-y: auto;
                .dividerList{

@@ -117,7 +117,7 @@ namespace Cloudents.FunctionsV2.Di
                 .AsClosedTypesOf(typeof(ISystemOperation<>));
 
             builder.Register(c => new HttpClient()).SingleInstance();
-            //builder.Register(c => c.Resolve<IHttpClientFactory>().CreateClient()).As<HttpClient>();
+         
 
             builder.Populate(services); // Populate is needed to have support for scopes.
             return new AutofacServiceProvider(builder.Build());

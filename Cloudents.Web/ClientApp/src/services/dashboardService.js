@@ -85,7 +85,6 @@ const Item = {
    },
    Follower:function(objInit){
       this.email = objInit.email;
-      this.phoneNumber = objInit.phoneNumber;
       this.hasCreditCard = objInit.hasCreditCard || null;
    },
    SaleSession: function(objInit) {

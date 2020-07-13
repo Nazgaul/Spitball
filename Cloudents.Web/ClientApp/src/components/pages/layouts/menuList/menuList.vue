@@ -2,7 +2,7 @@
     <v-list class="menuList" dense>
       
         <div class="menuListTopNotLogged pt-8 text-center" v-if="!isLoggedIn && isMobile">
-            <div class="menuListTopLogo"><logoComponent/></div>
+            <div class="menuListTopLogo"><logoComponent :menuList="true" /></div>
             <div class="menuListTopText mt-3" v-t="'menuList_txt_out'"></div>
             <div class="menuListTopBtns">
                 <v-btn 
@@ -237,7 +237,7 @@ export default {
     color: #fff;
     .menuListTopLogo {
       .logo {
-        fill: #fff;
+        fill: #fff !important;
         width: 100px;
         height: 28px;
       }

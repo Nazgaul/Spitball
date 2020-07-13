@@ -64,13 +64,13 @@ export default {
                 return;
             }
             var self = this;
-            if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
-                console.log("duplicated answer detected");
-                this.errorDuplicatedAnswer = this.$t("questionDetails_error_duplicated");
-                return;
-            }else{
-                this.errorDuplicatedAnswer = '';
-            }
+            // if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
+            //     console.log("duplicated answer detected");
+            //     this.errorDuplicatedAnswer = this.$t("questionDetails_error_duplicated");
+            //     return;
+            // }else{
+            //     this.errorDuplicatedAnswer = '';
+            // }
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
@@ -90,12 +90,12 @@ export default {
                     });
             }
         },
-        hasDuplicatiedAnswer(currentText, answers){  
-            let duplicated = answers.filter(answer=>{
-                return answer.text.indexOf(currentText) > -1;
-            });
-            return duplicated.length > 0;
-        },
+        // hasDuplicatiedAnswer(currentText, answers){
+        //     let duplicated = answers.filter(answer=>{
+        //         return answer.text.indexOf(currentText) > -1;
+        //     });
+        //     return duplicated.length > 0;
+        // },
 
         addFile(filenames) {
             this.answerFiles = this.answerFiles.concat(filenames);
