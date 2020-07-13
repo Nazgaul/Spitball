@@ -44,7 +44,8 @@ export default {
     methods: {
         subscribeNow() {
             if(!this.isLogged) {
-                this.$store.commit('setComponent', 'login')
+                sessionStorage.setItem('hash','#subscription');
+                this.$store.commit('setComponent', 'register')
                 return
             }
             this.$store.dispatch('subscribeToTutor', this.userId)

@@ -13,6 +13,7 @@ const state = {
     selectedCourse:'',
     currentTutorPhoneNumber: null,
     registerStepFromTutorRequest: false,
+    currentTutorIdFromRegister: null
 };
 
 const getters = {
@@ -22,13 +23,17 @@ const getters = {
     getCurrentTutorReqStep: state => state.currentTutorReqStep,
     getCourseDescription: state => state.courseDescription,
     getSelectedCourse: state => state.selectedCourse,
-getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
+    getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
     getIsFromTutorStep: state => state.registerStepFromTutorRequest,
+    getCurrentTutorIdFromRegister: state => state.currentTutorIdFromRegister,
 };
 
 const mutations = {
     setRequestDialog(state, val) {
         state.requestDialog = val;
+    },
+    setCurrentTutorIdFromRegister(state, userId) {
+        state.currentTutorIdFromRegister = userId
     },
     setCurrTutor: (state, tutorObj) => {
         state.currTutor = tutorObj;
@@ -51,8 +56,9 @@ const mutations = {
         state.courseDescription = '';
         state.selectedCourse = '';
         state.currentTutorPhoneNumber = null;
-        state.registerStepFromTutorRequest = false
-        state.currTutor = null
+        state.registerStepFromTutorRequest = false;
+        state.currTutor = null;
+        state.currentTutorIdFromRegister = null
     },
     setCurrentTutorPhoneNumber(state, number) {
         state.currentTutorPhoneNumber = number;

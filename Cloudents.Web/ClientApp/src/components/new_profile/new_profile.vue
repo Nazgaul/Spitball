@@ -29,9 +29,9 @@ import profileCoverActions from './components/profileCoverActions/profileCoverAc
 import profileStats from './components/profileStats/profileStats.vue';
 import profileParagraph from './components/profileParagraph/profileParagraph.vue';
 import profileCalendarTab from '../calendar/calendarTab.vue';
-import profileSubscription from './components/profileSubscription/profileSubscription.vue';
+const profileSubscription = () => import('./components/profileSubscription/profileSubscription.vue');
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
-import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
+const profileItemsBox = () => import('./components/profileItemsBox/profileItemsBox.vue');
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 // import profileFAQ from './components/profileFAQ/profileFAQ.vue';
 
@@ -155,6 +155,11 @@ export default {
         next();
     },
     created() {
+      var hash =  sessionStorage.getItem('hash');
+      if (hash) {
+         this.$router.push({hash:hash});
+         sessionStorage.clear();
+      }
       this.getProfileDataItems()
     }
 }

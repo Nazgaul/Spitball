@@ -150,6 +150,19 @@ export default {
                         component: 'registerType'
                     }
                 },
+                setPhone: {
+                    name: 'auth',
+                    params: {
+                        component: 'setPhone',
+                    }
+                },
+                verifyPhone: {
+                    name: 'auth',
+                    params: {
+                        component: 'register',
+                        goTo: 'verifyPhone'
+                    }
+                },
                 studyRoomSettings: {
                     name: 'studRoomSettings',
                 },
@@ -170,13 +183,6 @@ export default {
                 },
                 createCoupon: {
                     name: 'createCoupon'
-                },
-                verifyPhone: {
-                    name: 'auth',
-                    params: {
-                        component: 'register',
-                        goTo: 'verifyPhone'
-                    }
                 },
                 applyCoupon: {
                     name: 'applyCoupon'

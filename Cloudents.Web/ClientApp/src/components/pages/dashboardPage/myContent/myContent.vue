@@ -12,8 +12,6 @@
                showFirstLastPage: false,
                firstIcon: '',
                lastIcon: '',
-               prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel',
                itemsPerPageOptions: [5]
             }">
 
