@@ -19,7 +19,7 @@
             itemsPerPageOptions: [20]
          }">
          <template v-slot:top >
-            <div class="d-flex pa-2">
+            <div class="d-flex flex-wrap pa-2">
             <div class="myFollowers_title">
                   {{$t('dashboardPage_my_followers_title')}}
                   </div>
