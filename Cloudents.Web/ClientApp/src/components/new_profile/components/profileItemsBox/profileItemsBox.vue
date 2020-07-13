@@ -177,6 +177,9 @@ export default {
          }
 
          // mobile
+         .v-slide-group__wrapper {
+            touch-action: pan-y;
+         }
          .v-slide-group__content {
             @media (max-width: @screen-xs) {
                width: 100%;
