@@ -95,6 +95,25 @@
                 ></v-select>
             </v-col>
 
+            <template v-if="true">
+                <v-col cols="12" class="sessionRepeat d-flex align-center">
+                    <span v-t="'repeat'" class="pe-5"></span>
+
+                    <div class="d-flex">
+                        <v-checkbox v-model="disabled" class="mx-2" :value="n" hide-details :label="index.toString()" v-for="(n, index) in 7" :key="index">{{n}}</v-checkbox>
+                    </div>
+                </v-col>
+
+                <v-col cols="12" class="sessionEnd d-flex">
+                    <div v-t="'ends'" class="pe-5"></div>
+                    <div class="">
+                        <v-radio :label="$t('never')" value="radio-1"></v-radio>
+                        <v-radio :label="$t('on')" value="radio-1"></v-radio>
+                        <v-radio :label="$t('after')" value="radio-1"></v-radio>
+                    </div>
+                </v-col>
+            </template>
+
             <v-col colse="12" class="pa-0 mt-3">
                 <v-textarea
                     v-model="sessionAboutText"
@@ -161,16 +180,14 @@
         <div class="addImage">
             <div class="liveSubtitle mb-4" v-t="'add image'"></div>
 
-            <div class="liveImageWrap">
+            <div class="liveImageWrap text-center d-flex flex-column align-center">
                 <uploadImage
                     v-show="true"
                     @setProfileAvatarLoading="val => imageLoading = val"
                     class="editLiveImage"
                 />
-                <div class="text-center d-flex flex-column">
-                    <img class="liveImage" :src="liveImage" width="200" alt="">
-                    <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
-                </div>
+                <img class="liveImage" :src="liveImage" width="200" alt="">
+                <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </div>
         </div>
     </div>
@@ -202,6 +219,7 @@ export default {
             currentMinutes = 0;
         }
         return {
+            disabled: [],
             imageLoading: false,
             isRtl: global.isRtl,
             liveSessionTitle: '',
@@ -333,6 +351,11 @@ export default {
     .sbf-menu-down {
         font-size: 34px;
     }
+    .sessionRepeat {
+        .v-input--selection-controls {
+            margin-top: 0;
+        }
+    }
     .sessionPriceWrap {
 
     }
@@ -346,6 +369,7 @@ export default {
             border-radius: 3px;
             background-color: rgba(0,0,0,.6);
             z-index: 1;
+            left: 7px;
         }
         .liveImage {
             border: solid 1px #c6cdda;
