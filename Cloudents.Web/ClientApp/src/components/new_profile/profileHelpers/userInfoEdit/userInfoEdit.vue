@@ -148,7 +148,9 @@ export default {
     },
     methods: {
         becomeTutor() {
-            this.$store.dispatch('becomeTutor')
+            this.$store.dispatch('becomeTutor').then(() => {
+                window.location = '/'
+            })
         },
         saveChanges() {
             if(this.$refs.formUser.validate()) {
