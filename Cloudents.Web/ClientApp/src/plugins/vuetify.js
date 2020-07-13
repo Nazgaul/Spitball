@@ -28,8 +28,8 @@ const MY_ICONS = {
   lock: 'sbf-lock',
   prev: 'sbf-arrow-left-carousel',
   next: 'sbf-arrow-right-carousel',
-  // checkboxOn: '...',
-  // checkboxOff: '...',
+   checkboxOn: 'sbf-check-box-done',
+   checkboxOff: 'sbf-check-box-un',
   // checkboxIndeterminate: '...',
  // delimiter: '...', // for carousel
   sort: 'sbf-arrow-up',

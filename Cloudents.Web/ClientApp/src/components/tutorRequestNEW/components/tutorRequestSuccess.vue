@@ -3,21 +3,14 @@
         <v-icon @click="tutorRequestDialogClose" class="uf-close" v-html="'sbf-close'" />
         <div class="tutorRequest-success-middle">
             <img class="success-img" src="../images/success.png" alt="" />
-            <template v-if="isTutor">
-                <p class="message_1">
-                    <span class="sentMessage" v-t="'tutorRequest_message_success_tutor_1'"></span>
-                    <span>{{firstName}}</span>
-                </p>
-                <div class="message_3">
-                    <p>{{$t('tutorRequest_message_success_tutor_3',[firstName])}}</p>
-                    <p><bdi>{{tutorPhoneNumber}}</bdi></p>
-                </div>
-            </template>
-            <template v-else>
-                <p class="message_1" v-t="'tutorRequest_message_success_yaniv_1'"></p>
-                <p class="message_2" v-t="'tutorRequest_message_success_yaniv_2'"></p>
-                <p class="message_3" v-t="'tutorRequest_message_success_yaniv_3'"></p>
-            </template>
+            <p class="message_1">
+                <span class="sentMessage" v-t="'tutorRequest_message_success_tutor_1'"></span>
+                <span>{{firstName}}</span>
+            </p>
+            <div class="message_3">
+                <p>{{$t('tutorRequest_message_success_tutor_3',[firstName])}}</p>
+                <p><bdi>{{tutorPhoneNumber}}</bdi></p>
+            </div>
         </div>
 
         <div class="tutorRequest-success-bottom">
@@ -56,7 +49,7 @@ export default {
             return this.getCurrentTutorPhoneNumber;
         },
         tutorId() {
-            return this.getCurrTutor?.userId;
+            return this.getCurrTutor?.userId || this.$store.getters.setCurrentTutorIdFromRegister;
         },
         studentId() {
             return this.accountUser?.id;
@@ -82,7 +75,7 @@ export default {
         },
         requestTutorFromRegisterStep() {
             // if there is an account, it's mean that the user not coming from register and dont need to call requestTutor api twice
-            if(this.accountUser) return
+            // if(this.accountUser) return
             
             let serverObj = {
                 captcha: null,
@@ -91,7 +84,7 @@ export default {
                 email: null,
                 phone: null,
                 course: this.courseName || this.getSelectedCourse,
-                tutorId: this.tutorId,
+                tutorId: this.tutorId || this.$store.getters.getCurrentTutorIdFromRegister,
               
             } 
             let self = this;
