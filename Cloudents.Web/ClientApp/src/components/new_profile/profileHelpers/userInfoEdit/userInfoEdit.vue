@@ -10,7 +10,7 @@
                         </v-flex>
                     </v-layout>
                     <v-layout class="px-3" v-if="allowedToBecomeTutor">
-                        <v-btn depressed color="blue" @click="$store.dispatch('becomeTutor')">
+                        <v-btn depressed color="blue" @click="becomeTutor">
                             <span class="white--text" v-t="'become tutor'"></span>
                         </v-btn>
                     </v-layout>
@@ -147,6 +147,9 @@ export default {
         },
     },
     methods: {
+        becomeTutor() {
+            this.$store.dispatch('becomeTutor')
+        },
         saveChanges() {
             if(this.$refs.formUser.validate()) {
                 this.btnLoading = true;

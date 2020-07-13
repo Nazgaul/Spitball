@@ -138,7 +138,7 @@ const actions = {
         })
     },
     becomeTutor({ commit }) {
-        return accountInstance.post('/becomeTutor').finally(() => {
+        return axios.post('tutor/becomeTutor').finally(() => {
             commit('setComponent', '')
         })
     },
