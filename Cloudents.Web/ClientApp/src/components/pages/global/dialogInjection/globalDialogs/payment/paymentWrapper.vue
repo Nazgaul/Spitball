@@ -21,7 +21,7 @@ export default {
       },
       getMaxWith() {
          if (this.selectedPaymentComponent == 'paymentUS') {
-            return 670;
+            return 296;
 
          }
          return 840;
