@@ -9,16 +9,14 @@
                 <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
                     <span>{{subscribeBtnText}}</span>
                 </v-btn>
-                <!-- <div class="overladyDuration white--text">{{item.itemDuration}}</div> -->
             </div>
         </div>
 
-<!-- pa-3 -->
         <div class="item-cont flex-grow-1 d-flex flex-column justify-space-between pa-2">
             <div class="itemCarouselCard_videoType d-flex align-center justify-space-between mb-1">
                 <div class="itemDate" >{{$d(item.dateTime, 'short')}}</div>
                 <div class="d-flex align-center" v-if="showVideoDuration">
-                    <span class="vidTime pr-1">{{item.itemDuration}}</span>
+                    <span class="vidTime pe-1">{{item.itemDuration}}</span>
                     <vidSVG class="vidSvg" width="17" />
                 </div>
             </div>
@@ -29,7 +27,7 @@
             </div>
             <div class="item-user d-flex align-center" v-if="!isProfilePage">
                 <UserAvatarNew :fontSize="11" :width="34" :height="34" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
-                <div class="ml-2 user-info">
+                <div class="ms-2 user-info">
                     <div class="text-truncate" >{{item.user.name}}</div>
                 </div>
             </div>
@@ -161,12 +159,6 @@ export default {
                     // min-width: 153px;
                     // color: @global-purple;
                     font-weight: 600;
-                }
-                .overladyDuration {
-                    position: absolute;
-                    right: 6px;
-                    margin-top: 14px;
-                    font-size: 11px;
                 }
             }
         }

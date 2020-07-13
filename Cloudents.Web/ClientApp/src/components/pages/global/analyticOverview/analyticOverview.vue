@@ -7,7 +7,7 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
-                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
+                        <span class="pe-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
                         <div class="arrow-down" sel="analytics_dropdown"></div>
                     </div>
                 </template>
@@ -36,7 +36,7 @@
                   <div class="minus" v-else>-</div>
                   <div class="rate font-weight-bold" v-if="val > 0">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
-                      <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
+                      <bdi class="precent me-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
                 </router-link>
             </v-col>

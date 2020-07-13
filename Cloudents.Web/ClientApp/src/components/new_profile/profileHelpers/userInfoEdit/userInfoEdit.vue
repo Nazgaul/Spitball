@@ -5,7 +5,7 @@
                 <div class="userEditFlexWrap">
                     <v-layout class="header pa-4 pt-3 mb-4">
                         <v-flex>
-                            <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
+                            <v-icon class="edit-icon me-2">sbf-edit-icon</v-icon>
                             <span>{{$t('profile_edit_user_profile_title')}}</span>
                         </v-flex>
                     </v-layout>
@@ -33,9 +33,8 @@
                             />
                         </div>
                         <v-layout wrap>
-                            <v-flex xs12 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
-                                <!-- <v-layout column> -->
-                                    <v-flex xs12 class="pl-2 mb-2">
+                            <v-flex xs12 :class="{'pe-2': $vuetify.breakpoint.smAndUp}">
+                                    <v-flex xs12 class="ps-2 mb-2">
                                         <span class="subtitle">{{$t('profile_personal_details')}}</span>
                                     </v-flex>
                                     <v-flex xs12>
@@ -47,11 +46,10 @@
                                                 outlined
                                         ></v-text-field>
                                     </v-flex>
-                                <!-- </v-layout> -->
                             </v-flex>
-                            <v-flex xs12 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                            <v-flex xs12 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 me-0' : 'pe-2']">
                                 <!-- <v-layout column> -->
-                                    <!-- <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 class="mb-2 pl-2" grow>
+                                    <!-- <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 class="mb-2 ps-2" grow>
                                         <span class="subtitle" style="visibility: hidden">hidden</span>
                                     </v-flex> -->
                                     <v-flex>
@@ -63,14 +61,13 @@
                                                 outlined
                                         ></v-text-field>
                                     </v-flex>
-                                <!-- </v-layout> -->
                             </v-flex>
                         </v-layout>
                     </v-layout>
                 </div>
 
                 <div class="text-center mt-5">
-                    <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ml-0" rounded outlined primary @click="$store.commit('setComponent', '')">
+                    <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="$store.commit('setComponent', '')">
                         <span v-t="'cancel'"></span>
                     </v-btn>
                     <v-btn class="blue-btn white--text ms-4" width="120" depressed color="#4452fc" rounded @click="saveChanges" :loading="btnLoading">
@@ -80,12 +77,12 @@
                 <!-- OLD BUTTONS ASK SHIRAN AND RAM -->
                 <!-- <v-layout  align-center class="bottomActions px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
                     <v-flex xs5 sm2  >
-                        <v-btn class="shallow-blue ml-0" rounded outlined primary @click="$store.commit('setComponent', '')">
+                        <v-btn class="shallow-blue ms-0" rounded outlined primary @click="$store.commit('setComponent', '')">
                             <span>{{$t('profile_btn_cancel')}}</span>
                         </v-btn>
                     </v-flex>
-                    <v-flex xs5 sm2  :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
-                        <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
+                    <v-flex xs5 sm2  :class="{'me-4': $vuetify.breakpoint.smAndUp}">
+                        <v-btn class="blue-btn  ms-0" rounded @click="saveChanges()" :loading="btnLoading">
                             <span>{{$t('profile_btn_save_changes')}}</span>
                         </v-btn>
                     </v-flex>
