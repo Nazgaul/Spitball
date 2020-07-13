@@ -343,9 +343,10 @@ namespace Cloudents.Web.Api
         [HttpPost("becomeTutor"), Authorize]
         public async Task<IActionResult> BecomeTutorAsync([FromServices] SignInManager<User> signInManager, CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var command = new BecomeTutorCommand(user.Id);
+            var userId = _userManager.GetLongUserId(User);
+            var command = new BecomeTutorCommand(userId);
             await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
             await signInManager.RefreshSignInAsync(user);
             return Ok();
         }
