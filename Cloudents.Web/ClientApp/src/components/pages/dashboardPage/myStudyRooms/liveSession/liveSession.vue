@@ -1,14 +1,32 @@
 <template>
     <div class="liveSession">
-        <v-row class="d-flex ma-0 pa-0 mb-3" dense>
-            <v-col cols="12" sm="6" class="pa-0">
+        <div class="liveSubtitle mb-7" v-t="'session details'"></div>
+
+        <v-row class="sessionDetails d-flex ma-0 pa-0 mb-3" dense>
+            <v-col cols="12" class="pa-0">
+                <v-text-field 
+                    v-model="liveSessionTitle"
+                    type="text"
+                    class="sessionTitleInput mb-3"
+                    :rules="[rules.required]"
+                    :label="$t('dashboardPage_label_live_title')"
+                    height="50"
+                    color="#304FFE"
+                    dense
+                    outlined
+                    placeholder=" "
+                    autocomplete="nope"
+                >
+                </v-text-field>
+            </v-col>
+            <v-col cols="6" sm="4" class="pa-0">
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
                         <v-text-field 
                             v-on="on"
                             v-model="date"
                             type="text"
-                            class="dateInput"
+                            class="dateInput pe-2"
                             :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
                             height="50"
@@ -39,10 +57,10 @@
                 </v-menu>
             </v-col>
 
-            <v-col cols="12" sm="6" class="pa-0">
+            <v-col cols="6" sm="4" class="pa-0">
                 <v-select
                     v-model="hour"
-                    class="roomHour pl-sm-4"
+                    class="roomHour pl-sm-4 ps-2"
                     :items="timeHoursList"
                     height="50"
                     :menu-props="{
@@ -57,38 +75,44 @@
                     outlined
                 ></v-select>
             </v-col>
+
+            <v-col cols="12" sm="4" class="pa-0">
+                <v-select
+                    v-model="hour"
+                    class="roomHour pl-sm-4 mt-3 mt-sm-0"
+                    :items="timeHoursList"
+                    height="50"
+                    :menu-props="{
+                        maxHeight: 200
+                    }"
+                    :label="$t('dashboardPage_labe_hours')"
+                    prepend-inner-icon="sbf-clockIcon"
+                    append-icon="sbf-menu-down"
+                    color="#304FFE"
+                    placeholder=" "
+                    dense
+                    outlined
+                ></v-select>
+            </v-col>
+
+            <v-col colse="12" class="pa-0 mt-3">
+                <v-textarea
+                    v-model="sessionAboutText"
+                    class="sessionAbout mb-2"
+                    :rules="[rules.required]"
+                    :label="$t('dashboardPage_label_session_about')"
+                    :rows="3"
+                    color="#304FFE"
+                    placeholder=" "
+                    dense
+                    outlined
+                    no-resize
+                ></v-textarea>
+            </v-col>
         </v-row>
 
-        <v-text-field 
-            v-model="liveSessionTitle"
-            type="text"
-            class="sessionTitleInput mb-3"
-            :rules="[rules.required]"
-            :label="$t('dashboardPage_label_live_title')"
-            height="50"
-            color="#304FFE"
-            dense
-            outlined
-            placeholder=" "
-            autocomplete="nope"
-        >
-        </v-text-field>
-
-        <v-textarea
-            v-model="sessionAboutText"
-            class="sessionAbout mb-3"
-            :rules="[rules.required]"
-            :label="$t('dashboardPage_label_session_about')"
-            :rows="3"
-            color="#304FFE"
-            placeholder=" "
-            dense
-            outlined
-            no-resize
-        ></v-textarea>
-
-        <div>
-
+        <div class="sessionPriceWrap pb-5 mb-5">
+            <div class="liveSubtitle mb-4" v-t="'session price'"></div>
             <v-row class="align-center pa-0 ma-0 mb-5" dense>
                 <v-col cols="12" sm="4" class="pa-0">
                     <div class="priceTitle mb-2 mb-sm-0" v-t="'dashboardPage_visitor_price'"></div>
@@ -132,16 +156,35 @@
                     <div class="ml-4 ml-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
                 </v-col>
             </v-row>
+        </div>
 
+        <div class="addImage">
+            <div class="liveSubtitle mb-4" v-t="'add image'"></div>
+
+            <div class="liveImageWrap">
+                <uploadImage
+                    v-show="true"
+                    @setProfileAvatarLoading="val => imageLoading = val"
+                    class="editLiveImage"
+                />
+                <div class="text-center d-flex flex-column">
+                    <img class="liveImage" :src="liveImage" width="200" alt="">
+                    <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import { validationRules } from '../../../../../services/utilities/formValidationRules.js'
+import uploadImage from '../../../../new_profile/profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
 export default {
     name: 'liveSession',
+    components: {
+        uploadImage
+    },
     props: {
         price: {
             required: true
@@ -159,6 +202,7 @@ export default {
             currentMinutes = 0;
         }
         return {
+            imageLoading: false,
             isRtl: global.isRtl,
             liveSessionTitle: '',
             sessionAboutText: '',
@@ -194,6 +238,9 @@ export default {
         }
     },
     computed: {
+        liveImage() {
+            return this.isMobile ? require('../../../../new_profile/components/profileLiveClasses/live-banner-mobile.png') : require('../../../../new_profile/components/profileLiveClasses/live-banner-desktop.png')
+        },
         isTutorSubscribed() {
             return this.$store.getters.getIsTutorSubscription
         },
@@ -250,6 +297,14 @@ export default {
 @import '../../../../../styles/colors.less';
 
 .liveSession {
+    .liveSubtitle {
+        .responsive-property(font-size, 20px, null, 18px);
+        font-weight: 600;
+        color: @global-purple;
+    }
+    .sessionDetails, .sessionPriceWrap {
+        border-bottom: 1px solid #dddddd;
+    }
     .v-text-field__slot{
         input{
             margin: 4px 0 0 4px;
@@ -277,6 +332,29 @@ export default {
     }
     .sbf-menu-down {
         font-size: 34px;
+    }
+    .sessionPriceWrap {
+
+    }
+    .liveImageWrap {
+        position: relative;
+        width: max-content;
+        margin: 0 auto;
+        .editLiveImage {
+            position: absolute;
+            text-align: center;
+            border-radius: 3px;
+            background-color: rgba(0,0,0,.6);
+            z-index: 1;
+        }
+        .liveImage {
+            border: solid 1px #c6cdda;
+            border-radius: 4px;
+        }
+        .recommendedImage {
+            font-size: 16px;
+            color: #adb1b4;
+        }
     }
 }
 </style>

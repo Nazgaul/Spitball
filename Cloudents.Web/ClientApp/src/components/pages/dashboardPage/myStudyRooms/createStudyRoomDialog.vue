@@ -1,10 +1,10 @@
 <template>
-   <v-dialog :value="true" persistent max-width="640px" :fullscreen="$vuetify.breakpoint.xsOnly">
-      <div class="createStudyRoomDialog pa-4 d-sm-block d-flex flex-column justify-space-between">
+   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly">
+      <div class="createStudyRoomDialog px-7 py-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
-            <div class="createStudyRoomDialog-title text-center">{{createSessionTitle}}</div>
+            <div class="createStudyRoomDialog-title text-center mb-7 pb-3">{{createSessionTitle}}</div>
 
             <component
                :is="studyRoomType"
@@ -22,7 +22,7 @@
             <div class="mb-4">
                <span v-if="currentError" class="error--text" v-t="errorsResource[currentError]"></span>
             </div>
-            <v-btn :loading="isLoading" @click="createStudyRoom" width="160" depressed height="40" color="#4452fc" class="white--text" rounded >{{btnCreateText}}</v-btn>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="200" depressed height="40" color="#4c59ff" class="white--text createBtn" rounded >{{btnCreateText}}</v-btn>
          </div>
       </div>
    </v-dialog>
@@ -184,9 +184,10 @@ export default {
    }
    .createStudyRoomDialog-title {
       color: @global-purple;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 600;
-      padding-bottom: 34px;
+      // padding-bottom: 34px;
+      border-bottom: 1px solid #dddddd;
    }
    .input-room-name{
       width: 100%;
@@ -202,6 +203,9 @@ export default {
          }
       }
 
+   }
+   .createBtn {
+      font-size: 16px;
    }
 }
    .v-picker__title {
