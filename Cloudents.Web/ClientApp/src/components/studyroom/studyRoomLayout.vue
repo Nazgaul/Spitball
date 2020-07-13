@@ -5,11 +5,12 @@
     </template>
     <template v-else>
       <studyRoomDrawer/>
+
       <studyRoomHeader @roomMuted="showRoomMutedToaster = true"/>
-      <v-content>
+      <v-main>
         <studyRoomWrapper style="height:100%"/>
         <roomMutedToaster v-if="showRoomMutedToaster"/>
-      </v-content>
+      </v-main>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
     

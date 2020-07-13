@@ -3,84 +3,51 @@
         <component
             :is="tempComponent || params.component"
             :params="params"
-            :teacher="teacher"
+            :teacher="teacherState"
             @goTo="goTo"
             @updateRegisterType="updateRegisterType"
-            @showToasterError="showToasterError"
             class="wrapper"
         >
         </component>
-
-        <v-snackbar
-            v-model="showSnackBar"
-            class="error-toaster getStartedToaster"
-            :timeout="5000"
-            top
-        >
-            <div class="text-center flex-grow-1">
-                {{showError}}
-            </div>
-        </v-snackbar>
     </v-dialog>
 </template>
 
 <script>
-
+import authMixin from './authMixin'
 const login = () => import('./login/login2.vue')
 const register = () => import('./register/register.vue')
 const registerType = () => import('./register/registerType.vue')
+const setPhone = () => import('./register/setPhone2.vue')
 
 export default {
+    mixins: [authMixin],
+    components: {
+        login,
+        register,
+        registerType,
+        setPhone
+    },
     props: {
         params: {
             type: Object,
             required: false,
         }
     },
-    computed : {
-        showSnackBar: {
-            get() {
-                return this.snackbar || this.$store.getters.getIsFaliure
-            },
-            set(val) {
-                this.snackbar = val
-            }
-        },
-        showError() {
-            return this.gmailError ||  this.$store.getters.getFaliureReason
-        }
-    },
     data() {
         return {
             gmailError: '',
             tempComponent: '',
-            teacher: false,
+            teacherState: false,
             snackbar: false
         }
-    },
-    components: {
-        login,
-        register,
-        registerType
     },
     methods: {
         goTo(name) {
             this.tempComponent = name
         },
         updateRegisterType(val) {
-            this.teacher = val;
+            this.teacherState = val;
         },
-        showToasterError(error) {
-            // if(error.error === 'popup_closed_by_user') {
-            //     this.gmailError = this.$t('loginRegister_google_signin_error')
-            // }else if(error) {
-            //     this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
-            // }
-            if(error && error.response) {
-                this.gmailError = ('showToasterError', error.response.data["Google"] ? error.response.data["Google"][0] : '');
-                this.snackbar = true
-            }
-        }
     },
     created() {
         if(this.params.teacher) this.updateRegisterType(true)

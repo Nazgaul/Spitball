@@ -38,7 +38,6 @@ namespace Cloudents.Query.Users
                            Email = s.Follower.Email,
                            Created = s.Created,
                            Name = s.Follower.Name,
-                           PhoneNumber = s.Follower.PhoneNumber,
                            Image = s.Follower.ImageName,
                            UserId = s.Follower.Id,
                            HasCreditCard = s.Follower.PaymentExists == PaymentStatus.Done

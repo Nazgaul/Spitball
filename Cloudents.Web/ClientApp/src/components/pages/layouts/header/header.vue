@@ -218,9 +218,6 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;
         })[0];
-    },
-    beforeDestroy(){
-            document.body.removeAttribute("class","noscroll");
     }
 }
 </script>
