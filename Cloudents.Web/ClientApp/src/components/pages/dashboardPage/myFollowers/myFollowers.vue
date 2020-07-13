@@ -115,7 +115,7 @@ export default {
       SendEmail() {
          let emails = this.selected.map(x=>x.email);
          let myEmail = this.getAccountEmail;
-         window.open(`mailto:?to=${myEmail}&bcc=${emails.join(';')}`)
+         window.location.href = `mailto:?to=${myEmail}&bcc=${emails.join(';')}`;
       }
    },
    created() {
