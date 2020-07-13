@@ -109,6 +109,10 @@ router.beforeEach((to, from, next) => {
     }
     let getAccountUser = store.dispatch('userStatus');
     Promise.all([getAccountUser,loadLanguageAsync()]).then(() => {
+        if(to.meta?.requiresTutor){
+            store.getters.getIsTeacher? next() : next('/');
+            return
+        }
        next();
     });
 });
