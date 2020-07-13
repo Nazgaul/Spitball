@@ -243,10 +243,15 @@ const actions = {
          commit('setLiveSession', data)
       })
    },
-   updateStudyroomLiveSessions(context, session) {
+   async updateStudyroomLiveSessions(context, session) {
+
+     
       let id = session.userId
       let studyRoomId = session.studyRoomId
-      return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
+      let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);
+      debugger
+      return data.sessionId;
+      //return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
    },
    updateProfileFaq({commit}) {
       // profileInstance.get(``).then(({data}) => {

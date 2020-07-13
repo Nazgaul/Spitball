@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -8,20 +9,27 @@ namespace Cloudents.Core.Entities
     {
         public StudyRoomPayment(StudyRoomSessionUser studyRoomSessionUser)
         {
-            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price.Amount;
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
+            var isSubscriber = studyRoomSessionUser.User.Following.FirstOrDefault(w => w.User.Id == Tutor.Id)?.Subscriber ?? false;
+            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price.Amount;
+            if (isSubscriber)
+            {
+                PricePerHour = 0;
+            }
             User = studyRoomSessionUser.User;
             StudyRoomSessionUser = studyRoomSessionUser;
-            Created = DateTime.UtcNow;;
+            Created = DateTime.UtcNow;
+            
         }
+
+        
 
         public StudyRoomPayment(Tutor tutor, User user,TimeSpan duration,double price)
         {
-            PricePerHour = price;// new Money(price,tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            PricePerHour = price;
             Tutor = tutor;
             User = user;
             ApproveSession(duration, price);
-            //StudyRoomSessionUser = studyRoomSessionUser;
             Created = DateTime.UtcNow;;
         }
 
@@ -57,6 +65,7 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
+        public virtual StudyRoom? StudyRoom { get; protected set; }
 
         public virtual TimeSpan? TutorApproveTime { get; protected set; }
 
@@ -71,5 +80,7 @@ namespace Cloudents.Core.Entities
         public virtual Tutor Tutor { get;protected set; }
 
         public virtual DateTime Created { get;protected set; }
+
+
     }
 }

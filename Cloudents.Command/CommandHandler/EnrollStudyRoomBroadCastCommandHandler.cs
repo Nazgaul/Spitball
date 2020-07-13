@@ -21,6 +21,7 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(EnrollStudyRoomBroadCastCommand message, CancellationToken token)
         {
+            //the same as enter study room
             var studyRoom = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 

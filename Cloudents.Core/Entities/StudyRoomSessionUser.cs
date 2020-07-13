@@ -8,11 +8,11 @@ namespace Cloudents.Core.Entities
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user)
+        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user , StudyRoomPayment? studyRoomPayment)
         {
             StudyRoomSession = studyRoomSession;
             User = user;
-            StudyRoomPayment = new StudyRoomPayment(this);
+            StudyRoomPayment = studyRoomPayment ?? new StudyRoomPayment(this);
             UseCoupon();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual StudyRoomSession StudyRoomSession { get; protected set; }
+        public virtual StudyRoomSession StudyRoomSession { get; }
 
         public virtual User User { get; protected set; }
 
@@ -28,23 +28,16 @@ namespace Cloudents.Core.Entities
 
         public virtual int DisconnectCount { get; protected set; }
 
-        //[Obsolete]
-        //public virtual decimal PricePerHour { get; protected set; }
-
-        //[Obsolete]
-        //public virtual TimeSpan? TutorApproveTime { get; protected set; }
-
-        //[Obsolete]
-        //public virtual decimal TotalPrice { get; protected set; }
-
-        //[Obsolete]
-        //public virtual string? Receipt { get; protected set; }
      
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
             Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;
-            StudyRoomPayment.TotalPrice = Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
+            if (StudyRoomPayment != null)
+            {
+                StudyRoomPayment.TotalPrice = Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
+            }
+
             DisconnectCount++;
         }
 
@@ -58,7 +51,6 @@ namespace Cloudents.Core.Entities
                 return;
             }
             userCoupon.UseCoupon(this);
-            //'userCoupon.UsedAmount++;
             AddEvent(new UseCouponEvent(userCoupon));
         }
 
@@ -88,7 +80,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual StudyRoomPayment StudyRoomPayment { get; set; }
+        public virtual StudyRoomPayment? StudyRoomPayment { get; set; }
 
     }
 }

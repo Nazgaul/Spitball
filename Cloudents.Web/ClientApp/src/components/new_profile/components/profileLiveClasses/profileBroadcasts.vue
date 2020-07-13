@@ -118,6 +118,7 @@
         >
             <div class="text-wrap white--text">{{toasterText}}</div>
         </v-snackbar>
+        <stripe ref="stripe"></stripe>
     </div>
 </template>
 
@@ -126,12 +127,14 @@ import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-16.svg'
+import stripe from "../../../pages/global/stripe.vue";
 
 export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        arrowDownIcon  
+        arrowDownIcon  ,
+        stripe
     },
     props: {
         userId: {
@@ -218,29 +221,36 @@ export default {
             });
             global.open(routeData.href, "_self");
         },
-        enrollSession(studyRoomId) {
+        async enrollSession(studyRoomId) {
             if(!this.isLogged) {
                 sessionStorage.setItem('hash','#broadcast');
                 this.$store.commit('setComponent', 'register')
                 return
             }
+
+
+
+
             let session = {
                 userId: this.userId,
                 studyRoomId
             }
             let self = this
-            this.$store.dispatch('updateStudyroomLiveSessions', session)
-                .then(() => {
-                    self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
-                    currentSession.enrolled = true
-                }).catch(ex => {
-                    self.color = 'error'
-                    self.toasterText = this.$t('profile_enroll_error')
-                    self.$appInsights.trackException(ex);
-                }).finally(() => {
-                    self.showSnack = true
-                })
+            let x = await this.$store.dispatch('updateStudyroomLiveSessions', session);
+            this.$refs.stripe.redirectToStripe(x);
+
+            // this.$store.dispatch('updateStudyroomLiveSessions', session)
+            //     .then(() => {
+            //         self.toasterText = this.$t('profile_enroll_success')
+            //         let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
+            //         currentSession.enrolled = true
+            //     }).catch(ex => {
+            //         self.color = 'error'
+            //         self.toasterText = this.$t('profile_enroll_error')
+            //         self.$appInsights.trackException(ex);
+            //     }).finally(() => {
+            //         self.showSnack = true
+            //     })
         }
     },
     filters: {
