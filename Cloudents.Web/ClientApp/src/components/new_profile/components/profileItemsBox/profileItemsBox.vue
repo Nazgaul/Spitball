@@ -1,5 +1,5 @@
 <template>
-   <div id="profileItemsBox" v-intersect.quiet="{handler: onIntersect, options: { rootMargin: '500px' }}">
+   <div id="profileItemsBox" v-intersect.quiet="{handler: onIntersect, options: { rootMargin: '300px' }}">
       <div
          v-for="(item, index) in filterItems"
          :key="index"
