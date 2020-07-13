@@ -53,6 +53,7 @@ export default {
       @headerHeight:62px;
       @media(max-width: @screen-xs) {
          @headerHeight: 60px;
+         height: 100vh;
       }
       height: 100%;
       .cMessagesHeader{
