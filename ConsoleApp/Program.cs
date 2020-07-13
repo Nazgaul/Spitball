@@ -148,15 +148,22 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            var x = Container.Resolve<ICommandBus>();
-            var statelessSession = Container.Resolve<IStatelessSession>();
-            
+            try
+            {
+                var x = Container.Resolve<ICommandBus>();
+                var statelessSession = Container.Resolve<IStatelessSession>();
 
-            var roomId = Guid.Parse("7a56ff01-cb93-46a0-b575-abf100d07d15");
-            var sessions = await statelessSession.Query<StudyRoomSession>().Where(w => w.StudyRoom.Id == roomId)
-                .Where(w => w.Ended == null).ToListAsync();
-            var command = new StudyRoomSessionUserConnectedCommand(roomId,sessions[0].SessionId,160304);
-            await x.DispatchAsync(command);
+
+                var roomId = Guid.Parse("7a56ff01-cb93-46a0-b575-abf100d07d15");
+                var sessions = await statelessSession.Query<StudyRoomSession>().Where(w => w.StudyRoom.Id == roomId)
+                    .Where(w => w.Ended == null).ToListAsync();
+                var command = new StudyRoomSessionUserConnectedCommand(roomId, sessions[0].SessionId, 167037);
+                await x.DispatchAsync(command);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
 

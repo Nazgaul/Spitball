@@ -7,6 +7,8 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class StudyRoomPayment : Entity<Guid>
     {
+        private StudyRoomSessionUser? _studyRoomSessionUser;
+
         public StudyRoomPayment(StudyRoomSessionUser studyRoomSessionUser)
         {
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
@@ -22,7 +24,16 @@ namespace Cloudents.Core.Entities
             
         }
 
-        
+        public StudyRoomPayment(StudyRoom studyRoom, User user, string receipt)
+        {
+            PricePerHour = studyRoom.Price.Amount;
+            StudyRoom = studyRoom;
+            Tutor = studyRoom.Tutor;
+            User = user;
+            ApproveSession(TimeSpan.FromHours(1),  studyRoom.Price.Amount);
+            Receipt = receipt;
+            Created = DateTime.UtcNow;;
+        }
 
         public StudyRoomPayment(Tutor tutor, User user,TimeSpan duration,double price)
         {
@@ -64,7 +75,21 @@ namespace Cloudents.Core.Entities
             TotalPrice = price;
         }
 
-        public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
+      
+        public virtual StudyRoomSessionUser? StudyRoomSessionUser
+        {
+            get => _studyRoomSessionUser;
+            set
+            {
+                if (_studyRoomSessionUser != null)
+                {
+                    return;
+                }
+
+                _studyRoomSessionUser = value;
+            }
+        }
+
         public virtual StudyRoom? StudyRoom { get; protected set; }
 
         public virtual TimeSpan? TutorApproveTime { get; protected set; }

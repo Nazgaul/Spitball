@@ -35,6 +35,7 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class WalletController : ControllerBase
     {
+        public const string StudyroomidMetaData = "StudyRoomId";
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
@@ -229,7 +230,7 @@ namespace Cloudents.Web.Api
                 Query = string.Empty
             };
             
-            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+            var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom, new
             {
                 redirectUrl = uriBuilder.ToString()
             }, "https"));
@@ -244,7 +245,7 @@ namespace Cloudents.Web.Api
             {
                 Metadata = new Dictionary<string, string>()
                 {
-                    ["StudyRoomId"] = id.ToString(),
+                    [StudyroomidMetaData] = id.ToString(),
                     ["UserId"] = userId.ToString()
                 }
             };

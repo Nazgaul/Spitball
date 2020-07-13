@@ -12,7 +12,17 @@ namespace Cloudents.Core.Entities
         {
             StudyRoomSession = studyRoomSession;
             User = user;
-            StudyRoomPayment = studyRoomPayment ?? new StudyRoomPayment(this);
+            if (studyRoomPayment == null)
+            {
+                StudyRoomPayment = new StudyRoomPayment(this);
+            }
+            else
+            {
+                studyRoomPayment.StudyRoomSessionUser =  this;
+                StudyRoomPayment = studyRoomPayment;
+
+
+            }
             UseCoupon();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]

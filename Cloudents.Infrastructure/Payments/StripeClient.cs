@@ -27,6 +27,13 @@ namespace Cloudents.Infrastructure.Payments
             return (paymentId, amountOfPoints);
         }
 
+
+        public async Task<Dictionary<string, string>> GetMetaDataAsync(string sessionId, CancellationToken token)
+        {
+            var session = await GetSessionByIdAsync(sessionId, token);
+            return session.Metadata;
+        }
+
         public async Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token)
         {
             var session = await GetSessionByIdAsync(sessionId, token);
@@ -199,47 +206,6 @@ namespace Cloudents.Infrastructure.Payments
             return result.Id;
         }
 
-        //public async Task<string> BuyPointsAsync(PointBundle bundle,
-        //    string email, 
-        //    string successCallback,
-        //    string fallbackCallback, 
-        //    CancellationToken token)
-        //{
-
-        //    var options = new SessionCreateOptions
-        //    {
-
-        //        PaymentMethodTypes = new List<string> {
-        //            "card",
-        //        },
-        //        LineItems = new List<SessionLineItemOptions> {
-        //            new SessionLineItemOptions {
-        //                Name = "Buy Points on Spitball",
-        //                Amount = (long)(bundle.PriceInUsd * 100),
-        //                Currency = "usd",
-        //                Quantity = 1
-                        
-        //            },
-
-        //        },
-        //        Metadata = new Dictionary<string, string>()
-        //        {
-        //            ["Points"] = bundle.Points.ToString()
-        //        },
-
-        //        SuccessUrl = successCallback,
-        //        CancelUrl = fallbackCallback,
-        //        CustomerEmail = email,
-                
-        //    };
-
-        //    var service = new SessionService();
-        //    var session = await service.CreateAsync(options, cancellationToken: token);
-        //    return session.Id;
-
-        //}
-        
-
         public async Task<string> CreatePaymentAsync(StripePaymentRequest model,
             CancellationToken token)
         {
@@ -271,8 +237,8 @@ namespace Cloudents.Infrastructure.Payments
             var service = new SessionService();
             var session = await service.CreateAsync(options, cancellationToken: token);
             return session.Id;
-
         }
+
 
 
 

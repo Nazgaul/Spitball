@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Query.Payment;
@@ -26,5 +27,7 @@ namespace Cloudents.Core.Interfaces
 
         Task<string> CreatePaymentAsync(StripePaymentRequest model,
             CancellationToken token);
+
+        Task<Dictionary<string, string>> GetMetaDataAsync(string sessionId, CancellationToken token);
     }
 }
