@@ -42,6 +42,7 @@ const getters = {
    getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
+   getProfileCountry: state => state.profile?.user?.tutorCountry,
 }
 
 const mutations = {

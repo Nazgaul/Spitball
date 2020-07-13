@@ -78,7 +78,7 @@
                                 </v-btn>
                                 <v-btn
                                     v-else
-                                    @click="enrollSession(session.id)"
+                                    @click="enrollSession(session)"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -221,33 +221,29 @@ export default {
             });
             global.open(routeData.href, "_self");
         },
-        async enrollSession(studyRoomId) {
+        async enrollSession(session) {
             if(!this.isLogged) {
                 sessionStorage.setItem('hash','#broadcast');
                 this.$store.commit('setComponent', 'register')
                 return
             }
 
-
-
-
-            let session = {
+            let sessionObj = {
                 userId: this.userId,
-                studyRoomId
+                studyRoomId: session.id
             }
-            let self = this
-            if (/*Need to check price is not free and tutor profile is not IL*/ true) 
-            {
-                let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
+            
+            if (session.price.amount && this.$store.getters.getProfileCountry !== 'IL') {
+                let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
                 this.$refs.stripe.redirectToStripe(x);
                 return;
             }
            
-
-            this.$store.dispatch('updateStudyroomLiveSessions', session)
+            let self = this
+            this.$store.dispatch('updateStudyroomLiveSessions', sessionObj)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
+                    let currentSession = self.broadcastSessions.filter(s => s.id === session.id)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
                     self.color = 'error'
