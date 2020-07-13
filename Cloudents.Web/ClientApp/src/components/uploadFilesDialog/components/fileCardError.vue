@@ -1,13 +1,13 @@
 <template>
     <v-layout align-center justify-space-between wrap 
-    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'pl-4':isMobile}]">
+    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'ps-4':isMobile}]">
         <v-flex xs12 sm7 class="ufItem-error-content">
                 <div class="ufItem-error-txt">
                     <span>{{item.name}}</span>
                     <span class="ufItem-error-txt-content">{{item.errorText}}</span>
                 </div>
         </v-flex>
-        <v-flex xs12 sm3 :class="[{'pl-4':isMobile}]">
+        <v-flex xs12 sm3 :class="[{'ps-4':isMobile}]">
             <v-btn @click="deleteFile()" :class="['ufItem-error-btn']" color="#d16061" depressed rounded>
                 <span v-t="'upload_ufItem_error_remove'"/>
             </v-btn>

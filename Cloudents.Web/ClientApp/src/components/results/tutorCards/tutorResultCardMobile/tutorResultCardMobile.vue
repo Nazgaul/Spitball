@@ -4,7 +4,7 @@
           <userAvatarNew
             :userName="tutorData.name"
             :userImageUrl="tutorData.image"
-            class="mr-2"
+            class="me-2"
             :userId="tutorData.userId"
             :width="102"
             :height="116"
@@ -18,11 +18,11 @@
 
                 <template>
                     <div class="user-rate align-center" v-if="tutorData.reviews > 0">
-                      <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 mr-2" />
+                      <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="flex-grow-0 me-2" />
                       <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span> 
                     </div>
                     <div class="user-rate align-center" v-else>
-                      <star class="mr-1 icon-star" />
+                      <star class="me-1 icon-star" />
                       <span class="reviews">{{$tc('resultTutor_review_one',tutorData.reviews)}}</span>
                     </div>
                 </template>

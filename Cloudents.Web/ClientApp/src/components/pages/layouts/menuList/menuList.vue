@@ -7,7 +7,7 @@
             <div class="menuListTopBtns">
                 <v-btn 
                   @click="openLoginDialog" 
-                  class="menuListTopBtnsIn font-weight-bold mr-4" 
+                  class="menuListTopBtnsIn font-weight-bold me-4" 
                   v-t="'menuList_Login'"
                   color="white" 
                   width="120"

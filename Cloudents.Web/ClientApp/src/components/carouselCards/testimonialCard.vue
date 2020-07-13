@@ -15,7 +15,7 @@
             <template>
                 <div class="user-rate-testimonialCard mt-1">
                     <userRating :rating="item.tutorCount? item.tutorReviews : item.tutorCount" :showRateNumber="false" :size="'14'" />
-                    <span class="reviews-ts ml-1">{{$tc('resultTutor_review_one', item.tutorCount)}}</span>
+                    <span class="reviews-ts ms-1">{{$tc('resultTutor_review_one', item.tutorCount)}}</span>
                    
                 </div>
             </template>

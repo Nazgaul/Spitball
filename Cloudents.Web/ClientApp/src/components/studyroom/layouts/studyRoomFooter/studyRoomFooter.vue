@@ -6,7 +6,7 @@
          inset
          fixed
          :height="footerExtend ? 124 : 0"
-         class="pa-0 pl-2 studyRoomFooter"
+         class="pa-0 ps-2 studyRoomFooter"
          :class="{'py-3':footerExtend}"
       >
          <button class="pb-1 collapseBtnFooter" @click="footerExtend = !footerExtend">
