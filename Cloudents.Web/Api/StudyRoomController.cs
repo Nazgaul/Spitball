@@ -52,14 +52,7 @@ namespace Cloudents.Web.Api
             _localizer = localizer;
         }
 
-        /// <summary>
-        /// Create study room between tutor and student for many sessions - happens in chat
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="client">Ignore</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpPost]
+        [HttpPost("private")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -71,8 +64,8 @@ namespace Cloudents.Web.Api
             try
             {
                 var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId,
-                    chatTextMessage, model.Name, model.Price, model.Date, model.Type, model.Description);
+                var command = new CreatePrivateStudyRoomCommand(tutorId, model.UserId,
+                    chatTextMessage, model.Name, model.Price);
                 await _commandBus.DispatchAsync(command, token);
                 return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
             }
@@ -85,6 +78,37 @@ namespace Cloudents.Web.Api
                 client.TrackException(e, new Dictionary<string, string>()
                 {
                     ["UserId"] = model.UserId.ToString(),
+                    ["tutorId"] = tutorId.ToString()
+                });
+                return BadRequest("user is not a tutor");
+            }
+        }
+
+        [HttpPost("live")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<CreateStudyRoomResponse>> CreateLiveStudyRoomAsync(CreateLiveStudyRoomRequest model,
+            [FromServices] TelemetryClient client,
+            CancellationToken token)
+        {
+            var tutorId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new CreateLiveStudyRoomCommand(tutorId, 
+                     model.Name, model.Price, model.Date, model.Description);
+                await _commandBus.DispatchAsync(command, token);
+                return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict("Already active study room");
+            }
+            catch (InvalidOperationException e)
+            {
+                client.TrackException(e, new Dictionary<string, string>()
+                {
+                    //["UserId"] = model.UserId.ToString(),
                     ["tutorId"] = tutorId.ToString()
                 });
                 return BadRequest("user is not a tutor");

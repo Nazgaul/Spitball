@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 
@@ -10,9 +11,9 @@ namespace Cloudents.Core.Entities
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(Tutor tutor,
-            IEnumerable<User> users, string onlineDocumentUrl,
+             string onlineDocumentUrl,
             string name, decimal price, DateTime broadcastTime, string? description)
-            : base(tutor, users, onlineDocumentUrl, name, price)
+            : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, name, price)
         {
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);

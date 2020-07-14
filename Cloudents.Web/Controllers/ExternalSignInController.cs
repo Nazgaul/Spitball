@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ExternalSignInController : Controller
     {
         private readonly SignInManager<User> _signInManager;
