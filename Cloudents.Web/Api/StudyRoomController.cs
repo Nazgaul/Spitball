@@ -127,7 +127,6 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder,
-            [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
             CancellationToken token)
         {
             string jwtToken = null;
@@ -149,16 +148,11 @@ namespace Cloudents.Web.Api
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
 
-            //TODO: need to add who is the tutor
             if (result == null)
             {
                 return NotFound();
             }
-
-            if (profile.Subscribers?.Contains(result.TutorId) == true)
-            {
-                result.TutorPrice = result.TutorPrice.ChangePrice(0);
-            }
+          
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             result.Jwt = jwtToken;
             return result;
@@ -247,24 +241,24 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("{id:guid}/Video")]
-        [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
-        [RequestSizeLimit(209715200)]
-        public IActionResult UploadStudyRoomVideo(Guid id,
-            IFormFile file,
-            CancellationToken token)
-        {
-            if (file is null)
-            {
-                return BadRequest();
-            }
-            //var userId = _userManager.GetLongUserId(User);
-            //await using var stream = file.OpenReadStream();
-            //var command = new UploadStudyRoomVideoCommand(id, userId, stream);
-            //await _commandBus.DispatchAsync(command, token);
+        //[HttpPost("{id:guid}/Video")]
+        //[RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
+        //[RequestSizeLimit(209715200)]
+        //public IActionResult UploadStudyRoomVideo(Guid id,
+        //    IFormFile file,
+        //    CancellationToken token)
+        //{
+        //    if (file is null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    //var userId = _userManager.GetLongUserId(User);
+        //    //await using var stream = file.OpenReadStream();
+        //    //var command = new UploadStudyRoomVideoCommand(id, userId, stream);
+        //    //await _commandBus.DispatchAsync(command, token);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
         [HttpPost("review")]

@@ -25,7 +25,7 @@
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img :src="liveImage" alt="">
                     </div>
-                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pr-sm-4">
+                    <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
 
                         <div class="header d-flex justify-space-between mb-3" v-if="!isMobile">
                             <div>
@@ -62,8 +62,8 @@
                                     color="#ff6f30"
                                     height="40"
                                 >
-                                    <enterIcon class="enterIcon mr-sm-2" width="18" />
-                                    <span :class="{'flex-sm-grow-1 pl-2': isMobile}" v-t="'enter'"></span>
+                                    <enterIcon class="enterIcon me-sm-2" width="18" />
+                                    <span :class="{'flex-sm-grow-1 ps-2': isMobile}" v-t="'enter'"></span>
                                 </v-btn>
                                 <v-btn
                                     v-else-if="session.isFull"
@@ -74,11 +74,12 @@
                                     color="#ff6f30"
                                     height="40"
                                 >
-                                    <span :class="{'flex-sm-grow-1 pl-2': isMobile}" v-t="'full'"></span>
+                                    <span :class="{'flex-sm-grow-1 ps-2': isMobile}" v-t="'full'"></span>
                                 </v-btn>
                                 <v-btn
                                     v-else
-                                    @click="enrollSession(session.id)"
+                                    @click="enrollSession(session)"
+                                    :loading="enrollBtnLoader"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -117,6 +118,7 @@
         >
             <div class="text-center white--text">{{toasterText}}</div>
         </v-snackbar>
+        <stripe ref="stripe"></stripe>
     </div>
 </template>
 
@@ -125,12 +127,14 @@ import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-16.svg'
+import stripe from "../../../pages/global/stripe.vue";
 
 export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        arrowDownIcon  
+        arrowDownIcon  ,
+        stripe
     },
     props: {
         userId: {
@@ -144,6 +148,7 @@ export default {
             color: '',
             toasterText: '',
             isExpand: false,
+            enrollBtnLoader: false,
         }
     },
     watch: {
@@ -217,27 +222,35 @@ export default {
             });
             global.open(routeData.href, "_self");
         },
-        enrollSession(studyRoomId) {
+        async enrollSession(session) {
             if(!this.isLogged) {
                 sessionStorage.setItem('hash','#broadcast');
                 this.$store.commit('setComponent', 'register')
                 return
             }
-            let session = {
+            let sessionObj = {
                 userId: this.userId,
-                studyRoomId
+                studyRoomId: session.id
             }
+            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
+                let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
+                this.$refs.stripe.redirectToStripe(x);
+                return;
+            }
+           
             let self = this
-            this.$store.dispatch('updateStudyroomLiveSessions', session)
+            this.enrollBtnLoader = true
+            this.$store.dispatch('updateStudyroomLiveSessions', sessionObj)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
+                    let currentSession = self.broadcastSessions.filter(s => s.id === session.id)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
                     self.color = 'error'
                     self.toasterText = this.$t('profile_enroll_error')
                     self.$appInsights.trackException(ex);
                 }).finally(() => {
+                    this.enrollBtnLoader = false
                     self.showSnack = true
                 })
         }

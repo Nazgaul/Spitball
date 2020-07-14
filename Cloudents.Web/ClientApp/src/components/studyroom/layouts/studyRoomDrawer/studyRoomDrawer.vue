@@ -11,11 +11,11 @@
          <div class="headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
          <div class="headerInfo d-flex justify-space-between mb-2">
             <span>
-               <v-icon class="mr-1">sbf-message-icon</v-icon>
+               <v-icon class="me-1">sbf-message-icon</v-icon>
                {{$t('studyRoom_chat')}}
             </span>
             <span v-if="$store.getters.getRoomIsBroadcast">
-              <v-icon size="16" color="#7a798c" class="pr-1">sbf-users</v-icon>
+              <v-icon size="16" color="#7a798c" class="pe-1">sbf-users</v-icon>
               {{$store.getters.getRoomParticipantCount}}
             </span>
          </div>

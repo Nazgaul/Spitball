@@ -1,7 +1,7 @@
 <template>
     <div class="emailRegister text-center">
         <v-layout wrap class="widther">
-            <v-flex xs12 sm6 class="pr-sm-2">
+            <v-flex xs12 sm6 class="pe-sm-2">
                 <v-text-field
                     v-model="firstName"
                     class="input-fields"
@@ -18,7 +18,7 @@
                 </v-text-field>
             </v-flex>
 
-            <v-flex xs12 sm6 class="pl-sm-2">
+            <v-flex xs12 sm6 class="ps-sm-2">
                 <v-text-field
                     v-model="lastName"
                     class="input-fields"

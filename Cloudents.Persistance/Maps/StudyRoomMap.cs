@@ -38,7 +38,8 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
-
+            HasMany(x => x.StudyRoomPayments).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.AllDeleteOrphan();
 
             //HasMany(x => x.UserTokens)
             //    .Access.CamelCaseField(Prefix.Underscore)

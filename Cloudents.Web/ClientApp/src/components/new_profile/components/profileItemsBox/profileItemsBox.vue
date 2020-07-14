@@ -1,5 +1,5 @@
 <template>
-   <div id="profileItemsBox">
+   <div id="profileItemsBox" v-intersect.quiet="onIntersect">
       <div
          v-for="(item, index) in filterItems"
          :key="index"
@@ -26,6 +26,7 @@
             </v-btn>
         </div>
       </div>
+      <v-skeleton-loader v-if="profileLoader" height="600" type="image" class="profileItemsLoader"></v-skeleton-loader>
    </div>
 </template>
 
@@ -44,15 +45,8 @@ export default {
    },
    data() {
       return {
+         profileLoader: false,
          model: false
-      }
-   },
-   watch: {
-      query:{
-         deep:true,
-         handler() {
-            this.getItems()
-         }
       }
    },
    computed: {
@@ -64,7 +58,7 @@ export default {
       },
       filterItems() {
          if(!this.isMobile) return this.items
-         return this.items.map(item => {
+         return this.items.length && this.items.map(item => {
             return {
                ...item,
                result: !item.isExpand ? item.result.slice(0,2) : item.result.slice(0)
@@ -73,8 +67,16 @@ export default {
       }
    },
    methods: {
+      onIntersect(entries) {
+         if(entries[0].isIntersecting && !this.items.length) {
+            this.getItems()
+         }
+      },
       getItems(){
-         this.$store.dispatch('updateProfileItemsByType', this.$route.params.id)
+         this.profileLoader = true
+         this.$store.dispatch('updateProfileItemsByType', this.$route.params.id).then(() => {
+            this.profileLoader = false
+         })
       },
       expandItems(item) {
          this.$store.commit('setExpandItems', item)
@@ -175,6 +177,9 @@ export default {
          }
 
          // mobile
+         .v-slide-group__wrapper {
+            touch-action: pan-y;
+         }
          .v-slide-group__content {
             @media (max-width: @screen-xs) {
                width: 100%;
@@ -197,6 +202,11 @@ export default {
                   transform: scaleY(-1);
             }
          }
+      }
+   }
+   .profileItemsLoader {
+      .v-skeleton-loader__image {
+         height: 400px;  
       }
    }
 }

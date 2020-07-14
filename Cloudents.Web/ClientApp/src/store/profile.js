@@ -42,6 +42,7 @@ const getters = {
    getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
+   getProfileCountry: state => state.profile?.user?.tutorCountry,
 }
 
 const mutations = {
@@ -97,7 +98,7 @@ const mutations = {
          this.documentType = objInit.documentType;
          this.preview = objInit.preview;
          this.title = objInit.title;
-         this.url = `/document/${this.course}/${this.title}/${this.id}`;
+         this.url = `/document/${encodeURIComponent(this.course)}/${encodeURIComponent(this.title)}/${encodeURIComponent(this.id)}`;
          this.snippet = objInit.snippet
          this.itemDuration = objInit.duration
          this.template = 'result-note';
@@ -161,6 +162,7 @@ const mutations = {
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
+      state.documents = []
    },
    setProfileFollower(state, val) {
       if(state.profile?.user) {
@@ -243,11 +245,19 @@ const actions = {
          commit('setLiveSession', data)
       })
    },
-   updateStudyroomLiveSessions(context, session) {
-      let id = session.userId
+   async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
+      let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);
+      return data.sessionId;
+   },
+   async updateStudyroomLiveSessions(context, session) {
+       let id = session.userId
+       let studyRoomId = session.studyRoomId
+    
       return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
    },
+
+
    updateProfileFaq({commit}) {
       // profileInstance.get(``).then(({data}) => {
          let data = [

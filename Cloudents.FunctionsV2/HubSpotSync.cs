@@ -26,7 +26,7 @@ namespace Cloudents.FunctionsV2
         [FunctionName("HubSpotSync")]
         public static async Task RunOrchestratorAsync(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
-            [Inject] ILifetimeScope lifetimeScope,  CancellationToken token)
+            CancellationToken token)
         {
             //Inject Istateless session comes when it already dispose - need to figure it out this is a work out
             //using var child = lifetimeScope.BeginLifetimeScope();
@@ -35,6 +35,10 @@ namespace Cloudents.FunctionsV2
 
             for (int i = 0; i < amountOfTutors / 100; i++)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 await context.CallActivityAsync("HubSpotSync_DoSync", i);
             }
         }
@@ -95,10 +99,6 @@ namespace Cloudents.FunctionsV2
                     coursesFuture = statelessSession.Query<UserCourse>().Where(w => w.User.Id == tutor.Id).Select(s => s.Course.Id)
                         .ToFuture();
                 }
-                else
-                {
-                    //
-                }
                 if (tutor.StudyRoom)
                 {
 
@@ -111,13 +111,7 @@ namespace Cloudents.FunctionsV2
                             (s is BroadCastStudyRoom) ? ((BroadCastStudyRoom)s).BroadcastTime : new DateTime?(),
                             s.Sessions.Count()
                         )).ToFuture();
-
                 }
-                else
-                {
-                    Console.WriteLine("no rooms");
-                }
-
                 if (tutor.Lessons > 0)
                 {
                     var query = from e in statelessSession.Query<TutorReview>()
@@ -136,11 +130,6 @@ namespace Cloudents.FunctionsV2
                         average = (reviewsFutureValue.Value?.Sum ?? 0) / reviewCount;
                     }
                 }
-                else
-                {
-                    Console.WriteLine("no lessons");
-                }
-
                 IEnumerable<string> courses;
                 if (coursesFuture != null)
                 {

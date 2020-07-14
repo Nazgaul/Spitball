@@ -1,6 +1,6 @@
 <template>
-    <div class="profilePage" :key="componentRenderKey">
-        <div class="coverWrapper">
+    <div class="profilePage">
+        <div class="coverWrapper" :key="componentRenderKey">
             <profileCover  />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
@@ -14,8 +14,8 @@
               class="mt-sm-12 mt-2 mx-auto"
             />
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
-            <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" />
-            <profileItemsBox v-if="showItems" />
+            <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" :key="componentRenderKey" />
+            <profileItemsBox />
             <profileReviewsBox />
             <!-- <profileFAQ /> -->
         </div>
@@ -28,13 +28,12 @@ import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileStats from './components/profileStats/profileStats.vue';
 import profileParagraph from './components/profileParagraph/profileParagraph.vue';
-import profileCalendarTab from '../calendar/calendarTab.vue';
+const profileCalendarTab = () => import('../calendar/calendarTab.vue');
 const profileSubscription = () => import('./components/profileSubscription/profileSubscription.vue');
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
 const profileItemsBox = () => import('./components/profileItemsBox/profileItemsBox.vue');
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 // import profileFAQ from './components/profileFAQ/profileFAQ.vue';
-
 import profileFooter from './components/profileFooter/profileFooter.vue';
 
 export default {
@@ -80,11 +79,11 @@ export default {
               })
         },
         getProfileDataItems() {
-          let items = this.$store.dispatch('updateProfileItemsByType', this.id)
-          let reviews = this.$store.dispatch('updateProfileReviews', this.id)
-          Promise.all([items, reviews]).catch(ex => {
-            console.error(ex);
-          })
+          this.$store.dispatch('updateProfileReviews', this.id)
+          // this.$store.dispatch('updateProfileItemsByType', this.id)
+          // Promise.all([items, reviews]).catch(ex => {
+          //   console.error(ex);
+          // })
         }
     },
     computed: {
