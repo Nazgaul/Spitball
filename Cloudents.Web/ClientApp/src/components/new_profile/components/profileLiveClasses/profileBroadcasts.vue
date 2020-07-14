@@ -233,7 +233,6 @@ export default {
                 userId: this.userId,
                 studyRoomId: session.id
             }
-            debugger;
             if (session.price.amount && this.$store.getters.getProfileCountry !== 'IL') {
                 let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
                 this.$refs.stripe.redirectToStripe(x);
