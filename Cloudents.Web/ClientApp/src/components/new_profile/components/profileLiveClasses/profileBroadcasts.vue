@@ -78,7 +78,7 @@
                                 </v-btn>
                                 <v-btn
                                     v-else
-                                    @click="enrollSession(session.id)"
+                                    @click="enrollSession(session)"
                                     :loading="enrollBtnLoader"
                                     class="white--text btn"
                                     rounded
@@ -228,12 +228,11 @@ export default {
                 this.$store.commit('setComponent', 'register')
                 return
             }
-
             let sessionObj = {
                 userId: this.userId,
                 studyRoomId: session.id
             }
-            if (session.price.amount && this.$store.getters.getProfileCountry !== 'IL') {
+            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL') {
                 let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
                 this.$refs.stripe.redirectToStripe(x);
                 return;
