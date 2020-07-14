@@ -131,7 +131,8 @@ export default {
     //   }
     // },
     showMobileFooter() {
-      return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
+      let isMobileChatConversation = this.$route.name === routeNames.MessageCenter && this.$route.params?.id
+      return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage' && !isMobileChatConversation;
     },
     showHeader(){
       if(this.$route.name == routeNames.MessageCenter){

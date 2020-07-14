@@ -203,6 +203,7 @@
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
+                this.$router.push('/')
             }
         },
         mounted(){
