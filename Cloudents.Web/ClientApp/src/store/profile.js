@@ -42,6 +42,7 @@ const getters = {
    getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
+   getProfileCountry: state => state.profile?.user?.tutorCountry,
 }
 
 const mutations = {
@@ -244,11 +245,19 @@ const actions = {
          commit('setLiveSession', data)
       })
    },
-   updateStudyroomLiveSessions(context, session) {
-      let id = session.userId
+   async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
+      let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);
+      return data.sessionId;
+   },
+   async updateStudyroomLiveSessions(context, session) {
+       let id = session.userId
+       let studyRoomId = session.studyRoomId
+    
       return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
    },
+
+
    updateProfileFaq({commit}) {
       // profileInstance.get(``).then(({data}) => {
          let data = [
