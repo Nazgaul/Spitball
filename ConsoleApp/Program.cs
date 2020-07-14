@@ -22,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Storage.Queues;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
@@ -102,12 +103,11 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
-                //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
@@ -116,7 +116,6 @@ namespace ConsoleApp
             builder.RegisterType<MediaServices>().AsSelf().SingleInstance()
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
 
 
@@ -143,45 +142,19 @@ namespace ConsoleApp
 
         }
 
-        public enum Occurrence
-        {
-            None,
-            Daily,
-            Weekly,
-            Custom
-        }
+       
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            var liveSessionDateTime = DateTime.Parse("4/27/2020 14:00");
-            var endsAfter = 10;
-            var endsAfterTime = DateTime.Parse("5/27/2020 14:00");
-            //Daily
-            var daily = CrontabSchedule.Parse($"{liveSessionDateTime.Minute} {liveSessionDateTime.Hour} * * *");
-            var weekly = CrontabSchedule.Parse($"{liveSessionDateTime.Minute} {liveSessionDateTime.Hour} * * {liveSessionDateTime.DayOfWeek}");
-            
-            var custom = CrontabSchedule.Parse($"{liveSessionDateTime.Minute} {liveSessionDateTime.Hour} * * {liveSessionDateTime.DayOfWeek},{DayOfWeek.Saturday}");
+          
+            var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
+                DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
+                null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
 
-            Console.WriteLine("daily");
-            foreach (var nextOccurrence in daily.GetNextOccurrences(liveSessionDateTime.AddMinutes(-1), endsAfterTime))
-            {
-                Console.WriteLine(nextOccurrence);
-            }
-
-            Console.WriteLine("weekly");
-            foreach (var nextOccurrence in weekly.GetNextOccurrences(liveSessionDateTime.AddMinutes(-1), endsAfterTime))
-            {
-                Console.WriteLine(nextOccurrence);
-            }
-
-            Console.WriteLine("custom");
-            foreach (var nextOccurrence in custom.GetNextOccurrences(liveSessionDateTime.AddMinutes(-1), endsAfterTime))
-            {
-                Console.WriteLine(nextOccurrence);
-            }
-
+            var bus = Container.Resolve<ICommandBus>();
+            await bus.DispatchAsync(command);
 
         }
 

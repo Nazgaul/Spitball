@@ -95,8 +95,10 @@ namespace Cloudents.Web.Api
             var tutorId = _userManager.GetLongUserId(User);
             try
             {
-                var command = new CreateLiveStudyRoomCommand(tutorId, 
-                     model.Name, model.Price, model.Date, model.Description);
+                var command = new CreateLiveStudyRoomCommand(tutorId,
+                     model.Name, model.Price,
+                     model.Date, model.Description, model.Repeat, model.EndDate, 
+                     model.EndAfterOccurrences, model.RepeatOn);
                 await _commandBus.DispatchAsync(command, token);
                 return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
             }
@@ -200,7 +202,7 @@ namespace Cloudents.Web.Api
                 .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
-            var link =  await blobProvider.GeneratePreviewLinkAsync(uri, TimeSpan.FromDays(1));
+            var link = await blobProvider.GeneratePreviewLinkAsync(uri, TimeSpan.FromDays(1));
 
             return Ok(new
             {

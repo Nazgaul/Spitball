@@ -17,11 +17,11 @@ namespace Cloudents.Web.Models
 
        
         [Required]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             
-            if (Date.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
+            if (Date < DateTime.UtcNow)
             {
                 yield return new ValidationResult(
                     "Date should be in the future",
@@ -35,6 +35,13 @@ namespace Cloudents.Web.Models
                 {
                     yield return new ValidationResult(
                         "Invalid args",
+                        new[] { nameof(Name) });
+                }
+                if (EndAfterOccurrences.HasValue && 
+                    EndDate.HasValue)
+                {
+                    yield return new ValidationResult(
+                        "Can have both",
                         new[] { nameof(Name) });
                 }
             }
