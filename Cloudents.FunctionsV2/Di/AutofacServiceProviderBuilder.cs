@@ -4,7 +4,6 @@ using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.FunctionsV2.Services;
-using Cloudents.FunctionsV2.Sync;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Video;
 using Microsoft.AspNetCore.DataProtection;
@@ -16,8 +15,6 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
 using Cloudents.FunctionsV2.Operations;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host.Executors;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 

@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Microsoft.Azure.WebJobs;
 using System.Threading;
@@ -10,7 +11,8 @@ namespace Cloudents.FunctionsV2
     public class CreditCardFunction
     {
         [FunctionName("CreditCardExpired")]
-        public static async Task Run([TimerTrigger("0 0 0 28-31 * *")]TimerInfo myTimer,
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Entry point")]
+        public static async Task RunAsync([TimerTrigger("0 0 0 28-31 * *")]TimerInfo myTimer,
             [Inject] ICommandBus commandBus,
             CancellationToken token)
         {

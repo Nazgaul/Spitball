@@ -15,7 +15,7 @@ namespace Cloudents.Command.Command
             return new UpdateDocumentMetaCommand(id, null, null, DocumentType.Video, duration);
         }
         private UpdateDocumentMetaCommand(long id,
-            int? pageCount, string snippet, DocumentType documentType, TimeSpan? duration)
+            int? pageCount, string? snippet, DocumentType documentType, TimeSpan? duration)
         {
             Id = id;
 
@@ -30,7 +30,7 @@ namespace Cloudents.Command.Command
 
         public int? PageCount { get; }
 
-        public string Snippet { get; }
+        public string? Snippet { get; }
 
         public DocumentType DocumentType { get; }
 

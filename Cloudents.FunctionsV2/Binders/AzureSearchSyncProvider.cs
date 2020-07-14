@@ -8,7 +8,7 @@ namespace Cloudents.FunctionsV2.Binders
     public class AzureSearchSyncProvider : IExtensionConfigProvider
     {
 
-        private static SearchServiceClient _client;
+        private static SearchServiceClient? _client;
 
         private static readonly ConcurrentDictionary<string, ISearchIndexClient> IndexClients =
             new ConcurrentDictionary<string, ISearchIndexClient>();

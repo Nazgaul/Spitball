@@ -2,6 +2,7 @@
 using Cloudents.Core.Enum;
 using Dapper;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -10,14 +11,14 @@ namespace Cloudents.Query.Admin
 {
     public class TutorSearchQuery : IQueryAdmin2<IEnumerable<TutorDto>>
     {
-        public TutorSearchQuery(string term, ItemState? state, Country? country)
+        public TutorSearchQuery(string? term, ItemState? state, Country? country)
         {
             Term = term;
             State = state;
             Country = country;
         }
 
-        private string Term { get; }
+        private string? Term { get; }
         private ItemState? State { get; }
         public Country? Country { get; }
 
@@ -30,6 +31,7 @@ namespace Cloudents.Query.Admin
                 _dapperRepository = dapperRepository;
             }
 
+            [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Using")]
             public async Task<IEnumerable<TutorDto>> GetAsync(TutorSearchQuery query, CancellationToken token)
             {
 
