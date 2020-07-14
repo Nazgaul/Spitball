@@ -78,7 +78,8 @@
                                 </v-btn>
                                 <v-btn
                                     v-else
-                                    @click="enrollSession(session.id)"
+                                    @click="enrollSession(session)"
+                                    :loading="enrollBtnLoader"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -117,6 +118,7 @@
         >
             <div class="text-center white--text">{{toasterText}}</div>
         </v-snackbar>
+        <stripe ref="stripe"></stripe>
     </div>
 </template>
 
@@ -125,12 +127,14 @@ import { StudyRoom } from '../../../../routes/routeNames'
 
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-16.svg'
+import stripe from "../../../pages/global/stripe.vue";
 
 export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        arrowDownIcon  
+        arrowDownIcon  ,
+        stripe
     },
     props: {
         userId: {
@@ -144,6 +148,7 @@ export default {
             color: '',
             toasterText: '',
             isExpand: false,
+            enrollBtnLoader: false,
         }
     },
     watch: {
@@ -217,27 +222,35 @@ export default {
             });
             global.open(routeData.href, "_self");
         },
-        enrollSession(studyRoomId) {
+        async enrollSession(session) {
             if(!this.isLogged) {
                 sessionStorage.setItem('hash','#broadcast');
                 this.$store.commit('setComponent', 'register')
                 return
             }
-            let session = {
+            let sessionObj = {
                 userId: this.userId,
-                studyRoomId
+                studyRoomId: session.id
             }
+            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
+                let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
+                this.$refs.stripe.redirectToStripe(x);
+                return;
+            }
+           
             let self = this
-            this.$store.dispatch('updateStudyroomLiveSessions', session)
+            this.enrollBtnLoader = true
+            this.$store.dispatch('updateStudyroomLiveSessions', sessionObj)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
+                    let currentSession = self.broadcastSessions.filter(s => s.id === session.id)[0]
                     currentSession.enrolled = true
                 }).catch(ex => {
                     self.color = 'error'
                     self.toasterText = this.$t('profile_enroll_error')
                     self.$appInsights.trackException(ex);
                 }).finally(() => {
+                    this.enrollBtnLoader = false
                     self.showSnack = true
                 })
         }

@@ -138,6 +138,11 @@ const actions = {
             console.error(ex);
         })
     },
+    becomeTutor({ commit }) {
+        return axios.post('tutor/becomeTutor').finally(() => {
+            commit('setComponent', '')
+        })
+    },
     saveUserInfo({getters, commit}, params) {
        let passData =  {
            firstName: params.firstName,
