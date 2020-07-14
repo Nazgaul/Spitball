@@ -9,11 +9,6 @@
                             <span>{{$t('profile_edit_user_profile_title')}}</span>
                         </v-flex>
                     </v-layout>
-                    <v-layout class="px-3" v-if="allowedToBecomeTutor">
-                        <v-btn depressed color="blue" @click="becomeTutor">
-                            <span class="white--text" v-t="'become tutor'"></span>
-                        </v-btn>
-                    </v-layout>
                     <v-layout class="px-3 mt-3">
                         <div class="leftSide me-3 d-inline-block">
                             <uploadImage
@@ -36,7 +31,12 @@
                                 :loading="avatarLoading"
                                 @setAvatarLoaded="val => avatarLoading = val"
                             />
+                            <v-btn depressed color="blue" class="mt-2" @click="becomeTutor" v-if="allowedToBecomeTutor" block>
+                                <span class="white--text" v-t="'become tutor'"></span>
+                            </v-btn>
                         </div>
+                        <!-- <v-layout class="px-3"> -->
+                        <!-- </v-layout> -->
                         <v-layout wrap>
                             <v-flex xs12 :class="{'pe-2': $vuetify.breakpoint.smAndUp}">
                                     <v-flex xs12 class="ps-2 mb-2">
