@@ -20,7 +20,7 @@ namespace Cloudents.Functions
     {
 
         [FunctionName("BlobPreviewGenerator")]
-        public static async Task BlobPreviewQueueRun(
+        public static async Task BlobPreviewQueueRunAsync(
             //[QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
             [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,

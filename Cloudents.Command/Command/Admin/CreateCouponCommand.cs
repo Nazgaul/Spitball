@@ -14,19 +14,13 @@ namespace Cloudents.Command.Command.Admin
             Value = value;
             Expiration = expiration;
             Description = description;
-           // Owner = owner;
-          //  AmountOfUsers = amountOfUsers;
-           // AmountOfUsePerUser = amountOfUsePerUser;
         }
 
-      //  public string Owner { get; }
 
         public string? Description { get; }
 
         public DateTime? Expiration { get; }
 
-       // public int? AmountOfUsers { get; }
-        //public int AmountOfUsePerUser { get; }
 
         public decimal Value { get; }
 

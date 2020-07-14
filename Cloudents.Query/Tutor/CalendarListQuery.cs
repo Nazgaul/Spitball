@@ -40,8 +40,8 @@ namespace Cloudents.Query.Tutor
 
                 await Task.WhenAll(taskSharedCalendarResult, taskGoogleCalendarResult);
 
-                var googleCalendarResult = taskGoogleCalendarResult.Result;
-                var sharedCalendarResult = taskSharedCalendarResult.Result;
+                var googleCalendarResult = await taskGoogleCalendarResult;
+                var sharedCalendarResult = await taskSharedCalendarResult;
 
                 return googleCalendarResult.Select(s =>
                 {
