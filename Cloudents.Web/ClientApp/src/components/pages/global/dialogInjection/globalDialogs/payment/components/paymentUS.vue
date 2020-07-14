@@ -1,9 +1,10 @@
 <template>
   <v-layout column class="payme-popup pa-3">
-    <div class="text-center payme-top-title" v-t="'paymentUs title'"></div>
-    <div class="stripeWrapper mt-10">
+    <div class="text-center payme-top-title mb-5">{{$t('paymentUs title', [$store.getters.getRoomTutor.tutorName])}}</div>
+    <div class="text-center payme-top-title">{{$t('seesion require payment', [$price(tutorPrice, tutorCurrency)])}}</div>
+    <div class="stripeWrapper mt-5">
       <div class="text-center">
-        <v-btn @click="stripePay" :loading="isLoading" block class="white--text" width="120" color="#4c59ff" rounded depressed>
+        <v-btn @click="stripePay" :loading="isLoading" class="white--text" width="160" color="#4c59ff" rounded depressed>
           <span class="payBtn" v-t="'pay'"></span>
         </v-btn>
       </div>
@@ -30,11 +31,17 @@ export default {
       // stripeError: '',
     }
   },
-  // computed: {
-  //   getStripeToken() {
-  //     return this.$store.getters.getStripeToken
-  //   }
-  // },
+  computed: {
+    tutorName() {
+      return this.$store.getters.getRoomTutor?.tutorName
+    },
+    tutorPrice() {
+      return this.$store.getters.getRoomTutor?.tutorPrice?.amount
+    },
+    tutorCurrency() {
+      return this.$store.getters.getRoomTutor?.tutorPrice?.currency
+    }
+  },
   methods: {
     // closeDialog() {
     //   let isStudyRoom = this.$store.getters.getRoomIdSession && this.$route.name === routeNames.StudyRoom;
@@ -72,8 +79,8 @@ export default {
   -webkit-overflow-scrolling: touch;
 
   .payme-top-title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 600;
     color: @global-purple;
     @media (max-width: @screen-xs) {
       font-size: 18px;
