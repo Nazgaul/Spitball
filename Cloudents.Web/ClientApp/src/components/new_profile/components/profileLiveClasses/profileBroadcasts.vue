@@ -232,7 +232,7 @@ export default {
                 userId: this.userId,
                 studyRoomId: session.id
             }
-            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL') {
+            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
                 let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
                 this.$refs.stripe.redirectToStripe(x);
                 return;
