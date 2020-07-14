@@ -107,13 +107,60 @@
                 <v-col cols="12" class="sessionEnd d-flex" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth" v-t="'ends'"></div>
                     <v-radio-group v-model="radioEnd" class="mt-0">
-                        <v-radio class="mb-5" :label="$t('never')" value="never">
-                            <!-- <template v-slot:append>
-                                fsdakfnsdoafnsdoj
-                            </template> -->
+                        <v-radio class="mb-5" :label="$t('on')" value="on">
+                            <template v-slot:label>
+                                <span class="sessionOn">
+                                    {{$t('on')}}
+                                </span>
+                                <div @click.stop.prevent="">
+                                    <v-menu ref="datePickerOcurrence" v-model="datePickerOcurrence" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
+                                        <template v-slot:activator="{ on }">
+                                            <v-text-field 
+                                                v-on="on"
+                                                v-model="dateOcurrence"
+                                                type="text"
+                                                class="dateInput pe-2"
+                                                :rules="[rules.required]"
+                                                :label="$t('dashboardPage_label_date')"
+                                                height="36"
+                                                prepend-inner-icon="sbf-dateIcon"
+                                                color="#304FFE"
+                                                autocomplete="nope"
+                                                dense
+                                                outlined
+                                                readonly
+                                            >
+                                            </v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                            v-model="dateOcurrence"
+                                            class="date-picker"
+                                            @input="datePickerOcurrence = false"
+                                            :allowed-dates="allowedDates"
+                                            :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
+                                            :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
+                                            color="#4C59FF"
+                                            dense
+                                            no-title
+                                        >
+                                            <v-spacer></v-spacer>
+                                            <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerOcurrence = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
+                                            <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerOcurrence.save(dateOcurrence)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </div>
+                            </template>
                         </v-radio>
-                        <v-radio class="mb-5" :label="$t('on')" value="on"></v-radio>
-                        <v-radio :label="$t('after')" value="after"></v-radio>
+                        <v-radio :label="$t('after')" value="after">
+                            <template v-slot:label>
+                                <span class="sessionAfter">
+                                    {{$t('after')}}
+                                </span>
+                                <div @click.stop.prevent="">
+                                    fdsfsd
+                                </div>
+                            </template>
+                        </v-radio>
                     </v-radio-group>
                 </v-col>
             </template>
@@ -225,14 +272,16 @@ export default {
         return {
             daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             repeatCheckbox: [],
-            radioEnd: 'never',
+            radioEnd: 'on',
             imageLoading: false,
             isRtl: global.isRtl,
             liveSessionTitle: '',
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
+            dateOcurrence: new Date().FormatDateToString(),
             hour:  `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
             datePickerMenu: false,
+            datePickerOcurrence: false,
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('free'), value: 'free' },
@@ -373,6 +422,12 @@ export default {
         .v-input--selection-controls {
             margin-top: 0;
         }
+    }
+    .sessionEnd {
+        .sessionOn, .sessionAfter {
+            width: 60px;
+        }
+        // .sessionAfter {}
     }
     .sessionPriceWrap {
 
