@@ -1,9 +1,9 @@
-﻿using Cloudents.Core.Enum;
+﻿//using Cloudents.Core.Enum;
 
-namespace Cloudents.Admin2.Models
-{
-    public class CoursesRequest
-    {
-        public string? Search { get; set; }
-    }
-}
+//namespace Cloudents.Admin2.Models
+//{
+//    public class CoursesRequest
+//    {
+//        public string? Search { get; set; }
+//    }
+//}

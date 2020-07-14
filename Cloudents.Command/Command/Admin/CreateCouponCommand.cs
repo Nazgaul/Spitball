@@ -6,7 +6,7 @@ namespace Cloudents.Command.Command.Admin
     public class CreateCouponCommand : ICommand
     {
         public CreateCouponCommand(string code, CouponType couponType, long? tutorId, decimal value,
-             DateTime? expiration, string description)
+             DateTime? expiration, string? description)
         {
             Code = code;
             CouponType = couponType;
@@ -21,7 +21,7 @@ namespace Cloudents.Command.Command.Admin
 
       //  public string Owner { get; }
 
-        public string Description { get; }
+        public string? Description { get; }
 
         public DateTime? Expiration { get; }
 
