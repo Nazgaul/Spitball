@@ -107,7 +107,7 @@
                 <v-col cols="12" class="sessionEnd d-flex" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth" v-t="'ends'"></div>
                     <v-radio-group v-model="radioEnd" class="mt-0">
-                        <v-radio class="mb-5" :label="$t('on')" value="on">
+                        <v-radio class="mb-3" :label="$t('on')" value="on">
                             <template v-slot:label>
                                 <span class="sessionOn">
                                     {{$t('on')}}
@@ -119,10 +119,10 @@
                                                 v-on="on"
                                                 v-model="dateOcurrence"
                                                 type="text"
-                                                class="dateInput pe-2"
+                                                class="dateInput dateInputEnds"
                                                 :rules="[rules.required]"
-                                                :label="$t('dashboardPage_label_date')"
                                                 height="36"
+                                                hide-details
                                                 prepend-inner-icon="sbf-dateIcon"
                                                 color="#304FFE"
                                                 autocomplete="nope"
@@ -398,6 +398,18 @@ export default {
     .dateInput, .roomHour, .roomPrice, .priceTitle, .sessionTitleInput, .sessionAbout, .sbf-menu-down {
         input, textarea {
             color: @global-purple !important;
+        }
+    }
+    .dateInputEnds {
+        max-width: 136px;
+
+        .v-input__prepend-inner {
+            margin-top: 8px !important;
+        }
+        .v-text-field__slot {
+            input {
+                margin: 0;
+            }
         }
     }
     .priceSubscription, .v-select__selection--comma {
