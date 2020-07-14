@@ -67,6 +67,12 @@ namespace Cloudents.Persistence.Maps
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
             Map(x => x.Description).Length(4000).Nullable();
+
+            Component(x => x.Schedule, z =>
+            {
+                z.Map(x => x.End).Column("ScheduleEnd");
+                z.Map(x => x.CronString).Column("ScheduleCron");
+            });
         }
     }
 

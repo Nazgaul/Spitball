@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Enum;
@@ -12,7 +11,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(Tutor tutor,
              string onlineDocumentUrl,
-            string name, decimal price, DateTime broadcastTime, string? description)
+            string name, decimal price, DateTime broadcastTime, string? description, StudyRoomSchedule? schedule)
             : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, name, price)
         {
             Identifier = Guid.NewGuid().ToString();
@@ -20,6 +19,7 @@ namespace Cloudents.Core.Entities
             BroadcastTime = broadcastTime;
             TopologyType = StudyRoomTopologyType.GroupRoom;
             Description = description;
+            Schedule = schedule;
         }
 
         protected BroadCastStudyRoom() : base()
@@ -30,6 +30,8 @@ namespace Cloudents.Core.Entities
 
 
         public virtual string? Description { get; protected set; }
+
+        public virtual StudyRoomSchedule? Schedule { get; protected set; }
 
         public override void AddUserToStudyRoom(User user)
         {

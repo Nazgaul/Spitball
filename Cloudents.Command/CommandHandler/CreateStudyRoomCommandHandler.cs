@@ -54,46 +54,4 @@ namespace Cloudents.Command.CommandHandler
             //return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
         }
     }
-
-
-    public class CreateLiveStudyRoomCommandHandler : ICommandHandler<CreateLiveStudyRoomCommand>
-    {
-        private readonly IRegularUserRepository _userRepository;
-        private readonly ITutorRepository _tutorRepository;
-        private readonly IRepository<StudyRoom> _studyRoomRepository;
-        private readonly IGoogleDocument _googleDocument;
-        private readonly IChatRoomRepository _chatRoomRepository;
-
-        public CreateLiveStudyRoomCommandHandler(IRegularUserRepository userRepository,
-            IRepository<StudyRoom> studyRoomRepository, IGoogleDocument googleDocument, IChatRoomRepository chatRoomRepository, ITutorRepository tutorRepository)
-        {
-            _userRepository = userRepository;
-            _studyRoomRepository = studyRoomRepository;
-            _googleDocument = googleDocument;
-            _chatRoomRepository = chatRoomRepository;
-            _tutorRepository = tutorRepository;
-            
-        }
-
-        public async Task ExecuteAsync(CreateLiveStudyRoomCommand message,
-            CancellationToken token)
-        {
-            var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-
-            
-
-            var documentName = $"{message.Name}-{Guid.NewGuid()}";
-            var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
-
-
-            StudyRoom studyRoom = new BroadCastStudyRoom(tutor,  googleDocUrl,
-                message.Name, message.Price, message.BroadcastTime!.Value, message.Description);
-                await _studyRoomRepository.AddAsync(studyRoom, token);
-
-            await _studyRoomRepository.AddAsync(studyRoom, token);
-            message.StudyRoomId = studyRoom.Id;
-            message.Identifier = studyRoom.Identifier;
-            //return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
-        }
-    }
 }

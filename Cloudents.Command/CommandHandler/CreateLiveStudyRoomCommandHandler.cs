@@ -1,0 +1,76 @@
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
+
+namespace Cloudents.Command.CommandHandler
+{
+    public class CreateLiveStudyRoomCommandHandler : ICommandHandler<CreateLiveStudyRoomCommand>
+    {
+        private readonly ITutorRepository _tutorRepository;
+        private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
+        private readonly IGoogleDocument _googleDocument;
+        private readonly ICronService _cronService;
+
+        public CreateLiveStudyRoomCommandHandler(
+            IRepository<BroadCastStudyRoom> studyRoomRepository, IGoogleDocument googleDocument,
+            ITutorRepository tutorRepository, ICronService cronService)
+        {
+            _studyRoomRepository = studyRoomRepository;
+            _googleDocument = googleDocument;
+            _tutorRepository = tutorRepository;
+            _cronService = cronService;
+        }
+
+        public async Task ExecuteAsync(CreateLiveStudyRoomCommand message,
+            CancellationToken token)
+        {
+            var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
+
+
+
+            var documentName = $"{message.Name}-{Guid.NewGuid()}";
+            var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
+
+
+            StudyRoomSchedule? schedule = null;
+            if (message.Repeat.HasValue)
+            {
+                var endDate = message.EndDate;
+                var z = message.Repeat.Value switch
+                {
+                    StudyRoomRepeat.Daily => _cronService.BuildCronDaily(message.BroadcastTime),
+                    StudyRoomRepeat.Weekly => _cronService.BuildCronWeekly(message.BroadcastTime),
+                    StudyRoomRepeat.Custom => _cronService.BuildCronCustom(message.BroadcastTime, message.RepeatOn),
+                    _ => null
+                };
+                if (z == null)
+                {
+                    throw new ArgumentException("Not valid repeat");
+                }
+                if (message.EndAfterOccurrences.HasValue)
+                {
+                    endDate =
+                        _cronService.CalculateEndTime(message.BroadcastTime, z, message.EndAfterOccurrences.Value);
+                }
+
+                if (!endDate.HasValue)
+                {
+                    throw new ArgumentException("end date is null");
+                }
+                schedule = new StudyRoomSchedule(z, endDate.Value);
+            }
+
+
+            var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
+                message.Name, message.Price,
+                message.BroadcastTime, message.Description, schedule);
+            await _studyRoomRepository.AddAsync(studyRoom, token);
+            message.StudyRoomId = studyRoom.Id;
+            message.Identifier = studyRoom.Identifier;
+        }
+    }
+}
