@@ -4,7 +4,6 @@ import * as componentConsts from '../components/pages/global/toasterInjection/co
 const state = {
     toasterTypes:{
         default: '',
-        error: 'error-toaster',
     },
     params: {
         toasterText: '',

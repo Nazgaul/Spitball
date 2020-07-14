@@ -27,6 +27,7 @@ const getters = {
     getAccountFirstName: state => state.user?.firstName,
     getAccountLastName: state => state.user?.lastName,
     getAccountName: state => state.user?.name,
+    getAccountEmail: state => state.user?.email,
     getAccountImage: state => state.user?.image,
     getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
     

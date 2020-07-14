@@ -13,7 +13,7 @@
                         <div class="text-container">
                             <div class="text">
                                 <div class="answer-header-left-container">
-                                    <span class="timeago ml-2" :datetime="cardData.dateTime || cardData.create">{{date}}</span>
+                                    <span class="timeago ms-2" :datetime="cardData.dateTime || cardData.create">{{date}}</span>
                                 </div>
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">

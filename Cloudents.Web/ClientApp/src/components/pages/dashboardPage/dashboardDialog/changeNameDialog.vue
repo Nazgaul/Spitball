@@ -3,7 +3,7 @@
    <v-card class="name-change-wrap">
       <v-flex align-center justify-center class="relative-pos">
          <div class="title-wrap">
-            <span class="change-title pr-1" v-t="'dashboardPage_rename'"></span>
+            <span class="change-title pe-1" v-t="'dashboardPage_rename'"></span>
          </div>
          <div class="input-wrap d-flex align-center justify-center">
             <div :class="['name-wrap']">
@@ -12,7 +12,7 @@
          </div>
       </v-flex>
       <div class="change-name-actions">
-         <button @click="$emit('closeDialog')" class="cancel mr-2">
+         <button @click="$emit('closeDialog')" class="cancel me-2">
             <span v-t="'resultNote_action_cancel'"/>
          </button>
          <button @click.prevent="submitNewName()" class="change-name">

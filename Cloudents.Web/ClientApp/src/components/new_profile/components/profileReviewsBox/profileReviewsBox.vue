@@ -9,14 +9,12 @@
                </div>
                <div class="profileReviewsBox_state_score_rating">
                   <userRating class="state_score_rating" :showRateNumber="false" :rating="getAverageRate" :size="'20'" />
-                  <span class="state_score_rating_span pl-1" >{{$tc('resultTutor_review_one',getProfile.user.reviewCount)}}</span>
-                
+                  <span class="state_score_rating_span ps-1" >{{$tc('resultTutor_review_one',getProfile.user.reviewCount)}}</span>
                </div>
             </div>
             <div class="profileReviewsBox_state_stats">
                <div class="profileReviewsBox_state_stats_lines" v-if="!$vuetify.breakpoint.xsOnly">
-                  <v-progress-linear v-for="(rate, index) in rates" 
-                  :key="index" class="mr-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
+                  <v-progress-linear v-for="(rate, index) in rates" :key="index" class="me-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
                </div>
                <div class="profileReviewsBox_state_stats_stars">
                   <div class="profileReviewsBox_state_stats_stars_row" v-for="(rate, index) in rates" :key="index">

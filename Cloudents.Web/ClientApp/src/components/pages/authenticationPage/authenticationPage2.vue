@@ -9,9 +9,7 @@
 
     <div class="stepsSections">
       <div class="gap d-none d-sm-flex"></div>
-      <!-- <div class="stepContainer" :class="{'maxWidthCourseUni': dynamicClass}"> -->
-        <!-- <router-view></router-view> -->
-      <!-- </div> -->
+     
     </div>
   </div>
 </template>
@@ -19,9 +17,7 @@
 <script>
 import { mapGetters } from "vuex";
 import * as dialogNames from '../global/dialogInjection/dialogNames.js'
-//STORE
-// import storeService from "../../../services/store/storeService";
-// import loginRegister from "../../../store/loginRegister";
+
 
 const close = () => import("../../../font-icon/close.svg");
 
@@ -35,16 +31,9 @@ export default {
   },
   computed: {
     ...mapGetters(["isFrymo"]),
-    
-    // dynamicClass() {
-    //   return this.$route.meta.dynamicClass
-    // }
+   
   },
-  // beforeRouteEnter(to, from, next) {
-  //   next(vm => {
-  //     vm.from = from;
-  //   });
-  // },
+ 
   created() {
     if(this.$route.query.teacher) {
       this.$store.commit('setComponent', 'registerTeacher');
