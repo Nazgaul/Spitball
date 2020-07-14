@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
@@ -30,11 +31,17 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new NotFoundException();
             }
+            
 
             if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
                 studyRoom.Tutor.User.SbCountry != Country.Israel && message.Receipt == null)
             {
-                throw new UnauthorizedAccessException();
+                if (studyRoom.Tutor.User.Followers
+                        .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
+                    false)
+                {
+                    throw new UnauthorizedAccessException();
+                }
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
