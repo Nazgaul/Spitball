@@ -16,10 +16,10 @@ export default {
             });
         }
     },
-    async mounted() {
-        await this.$loadScript("https://js.stripe.com/v3/?advancedFraudSignals=false");
-        this.stripe =  await window.Stripe(window.stripe);
-
+     mounted() {
+        this.$loadScript("https://js.stripe.com/v3/?advancedFraudSignals=false").then(() => {
+            this.stripe = window.Stripe(window.stripe);
+        })
     }
 }
 </script>
