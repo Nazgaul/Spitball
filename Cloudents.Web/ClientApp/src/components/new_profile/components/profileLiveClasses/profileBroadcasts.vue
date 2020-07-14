@@ -79,6 +79,7 @@
                                 <v-btn
                                     v-else
                                     @click="enrollSession(session)"
+                                    :loading="enrollBtnLoader"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -147,6 +148,7 @@ export default {
             color: '',
             toasterText: '',
             isExpand: false,
+            enrollBtnLoader: false,
         }
     },
     watch: {
@@ -226,19 +228,18 @@ export default {
                 this.$store.commit('setComponent', 'register')
                 return
             }
-
             let sessionObj = {
                 userId: this.userId,
                 studyRoomId: session.id
             }
-            debugger;
-            if (session.price.amount && this.$store.getters.getProfileCountry !== 'IL') {
+            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
                 let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
                 this.$refs.stripe.redirectToStripe(x);
                 return;
             }
            
             let self = this
+            this.enrollBtnLoader = true
             this.$store.dispatch('updateStudyroomLiveSessions', sessionObj)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
@@ -249,6 +250,7 @@ export default {
                     self.toasterText = this.$t('profile_enroll_error')
                     self.$appInsights.trackException(ex);
                 }).finally(() => {
+                    this.enrollBtnLoader = false
                     self.showSnack = true
                 })
         }
