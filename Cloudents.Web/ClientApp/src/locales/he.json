@@ -135,6 +135,8 @@
   "courses_third_tip": "ללא שגיאות כתיב",
   "courses_try_again": "נסה שוב",
   "courses_you_created": "הצלחת ליצור",
+  "custom": "מותאם אישית",
+  "daily": "יומי",
   "dashboardCalendar_btn_update": "עדכון",
   "dashboardCalendar_snack_availability": "הזמינות שלך ביומן השתנתה",
   "dashboardCalendar_snack_availability_error": "שגיאה בקביעת הזמינות שלך",
@@ -465,6 +467,7 @@
   "mobileFooter_btn_upload": "העלאה",
   "my_live_classes": "השידורים החיים הבאים שלי",
   "my_live_classes_mobile": "השידורים החיים הבאים שלי",
+  "not repeat": "",
   "payme_are_you_sure_exit": "יציאה מחלון הכנסת פרטי אשראי תפנה אותך לעמוד הראשי, אתה בטוח?",
   "payme_bottom": "אנחנו לא שומרים בשרתים שלנו פרטי כרטיס אשראי של לקוחות. כרטיס אשראי מוזן ישירות במערכת PayMe המתמחה בתחום, שם הם נשמרים. כאשר יסתיים השיעור, אנחנו מורים לחברת PayMe לחייב את כרטיס האשראי (בלי לדעת את פרטי הכרטיס).",
   "payme_content_txt_hands": "אם לא מרוצים מהשיעור, נתקו את השיעור תוך 10 דקות ולא תחויבו",
@@ -906,5 +909,6 @@
   "wallet_Value": "שווי",
   "wallet_earned": "הכנסה",
   "wallet_spent": "הוצאה",
-  "wallet_total": "סך הכל"
+  "wallet_total": "סך הכל",
+  "weekly": "שבועי"
 }

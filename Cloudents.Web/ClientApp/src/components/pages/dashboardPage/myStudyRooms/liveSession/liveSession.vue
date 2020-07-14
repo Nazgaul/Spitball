@@ -78,9 +78,9 @@
 
             <v-col cols="12" sm="4" class="pa-0">
                 <v-select
-                    v-model="hour"
+                    v-model="currentRepeatItem"
                     class="roomHour pl-sm-4 mt-3 mt-sm-0"
-                    :items="timeHoursList"
+                    :items="repeatItems"
                     height="50"
                     :menu-props="{
                         maxHeight: 200
@@ -88,29 +88,29 @@
                     :label="$t('dashboardPage_labe_hours')"
                     prepend-inner-icon="sbf-clockIcon"
                     append-icon="sbf-menu-down"
+                    return-object
                     color="#304FFE"
                     placeholder=" "
                     dense
                     outlined
                 ></v-select>
             </v-col>
-
-            <template v-if="true">
+            
+            <template v-if="currentRepeatItem.value !== 'none'">
                 <v-col cols="12" class="sessionRepeat d-flex align-center">
-                    <span v-t="'repeat'" class="pe-5"></span>
-
+                    <div class="labelWidth" v-t="'repeat'"></div>
                     <div class="d-flex">
-                        <v-checkbox v-model="disabled" class="mx-2" :value="n" hide-details :label="index.toString()" v-for="(n, index) in 7" :key="index">{{n}}</v-checkbox>
+                        <v-checkbox v-model="repeatCheckbox" class="me-2" :value="n" hide-details :label="index.toString()" v-for="(n, index) in 7" :key="index">{{n}}</v-checkbox>
                     </div>
                 </v-col>
 
                 <v-col cols="12" class="sessionEnd d-flex">
-                    <div v-t="'ends'" class="pe-5"></div>
-                    <div class="">
-                        <v-radio :label="$t('never')" value="radio-1"></v-radio>
-                        <v-radio :label="$t('on')" value="radio-1"></v-radio>
-                        <v-radio :label="$t('after')" value="radio-1"></v-radio>
-                    </div>
+                    <div class="labelWidth" v-t="'ends'"></div>
+                    <v-radio-group v-model="radioEnd" class="mt-0">
+                        <v-radio :label="$t('never')" value="never"></v-radio>
+                        <v-radio :label="$t('on')" value="on"></v-radio>
+                        <v-radio :label="$t('after')" value="after"></v-radio>
+                    </v-radio-group>
                 </v-col>
             </template>
 
@@ -219,7 +219,8 @@ export default {
             currentMinutes = 0;
         }
         return {
-            disabled: [],
+            repeatCheckbox: [],
+            radioEnd: 'none',
             imageLoading: false,
             isRtl: global.isRtl,
             liveSessionTitle: '',
@@ -231,6 +232,13 @@ export default {
             items: [
                 { text: this.$t('free'), value: 'free' },
                 { text: this.$t('dashboardPage_visitors_set_price'), value: 'price' }
+            ],
+            currentRepeatItem: { text: this.$t('not repeat'), value: 'none' },
+            repeatItems: [
+                { text: this.$t('not repeat'), value: 'none' },
+                { text: this.$t('daily'), value: 'daily' },
+                { text: this.$t('weekly'), value: 'weekly' },
+                { text: this.$t('custom'), value: 'custom' }
             ],
             rules: {
                 required: (value) => validationRules.required(value),
@@ -322,6 +330,11 @@ export default {
     }
     .sessionDetails, .sessionPriceWrap {
         border-bottom: 1px solid #dddddd;
+    }
+    .sessionDetails {
+        .labelWidth {
+            width: 80px;
+        }
     }
     .v-text-field__slot{
         input{
