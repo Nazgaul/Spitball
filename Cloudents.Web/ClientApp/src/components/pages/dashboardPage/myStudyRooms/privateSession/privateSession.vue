@@ -19,7 +19,7 @@
                 <v-text-field 
                     v-model="myPrice"
                     type="number"
-                    class="pl-sm-4 roomPrice"
+                    class="ps-sm-4 roomPrice"
                     :rules="[rules.required,rules.minimum]"
                     placeholder=" "
                     :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"

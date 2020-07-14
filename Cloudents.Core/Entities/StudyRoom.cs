@@ -98,7 +98,9 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomUser> Users => _users;
 
+        protected readonly ICollection<StudyRoomPayment> _studyRoomPayments = new List<StudyRoomPayment>();
 
+        public virtual IEnumerable<StudyRoomPayment> StudyRoomPayments => _studyRoomPayments;
         public virtual string Identifier { get; protected set; }
         public virtual DomainTimeStamp DateTime { get; protected set; }
 

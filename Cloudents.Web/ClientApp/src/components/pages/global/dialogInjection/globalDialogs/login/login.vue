@@ -5,7 +5,7 @@
                 <button class="close-btn text-md-right" v-closeDialog>
                     <v-icon>sbf-close</v-icon>
                 </button>
-                <div class="ml-1 wrap-text">
+                <div class="ms-1 wrap-text">
                     <h2 class="text-md-center" v-t="'profileData_generalProfile_modal_heading'"></h2>
                     <div class="wrapper-body-text">
                         <p class="dialog-body-text" v-t="'profileData_generalProfile_modal_text'"></p>

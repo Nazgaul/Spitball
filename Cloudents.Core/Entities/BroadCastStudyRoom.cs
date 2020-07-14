@@ -30,6 +30,12 @@ namespace Cloudents.Core.Entities
 
         public virtual string? Description { get; protected set; }
 
+        public virtual void AddPayment(User user,string receipt)
+        {
+            var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
+            _studyRoomPayments.Add(studyRoomPayment);
+        }
+
         public override void AddUserToStudyRoom(User user)
         {
             ChatRoom.AddUserToChat(user);
@@ -38,11 +44,13 @@ namespace Cloudents.Core.Entities
                 return;
             }
             var studyRoomUser = new StudyRoomUser(user, this);
+            
             _users.Add(studyRoomUser);
            
              Tutor.User.AddFollower(user);
             AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
         }
+
 
 
 

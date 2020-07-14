@@ -4,12 +4,8 @@
     <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
-    <v-content :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
+    <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-
-
-      
-
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -46,10 +42,9 @@
         </sb-dialog>
 
       <mobile-footer v-if="showMobileFooter" />
-    </v-content>
+    </v-main>
     
     <v-snackbar
-      absolute
       top
       :timeout="getToasterTimeout"
       :class="getShowToasterType"

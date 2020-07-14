@@ -13,6 +13,7 @@ const mutations = {
 };
 
 const getters = {
+    // TODO: check if we need
     getUserStatus: state => state.userStatus,
 };
 

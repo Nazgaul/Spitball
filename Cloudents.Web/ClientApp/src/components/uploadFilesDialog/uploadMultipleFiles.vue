@@ -5,10 +5,10 @@
             <v-card class="uf-main elevation-0">
                 <v-stepper class="uf-mStepper elevation-0" v-model="currentStep">
                     
-                    <v-stepper-header class="uf-mHeader elevation-0 mb-2" :class="[isMobile ? 'pt-2' : 'pl-4']">
+                    <v-stepper-header class="uf-mHeader elevation-0 mb-2" :class="[isMobile ? 'pt-2' : 'ps-4']">
                         <template>
                             <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="image" />
-                            <h2 class="uf-mTitle" :class="{'ml-4': !isMobile}" v-t="'upload_uf_mTitle'"></h2>
+                            <h2 class="uf-mTitle" :class="{'ms-4': !isMobile}" v-t="'upload_uf_mTitle'"></h2>
                         </template>
                     </v-stepper-header>
 

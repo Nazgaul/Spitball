@@ -12,7 +12,7 @@
                 <div class="bottomIcons d-flex align-end justify-space-between">
                     <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
                         <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
-                        <div id="audio-input-meter" class="ml-2"></div>
+                        <div id="audio-input-meter" class="ms-2"></div>
                     </div>
                     <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
                 </div>

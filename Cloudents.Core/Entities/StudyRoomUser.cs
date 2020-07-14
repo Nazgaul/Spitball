@@ -20,6 +20,8 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
         public virtual StudyRoom Room { get; protected set; }
 
+       // public virtual bool HasPayment { get; set; }
+
 
         protected bool Equals(StudyRoomUser other)
         {

@@ -44,7 +44,6 @@ export default {
     },
     beforeDestroy(){
         this.isLoading = false;
-        global.onbeforeunload = function() {}
     },
     created() {
         if(this.$store.getters.getRoomIsBroadcast) {

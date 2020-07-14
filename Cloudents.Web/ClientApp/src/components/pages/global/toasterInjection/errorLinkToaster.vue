@@ -1,6 +1,5 @@
 <template>
     <v-snackbar
-        absolute
         top
         color="error"
         :timeout="params.timeout || 3000"

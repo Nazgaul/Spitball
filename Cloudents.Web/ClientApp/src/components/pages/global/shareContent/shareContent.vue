@@ -1,6 +1,6 @@
 <template>
   <div class="shareContent"  :class="{'marketingBtn': large, 'shareContentDefault':defaultStyle}">
-    <span class="pr-1" v-if="!large && !roomSetting && !profileRoute">{{$t('shareContent_title')}} |</span>
+    <span class="pe-1" v-if="!large && !roomSetting">{{$t('shareContent_title')}} |</span>
 
     <div class="d-flex align-center btnWrapper">
       <v-btn
@@ -21,7 +21,7 @@
         :ripple="false"
         @click="shareOnSocialMedia('whatsApp')"
       >
-        <whatsappSVG right style="width:20px" class="option whatsapp mr-2" />
+        <whatsappSVG right style="width:20px" class="option whatsapp me-2" />
       </v-btn>
       <v-btn
         class="shareBtns"
@@ -31,7 +31,7 @@
         :ripple="false"
         @click="shareOnSocialMedia('twitter')"
       >
-        <twitterSVG right style="width:20px" class="option twitter mr-2" />
+        <twitterSVG right style="width:20px" class="option twitter me-2" />
       </v-btn>
       <v-btn
         class="shareBtns"
@@ -41,7 +41,7 @@
         :ripple="false"
         @click="shareOnSocialMedia('email')"
       >
-        <emailSVG right style="width:21px" class="option email mr-2" />
+        <emailSVG right style="width:21px" class="option email me-2" />
       </v-btn>
     </div>
 
@@ -60,7 +60,7 @@
         </div>
         <linkSVG
           style="width:20px"
-          class="option link ml-4"
+          class="option link ms-4"
           @click="shareOnSocialMedia('link')"
           v-else
         />
@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import { Profile } from '../../../../routes/routeNames.js'
 import emailSVG from "./images/email.svg";
 import facebookSVG from "./images/facebook.svg";
 import whatsappSVG from "./images/whatsapp.svg";
@@ -82,7 +81,6 @@ export default {
   name: "shareContent",
   data() {
     return {
-      profileRoute: Profile,
       showCopyToolTip: false
     };
   },

@@ -8,7 +8,7 @@
                <v-tooltip top>
                   <template v-slot:activator="{ on }">
                      <v-btn v-on="on" icon class="fullScreenBtn" text @click="openFullScreen">
-                        <v-icon size="22" class="ml-1" color="white">sbf-exp</v-icon>
+                        <v-icon size="22" class="ms-1" color="white">sbf-exp</v-icon>
                      </v-btn>
                   </template>
                   <span v-text="$t('tutor_tooltip_fullscreen')"/>
@@ -16,7 +16,7 @@
             </template>
             <v-tooltip top>
                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :class="['elevation-3','drawerControlsBtn',{'btnIgnore':!isAudioActive},'mr-2']" icon @click="toggleAudio" sel="audio_enabling">
+                  <v-btn v-on="on" :class="['elevation-3','drawerControlsBtn',{'btnIgnore':!isAudioActive},'me-2']" icon @click="toggleAudio" sel="audio_enabling">
                      <v-icon v-if="isAudioActive" size="20" color="white">sbf-microphone</v-icon>
                      <v-icon v-else size="20" color="white">sbf-mic-ignore</v-icon>
                   </v-btn>
@@ -26,7 +26,7 @@
 
             <v-tooltip top>
                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :class="['elevation-3','drawerControlsBtn',{'btnIgnore':!isVideoActive},'ml-2']" icon @click="toggleVideo" sel="video_enabling">
+                  <v-btn v-on="on" :class="['elevation-3','drawerControlsBtn',{'btnIgnore':!isVideoActive},'ms-2']" icon @click="toggleVideo" sel="video_enabling">
                      <v-icon v-if="isVideoActive" size="14" color="white">sbf-videocam</v-icon>
                      <v-icon v-else size="20" color="white">sbf-videocam-off</v-icon>
                   </v-btn>

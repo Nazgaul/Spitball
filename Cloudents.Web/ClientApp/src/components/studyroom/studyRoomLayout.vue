@@ -5,11 +5,12 @@
     </template>
     <template v-else>
       <studyRoomDrawer/>
+
       <studyRoomHeader @roomMuted="showRoomMutedToaster = true"/>
-      <v-content>
+      <v-main>
         <studyRoomWrapper style="height:100%"/>
         <roomMutedToaster v-if="showRoomMutedToaster"/>
-      </v-content>
+      </v-main>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
     
@@ -72,8 +73,18 @@ export default {
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
     },
+    isRoomEnabled(){
+      return this.$store.getters.getJwtToken
+    }
   },
   watch: {
+    isRoomEnabled(val){
+      if(val){
+        window.onbeforeunload = function() {     
+          return "Are you sure you want to close the window?";
+        };
+      }
+    },
     getRoomIsNeedPayment:{
       immediate:true,
       handler(newVal){
@@ -120,11 +131,6 @@ export default {
             this.$router.push('/')
           }
         })
-        if(this.$store.getters.getUserLoggedInStatus){
-          global.onbeforeunload = function() {     
-            return "Are you sure you want to close the window?";
-          };
-        }
   },
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');

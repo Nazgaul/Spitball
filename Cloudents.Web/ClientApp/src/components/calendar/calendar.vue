@@ -268,7 +268,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      "updateToasterParams",
       "btnClicked",
       "insertEvent",
       "updateNeedPayment"
@@ -329,13 +328,7 @@ export default {
         () => {
           this.addEventDialog = false;
           this.isLoading = false;
-          this.updateToasterParams({
-            toasterText: this.$t(
-              "calendar_error_create_event"
-            ),
-            showToaster: true,
-            toasterType: "error-toaster"
-          });
+          this.$store.commit('addComponent',componentConsts.BOOK_FAILED);
         }
       );
     },
