@@ -81,73 +81,73 @@ export default {
    },
    methods: {
       createStudyRoom(){
-         let params
          let form = this.$refs.createRoomValidation
          if(!form.validate()) return
 
          if(!this.isLoading && this.isNoErrors){
-
-            if(this.isPrivate) {
-               params = this.createPrivateSession()
-            } else {
-               params = this.createLiveSession()
-            }
-
-            if(params === false) return
-            
-            params.type = this.studyRoomType
-
-            let self = this
             this.isLoading = true
-            this.$store.dispatch('updateCreateStudyRoom', params)
-               .then(() => {
-                  self.$store.commit('setComponent')
-               }).catch((error) => {
-                  console.log(error)
-                  if(error.response?.status == 409){
-                     self.errors.showErrorAlreadyCreated = true
-                     self.currentError = 'showErrorAlreadyCreated'
-                  }
-               }).finally(() => {
-                  self.isLoading = false
-               })
+            if(this.isPrivate) {
+               this.createPrivateSession()
+            } else {
+               this.createLiveSession()
+            }
          }
       },
       createPrivateSession() {
          let childComponent = this.$refs.childComponent
-
          if(!childComponent.selected.length) {
             this.errors.showErrorEmpty = true
             this.currentError = 'showErrorEmpty'
-            return false
+            this.isLoading = false
+            return
          }
-         return {
+
+         let privateObj = {
             userId: Array.from(childComponent.selected.map(user=> user.userId)),
             name: childComponent.roomName,
-            currency: this.$store.getters.accountUser.currencySymbol,
             price: childComponent.price,
+            currency: this.$store.getters.accountUser.currencySymbol,
          }
+
+         let self = this
+         this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj).catch((error) => {
+               self.handleCreateError(error)
+            })
       },
       createLiveSession() {
          let childComponent = this.$refs.childComponent;
          let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`);         
          let isToday = userChooseDate.isSame(this.$moment(), 'day');
-
          if(isToday) {
             let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
-
             if(!isValidDateToday) {
                this.errors.showErrorWrongTime = true
                this.currentError = 'showErrorWrongTime'
-               return false
+               this.isLoading = false
+               return
             } 
-
          }
-         return {
-            date: userChooseDate,
+
+         let liveObj = {
             name: childComponent.liveSessionTitle,
-            description: childComponent.sessionAboutText,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
+            date: userChooseDate,
+            description: childComponent.sessionAboutText,
+            // repeat: childComponent.repeat,
+            // endDate: childComponent.endDate,
+            // endAfterOccurrences: childComponent.endAfterOccurrences,
+            // repeatOn: childComponent.repeatOn
+         }
+
+         this.$store.dispatch('updateCreateStudyRoomLive', liveObj).catch((error) => {
+            self.handleCreateError(error)
+         })
+      },
+      handleCreateError(error) {
+         console.log(error)
+         if(error.response?.status == 409){
+            self.errors.showErrorAlreadyCreated = true
+            self.currentError = 'showErrorAlreadyCreated'
          }
       },
       updateError(error) {

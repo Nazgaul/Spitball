@@ -100,7 +100,18 @@
                 <v-col cols="12" class="sessionRepeat d-flex align-center mb-2">
                     <div class="labelWidth" v-t="'repeat'"></div>
                     <div class="d-flex">
-                        <v-checkbox v-model="repeatCheckbox" class="me-2" :value="day" hide-details :label="day.charAt(0)" v-for="(day, index) in daysOfWeek" :key="index"></v-checkbox>
+                        {{currentRepeatDayOfTheWeek}}
+                        <v-checkbox 
+                            v-model="repeatCheckbox"
+                            v-for="(day, index) in daysOfWeek"
+                            class="me-2"
+                            :key="index"
+                            :disabled="repeatCheckbox.includes(currentRepeatDayOfTheWeek)"
+                            :label="day.charAt(0)"
+                            
+                            :value="day"
+                            hide-details
+                        ></v-checkbox>
                     </div>
                 </v-col>
 
@@ -270,6 +281,7 @@ export default {
             currentMinutes = 0;
         }
         return {
+            currentRepeatDayOfTheWeek: new Date().getDay(),
             daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             repeatCheckbox: [],
             radioEnd: 'on',
@@ -302,7 +314,8 @@ export default {
     },
     watch: {
         date(val) {
-            console.log(new Date(val).getDay());
+            this.currentRepeatDayOfTheWeek = new Date(val).getDay()
+            this.repeatCheckbox = this.daysOfWeek[this.currentRepeatDayOfTheWeek]
             this.resetErrors(val)
         },
         hour(val) {
