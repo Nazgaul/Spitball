@@ -79,6 +79,7 @@
                                 <v-btn
                                     v-else
                                     @click="enrollSession(session.id)"
+                                    :loading="enrollBtnLoader"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -144,6 +145,7 @@ export default {
             color: '',
             toasterText: '',
             isExpand: false,
+            enrollBtnLoader: false,
         }
     },
     watch: {
@@ -228,6 +230,7 @@ export default {
                 studyRoomId
             }
             let self = this
+            this.enrollBtnLoader = true
             this.$store.dispatch('updateStudyroomLiveSessions', session)
                 .then(() => {
                     self.toasterText = this.$t('profile_enroll_success')
@@ -238,6 +241,7 @@ export default {
                     self.toasterText = this.$t('profile_enroll_error')
                     self.$appInsights.trackException(ex);
                 }).finally(() => {
+                    this.enrollBtnLoader = false
                     self.showSnack = true
                 })
         }

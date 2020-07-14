@@ -161,6 +161,7 @@ const mutations = {
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
+      state.documents = []
    },
    setProfileFollower(state, val) {
       if(state.profile?.user) {
