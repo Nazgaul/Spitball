@@ -35,8 +35,6 @@
                                 <span class="white--text" v-t="'become tutor'"></span>
                             </v-btn>
                         </div>
-                        <!-- <v-layout class="px-3"> -->
-                        <!-- </v-layout> -->
                         <v-layout wrap>
                             <v-flex xs12 :class="{'pe-2': $vuetify.breakpoint.smAndUp}">
                                     <v-flex xs12 class="ps-2 mb-2">
