@@ -302,6 +302,7 @@ export default {
     },
     watch: {
         date(val) {
+            console.log(new Date(val).getDay());
             this.resetErrors(val)
         },
         hour(val) {
