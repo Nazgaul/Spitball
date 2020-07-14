@@ -31,6 +31,7 @@ using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using NCrontab;
 using NHibernate.Linq;
 using Skarp.HubSpotClient.Contact;
 using Skarp.HubSpotClient.Contact.Dto;
@@ -142,15 +143,46 @@ namespace ConsoleApp
 
         }
 
+        public enum Occurrence
+        {
+            None,
+            Daily,
+            Weekly,
+            Custom
+        }
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            var sw = new Stopwatch();
-          
-            Console.WriteLine(TimeSpan.FromTicks(sw.ElapsedTicks).TotalMinutes);
-           
+            var liveSessionDateTime = DateTime.Parse("4/27/2020 14:00");
+            var endsAfter = 10;
+            var endsAfterTime = DateTime.Parse("5/27/2020 14:00");
+            //Daily
+            var daily = CrontabSchedule.Parse($"{liveSessionDateTime.Minute} {liveSessionDateTime.Hour} * * *");
+            var weekly = CrontabSchedule.Parse($"{liveSessionDateTime.Minute} {liveSessionDateTime.Hour} * * {liveSessionDateTime.DayOfWeek}");
+            
+            var custom = CrontabSchedule.Parse($"{liveSessionDateTime.Minute} {liveSessionDateTime.Hour} * * {liveSessionDateTime.DayOfWeek},{DayOfWeek.Saturday}");
+
+            Console.WriteLine("daily");
+            foreach (var nextOccurrence in daily.GetNextOccurrences(liveSessionDateTime.AddMinutes(-1), endsAfterTime))
+            {
+                Console.WriteLine(nextOccurrence);
+            }
+
+            Console.WriteLine("weekly");
+            foreach (var nextOccurrence in weekly.GetNextOccurrences(liveSessionDateTime.AddMinutes(-1), endsAfterTime))
+            {
+                Console.WriteLine(nextOccurrence);
+            }
+
+            Console.WriteLine("custom");
+            foreach (var nextOccurrence in custom.GetNextOccurrences(liveSessionDateTime.AddMinutes(-1), endsAfterTime))
+            {
+                Console.WriteLine(nextOccurrence);
+            }
+
+
         }
 
 
