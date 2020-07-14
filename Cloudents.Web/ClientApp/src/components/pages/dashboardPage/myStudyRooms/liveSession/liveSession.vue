@@ -97,18 +97,22 @@
             </v-col>
             
             <template v-if="currentRepeatItem.value !== 'none'">
-                <v-col cols="12" class="sessionRepeat d-flex align-center">
+                <v-col cols="12" class="sessionRepeat d-flex align-center mb-2">
                     <div class="labelWidth" v-t="'repeat'"></div>
                     <div class="d-flex">
-                        <v-checkbox v-model="repeatCheckbox" class="me-2" :value="n" hide-details :label="index.toString()" v-for="(n, index) in 7" :key="index">{{n}}</v-checkbox>
+                        <v-checkbox v-model="repeatCheckbox" class="me-2" :value="day" hide-details :label="day.charAt(0)" v-for="(day, index) in daysOfWeek" :key="index"></v-checkbox>
                     </div>
                 </v-col>
 
-                <v-col cols="12" class="sessionEnd d-flex">
+                <v-col cols="12" class="sessionEnd d-flex" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth" v-t="'ends'"></div>
                     <v-radio-group v-model="radioEnd" class="mt-0">
-                        <v-radio :label="$t('never')" value="never"></v-radio>
-                        <v-radio :label="$t('on')" value="on"></v-radio>
+                        <v-radio class="mb-5" :label="$t('never')" value="never">
+                            <!-- <template v-slot:append>
+                                fsdakfnsdoafnsdoj
+                            </template> -->
+                        </v-radio>
+                        <v-radio class="mb-5" :label="$t('on')" value="on"></v-radio>
                         <v-radio :label="$t('after')" value="after"></v-radio>
                     </v-radio-group>
                 </v-col>
@@ -219,8 +223,9 @@ export default {
             currentMinutes = 0;
         }
         return {
+            daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             repeatCheckbox: [],
-            radioEnd: 'none',
+            radioEnd: 'never',
             imageLoading: false,
             isRtl: global.isRtl,
             liveSessionTitle: '',
