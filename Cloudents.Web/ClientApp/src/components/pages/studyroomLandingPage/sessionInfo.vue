@@ -1,8 +1,8 @@
 <template>
-   <div class="sessionInfo">
-      <div class="sessionTitle pt-6" v-t="'what_learn'"/>
+   <div class="sessionInfo px-4 px-lg-0">
+      <div class="sessionTitle pt-0 pt-lg-6" v-t="'what_learn'"/>
       <div class="divider"/>
-      <div class="sessionText" v-text="sessionDescription"/>
+      <div class="sessionText px-sm-4" v-text="sessionDescription"/>
    </div>
 </template>
 <script>
@@ -16,27 +16,43 @@ export default {
 </script>
 
 <style lang="less">
+   @import '../../../styles/mixin.less';
    .sessionInfo{
       width: 100%;
       background-color: #ffffff;
       margin-top: 22px;
       text-align: center;
       color: #43425d;
+      @media(max-width: @screen-xs) {
+         margin-top: 20px;
+      }
       .sessionTitle{
          font-size: 28px;
          font-weight: 600;
+         @media(max-width: @screen-xs) {
+            font-size: 22px;
+         }
       }
       .divider{
          margin: 12px auto 22px;
+         @media(max-width: @screen-xs) {
+            margin: 10px auto 16px;
+         }
          width: 64px;
          background: #41c4bc;
          height: 3px;
       }
       .sessionText{
+         @media(max-width: @screen-xs) {
+            font-size: 18px;
+         }
          font-size: 20px;
          line-height: 1.7;
          max-width: 855px;
          margin: 0 auto;
+         @media(max-width: @screen-xs) {
+            text-align: initial;
+         }
       }
    }
 </style>

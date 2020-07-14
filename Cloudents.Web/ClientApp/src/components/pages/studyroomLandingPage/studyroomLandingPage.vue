@@ -1,7 +1,7 @@
 <template>
    <div class="studyroomLandingPage d-flex">
-      <div class="pageWrapper">
-         <logo class="pageLogo"/>
+      <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
+         <logo v-if="!isMobile" class="pageLogo"/>
          <roomInfo/>
          <sessionInfo/>
          <hostInfo/>
@@ -20,11 +20,17 @@ export default {
       sessionInfo,
       hostInfo,
       logo
-   }
+   },
+   computed: {
+      isMobile(){
+         return this.$vuetify.breakpoint.xsOnly;
+      }
+   },
 }
 </script>
 
 <style lang="less">
+   @import '../../../styles/mixin.less';
    .studyroomLandingPage{
       width: 100%;
       height: 100%;
@@ -44,14 +50,20 @@ export default {
          right: 0;
          bottom: 0;
          z-index: 1;
+         @media(max-width: @screen-sm) {
+            max-height: 653px;
+         }
+         @media(max-width: @screen-xs) {
+            background-image: none;
+         }
       }
       .pageWrapper{
+         width: 100%;
          z-index: 2;
          margin: 0 auto;
          max-width: 1100px;
          .pageLogo{
-            margin-top: 16px;
-            margin-bottom: 16px;
+            margin: 16px 0;
             .logo {
                fill: #fff !important;
                width: 120px;
