@@ -1,8 +1,8 @@
 <template>
    <div class="sessionInfo px-4 px-lg-0">
-      <div class="sessionTitle pt-0 pt-lg-6" v-t="'what_learn'"/>
+      <div class="sessionTitle pt-0 pt-sm-6" v-t="'what_learn'"/>
       <div class="divider"/>
-      <div class="sessionText px-sm-4" v-text="sessionDescription"/>
+      <div class="sessionText px-sm-4 px-md-0" v-text="sessionDescription"/>
    </div>
 </template>
 <script>
@@ -20,7 +20,7 @@ export default {
    .sessionInfo{
       width: 100%;
       background-color: #ffffff;
-      margin-top: 22px;
+      margin-top: 24px;
       text-align: center;
       color: #43425d;
       @media(max-width: @screen-xs) {

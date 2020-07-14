@@ -1,6 +1,6 @@
 <template>
     <div class="counterComponent">
-        <span>{{time.days}}</span>:<span>{{time.hours}}</span>:<span>{{time.minutes}}</span>:<span>{{time.seconds}}</span>
+        <span>{{time.days}}</span><span class="counterDots">:</span><span>{{time.hours}}</span><span class="counterDots">:</span><span>{{time.minutes}}</span><span class="counterDots">:</span><span>{{time.seconds}}</span>
     </div>
 </template>
 

@@ -17,7 +17,7 @@
          </div>
       </div>
       <div class="roomInfoBottom d-flex flex-wrap justify-center">
-         <div class="bottomRight text-center px-4">
+         <div class="bottomRight text-center px-6 px-sm-4">
             <div v-if="isMobile" class="pt-7 sessionPrice">Only $39.99 for the entire class</div>
             <v-btn class="saveBtn" v-t="'save_spot'" depressed :height="btnHeight" color="#1b2441"/>
             <div class="couponText" v-t="'apply_coupon_code'"/>
@@ -121,6 +121,9 @@ export default {
                   max-width: 380px;
                   font-size: 30px;
                }
+               @media(max-width: @screen-sm) {
+                  font-size: 28px;
+               }
             }
             .triangle{
                position: absolute;
@@ -174,17 +177,20 @@ export default {
                font-size: 20px;
                color: #1b2441;
                text-decoration: underline;
-               padding-top: 10px;
+               padding-top: 12px;
                @media(max-width: @screen-sm) {
                   font-size: 18px;
                }
                @media(max-width: @screen-xs) {
                   font-size: 16px;
+                  font-weight: 600;
+                  padding-top: 14px;
+
                }
             }
             .sessionPrice{
                font-size: 18px;
-               font-weight: 600;
+               font-weight: bold;
                color: #1b2441;
             }
          }
@@ -194,18 +200,23 @@ export default {
                width: 100%;
             }
             .pageCounter{
-               span{
-                  padding-right: 4px;
-                  padding-left: 4px;
+               .counterDots{
+                  padding: 0 10px;
+                  @media(max-width: @screen-sm) {
+                     padding: 0 4px;
+                  }
+               }
+               @media(max-width: @screen-sm) {
+                  font-size: 44px;
+                  margin-top: 40px;
                }
                @media(max-width: @screen-xs) {
-                  margin-top: 14px;
-                  font-size: 30px;
+                  margin-top: 16px;
+                  font-size: 36px;
                }
-
-               margin-top: 34px;
+               margin-top: 36px;
                text-align: center;
-               font-size: 52px;
+               font-size: 54px;
                font-weight: 600;
                color: #1b2441;
             }
