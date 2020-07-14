@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Newtonsoft.Json;
@@ -25,8 +23,16 @@ namespace Cloudents.Infrastructure
                     var contact = await _api.GetByEmailAsync<HubSpotContact>(email);
                     return contact;
                 }
+               
                 catch(HubSpotException e)
                 {
+                    //502 error -  https://github.com/skarpdev/dotnetcore-hubspot-client/pull/30
+                    if (e.Message.StartsWith("<"))
+                    {
+                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
+                        continue;
+                    }
                     dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
                     if (response.errorType == "RATE_LIMIT")
                     {
@@ -41,25 +47,7 @@ namespace Cloudents.Infrastructure
             } while (true);
         }
 
-        //private async Task<U> ThrottleConnectionAsync<T,U>(Delegate f, params  object[] args)
-        //{
-        //    var timeToWaitInMillisecond = 5;
-        //    do
-        //    {
-        //        try
-        //        {
-        //            var result = await f.DynamicInvoke(args);
-        //            func()
-        //            var contact = await _api.GetByEmailAsync<HubSpotContact>(email);
-        //            return contact;
-        //        }
-        //        catch(Exception ex)
-        //        {
-        //            await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-        //            timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-        //        }
-        //    } while (true);
-        //}
+       
 
         
  
@@ -81,6 +69,12 @@ namespace Cloudents.Infrastructure
                 }
                 catch (HubSpotException e)
                 {
+                    if (e.Message.StartsWith("<"))
+                    {
+                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
+                        continue;
+                    }
                     dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
                     if (response.errorType == "RATE_LIMIT")
                     {
