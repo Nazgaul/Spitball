@@ -1,9 +1,14 @@
 <template>
-  <v-layout column class="payme-popup pa-3">
-    <div class="text-center payme-top-title mb-5">{{$t('paymentUs title', [$store.getters.getRoomTutor.tutorName])}}</div>
-    <div class="text-center payme-top-title">{{$t('seesion require payment', [$price(tutorPrice, tutorCurrency)])}}</div>
+  <v-layout column class="payme-popup pa-3 text-center">
+    <div class="paymeTitle" v-t="'live payment'"></div>
+    <div class="d-flex flex-column my-auto">
+      <div class="payme-top-title mb-5">{{$t('paymentUs title', [$store.getters.getRoomTutor.tutorName])}}</div>
+      <div class="payme-top-title mb-5">{{$store.getters.getRoomName}}</div>
+      <div class="payme-top-title">{{$t('seesion require payment', [$price(tutorPrice, tutorCurrency)])}}</div>
+
+    </div>
     <div class="stripeWrapper mt-5">
-      <div class="text-center">
+      <div class="">
         <v-btn @click="stripePay" :loading="isLoading" class="white--text" width="160" color="#4c59ff" rounded depressed>
           <span class="payBtn" v-t="'pay'"></span>
         </v-btn>
@@ -40,7 +45,8 @@ export default {
     },
     tutorCurrency() {
       return this.$store.getters.getRoomTutor?.tutorPrice?.currency
-    }
+    },
+    
   },
   methods: {
     // closeDialog() {
@@ -77,13 +83,18 @@ export default {
   border-radius: 4px;
   background-color: #ffffff;
   -webkit-overflow-scrolling: touch;
-
+  height: 300px;
+  .paymeTitle {
+    font-size: 20px;
+    color: @global-purple;
+    font-weight: bold;
+  }
   .payme-top-title {
-    font-size: 18px;
-    font-weight: 600;
+    // font-size: 18px;
+    // font-weight: 600;
     color: @global-purple;
     @media (max-width: @screen-xs) {
-      font-size: 18px;
+      // font-size: 18px;
     }
   }
   .payBtn {
