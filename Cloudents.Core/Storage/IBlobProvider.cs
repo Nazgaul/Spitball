@@ -56,12 +56,14 @@ namespace Cloudents.Core.Storage
 
     }
 
-    //public interface IStudyRoomSessionBlobProvider : IBlobProvider
-    //{
-    //    Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
-    //    Uri DownloadVideoLink(Guid roomId, string sessionId);
+    public interface IStudyRoomBlobProvider : IBlobProvider
+    {
+        Task<Uri> UploadImageAsync(string file,
+            Stream stream, string contentType, CancellationToken token);
+        // Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
+        //Uri DownloadVideoLink(Guid roomId, string sessionId);
 
-    //}
+    }
 
 
 }
