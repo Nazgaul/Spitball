@@ -28,38 +28,26 @@ export const studyRoomRoutes = [
                 next('/');
                 return
             }
-            if(!store.getters.getUserLoggedInStatus){
-                next({
-                    name: routeName.StudyRoomLanding,
-                    params:{...to.params}
-                });
-                return
-            }
             store.commit('clearComponent');
             store.dispatch('updateStudyRoomInformation',to.params.id)
-            .then(()=>{
-                if(store.getters.getRoomIsNeedPayment){
-                    // next({
-                        //     name: routeName.StudyRoomLanding,
-                        //     params:{...to.params }
-                        // });
-                    let routeData = router.resolve({
-                        name: routeName.StudyRoomLanding,
-                    params:{...to.params }
-                    });
-                    global.open(routeData.href, "_self");
-                    return;
-                }else{
-                    next();
-                    return
-                }
-            })
-            .catch((err)=>{
-                if(err?.response){
-                    next('/');
-                    return
-                }
-            })
+                .then(()=>{
+                    if(store.getters.getRoomIsBroadcast && (!store.getters.getUserLoggedInStatus || store.getters.getRoomIsNeedPayment)){
+                        let routeData = router.resolve({
+                            name: routeName.StudyRoomLanding,
+                            params:{...to.params }
+                        });
+                        global.open(routeData.href, "_self"); 
+                    }else{
+                        next();
+                        return
+                    }
+                })
+                .catch((err)=>{
+                    if(err?.response){
+                        next('/');
+                        return
+                    }
+                })
         }
     },
     {
