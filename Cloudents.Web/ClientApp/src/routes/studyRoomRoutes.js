@@ -33,7 +33,7 @@ export const studyRoomRoutes = [
     },
     {
         path: '/live/:id?',
-        name: 'live',
+        name: routeName.StudyRoomLanding,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
             ...staticComponents([ 'footer']),

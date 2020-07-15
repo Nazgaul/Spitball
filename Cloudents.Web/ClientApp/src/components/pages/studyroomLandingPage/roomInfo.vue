@@ -13,22 +13,26 @@
             <img class="triangle" src="./images/triangle.png">
          </div>
          <div v-if="!isMobile" class="leftSide">
-            <img src="../../new_profile/components/profileLiveClasses/live-banner-desktop.png">
+            <img src="./images/live-banner-copy.jpg">
          </div>
       </div>
       <div class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
             <div v-if="isMobile" class="pt-7 sessionPrice">Only $39.99 for the entire class</div>
-            <v-btn class="saveBtn" v-t="'save_spot'" depressed :height="btnHeight" color="#1b2441"/>
-            <div class="couponText" v-t="'apply_coupon_code'"/>
+            <v-btn :loading="loadingBtn" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+               {{$t('save_spot')}}
+            </v-btn>
+            <v-btn @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
-            <sessionStartCounter class="pageCounter" :dateProp="'2020-07-30T21:00:00Z'"/>
-            <!-- @updateCounterFinish="waitingForTutor = true"  -->
+            <sessionStartCounter v-show="!isSessionNow" class="pageCounter" :dateProp="'2020-07-30T08:28:20Z'" @updateCounterFinish="isSessionNow = true"/>
+            <div v-show="isSessionNow" class="pageCounter">
+               session is now
+            </div>
          </div>
       </div>
       <div v-if="isMobile" class="mobileImg">
-         <img src="../../new_profile/components/profileLiveClasses/live-banner-desktop.png">
+         <img src="./images/live-banner-copy.jpg">
       </div>
    </div>
 </template>
@@ -36,13 +40,50 @@
 <script>
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
+import * as componentConsts from '../global/toasterInjection/componentConsts.js';
 export default {
    components:{logo,sessionStartCounter},
    data() {
       return {
+         isSessionNow:false,
+         loadingBtn:false,
          tutorName:'Ariel Feinsilberg',
          classSubject: 'Just Say Hello-Find an Online Teaching Job',
          date: `July 19th, 7:00 PM`
+      }
+   },
+   methods: {
+      applyCoupon(){
+         if(!this.isLogged) {
+            this.$store.commit('setComponent', 'register')
+            return
+         }
+         if(this.loadingBtn) return;
+         this.$store.commit('setComponent', 'applyCoupon');
+      },
+      enrollSession(){
+         if(!this.isLogged) {
+            this.$store.commit('setComponent', 'register')
+            return
+         }
+         if(this.loadingBtn) return;
+         this.loadingBtn = true;
+         let userId = this.$store.getters.accountUser?.id;
+         let studyRoomId = this.$route.params?.id;
+         let session = {
+            userId,
+            studyRoomId
+         }
+         let self = this
+         this.$store.dispatch('updateStudyroomLiveSessions', session)
+            .then(() => {
+               self.$emit('enrolled')
+            }).catch(ex => {
+               self.$store.commit('setComponent',componentConsts.ENROLLED_ERROR);
+               self.$appInsights.trackException(ex);
+            }).finally(()=>{
+               self.loadingBtn = false;
+            })
       }
    },
    computed: {
@@ -54,7 +95,10 @@ export default {
             return 70;
          }
          return this.$vuetify.breakpoint.smAndDown? 74 : 82;
-      }
+      },
+      isLogged() {
+         return this.$store.getters.getUserLoggedInStatus
+      },
    },
 }
 </script>
@@ -177,6 +221,7 @@ export default {
                font-size: 20px;
                color: #1b2441;
                text-decoration: underline;
+               text-transform:initial;
                padding-top: 12px;
                @media(max-width: @screen-sm) {
                   font-size: 18px;

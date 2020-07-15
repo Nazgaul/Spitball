@@ -4,7 +4,7 @@
          <v-window v-model="onboarding">
             <v-window-item>
                <logo v-if="!isMobile" class="pageLogo"/>
-               <roomInfo/>
+               <roomInfo @enrolled="onboarding = 1"/>
                <sessionInfo/>
                <hostInfo/>
             </v-window-item>
