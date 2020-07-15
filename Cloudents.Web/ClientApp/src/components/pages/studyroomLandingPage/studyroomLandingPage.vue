@@ -9,6 +9,7 @@
                <hostInfo/>
             </v-window-item>
             <v-window-item>
+               
                <roomThankYou/>
             </v-window-item>
          </v-window>
