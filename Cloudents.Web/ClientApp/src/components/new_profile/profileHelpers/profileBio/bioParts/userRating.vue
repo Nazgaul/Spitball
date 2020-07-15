@@ -1,6 +1,6 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
-            <v-flex shrink :class="{'mr-1': $vuetify.breakpoint.smAndUp}">
+            <v-flex shrink :class="{'me-1': $vuetify.breakpoint.smAndUp}">
                 <v-rating :class="['ratingCmp']"
                         v-model="dynamicRating"
                         :color="starColor"
@@ -16,7 +16,7 @@
             </v-flex>
             <v-flex>
                 <div>
-                   <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ml-1 pb-1 rating-number">
+                   <span v-show="showRateNumber" :style="{ color: rateNumColor }" class="caption ms-1 pb-1 rating-number">
        {{ dynamicRating }}
       </span>
                 </div>

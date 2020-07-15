@@ -23,6 +23,7 @@ namespace Cloudents.Web.Identity
             var p = await base.GenerateClaimsAsync(user);
             var isTutor = user.Tutor != null;
             p.AddClaim(new Claim(Country, user.Country));
+            p.AddClaim(new Claim(ClaimTypes.Email,user.Email));
             p.AddClaim(new Claim(SbCountry,user.SbCountry.Name));
             p.AddClaim(new Claim(TutorClaim,isTutor.ToString()));
             return p;

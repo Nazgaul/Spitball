@@ -3,12 +3,12 @@
             <div class="audioVideoTabs d-flex align-center text-center">
                 <div class="tabBtn video" :class="{'active': toggleVideoActiveClass}" @click="switchToVideo">
                     <videoCameraImage class="image vidSvg" width="22" height="40" />
-                    <div class="tabText ml-1" v-t="'studyRoomSettings_video_title'"></div>
+                    <div class="tabText ms-1" v-t="'studyRoomSettings_video_title'"></div>
                 </div>
 
                 <div class="tabBtn audio" :class="{'active': toggleAudioActiveClass}" @click="switchToAudio">
                     <microphoneImage class="image" width="24" />
-                    <div class="tabText ml-1" v-t="'studyRoomSettings_audio_title'"></div>
+                    <div class="tabText ms-1" v-t="'studyRoomSettings_audio_title'"></div>
                 </div>
             </div>
 

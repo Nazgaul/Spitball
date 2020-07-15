@@ -20,7 +20,7 @@
                     :items="suggestsCourses"/>
             </fieldset>
     </v-form>
-        <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
+        <div class="tutorRequest-bottom mt-6">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
                 <span v-t="'tutorRequest_cancel'"/>
             </v-btn>
@@ -38,6 +38,7 @@ import courseService from '../../../services/courseService.js'
 import debounce from "lodash/debounce";
 import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
+import * as componentConsts from '../../pages/global/toasterInjection/componentConsts.js';
 
 export default {
     name: 'tutorRequestCourseInfo',
@@ -150,14 +151,8 @@ export default {
                 }                    
                 let self = this;
                 this.sendTutorRequest(serverObj)
-                    .catch(err=>{
-                        let serverResponse = err.response.data || { error : [self.$t('tutorRequest_request_error')]};
-                        let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
-                        self.$store.dispatch('updateToasterParams',{
-                            toasterText: errorMsg,
-                            showToaster: true,
-                            toasterType: 'error-toaster'
-                        });
+                    .catch(()=>{
+                        self.$store.commit('addComponent',componentConsts.WENT_WRONG)
                     })
                     .finally(()=>{
                         this.isLoading = false;

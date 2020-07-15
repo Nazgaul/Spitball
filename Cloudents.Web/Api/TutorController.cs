@@ -24,9 +24,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Command.Admin;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -43,6 +46,7 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<TutorController> _stringLocalizer;
         private readonly IUrlBuilder _urlBuilder;
+
 
 
         public TutorController(IQueryBus queryBus, SbUserManager userManager,
@@ -69,7 +73,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] {"*"})]
+            VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
             string term, string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)]
@@ -97,7 +101,7 @@ namespace Cloudents.Web.Api
                 {
                     Result = result.Result,
                     Count = result.Count,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page})
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
                 };
             }
             else
@@ -107,7 +111,7 @@ namespace Cloudents.Web.Api
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page, term}),
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term }),
                     Count = result.Count
                 };
             }
@@ -216,7 +220,7 @@ namespace Cloudents.Web.Api
             }
             catch (NotFoundException)
             {
-                return StatusCode(555, new {massege = "permission denied"});
+                return StatusCode(555, new { massege = "permission denied" });
             }
         }
 
@@ -260,7 +264,7 @@ namespace Cloudents.Web.Api
             }
             catch (NotFoundException)
             {
-                return StatusCode(555, new {massege = "permission denied"});
+                return StatusCode(555, new { massege = "permission denied" });
             }
         }
 
@@ -308,7 +312,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("{tutorId:long}/subscribe"),Authorize]
+        [HttpPost("{tutorId:long}/subscribe"), Authorize]
         public async Task<IActionResult> SubscribeToTutorAsync(
             long tutorId,
             [FromHeader(Name = "referer")] string referer,
@@ -333,6 +337,18 @@ namespace Cloudents.Web.Api
             {
                 sessionId = result
             });
+        }
+
+
+        [HttpPost("becomeTutor"), Authorize]
+        public async Task<IActionResult> BecomeTutorAsync([FromServices] SignInManager<User> signInManager, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new BecomeTutorCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await signInManager.RefreshSignInAsync(user);
+            return Ok();
         }
     }
 }

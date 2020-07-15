@@ -28,7 +28,9 @@ namespace Cloudents.Command.StudyRooms
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);
             studyRoom.AddUserToStudyRoom(user);
-            //Need to send email
+           
+
+            //above the same as enroll
 
             var currentSession = studyRoom.GetCurrentSession();
             if (currentSession != null)

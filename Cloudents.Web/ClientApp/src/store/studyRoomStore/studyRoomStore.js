@@ -295,7 +295,10 @@ const actions = {
       })
       return Promise.resolve();
    },
-   updateEndSession({ commit, state ,getters}){
+   updateEndSession({ commit, state ,getters,dispatch}){
+      if(getters.getIsShareScreen){
+         dispatch('updateShareScreen',false)
+      }
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       if(getters.getIsRecording){
          studyRoomRecordingService.stopRecord();
@@ -329,7 +332,9 @@ const actions = {
          name: params.name,
          price: params.price,
          conversationId: data.identifier,
-         lastSession: params.date || new Date().toISOString()
+            lastSession: params.date || new Date().toISOString(),
+            tutorId: getters.getAccountId,
+            tutorName: getters.getAccountName
       }
       let myStudyRooms = getters.getStudyRoomItems;
       myStudyRooms.unshift(newStudyRoomParams);

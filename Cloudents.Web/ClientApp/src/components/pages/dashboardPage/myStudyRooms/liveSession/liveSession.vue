@@ -216,7 +216,7 @@
                     <v-text-field 
                         v-model="myPrice"
                         type="number"
-                        class="pl-sm-5 roomPrice"
+                        class="ps-sm-5 roomPrice"
                         color="#304FFE"
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
@@ -234,7 +234,7 @@
                     <div class="priceTitle" v-t="'dashboardPage_subscription_price'"></div>
                 </v-col>
                 <v-col cols="4" sm="4" class="pa-0">
-                    <div class="ml-4 ml-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
+                    <div class="ms-4 ms-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
                 </v-col>
             </v-row>
         </div>

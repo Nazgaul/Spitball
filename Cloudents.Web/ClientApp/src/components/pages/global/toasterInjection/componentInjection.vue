@@ -57,6 +57,27 @@ export default {
                 [componentConsts.TUTOR_EDIT_PROFILE]: {
                     name: componentConsts.TUTOR_EDIT_PROFILE 
                 },
+                [componentConsts.BOOK_FAILED]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("calendar_error_create_event"),
+                        name: componentConsts.BOOK_FAILED
+                    }
+                },
+                [componentConsts.WENT_WRONG]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("tutorRequest_request_error"),
+                        name: componentConsts.WENT_WRONG
+                    }
+                },
+                [componentConsts.FILE_NOT_SUPPORTED]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("upload_multiple_error_extension_title"),
+                        name: componentConsts.FILE_NOT_SUPPORTED
+                    }
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -179,10 +200,10 @@ export default {
             handler(val){
                 if (val.length) {
                     if (this.$vuetify.breakpoint.xs) {
-                        document.getElementsByTagName("body")[0].className = "noscroll";
+                        document.body.classList.add('noscroll')
                     }
                 } else {
-                    document.body.removeAttribute("class", "noscroll");
+                    document.body.classList.remove('noscroll')
                 }
             }
         }

@@ -1,4 +1,7 @@
-﻿namespace Cloudents.Core.Query.Payment
+﻿using System.Collections.Generic;
+using Cloudents.Core.Entities;
+
+namespace Cloudents.Core.Query.Payment
 {
 
 
@@ -18,6 +21,28 @@
         public string TransactionCcAuthNumber { get; set; }
     }
 
+    public class StripePaymentRequest
+    {
+        public StripePaymentRequest(string name, Money money, string email, string successCallback, string fallbackCallback)
+        {
+            Name = name;
+            Money = money;
+            Email = email;
+            SuccessCallback = successCallback;
+            FallbackCallback = fallbackCallback;
+        }
 
+        public string Name { get;  }
+
+        public Money Money { get; }
+
+        public Dictionary<string,string> Metadata { get; set; }
+
+        public string Email { get;  }
+
+        public string SuccessCallback { get;  }
+        public string FallbackCallback { get;  }
+
+    }
 
 }

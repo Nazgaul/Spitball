@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
     {
         public const int StudyRoomNewVersion = 2;
 
-        public static readonly  TimeSpan BillableStudyRoomSession = TimeSpan.FromMinutes(10);
+        public static readonly TimeSpan BillableStudyRoomSession = TimeSpan.FromMinutes(10);
 
         public StudyRoomSession(StudyRoom studyRoom, string sessionId)
         {
@@ -42,7 +42,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
 
-        
+
         public virtual long? DurationTicks { get; protected set; }
 
 
@@ -65,13 +65,9 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var pricePerHour = StudyRoom.Price;
-            var isSubscriber = user.Following.FirstOrDefault(w => w.User.Id == StudyRoom.Tutor.Id)?.Subscriber ?? false;
-            if (isSubscriber)
-            {
-                pricePerHour = pricePerHour.ChangePrice(0);
-            }
-            var sessionUser = new StudyRoomSessionUser(this, user);
+            var studyRoomPayment = this.StudyRoom.StudyRoomPayments.SingleOrDefault(w => w.User.Id == user.Id);
+
+            var sessionUser = new StudyRoomSessionUser(this, user, studyRoomPayment);
             _roomSessionUsers.Add(sessionUser);
         }
 
@@ -81,7 +77,7 @@ namespace Cloudents.Core.Entities
             {
                 return;
             }
-            
+
             var sessionUser = RoomSessionUsers.Single(s => s.User == user);
             sessionUser.Disconnect(durationInRoom);
         }
@@ -99,8 +95,8 @@ namespace Cloudents.Core.Entities
         protected virtual void CalculatePriceAndDuration()
         {
             Duration = Ended - Created;
-           // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
-           Price = (decimal)( Math.Floor(Duration.Value.TotalMinutes) / 60 * StudyRoom.Price.Amount);
+            // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
+            Price = (decimal)(Math.Floor(Duration.Value.TotalMinutes) / 60 * StudyRoom.Price.Amount);
         }
 
         [Obsolete]
@@ -124,7 +120,7 @@ namespace Cloudents.Core.Entities
             Duration = Ended - Created;
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
-        
+
 
         [Obsolete]
         public virtual void SetReceipt(string receipt)
@@ -151,7 +147,7 @@ namespace Cloudents.Core.Entities
         [Obsolete]
         public virtual void SetRealDuration(TimeSpan realDuration, double price)
         {
-            Price = (decimal) price;
+            Price = (decimal)price;
             RealDuration = realDuration;
         }
     }

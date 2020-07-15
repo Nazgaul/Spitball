@@ -40,7 +40,7 @@
             </v-data-table>
          </v-flex>
          <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
-            <div class="mySales_actions ml-md-6">
+            <div class="mySales_actions ms-md-6">
                <redeemPointsLayout class="my-2 my-md-0 mx-lg-2 "/>
                <buyPointsLayout class="my-2 my-md-0 mx-lg-2"/>
             </div>
