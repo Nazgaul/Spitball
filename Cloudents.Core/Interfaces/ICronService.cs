@@ -9,5 +9,7 @@ namespace Cloudents.Core.Interfaces
         public string BuildCronDaily(DateTime baseDate);
         public string BuildCronWeekly(DateTime baseDate);
         public string BuildCronCustom(DateTime baseDate, IEnumerable<DayOfWeek> days );
+
+        public DateTime GetNextOccurrence(string cronSchedule);
     }
 }
