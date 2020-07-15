@@ -1022,6 +1022,24 @@ namespace Cloudents.Selenium.Test
 
                 FindContains(driver, "close-dialog").Click();
 
+                FindContains(driver, "sbf-myLive").Click();
+
+                createButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'tableTop')]//button"));
+
+                createButton.Click();
+
+                var title = driver.FindElementByWait(By.XPath("//*[@class='liveSession']//input"));
+
+                title.Click();
+                title.SendKeys("Test");
+
+                var description = driver.FindElementByWait(By.XPath("//*[@class='liveSession']//textarea"));
+                description.Click();
+                description.SendKeys("Test");
+
+                createButton = FindContains(driver, "createBtn");
+                createButton.Click();
+
                 Logout(driver);
             }
         }

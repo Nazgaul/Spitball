@@ -1,6 +1,6 @@
 <template>
    <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly">
-      <div class="createStudyRoomDialog px-7 py-4 d-sm-block d-flex flex-column justify-space-between" :class="{'fixedHeight': isPrivate}">
+      <div class="createStudyRoomDialog px-sm-7 px-4 py-4 d-sm-block d-flex flex-column justify-space-between" :class="{'fixedHeight': isPrivate}">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
