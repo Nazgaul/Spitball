@@ -97,9 +97,9 @@
             </v-col>
             
             <template v-if="currentRepeatItem.value !== 'none'">
-                <v-col cols="12" class="sessionRepeat d-flex align-center mb-2" v-if="currentRepeatItem.value === 'custom'">
-                    <div class="labelWidth" v-t="'repeat'"></div>
-                    <div class="d-flex">
+                <v-col cols="12" class="sessionRepeat d-sm-flex align-center mb-5 mb-sm-2" v-if="currentRepeatItem.value === 'custom'">
+                    <div class="labelWidth mb-4 mb-sm-0" v-t="'repeat'"></div>
+                    <div class="d-flex flex-wrap flex-sm-nowrap">
                         <v-checkbox 
                             v-model="repeatCheckbox"
                             v-for="(day, index) in filterDaysOfWeek"
@@ -113,9 +113,9 @@
                     </div>
                 </v-col>
 
-                <v-col cols="12" class="sessionEnd d-flex">
-                    <div class="labelWidth" v-t="'ends'"></div>
-                    <v-radio-group v-model="radioEnd" class="mt-0">
+                <v-col cols="12" class="sessionEnd d-sm-flex">
+                    <div class="labelWidth mb-4 mb-sm-0" v-t="'ends'"></div>
+                    <v-radio-group v-model="radioEnd" class="mt-0" row>
                         <v-radio class="mb-3" value="on">
                             <template v-slot:label>
                                 <span class="sessionOn">{{$t('on')}}</span>
@@ -484,6 +484,9 @@ export default {
     }
     .sessionDetails {
         .labelWidth {
+            font-size: 16px;
+            font-weight: 600;
+            color: #43425d;
             width: 80px;
         }
     }
