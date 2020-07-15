@@ -98,7 +98,7 @@
             </v-row>
 
             <div class="text-center">
-                <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ml-0" rounded outlined primary @click="closeDialog">
+                <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="closeDialog">
                     <span v-t="'cancel'"></span>
                 </v-btn>
                 <v-btn class="blue-btn white--text ms-4" width="120" depressed color="#4452fc" rounded @click="saveChanges" :loading="btnLoading">

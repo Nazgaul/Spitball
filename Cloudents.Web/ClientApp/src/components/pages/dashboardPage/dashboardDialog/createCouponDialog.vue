@@ -7,9 +7,9 @@
         <template v-if="!showSuccess">
           <div class="dialog-title pb-10 pb-sm-11">{{$t('coupon_create_title')}}</div>
           <v-form v-model="validCreateCoupon" ref="validCreateCoupon">
-            <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
+            <v-layout justify-space-between wrap class="inputs-coupon pe-0 pe-sm-4">
                 
-              <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0>
+              <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
                 <v-text-field :error-messages="couponErr" autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
                     v-model="couponCode" :label="$t('coupon_label_code')" :placeholder="placeHoldersEmpty" autocomplete="nope"
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
@@ -20,7 +20,7 @@
                   dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
               </v-flex>
 
-              <v-flex xs12 sm8 pr-0 pr-sm-0 pb-1 pb-sm-0>
+              <v-flex xs12 sm8 pe-0 pe-sm-0 pb-1 pb-sm-0>
                 <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
                     outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
                     :label="$t('coupon_label_type')" :rules="[rules.required]" :placeholder="placeHoldersEmpty">
@@ -30,13 +30,13 @@
                 </v-select>
               </v-flex>
 
-              <v-flex xs6 pr-2 pr-sm-0 v-if="$vuetify.breakpoint.xsOnly">
+              <v-flex xs6 pe-2 pe-sm-0 v-if="$vuetify.breakpoint.xsOnly">
                 <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
                   :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
                   dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
               </v-flex>
 
-              <v-flex xs6 sm4 pl-2 pl-sm-4>
+              <v-flex xs6 sm4 ps-2 ps-sm-4>
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
                   <template v-slot:activator="{ on }">
                       <v-text-field class="date-input" :rules="[rules.required]" :label="$t('coupon_label_date')" autocomplete="nope"
@@ -62,11 +62,11 @@
         </template>
       </div>
       <div class="btns-wrap">
-        <!-- <v-btn v-closeDialog class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed> -->
-        <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed>
+        <!-- <v-btn v-closeDialog class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed> -->
+        <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed>
           <span v-t="showSuccess?'coupon_btn_exit':'coupon_btn_cancel'"/>
         </v-btn>
-        <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ml-1 ml-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
+        <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ms-1 ms-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
           <span v-t="showSuccess?'coupon_btn_copy':'coupon_btn_submit'"/>
         </v-btn>
       </div>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Cloudents.Core.Interfaces;
 using NCrontab;
 
@@ -30,6 +29,12 @@ namespace Cloudents.Infrastructure
         {
            var dayStr = string.Join(",", days.Union(new []{baseDate.DayOfWeek}).Distinct().Select(s=> (int)s));
            return $"{baseDate.Minute} {baseDate.Hour} * * {dayStr}";
+        }
+
+        public DateTime GetNextOccurrence(string cronSchedule)
+        {
+            var schedule = CrontabSchedule.Parse(cronSchedule);
+            return schedule.GetNextOccurrence(DateTime.UtcNow);
         }
     }
 }

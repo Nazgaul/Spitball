@@ -24,7 +24,7 @@
      </template>
       <v-progress-circular class="progress-calendar" v-show="isLoading" indeterminate :size="300" width="3" color="#4c59ff"/>
       <v-snackbar v-model="snackBarObj.isOn" :color="snackBarObj.color" :top="true" :timeout="3000">
-         <span>{{snackBarObj.dictionary}}</span>
+         <div class="text-center">{{snackBarObj.dictionary}}</div>
       </v-snackbar>
   </div>
 </template>

@@ -226,7 +226,7 @@
                     <v-text-field 
                         v-model="myPrice"
                         type="number"
-                        class="pl-sm-5 roomPrice"
+                        class="ps-sm-5 roomPrice"
                         color="#304FFE"
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
