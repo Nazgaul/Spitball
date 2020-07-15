@@ -97,7 +97,7 @@
             </v-col>
             
             <template v-if="currentRepeatItem.value !== 'none'">
-                <v-col cols="12" class="sessionRepeat d-flex align-center mb-2">
+                <v-col cols="12" class="sessionRepeat d-flex align-center mb-2" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth" v-t="'repeat'"></div>
                     <div class="d-flex">
                         <v-checkbox 
@@ -113,10 +113,10 @@
                     </div>
                 </v-col>
 
-                <v-col cols="12" class="sessionEnd d-flex" v-if="currentRepeatItem.value === 'custom'">
+                <v-col cols="12" class="sessionEnd d-flex">
                     <div class="labelWidth" v-t="'ends'"></div>
                     <v-radio-group v-model="radioEnd" class="mt-0">
-                        <v-radio class="mb-3" :label="$t('on')" value="on">
+                        <v-radio class="mb-3" value="on">
                             <template v-slot:label>
                                 <span class="sessionOn">
                                     {{$t('on')}}
@@ -145,7 +145,7 @@
                                             v-model="dateOcurrence"
                                             class="date-picker"
                                             @input="datePickerOcurrence = false"
-                                            :allowed-dates="allowedDates"
+                                            :allowed-dates="allowedDatesEnd"
                                             :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
                                             :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                                             color="#4C59FF"
@@ -160,13 +160,24 @@
                                 </div>
                             </template>
                         </v-radio>
-                        <v-radio :label="$t('after')" value="after">
+                        <v-radio value="after">
                             <template v-slot:label>
                                 <span class="sessionAfter">
                                     {{$t('after')}}
                                 </span>
-                                <div @click.stop.prevent="">
-                                    fdsfsd
+                                <div @click.stop.prevent="" class="d-flex align-center">
+                                    <v-text-field
+                                        v-model.number="endAfterOccurrences"
+                                        @keypress="inputRestriction"
+                                        maxlength="4"
+                                        class="afterOccurrences pe-2"
+                                        outlined
+                                        hide-details
+                                        dense
+                                        height="36"
+                                    >
+                                    </v-text-field>
+                                    <div v-t="'occurrences'"></div>
                                 </div>
                             </template>
                         </v-radio>
@@ -279,6 +290,7 @@ export default {
             currentMinutes = 0;
         }
         return {
+            endAfterOccurrences: null,
             currentRepeatDayOfTheWeek: new Date().getDay(),
             daysOfWeek: [
                 'Sunday',
@@ -297,7 +309,7 @@ export default {
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
             dateOcurrence: new Date().FormatDateToString(),
-            hour:  `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
+            hour: `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
             datePickerMenu: false,
             datePickerOcurrence: false,
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
@@ -324,6 +336,7 @@ export default {
             handler(val) {
                 this.currentRepeatDayOfTheWeek = new Date(val).getDay()
                 this.repeatCheckbox = [this.daysOfWeek[this.currentRepeatDayOfTheWeek]]
+                this.dateOcurrence = val
                 this.resetErrors(val)
             }
         },
@@ -377,11 +390,21 @@ export default {
             let today = new Date().FormatDateToString()
             return date >= today
         },
+        allowedDatesEnd(date) {
+            let today = new Date().FormatDateToString()
+            console.log(date, this.date);
+            return date >= today && date >= this.date
+        },
         resetErrors(val) {
             if(val && this.currentError) {
                 this.$emit('resetErrors')
             }
-        }
+        },
+        inputRestriction(e) {
+            if (!/\d/.test(e.key)) {
+                e.preventDefault();
+            }
+        },
     },
     created() {
         if(this.isRtl) {
@@ -463,6 +486,9 @@ export default {
             width: 60px;
         }
         // .sessionAfter {}
+        .afterOccurrences {
+            width: 50px;
+        }
     }
     .sessionPriceWrap {
 

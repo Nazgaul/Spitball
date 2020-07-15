@@ -133,12 +133,12 @@ export default {
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
             date: userChooseDate,
             description: childComponent.sessionAboutText,
-            // repeat: childComponent.repeat,
-            // endDate: childComponent.endDate,
-            // endAfterOccurrences: childComponent.endAfterOccurrences,
-            // repeatOn: childComponent.repeatOn
+            repeat: childComponent.currentRepeatItem.value,
+            endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
+            endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
+            repeatOn: childComponent.repeatCheckbox
          }
-
+         
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj).catch((error) => {
             self.handleCreateError(error)
          })
