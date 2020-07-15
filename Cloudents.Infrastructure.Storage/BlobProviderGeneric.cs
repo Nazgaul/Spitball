@@ -119,11 +119,11 @@ namespace Cloudents.Infrastructure.Storage
 
             fileContent.Seek(0, SeekOrigin.Begin);
             return blob.StageBlockAsync(ToBase64(index), fileContent, cancellationToken: token);
-         
+
         }
 
 
-   
+
 
 
 
@@ -138,12 +138,12 @@ namespace Cloudents.Infrastructure.Storage
 
             headers.ContentType = mimeType;
 
-            return blob.CommitBlockListAsync(indexes.Select(ToBase64), headers, 
+            return blob.CommitBlockListAsync(indexes.Select(ToBase64), headers,
                 new Dictionary<string, string>()
-            {
-                ["fileName"] = originalFileName ?? "x"
-            }, cancellationToken: token);
-           
+                {
+                    ["fileName"] = originalFileName ?? "x"
+                }, cancellationToken: token);
+
         }
 
         private static string ToBase64(int blockIndex)
@@ -152,28 +152,28 @@ namespace Cloudents.Infrastructure.Storage
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
 
-       
 
-        public async Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token)
+
+        public async Task MoveAsync(string blobName, string destinationContainerName, string destinationBlobName, CancellationToken token)
         {
             if (string.IsNullOrEmpty(blobName))
             {
                 throw new ArgumentException("message", nameof(blobName));
             }
-            var destinationBlob = _cloudContainer.GetBlockBlobClient($"{_container.RelativePath}/{destinationContainerName}/{blobName}");
+            var destinationBlob = _cloudContainer.GetBlockBlobClient($"{_container.RelativePath}/{destinationContainerName}/{destinationBlobName}");
             var sourceBlob = GetBlob(blobName);
 
 
-           var status =  await destinationBlob.StartCopyFromUriAsync(sourceBlob.Uri, cancellationToken: token);
+            var status = await destinationBlob.StartCopyFromUriAsync(sourceBlob.Uri, cancellationToken: token);
 
 
-           while (!status.HasCompleted)
-           {
-               await Task.Delay(TimeSpan.FromSeconds(0.2), token);
-               await status.UpdateStatusAsync(token);
-           }
+            while (!status.HasCompleted)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(0.2), token);
+                await status.UpdateStatusAsync(token);
+            }
 
-           await sourceBlob.DeleteAsync(cancellationToken: token);
+            await sourceBlob.DeleteAsync(cancellationToken: token);
         }
 
         public async Task DeleteDirectoryAsync(string id, CancellationToken token)
@@ -194,7 +194,7 @@ namespace Cloudents.Infrastructure.Storage
                 }
             }
 
-         //   var x = _client.GetBlobBatchClient();
+            //   var x = _client.GetBlobBatchClient();
 
 
             await Task.WhenAll(l);
@@ -213,7 +213,7 @@ namespace Cloudents.Infrastructure.Storage
                     yield return blobClient.Uri;
                 }
             }
-          
+
         }
 
         public Task<Uri> GeneratePreviewLinkAsync(Uri blobUrl, TimeSpan expirationTime)
@@ -227,7 +227,7 @@ namespace Cloudents.Infrastructure.Storage
                 StartsOn = DateTimeOffset.UtcNow.AddMinutes(-1),
                 ExpiresOn = DateTimeOffset.UtcNow + expirationTime
             };
-            
+
             var storageSharedKeyCredential = new StorageSharedKeyCredential(_client.AccountName, ParseConnectionString()["AccountKey"]);
             //UserDelegationKey key = await _client.GetUserDelegationKeyAsync(DateTimeOffset.UtcNow,
             //    DateTimeOffset.UtcNow.AddHours(1));
