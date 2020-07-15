@@ -1,7 +1,7 @@
 <template>
     <component
         v-if="!!userName"
-        class="user-avatar-rect"
+        class="user-avatar-rect text-center"
         :is="userId ? 'router-link' : 'div'"
         :to="userId ? {name: 'profile', params: { id: userId, name: userName }} : ''"
     >
@@ -32,7 +32,6 @@
             v-else
             :tile="tile"
             tag="v-avatar"
-            class="user-avatar-rect-no-image"
             :class="`userColor${strToACII % 11}`"
             :width="width"
             :min-width="width"

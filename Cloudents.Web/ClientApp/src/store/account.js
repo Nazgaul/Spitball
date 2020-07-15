@@ -66,7 +66,7 @@ const mutations = {
             this.currencySymbol = objInit.currencySymbol
             this.subscription = objInit.tutorSubscription
             this.needPayment = objInit.needPayment
-            this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok'
+            this.isTutor = typeof objInit.isTutor == 'boolean'? objInit.isTutor : objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
             this.isSold = objInit.isSold
             this.pendingSessionsPayments = objInit.pendingSessionsPayments
             this.chatUnread = objInit.chatUnread;
