@@ -260,6 +260,7 @@
                         dense
                         :value="$t('free')"
                         readonly
+                        disabled
                         height="50"
                         hide-details
                         outlined
