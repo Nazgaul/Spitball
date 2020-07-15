@@ -102,12 +102,12 @@
                     <div class="d-flex">
                         <v-checkbox 
                             v-model="repeatCheckbox"
-                            v-for="(day, index) in daysOfWeek"
+                            v-for="(day, index) in filterDaysOfWeek"
                             class="me-2"
                             :key="index"
-                            :disabled="repeatCheckbox.indexOf(day) !== 1 && currentRepeatDayOfTheWeek === index"
-                            :label="day.charAt(0)"
-                            :value="day"
+                            :disabled="currentRepeatDayOfTheWeek === index"
+                            :label="day"
+                            :value="index"
                             hide-details
                         ></v-checkbox>
                     </div>
@@ -118,11 +118,18 @@
                     <v-radio-group v-model="radioEnd" class="mt-0">
                         <v-radio class="mb-3" value="on">
                             <template v-slot:label>
-                                <span class="sessionOn">
-                                    {{$t('on')}}
-                                </span>
+                                <span class="sessionOn">{{$t('on')}}</span>
                                 <div @click.stop.prevent="">
-                                    <v-menu ref="datePickerOcurrence" v-model="datePickerOcurrence" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
+                                    <v-menu 
+                                        ref="datePickerOcurrence"
+                                        v-model="datePickerOcurrence"
+                                        :close-on-content-click="false"
+                                        transition="scale-transition"
+                                        offset-y
+                                        max-width="290"
+                                        min-width="290px"
+                                        :disabled="radioEnd !== 'on'"
+                                    >
                                         <template v-slot:activator="{ on }">
                                             <v-text-field 
                                                 v-on="on"
@@ -136,6 +143,7 @@
                                                 color="#304FFE"
                                                 autocomplete="nope"
                                                 dense
+                                                :disabled="radioEnd !== 'on'"
                                                 outlined
                                                 readonly
                                             >
@@ -143,6 +151,7 @@
                                         </template>
                                         <v-date-picker
                                             v-model="dateOcurrence"
+                                            :disabled="radioEnd !== 'on'"
                                             class="date-picker"
                                             @input="datePickerOcurrence = false"
                                             :allowed-dates="allowedDatesEnd"
@@ -173,6 +182,7 @@
                                         class="afterOccurrences pe-2"
                                         color="#304FFE"
                                         outlined
+                                        :disabled="radioEnd === 'on'"
                                         hide-details
                                         dense
                                         height="36"
@@ -320,15 +330,16 @@ export default {
             endAfterOccurrences: null,
             previewImage: null,
             repeatCheckbox: [],
-            daysOfWeek: [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',
+            daysOfWeek: [0,1,2,3,4,5,6
+                // 'Sunday',
+                // 'Monday',
+                // 'Tuesday',
+                // 'Wednesday',
+                // 'Thursday',
+                // 'Friday',
+                // 'Saturday',
             ],
+            
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('free'), value: 'free' },
@@ -371,6 +382,14 @@ export default {
         }
     },
     computed: {
+        filterDaysOfWeek() {
+            return this.daysOfWeek.map((day, index) => {
+                let dayDate = new Date(`2017-01-0${index+1}`)
+                // Language hack for display hebrew first letter
+                return this.$moment(dayDate).format('dd', global.country)[0];
+            })
+
+        },
         liveImage() {
             return this.isMobile ? require('../../../../new_profile/components/profileLiveClasses/live-banner-mobile.png') : require('../../../../new_profile/components/profileLiveClasses/live-banner-desktop.png')
         },
