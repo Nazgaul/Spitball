@@ -448,8 +448,9 @@ export default {
     created() {
         if(this.isRtl) {
             this.$nextTick(() => {
-                let x = document.querySelector('.roomHour .v-label')
-                x.style.right = '-28px'
+                document.querySelectorAll('.roomHour .v-label').forEach(elem => {
+                    elem.style.right = '-28px'
+                })
             })
         }
         
