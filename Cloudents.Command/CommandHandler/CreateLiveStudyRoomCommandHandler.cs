@@ -5,6 +5,7 @@ using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -14,27 +15,25 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
         private readonly IGoogleDocument _googleDocument;
         private readonly ICronService _cronService;
+        private readonly IStudyRoomBlobProvider _blobProvider;
 
         public CreateLiveStudyRoomCommandHandler(
             IRepository<BroadCastStudyRoom> studyRoomRepository, IGoogleDocument googleDocument,
-            ITutorRepository tutorRepository, ICronService cronService)
+            ITutorRepository tutorRepository, ICronService cronService, IStudyRoomBlobProvider blobProvider)
         {
             _studyRoomRepository = studyRoomRepository;
             _googleDocument = googleDocument;
             _tutorRepository = tutorRepository;
             _cronService = cronService;
+            _blobProvider = blobProvider;
         }
 
         public async Task ExecuteAsync(CreateLiveStudyRoomCommand message,
             CancellationToken token)
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-
-
-
             var documentName = $"{message.Name}-{Guid.NewGuid()}";
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
-
 
             StudyRoomSchedule? schedule = null;
             if (message.Repeat.HasValue)
@@ -64,11 +63,16 @@ namespace Cloudents.Command.CommandHandler
                 schedule = new StudyRoomSchedule(z, endDate.Value);
             }
 
-
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
                 message.Name, message.Price,
                 message.BroadcastTime, message.Description, schedule);
             await _studyRoomRepository.AddAsync(studyRoom, token);
+
+            if (message.Image != null)
+            {
+                await _blobProvider.MoveAsync(message.Image, studyRoom.Id.ToString(), "0.jpg", token);
+            }
+
             message.StudyRoomId = studyRoom.Id;
             message.Identifier = studyRoom.Identifier;
         }

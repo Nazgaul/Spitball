@@ -1,6 +1,6 @@
 <template>
    <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly">
-      <div class="createStudyRoomDialog px-7 py-4 d-sm-block d-flex flex-column justify-space-between">
+      <div class="createStudyRoomDialog px-7 py-4 d-sm-block d-flex flex-column justify-space-between" :class="{'fixedHeight': isPrivate}">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
@@ -139,24 +139,16 @@ export default {
             endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
             endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
             repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined,
+            image: childComponent.newLiveImage
          }
-         let formData;
-         if(childComponent.newLiveImage) {
-            formData = new FormData();
-            let file = childComponent.newLiveImage[0];
-            formData.append("file", file);
-
-            liveObj.image = formData
-         }
+         
          let self = this
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj)
-            .then(() => {
-               this.$store.dispatch('updateLiveImage', formData)
-            })
             .catch((error) => {
                self.handleCreateError(error)
             }).finally(() => {
-                  this.loisLoading = false;                  
+               self.isLoading = false;
+               self.$store.commit('setComponent')
             })
       },
       handleCreateError(error) {
@@ -192,7 +184,9 @@ export default {
 .createStudyRoomDialog{
    background: white;
    position: relative;
-   height: 100%;
+   &.fixedHeight {
+      height: 100%;
+   }
    .close-dialog {
       position: absolute;
       right: 12px;

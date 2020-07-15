@@ -32,8 +32,15 @@ using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using Microsoft.Azure.Management.Media.Models;
 using NCrontab;
 using NHibernate.Linq;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using Skarp.HubSpotClient.Contact;
 using Skarp.HubSpotClient.Contact.Dto;
 
@@ -103,7 +110,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -148,13 +155,41 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-          
-            var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
-                DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
-                null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
 
-            var bus = Container.Resolve<ICommandBus>();
-            await bus.DispatchAsync(command);
+            using var sr = File.OpenRead(@"C:\Users\Ram\Downloads\1594672075.png");
+
+            var image = SixLabors.ImageSharp.Image.Load(sr);
+            image.Mutate(x=>x.Quantize(new WuQuantizer()));
+
+
+            using var sw = File.OpenWrite(@"C:\Users\Ram\Downloads\1594672075-1.png");
+            //image.SaveAsJpeg(sw,new JpegEncoder()
+            //{
+            //    Quality = 80
+            //});
+            image.SaveAsPng(sw, new PngEncoder()
+            {
+                Quantizer = new WuQuantizer() ,
+                BitDepth = PngBitDepth.Bit8
+                //  CompressionLevel = PngCompressionLevel.BestCompression,
+                //                IgnoreMetadata = true,
+                //BitDepth = PngBitDepth.Bit8,
+                //IgnoreMetadata = true,
+                //Quantizer = new OctreeQuantizer()
+                //CompressionLevel = PngCompressionLevel.BestCompression,
+                //Quantizer = new WuQuantizer(),
+                //InterlaceMethod = PngInterlaceMode.Adam7
+                
+                //ChunkFilter = PngChunkFilter.ExcludeAll,
+
+            });
+
+            //var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
+            //    DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
+            //    null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
+
+            //var bus = Container.Resolve<ICommandBus>();
+            //await bus.DispatchAsync(command);
 
         }
 

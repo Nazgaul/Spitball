@@ -55,5 +55,7 @@ namespace Cloudents.Web.Models
         public int? EndAfterOccurrences { get; set; }
 
         public IEnumerable<DayOfWeek> RepeatOn { get; set; }
+
+        public string? Image { get; set; }
     }
 }

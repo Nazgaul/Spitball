@@ -100,7 +100,7 @@ namespace Cloudents.Web.Api
                 var command = new CreateLiveStudyRoomCommand(tutorId,
                      model.Name, model.Price,
                      model.Date, model.Description, model.Repeat, model.EndDate, 
-                     model.EndAfterOccurrences, model.RepeatOn);
+                     model.EndAfterOccurrences, model.RepeatOn, model.Image);
                 await _commandBus.DispatchAsync(command, token);
                 return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
             }
@@ -146,7 +146,6 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="id"></param>
         /// <param name="urlBuilder"></param>
-        /// <param name="profile">No use in swagger</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("{id:guid}"), AllowAnonymous]
@@ -348,8 +347,13 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
-            //var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
-            return Ok("");
+
+            var fileName = uri.AbsolutePath.Split('/').Last();
+            var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            return Ok(new
+            {
+                fileName
+            });
         }
 
 

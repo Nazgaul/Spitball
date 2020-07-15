@@ -132,6 +132,7 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
+        //public const string ImageFunctionStudyRoomRoute = "image/studyroom/{id}";
         public string BuildUserImageEndpoint(long id, string? imageName, string? userName, object? parameters = null)
         {
 

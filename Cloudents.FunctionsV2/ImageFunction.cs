@@ -34,6 +34,28 @@ namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
+
+        [FunctionName("ImageFunctionStudyRoom")]
+        public static async Task<IActionResult> RunStudyRoomImageAsync(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/study-room/{id:guid}")]
+            HttpRequest req, Guid id,
+            [Blob("spitball-user/study-room/{id}/0.jpg")]
+            CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")]CloudBlockBlob fallback)
+        {
+            var mutation = ImageMutation.FromQueryString(req.Query);
+            try
+            {
+                await using var sr = await blob.OpenReadAsync();
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
+            }
+            catch (StorageException e) when(e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+            {
+                return new RedirectResult(fallback.Uri.AbsolutePath);
+            }
+        }
+
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
@@ -95,7 +117,6 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionDocumentRoute)]
             HttpRequest req, long id,
             IBinder binder,
-            //collector search duplicate so i added some search 3 to solve this
             [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
             [Blob("spitball-files/files/{id}/preview-0.jpg")]CloudBlockBlob blob,
