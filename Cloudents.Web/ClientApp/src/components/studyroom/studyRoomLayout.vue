@@ -116,11 +116,11 @@ export default {
     },
   },
   created() {
-      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            this.$router.push('/')
-          }
-        })
+      // this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
+      //     if(err?.response){
+      //       this.$router.push('/')
+      //     }
+      //   })
         if(this.$store.getters.getUserLoggedInStatus){
           global.onbeforeunload = function() {     
             return "Are you sure you want to close the window?";

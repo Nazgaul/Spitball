@@ -134,6 +134,16 @@ export default {
          return this.$store.getters.getUserLoggedInStatus
       },
    },
+   watch: {
+      isRoomNeedPayment:{
+         immediate:true,
+         handler(newVal,oldVal){
+            if(newVal === false && oldVal === true){
+               this.enrollSession()
+            }
+         }
+      },
+   },
 }
 </script>
 

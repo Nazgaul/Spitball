@@ -27,8 +27,33 @@ export const studyRoomRoutes = [
                 next('/');
                 return
             }
-            store.commit('clearComponent')
-            next();
+            if(!store.getters.getUserLoggedInStatus){
+                next({
+                    name: routeName.StudyRoomLanding,
+                    params:{...to.params}
+                });
+                return
+            }
+            store.commit('clearComponent');
+            store.dispatch('updateStudyRoomInformation',to.params.id)
+            .then(()=>{
+                if(store.getters.getRoomIsNeedPayment){
+                    next({
+                        name: routeName.StudyRoomLanding,
+                        params:{...to.params }
+                    });
+                    return;
+                }else{
+                    next();
+                    return
+                }
+            })
+            .catch((err)=>{
+                if(err?.response){
+                    next('/');
+                    return
+                }
+            })
         }
     },
     {
