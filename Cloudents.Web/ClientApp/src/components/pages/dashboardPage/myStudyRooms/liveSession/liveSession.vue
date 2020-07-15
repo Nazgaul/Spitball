@@ -100,15 +100,13 @@
                 <v-col cols="12" class="sessionRepeat d-flex align-center mb-2">
                     <div class="labelWidth" v-t="'repeat'"></div>
                     <div class="d-flex">
-                        {{currentRepeatDayOfTheWeek}}
                         <v-checkbox 
                             v-model="repeatCheckbox"
                             v-for="(day, index) in daysOfWeek"
                             class="me-2"
                             :key="index"
-                            :disabled="repeatCheckbox.includes(currentRepeatDayOfTheWeek)"
+                            :disabled="repeatCheckbox.indexOf(day) !== 1 && currentRepeatDayOfTheWeek === index"
                             :label="day.charAt(0)"
-                            
                             :value="day"
                             hide-details
                         ></v-checkbox>
@@ -282,7 +280,15 @@ export default {
         }
         return {
             currentRepeatDayOfTheWeek: new Date().getDay(),
-            daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            daysOfWeek: [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+            ],
             repeatCheckbox: [],
             radioEnd: 'on',
             imageLoading: false,
@@ -313,10 +319,13 @@ export default {
         }
     },
     watch: {
-        date(val) {
-            this.currentRepeatDayOfTheWeek = new Date(val).getDay()
-            this.repeatCheckbox = this.daysOfWeek[this.currentRepeatDayOfTheWeek]
-            this.resetErrors(val)
+        date: {
+            immediate: true,
+            handler(val) {
+                this.currentRepeatDayOfTheWeek = new Date(val).getDay()
+                this.repeatCheckbox = [this.daysOfWeek[this.currentRepeatDayOfTheWeek]]
+                this.resetErrors(val)
+            }
         },
         hour(val) {
             this.resetErrors(val)
