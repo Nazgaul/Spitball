@@ -135,16 +135,29 @@ export default {
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
             date: userChooseDate,
             description: childComponent.sessionAboutText,
-            repeat: childComponent.currentRepeatItem.value,
+            repeat: childComponent.currentRepeatItem.value !== 'none' ? childComponent.currentRepeatItem.value : undefined,
             endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
             endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
-            repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined
+            repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined,
          }
-         this.$store.dispatch('updateCreateStudyRoomLive', liveObj).catch((error) => {
-            self.handleCreateError(error)
-         }).finally(() => {
-               this.loisLoading = false;                  
-         })
+         let formData;
+         if(childComponent.newLiveImage) {
+            formData = new FormData();
+            let file = childComponent.newLiveImage[0];
+            formData.append("file", file);
+
+            liveObj.image = formData
+         }
+         let self = this
+         this.$store.dispatch('updateCreateStudyRoomLive', liveObj)
+            .then(() => {
+               this.$store.dispatch('updateLiveImage', formData)
+            })
+            .catch((error) => {
+               self.handleCreateError(error)
+            }).finally(() => {
+                  this.loisLoading = false;                  
+            })
       },
       handleCreateError(error) {
          console.log(error)

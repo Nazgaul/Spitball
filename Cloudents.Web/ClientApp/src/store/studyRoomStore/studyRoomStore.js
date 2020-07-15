@@ -314,9 +314,17 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_RESET)
       dispatch('updateReviewDialog',false)
    },
+   updateLiveImage(context, formData) {
+      return studyRoomService.updateImage(formData).then((data) => {
+         console.log(data);
+      }).catch(ex => {
+         console.log(ex);
+      })
+   },
    updateCreateStudyRoomLive({dispatch}, params) {
       return studyRoomService.createLiveRoom(params).then(({data}) => {
          dispatch('updateCreateStudyRoom', {data, params})
+         return
       })
    },
    updateCreateStudyRoomPrivate({dispatch}, params) {
@@ -324,7 +332,7 @@ const actions = {
          dispatch('updateCreateStudyRoom', {data, params})
       })
    },
-   updateCreateStudyRoom({commit}, {data, params}) {
+   updateCreateStudyRoom({commit, getters}, {data, params}) {
       let newStudyRoomParams = {
          date: params.date || new Date().toISOString(),
          id: data.studyRoomId,

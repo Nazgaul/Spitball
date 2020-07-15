@@ -268,10 +268,11 @@
             <div class="liveImageWrap text-center d-flex flex-column align-center">
                 <uploadImage
                     v-show="true"
-                    @setProfileAvatarLoading="val => imageLoading = val"
+                    :fromLiveSession="true"
+                    @setLiveImage="handleLiveImage"
                     class="editLiveImage"
                 />
-                <img class="liveImage" :src="liveImage" width="200" alt="">
+                <img class="liveImage" :src="previewImage || liveImage" width="200" alt="">
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </div>
         </div>
@@ -315,7 +316,9 @@ export default {
             imageLoading: false,
             datePickerMenu: false,
             datePickerOcurrence: false,
+            newLiveImage: null,
             endAfterOccurrences: null,
+            previewImage: null,
             repeatCheckbox: [],
             daysOfWeek: [
                 'Sunday',
@@ -418,6 +421,10 @@ export default {
                 e.preventDefault();
             }
         },
+        handleLiveImage(previewImage) {
+            this.previewImage = window.URL.createObjectURL(previewImage[0])
+            this.newLiveImage = previewImage
+        }
     },
     created() {
         if(this.isRtl) {

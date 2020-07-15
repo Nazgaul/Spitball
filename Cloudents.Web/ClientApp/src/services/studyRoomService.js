@@ -26,5 +26,8 @@ export default {
    },
    async createLiveRoom(params){
       return await studyRoomInstance.post('live', params);
+   },
+   updateImage(params) {
+      return studyRoomInstance.post('image', params);
    }
 }
