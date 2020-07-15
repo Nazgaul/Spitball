@@ -35,17 +35,26 @@ namespace Cloudents.FunctionsV2
     public static class ImageFunction
     {
 
-        //[FunctionName("ImageFunctionStudyRoom")]
-        //public static async Task<IActionResult> RunStudyRoomImageAsync(
-        //    [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyroom/{id}")]
-        //    HttpRequest req, long id, string file,
-        //    [Blob("spitball-user/study-room/{id}/0.jpg")]
-        //    CloudBlockBlob blob,
-        //    [Blob("spitball-user/DefaultThumbnail/cover-default.png")]
-        //    Microsoft.Extensions.Logging.ILogger logger)
-        //{
-
-        //}
+        [FunctionName("ImageFunctionStudyRoom")]
+        public static async Task<IActionResult> RunStudyRoomImageAsync(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/study-room/{id:guid}")]
+            HttpRequest req, Guid id,
+            [Blob("spitball-user/study-room/{id}/0.jpg")]
+            CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")]CloudBlockBlob fallback)
+        {
+            var mutation = ImageMutation.FromQueryString(req.Query);
+            try
+            {
+                await using var sr = await blob.OpenReadAsync();
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
+            }
+            catch (StorageException e) when(e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+            {
+                return new RedirectResult(fallback.Uri.AbsolutePath);
+            }
+        }
 
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
