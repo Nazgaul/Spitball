@@ -315,6 +315,7 @@ const actions = {
       dispatch('updateReviewDialog',false)
    },
    updateLiveImage(context, formData) {
+      debugger;
       return studyRoomService.updateImage(formData).then((data) => {
          console.log(data);
       }).catch(ex => {
