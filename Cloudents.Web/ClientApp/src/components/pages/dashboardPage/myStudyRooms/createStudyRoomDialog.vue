@@ -112,6 +112,8 @@ export default {
          let self = this
          this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj).catch((error) => {
                self.handleCreateError(error)
+            }).finally(() => {
+               this.loisLoading = false;               
             })
       },
       createLiveSession() {
@@ -133,14 +135,15 @@ export default {
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
             date: userChooseDate,
             description: childComponent.sessionAboutText,
-            // repeat: childComponent.repeat,
-            // endDate: childComponent.endDate,
-            // endAfterOccurrences: childComponent.endAfterOccurrences,
-            // repeatOn: childComponent.repeatOn
+            repeat: childComponent.currentRepeatItem.value,
+            endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
+            endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
+            repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined
          }
-
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj).catch((error) => {
             self.handleCreateError(error)
+         }).finally(() => {
+               this.loisLoading = false;                  
          })
       },
       handleCreateError(error) {

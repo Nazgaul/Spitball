@@ -26,7 +26,7 @@
                             v-on="on"
                             v-model="date"
                             type="text"
-                            class="dateInput pe-2"
+                            class="dateInput"
                             :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
                             height="50"
@@ -86,7 +86,7 @@
                         maxHeight: 200
                     }"
                     :label="$t('dashboardPage_labe_hours')"
-                    prepend-inner-icon="sbf-clockIcon"
+                    prepend-inner-icon="sbf-repeat"
                     append-icon="sbf-menu-down"
                     return-object
                     color="#304FFE"
@@ -97,28 +97,26 @@
             </v-col>
             
             <template v-if="currentRepeatItem.value !== 'none'">
-                <v-col cols="12" class="sessionRepeat d-flex align-center mb-2">
+                <v-col cols="12" class="sessionRepeat d-flex align-center mb-2" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth" v-t="'repeat'"></div>
                     <div class="d-flex">
-                        {{currentRepeatDayOfTheWeek}}
                         <v-checkbox 
                             v-model="repeatCheckbox"
                             v-for="(day, index) in daysOfWeek"
                             class="me-2"
                             :key="index"
-                            :disabled="repeatCheckbox.includes(currentRepeatDayOfTheWeek)"
+                            :disabled="repeatCheckbox.indexOf(day) !== 1 && currentRepeatDayOfTheWeek === index"
                             :label="day.charAt(0)"
-                            
                             :value="day"
                             hide-details
                         ></v-checkbox>
                     </div>
                 </v-col>
 
-                <v-col cols="12" class="sessionEnd d-flex" v-if="currentRepeatItem.value === 'custom'">
+                <v-col cols="12" class="sessionEnd d-flex">
                     <div class="labelWidth" v-t="'ends'"></div>
                     <v-radio-group v-model="radioEnd" class="mt-0">
-                        <v-radio class="mb-3" :label="$t('on')" value="on">
+                        <v-radio class="mb-3" value="on">
                             <template v-slot:label>
                                 <span class="sessionOn">
                                     {{$t('on')}}
@@ -147,7 +145,7 @@
                                             v-model="dateOcurrence"
                                             class="date-picker"
                                             @input="datePickerOcurrence = false"
-                                            :allowed-dates="allowedDates"
+                                            :allowed-dates="allowedDatesEnd"
                                             :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
                                             :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                                             color="#4C59FF"
@@ -162,13 +160,25 @@
                                 </div>
                             </template>
                         </v-radio>
-                        <v-radio :label="$t('after')" value="after">
+                        <v-radio value="after">
                             <template v-slot:label>
                                 <span class="sessionAfter">
                                     {{$t('after')}}
                                 </span>
-                                <div @click.stop.prevent="">
-                                    fdsfsd
+                                <div @click.stop.prevent="" class="d-flex align-center">
+                                    <v-text-field
+                                        v-model.number="endAfterOccurrences"
+                                        @keypress="inputRestriction"
+                                        maxlength="4"
+                                        class="afterOccurrences pe-2"
+                                        color="#304FFE"
+                                        outlined
+                                        hide-details
+                                        dense
+                                        height="36"
+                                    >
+                                    </v-text-field>
+                                    <div v-t="'occurrences'"></div>
                                 </div>
                             </template>
                         </v-radio>
@@ -225,7 +235,7 @@
                         hide-details
                         outlined
                     >
-                </v-text-field>
+                    </v-text-field>
                 </v-col>
             </v-row>
 
@@ -234,7 +244,20 @@
                     <div class="priceTitle" v-t="'dashboardPage_subscription_price'"></div>
                 </v-col>
                 <v-col cols="4" sm="4" class="pa-0">
-                    <div class="ms-4 ms-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
+                    <v-text-field 
+                        class="roomPrice"
+                        color="#304FFE"
+                        dense
+                        :value="$t('free')"
+                        readonly
+                        height="50"
+                        hide-details
+                        outlined
+                    >
+                    </v-text-field>
+                </v-col>
+                <v-col cols="6" sm="4" class="pa-0">
+                    <div class="priceModified ps-sm-5" v-t="'price modified'"></div>
                 </v-col>
             </v-row>
         </div>
@@ -281,19 +304,28 @@ export default {
             currentMinutes = 0;
         }
         return {
-            currentRepeatDayOfTheWeek: new Date().getDay(),
-            daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            repeatCheckbox: [],
-            radioEnd: 'on',
-            imageLoading: false,
             isRtl: global.isRtl,
+            currentRepeatDayOfTheWeek: new Date().getDay(),
+            radioEnd: 'on',
             liveSessionTitle: '',
             sessionAboutText: '',
             date: new Date().FormatDateToString(),
             dateOcurrence: new Date().FormatDateToString(),
-            hour:  `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
+            hour: `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
+            imageLoading: false,
             datePickerMenu: false,
             datePickerOcurrence: false,
+            endAfterOccurrences: null,
+            repeatCheckbox: [],
+            daysOfWeek: [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+            ],
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('free'), value: 'free' },
@@ -313,10 +345,14 @@ export default {
         }
     },
     watch: {
-        date(val) {
-            this.currentRepeatDayOfTheWeek = new Date(val).getDay()
-            this.repeatCheckbox = this.daysOfWeek[this.currentRepeatDayOfTheWeek]
-            this.resetErrors(val)
+        date: {
+            immediate: true,
+            handler(val) {
+                this.currentRepeatDayOfTheWeek = new Date(val).getDay()
+                this.repeatCheckbox = [this.daysOfWeek[this.currentRepeatDayOfTheWeek]]
+                this.dateOcurrence = val
+                this.resetErrors(val)
+            }
         },
         hour(val) {
             this.resetErrors(val)
@@ -368,11 +404,20 @@ export default {
             let today = new Date().FormatDateToString()
             return date >= today
         },
+        allowedDatesEnd(date) {
+            let today = new Date().FormatDateToString()
+            return date >= today && date >= this.date
+        },
         resetErrors(val) {
             if(val && this.currentError) {
                 this.$emit('resetErrors')
             }
-        }
+        },
+        inputRestriction(e) {
+            if (!/\d/.test(e.key)) {
+                e.preventDefault();
+            }
+        },
     },
     created() {
         if(this.isRtl) {
@@ -441,6 +486,9 @@ export default {
         font-size: 16px;
         font-weight: 600;
     }
+    .priceModified {
+        color: #595475;
+    }
     .sbf-menu-down {
         font-size: 34px;
     }
@@ -453,10 +501,9 @@ export default {
         .sessionOn, .sessionAfter {
             width: 60px;
         }
-        // .sessionAfter {}
-    }
-    .sessionPriceWrap {
-
+        .afterOccurrences {
+            width: 50px;
+        }
     }
     .liveImageWrap {
         position: relative;
