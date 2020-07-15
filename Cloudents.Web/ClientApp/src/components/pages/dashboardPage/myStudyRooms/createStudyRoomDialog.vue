@@ -140,19 +140,9 @@ export default {
             endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
             repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined,
          }
-         let formData;
-         if(childComponent.newLiveImage) {
-            formData = new FormData();
-            let file = childComponent.newLiveImage[0];
-            formData.append("file", file);
 
-            liveObj.image = formData
-         }
          let self = this
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj)
-            .then(() => {
-               this.$store.dispatch('updateLiveImage', formData)
-            })
             .catch((error) => {
                self.handleCreateError(error)
             }).finally(() => {
