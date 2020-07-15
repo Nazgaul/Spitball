@@ -30,7 +30,7 @@ namespace Cloudents.Web.Models
 
             if (Repeat.GetValueOrDefault() != StudyRoomRepeat.None)
             {
-                if (EndAfterOccurrences.GetValueOrDefault() == 0 ||
+                if (EndAfterOccurrences.GetValueOrDefault() == 0 &&
                     EndDate.GetValueOrDefault(DateTime.MinValue) < DateTime.UtcNow)
                 {
                     yield return new ValidationResult(
