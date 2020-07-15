@@ -112,6 +112,8 @@ export default {
          let self = this
          this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj).catch((error) => {
                self.handleCreateError(error)
+            }).finally(() => {
+               this.loisLoading = false;               
             })
       },
       createLiveSession() {
@@ -140,6 +142,8 @@ export default {
          }
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj).catch((error) => {
             self.handleCreateError(error)
+         }).finally(() => {
+               this.loisLoading = false;                  
          })
       },
       handleCreateError(error) {

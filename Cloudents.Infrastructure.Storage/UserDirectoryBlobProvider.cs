@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Storage
     public class UserDirectoryBlobProvider : BlobProviderContainer, IUserDirectoryBlobProvider
     {
 
-        private static readonly Dictionary<string, string> MimeTypeMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        public static readonly Dictionary<string, string> MimeTypeMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             ["image/jpg"] = ".jpg",
             ["image/png"] = ".png",
@@ -44,6 +44,40 @@ namespace Cloudents.Infrastructure.Storage
 
             await UploadStreamAsync(fileName, stream,
                                   contentType, TimeSpan.FromDays(365), token: token);
+            return fileUri;
+        }
+    }
+
+
+    public class StudyRoomBlobProvider : BlobProviderContainer, IStudyRoomBlobProvider
+    {
+
+       
+
+        public StudyRoomBlobProvider(IConfigurationKeys storageProvider)
+            : base(storageProvider, StorageContainer.StudyRoom)
+        {
+        }
+
+        public async Task<Uri> UploadImageAsync(string file,
+            Stream stream, string contentType, CancellationToken token)
+        {
+           
+            if (!UserDirectoryBlobProvider.MimeTypeMapping.ContainsKey(contentType))
+            {
+                throw new ArgumentException($"content type not supported {contentType}");
+            }
+
+            var extension = Path.GetExtension(file);
+            if (string.IsNullOrEmpty(extension))
+            {
+                extension = UserDirectoryBlobProvider.MimeTypeMapping[contentType];
+            }
+            var fileName = $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
+            var fileUri = GetBlobUrl(fileName);
+
+            await UploadStreamAsync(fileName, stream,
+                contentType, TimeSpan.FromDays(365), token: token);
             return fileUri;
         }
     }

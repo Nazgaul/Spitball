@@ -42,14 +42,16 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
+        private readonly IUrlBuilder _urlBuilder;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
-            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, IUrlBuilder urlBuilder)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
+            _urlBuilder = urlBuilder;
         }
 
         [HttpPost("private")]
@@ -321,6 +323,33 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
             return Ok();
+        }
+
+
+        [HttpPost("image")]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> UploadCoverImageAsync([Required] IFormFile file,
+            [FromServices] IStudyRoomBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            Uri uri;
+            try
+            {
+                uri = await blobProvider.UploadImageAsync(file.FileName, file.OpenReadStream(), file.ContentType, token);
+            }
+            catch (ArgumentException e)
+            {
+                //_telemetryClient.TrackException(e, new Dictionary<string, string>()
+                //{
+                //    ["fileName"] = file.FileName,
+                //    ["contentType"] = file.ContentType
+                //});
+                ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
+            }
+            //var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            return Ok("");
         }
 
 

@@ -26,7 +26,7 @@
                             v-on="on"
                             v-model="date"
                             type="text"
-                            class="dateInput pe-2"
+                            class="dateInput"
                             :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
                             height="50"
