@@ -64,6 +64,7 @@ const state = {
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
    roomNetworkQuality: null,
+   roomEnrolled:false,
 }
 
 const mutations = {
@@ -83,7 +84,8 @@ const mutations = {
       state.roomType = props.type;
       state.roomName = props.name;
       state.roomDate = props.broadcastTime;
-      state.roomTopologyType = props.topologyType; 
+      state.roomTopologyType = props.topologyType;
+      state.roomEnrolled = false;
    },
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
@@ -98,16 +100,19 @@ const mutations = {
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
       state.roomIsNeedPayment = false;
+      state.roomConversationId = null;
       state.roomTutor = {};
       state.studyRoomId = null;
       state.dialogEndSession = false;
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
+      state.roomDate = null;
       state.isBrowserNotSupport = false;
       state.roomParticipants = {};
       state.roomTopologyType = 'PeerToPeer';
       state.roomNetworkQuality = null;
+      state.roomEnrolled = false;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -154,6 +159,9 @@ const mutations = {
    },
    setStudyRoomFooterState(state,val){
       state.studyRoomFooterState = val;
+   },
+   setRoomEnrolled(state,val){
+      state.roomEnrolled = val;
    },
    [studyRoom_SETTERS.BROWSER_NOT_SUPPORT]: (state, val) => state.isBrowserNotSupport = val,
    [studyRoom_SETTERS.ROOM_NETWORK_QUALITY]: (state, val) => state.roomNetworkQuality = val,
@@ -206,7 +214,8 @@ const getters = {
             audio: e[1].audio
          })
       ).filter(e=>e.audio)
-   }
+   },
+   getIsRoomEnrolled:state => state.roomEnrolled,
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){

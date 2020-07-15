@@ -19,12 +19,13 @@
       <div class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
             <div v-if="isMobile" class="pt-7 sessionPrice">Only $39.99 for the entire class</div>
-            <v-btn :loading="loadingBtn" 
-               @click="isRoomTutor ? enterStudyRoom() : enrollSession()" 
-               class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{isRoomTutor? $t('enter_room') : $t('save_spot') }}
+            <v-btn v-if="isRoomTutor" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+               {{$t('enter_room')}}
             </v-btn>
-            <v-btn block v-if="!isRoomTutor" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+               {{isRoomFull? $t('room_full') : $t('save_spot') }}
+            </v-btn>
+            <v-btn block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" :dateProp="roomDate" @updateCounterFinish="isSessionNow = true"/>
@@ -90,7 +91,7 @@ export default {
          let self = this
          this.$store.dispatch('updateStudyroomLiveSessions', session)
             .then(() => {
-               self.$emit('enrolled')
+               self.$store.commit('setRoomEnrolled',true);
             }).catch(ex => {
                self.$store.commit('setComponent',componentConsts.ENROLLED_ERROR);
                self.$appInsights.trackException(ex);
@@ -100,9 +101,6 @@ export default {
       }
    },
    computed: {
-      isRoomEnrolled(){
-         return false;
-      },
       isRoomFull(){
          return false;
       },

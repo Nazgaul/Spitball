@@ -1,15 +1,14 @@
 <template>
-   <div class="studyroomLandingPage d-flex" :class="[{'window2':onboarding === 1}]">
+   <div class="studyroomLandingPage d-flex" :class="[{'window2':isRoomEnrolled}]">
       <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
-         <v-window v-model="onboarding">
+         <v-window :value="isRoomEnrolled? 1 : 0">
             <v-window-item>
                <logo v-if="!isMobile" class="pageLogo"/>
-               <roomInfo @enrolled="onboarding = 1"/>
+               <roomInfo/>
                <sessionInfo/>
                <hostInfo/>
             </v-window-item>
             <v-window-item>
-               
                <roomThankYou/>
             </v-window-item>
          </v-window>
@@ -24,11 +23,6 @@ import hostInfo from './hostInfo.vue';
 import logo from '../../app/logo/logo.vue';
 import roomThankYou from './roomThankYou.vue'
 export default {
-   data() {
-      return {
-         onboarding: 0
-      }
-   },
    components:{
       roomInfo,
       sessionInfo,
@@ -39,7 +33,10 @@ export default {
    computed: {
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
-      }
+      },
+      isRoomEnrolled(){
+         return this.$store.getters.getIsRoomEnrolled;
+      },
    },
 }
 </script>
