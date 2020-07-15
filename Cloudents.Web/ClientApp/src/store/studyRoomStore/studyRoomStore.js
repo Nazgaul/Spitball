@@ -315,11 +315,7 @@ const actions = {
       dispatch('updateReviewDialog',false)
    },
    updateLiveImage(context, formData) {
-      return studyRoomService.updateImage(formData).then((data) => {
-         console.log(data);
-      }).catch(ex => {
-         console.log(ex);
-      })
+      return studyRoomService.updateImage(formData)
    },
    updateCreateStudyRoomLive({dispatch}, params) {
       return studyRoomService.createLiveRoom(params).then(({data}) => {

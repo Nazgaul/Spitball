@@ -442,8 +442,20 @@ export default {
             }
         },
         handleLiveImage(previewImage) {
-            this.previewImage = window.URL.createObjectURL(previewImage[0])
-            this.newLiveImage = previewImage
+
+            if(previewImage) {
+                let formData;
+                formData = new FormData();
+                let file = previewImage[0];
+                formData.append("file", file);
+
+                this.$store.dispatch('updateLiveImage', formData).then(({data}) => {
+                    console.log(data);
+                    debugger
+                    this.previewImage = window.URL.createObjectURL(previewImage[0])
+                    this.newLiveImage = previewImage
+                })
+            }
         }
     },
     created() {
