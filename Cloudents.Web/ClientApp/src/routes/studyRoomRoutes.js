@@ -38,12 +38,23 @@ export const studyRoomRoutes = [
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
             ...staticComponents([ 'footer']),
         },
-        // beforeEnter: (to, from, next) => {
-        //     if(!to.params?.id){
-        //         next('/');
-        //         return
-        //     }
-        //     next();
-        // }
+        beforeEnter: (to, from, next) => {
+            if(!to.params?.id){
+                next('/');
+                return
+            }else{
+                store.dispatch('updateStudyRoomInformation',to.params.id)
+                    .then(()=>{
+                        next();
+                        return;
+                    })
+                    .catch((err)=>{
+                        if(err?.response){
+                            next('/');
+                            return
+                        }
+                    })
+            }
+        }
     }
 ]

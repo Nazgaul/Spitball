@@ -4,10 +4,10 @@
       <div class="roomInfoTop d-flex">
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
             <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
-            <div class="classSubject" v-text="classSubject"/>
+            <div class="classSubject" v-text="roomName"/>
             <div>
                <div class="pb-2">10 live sessions - every Tue and Thu</div>
-               <div>{{$t('starts_on',[date])}}</div>
+               <div>{{$t('starts_on',[roomDate])}}</div>
             </div>
             <div v-if="!isMobile">Only $39.99 for the entire class</div>
             <img class="triangle" src="./images/triangle.png">
@@ -19,13 +19,15 @@
       <div class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
             <div v-if="isMobile" class="pt-7 sessionPrice">Only $39.99 for the entire class</div>
-            <v-btn :loading="loadingBtn" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{$t('save_spot')}}
+            <v-btn :loading="loadingBtn" 
+               @click="isRoomTutor ? enterStudyRoom() : enrollSession()" 
+               class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+               {{isRoomTutor? $t('enter_room') : $t('save_spot') }}
             </v-btn>
-            <v-btn @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn v-if="!isRoomTutor" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
-            <sessionStartCounter v-show="!isSessionNow" class="pageCounter" :dateProp="'2020-07-30T08:28:20Z'" @updateCounterFinish="isSessionNow = true"/>
+            <sessionStartCounter v-show="!isSessionNow" class="pageCounter" :dateProp="roomDate" @updateCounterFinish="isSessionNow = true"/>
             <div v-show="isSessionNow" class="pageCounter">
                session is now
             </div>
@@ -41,15 +43,13 @@
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
 import * as componentConsts from '../global/toasterInjection/componentConsts.js';
+import * as routeNames from '../../../routes/routeNames';
 export default {
    components:{logo,sessionStartCounter},
    data() {
       return {
          isSessionNow:false,
          loadingBtn:false,
-         tutorName:'Ariel Feinsilberg',
-         classSubject: 'Just Say Hello-Find an Online Teaching Job',
-         date: `July 19th, 7:00 PM`
       }
    },
    methods: {
@@ -61,12 +61,25 @@ export default {
          if(this.loadingBtn) return;
          this.$store.commit('setComponent', 'applyCoupon');
       },
+      enterStudyRoom(){
+         let id = this.$route.params?.id;
+         let routeData = this.$router.resolve({
+            name: routeNames.StudyRoom,
+            params: { id }
+         });
+         global.open(routeData.href, "_self");
+      },
       enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
             return
          }
          if(this.loadingBtn) return;
+
+         if(this.isRoomNeedPayment){
+            this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG);
+            return;
+         }
          this.loadingBtn = true;
          let userId = this.$store.getters.accountUser?.id;
          let studyRoomId = this.$route.params?.id;
@@ -87,6 +100,27 @@ export default {
       }
    },
    computed: {
+      isRoomEnrolled(){
+         return false;
+      },
+      isRoomFull(){
+         return false;
+      },
+      isRoomNeedPayment(){
+         return this.$store.getters.getRoomIsNeedPayment;
+      },
+      isRoomTutor(){
+         return this.$store.getters.getRoomIsTutor;
+      },
+      roomDate(){
+         return this.$store.getters.getRoomDate;
+      },
+      roomName(){
+         return this.$store.getters.getRoomName;
+      },
+      tutorName(){
+         return this.$store.getters.getRoomTutor?.tutorName;
+      },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
