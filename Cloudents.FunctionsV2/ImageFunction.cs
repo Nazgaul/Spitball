@@ -44,15 +44,22 @@ namespace Cloudents.FunctionsV2
             [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")]CloudBlockBlob fallback)
         {
             var mutation = ImageMutation.FromQueryString(req.Query);
-            try
+
+            async Task<IActionResult> ProcessBlob(CloudBlockBlob cloudBlockBlob)
             {
-                await using var sr = await blob.OpenReadAsync();
+                await using var sr = await cloudBlockBlob.OpenReadAsync();
                 var image = ProcessImage(sr, mutation);
                 return new ImageResult(image, TimeSpan.FromDays(365));
             }
+
+           
+            try
+            {
+                return await ProcessBlob(blob);
+            }
             catch (StorageException e) when(e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
             {
-                return new RedirectResult(fallback.Uri.AbsoluteUri);
+                return await ProcessBlob(fallback);
             }
         }
 

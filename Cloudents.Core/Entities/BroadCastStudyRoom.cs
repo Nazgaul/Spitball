@@ -26,7 +26,7 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual DateTime BroadcastTime { get; protected set; }
+        public virtual DateTime BroadcastTime { get;  set; }
 
 
         public virtual string? Description { get; protected set; }
