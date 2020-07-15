@@ -1,11 +1,16 @@
 <template>
     <div class="counterComponent">
-        <span>{{time.days}}</span>:<span>{{time.hours}}</span>:<span>{{time.minutes}}</span>:<span>{{time.seconds}}</span>
+        <span>{{time.days}}</span><span class="counterDots">:</span><span>{{time.hours}}</span><span class="counterDots">:</span><span>{{time.minutes}}</span><span class="counterDots">:</span><span>{{time.seconds}}</span>
     </div>
 </template>
 
 <script>
 export default {
+    props:{
+        dateProp:{
+            required:false,
+        }
+    },
     data() {
         return {
             interVal:null,
@@ -23,7 +28,7 @@ export default {
             this.getNow();
         },
         getNow() {
-            let countDownDate = new Date(this.$store.getters.getRoomDate).getTime();
+            let countDownDate = new Date(this.$store.getters.getRoomDate || this.dateProp).getTime();
             let now = new Date();
             let distance = countDownDate - now;
             
@@ -47,7 +52,7 @@ export default {
         global.onbeforeunload = function() {}
     },
     created() {
-        if(this.$store.getters.getRoomIsBroadcast) {
+        if(this.$store.getters.getRoomIsBroadcast || this.dateProp) {
             this.setParamsInterval();
         } else{
             this.$emit('updateCounterFinish', true)

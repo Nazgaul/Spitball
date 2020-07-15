@@ -1,5 +1,6 @@
 import * as routeName from "./routeNames.js";
 import store from '../store'
+import {staticComponents} from './routesUtils.js';
 
 export const studyRoomRoutes = [
     {
@@ -29,5 +30,20 @@ export const studyRoomRoutes = [
             store.commit('clearComponent')
             next();
         }
+    },
+    {
+        path: '/live/:id?',
+        name: 'live',
+        components: {
+            default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
+            ...staticComponents([ 'footer']),
+        },
+        // beforeEnter: (to, from, next) => {
+        //     if(!to.params?.id){
+        //         next('/');
+        //         return
+        //     }
+        //     next();
+        // }
     }
 ]

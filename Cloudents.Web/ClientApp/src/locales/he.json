@@ -2,6 +2,7 @@
   "See all live classes": "הצג הכל",
   "See less live classes": "הסתר",
   "Short paragraph": "כמה מילים על עצמי",
+  "about_host": "אודות המורה",
   "addQuestion_add_button": "שליחת שאלה",
   "addQuestion_ask_your_question_placeholder": "...",
   "addQuestion_cancel_button": "ביטול",
@@ -9,6 +10,7 @@
   "addQuestion_error_general": "משהו השתבש, נסה שוב",
   "addQuestion_title": "מה השאלה שלך?",
   "app_currency_dynamic": "נק'",
+  "apply_coupon_code": "החל קוד קופון",
   "banner_code": "קוד קופון:",
   "banner_days": "ימים",
   "banner_hours": "שעות",
@@ -345,6 +347,7 @@
   "leaveReview_title": "דירוג וחוות דעת",
   "leaveReview_title_step1": "ציון כללי וחוות דעת",
   "leaveReview_title_step2": "נפלא, הענקתם ציון!",
+  "live_with": "שידור חי עם {0}",
   "localAudioSend": "שמע מקומי: {0}",
   "localVideoSend": "וידאו מקומי: {0}",
   "loginAnswer_Sign_Up": "הרשמה",
@@ -655,6 +658,7 @@
   "reviewBox_title": "דירוגים וחוות דעת",
   "roomMuted": "סטודנטים מושתקים",
   "save": "שמור",
+  "save_spot": "שמור לי מקום",
   "schoolBlock_EnterStudyRoomTooltip": "כנס לחדר הלימוד",
   "schoolBlock_SendMessageTooltip": "שלח הודעה",
   "schoolBlock_calendar": "יומן",
@@ -686,6 +690,7 @@
   "shortParagraph placeholder": "הרחיבו קצת על עצמכם ומה תוכלו להציע לתלמידים שלכם",
   "showMe": "תראה לי איך",
   "spitballAccess": "\"Spitball.co\" רוצה גישה למצלמה ולמיקרופון שלך",
+  "starts_on": "מתחיל בתאריך: {0}",
   "stats_followers": "אין עוקבים | עוקב | עוקבים",
   "stats_resources": "אין חומרי לימוד | חומר לימוד | חומרי לימוד",
   "stats_reviews": "אין ביקורות | ביקורת | ביקורות",
@@ -900,5 +905,6 @@
   "wallet_Value": "שווי",
   "wallet_earned": "הכנסה",
   "wallet_spent": "הוצאה",
-  "wallet_total": "סך הכל"
+  "wallet_total": "סך הכל",
+  "what_learn": "מה תלמדו"
 }
