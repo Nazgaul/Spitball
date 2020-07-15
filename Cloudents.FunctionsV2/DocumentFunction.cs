@@ -257,7 +257,6 @@ namespace Cloudents.FunctionsV2
                     var blob = blobs.Results.OfType<CloudBlockBlob>().First(f =>
                         f.Name.StartsWith("file", StringComparison.OrdinalIgnoreCase));
 
-
                     var md5 = blob.Properties.ContentMD5;
                     if (string.IsNullOrEmpty(md5))
                     {
@@ -265,8 +264,6 @@ namespace Cloudents.FunctionsV2
                         const long hugeFileThatWontFinishProcess = 13505445017;
                         if (length < hugeFileThatWontFinishProcess)
                         {
-                            //var etag = blob.Properties.ETag;
-                            // if (blob.Properties.Length)
                             log.LogInformation("no md5 calculating");
                             await using var sr = await blob.OpenReadAsync();
                             md5 = CalculateMd5(sr);
