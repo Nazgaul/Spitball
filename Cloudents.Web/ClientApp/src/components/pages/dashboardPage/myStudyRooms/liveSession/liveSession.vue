@@ -86,7 +86,7 @@
                         maxHeight: 200
                     }"
                     :label="$t('dashboardPage_labe_hours')"
-                    prepend-inner-icon="sbf-clockIcon"
+                    prepend-inner-icon="sbf-repeat"
                     append-icon="sbf-menu-down"
                     return-object
                     color="#304FFE"
@@ -171,6 +171,7 @@
                                         @keypress="inputRestriction"
                                         maxlength="4"
                                         class="afterOccurrences pe-2"
+                                        color="#304FFE"
                                         outlined
                                         hide-details
                                         dense
@@ -234,7 +235,7 @@
                         hide-details
                         outlined
                     >
-                </v-text-field>
+                    </v-text-field>
                 </v-col>
             </v-row>
 
@@ -243,7 +244,20 @@
                     <div class="priceTitle" v-t="'dashboardPage_subscription_price'"></div>
                 </v-col>
                 <v-col cols="4" sm="4" class="pa-0">
-                    <div class="ml-4 ml-sm-0 priceSubscription" v-t="'dashboardPage_subscription_free'"></div>
+                    <v-text-field 
+                        class="roomPrice"
+                        color="#304FFE"
+                        dense
+                        :value="$t('free')"
+                        readonly
+                        height="50"
+                        hide-details
+                        outlined
+                    >
+                    </v-text-field>
+                </v-col>
+                <v-col cols="6" sm="4" class="pa-0">
+                    <div class="priceModified ps-sm-5" v-t="'price modified'"></div>
                 </v-col>
             </v-row>
         </div>
@@ -290,8 +304,19 @@ export default {
             currentMinutes = 0;
         }
         return {
-            endAfterOccurrences: null,
+            isRtl: global.isRtl,
             currentRepeatDayOfTheWeek: new Date().getDay(),
+            radioEnd: 'on',
+            liveSessionTitle: '',
+            sessionAboutText: '',
+            date: new Date().FormatDateToString(),
+            dateOcurrence: new Date().FormatDateToString(),
+            hour: `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
+            imageLoading: false,
+            datePickerMenu: false,
+            datePickerOcurrence: false,
+            endAfterOccurrences: null,
+            repeatCheckbox: [],
             daysOfWeek: [
                 'Sunday',
                 'Monday',
@@ -301,17 +326,6 @@ export default {
                 'Friday',
                 'Saturday',
             ],
-            repeatCheckbox: [],
-            radioEnd: 'on',
-            imageLoading: false,
-            isRtl: global.isRtl,
-            liveSessionTitle: '',
-            sessionAboutText: '',
-            date: new Date().FormatDateToString(),
-            dateOcurrence: new Date().FormatDateToString(),
-            hour: `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`,
-            datePickerMenu: false,
-            datePickerOcurrence: false,
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('free'), value: 'free' },
@@ -392,7 +406,6 @@ export default {
         },
         allowedDatesEnd(date) {
             let today = new Date().FormatDateToString()
-            console.log(date, this.date);
             return date >= today && date >= this.date
         },
         resetErrors(val) {
@@ -473,6 +486,9 @@ export default {
         font-size: 16px;
         font-weight: 600;
     }
+    .priceModified {
+        color: #595475;
+    }
     .sbf-menu-down {
         font-size: 34px;
     }
@@ -485,13 +501,9 @@ export default {
         .sessionOn, .sessionAfter {
             width: 60px;
         }
-        // .sessionAfter {}
         .afterOccurrences {
             width: 50px;
         }
-    }
-    .sessionPriceWrap {
-
     }
     .liveImageWrap {
         position: relative;

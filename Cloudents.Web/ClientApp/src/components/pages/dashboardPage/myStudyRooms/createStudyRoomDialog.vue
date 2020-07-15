@@ -136,9 +136,8 @@ export default {
             repeat: childComponent.currentRepeatItem.value,
             endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
             endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
-            repeatOn: childComponent.repeatCheckbox
+            repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined
          }
-         
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj).catch((error) => {
             self.handleCreateError(error)
          })
