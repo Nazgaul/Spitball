@@ -675,6 +675,7 @@
   "schoolBlock_private_session": "חדרי לימוד",
   "schoolBlock_purchases": "רכישות",
   "search_search_btn": "חפש",
+  "seat_saved": "המושב שלך נשמר!",
   "send-email": "שלח אימייל",
   "shareContent_copy": "העתק",
   "shareContent_copy_tool": "הקישור הועתק",
@@ -906,5 +907,6 @@
   "wallet_earned": "הכנסה",
   "wallet_spent": "הוצאה",
   "wallet_total": "סך הכל",
+  "we_will_email": "אנו נשלח לך דוא\"ל עם שאר ההוראות שלך לסמינר האינטרנט. אנו מצפים לראותך שם.",
   "what_learn": "מה תלמדו"
 }

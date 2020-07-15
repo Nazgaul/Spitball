@@ -1,10 +1,17 @@
 <template>
-   <div class="studyroomLandingPage d-flex">
+   <div class="studyroomLandingPage d-flex" :class="[{'window2':onboarding === 1}]">
       <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
-         <logo v-if="!isMobile" class="pageLogo"/>
-         <roomInfo/>
-         <sessionInfo/>
-         <hostInfo/>
+         <v-window v-model="onboarding">
+            <v-window-item>
+               <logo v-if="!isMobile" class="pageLogo"/>
+               <roomInfo/>
+               <sessionInfo/>
+               <hostInfo/>
+            </v-window-item>
+            <v-window-item>
+               <roomThankYou/>
+            </v-window-item>
+         </v-window>
       </div>
    </div>
 </template>
@@ -13,13 +20,20 @@
 import roomInfo from './roomInfo.vue';
 import sessionInfo from './sessionInfo.vue';
 import hostInfo from './hostInfo.vue';
-import logo from '../../app/logo/logo.vue'
+import logo from '../../app/logo/logo.vue';
+import roomThankYou from './roomThankYou.vue'
 export default {
+   data() {
+      return {
+         onboarding: 0
+      }
+   },
    components:{
       roomInfo,
       sessionInfo,
       hostInfo,
-      logo
+      logo,
+      roomThankYou
    },
    computed: {
       isMobile(){
@@ -36,6 +50,13 @@ export default {
       height: 100%;
       background: white;  
       position: relative;
+      &.window2{
+         &::before{
+            content: '';
+            height: auto;
+            max-height: initial;
+         }
+      }
       &::before{
          content: '';
          position: absolute;

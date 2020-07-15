@@ -675,6 +675,7 @@
   "schoolBlock_private_session": "My Study Rooms",
   "schoolBlock_purchases": "My Purchases",
   "search_search_btn": "Search",
+  "seat_saved": "Your seat is saved!",
   "send-email": "Send Email",
   "shareContent_copy": "Copy",
   "shareContent_copy_tool": "Link Copied",
@@ -906,5 +907,6 @@
   "wallet_earned": "Earned",
   "wallet_spent": "Spent",
   "wallet_total": "Total",
+  "we_will_email": "We will be sending you an email with the rest of your instructions for the webinar. We look forward to seeing you there.",
   "what_learn": "What You Will Learn"
 }
