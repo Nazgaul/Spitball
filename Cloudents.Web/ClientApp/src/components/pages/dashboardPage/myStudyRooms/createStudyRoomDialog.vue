@@ -139,14 +139,16 @@ export default {
             endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
             endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
             repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined,
+            image: childComponent.newLiveImage
          }
-
+         
          let self = this
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj)
             .catch((error) => {
                self.handleCreateError(error)
             }).finally(() => {
-                  this.loisLoading = false;                  
+               self.isLoading = false;
+               self.$store.commit('setComponent')
             })
       },
       handleCreateError(error) {

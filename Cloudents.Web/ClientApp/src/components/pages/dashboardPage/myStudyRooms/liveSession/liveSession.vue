@@ -450,10 +450,8 @@ export default {
                 formData.append("file", file);
 
                 this.$store.dispatch('updateLiveImage', formData).then(({data}) => {
-                    console.log(data);
-                    debugger
                     this.previewImage = window.URL.createObjectURL(previewImage[0])
-                    this.newLiveImage = previewImage
+                    this.newLiveImage = data.fileName
                 })
             }
         }
