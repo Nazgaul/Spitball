@@ -4,11 +4,18 @@
       <div class="divider"/>
       <div class="hostBox d-flex flex-wrap flex-sm-nowrap">
          <div class="hostImg">
-            <img src="./hi.png" alt="">
+            <UserAvatarNew
+            :fontSize="16" 
+            :tile="true"
+            :width="242"
+            :height="298"
+            :user-name="tutorName" 
+            :user-id="tutorId" 
+            :userImageUrl="tutorImage"/> 
          </div>
          <div class="hostText">
-            <div class="hostName" v-text="hostName"/>
-            <div class="hostBio" v-text="hostBio"/>
+            <div class="hostName" v-text="tutorName"/>
+            <div class="hostBio" v-text="tutorBio"/>
          </div>
       </div>
    </div>
@@ -16,10 +23,18 @@
 
 <script>
 export default {
-   data() {
-      return {
-         hostName: "Ariel Feinsilberg",
-         hostBio: `Has extensive experience with students from all universities and colleges, in preparation for matriculation and IMAT exams
+   computed: {
+      tutorName(){
+         return this.$store.getters.getRoomTutor?.tutorName;
+      },
+      tutorId(){
+         return this.$store.getters.getRoomTutor?.tutorId;
+      },
+      tutorImage(){
+         return this.$store.getters.getRoomTutor?.tutorImage;
+      },
+      tutorBio(){
+         return `Has extensive experience with students from all universities and colleges, in preparation for matriculation and IMAT exams
 If you are looking to learn all the material from the ground up, or just a quick review of the material, I will give you the tools and help you while preparing a clear and concise summary.
 Also runs marathons for EvanLine teams !!
 Teaches data extraction methods, and provides simple tools.`
