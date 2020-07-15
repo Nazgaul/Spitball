@@ -620,6 +620,7 @@
   "remoteAudioReceive": "אודיו מרוחק התקבל: {0}",
   "remoteVideoReceive": "וידאו מרוחק התקבל: {0}",
   "repeat": "",
+  "repeat label": "",
   "reportItem_reason_inappropriateContent": "תוכן לא הולם",
   "reportItem_reason_inappropriateLanguage": "שפה לא הולמת",
   "reportItem_reason_plagiarism": "גנבה ספרותית",

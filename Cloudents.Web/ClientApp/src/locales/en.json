@@ -620,6 +620,7 @@
   "remoteAudioReceive": "remote Audio received: {0}",
   "remoteVideoReceive": "remote Video received: {0}",
   "repeat": "Repeat on",
+  "repeat label": "Repeat",
   "reportItem_reason_inappropriateContent": "Inappropriate Content",
   "reportItem_reason_inappropriateLanguage": "Inappropriate Language",
   "reportItem_reason_plagiarism": "Plagiarism",

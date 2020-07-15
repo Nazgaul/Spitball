@@ -85,7 +85,7 @@
                     :menu-props="{
                         maxHeight: 200
                     }"
-                    :label="$t('dashboardPage_labe_hours')"
+                    :label="$t('repeat label')"
                     prepend-inner-icon="sbf-repeat"
                     append-icon="sbf-menu-down"
                     return-object
