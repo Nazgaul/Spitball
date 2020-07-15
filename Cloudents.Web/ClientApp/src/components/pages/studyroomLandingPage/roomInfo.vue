@@ -24,7 +24,7 @@
                class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{isRoomTutor? $t('enter_room') : $t('save_spot') }}
             </v-btn>
-            <v-btn v-if="!isRoomTutor" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn block v-if="!isRoomTutor" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" :dateProp="roomDate" @updateCounterFinish="isSessionNow = true"/>

@@ -1,6 +1,7 @@
 import * as routeName from "./routeNames.js";
 import store from '../store'
 import {staticComponents} from './routesUtils.js';
+import { router } from '../main.js';
 
 export const studyRoomRoutes = [
     {
@@ -38,10 +39,15 @@ export const studyRoomRoutes = [
             store.dispatch('updateStudyRoomInformation',to.params.id)
             .then(()=>{
                 if(store.getters.getRoomIsNeedPayment){
-                    next({
+                    // next({
+                        //     name: routeName.StudyRoomLanding,
+                        //     params:{...to.params }
+                        // });
+                    let routeData = router.resolve({
                         name: routeName.StudyRoomLanding,
-                        params:{...to.params }
+                    params:{...to.params }
                     });
+                    global.open(routeData.href, "_self");
                     return;
                 }else{
                     next();
