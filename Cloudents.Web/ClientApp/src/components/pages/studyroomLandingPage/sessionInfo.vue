@@ -5,11 +5,12 @@
       <div class="sessionText px-sm-4 px-md-0" v-text="sessionDescription"/>
    </div>
 </template>
+
 <script>
 export default {
-   data() {
-      return {
-         sessionDescription: `Learn how to effectively search for a quality online teaching job! Many companies are looking for teachers. Find hidden job boards and awesome online teaching opportunities. We'll also talk about how to network on Linked In to find work and how to search for online teaching jobs using keywords.`
+   computed: {
+      sessionDescription(){
+         return `Learn how to effectively search for a quality online teaching job! Many companies are looking for teachers. Find hidden job boards and awesome online teaching opportunities. We'll also talk about how to network on Linked In to find work and how to search for online teaching jobs using keywords.`
       }
    },
 }
