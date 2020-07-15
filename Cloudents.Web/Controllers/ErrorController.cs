@@ -18,34 +18,43 @@ namespace Cloudents.Web.Controllers
             _telemetryClient = telemetryClient;
         }
 
-        [ActionName("NotFound")]
-        public ActionResult Error404([FromQuery]string? track,
+        //[ActionName("NotFound")]
+        //[Route("error/404", Order = 1)]
+        //public ActionResult Error404([FromQuery]string? track,
+        //    [FromHeader(Name = "referer")] string referer)
+        //{
+        //    var allHeaders = Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString());
+        //    allHeaders.Add("s-referer",referer);
+        //    allHeaders.Add("track",track);
+        //    _telemetryClient.TrackTrace("Reaching 404 page", allHeaders);
+        //    Response.StatusCode = 404;
+        //    return View("NotFound");
+        //}
+
+        [Route("error/{code:int}", Order = 2)]
+        [Route("error")]
+        [Route("error/NotFound")]
+        public ActionResult Index(int? code,
             [FromHeader(Name = "referer")] string referer)
         {
             var allHeaders = Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString());
             allHeaders.Add("s-referer",referer);
-            allHeaders.Add("track",track);
-            _telemetryClient.TrackTrace("Reaching 404 page", allHeaders);
-            Response.StatusCode = 404;
-            return View("NotFound");
-        }
 
-        [Route("error/{code:int}")]
-        [Route("error")]
-        public ActionResult Index()
-        {
-
+            _telemetryClient.TrackTrace($"Reaching error page {code}", allHeaders);
             var statusCode = (HttpStatusCode)Response.StatusCode;
             var x = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
             if (x == null)
             {
-                return RedirectToAction("NotFound");
+                Response.StatusCode = 404;
+                return View("NotFound");
+                //return RedirectToAction("NotFound");
             }
             _telemetryClient.TrackTrace("Reaching error page", new Dictionary<string, string>()
             {
                 ["path"] = x.OriginalPath,
                 ["query"] = x.OriginalQueryString
             });
+         
             // For API errors, responds with just the status code (no page).
             if (x.OriginalPath.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))
                 return StatusCode((int)statusCode);
@@ -55,10 +64,12 @@ namespace Cloudents.Web.Controllers
             switch (statusCode)
             {
                 case HttpStatusCode.NotFound:
-                    return RedirectToAction("NotFound",new
-                    {
-                        track = System.Diagnostics.Activity.Current.RootId
-                    });
+                    Response.StatusCode = 404;
+                    return View("NotFound");
+                    //return RedirectToAction("NotFound",new
+                    //{
+                    //    track = System.Diagnostics.Activity.Current.RootId
+                    //});
 
                 case HttpStatusCode.Unauthorized:
                     return Redirect("/");

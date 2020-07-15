@@ -27,6 +27,7 @@ const getters = {
     getAccountFirstName: state => state.user?.firstName,
     getAccountLastName: state => state.user?.lastName,
     getAccountName: state => state.user?.name,
+    getAccountEmail: state => state.user?.email,
     getAccountImage: state => state.user?.image,
     getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
     
@@ -65,7 +66,7 @@ const mutations = {
             this.currencySymbol = objInit.currencySymbol
             this.subscription = objInit.tutorSubscription
             this.needPayment = objInit.needPayment
-            this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok'
+            this.isTutor = typeof objInit.isTutor == 'boolean'? objInit.isTutor : objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
             this.isSold = objInit.isSold
             this.pendingSessionsPayments = objInit.pendingSessionsPayments
             this.chatUnread = objInit.chatUnread;
@@ -135,6 +136,11 @@ const actions = {
             commit('setRefferedNumber', refNumber);
         }).catch(ex => {
             console.error(ex);
+        })
+    },
+    becomeTutor({ commit }) {
+        return axios.post('tutor/becomeTutor').finally(() => {
+            commit('setComponent', '')
         })
     },
     saveUserInfo({getters, commit}, params) {

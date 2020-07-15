@@ -24,12 +24,12 @@
         <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
           <div class="docWrapper d-block d-sm-flex justify-sm-center text-center pb-4">
             <template v-if="getDocumentPrice && !getIsPurchased">
-              <div class="d-flex align-end mr-4 justify-center mb-2 mb-sm-0">
+              <div class="d-flex align-end me-4 justify-center mb-2 mb-sm-0">
                 <template v-if="isFree || getDocumentPriceTypeHasPrice">
-                  <div class="mr-1 price">{{priceWithComma}}</div>
+                  <div class="me-1 price">{{priceWithComma}}</div>
                   <span class="points" v-t="'documentPage_points'"></span>
                 </template>
-                <!-- <div class="mr-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div> -->
+                <!-- <div class="me-1 price" v-else>{{$n(priceWithComma, 'currency', 'en')}}</div> -->
               </div>
               <!-- <div v-t="'documentPage_credit_uploader'"></div> -->
             </template>
@@ -144,12 +144,12 @@
     <!-- <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload> -->
     <unlockDialog :document="document"></unlockDialog>
     <v-snackbar v-model="snackbar" :top="true" :timeout="8000">
-      <div>
+      <div class="d-flex justify-space-between align-center" >
         <span v-t="'resultNote_unsufficient_fund'"></span>
+        <v-btn class="px-4" outlined rounded @click="openBuyTokenDialog">
+          <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
+        </v-btn>
       </div>
-      <v-btn class="px-4" outlined rounded @click="openBuyTokenDialog">
-        <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
-      </v-btn>
     </v-snackbar>
   </div>
 </template>
@@ -400,10 +400,10 @@ export default {
         this.$router.push({ name: "feed" });
       }
     },
-    moveDownToTutorItem() {
-      let elem = this.$el.querySelector(".itemPage__main__tutorCard");
-      elem.scrollIntoView({ behavior: "smooth", block: "center" });
-    },
+    // moveDownToTutorItem() {
+    //   let elem = this.$el.querySelector(".itemPage__main__tutorCard");
+    //   elem.scrollIntoView({ behavior: "smooth", block: "center" });
+    // },
     openBuyTokenDialog() {
       this.updateItemToaster(false);
       this.$openDialog(dialogNames.BuyPoints);
@@ -495,8 +495,8 @@ export default {
     }
     .document-header-large-sagment {
       &--arrow {
-        color: @global-purple;
         transform: none /*rtl:scaleX(-1)*/;
+        color: @global-purple;
       }
     }
   }

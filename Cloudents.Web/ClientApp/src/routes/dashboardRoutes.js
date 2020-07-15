@@ -1,5 +1,4 @@
 import { staticComponents } from './routesUtils.js';
-import store from '../store';
 import * as routeName from "./routeNames.js";
 
 const dashboardPages = {
@@ -18,6 +17,7 @@ export const dashboardRoutes = [
            })
        },
        meta: {
+           requiresTutor: true,
            requiresAuth: true,
            showMobileFooter: true,
        },
@@ -46,6 +46,7 @@ export const dashboardRoutes = [
            })
        },
        meta: {
+           requiresTutor: true,
            requiresAuth: true,
            showMobileFooter: true,
        },
@@ -90,6 +91,7 @@ export const dashboardRoutes = [
             }),
         },
         meta: {
+            requiresTutor: true,
             type: 'broadcast',
             requiresAuth: true,
             showMobileFooter: true,
@@ -105,6 +107,7 @@ export const dashboardRoutes = [
             })
         },
         meta: {
+            requiresTutor: true,
             requiresAuth: true,
             showMobileFooter: true,
         },
@@ -116,15 +119,8 @@ export const dashboardRoutes = [
             default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
-        beforeEnter: (to, from, next) => {
-            if(store.getters.getIsTeacher){
-                next()
-                return
-            }
-            // Redirect to root
-            next('/')
-        },
         meta: {
+            requiresTutor: true,
             showMobileFooter: true,
             requiresAuth: true,
         },
@@ -136,14 +132,8 @@ export const dashboardRoutes = [
             default: () => import('../components/pages/dashboardPage/myCoupons/myCoupons.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu']),
         },
-        beforeEnter: (to, from, next) => {
-            if(store.getters.getIsTeacher){
-                next()
-                return
-            }
-            next('/')
-        },
         meta: {
+            requiresTutor: true,
             showMobileFooter: true,
             requiresAuth: true,
         }

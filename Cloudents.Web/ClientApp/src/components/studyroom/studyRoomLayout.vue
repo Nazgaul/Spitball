@@ -5,10 +5,12 @@
     </template>
     <template v-else>
       <studyRoomDrawer/>
-      <studyRoomHeader/>
-      <v-content>
+
+      <studyRoomHeader @roomMuted="showRoomMutedToaster = true"/>
+      <v-main>
         <studyRoomWrapper style="height:100%"/>
-      </v-content>
+        <roomMutedToaster v-if="showRoomMutedToaster"/>
+      </v-main>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
     
@@ -30,6 +32,8 @@ import { mapGetters } from 'vuex';
 const studyRoomMobile = () => import('./studyRoomMobile.vue');
 
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
+import roomMutedToaster from './layouts/roomMutedToaster.vue';
+
 import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
 import studyRoomAudio from'./layouts/studyRoomAudio/studyRoomAudio.vue';
 import studyRoomDialogs from './studyRoomDialogs.vue';
@@ -38,6 +42,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      showRoomMutedToaster:false
     }
   },
   components: {
@@ -49,6 +54,7 @@ export default {
     studyRoomWrapper,
     studyRoomSettingsDialog,
     studyRoomDialogs,
+    roomMutedToaster,
 
     studyRoomAudio,
 
@@ -67,8 +73,18 @@ export default {
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
     },
+    isRoomEnabled(){
+      return this.$store.getters.getJwtToken
+    }
   },
   watch: {
+    isRoomEnabled(val){
+      if(val){
+        window.onbeforeunload = function() {     
+          return "Are you sure you want to close the window?";
+        };
+      }
+    },
     getRoomIsNeedPayment:{
       immediate:true,
       handler(newVal){
@@ -79,6 +95,16 @@ export default {
         }
       }
     },
+    showRoomMutedToaster:{
+      deep:true,
+      handler(newVal){
+        if(newVal){
+          setTimeout(() => {
+            this.showRoomMutedToaster = false
+          }, 1000);
+        }
+      }
+    }
   },
   methods: {
     handleNeedPayment(needPayment){
@@ -105,11 +131,6 @@ export default {
             this.$router.push('/')
           }
         })
-        if(this.$store.getters.getUserLoggedInStatus){
-          global.onbeforeunload = function() {     
-            return "Are you sure you want to close the window?";
-          };
-        }
   },
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');

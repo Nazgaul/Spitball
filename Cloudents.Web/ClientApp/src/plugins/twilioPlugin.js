@@ -169,9 +169,9 @@ function _twilioListeners(room,store) {
       }
       _insightEvent('TwilioTrackSubscribed', params, null);
    })
-   room.on('dominantSpeakerChanged', participant => {
-      _insightEvent('dominantSpeakerChanged', {participant: participant?.identity}, null);
-    });
+   // room.on('dominantSpeakerChanged', participant => {
+   //    _insightEvent('dominantSpeakerChanged', {participant: participant?.identity}, null);
+   //  });
    room.on('trackUnsubscribed', (track,trackPublication,participant) => {
       let params = {
          kind: track?.name,

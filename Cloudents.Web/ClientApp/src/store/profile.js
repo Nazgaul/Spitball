@@ -9,10 +9,10 @@ const state = {
    profile: null,
    // documents: [],
    faq: [],
-   documents: {},
+   documents: [],
    profileReviews: null,
    profileLiveSessions: [],
-   showEditDataDialog: false,
+   //showEditDataDialog: false,
    amountOfReviews: 0,
    profileCoverLoading: false
 }
@@ -25,7 +25,7 @@ const getters = {
    getProfileStatsReviews: state => state.profile?.user?.reviewCount,
    getProfileStatsFollowers: state => state.profile?.user?.followers,
    getProfileStatsResources: state => state.profile?.user?.contentCount,
-   getShowEditDataDialog: state => state.showEditDataDialog,
+   // getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
@@ -42,6 +42,7 @@ const getters = {
    getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
+   getProfileCountry: state => state.profile?.user?.tutorCountry,
 }
 
 const mutations = {
@@ -97,7 +98,7 @@ const mutations = {
          this.documentType = objInit.documentType;
          this.preview = objInit.preview;
          this.title = objInit.title;
-         this.url = `/document/${this.course}/${this.title}/${this.id}`;
+         this.url = `/document/${encodeURIComponent(this.course)}/${encodeURIComponent(this.title)}/${encodeURIComponent(this.id)}`;
          this.snippet = objInit.snippet
          this.itemDuration = objInit.duration
          this.template = 'result-note';
@@ -161,6 +162,7 @@ const mutations = {
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
+      state.documents = []
    },
    setProfileFollower(state, val) {
       if(state.profile?.user) {
@@ -172,9 +174,9 @@ const mutations = {
          }
       }
    },
-   setEditDialog(state, val) {
-      state.showEditDataDialog = val;
-   },
+   // setEditDialog(state, val) {
+   //    state.showEditDataDialog = val;
+   // },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
@@ -224,30 +226,38 @@ const actions = {
             commit('setProfileDocuments', data);
          });
    },
-   toggleProfileFollower({ state, commit, getters }, val) {
-      let id = getters.getCurrTutor?.id || state.profile?.user?.id    
-      if (val) {
-         return profileInstance.post('follow',{ id }).then(() => {
-            commit('setProfileFollower', true)
-            return Promise.resolve()
-         })
-      } else {
-         return profileInstance.delete(`unfollow/${id}`).then(() => {
-            commit('setProfileFollower', false)
-            return Promise.resolve()
-         })
-      }
-   },
+   // toggleProfileFollower({ state, commit, getters }, val) {
+   //    let id = getters.getCurrTutor?.id || state.profile?.user?.id
+   //    if (val) {
+   //       return profileInstance.post('follow',{ id }).then(() => {
+   //          commit('setProfileFollower', true)
+   //          return Promise.resolve()
+   //       })
+   //    } else {
+   //       return profileInstance.delete(`unfollow/${id}`).then(() => {
+   //          commit('setProfileFollower', false)
+   //          return Promise.resolve()
+   //       })
+   //    }
+   // },
    getStudyroomLiveSessions({ commit }, id) {
       profileInstance.get(`${id}/studyRoom`).then(({data}) => {
          commit('setLiveSession', data)
       })
    },
-   updateStudyroomLiveSessions(context, session) {
-      let id = session.userId
+   async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
+      let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);
+      return data.sessionId;
+   },
+   async updateStudyroomLiveSessions(context, session) {
+       let id = session.userId
+       let studyRoomId = session.studyRoomId
+    
       return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
    },
+
+
    updateProfileFaq({commit}) {
       // profileInstance.get(``).then(({data}) => {
          let data = [

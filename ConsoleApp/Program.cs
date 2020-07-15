@@ -10,16 +10,19 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Storage.Queues;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
@@ -30,6 +33,8 @@ using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
+using Skarp.HubSpotClient.Contact;
+using Skarp.HubSpotClient.Contact.Dto;
 
 
 namespace ConsoleApp
@@ -115,7 +120,6 @@ namespace ConsoleApp
             builder.RegisterType<MLRecommendation>().AsSelf();
 
 
-
             Container = builder.Build();
 
             if (Environment.UserName == "Ram")
@@ -144,12 +148,44 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            
-            ResourcesMaintenance.DeleteStuffFromJs();
+            try
+            {
+                var x = Container.Resolve<ICommandBus>();
+                var statelessSession = Container.Resolve<IStatelessSession>();
 
-           // await t.InsertBlobReprocessAsync(51657);
-            //await Dbi();
+
+                var roomId = Guid.Parse("7a56ff01-cb93-46a0-b575-abf100d07d15");
+                var sessions = await statelessSession.Query<StudyRoomSession>().Where(w => w.StudyRoom.Id == roomId)
+                    .Where(w => w.Ended == null).ToListAsync();
+                var command = new StudyRoomSessionUserConnectedCommand(roomId, sessions[0].SessionId, 167037);
+                await x.DispatchAsync(command);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
+
+
+        //private static async Task HubSportAsync()
+        //{
+        //    var session = Container.Resolve<IStatelessSession>();
+
+        //    var phoneNumber = await session.Query<User>().Where(w => w.Email == "jaron@spitball.co").Select(s => s.Id)
+        //        .SingleOrDefaultAsync();
+
+        //    //https://api.hubapi.com/contacts/v1/contact/email/jaron@spitball.co/profile?hapikey=57453297-0104-4d83-8a3c-e58588c15a90
+        //    var api = new HubSpotContactClient("57453297-0104-4d83-8a3c-e58588c15a90");
+            
+        //    var contact = await api.GetByEmailAsync<HubSpotExtra>("jaron@spitball.co");
+            
+        //    //contact.Phone = phoneNumber;
+
+        //    //await api.UpdateAsync(contact);
+           
+        //}
+
+     
 
         private static async Task Dbi()
         {

@@ -132,7 +132,7 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
-        public string BuildUserImageEndpoint(long id, string imageName, string? userName, object? parameters = null)
+        public string BuildUserImageEndpoint(long id, string? imageName, string? userName, object? parameters = null)
         {
 
             var injectionObj = new

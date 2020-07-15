@@ -6,7 +6,7 @@
          <template v-slot:activator="{ on }">
             <v-icon v-on="on" :size="isExpandVideoMode? 30 :20" v-show="isCurrentParticipant"
                   @click="isShareScreen? stopShareScreen() : startShareScreen()" color="#ffffff"
-                  class="mr-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
+                  class="me-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
             </v-icon>
          </template>
          <span v-text="$t(isShareScreen?'tutor_btn_stop_sharing':'tutor_btn_share_screen')"/>
@@ -38,7 +38,7 @@
          </v-tooltip>
          <v-tooltip top>
             <template v-slot:activator="{ on }">
-               <v-btn v-on="on" :class="['userPreviewControlsBtn',{'userPreviewbtnIgnore':!isAudioActive},'ml-2']" icon @click="toggleAudio" sel="audio_enabling">
+               <v-btn v-on="on" :class="['userPreviewControlsBtn',{'userPreviewbtnIgnore':!isAudioActive},'ms-2']" icon @click="toggleAudio" sel="audio_enabling">
                   <v-icon v-if="isAudioActive" size="16" color="white">sbf-microphone</v-icon>
                   <v-icon v-else size="16" color="white">sbf-mic-ignore</v-icon>
                </v-btn>
@@ -148,6 +148,7 @@ export default {
          }
          if(!participant.video && this.videoTrack){
             this.videoTrack = null;
+            this.isExpandVideoMode = false;
          }
       },
       toggleExpandScreen(){

@@ -7,23 +7,23 @@
                <template v-if="showMediaToaster.mode == 'audio'">
                   <v-icon v-text="isAudioActive?'sbf-microphone':'sbf-mic-ignore'" 
                      class="icon" size="36" color="white"></v-icon>
-                  <p class="text">{{$t(isAudioActive? 'mic_on': 'mic_off')}}</p>
+                  <p class="text">{{isAudioActive? $t('mic_on') : $t('mic_off')}}</p>
                </template>
                <template v-else>
                   <v-icon v-text="isVideoActive?'sbf-videocam':'sbf-videocam-off'" 
                      class="icon" size="36" color="white"></v-icon>
-                  <p class="text">{{$t(isVideoActive? 'vid_on': 'vid_off')}}</p>
+                  <p class="text">{{isVideoActive? $t('vid_on') : $t('vid_off')}}</p>
                </template>
             </div>
          </v-fade-transition>
 
          <v-btn icon @click="toggleAudio"
-         :class="['btnControl','mediaControl',{'btnIgnore':!isAudioActive},'mb-2','mr-4','elevation-3']" >
+         :class="['btnControl','mediaControl',{'btnIgnore':!isAudioActive},'mb-2','me-4','elevation-3']" >
             <v-icon v-if="isAudioActive" size="20" color="white">sbf-microphone</v-icon>
             <v-icon v-else size="20" color="white">sbf-mic-ignore</v-icon>
          </v-btn>
          
-         <v-btn icon @click="endSession" :class="['elevation-3','btnControl','mediaControl','disconnectBtn','mb-2','mr-4']" >
+         <v-btn icon @click="endSession" :class="['elevation-3','btnControl','mediaControl','disconnectBtn','mb-2','me-4']" >
             <v-icon size="10" color="#f7494a">sbf-callEnd</v-icon>
          </v-btn>
 

@@ -23,6 +23,7 @@
     import { mapActions} from 'vuex';
     import selectCalendarCMP from './calendarSelect.vue';
     import calendarHoursCMP from './calendarHours.vue'
+    import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
 
     export default {
         name: "calendarEmptyState",
@@ -56,7 +57,7 @@
             }
         },
         methods: {
-            ...mapActions(['gapiSignIn','updateToasterParams','updateSelectedCalendarList','getEvents','updateAvailabilityCalendar']),
+            ...mapActions(['gapiSignIn','updateSelectedCalendarList','getEvents','updateAvailabilityCalendar']),
             shareCalendar(){
                 this.isLoading = true;
                 let self = this
@@ -67,11 +68,7 @@
                 },(err)=>{
                     this.isLoading = false;
                     if(err.error) return 
-                    this.updateToasterParams({
-                        toasterText: this.$t("tutorRequest_request_error"),
-                        showToaster: true,
-                        toasterType: "error-toaster"
-                    });
+                    this.$store.commit('addComponent',componentConsts.WENT_WRONG)
                 })
             },
             initCalendar(){ 
