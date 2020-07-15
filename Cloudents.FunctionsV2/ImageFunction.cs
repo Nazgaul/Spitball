@@ -35,17 +35,26 @@ namespace Cloudents.FunctionsV2
     public static class ImageFunction
     {
 
-        //[FunctionName("ImageFunctionStudyRoom")]
-        //public static async Task<IActionResult> RunStudyRoomImageAsync(
-        //    [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyroom/{id}")]
-        //    HttpRequest req, long id, string file,
-        //    [Blob("spitball-user/study-room/{id}/0.jpg")]
-        //    CloudBlockBlob blob,
-        //    [Blob("spitball-user/DefaultThumbnail/cover-default.png")]
-        //    Microsoft.Extensions.Logging.ILogger logger)
-        //{
-
-        //}
+        [FunctionName("ImageFunctionStudyRoom")]
+        public static async Task<IActionResult> RunStudyRoomImageAsync(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyRoom/{id:guid}")]
+            HttpRequest req, Guid id,
+            [Blob("spitball-files/study-room/{id}/0.jpg")]
+            CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")]CloudBlockBlob fallback)
+        {
+            var mutation = ImageMutation.FromQueryString(req.Query);
+            try
+            {
+                await using var sr = await blob.OpenReadAsync();
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
+            }
+            catch (StorageException e) when(e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+            {
+                return new RedirectResult(fallback.Uri.AbsoluteUri);
+            }
+        }
 
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
@@ -95,7 +104,10 @@ namespace Cloudents.FunctionsV2
                     var imageCover = ProcessImage(sr, mutation);
                     return new ImageResult(imageCover, TimeSpan.FromDays(365));
                 }
-                var image = GenerateImageFromText(file, new Size(mutation.Width, mutation.Height));
+
+                var width = mutation.Resize?.Width ?? 50;
+                var height = mutation.Resize?.Height ?? 50;
+                var image = GenerateImageFromText(file, new Size(width, height));
                 return new ImageResult(image, TimeSpan.FromDays(30));
 
 
@@ -267,31 +279,23 @@ namespace Cloudents.FunctionsV2
 
             image.Mutate(x =>
             {
-                var v = new ResizeOptions()
+                if (mutation.Resize.HasValue)
                 {
-                    Mode = mutation.Mode,
-                    Size = new Size(mutation.Width, mutation.Height),
-                    Position = mutation.Position,
-                   
+                    var v = new ResizeOptions()
+                    {
+                        Mode = mutation.Resize.Value.Mode,
+                        Size = new Size(mutation.Resize.Value.Width, mutation.Resize.Value.Height),
+                        Position = mutation.Position,
+                    };
+                    if (mutation.CenterCords.HasValue)
+                    {
+                        v.CenterCoordinates = new PointF(mutation.CenterCords.Value.x / image.Width,
+                            mutation.CenterCords.Value.y / image.Height);
+                    }
+                
 
-                };
-                if (mutation.CenterCords.HasValue)
-                {
-                    v.CenterCoordinates = new PointF(mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height);
-                    //v.CenterCoordinates = new[]
-                    //    {mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height};
+                    x.Resize(v);
                 }
-                //else
-                //{
-                //    v.CenterCoordinates = new PointF
-                //    {
-                //        0,0
-                //    };
-                //}
-
-
-
-                x.Resize(v);
 
                 if (mutation.RoundCorner > 0)
                 {
@@ -385,37 +389,49 @@ namespace Cloudents.FunctionsV2
     {
         public static ImageMutation FromQueryString(IQueryCollection query)
         {
-            int.TryParse(query["width"], out var width);
-            int.TryParse(query["height"], out var height);
-            if (!Enum.TryParse(query["mode"], true, out ResizeMode mode))
-            {
-                mode = ResizeMode.Crop;
-            }
-
             int.TryParse(query["round"], out var round);
             Enum.TryParse(query["anchorPosition"], true, out AnchorPositionMode position);
 
-            if (width == 0)
+
+            var imageMutation = new ImageMutation(position, round);
+            if (int.TryParse(query["width"], out var width) &&
+                int.TryParse(query["height"], out var height))
             {
-                width = 50;
+                if (!Enum.TryParse(query["mode"], true, out ResizeMode mode))
+                {
+                    mode = ResizeMode.Crop;
+                }
+                imageMutation.Resize = (mode,width,height);
             }
 
-            if (height == 0)
-            {
-                height = 50;
-            }
+            return imageMutation;
 
-            //var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
+            //if (width == 0)
+            //{
+            //    width = 50;
+            //}
 
-            return new ImageMutation(width, height, mode, position, round);
+            //if (height == 0)
+            //{
+            //    height = 50;
+            //}
+
+            ////var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
+
+            //return new ImageMutation( position, round)
+            //{
+            //    Resize = 
+            //};
         }
 
-        private ImageMutation(int width, int height, 
-            ResizeMode mode, AnchorPositionMode position, int roundCorner)
+        private ImageMutation(
+           // int width, int height, 
+           // ResizeMode mode,
+            AnchorPositionMode position, int roundCorner)
         {
-            Width = width;
-            Height = height;
-            Mode = mode;
+            //Width = width;
+            //Height = height;
+            //Mode = mode;
             Position = position;
             RoundCorner = roundCorner;
             //CenterCords = centerCords ?? Array.Empty<float>();
@@ -423,12 +439,14 @@ namespace Cloudents.FunctionsV2
         }
 
         public (float x,float y)? CenterCords { get; set; }
-        public int Width { get; }
-        public int Height { get; }
+      //  public int Width { get; }
+       // public int Height { get; }
 
         public int RoundCorner { get; }
 
-        public ResizeMode Mode { get; }
+       // public ResizeMode Mode { get; }
+
+        public (ResizeMode Mode, int Width, int Height)? Resize { get; private set; }
 
         public ImageProperties.BlurEffect BlurEffect { get; set; }
         public AnchorPositionMode Position { get; }
