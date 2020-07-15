@@ -34,6 +34,19 @@ namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
+
+        //[FunctionName("ImageFunctionStudyRoom")]
+        //public static async Task<IActionResult> RunStudyRoomImageAsync(
+        //    [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyroom/{id}")]
+        //    HttpRequest req, long id, string file,
+        //    [Blob("spitball-user/study-room/{id}/0.jpg")]
+        //    CloudBlockBlob blob,
+        //    [Blob("spitball-user/DefaultThumbnail/cover-default.png")]
+        //    Microsoft.Extensions.Logging.ILogger logger)
+        //{
+
+        //}
+
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
@@ -95,7 +108,6 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionDocumentRoute)]
             HttpRequest req, long id,
             IBinder binder,
-            //collector search duplicate so i added some search 3 to solve this
             [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
             [Blob("spitball-files/files/{id}/preview-0.jpg")]CloudBlockBlob blob,

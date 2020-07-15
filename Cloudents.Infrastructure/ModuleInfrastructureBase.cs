@@ -3,6 +3,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Mail;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
+using Cloudents.Infrastructure.Image;
 using Cloudents.Infrastructure.Payments;
 using Module = Autofac.Module;
 
@@ -29,6 +30,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<WixBlogProvider>().As<IBlogProvider>();
             builder.RegisterType<CronService>().As<ICronService>();
             builder.RegisterType<IpStackProvider>().As<IIpToLocation>();
+            builder.RegisterType<ImageProcessor>().As<IImageProcessor>();
         }
     }
 }
