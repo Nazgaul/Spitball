@@ -1,5 +1,5 @@
 <template>
-   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="[ isPrivate ? 'createStudyRoomDialog privateHeight' : 'createStudyRoomDialog liveHeight']">
+   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="isPrivate ? 'createStudyRoomDialog privateHeight' : 'createStudyRoomDialog liveHeight'">
       <div class="createRoomWrapper px-sm-7 px-4 py-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
