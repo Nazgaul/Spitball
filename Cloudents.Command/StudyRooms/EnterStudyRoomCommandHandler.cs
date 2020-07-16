@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.StudyRooms
@@ -27,7 +29,23 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentNullException(nameof(message.StudyRoomId), message.StudyRoomId.ToString());
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);
+
+
+            if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
+                studyRoom.Tutor.User.SbCountry != Country.Israel)
+            {
+                if (studyRoom.Tutor.User.Followers
+                        .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
+                    false)
+                {
+                    return;
+                }
+            }
+
+
             studyRoom.AddUserToStudyRoom(user);
+           
+
            
 
             //above the same as enroll
