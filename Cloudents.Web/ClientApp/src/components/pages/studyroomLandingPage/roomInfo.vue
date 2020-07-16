@@ -129,7 +129,7 @@ export default {
       },
       roomImage(){
          let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.roomDetails?.id}`
-         return this.$proccessImageUrl(imageUrl, 330, 220)
+         return this.$proccessImageUrl(imageUrl, 528, 357)
       },
       tutorName(){
          return this.roomDetails?.tutorName;

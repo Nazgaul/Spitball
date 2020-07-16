@@ -7,7 +7,7 @@
          <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
          <div class="thankSubTitle" v-t="'we_will_email'"/>
          <div class="thankBox">
-            <img width="100%" src="./images/live-banner-copy.jpg">
+            <img width="100%" :src="roomImage">
             <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
             <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
             <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
@@ -35,6 +35,10 @@ export default {
    computed: {
       roomDate(){
          return this.$store.getters.getRoomDetails?.date;
+      },
+      roomImage(){
+         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.$store.getters.getRoomDetails?.id}`
+         return this.$proccessImageUrl(imageUrl, 402, 268)
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
