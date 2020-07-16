@@ -5,20 +5,25 @@
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
             <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
             <div class="classSubject" v-text="roomName"/>
-            <div>
-               <div class="pb-2">10 live sessions - every Tue and Thu</div>
+            <!-- <div> -->
+               <!-- <div class="pb-2">10 live sessions - every Tue and Thu</div> -->
                <div>{{$t('starts_on',[roomDate])}}</div>
+            <!-- </div> -->
+            <div v-if="!isMobile && roomPrice.amount">
+               {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
             </div>
-            <div v-if="!isMobile">Only $39.99 for the entire class</div>
+
             <img class="triangle" src="./images/triangle.png">
          </div>
          <div v-if="!isMobile" class="leftSide">
-            <img src="./images/live-banner-copy.jpg">
+            <img :src="roomImage">
          </div>
       </div>
       <div class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
-            <div v-if="isMobile" class="pt-7 sessionPrice">Only $39.99 for the entire class</div>
+            <div v-if="isMobile && roomPrice.amount" class="pt-7 sessionPrice">
+               {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
+             </div>
             <v-btn v-if="isRoomTutor" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
@@ -29,13 +34,10 @@
          </div>
          <div class="bottomLeft">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
-            <div v-show="isSessionNow" class="pageCounter">
-               session is now
-            </div>
          </div>
       </div>
       <div v-if="isMobile" class="mobileImg">
-         <img src="./images/live-banner-copy.jpg">
+         <img :src="roomImage">
       </div>
    </div>
 </template>
@@ -85,10 +87,10 @@ export default {
          //    return;
          // }
 
-         if(this.isRoomNeedPayment){
-            this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG);
-            return;
-         }
+         // if(this.isRoomNeedPayment){
+         //    this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG);
+         //    return;
+         // }
          this.loadingBtn = true;
          let userId = this.$store.getters.accountUser?.id;
          let studyRoomId = this.$route.params?.id;
@@ -109,26 +111,34 @@ export default {
       }
    },
    computed: {
-      isRoomFull(){
-         return false;
-      },
-      // roomPrice(){
-      //    return this.$store.getters.getRoomTutor?.tutorPrice;
-      // },
-      isRoomNeedPayment(){
-         return this.$store.getters.getRoomIsNeedPayment;
-      },
-      isRoomTutor(){
-         return this.$store.getters.getRoomIsTutor;
-      },
-      roomDate(){
-         return this.$store.getters.getRoomDate;
+      roomDetails(){
+         return this.$store.getters.getRoomDetails;
       },
       roomName(){
-         return this.$store.getters.getRoomName;
+         return this.roomDetails?.name;
       },
+      roomDate(){
+         return this.roomDetails?.date;
+      },
+      isRoomFull(){
+         return this.roomDetails?.full;
+      },
+      isRoomTutor(){
+         return this.roomDetails?.tutorId == this.$store.getters.accountUser?.id;
+      },
+      roomImage(){
+         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.roomDetails?.id}`
+         return this.$proccessImageUrl(imageUrl, 330, 220)
+      },
+
       tutorName(){
-         return this.$store.getters.getRoomTutor?.tutorName;
+         return this.roomDetails?.tutorName;
+      },
+      roomPrice(){
+         return this.roomDetails?.price;
+      },
+      isRoomNeedPayment(){
+         return this.$store.getters.getRoomIsNeedPayment;
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;

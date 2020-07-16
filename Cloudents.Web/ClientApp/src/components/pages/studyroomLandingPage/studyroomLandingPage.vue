@@ -35,9 +35,13 @@ export default {
          return this.$vuetify.breakpoint.xsOnly;
       },
       isRoomEnrolled(){
-         return this.$store.getters.getIsRoomEnrolled;
+         return this.$store.getters.getRoomDetails?.enrolled;
       },
    },
+   beforeRouteLeave (to, from, next) {
+      this.$store.dispatch('updateRoomDetails',null)
+      next()
+   }
 }
 </script>
 

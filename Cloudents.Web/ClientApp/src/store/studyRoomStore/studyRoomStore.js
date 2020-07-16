@@ -64,7 +64,7 @@ const state = {
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
    roomNetworkQuality: null,
-   roomEnrolled:false,
+   roomDetails:null,
 }
 
 const mutations = {
@@ -85,7 +85,6 @@ const mutations = {
       state.roomName = props.name;
       state.roomDate = props.broadcastTime;
       state.roomTopologyType = props.topologyType;
-      state.roomEnrolled = false;
    },
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
@@ -112,7 +111,6 @@ const mutations = {
       state.roomParticipants = {};
       state.roomTopologyType = 'PeerToPeer';
       state.roomNetworkQuality = null;
-      state.roomEnrolled = false;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -161,10 +159,32 @@ const mutations = {
       state.studyRoomFooterState = val;
    },
    setRoomEnrolled(state,val){
-      state.roomEnrolled = val;
+      state.roomDetails.enrolled = val;
    },
    [studyRoom_SETTERS.BROWSER_NOT_SUPPORT]: (state, val) => state.isBrowserNotSupport = val,
    [studyRoom_SETTERS.ROOM_NETWORK_QUALITY]: (state, val) => state.roomNetworkQuality = val,
+   [studyRoom_SETTERS.ROOM_DETAILS]: (state, roomDetails) => {
+      function RoomDetails(objInit){
+         this.id = objInit.id; 
+         this.name = objInit.name;
+         this.description = objInit.description; 
+         this.date = objInit.broadcastTime; 
+         this.price = objInit.price;
+         this.enrolled = objInit.enrolled;
+         this.full = objInit.full;
+         this.tutorId = objInit.tutorId; 
+         this.tutorName = objInit.tutorName; 
+         this.tutorImage = objInit.tutorImage; 
+         this.tutorBio = objInit.tutorBio; 
+         this.tutorCountry = objInit.tutorCountry;
+      }
+      if(roomDetails?.id){
+         state.roomDetails = new RoomDetails(roomDetails)
+      }else{
+         state.roomDetails = null
+      }
+   },
+
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -215,7 +235,7 @@ const getters = {
          })
       ).filter(e=>e.audio)
    },
-   getIsRoomEnrolled:state => state.roomEnrolled,
+   getRoomDetails:state => state.roomDetails,
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
@@ -361,6 +381,15 @@ const actions = {
          dispatch('updateJwtToken',getters.getJwtToken);
       }else{
          dispatch('updateJwtToken',null);
+      }
+   },
+   updateRoomDetails({commit}, roomId) {
+      if(roomId){
+         return studyRoomService.roomDetails(roomId).then(roomDetails=>{
+            commit(studyRoom_SETTERS.ROOM_DETAILS,roomDetails)
+         })
+      }else{
+         commit(studyRoom_SETTERS.ROOM_DETAILS,null)
       }
    },
 }

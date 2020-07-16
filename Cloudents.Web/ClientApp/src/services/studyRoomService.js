@@ -23,5 +23,9 @@ export default {
    },
    async createRoom(params){
       return await studyRoomInstance.post('',params);
-   }
+   },
+   async roomDetails(roomId){ 
+      let {data} = await studyRoomInstance.get(`${roomId}/details`)
+      return data;
+   },
 }

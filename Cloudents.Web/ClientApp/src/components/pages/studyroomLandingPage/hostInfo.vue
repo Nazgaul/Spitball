@@ -24,20 +24,20 @@
 <script>
 export default {
    computed: {
+      roomDetails(){
+         return this.$store.getters.getRoomDetails;
+      },
       tutorName(){
-         return this.$store.getters.getRoomTutor?.tutorName;
+         return this.roomDetails?.tutorName;
       },
       tutorId(){
-         return this.$store.getters.getRoomTutor?.tutorId;
+         return this.roomDetails?.tutorId;
       },
       tutorImage(){
-         return this.$store.getters.getRoomTutor?.tutorImage;
+         return this.roomDetails?.tutorImage;
       },
       tutorBio(){
-         return `Has extensive experience with students from all universities and colleges, in preparation for matriculation and IMAT exams
-If you are looking to learn all the material from the ground up, or just a quick review of the material, I will give you the tools and help you while preparing a clear and concise summary.
-Also runs marathons for EvanLine teams !!
-Teaches data extraction methods, and provides simple tools.`
+         return this.roomDetails?.tutorBio;
       }
    },
 

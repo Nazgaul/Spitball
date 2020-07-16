@@ -62,16 +62,14 @@ export const studyRoomRoutes = [
                 next('/');
                 return
             }else{
-                store.dispatch('updateStudyRoomInformation',to.params.id)
-                    .then(()=>{
+                store.dispatch('updateRoomDetails',to.params.id)
+                     .then(()=>{
                         next();
                         return;
                     })
-                    .catch((err)=>{
-                        if(err?.response){
-                            next('/');
-                            return
-                        }
+                    .catch(()=>{
+                        next('/');
+                        return
                     })
             }
         }

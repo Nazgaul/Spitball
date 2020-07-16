@@ -10,7 +10,7 @@
 export default {
    computed: {
       sessionDescription(){
-         return `Learn how to effectively search for a quality online teaching job! Many companies are looking for teachers. Find hidden job boards and awesome online teaching opportunities. We'll also talk about how to network on Linked In to find work and how to search for online teaching jobs using keywords.`
+         return this.$store.getters.getRoomDetails?.description;
       }
    },
 }
