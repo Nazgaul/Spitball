@@ -60,6 +60,7 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
+        public bool Enrolled { get; set; }
     };
 
 
