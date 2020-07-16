@@ -70,12 +70,20 @@ export default {
          });
          global.open(routeData.href, "_self");
       },
+      // async 
       enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
             return
          }
          if(this.loadingBtn) return;
+
+
+         // if (this.roomPrice && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
+         //    let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
+         //    this.$refs.stripe.redirectToStripe(x);
+         //    return;
+         // }
 
          if(this.isRoomNeedPayment){
             this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG);
@@ -104,6 +112,9 @@ export default {
       isRoomFull(){
          return false;
       },
+      // roomPrice(){
+      //    return this.$store.getters.getRoomTutor?.tutorPrice;
+      // },
       isRoomNeedPayment(){
          return this.$store.getters.getRoomIsNeedPayment;
       },
