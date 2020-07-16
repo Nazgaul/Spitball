@@ -283,7 +283,7 @@ const actions = {
       }
    },
    updateStudyRoomInformation({ getters, dispatch, commit }, roomId) {
-      if (getters.getRoomIdSession) {
+      if (getters.getRoomIdSession == roomId) {
          return dispatch('studyRoomMiddleWare')
       } else {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {

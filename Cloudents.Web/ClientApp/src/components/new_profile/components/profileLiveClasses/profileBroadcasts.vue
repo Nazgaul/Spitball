@@ -23,7 +23,7 @@
 
                 <div class="d-sm-flex listWrapper">
                     <div class="leftSide d-sm-flex me-sm-6">
-                        <img :src="liveImage" alt="">
+                        <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)" :src="liveImage" alt="">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
 
