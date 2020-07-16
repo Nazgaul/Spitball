@@ -8,8 +8,11 @@
          <div class="thankSubTitle" v-t="'we_will_email'"/>
          <div class="thankBox">
             <img width="100%" src="./images/live-banner-copy.jpg">
-            <div class="pt-3">{{$t('starts_on',[date])}}</div>
-            <sessionStartCounter class="thankYouCounter" :dateProp="'2020-07-30T21:00:00Z'"/>
+            <div class="pt-3">{{$t('starts_on',[roomDate])}}</div>
+            <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
+            <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+               {{$t('enter_room')}}
+            </v-btn>
          </div>
 
       </div>
@@ -19,20 +22,40 @@
 <script>
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
+import * as routeNames from '../../../routes/routeNames';
 
 export default {
    components:{logo,sessionStartCounter},
    data() {
       return {
-         date: `July 19th, 7:00 PM`
+         isTimmerFinished:false,
+         isRoomReady: false,
       }
    },
    computed: {
+      roomDate(){
+         return this.$store.getters.getRoomDate;
+      },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
+      btnHeight(){
+         if(this.isMobile){
+            return 70;
+         }
+         return this.$vuetify.breakpoint.smAndDown? 74 : 82;
+      },
    },
-
+   methods: {
+      enterStudyRoom(){
+         let id = this.$route.params?.id;
+         let routeData = this.$router.resolve({
+            name: routeNames.StudyRoom,
+            params: { id }
+         });
+         global.open(routeData.href, "_self");
+      },
+   },
 }
 </script>
 
@@ -136,7 +159,19 @@ export default {
                height: auto;
                padding-bottom: 50px;
             }
-
+            .saveBtn{
+               width: 100%;
+               border-radius: 8px;
+               max-width: 380px;
+               margin-top: 14px;
+               font-size: 22px;
+               font-weight: 600;
+               color: white;
+               @media(max-width: @screen-xs) {
+                  margin-top: 10px;
+                  font-size: 24px;
+               }
+            }
             .thankYouCounter{
                .counterDots{
                   padding: 0 10px;

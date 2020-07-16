@@ -6,11 +6,6 @@
 
 <script>
 export default {
-    props:{
-        dateProp:{
-            required:false,
-        }
-    },
     data() {
         return {
             interVal:null,
@@ -28,7 +23,7 @@ export default {
             this.getNow();
         },
         getNow() {
-            let countDownDate = new Date(this.$store.getters.getRoomDate || this.dateProp).getTime();
+            let countDownDate = new Date(this.$store.getters.getRoomDate).getTime();
             let now = new Date();
             let distance = countDownDate - now;
             
@@ -41,6 +36,9 @@ export default {
             this.time.hours = Math.floor((distance % (day)) / (hour)).toLocaleString('en-US', {minimumIntegerDigits: 2});
             this.time.minutes = Math.floor((distance % (hour)) / (minute)).toLocaleString('en-US', {minimumIntegerDigits: 2});
             this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
+            if (distance < minute * 10){
+                this.$emit('updateCounterMinsLeft', true)
+            }
             if (distance < 0) {
                 clearInterval(this.interVal);
                 this.$emit('updateCounterFinish', true)
@@ -52,9 +50,10 @@ export default {
         global.onbeforeunload = function() {}
     },
     created() {
-        if(this.$store.getters.getRoomIsBroadcast || this.dateProp) {
+        if(this.$store.getters.getRoomIsBroadcast) {
             this.setParamsInterval();
         } else{
+            this.$emit('updateCounterMinsLeft', true)
             this.$emit('updateCounterFinish', true)
         }
     },

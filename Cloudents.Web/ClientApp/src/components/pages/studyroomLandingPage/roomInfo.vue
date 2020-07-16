@@ -28,7 +28,7 @@
             <v-btn block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
-            <sessionStartCounter v-show="!isSessionNow" class="pageCounter" :dateProp="roomDate" @updateCounterFinish="isSessionNow = true"/>
+            <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
             <div v-show="isSessionNow" class="pageCounter">
                session is now
             </div>
