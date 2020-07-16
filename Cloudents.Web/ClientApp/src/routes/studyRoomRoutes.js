@@ -31,7 +31,7 @@ export const studyRoomRoutes = [
             store.commit('clearComponent');
             store.dispatch('updateStudyRoomInformation',to.params.id)
                 .then(()=>{
-                    if(store.getters.getRoomIsBroadcast && (!store.getters.getUserLoggedInStatus || store.getters.getRoomIsNeedPayment)){
+                    if(store.getters.getRoomIsBroadcast && !store.getters.getStudyroomEnrolled){
                         let routeData = router.resolve({
                             name: routeName.StudyRoomLanding,
                             params:{...to.params }

@@ -85,6 +85,7 @@ const mutations = {
       state.roomName = props.name;
       state.roomDate = props.broadcastTime;
       state.roomTopologyType = props.topologyType;
+      state.roomEnrolled = props.enrolled;
    },
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
@@ -111,6 +112,7 @@ const mutations = {
       state.roomParticipants = {};
       state.roomTopologyType = 'PeerToPeer';
       state.roomNetworkQuality = null;
+      state.roomEnrolled = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -236,6 +238,7 @@ const getters = {
       ).filter(e=>e.audio)
    },
    getRoomDetails:state => state.roomDetails,
+   getStudyroomEnrolled:state => state.roomEnrolled,
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){

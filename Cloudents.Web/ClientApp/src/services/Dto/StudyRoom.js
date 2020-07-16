@@ -21,5 +21,6 @@ export const StudyRoom = {
       this.studentId = objInit.studentId;
       this.studentImage = objInit.studentImage || null;
       this.studentName = objInit.studentName;
+      this.enrolled = objInit.enrolled
    }
 }
