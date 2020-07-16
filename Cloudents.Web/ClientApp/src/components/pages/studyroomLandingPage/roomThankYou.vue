@@ -8,7 +8,7 @@
          <div class="thankSubTitle" v-t="'we_will_email'"/>
          <div class="thankBox">
             <img width="100%" src="./images/live-banner-copy.jpg">
-            <div class="pt-3">{{$t('starts_on',[roomDate])}}</div>
+            <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
             <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
             <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}

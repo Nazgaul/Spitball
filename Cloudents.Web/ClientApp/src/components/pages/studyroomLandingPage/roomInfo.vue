@@ -7,7 +7,7 @@
             <div class="classSubject" v-text="roomName"/>
             <!-- <div> -->
                <!-- <div class="pb-2">10 live sessions - every Tue and Thu</div> -->
-               <div>{{$t('starts_on',[roomDate])}}</div>
+               <div>{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
             <!-- </div> -->
             <div v-if="!isMobile && roomPrice.amount">
                {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
