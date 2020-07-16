@@ -265,8 +265,8 @@
                     >
                     </v-text-field>
                 </v-col>
-                <v-col cols="6" sm="4" class="pa-0">
-                    <div class="priceModified ps-sm-5" v-t="'price modified'"></div>
+                <v-col cols="12" sm="4" class="pa-0">
+                    <div class="priceModified ps-sm-4 mt-4 mt-sm-0" v-t="'price modified'"></div>
                 </v-col>
             </v-row>
         </div>
