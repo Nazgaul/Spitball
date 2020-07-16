@@ -22,16 +22,17 @@ namespace Cloudents.Core.Storage
 
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
-        Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
+        Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token) => MoveAsync(blobName, destinationContainerName, blobName, token);
+        Task MoveAsync(string blobName, string destinationContainerName, string destinationBlobName, CancellationToken token);
 
-       // Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+        // Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
         //
         IAsyncEnumerable<Uri> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
-       
+
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
-       // Task UnDeleteDirectoryAsync(string id, CancellationToken token);
+        // Task UnDeleteDirectoryAsync(string id, CancellationToken token);
     }
 
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
@@ -56,12 +57,14 @@ namespace Cloudents.Core.Storage
 
     }
 
-    //public interface IStudyRoomSessionBlobProvider : IBlobProvider
-    //{
-    //    Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
-    //    Uri DownloadVideoLink(Guid roomId, string sessionId);
+    public interface IStudyRoomBlobProvider : IBlobProvider
+    {
+        Task<Uri> UploadImageAsync(string file,
+            Stream stream, string contentType, CancellationToken token);
+        // Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
+        //Uri DownloadVideoLink(Guid roomId, string sessionId);
 
-    //}
+    }
 
 
 }

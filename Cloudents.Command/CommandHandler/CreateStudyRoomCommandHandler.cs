@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class CreateStudyRoomCommandHandler : ICommandHandler<CreateStudyRoomCommand>
+    public class CreatePrivateStudyRoomCommandHandler : ICommandHandler<CreatePrivateStudyRoomCommand>
     {
         private readonly IRegularUserRepository _userRepository;
         private readonly ITutorRepository _tutorRepository;
@@ -17,7 +17,7 @@ namespace Cloudents.Command.CommandHandler
         private readonly IGoogleDocument _googleDocument;
         private readonly IChatRoomRepository _chatRoomRepository;
 
-        public CreateStudyRoomCommandHandler(IRegularUserRepository userRepository,
+        public CreatePrivateStudyRoomCommandHandler(IRegularUserRepository userRepository,
             IRepository<StudyRoom> studyRoomRepository, IGoogleDocument googleDocument, IChatRoomRepository chatRoomRepository, ITutorRepository tutorRepository)
         {
             _userRepository = userRepository;
@@ -28,15 +28,10 @@ namespace Cloudents.Command.CommandHandler
             
         }
 
-        public async Task ExecuteAsync(CreateStudyRoomCommand message,
+        public async Task ExecuteAsync(CreatePrivateStudyRoomCommand message,
             CancellationToken token)
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-            //if (tutor.Tutor?.State != ItemState.Ok)
-            //{
-            //    throw new InvalidOperationException($"user is not a tutor {message.TutorId}");
-            //}
-
             var students = message.StudentsId.Select(s => _userRepository.Load(s)).ToList();
             var usersId = message.StudentsId.Union(new[] { tutor.Id }).ToList();
 
@@ -51,20 +46,8 @@ namespace Cloudents.Command.CommandHandler
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
 
-            StudyRoom studyRoom;
-            if (message.Type == StudyRoomType.Broadcast)
-            {
-                studyRoom = new BroadCastStudyRoom(tutor, students, googleDocUrl,
-                   message.Name, message.Price, message.BroadcastTime!.Value, message.Description);
-                await _studyRoomRepository.AddAsync(studyRoom, token);
-            }
-            else
-            {
-                studyRoom = new PrivateStudyRoom(tutor, students, googleDocUrl,
-                   message.Name, message.Price);
-                await _studyRoomRepository.AddAsync(studyRoom, token);
-            }
-
+            StudyRoom studyRoom = new PrivateStudyRoom(tutor, students, googleDocUrl,
+                message.Name, message.Price);
             await _studyRoomRepository.AddAsync(studyRoom, token);
             message.StudyRoomId = studyRoom.Id;
             message.Identifier = studyRoom.Identifier;

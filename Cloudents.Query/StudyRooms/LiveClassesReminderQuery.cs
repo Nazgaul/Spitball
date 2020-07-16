@@ -11,6 +11,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.StudyRooms
 {
+    
     public class LiveClassesReminderQuery : IQuery<(IEnumerable<LiveClassesReminderDto> daysBefore, IEnumerable<LiveClassesReminderDto> tenMinuted)>
     {
         internal sealed class LiveClassesQueryReminderQueryHandler : IQueryHandler<LiveClassesReminderQuery, (IEnumerable<LiveClassesReminderDto> daysBefore, IEnumerable<LiveClassesReminderDto> tenMinuted)>

@@ -12,7 +12,7 @@ namespace Cloudents.Query.Admin
 {
     public class FlaggedQuestionQuery : IQueryAdmin<IEnumerable<FlaggedQuestionDto>>
     {
-        public FlaggedQuestionQuery(string country)
+        public FlaggedQuestionQuery(string? country)
         {
             Country = country;
         }

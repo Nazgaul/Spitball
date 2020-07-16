@@ -23,7 +23,7 @@
 
                 <div class="d-sm-flex listWrapper">
                     <div class="leftSide d-sm-flex me-sm-6">
-                        <img :src="liveImage" alt="">
+                        <img :src="liveImage(session)" alt="" width="330" height="220">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
 
@@ -165,9 +165,10 @@ export default {
         // buttonShowMore() {
         //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
         // },
-        liveImage() {
-            return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
-        },
+        // liveImage() {
+        //     return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
+        //     // return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
+        // },
         readBtnText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
@@ -215,6 +216,9 @@ export default {
         },
     },
     methods: {
+        liveImage(session) {
+            return this.$proccessImageUrl(session.image, 330, 220, 'crop')
+        },
         enterRoomById(id){
             let routeData = this.$router.resolve({
                 name: StudyRoom,

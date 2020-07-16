@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Services;
@@ -8,6 +10,8 @@ using Cloudents.Query;
 using Cloudents.Query.StudyRooms;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using NHibernate;
+using NHibernate.Linq;
 using SendGrid.Helpers.Mail;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -102,5 +106,45 @@ Time: {BroadCastTime:T} UTC
 
 
 Looking forward to see you at the Live Class";
+
+
+
+         [FunctionName("UpdateBroadcastTime")]
+        public static async Task UpdateBroadcastTimeAsync([TimerTrigger("0 0 * * * *")] TimerInfo myTimer,
+            [Inject] IStatelessSession session,
+            [Inject] ICronService cronService,
+            ILogger log, CancellationToken token)
+        {
+
+            var recurringSessions = await session.Query<BroadCastStudyRoom>()
+                .Where(w => w.Schedule!.CronString != null)
+                .Where(w => w.BroadcastTime < DateTime.UtcNow)
+                .Where(w => w.Schedule!.End > DateTime.UtcNow)
+                .Select(s => new
+                {
+                    s.Schedule,
+                    s.Id,
+                }).ToListAsync(cancellationToken: token);
+            foreach (var recurringSession in recurringSessions)
+            {
+                var dateTime = cronService.GetNextOccurrence(recurringSession.Schedule!.CronString);
+                if (dateTime < recurringSession.Schedule.End)
+                {
+                    log.LogInformation($"update study room {recurringSession.Id} to broadcast {dateTime}");
+                    await session.Query<BroadCastStudyRoom>()
+                        .Where(w => w.Id == recurringSession.Id)
+                        .UpdateBuilder()
+                        .Set(c => c.BroadcastTime, c => dateTime)
+                        .UpdateAsync(token);
+
+                }
+                else
+                {
+                    log.LogInformation($"reaching the end of study room {recurringSession.Id}");
+                }
+
+            }
+            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+        }
     }
 }
