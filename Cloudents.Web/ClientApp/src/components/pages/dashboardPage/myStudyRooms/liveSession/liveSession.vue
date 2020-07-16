@@ -485,9 +485,9 @@ export default {
         font-weight: 600;
         color: @global-purple;
     }
-    // .sessionDetails, .sessionPriceWrap {
-    //     border-bottom: 1px solid #dddddd;
-    // }
+    .sessionPriceWrap {
+        border-bottom: 1px solid #dddddd;
+    }
     .sessionAbout {
          border-bottom: 1px solid #dddddd;
     }
