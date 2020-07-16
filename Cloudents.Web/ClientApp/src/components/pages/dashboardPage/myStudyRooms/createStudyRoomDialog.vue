@@ -124,8 +124,9 @@ export default {
          let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`);         
          let isToday = userChooseDate.isSame(this.$moment(), 'day');
          if(isToday) {
+            let endAfterDate = this.$moment(childComponent.dateOcurrence)
             let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
-            if(!isValidDateToday) {
+            if(!isValidDateToday || endAfterDate < userChooseDate) {
                this.errors.showErrorWrongTime = true
                this.currentError = 'showErrorWrongTime'
                this.isLoading = false
@@ -141,7 +142,6 @@ export default {
                return
             }
          }
-
          let liveObj = {
             name: childComponent.liveSessionTitle,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,

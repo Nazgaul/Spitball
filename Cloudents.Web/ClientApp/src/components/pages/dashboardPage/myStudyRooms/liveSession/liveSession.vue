@@ -382,6 +382,9 @@ export default {
         },
         endAfterOccurrences(val) {
             this.resetErrors(val)
+        },
+        dateOcurrence(val) {
+            this.resetErrors(val)
         }
     },
     computed: {
