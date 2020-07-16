@@ -178,6 +178,7 @@
                                         v-model.number="endAfterOccurrences"
                                         @keypress="inputRestriction"
                                         maxlength="4"
+                                        :rules="[rules.integer]"
                                         class="afterOccurrences pe-2"
                                         color="#304FFE"
                                         outlined
@@ -357,6 +358,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minVal(value,0),
+                integer: (value) => validationRules.integer(value),
             }
         }
     },
