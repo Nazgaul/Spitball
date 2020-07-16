@@ -31,8 +31,7 @@ namespace Cloudents.Command.StudyRooms
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
 
-            if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
-                studyRoom.Tutor.User.SbCountry != Country.Israel)
+            if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast)
             {
                 if (studyRoom.Tutor.User.Followers
                         .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
