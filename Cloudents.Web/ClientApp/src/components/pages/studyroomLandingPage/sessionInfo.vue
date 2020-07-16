@@ -1,5 +1,5 @@
 <template>
-   <div class="sessionInfo px-4 px-lg-0">
+   <div v-if="sessionDescription" class="sessionInfo px-4 px-lg-0">
       <div class="sessionTitle pt-0 pt-sm-6" v-t="'what_learn'"/>
       <div class="divider"/>
       <div class="sessionText px-sm-4 px-md-0" v-text="sessionDescription"/>

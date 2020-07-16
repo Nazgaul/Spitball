@@ -35,7 +35,11 @@ export default {
          return this.$vuetify.breakpoint.xsOnly;
       },
       isRoomEnrolled(){
-         return this.$store.getters.getRoomDetails?.enrolled;
+         let isRoomTutor = this.$store.getters.accountUser?.id == this.$store.getters.getRoomDetails?.tutorId;
+         if(isRoomTutor) return false;
+         else{
+            return this.$store.getters.getRoomDetails?.enrolled;
+         }
       },
    },
    beforeRouteLeave (to, from, next) {
