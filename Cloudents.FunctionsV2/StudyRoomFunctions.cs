@@ -110,7 +110,7 @@ Looking forward to see you at the Live Class";
 
 
          [FunctionName("UpdateBroadcastTime")]
-        public static async Task UpdateBroadcastTimeAsync([TimerTrigger("0 0 0 * * *")] TimerInfo myTimer,
+        public static async Task UpdateBroadcastTimeAsync([TimerTrigger("0 0 * * * *")] TimerInfo myTimer,
             [Inject] IStatelessSession session,
             [Inject] ICronService cronService,
             ILogger log, CancellationToken token)
