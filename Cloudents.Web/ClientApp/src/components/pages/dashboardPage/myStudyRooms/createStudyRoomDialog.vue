@@ -120,7 +120,6 @@ export default {
             })
       },
       createLiveSession() {
-         debugger;
          let childComponent = this.$refs.childComponent;
          let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`);         
          let isToday = userChooseDate.isSame(this.$moment(), 'day');
@@ -143,7 +142,7 @@ export default {
                return
             }
          }
-         if(childComponent.radioEnd === 'on') {
+         if(childComponent.currentRepeatItem.value !== 'none' && childComponent.radioEnd === 'on') {
             let endAfterDate = this.$moment(childComponent.dateOcurrence)
             let isToday = endAfterDate.isSame(this.$moment(), 'day');
             if( isToday) {
@@ -163,7 +162,8 @@ export default {
             endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
             endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
             repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined,
-            image: childComponent.newLiveImage
+            image: childComponent.newLiveImage,
+            currency: this.$store.getters.accountUser.currencySymbol,
          }
          
          let self = this
