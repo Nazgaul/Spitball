@@ -99,10 +99,10 @@
                 <div  class="sessionRepeat flex-wrap d-sm-flex align-center mb-5 mb-sm-2" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth mb-4 mb-sm-0" v-t="'repeat'"></div>
                     <div class="d-flex flex-wrap flex-sm-nowrap">
-                        <v-checkbox 
+                        <v-checkbox class="custom-day" 
                             v-model="repeatCheckbox"
                             v-for="(day, index) in filterDaysOfWeek"
-                            class="me-2"
+                            
                             :key="index"
                             :disabled="currentRepeatDayOfTheWeek === index"
                             :label="day"
@@ -487,6 +487,12 @@ export default {
     }
     .sessionPriceWrap {
         border-bottom: 1px solid #dddddd;
+    }
+    .custom-day {
+        width: 50px;
+        @media (max-width: @screen-xs) {
+              width:80px;
+            }
     }
     .sessionAbout {
          border-bottom: 1px solid #dddddd;
