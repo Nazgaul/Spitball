@@ -93,5 +93,7 @@ namespace Cloudents.Core.DTOs
         public string? Description { get; set; }
 
         public bool IsFull { get; set; }
+
+        public string Image { get; set; }
     }
 }

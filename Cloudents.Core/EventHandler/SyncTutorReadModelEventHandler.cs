@@ -12,17 +12,14 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<TutorAddReviewEvent>,
         IEventHandler<UpdateTutorSettingsEvent>,
         IEventHandler<CanTeachCourseEvent>,
-       // IEventHandler<RemoveCourseEvent>,
         IEventHandler<UpdateImageEvent>,
         IEventHandler<EndStudyRoomSessionEvent>,
         IEventHandler<ChangeCountryEvent>,
-       // IEventHandler<CourseChangeSubjectEvent>,
         IEventHandler<TutorSubscriptionEvent>,
         IEventHandler<TutorSuspendedEvent>,
         IEventHandler<TutorUnSuspendedEvent>,
-        IEventHandler<UserChangeNameEvent>,
+        IEventHandler<UserChangeNameEvent>
 
-        IDisposable
     {
         private readonly IReadTutorRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -81,10 +78,7 @@ namespace Cloudents.Core.EventHandler
             await _unitOfWork.CommitAsync(token);
         }
       
-        public void Dispose()
-        {
-            _unitOfWork.Dispose();
-        }
+       
 
        
 

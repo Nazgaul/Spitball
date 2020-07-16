@@ -11,7 +11,7 @@ namespace Cloudents.FunctionsV2
     public static class CalendarFunction
     {
         [FunctionName("CalendarFunction")]
-        public static async Task Run(
+        public static async Task RunAsync(
             [TimerTrigger("0 */30 * * * *")]TimerInfo myTimer,
             [Inject] ICalendarService calendarService,
             CancellationToken token)

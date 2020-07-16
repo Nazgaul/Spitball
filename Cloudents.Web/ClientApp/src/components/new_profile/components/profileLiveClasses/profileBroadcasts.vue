@@ -23,7 +23,7 @@
 
                 <div class="d-sm-flex listWrapper">
                     <div class="leftSide d-sm-flex me-sm-6">
-                        <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)" :src="liveImage" alt="">
+                        <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="330" height="220">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
 
@@ -146,9 +146,6 @@ export default {
         broadCastTitle() {
             return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
         },
-        liveImage() {
-            return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
-        },
         readBtnText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
@@ -198,6 +195,9 @@ export default {
                 name: routeNames.StudyRoomLanding,
                 params: {id}
             })
+        },
+        liveImage(session) {
+            return this.$proccessImageUrl(session.image, 330, 220, 'crop')
         }
     },
     filters: {

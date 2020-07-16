@@ -1,6 +1,5 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
@@ -99,7 +98,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("suspend")]
         [ProducesResponseType(200)]
 
-        public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
+        public async Task<IActionResult> SuspendUserAsync(SuspendUserRequest model,
             CancellationToken token)
         {
             foreach (var id in model.Ids)
@@ -127,7 +126,7 @@ namespace Cloudents.Admin2.Api
                 var command = new SuspendUserCommand(id, lockout, model.Reason);
                 await _commandBus.DispatchAsync(command, token);
             }
-            return new SuspendUserResponse();
+            return Ok();
         }
 
         /// <summary>

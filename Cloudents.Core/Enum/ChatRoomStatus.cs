@@ -100,6 +100,14 @@ namespace Cloudents.Core.Enum
         Broadcast
     }
 
+    public enum StudyRoomRepeat
+    {
+        None,
+        Daily,
+        Weekly,
+        Custom
+    }
+
 
    
 }

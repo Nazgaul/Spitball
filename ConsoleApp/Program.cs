@@ -32,7 +32,15 @@ using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
+using Microsoft.Azure.Management.Media.Models;
+using NCrontab;
 using NHibernate.Linq;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using Skarp.HubSpotClient.Contact;
 using Skarp.HubSpotClient.Contact.Dto;
 
@@ -102,12 +110,11 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
-                //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
@@ -116,7 +123,6 @@ namespace ConsoleApp
             builder.RegisterType<MediaServices>().AsSelf().SingleInstance()
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
 
 
@@ -143,27 +149,48 @@ namespace ConsoleApp
 
         }
 
+       
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            try
+
+            using var sr = File.OpenRead(@"C:\Users\Ram\Downloads\1594672075.png");
+
+            var image = SixLabors.ImageSharp.Image.Load(sr);
+            image.Mutate(x=>x.Quantize(new WuQuantizer()));
+
+
+            using var sw = File.OpenWrite(@"C:\Users\Ram\Downloads\1594672075-1.png");
+            //image.SaveAsJpeg(sw,new JpegEncoder()
+            //{
+            //    Quality = 80
+            //});
+            image.SaveAsPng(sw, new PngEncoder()
             {
-                var x = Container.Resolve<ICommandBus>();
-                var statelessSession = Container.Resolve<IStatelessSession>();
+                Quantizer = new WuQuantizer() ,
+                BitDepth = PngBitDepth.Bit8
+                //  CompressionLevel = PngCompressionLevel.BestCompression,
+                //                IgnoreMetadata = true,
+                //BitDepth = PngBitDepth.Bit8,
+                //IgnoreMetadata = true,
+                //Quantizer = new OctreeQuantizer()
+                //CompressionLevel = PngCompressionLevel.BestCompression,
+                //Quantizer = new WuQuantizer(),
+                //InterlaceMethod = PngInterlaceMode.Adam7
+                
+                //ChunkFilter = PngChunkFilter.ExcludeAll,
 
+            });
 
-                var roomId = Guid.Parse("7a56ff01-cb93-46a0-b575-abf100d07d15");
-                var sessions = await statelessSession.Query<StudyRoomSession>().Where(w => w.StudyRoom.Id == roomId)
-                    .Where(w => w.Ended == null).ToListAsync();
-                var command = new StudyRoomSessionUserConnectedCommand(roomId, sessions[0].SessionId, 167037);
-                await x.DispatchAsync(command);
-            }
-            catch (Exception e)
-            {
+            //var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
+            //    DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
+            //    null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
 
-            }
+            //var bus = Container.Resolve<ICommandBus>();
+            //await bus.DispatchAsync(command);
+
         }
 
 

@@ -28,7 +28,7 @@ namespace Cloudents.FunctionsV2
         public const string EnglishTemplateId = "d-535f822f33c341d78253b97b3e35e853";
 
         [FunctionName("EmailUpdateFunction")]
-        public static async Task RunOrchestrator(
+        public static async Task RunOrchestratorAsync(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             CancellationToken token)
         {
@@ -59,7 +59,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("EmailUpdateFunction_UserQuery")]
-        public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQuery(
+        public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQueryAsync(
             [ActivityTrigger] GetUpdatesEmailUsersQuery query,
             [Inject] IQueryBus queryBus,
             CancellationToken token)
@@ -72,7 +72,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("EmailUpdateFunction_Process")]
-        public static async Task SendEmail(
+        public static async Task SendEmailAsync(
             [ActivityTrigger] UpdateUserEmailDto user,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
@@ -174,7 +174,7 @@ namespace Cloudents.FunctionsV2
             await emailProvider.FlushAsync(token);
         }
 
-        private static string BuildUserImage(long id, string image, string name, IHostUriService hostUriService)
+        private static string BuildUserImage(long id, string? image, string name, IHostUriService hostUriService)
         {
 
             var uri = hostUriService.GetHostUri();
@@ -195,7 +195,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
-        public static async Task TimerStart(
+        public static async Task TimerStartAsync(
             [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
             [DurableClient]IDurableOrchestrationClient starter,
             ILogger log)

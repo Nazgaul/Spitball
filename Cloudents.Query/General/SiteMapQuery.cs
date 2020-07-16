@@ -5,7 +5,6 @@ using NHibernate;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using NHibernate.Criterion;
 
 namespace Cloudents.Query.General
 {

@@ -343,29 +343,41 @@ const actions = {
       commit(studyRoom_SETTERS.ROOM_RESET)
       dispatch('updateReviewDialog',false)
    },
-   updateCreateStudyRoom({getters,commit},params){
-      return studyRoomService.createRoom(params).then(({data})=>{
-         let newStudyRoomParams = {
-            date: params.date || new Date().toISOString(),
-            id: data.studyRoomId,
-            currency: params.currency || '',
-            name: params.name,
-            price: params.price,
-            conversationId: data.identifier,
+   updateLiveImage(context, formData) {
+      return studyRoomService.updateImage(formData)
+   },
+   updateCreateStudyRoomLive({dispatch}, params) {
+      return studyRoomService.createLiveRoom(params).then(({data}) => {
+         dispatch('updateCreateStudyRoom', {data, params})
+         return
+      })
+   },
+   updateCreateStudyRoomPrivate({dispatch}, params) {
+      return studyRoomService.createPrivateRoom(params).then(({data}) => {
+         dispatch('updateCreateStudyRoom', {data, params})
+      })
+   },
+   updateCreateStudyRoom({commit, getters}, {data, params}) {
+      let newStudyRoomParams = {
+         date: params.date || new Date().toISOString(),
+         id: data.studyRoomId,
+         currency: params.currency || '',
+         name: params.name,
+         price: params.price,
+         conversationId: data.identifier,
             lastSession: params.date || new Date().toISOString(),
             tutorId: getters.getAccountId,
             tutorName: getters.getAccountName
-         }
-         let myStudyRooms = getters.getStudyRoomItems;
-         myStudyRooms.unshift(newStudyRoomParams);
-         commit('setStudyRoomItems',myStudyRooms);
-         let chatParams = {
-            conversationId:data.identifier,
-            studyRoomId:data.studyRoomId
-         }
-         commit('ADD_CONVERSATION_STUDYROOM',chatParams)
-         return
-      })
+      }
+      let myStudyRooms = getters.getStudyRoomItems;
+      myStudyRooms.unshift(newStudyRoomParams);
+      commit('setStudyRoomItems', myStudyRooms);
+      let chatParams = {
+         conversationId:data.identifier,
+         studyRoomId:data.studyRoomId
+      }
+      commit('ADD_CONVERSATION_STUDYROOM',chatParams)
+      return
    },
    updateRoomDisconnected({commit,getters,dispatch}){
       commit(twilio_SETTERS.VIDEO_AVAILABLE,false);

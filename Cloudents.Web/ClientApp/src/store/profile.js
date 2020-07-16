@@ -148,6 +148,7 @@ const mutations = {
          this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
          this.enrolled = objInit.enrolled;
          this.description = objInit.description;
+         this.image = objInit.image;
       }
    },
    setProfileFaq(state, data) {
