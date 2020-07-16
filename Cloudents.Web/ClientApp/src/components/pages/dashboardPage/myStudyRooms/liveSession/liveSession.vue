@@ -182,6 +182,7 @@
                                         color="#304FFE"
                                         outlined
                                         :disabled="radioEnd === 'on'"
+                                        autocomplete="off"
                                         hide-details
                                         dense
                                         height="36"
@@ -380,6 +381,9 @@ export default {
         },
         currentVisitorPriceSelect(val) {
             this.resetErrors(val)
+        },
+        endAfterOccurrences(val) {
+            this.resetErrors(val)
         }
     },
     computed: {
@@ -552,7 +556,7 @@ export default {
             width: 60px;
         }
         .afterOccurrences {
-            width: 50px;
+            width: 60px;
         }
     }
     .liveImageWrap {
