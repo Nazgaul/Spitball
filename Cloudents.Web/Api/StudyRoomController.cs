@@ -99,7 +99,7 @@ namespace Cloudents.Web.Api
             {
                 var command = new CreateLiveStudyRoomCommand(tutorId,
                      model.Name, model.Price,
-                     model.Date, model.Description, model.Repeat, model.EndDate, 
+                     model.Date, model.Description, model.Repeat, model.EndDate,
                      model.EndAfterOccurrences, model.RepeatOn, model.Image);
                 await _commandBus.DispatchAsync(command, token);
                 return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
@@ -176,8 +176,22 @@ namespace Cloudents.Web.Api
             [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new StudyRoomQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+            if (!result.Enrolled && result.Type == StudyRoomType.Broadcast)
+            {
+                return result;
+            }
+
             string jwtToken = null;
-            if (_userManager.TryGetLongUserId(User, out var userId))
+            if (userId > 0)
             {
 
                 try
@@ -192,15 +206,9 @@ namespace Cloudents.Web.Api
                 }
             }
 
-            var query = new StudyRoomQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
 
-            if (result == null)
-            {
-                return NotFound();
-            }
-          
-            result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+
+            
             result.Jwt = jwtToken;
             return result;
         }
