@@ -38,7 +38,7 @@ namespace Cloudents.Command.CommandHandler
             StudyRoomSchedule? schedule = null;
             if (message.Repeat.HasValue)
             {
-                var endDate = message.EndDate;
+                var endDate = message.EndDate?.AddDays(1);
                 var z = message.Repeat.Value switch
                 {
                     StudyRoomRepeat.Daily => _cronService.BuildCronDaily(message.BroadcastTime),
