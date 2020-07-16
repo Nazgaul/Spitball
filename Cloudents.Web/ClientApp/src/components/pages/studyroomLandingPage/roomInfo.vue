@@ -39,16 +39,19 @@
       <div v-if="isMobile" class="mobileImg">
          <img :src="roomImage">
       </div>
+        <stripe ref="stripe"></stripe>
    </div>
 </template>
 
 <script>
+import stripe from "../global/stripe.vue";
+
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
 import * as componentConsts from '../global/toasterInjection/componentConsts.js';
 import * as routeNames from '../../../routes/routeNames';
 export default {
-   components:{logo,sessionStartCounter},
+   components:{logo,sessionStartCounter,stripe},
    data() {
       return {
          isSessionNow:false,
@@ -72,31 +75,24 @@ export default {
          });
          global.open(routeData.href, "_self");
       },
-      // async 
-      enrollSession(){
+      async enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
             return
          }
          if(this.loadingBtn) return;
-
-
-         // if (this.roomPrice && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
-         //    let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
-         //    this.$refs.stripe.redirectToStripe(x);
-         //    return;
-         // }
-
-         // if(this.isRoomNeedPayment){
-         //    this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG);
-         //    return;
-         // }
          this.loadingBtn = true;
+
          let userId = this.$store.getters.accountUser?.id;
          let studyRoomId = this.$route.params?.id;
          let session = {
             userId,
             studyRoomId
+         }
+         if (this.roomPrice.amount && this.tutorCountry !== 'IL') {
+            let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
+            this.$refs.stripe.redirectToStripe(x);
+            return;
          }
          let self = this
          this.$store.dispatch('updateStudyroomLiveSessions', session)
@@ -130,9 +126,11 @@ export default {
          let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.roomDetails?.id}`
          return this.$proccessImageUrl(imageUrl, 330, 220)
       },
-
       tutorName(){
          return this.roomDetails?.tutorName;
+      },
+      tutorCountry(){
+         return this.roomDetails?.tutorCountry
       },
       roomPrice(){
          return this.roomDetails?.price;
