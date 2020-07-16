@@ -550,6 +550,9 @@ export default {
     .sessionRepeat {
         .v-input--selection-controls {
             margin-top: 0;
+            .v-input--selection-controls__input {
+                margin-right: 2px;
+            }
         }
     }
     .sessionEnd {
