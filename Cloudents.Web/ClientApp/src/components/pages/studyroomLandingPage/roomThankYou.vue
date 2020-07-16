@@ -34,7 +34,7 @@ export default {
    },
    computed: {
       roomDate(){
-         return this.$store.getters.getRoomDate;
+         return this.$store.getters.getRoomDetails?.date;
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
