@@ -21,13 +21,13 @@ namespace Cloudents.Query.HomePage
         private Country Country { get; }
         private int Count { get; }
 
-        internal sealed class TopTutorsQueryHandler : IQueryHandler<ReviewsQuery, IEnumerable<ReviewDto>>
+        internal sealed class ReviewsQueryHandler : IQueryHandler<ReviewsQuery, IEnumerable<ReviewDto>>
         {
             private readonly IStatelessSession _session;
 
-            public TopTutorsQueryHandler(QuerySession session)
+            public ReviewsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             [Cache(TimeConst.Day, "homePage-reviews3", false)]

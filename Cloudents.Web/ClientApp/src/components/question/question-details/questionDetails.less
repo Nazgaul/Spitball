@@ -1,0 +1,204 @@
+@import "../../../styles/mixin.less";
+@import "../../../animations/pageTransitions.less";
+
+.theme--light .v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat) {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.answer-question {
+  .answers_wrap {
+    width: 100%;
+    //max-width: 500px;
+    max-width: @cellWidth;
+    position: relative;
+    //margin: 0 auto;
+    .answer-container{
+      border-radius: 4px;
+      background-color: @color-white;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @media (max-width: @screen-sm) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .question-wrap {
+    margin-left: 50px;
+    //margin-left: @logoWidth;
+  }
+
+  .breadcrumbs {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 16px;
+
+    a.ask-question {
+      color: @color-dark-blue;
+      display: inline-block;
+
+    }
+
+    span.question-category {
+      margin: 0 2px;
+      color: @color-grey;
+    }
+  }
+
+  .question-data {
+    max-width: @cellWidth;
+    width: 100%;
+  }
+  .has-answer-error-wrapper{
+    position: relative;
+    width:inherit;
+    .has-answer-error{
+      color: @color-red;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      text-align: center;
+      padding:25px;
+      width: 96%;
+      opacity: .9;
+      background-color: #fff;
+    }
+  }
+
+  .chat-wrapper {
+    max-height: 45px;
+   
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    &.position-static{
+      position: static;
+    }
+    top: 0; /* required */
+    //top: 75px; /* required */
+    width: 100%;
+    max-width: 304px;
+    margin-left: 32px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    background-color: @color-white;
+
+    .chat-title {
+      //margin bottom -3px hack for iframe border-radius top fix (not possible to overwrite iframe style) this hides small gaps
+      margin-bottom: -3px;
+      color: @color-main-purple;
+      font-size: 18px;
+      font-weight: 400;
+      background-color: #f0f0f0;
+      border-radius: 4px 4px 0 0;
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    iframe {
+      border-radius: 0 0 4px 4px;
+      max-height: 608px;
+    }
+    .chat-container {
+      margin-bottom: -4px;
+    }
+  }
+  .question-card {
+    margin: 0 auto;
+  }
+
+  .add_answer {
+    width: 100%;
+    border: 8px solid #c7c7ee !important;
+    border-top: 0 !important;
+    margin: 0;
+    height: 52px !important;
+    border-radius: 0 0 4px 4px;
+    font-size: 18px;
+    text-transform: none;
+
+    &.primary {
+      background-color: @color-main-purple !important;
+    }
+
+    &:disabled {
+      background-color: @color-medium-grey !important;
+      color: white !important;
+    }
+  }
+
+  .tab-padding {
+    padding: 8px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    .answer-form {
+      width: 100%;
+      max-width: @cellWidth;
+      margin: 0 auto;
+    }
+  }
+
+  .v-tabs__bar {
+    height: 65px;
+    background-color: @color-white;
+    border-bottom: solid 1px @color-medium-grey;
+    font-size: 18px;
+    padding: 0 8px;
+  }
+
+  .v-tabs__container {
+     height: 65px;
+    .v-tabs__item {
+      text-transform: none;
+      font-size: 18px;
+      &.v-tabs__item--active {
+        color: @color-main-purple !important;
+        font-weight: bold;
+      }
+    }
+
+    .v-tabs__slider.blue {
+      border-bottom: 2px solid @color-main-purple;
+    }
+  }
+
+  .show-form-trigger {
+    background: white;
+    border: 8px solid #c7c7ee;
+    border-radius: 4px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+
+    div {
+      font-size: 14px;
+      letter-spacing: -0.3px;
+      color: @color-main-purple;
+    }
+  }
+  .chat-iframe {
+    @media (max-width: @screen-xs) {
+      width: 100%;
+      height: ~"calc(100% - 260px)";
+    }
+
+  }
+  // change for ios to fit the screen in case of need, will effect ALL small devices
+
+  .answer-card{
+    margin-bottom:0;
+  }
+  .answer-card:nth-last-child(1){
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    .delete-btn-answer{
+      bottom:20px;
+    }
+  }
+}

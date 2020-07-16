@@ -1,0 +1,443 @@
+@import "../../styles/mixin.less";
+@import "../dialogs/changePrice/changePrice.less";
+
+@colorUploadDate: rgba(0, 0, 0, 0.38);
+@placeholderGrey: rgba(74, 74, 74, 0.25);
+@colorPrice: rgba(74, 74, 74, 0.87);
+.relative-pos {
+  position: relative;
+  .input-wrap {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    bottom: -12px;
+    right: 0; 
+  }
+}
+
+.note-block {
+  background-color: #FFF;
+  min-height: auto;
+  // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+  //background: @color-white;
+  border-radius: 8px;
+  //width: 100%;
+  cursor: pointer;
+  //padding: 14px 16px !important;
+
+  &.no-cursor {
+    cursor: text;
+  }
+
+  .doc-type-text {
+    font-size: 13px;
+    font-weight: 600;
+    
+    color: @color-blue-new;
+  }
+
+  i, .doc-type-text {
+    &.type-lecture {
+      color: @colorTypeLecture;
+    }
+    &.type-textbook {
+      color: @color-blue-new;
+    }
+    &.type-exam {
+      color: @colorTypeExam;
+    }
+    &.type-document {
+      color: @colorTypeDocThirdParty;
+    }
+
+  }
+
+  .document-header-container {
+    display: flex;
+    flex-direction: row;
+    line-height: 35px;
+    justify-content: space-between;
+    white-space: nowrap;
+    .document-header-large-sagment {
+      display: flex;
+      // width: 90%;
+      min-width: 0;
+      flex-grow: 1;
+      align-items: end;
+
+      &--arrow {
+        align-self: center;
+        color: #69687d;
+      }
+
+      .document-header-name-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 12px;
+        min-width: 0;
+        .document-header-name {
+          line-height: normal;
+            font-size: 14px;
+            color: @global-purple;
+            text-transform: capitalize;
+        }
+        .date-area {
+          line-height: normal;
+          font-size: 13px;
+          color: #a0a0a0;
+        }
+      }
+      .sold-area {
+        .sold-container {
+          width: 65px;
+          display: flex;
+          margin-left: -10px;
+          background-color: #2bcea9;
+          border-radius: 15px;
+          height: 15px;
+          margin-top: 10px;
+          line-height: 15px;
+          //justify-content: space-evenly;
+          justify-content: space-around;
+
+          span {
+            
+            font-size: 12px;
+            font-weight: 600;
+            font-style: italic;
+            color: #ffffff;
+          }
+          i {
+            color: #fff;
+            font-size: 11px;
+          }
+        }
+      }
+    }
+    .document-header-small-sagment {
+      display: flex;
+      // align-items: baseline;
+      margin-top: -8px;
+      margin-right: -16px;
+      .price-area {
+          font-size: 18px;
+          font-weight: bold;
+          color: #5158af;
+        &.sold {
+          color: rgba(0, 0, 0, 0.38);
+        }
+      }
+      .menu-area {
+        width: 20px;
+        @media (max-width: @screen-xs) {
+          width: 24px;
+        }
+      }
+      .menu-area-btn {
+        i {
+          font-size: 16px;
+          color: @colorTypeDocDefault;
+        }
+      }
+    }
+  }
+  .documentPrice {
+    .docFree {
+      font-size: 18px;
+      color: @global-purple;
+      font-weight: 600;
+    }
+    .docIcon {}
+  }
+  .bottom-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-weight: bold;
+    line-height: 1;
+    color: @global-purple;
+    padding-top: 6px;
+    @media (max-width: @screen-xs) {
+      padding-top: 20px;
+      justify-content: initial;
+      align-items: flex-end;
+    }
+    .left{
+      .views-cont{
+        margin-right: 22px;
+      }
+      .downloads{
+        margin-left: 4px;
+      @media (max-width: @screen-xs) {
+        margin-right: 22px;
+      }
+      }
+    }
+    .right{
+      display: flex;
+      align-items: flex-end;
+      .likeSVG{
+        margin-right: 4px;
+        fill: @global-purple;
+      }
+      
+    }
+    .price-area {
+      @media (max-width: @screen-xs) {
+        font-size: 16px;
+        font-weight: bold;
+        color: #5158af;
+        margin-right: -2px;
+      }
+    &.sold {
+      color: rgba(0, 0, 0, 0.38);
+    }
+  
+  }
+  }
+    .top-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding-top: 18px;
+      @media (max-width: @screen-xs) {
+      }
+      .document-body-card{
+        position: relative;
+
+        @media (max-width: @screen-xs) {
+        }
+        .document-body-card-img{
+          object-fit: cover;
+          border: 1px solid #d8d8d8;
+          @media (max-width: @screen-xs) {
+            object-position: top;
+          }
+            
+        }
+        &.subscribed {
+          &:before {
+            content: '';
+            position: absolute;
+            background: rgba(0, 0, 0, .7);
+            height: 100%;
+            width: 100%;
+          }
+          .overlay {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            transform: translate(0,-50%);
+            .unlockText {
+              white-space: pre;
+              .responsive-property(font-size, 15px, null, 13px);                
+              font-weight: 600;
+              line-height: 1.47;
+              @media (max-width: @screen-xs) {
+                white-space: unset;
+              }
+            }
+            .btn {
+              width: 100%;
+              color: @global-purple;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+      .type-wrap {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding-left: 12px;
+        min-width: 0;
+        @media (max-width: @screen-xs) {
+          padding-left: 8px;
+        }
+        .wrapHeight {
+          height: 140px;
+          @media (max-width: @screen-xs) {
+            height: auto;
+          }
+        }
+        &--noPadding {
+          padding-left: 0;
+          .wrapHeight {
+            height: auto;
+          }
+          .doc-snippet-h6{
+            .giveMeEllipsis(3, 22) !important;
+            @media (max-width: @screen-xs) {
+              .giveMeEllipsis(4, 16) !important;
+            }
+          }
+        }
+        .videoType{
+          .videoIcon {
+            vertical-align: middle;
+            path {
+              fill: #69687d;
+            }
+          }
+          .vidTime{
+              font-size: 12px;
+          }
+        }
+      }
+    }
+    .details-row {
+      margin-bottom: 26px;
+      .details-wrap {
+        padding-top: 0;
+        .aligned {
+          font-size: 12px;
+          color: @colorBlackNew;
+          float: left;
+          margin-right: 4px;
+          display: unset;
+          .sb-icon-arrow {
+            font-size: 12px;
+            height: 16px;
+            width: 16px;
+            color: @colorGreyLight;
+          }
+        }
+      }
+    }
+    .data-row {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin-right: 10px;
+      .doc-snippet{
+          .doc-snippet-h6{
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.57;
+            color:@global-purple;
+            @media (max-width: @screen-xs) {
+              font-size: 12px;
+            }
+            .giveMeEllipsis(2, 22);
+            @media (max-width: @screen-xs) {
+              .giveMeEllipsis(3, 16);
+            }
+          }
+          
+      }
+      .content-wrap {
+        display: flex;
+        flex-direction: column;
+        .item-title{
+          font-size: 18px;
+          font-weight: bold;
+          color: @global-purple;
+        }
+        .item-course{
+          line-height: 1.8;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            font-size: 12px;
+            line-height: 1.9; 
+          }
+        }
+        span{
+          color: @global-purple;
+          font-size: 14px;
+          @media (max-width: @screen-xs) {
+            font-size: 12px;
+          }
+
+          
+
+        }
+        &.type-lecture {
+          background: fade(@colorTypeLecture, 12%)
+        }
+        &.type-textbook {
+          background: fade(@color-blue-new, 9%);
+
+        }
+        &.type-exam {
+          background: fade(@colorTypeExam, 10%);
+        }
+        &.type-document {
+          background: fade(@colorTypeDocDefault, 7%);
+        }
+        .title-wrap {
+          display: flex;
+          align-items: flex-start;
+          word-break: break-all;
+          word-break: break-word;
+          i.doc {
+            color: @colorBlackNew;
+            font-size: 14px;
+            padding-top: 3px;
+            padding-right: 4px;
+          }
+          .doc-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: @textColor;
+            margin-bottom: 0;
+            flex-grow: 1;
+            display: inline-flex;
+            //firefox fix for line clamp, needs specific max-height
+            &.foxLineClamp {
+              max-height: 56px !important;
+              display: block !important;
+            }
+            @media (max-width: @screen-xs) {
+              line-height: 20px;
+            }
+          }
+        }
+        .content-text {
+          padding-top: 9px;
+          span {
+            color: @colorBlackNew;
+            font-size: 13px;
+            line-height: 1.5;
+            letter-spacing: -0.2px;
+            word-break: break-all;
+            word-break: break-word;
+          }
+        }
+      }
+    }
+    .doc-details {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      &.doc-actions-info {
+       // display: flex;
+        //flex-direction: row;
+        align-items: center;
+
+        .sb-doc-icon {
+          vertical-align: middle;
+          color: @colorGreyLight;
+          font-size: 12px;
+
+        }
+        .sb-doc-info {
+          color: @colorBlackNew;
+          font-size: 12px;
+          opacity: 0.9;
+          
+          &.downloads {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+  //}
+}
+

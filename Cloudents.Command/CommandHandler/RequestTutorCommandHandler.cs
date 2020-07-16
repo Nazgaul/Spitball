@@ -15,13 +15,13 @@ namespace Cloudents.Command.CommandHandler
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
-        private readonly ILeadRepository _leadRepository;
+        private readonly IRepository<Lead> _leadRepository;
 
         public RequestTutorCommandHandler(ITutorRepository tutorRepository,
             IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
             IRepository<ChatMessage> chatMessageRepository,
-            ILeadRepository leadRepository)
+            IRepository<Lead> leadRepository)
         {
             _tutorRepository = tutorRepository;
             _chatRoomRepository = chatRoomRepository;
@@ -51,16 +51,16 @@ namespace Cloudents.Command.CommandHandler
             await _leadRepository.AddAsync(lead, token);
 
             var tutorsIds = new List<long>();
-            if (message.MoreTutors)
-            {
-                var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
-                if (needToSendToMoreTutors)
-                {
-                    var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country,
-                        token);
-                    tutorsIds.AddRange(t);
-                }
-            }
+            //if (message.MoreTutors)
+            //{
+            //    var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
+            //    if (needToSendToMoreTutors)
+            //    {
+            //        var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country,
+            //            token);
+            //        tutorsIds.AddRange(t);
+            //    }
+            //}
 
             if (tutor != null)
             {
@@ -69,8 +69,9 @@ namespace Cloudents.Command.CommandHandler
 
             foreach (var userId in tutorsIds.Distinct())
             {
+                var tutor2 = await _tutorRepository.LoadAsync(userId, token);
                 var users = new[] { userId, message.UserId };
-                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                var chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, tutor2, token);
                 if (chatRoom.Extra == null)
                 {
                     chatRoom.Extra = new ChatRoomAdmin(chatRoom);

@@ -9,43 +9,6 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
-    public class BroadCastStudyRoom : StudyRoom
-    {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public BroadCastStudyRoom(Tutor tutor,
-            IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime broadcastTime, string? description) 
-            : base(tutor, users, onlineDocumentUrl, name, price)
-        {
-            Identifier = Guid.NewGuid().ToString();
-            ChatRoom = ChatRoom.FromStudyRoom(this);
-            BroadcastTime = broadcastTime;
-            TopologyType = StudyRoomTopologyType.GroupRoom;
-            Description = description;
-        }
-
-        protected BroadCastStudyRoom(): base()
-        {
-        }
-
-        public virtual DateTime BroadcastTime { get; protected set; }
-
-
-        public virtual string? Description { get; protected set; }
-
-        public override void AddUserToStudyRoom(User user)
-        {
-           
-                var studyRoomUser = new StudyRoomUser(user, this);
-                _users.Add(studyRoomUser);
-                ChatRoom.AddUserToChat(user);
-                Tutor.User.AddFollower(user);
-            
-        }
-
-        public override StudyRoomType Type => StudyRoomType.Broadcast;
-    }
-
     public class PrivateStudyRoom : StudyRoom
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
@@ -58,9 +21,9 @@ namespace Cloudents.Core.Entities
             }
             Identifier = ChatRoom.BuildChatRoomIdentifier(
                 _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
-            if (_users.Count < 10 && _users.Count > 0)
+            if (_users.Count < 4 && _users.Count > 0)
             {
-                TopologyType = StudyRoomTopologyType.PeerToPeer;
+                TopologyType = StudyRoomTopologyType.SmallGroup;
             }
             else
             {
@@ -100,7 +63,8 @@ namespace Cloudents.Core.Entities
           
 
             DateTime = new DomainTimeStamp();
-            Price = price;
+            OldPrice = price;
+            Price = new Money(price,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
            
             AddEvent(new StudyRoomCreatedEvent(this));
         }
@@ -134,7 +98,9 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomUser> Users => _users;
 
+        protected readonly ICollection<StudyRoomPayment> _studyRoomPayments = new List<StudyRoomPayment>();
 
+        public virtual IEnumerable<StudyRoomPayment> StudyRoomPayments => _studyRoomPayments;
         public virtual string Identifier { get; protected set; }
         public virtual DomainTimeStamp DateTime { get; protected set; }
 
@@ -144,8 +110,16 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
-        public virtual decimal? Price { get; protected set; }
+        [Obsolete]
+        public virtual decimal OldPrice { get; protected set; }
 
+
+        public virtual Money Price { get; protected set; }
+        public virtual void SetPrice(decimal price)
+        {
+            OldPrice = price;
+            Price = new Money(price,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+        }
 
         public virtual StudyRoomSession? GetCurrentSession()
         {
@@ -157,7 +131,19 @@ namespace Cloudents.Core.Entities
             return result.SingleOrDefault(w => w.Ended == null);
         }
 
-        public virtual StudyRoomTopologyType? TopologyType { get; protected set; }
+        public virtual StudyRoomTopologyType TopologyType { get; protected set; }
+
+        public virtual void ChangeTopologyDbi()
+        {
+            if (_users.Count() < 4 && _users.Count() > 0)
+            {
+                TopologyType = StudyRoomTopologyType.SmallGroup;
+            }
+            else
+            {
+                TopologyType = StudyRoomTopologyType.GroupRoom;
+            }
+        }
 
         public virtual void AddSession(string sessionName)
         {

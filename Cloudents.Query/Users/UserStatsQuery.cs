@@ -26,9 +26,9 @@ namespace Cloudents.Query.Users
         internal sealed class UserStatsQueryHandler : IQueryHandler<UserStatsQuery, IEnumerable<UserStatsDto>>
         {
             private readonly IStatelessSession _session;
-            public UserStatsQueryHandler(QuerySession session)
+            public UserStatsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
 
@@ -191,10 +191,10 @@ namespace Cloudents.Query.Users
 
             private IFutureValue<Tuple<decimal?, int>> GetStudyRoomV2Price(Period query)
             {
-                return _session.Query<StudyRoomSessionUser>()
-                    .Where(w => w.StudyRoomSession.StudyRoom.Tutor.Id == query.UserId )
+                return _session.Query<StudyRoomPayment>()
+                    .Where(w => w.Tutor.Id == query.UserId )
                     .Where(w=>w.Receipt != null)
-                    .Where(w => w.StudyRoomSession.Created >= query.From && w.StudyRoomSession.Created <= query.To)
+                    .Where(w => w.Created >= query.From && w.Created <= query.To)
                     .GroupBy(g => 1)
                     .Select(s => Tuple.Create(s.Sum(s2 => (decimal?)s2.TotalPrice), s.Count()))
                     .ToFutureValue();

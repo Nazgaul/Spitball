@@ -15,9 +15,9 @@ namespace Cloudents.Query.Admin
         {
             private readonly IStatelessSession _statelessSession;
 
-            public CouponQueryHandler(QuerySession statelessSession)
+            public CouponQueryHandler(IStatelessSession statelessSession)
             {
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
             public async Task<IEnumerable<CouponDto>> GetAsync(CouponQuery query, CancellationToken token)

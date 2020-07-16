@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Collections.Generic;
 using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -9,77 +9,57 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.EventHandler;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Users
 {
-    public class UserDocumentsQuery : IQuery<ListWithCountDto<DocumentFeedDto>>
+    public class UserDocumentsQuery : IQuery<IDictionary<string,List<DocumentFeedDto>>>
     {
-        public UserDocumentsQuery(long id, int page, int pageSize, DocumentType? documentType, string? course, long userId)
+        public UserDocumentsQuery(long id, long userId)
         {
             Id = id;
-            Page = page;
-            PageSize = pageSize;
-            DocumentType = documentType;
-            Course = course;
             UserId = userId;
         }
 
         private long Id { get; }
-        private int Page { get; }
-        private int PageSize { get; }
 
-        private DocumentType? DocumentType { get; }
-        private string? Course { get; }
 
         private long UserId { get; }
 
-        internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, ListWithCountDto<DocumentFeedDto>>
+        internal sealed class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, IDictionary<string,List<DocumentFeedDto>>>
         {
             private readonly IStatelessSession _session;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public UserDocumentsQueryHandler(QuerySession session)
+            public UserDocumentsQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
             {
-                _session = session.StatelessSession;
+                _session = session;
+                _urlBuilder = urlBuilder;
             }
-            [Cache(TimeConst.Hour, "UserDocumentsQuery", false)]
-            public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
+            [Cache(TimeConst.Minute * 30, CacheRegions.ProfilePageDocument, false)]
+            public async Task<IDictionary<string,List<DocumentFeedDto>>> GetAsync(UserDocumentsQuery query, CancellationToken token)
             {
                 var r = _session.Query<Document>()
 
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
-                if (query.DocumentType != null)
-                {
-                    r = r.Where(w => w.DocumentType == query.DocumentType);
-                }
-                if (!string.IsNullOrEmpty(query.Course))
-                {
-                    r = r.Where(w => w.Course.Id == query.Course);
-                }
-                var count = r;
-                r = r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
+
+                r = r.OrderByDescending(o => o.Boost ?? 0).ThenByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
                     Title = s.Name,
-                    Views = s.Views,
-                    Downloads = s.Downloads,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,
-                    Vote = new VoteDto
-                    {
-                        Votes = s.VoteCount
-                    },
                     PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
                     Duration = s.Duration,
-                    Purchased = s.PurchaseCount.GetValueOrDefault()
-                }).Take(query.PageSize).Skip(query.Page*query.PageSize).ToFuture();
+                    Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id, null)
+                }).ToFuture();
 
-                var countFuture = count.ToFutureValue(f => f.Count());
 
                 IFutureValue<bool?>? scribedQueryFuture = null;
                 if (query.UserId > 0)
@@ -93,21 +73,20 @@ namespace Cloudents.Query.Users
 
 
                 var futureResult = await result.GetEnumerableAsync(token);
-                var isSubscribed = scribedQueryFuture?.Value ?? query.UserId == query.Id;
+                var isSubscribed = scribedQueryFuture?.Value ?? false;// ?? query.UserId == query.Id;
 
                 if (isSubscribed)
                 {
                     futureResult = futureResult.Select(s =>
                     {
                         s.PriceType = PriceType.Free;
+                        s.Price = null;
                         return s;
                     });
                 }
-                return new ListWithCountDto<DocumentFeedDto>()
-                {
-                    Result = futureResult,
-                    Count = countFuture.Value
-                };
+                
+                return futureResult.GroupBy(g => g.Course).ToDictionary(x=>x.Key,z=>z.ToList());
+
             }
         }
     }

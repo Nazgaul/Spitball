@@ -23,10 +23,10 @@ namespace Cloudents.Query.Tutor
             private readonly IStatelessSession _statelessSession;
             private readonly ICalendarService _calendarService;
 
-            public CalendarListQueryHandler(QuerySession session, ICalendarService calendarService)
+            public CalendarListQueryHandler(IStatelessSession session, ICalendarService calendarService)
             {
                 _calendarService = calendarService;
-                _statelessSession = session.StatelessSession;
+                _statelessSession = session;
             }
 
             public async Task<IEnumerable<CalendarDto>> GetAsync(CalendarListQuery query, CancellationToken token)
@@ -40,8 +40,8 @@ namespace Cloudents.Query.Tutor
 
                 await Task.WhenAll(taskSharedCalendarResult, taskGoogleCalendarResult);
 
-                var googleCalendarResult = taskGoogleCalendarResult.Result;
-                var sharedCalendarResult = taskSharedCalendarResult.Result;
+                var googleCalendarResult = await taskGoogleCalendarResult;
+                var sharedCalendarResult = await taskSharedCalendarResult;
 
                 return googleCalendarResult.Select(s =>
                 {

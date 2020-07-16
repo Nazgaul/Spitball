@@ -16,8 +16,6 @@ using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
-using SixLabors.Shapes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,6 +25,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.FunctionsV2.Extensions;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Drawing.Processing;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Path = System.IO.Path;
 
@@ -34,14 +34,45 @@ namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
+
+        [FunctionName("ImageFunctionStudyRoom")]
+        public static async Task<IActionResult> RunStudyRoomImageAsync(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyRoom/{id:guid}")]
+            HttpRequest req, Guid id,
+            [Blob("spitball-files/study-room/{id}/0.jpg")]
+            CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")]CloudBlockBlob fallback)
+        {
+            var mutation = ImageMutation.FromQueryString(req.Query);
+
+            async Task<IActionResult> ProcessBlob(CloudBlockBlob cloudBlockBlob)
+            {
+                await using var sr = await cloudBlockBlob.OpenReadAsync();
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
+            }
+
+           
+            try
+            {
+                return await ProcessBlob(blob);
+            }
+            catch (StorageException e) when(e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+            {
+                return await ProcessBlob(fallback);
+            }
+        }
+
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
             HttpRequest req, long id, string file,
             [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/cover-default.png")]CloudBlockBlob coverDefault,
             Microsoft.Extensions.Logging.ILogger logger
         )
         {
+            var isCover = req.Query["type"].ToString().Equals("cover", StringComparison.OrdinalIgnoreCase);
             var regex = new Regex(@"[\d]*[.]\D{3,4}");
             var isBlob = regex.IsMatch(file);
             var mutation = ImageMutation.FromQueryString(req.Query);
@@ -63,18 +94,27 @@ namespace Cloudents.FunctionsV2
                 {
                     if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
                     {
-                        return GenerateImageFromName();
+                        return await GenerateImageFromName();
                     }
 
                     throw;
                 }
             }
 
-            return GenerateImageFromName();
+            return await GenerateImageFromName();
 
-            IActionResult GenerateImageFromName()
+            async Task<IActionResult> GenerateImageFromName()
             {
-                var image = GenerateImageFromText(file, new Size(mutation.Width, mutation.Height));
+                if (isCover)
+                {
+                    await using var sr = await coverDefault.OpenReadAsync();
+                    var imageCover = ProcessImage(sr, mutation);
+                    return new ImageResult(imageCover, TimeSpan.FromDays(365));
+                }
+
+                var width = mutation.Resize?.Width ?? 50;
+                var height = mutation.Resize?.Height ?? 50;
+                var image = GenerateImageFromText(file, new Size(width, height));
                 return new ImageResult(image, TimeSpan.FromDays(30));
 
 
@@ -87,7 +127,6 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionDocumentRoute)]
             HttpRequest req, long id,
             IBinder binder,
-            //collector search duplicate so i added some search 3 to solve this
             [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
             [Blob("spitball-files/files/{id}/preview-0.jpg")]CloudBlockBlob blob,
@@ -247,30 +286,23 @@ namespace Cloudents.FunctionsV2
 
             image.Mutate(x =>
             {
-                var v = new ResizeOptions()
+                if (mutation.Resize.HasValue)
                 {
-                    Mode = mutation.Mode,
-                    Size = new Size(mutation.Width, mutation.Height),
-                    Position = mutation.Position,
-                   
-
-                };
-                if (mutation.CenterCords.HasValue)
-                {
-                    v.CenterCoordinates = new[]
-                        {mutation.CenterCords.Value.x / image.Width, mutation.CenterCords.Value.y / image.Height};
-                }
-                else
-                {
-                    v.CenterCoordinates = new float[]
+                    var v = new ResizeOptions()
                     {
-                        0,0
+                        Mode = mutation.Resize.Value.Mode,
+                        Size = new Size(mutation.Resize.Value.Width, mutation.Resize.Value.Height),
+                        Position = mutation.Position,
                     };
+                    if (mutation.CenterCords.HasValue)
+                    {
+                        v.CenterCoordinates = new PointF(mutation.CenterCords.Value.x / image.Width,
+                            mutation.CenterCords.Value.y / image.Height);
+                    }
+                
+
+                    x.Resize(v);
                 }
-
-
-
-                x.Resize(v);
 
                 if (mutation.RoundCorner > 0)
                 {
@@ -279,7 +311,7 @@ namespace Cloudents.FunctionsV2
             });
             if (mutation.Background != null)
             {
-                image.Mutate(x => x.BackgroundColor(Color.FromHex(mutation.Background)));
+                image.Mutate(x => x.BackgroundColor(Color.ParseHex(mutation.Background)));
             }
 
             //image.Mutate(x => x.BackgroundColor(Rgba32.White));
@@ -294,23 +326,24 @@ namespace Cloudents.FunctionsV2
                     image.Mutate(x => x.BoxBlur(5));
                     break;
             }
+            
 
             return image;
 
         }
 
-        private static readonly Rgba32[] Colors = {
-            Rgba32.FromHex("64A9F8"),
-            Rgba32.FromHex("ff9853"),
-            Rgba32.FromHex("e775ce"),
-            Rgba32.FromHex("10b2c1"),
-            Rgba32.FromHex("848fa6"),
-            Rgba32.FromHex("f36f6e"),
-            Rgba32.FromHex("f76446"),
-            Rgba32.FromHex("73b435"),
-            Rgba32.FromHex("a55fff"),
-            Rgba32.FromHex("a27c22"),
-            Rgba32.FromHex("4faf61"),
+        private static readonly Color[] Colors = {
+            Color.ParseHex("64A9F8"),
+            Color.ParseHex("ff9853"),
+            Color.ParseHex("e775ce"),
+            Color.ParseHex("10b2c1"),
+            Color.ParseHex("848fa6"),
+            Color.ParseHex("f36f6e"),
+            Color.ParseHex("f76446"),
+            Color.ParseHex("73b435"),
+            Color.ParseHex("a55fff"),
+            Color.ParseHex("a27c22"),
+            Color.ParseHex("4faf61"),
         };
 
         private static string GetTwoLetters(string text)
@@ -351,8 +384,7 @@ namespace Cloudents.FunctionsV2
 
             var v = text.Select(Convert.ToInt32).Sum() % Colors.Length;
             img.Mutate(i => i.BackgroundColor(Colors[v]));
-
-            img.Mutate(i => i.Fill(new GraphicsOptions(true), Rgba32.White, glyphs));
+            img.Mutate(i => i.Fill(Color.White, glyphs));
             return img;
         }
 
@@ -364,37 +396,49 @@ namespace Cloudents.FunctionsV2
     {
         public static ImageMutation FromQueryString(IQueryCollection query)
         {
-            int.TryParse(query["width"], out var width);
-            int.TryParse(query["height"], out var height);
-            if (!Enum.TryParse(query["mode"], true, out ResizeMode mode))
-            {
-                mode = ResizeMode.Crop;
-            }
-
             int.TryParse(query["round"], out var round);
             Enum.TryParse(query["anchorPosition"], true, out AnchorPositionMode position);
 
-            if (width == 0)
+
+            var imageMutation = new ImageMutation(position, round);
+            if (int.TryParse(query["width"], out var width) &&
+                int.TryParse(query["height"], out var height))
             {
-                width = 50;
+                if (!Enum.TryParse(query["mode"], true, out ResizeMode mode))
+                {
+                    mode = ResizeMode.Crop;
+                }
+                imageMutation.Resize = (mode,width,height);
             }
 
-            if (height == 0)
-            {
-                height = 50;
-            }
+            return imageMutation;
 
-            //var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
+            //if (width == 0)
+            //{
+            //    width = 50;
+            //}
 
-            return new ImageMutation(width, height, mode, position, round);
+            //if (height == 0)
+            //{
+            //    height = 50;
+            //}
+
+            ////var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
+
+            //return new ImageMutation( position, round)
+            //{
+            //    Resize = 
+            //};
         }
 
-        private ImageMutation(int width, int height, 
-            ResizeMode mode, AnchorPositionMode position, int roundCorner)
+        private ImageMutation(
+           // int width, int height, 
+           // ResizeMode mode,
+            AnchorPositionMode position, int roundCorner)
         {
-            Width = width;
-            Height = height;
-            Mode = mode;
+            //Width = width;
+            //Height = height;
+            //Mode = mode;
             Position = position;
             RoundCorner = roundCorner;
             //CenterCords = centerCords ?? Array.Empty<float>();
@@ -402,12 +446,14 @@ namespace Cloudents.FunctionsV2
         }
 
         public (float x,float y)? CenterCords { get; set; }
-        public int Width { get; }
-        public int Height { get; }
+      //  public int Width { get; }
+       // public int Height { get; }
 
         public int RoundCorner { get; }
 
-        public ResizeMode Mode { get; }
+       // public ResizeMode Mode { get; }
+
+        public (ResizeMode Mode, int Width, int Height)? Resize { get; private set; }
 
         public ImageProperties.BlurEffect BlurEffect { get; set; }
         public AnchorPositionMode Position { get; }

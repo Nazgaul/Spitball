@@ -10,26 +10,11 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
     public class Tutor : Entity<long>
     {
-        public const int MaximumPrice = 214748;
-        public const int MinimumPrice = 35; // also on client side
-        public Tutor(string bio, User user, decimal? price) : this()
+        public Tutor(User user) : this()
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
-            Bio = bio;
-            if (user.SbCountry == Country.India)
-            {
-                Price = new TutorPrice(100, 0);
-            }
-            else
-            {
-                if (price is null)
-                {
-                    throw new ArgumentException("Price is null");
-                }
-                Price = new TutorPrice(price.Value);
-            }
             AddEvent(new TutorCreatedEvent(this));
 
         }
@@ -38,13 +23,15 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected Tutor()
         {
-            //Price = Price ?? new TutorPrice();
         }
-        public virtual string Bio { get; protected set; }
+
+        public virtual string? Paragraph2 { get; protected set; }
+
+        public virtual string? Title { get;protected set; }
+
+        public virtual string? Paragraph3 { get; protected set; }
 
         public virtual User User { get; protected set; }
-
-        public virtual TutorPrice Price { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 
@@ -70,7 +57,7 @@ namespace Cloudents.Core.Entities
                 }
             }
 
-            AddEvent(new UpdateTutorSettingsEvent(Id));
+            AddEvent(new TutorSubscriptionEvent(Id));
         }
 
         public virtual bool HasSubscription()
@@ -78,25 +65,16 @@ namespace Cloudents.Core.Entities
             return SubscriptionPrice != null;
         }
 
-        public virtual void UpdateSettings(string bio, decimal? price)
+        public virtual void UpdateSettings(string? shortParagraph, string? title, string? paragraph)
         {
-            if (price.HasValue)
-            {
-                if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
-
-                Price = new TutorPrice(price.Value);
-            }
-            Bio = bio;
+        
+            Paragraph2 = shortParagraph;
+            Paragraph3 = paragraph;
+            Title = title;
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
-        public virtual void AdminChangePrice(decimal newPrice)
-        {
-            if (newPrice < 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
-
-            Price = new TutorPrice(newPrice);
-            AddEvent(new UpdateTutorSettingsEvent(Id));
-        }
+     
 
         public virtual void Approve()
         {
@@ -169,7 +147,7 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
-        public virtual bool IsShownHomePage { get; protected set; }
+      //  public virtual bool IsShownHomePage { get; protected set; }
 
 
         protected internal virtual ICollection<AdminTutor> AdminUsers { get; set; }

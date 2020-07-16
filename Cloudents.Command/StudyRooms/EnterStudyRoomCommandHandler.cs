@@ -26,13 +26,17 @@ namespace Cloudents.Command.StudyRooms
             {
                 throw new ArgumentNullException(nameof(message.StudyRoomId), message.StudyRoomId.ToString());
             }
-
             var user = await _userRepository.LoadAsync(message.UserId, token);
             studyRoom.AddUserToStudyRoom(user);
+           
+
+            //above the same as enroll
 
             var currentSession = studyRoom.GetCurrentSession();
             if (currentSession != null)
             {
+              
+
                 var roomAvailable = await _videoProvider.GetRoomAvailableAsync(currentSession.SessionId);
                 if (roomAvailable)
                 {

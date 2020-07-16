@@ -3,36 +3,27 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
-using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
-using Cloudents.Query.Tutor;
-using Cloudents.Query.Questions;
 using Cloudents.Core.DTOs.Users;
-using Cloudents.Core.DTOs.Tutors;
-using Cloudents.Core.DTOs.Questions;
+using Microsoft.ApplicationInsights;
 
 namespace Cloudents.Web.Api
 {
@@ -45,18 +36,20 @@ namespace Cloudents.Web.Api
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly TelemetryClient _telemetryClient;
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly IUrlBuilder _urlBuilder;
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager, ICommandBus commandBus, IQueryBus queryBus, IUrlBuilder urlBuilder)
+            SignInManager<User> signInManager, ICommandBus commandBus, IQueryBus queryBus, IUrlBuilder urlBuilder, TelemetryClient telemetryClient)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _commandBus = commandBus;
             _queryBus = queryBus;
             _urlBuilder = urlBuilder;
+            _telemetryClient = telemetryClient;
         }
 
         // GET
@@ -83,7 +76,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpPost("language")]
-        public async Task<IActionResult> ChangeLanguageAsync([FromBody]ChangeCultureRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeLanguageAsync([FromBody] ChangeCultureRequest model, CancellationToken token)
         {
             var culture = model.Culture;
 
@@ -128,21 +121,20 @@ namespace Cloudents.Web.Api
             {
                 uri = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
+                _telemetryClient.TrackException(e, new Dictionary<string, string>()
+                {
+                    ["fileName"] = file.FileName,
+                    ["contentType"] = file.ContentType
+                });
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
-
-            //if (uri == null)
-            //{
-            //    ModelState.AddModelError("x", "not an image");
-            //    return BadRequest(ModelState);
-            //}
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserImageCommand(userId, url, fileName);
+            var command = new UpdateUserImageCommand(userId, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }
@@ -162,14 +154,19 @@ namespace Cloudents.Web.Api
             {
                 uri = await blobProvider.UploadImageAsync(userId, file.FileName, file.OpenReadStream(), file.ContentType, token);
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
+                _telemetryClient.TrackException(e, new Dictionary<string, string>()
+                {
+                    ["fileName"] = file.FileName,
+                    ["contentType"] = file.ContentType
+                });
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserCoverImageCommand(userId,  fileName);
+            var command = new UpdateUserCoverImageCommand(userId, fileName);
             await _commandBus.DispatchAsync(command, token);
 
             var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
@@ -179,61 +176,14 @@ namespace Cloudents.Web.Api
 
         [HttpPost("settings")]
         public async Task<IActionResult> ChangeSettingsAsync(
-            [FromBody]UpdateSettingsRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            [FromBody] UpdateSettingsRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio, model.Price);
+                model.Title, model.ShortParagraph, model.Paragraph);
             await _commandBus.DispatchAsync(command, token);
-            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
-            return Ok(new
-            {
-                newPrice = model.Price?.ToString("C0", culture)
-            });
-        }
-
-        [HttpPost("BecomeTutor")]
-        [ProducesResponseType(Status200OK)]
-        [ProducesResponseType(Status400BadRequest)]
-        [ProducesResponseType(Status409Conflict)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> BecomeTutorAsync(
-            [FromBody]UpdateSettingsRequest model,
-            [FromServices] ConfigurationService configurationService,
-            CancellationToken token)
-        {
-            try
-            {
-
-                if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
-                {
-                    model.Price = null;
-                }
-                else
-                {
-                    if (model.Price == null)
-                    {
-                        return BadRequest();
-                    }
-                }
-
-
-                var userId = _userManager.GetLongUserId(User);
-                var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                    model.Description, model.Bio, model.Price);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (ArgumentException)
-            {
-                return Conflict();
-            }
-            catch (NonUniqueObjectException)
-            {
-                return BadRequest();
-            }
+            return Ok();
         }
 
         [HttpGet("content")]
@@ -306,26 +256,6 @@ namespace Cloudents.Web.Api
             return result;
         }
 
-        [HttpGet("tutorActions")]
-        public async Task<TutorActionsDto> GetTutorActionsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new TutorActionsQuery(userId, profile.CountryRegion);
-            return await _queryBus.QueryAsync(query, token);
-        }
-
-        [HttpGet("questions")]
-        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new AccountQuestionsQuery(userId, profile.Country);
-            return await _queryBus.QueryAsync(query, token);
-        }
-
         [HttpGet("courses")]
         public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
         {
@@ -333,6 +263,5 @@ namespace Cloudents.Web.Api
             var query = new UserCoursesQuery(userId);
             return await _queryBus.QueryAsync(query, token);
         }
-
     }
 }

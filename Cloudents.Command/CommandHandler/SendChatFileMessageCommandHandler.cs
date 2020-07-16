@@ -1,8 +1,8 @@
-﻿using Cloudents.Command.Command;
+﻿using System;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,16 +15,19 @@ namespace Cloudents.Command.CommandHandler
 
         private readonly IRepository<ChatMessage> _chatMessageRepository;
         private readonly IChatDirectoryBlobProvider _blobProvider;
+        private readonly ITutorRepository _tutorRepository;
+
 
         public SendChatFileMessageCommandHandler(
             IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
             IRepository<ChatMessage> chatMessageRepository,
-            IChatDirectoryBlobProvider blobProvider)
+            IChatDirectoryBlobProvider blobProvider, ITutorRepository tutorRepository)
         {
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
             _blobProvider = blobProvider;
+            _tutorRepository = tutorRepository;
             _chatMessageRepository = chatMessageRepository;
         }
 
@@ -38,18 +41,24 @@ namespace Cloudents.Command.CommandHandler
                 if (chatRoom == null)
                 {
                     var users = ChatRoom.IdentifierToUserIds(message.Identifier);
-                    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                    var tutor = await _tutorRepository.LoadAsync(message.TutorId!.Value, token);
+                    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, tutor, token);
+                    //chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
                 }
             }
 
+            //if (chatRoom == null)
+            //{
+            //    //chatRoom = new ChatRoom(users.Select(s => _userRepository.Load(s)).ToList());
+            //    //
+            //    //await _chatRoomRepository.AddAsync(chatRoom, token);
+            //    var users = message.ToUsersId.ToList();
+            //    users.Add(message.UserSendingId);
+            //    chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+            //}
             if (chatRoom == null)
             {
-                //chatRoom = new ChatRoom(users.Select(s => _userRepository.Load(s)).ToList());
-                //
-                //await _chatRoomRepository.AddAsync(chatRoom, token);
-                var users = message.ToUsersId.ToList();
-                users.Add(message.UserSendingId);
-                chatRoom = await _chatRoomRepository.GetOrAddChatRoomAsync(users, token);
+                throw new ArgumentException("Cant create new chat message");
             }
 
 

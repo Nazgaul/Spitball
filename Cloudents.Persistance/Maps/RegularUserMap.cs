@@ -47,7 +47,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.FirstName);
             Map(x => x.LastName);
-            Map(x => x.Description);
+//            Map(x => x.Description);
             Map(x => x.CoverImage);
 
             //Component(x => x.BuyerPayment, y =>
@@ -78,7 +78,8 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId").Inverse();
 
             //On sms api - we got  No persister for: UserProxyForFieldInterceptor if we put no Proxy on lazy type
-            HasOne(x => x.Tutor).Cascade.None()/*.LazyLoad(Laziness.NoProxy)*/;
+            //on create user we need to create tutor
+            HasOne(x => x.Tutor).Cascade.All()/*.LazyLoad(Laziness.NoProxy)*/;
 
             HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
@@ -95,6 +96,10 @@ namespace Cloudents.Persistence.Maps
                 .Inverse();
 
             HasMany(x => x.SessionPayments)
+                .KeyColumn("UserId").Cascade.AllDeleteOrphan()
+                .Inverse();
+
+            HasMany(x => x.StudyRoomSessionUsers)
                 .KeyColumn("UserId").Cascade.AllDeleteOrphan()
                 .Inverse();
 
@@ -128,17 +133,6 @@ namespace Cloudents.Persistence.Maps
             Map(z => z!.CreditCardMask);
         }
     }
-
-    public class StripePaymentMap : ClassMap<StripePayment>
-    {
-        public StripePaymentMap()
-        {
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(z => z!.PaymentKey);
-        }
-    }
-
-
 
 
     //public class UserComponentMap : ClassMap<UserComponent>

@@ -33,6 +33,7 @@ namespace Cloudents.Query.Email
                 _session = querySession;
             }
 
+            [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting",Justification = "Inline using")]
             public async Task<IEnumerable<UpdateUserEmailDto>> GetAsync(GetUpdatesEmailUsersQuery query, CancellationToken token)
             {
 

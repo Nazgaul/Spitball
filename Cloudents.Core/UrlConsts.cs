@@ -50,8 +50,7 @@ namespace Cloudents.Core
 
         public string BuildCourseEndPoint(string courseName)
         {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = "feed" };
-            builder.AddQuery(new { Course = courseName });
+            var builder = new UriBuilder(_webSiteEndPoint);
             return builder.ToString();
         }
 
@@ -130,10 +129,19 @@ namespace Cloudents.Core
         }
 
 
+        public string BuildStudyRoomThumbnailEndPoint(Guid id, object? parameters = null)
+        {
+            var path = $"image/studyRoom/{id}";//
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
-        public string BuildUserImageEndpoint(long id, string imageName, string? userName, object? parameters = null)
+        //public const string ImageFunctionStudyRoomRoute = "image/studyroom/{id}";
+        public string BuildUserImageEndpoint(long id, string? imageName, string? userName, object? parameters = null)
         {
 
             var injectionObj = new
@@ -167,6 +175,14 @@ namespace Cloudents.Core
             var builder = new UriBuilder(_functionEndPoint) { Path = "api/roomCallback" };
             builder.AddQuery(new { id });
             return builder.Uri;
+        }
+
+        public string BuildStudyRoomEndPoint(Guid id, object? parameters = null)
+        {
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"StudyRoom/{id}" };
+            builder.AddQuery(parameters);
+            builder.AddQuery(new {channel = CommunicationChannel.Email.ToString("G")});
+            return builder.ToString();
         }
 
 

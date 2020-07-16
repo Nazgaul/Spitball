@@ -5,7 +5,6 @@ using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
-using Cloudents.Search.Document;
 using System;
 using Cloudents.Search.Tutor;
 
@@ -27,7 +26,7 @@ namespace Cloudents.Search.Test
             var builder = new ContainerBuilder();
             builder.Register(_ => configuration).As<IConfigurationKeys>();
             builder.RegisterType<QueryBus>().As<IQueryBus>();
-            builder.RegisterType<AzureDocumentSearch>().As<IDocumentsSearch>();
+            //builder.RegisterType<AzureDocumentSearch>().As<IDocumentsSearch>();
             builder.RegisterType<AzureTutorSearch>().AsSelf().As<ITutorSearch>();
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
@@ -41,7 +40,7 @@ namespace Cloudents.Search.Test
 
             Container = builder.Build();
 
-            DocumentsSearch = Container.Resolve<IDocumentsSearch>();
+          //  DocumentsSearch = Container.Resolve<IDocumentsSearch>();
             TutorSearch = Container.Resolve<ITutorSearch>();
             QueryBus = Container.Resolve<IQueryBus>();
         }
@@ -49,7 +48,7 @@ namespace Cloudents.Search.Test
         public ITutorSearch TutorSearch { get;  }
 
         
-        public IDocumentsSearch DocumentsSearch { get; }
+      //  public IDocumentsSearch DocumentsSearch { get; }
         public IQueryBus QueryBus { get; }
 
         public void Dispose()

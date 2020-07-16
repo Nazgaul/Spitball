@@ -51,8 +51,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/account/stats?days=7")]
         [InlineData("api/account/stats?days=30")]
         [InlineData("api/account/stats?days=90")]
-        [InlineData("api/account/tutorActions")]
-        [InlineData("api/account/questions")]
         public async Task AccountApiTestGet_LogIn_OkAsync(string api)
         {
             await _client.LogInAsync();
@@ -89,16 +87,14 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             var d = JObject.Parse(str);
 
-            var tutor = d["tutor"]?.Value<JObject>() ?? throw new ArgumentNullException("d[\"tutor\"]?.Value<JObject>()");
+          //  var tutor = d["tutor"]?.Value<JObject>() ?? throw new ArgumentNullException("d[\"tutor\"]?.Value<JObject>()");
 
             var firstName = d["firstName"]?.Value<string>();
             var lastName = d["lastName"]?.Value<string>();
-            var price = tutor["price"]?.Value<decimal>();
 
 
             firstName.Should().Be("Tester");
             lastName.Should().Be("User");
-            price.Should().Be(55M);
         }
 
        

@@ -27,10 +27,4 @@ namespace Cloudents.Admin2.Models
 
     }
 
-    //public enum Country
-    //{
-    //    Us,
-    //    Il,
-    //    In
-    //}
 }

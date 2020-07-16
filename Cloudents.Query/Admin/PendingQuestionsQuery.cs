@@ -12,7 +12,7 @@ namespace Cloudents.Query.Admin
 {
     public class PendingQuestionsQuery : IQueryAdmin<IEnumerable<PendingQuestionDto>>
     {
-        public PendingQuestionsQuery(string country)
+        public PendingQuestionsQuery(string? country)
         {
             Country = country;
         }
@@ -22,9 +22,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public PendingQuestionsEmptyQueryHandler(QuerySession session)
+            public PendingQuestionsEmptyQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<PendingQuestionDto>> GetAsync(PendingQuestionsQuery query, CancellationToken token)

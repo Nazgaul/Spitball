@@ -326,16 +326,16 @@ export default {
     //     let path = `AdminUser/type`;
     //     return connectivityModule.http.post(path, data);
     // },
-    verifyPhone: (data) => {
-        let path = `AdminUser/verify`;
-        return connectivityModule.http.post(path, data)
-            .then(() => {
+    // verifyPhone: (data) => {
+    //     let path = `AdminUser/verify`;
+    //     return connectivityModule.http.post(path, data)
+    //         .then(() => {
 
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return error;
-            });
-    },
+    //         }, (error) => {
+    //             console.log(error, 'error get 20 docs');
+    //             return error;
+    //         });
+    // },
     suspendTutor: (id) => {
         return connectivityModule.http.post(`AdminTutor/suspend`, id);
     },
@@ -364,6 +364,7 @@ export default {
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
     },
+    updateBecomeTutor: (id) => connectivityModule.http.post(`AdminTutor/${id}/becomeTutor`),
     removeCalender: (id) => {
         return connectivityModule.http.delete(`AdminUser/calendar/?id=${id}`);
     },

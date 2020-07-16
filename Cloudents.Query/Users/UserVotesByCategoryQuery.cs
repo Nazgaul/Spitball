@@ -22,9 +22,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserVotesByCategoryCommandHandler(QuerySession session)
+            public UserVotesByCategoryCommandHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<UserVoteDocumentDto>> GetAsync(UserVotesByCategoryQuery query, CancellationToken token)

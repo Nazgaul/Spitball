@@ -30,12 +30,15 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure;
 using Cloudents.Web.Seo;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Newtonsoft.Json.Serialization;
@@ -303,6 +306,17 @@ namespace Cloudents.Web
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
             services.AddSingleton<WebPackChunkName>();
 
+            services.AddAuthorization(o =>
+            {
+                 o.AddPolicy("Tutor",x=>x.RequireClaim(AppClaimsPrincipalFactory.TutorClaim,bool.TrueString));
+            });
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
+                options.ClientSecret = "lSncxmb-F0cmii1OdDiKXrs-";
+                options.ClaimActions.MapJsonKey("image","picture");
+
+            });
 
 
         }
@@ -322,7 +336,10 @@ namespace Cloudents.Web
                 {
                     app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                     {
-                        HotModuleReplacement = true
+                        HotModuleReplacement = true,
+                        ProjectPath =   Path.Combine(Directory.GetCurrentDirectory(), "ClientApp"),
+                        ConfigFile = "webpack.config.js"
+                        
                     });
                 }
 
@@ -343,7 +360,7 @@ namespace Cloudents.Web
             }
 
             app.UseRewriter(reWriterOptions);
-
+            app.UseHttpsRedirection();
 
             app.UseResponseCaching();
 

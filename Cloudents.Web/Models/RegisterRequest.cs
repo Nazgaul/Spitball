@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -31,7 +30,16 @@ namespace Cloudents.Web.Models
         //[Required(ErrorMessage = "Required")]
         //public string PhoneNumber { get; set; }
 
+
+        public UserType UserType { get; set; }
+
         [Captcha]
         public string Captcha { get; set; }
+    }
+
+    public enum UserType
+    {
+        Student,
+        Tutor
     }
 }

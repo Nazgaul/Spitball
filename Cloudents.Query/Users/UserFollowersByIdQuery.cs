@@ -22,9 +22,9 @@ namespace Cloudents.Query.Users
         {
             private readonly IStatelessSession _session;
 
-            public UserFollowersByIdQueryHandler(QuerySession session)
+            public UserFollowersByIdQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<FollowersDto>> GetAsync(UserFollowersByIdQuery query, CancellationToken token)
@@ -38,7 +38,6 @@ namespace Cloudents.Query.Users
                            Email = s.Follower.Email,
                            Created = s.Created,
                            Name = s.Follower.Name,
-                           PhoneNumber = s.Follower.PhoneNumber,
                            Image = s.Follower.ImageName,
                            UserId = s.Follower.Id,
                            HasCreditCard = s.Follower.PaymentExists == PaymentStatus.Done

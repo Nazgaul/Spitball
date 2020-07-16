@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -11,16 +10,13 @@ namespace Cloudents.Web.Models
         [StringLength(255, MinimumLength = 2, ErrorMessage = "StringLength")]
         [Required]
         public string LastName { get; set; }
-        [StringLength(255, MinimumLength = 15, ErrorMessage = "StringLength")]
-        public string Description { get; set; }
+        [StringLength(52, ErrorMessage = "StringLength")]
+        public string? Title { get; set; }
 
-        [StringLength(1000, MinimumLength = 15, ErrorMessage = "StringLength")]
-        public string Bio { get; set; }
+        [StringLength(100, ErrorMessage = "StringLength")]
+        public string? ShortParagraph { get; set; }
 
-        [Range(Tutor.MinimumPrice, Tutor.MaximumPrice)]
-        public int? Price { get; set; }
+        //[StringLength(1000, MinimumLength = 0, ErrorMessage = "StringLength")]
+        public string? Paragraph { get; set; }
     }
-
-
-
 }

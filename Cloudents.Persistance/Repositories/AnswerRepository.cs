@@ -25,7 +25,7 @@ namespace Cloudents.Persistence.Repositories
 
         //}
 
-        public Task<int> GetNumberOfPendingAnswer(long userId, CancellationToken token)
+        public Task<int> GetNumberOfPendingAnswerAsync(long userId, CancellationToken token)
         {
             return Session.Query<Answer>()
                 .Fetch(f => f.Question)

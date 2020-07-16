@@ -13,16 +13,14 @@ using Cloudents.Core.Entities;
 using Cloudents.FunctionsV2.Operations;
 using Cloudents.Infrastructure;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
 {
     public static class SystemFunction
     {
-
-       
-
         [FunctionName("SystemFunction")]
-        public static async Task Run([QueueTrigger(QueueName.BackgroundQueueName)]string queueMsg,
+        public static async Task RunAsync([QueueTrigger(QueueName.BackgroundQueueName)] string queueMsg,
             [Inject] ILifetimeScope lifetimeScope,
             IBinder binder,
             ILogger log,
@@ -33,8 +31,8 @@ namespace Cloudents.FunctionsV2
             var settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All,
-                //Converters.Add(new EnumerationConverter<Country>());
             };
+
             settings.Converters.Add(new EnumerationConverter<Country>());
 
             var message = JsonConvert.DeserializeObject<ISystemQueueMessage>(queueMsg, settings);

@@ -5,6 +5,7 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac.Features.Decorators;
 
 namespace Cloudents.Query
 {
@@ -15,22 +16,28 @@ namespace Cloudents.Query
     {
         private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
         private readonly Lazy<ICacheProvider>? _cacheProvider;
+        private readonly IDecoratorContext _context;
+       // private readonly IDecoratedService
 
-        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, Lazy<ICacheProvider> cacheProvider)
+        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee,
+            Lazy<ICacheProvider> cacheProvider, IDecoratorContext context)
         {
             _decoratee = decoratee;
             _cacheProvider = cacheProvider;
+            _context = context;
         }
 
-        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee)
+        public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee, IDecoratorContext context)
         {
             _decoratee = decoratee;
+            _context = context;
             // _cacheProvider = cacheProvider;
         }
 
         public async Task<TQueryResult> GetAsync(TQuery query, CancellationToken token)
         {
-            var attr = _decoratee.GetType().GetMethod("GetAsync")?.GetCustomAttribute<CacheAttribute>();
+            
+            var attr = _context.ImplementationType.GetMethod("GetAsync")?.GetCustomAttribute<CacheAttribute>();
             if (attr == null)
             {
                 return await _decoratee.GetAsync(query, token);
@@ -50,13 +57,9 @@ namespace Cloudents.Query
                 return result;
             }
 
-
             result = await _decoratee.GetAsync(query, token);
-
             _cacheProvider.Value.Set<TQueryResult>(cacheKey, attr.Region, result, TimeSpan.FromMinutes(attr.Duration), attr.Slide);
             return result;
-
-
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Cache
 {
     public sealed class CacheProvider : ICacheProvider, IDisposable
     {
-        private ICacheManager<object> _distributedCache;
+        private ICacheManager<object> _distributedCache = null!;
         private readonly ICacheManager<object> _inMemory;
         private readonly ILogger _logger;
         private bool _distributedEnabled = true;
@@ -58,7 +58,8 @@ namespace Cloudents.Infrastructure.Cache
                         .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
                         .And
                         .WithRedisConfiguration("redis", _multiplexer)
-                        .WithRedisCacheHandle("redis"));
+                        .WithRedisBackplane("redis")
+                        .WithRedisCacheHandle("redis",true));
                 _failedInit = false;
             }
             catch (InvalidOperationException e)

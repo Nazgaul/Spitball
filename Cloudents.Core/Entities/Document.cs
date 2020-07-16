@@ -27,29 +27,19 @@ namespace Cloudents.Core.Entities
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;
-            //if (user.Tutor == null)
-            //{
-            //    throw new UnauthorizedAccessException("Only tutor can upload files");
-            //}
-
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();
-
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
-
             Views = 0;
             if (!string.IsNullOrEmpty(description))
             {
                 Description = description;
             }
             Status = GetInitState(tutor.User);
-            if (Status == Public)
-            {
-                MakePublic();
-            }
             DocumentType = documentType;
-
             DocumentPrice = new DocumentPrice(price, priceType, tutor);
+            AddEvent(new DocumentCreatedEvent(this));
+          
         }
 
 
@@ -174,11 +164,11 @@ namespace Cloudents.Core.Entities
             Status = Public;
         }
 
-        public virtual void UnDelete()
-        {
-            Status = Public;
-            AddEvent(new DocumentUndeletedEvent(this));
-        }
+        //public virtual void UnDelete()
+        //{
+        //    Status = Public;
+        //    AddEvent(new DocumentUndeletedEvent(this));
+        //}
 
 
 
@@ -232,7 +222,7 @@ namespace Cloudents.Core.Entities
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
-        public virtual bool? IsShownHomePage { get; protected set; }
+       // public virtual bool? IsShownHomePage { get; protected set; }
 
         public virtual string? Md5 { get; set; }
 
@@ -245,7 +235,7 @@ namespace Cloudents.Core.Entities
 
     public class DocumentPrice
     {
-        public const decimal PriceLimit = 1000M;
+        //public const decimal PriceLimit = 1000M;
         public DocumentPrice(in decimal price, PriceType priceType, Tutor tutor)
         {
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
@@ -276,10 +266,10 @@ namespace Cloudents.Core.Entities
             get => _price;
             protected set
             {
-                if (value > PriceLimit || value < 0)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                //if (value > PriceLimit || value < 0)
+                //{
+                //    throw new ArgumentOutOfRangeException();
+                //}
                 _price = decimal.Round(value, 2);
             }
         }

@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
@@ -26,7 +27,7 @@ namespace Cloudents.Core.DTOs
         {
             get
             {
-                if (TutorPrice == 0)
+                if (TutorPrice.Cents == 0)
                 {
                     return false;
                 }
@@ -50,41 +51,17 @@ namespace Cloudents.Core.DTOs
             }
         }
 
-       // public CouponType? CouponType { get; set; }
-
-       // public bool ShouldSerializeCouponType() => false;
-      //  public bool ShouldSerializeCouponValue() => false;
-
-      //  public decimal? CouponValue { get; set; }
-
-        public decimal TutorPrice { get; set; }
-        public string Jwt { get; set; }
+        public Money TutorPrice { get; set; }
+        public string? Jwt { get; set; }
 
         public DateTime? BroadcastTime { get; set; }
 
         public string Name { get; set; }
 
-
+        public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
     };
 
-
-
-    public class UserStudyRoomDto
-    {
-        public string Name { get; set; }
-        public Guid Id { get; set; }
-        public DateTime DateTime { get; set; }
-
-        public string ConversationId { get; set; }
-        public DateTime? LastSession { get; set; }
-
-        public StudyRoomType Type { get; set; }
-
-        public int AmountOfUsers { get; set; }
-        public DateTime? Scheduled { get; set; }
-
-    }
 
     public class FutureBroadcastStudyRoomDto
     {
@@ -92,10 +69,14 @@ namespace Cloudents.Core.DTOs
         public string Name { get; set; }
         public Guid Id { get; set; }
 
-        public decimal Price { get; set; }
+        public Money Price { get; set; }
 
         public bool Enrolled { get; set; }
 
         public string? Description { get; set; }
+
+        public bool IsFull { get; set; }
+
+        public string Image { get; set; }
     }
 }

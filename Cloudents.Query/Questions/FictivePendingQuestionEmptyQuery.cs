@@ -15,9 +15,9 @@ namespace Cloudents.Query.Questions
         {
             private readonly IStatelessSession _session;
 
-            public FictivePendingQuestionEmptyQueryHandler(QuerySession session)
+            public FictivePendingQuestionEmptyQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             public async Task<IList<FictivePendingQuestionDto>> GetAsync(FictivePendingQuestionEmptyQuery query, CancellationToken token)
             {
@@ -27,8 +27,8 @@ namespace Cloudents.Query.Questions
                 // ReSharper disable once LoopCanBeConvertedToQuery - nhibernate doesn't response well for this
                 foreach (var county in counties)
                 {
-                    Question? questionAlias = null;
-                    SystemUser? userAlias = null;
+                    Question? questionAlias = null!;
+                    SystemUser? userAlias = null!;
 
                     var future = _session.QueryOver(() => questionAlias)
 

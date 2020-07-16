@@ -183,6 +183,7 @@ namespace Cloudents.Web.Identity
 
         public Task SetPhoneNumberAsync(User user, string phoneNumber, CancellationToken cancellationToken)
         {
+            //DO NOT USE THIS SINCE ITS UPDATE THE SECURITY TOKEN - WELCOME EMAIL WILL NOT WORK
             user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }
@@ -282,13 +283,12 @@ namespace Cloudents.Web.Identity
             return Task.CompletedTask;
         }
 
-        public async Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
+        public Task AddLoginAsync(User user, UserLoginInfo login, CancellationToken cancellationToken)
         {
             var command =
                 new AddUserLoginCommand(user, login.LoginProvider, login.ProviderKey, login.ProviderDisplayName);
 
-            await _bus.DispatchAsync(command, cancellationToken);
-
+            return _bus.DispatchAsync(command, cancellationToken);
         }
 
         public Task RemoveLoginAsync(User user, string loginProvider, string providerKey, CancellationToken cancellationToken)

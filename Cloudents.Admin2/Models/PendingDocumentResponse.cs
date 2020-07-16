@@ -7,6 +7,6 @@ namespace Cloudents.Admin2.Models
     {
         public IEnumerable<PendingDocumentDto> Documents { get; set; }
 
-        public string NextLink { get; set; }
+        public string? NextLink { get; set; }
     }
 }

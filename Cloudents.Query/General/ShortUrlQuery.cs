@@ -23,21 +23,20 @@ namespace Cloudents.Query.General
         {
             private readonly IStatelessSession _statelessSession;
 
-            public ShortUrlQueryHandler(QuerySession statelessSession)
+            public ShortUrlQueryHandler(IStatelessSession statelessSession)
             {
-                _statelessSession = statelessSession.StatelessSession;
+                _statelessSession = statelessSession;
             }
 
 
-            public async Task<ShortUrlDto?> GetAsync(ShortUrlQuery query, CancellationToken token)
+            public Task<ShortUrlDto?> GetAsync(ShortUrlQuery query, CancellationToken token)
             {
-                return await _statelessSession.Query<ShortUrl>()
+                return _statelessSession.Query<ShortUrl>()
                     .WithOptions(w => w.SetComment(nameof(ShortUrlQuery)))
-                      .Where(w => w.Identifier == query.Identifier)
-                      .Where(w => w.Expiration.GetValueOrDefault(DateTime.MaxValue) > DateTime.UtcNow)
-                      .Select(s => new ShortUrlDto(s.Destination))
+                    .Where(w => w.Identifier == query.Identifier)
+                    .Where(w => w.Expiration.GetValueOrDefault(DateTime.MaxValue) > DateTime.UtcNow)
+                    .Select(s => new ShortUrlDto(s.Destination))
                     .SingleOrDefaultAsync(token);
-
             }
         }
     }

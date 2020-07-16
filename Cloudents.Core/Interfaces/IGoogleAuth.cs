@@ -29,11 +29,15 @@ namespace Cloudents.Core.Interfaces
 
         Task<IEnumerable<GoogleAppointmentDto>> ReadCalendarEventsAsync(long userId, IEnumerable<string> calendars, DateTime @from,
             DateTime to, CancellationToken cancellationToken);
-        Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens, DateTime from, DateTime to, CancellationToken cancellationToken);
-        Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime,
-            CancellationToken cancellationToken);
+        //Task BookCalendarEventAsync(User tutor, User student, GoogleTokens? googleTokens, DateTime from, DateTime to, CancellationToken cancellationToken);
+        //Task EnrollUserEventAsync(string studyRoomName, Tutor tutor, User student, DateTime broadcastTime,
+        //    CancellationToken cancellationToken);
         Task DeleteDeclinedEventCalendarAsync(CancellationToken cancellationToken);
         Task<IEnumerable<CalendarDto>> GetUserCalendarsAsync(long userId, CancellationToken cancellationToken);
+
+        Task SendCalendarInviteAsync(IEnumerable<string> emails, DateTime from, DateTime to,
+            string title, string? description, CancellationToken cancellationToken);
+        string GetEmailFromToken(string token);
     }
 
 

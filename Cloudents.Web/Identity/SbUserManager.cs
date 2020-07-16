@@ -5,31 +5,25 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure;
-using Cloudents.Query;
-using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Identity
 {
     public sealed class SbUserManager : UserManager<User>
     {
         private readonly IPhoneValidator _smsProvider;
-        private readonly IQueryBus _queryBus;
 
 
         public SbUserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor,
             IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators,
             IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer,
             IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger,
-            IPhoneValidator smsProvider, IQueryBus queryBus) :
+            IPhoneValidator smsProvider) :
             base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators,
                 keyNormalizer, errors, services, logger)
         {
             _smsProvider = smsProvider;
-            _queryBus = queryBus;
         }
 
         public async Task<IdentityResult> SetPhoneNumberAndCountryAsync(User user, string phoneNumber, string countryCallingCode, CancellationToken cancellationToken)
@@ -59,16 +53,12 @@ namespace Cloudents.Web.Identity
                 });
             }
 
-            return await SetPhoneNumberAsync(user, result.phoneNumber);
+            user.PhoneNumber = result.phoneNumber;
+            user.PhoneNumberConfirmed = false;
+            return await UpdateAsync(user);
         }
 
-        public Task<User> FindByPhoneAsync(string phoneNumber, string countryCallingCode)
-        {
-            var phoneNumberWithCallingCode = TwilioProvider.BuildPhoneNumber(phoneNumber, countryCallingCode);
-            Expression<Func<User, bool>> expression = s => s.PhoneNumber == phoneNumberWithCallingCode;
-            return _queryBus.QueryAsync(new UserDataExpressionQuery(expression), CancellationToken.None);
-
-        }
+      
 
         public override async Task<IdentityResult> ChangePhoneNumberAsync(User user, string phoneNumber, string token)
         {
@@ -77,7 +67,6 @@ namespace Cloudents.Web.Identity
             {
                 var store = (IUserPhoneNumberStore<User>)Store;
                 await store.SetPhoneNumberConfirmedAsync(user, true, CancellationToken);
-                //await UpdateSecurityStampInternal(user);
                 return await UpdateUserAsync(user);
             }
             return await base.ChangePhoneNumberAsync(user, phoneNumber, token);

@@ -23,23 +23,23 @@ namespace Cloudents.Query.Email
         {
             private readonly IStatelessSession _session;
 
-            public RedeemEmailQueryHandler(QuerySession session)
+            public RedeemEmailQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
-            public async Task<RedeemEmailDto> GetAsync(RedeemEmailQuery query, CancellationToken token)
+            public Task<RedeemEmailDto> GetAsync(RedeemEmailQuery query, CancellationToken token)
             {
-                return await _session.Query<CashOutTransaction>()
+                return _session.Query<CashOutTransaction>()
                     .WithOptions(w => w.SetComment(nameof(RedeemEmailQuery)))
                     .Where(w => w.Id == query.TransactionId)
-                      .Fetch(f => f.User)
-                      .Select(s => new RedeemEmailDto()
-                      {
-                          UserId = s.User.Id,
-                          Amount = s.Price,
-                          Country = s.User.Country
-                      }).FirstOrDefaultAsync(token);
+                    .Fetch(f => f.User)
+                    .Select(s => new RedeemEmailDto()
+                    {
+                        UserId = s.User.Id,
+                        Amount = s.Price,
+                        Country = s.User.Country
+                    }).FirstOrDefaultAsync(token);
             }
         }
     }

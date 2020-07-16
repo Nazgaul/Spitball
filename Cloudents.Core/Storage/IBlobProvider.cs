@@ -9,8 +9,8 @@ namespace Cloudents.Core.Storage
 
     public interface IBlobProvider
     {
-        Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime);
-        Uri GenerateDownloadLink(Uri blobUrl, TimeSpan expirationTime,
+        Task<Uri> GeneratePreviewLinkAsync(Uri blobUrl, TimeSpan expirationTime);
+        Task<Uri> GenerateDownloadLinkAsync(Uri blobUrl, TimeSpan expirationTime,
             string? contentDisposition = null);
 
         Task UploadStreamAsync(string blobName, Stream fileContent,
@@ -22,22 +22,17 @@ namespace Cloudents.Core.Storage
 
         Uri GetBlobUrl(string blobName, bool cdn = false);
 
-        Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token);
+        Task MoveAsync(string blobName, string destinationContainerName, CancellationToken token) => MoveAsync(blobName, destinationContainerName, blobName, token);
+        Task MoveAsync(string blobName, string destinationContainerName, string destinationBlobName, CancellationToken token);
 
-       // Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
-        Task<IEnumerable<Uri>> FilesInContainerAsync(CancellationToken token);
-        Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
+        // Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token);
+        //
+        IAsyncEnumerable<Uri> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token);
 
-        /// <summary>
-        /// Used to check if a blob exists - used in ico site
-        /// </summary>
-        /// <param name="blobName"></param>
-        /// <param name="token"></param>
-        /// <returns>true if blob exists other wise false</returns>
-        Task<bool> ExistsAsync(string blobName, CancellationToken token);
+
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
-        Task UnDeleteDirectoryAsync(string id, CancellationToken token);
+        // Task UnDeleteDirectoryAsync(string id, CancellationToken token);
     }
 
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
@@ -54,6 +49,7 @@ namespace Cloudents.Core.Storage
 
     public interface IAdminDirectoryBlobProvider : IBlobProvider
     {
+        IAsyncEnumerable<Uri> FilesInContainerAsync(CancellationToken token);
     }
 
     public interface IChatDirectoryBlobProvider : IBlobProvider
@@ -61,12 +57,14 @@ namespace Cloudents.Core.Storage
 
     }
 
-    //public interface IStudyRoomSessionBlobProvider : IBlobProvider
-    //{
-    //    Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
-    //    Uri DownloadVideoLink(Guid roomId, string sessionId);
+    public interface IStudyRoomBlobProvider : IBlobProvider
+    {
+        Task<Uri> UploadImageAsync(string file,
+            Stream stream, string contentType, CancellationToken token);
+        // Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
+        //Uri DownloadVideoLink(Guid roomId, string sessionId);
 
-    //}
+    }
 
 
 }

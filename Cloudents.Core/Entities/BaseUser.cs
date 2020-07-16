@@ -28,8 +28,9 @@ namespace Cloudents.Core.Entities
         public virtual string? SecurityStamp { get; set; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global reserved for later use
-        public virtual string Image { get; protected set; }
-        public virtual string ImageName { get; protected set; }
+       // [Obsolete]
+        //public virtual string Image { get; protected set; }
+        public virtual string? ImageName { get; protected set; }
 
         public virtual string AuthenticatorKey { get; set; }
 

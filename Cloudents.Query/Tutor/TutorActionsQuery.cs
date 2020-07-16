@@ -26,9 +26,9 @@ namespace Cloudents.Query.Tutor
         {
 
             private readonly IStatelessSession _session;
-            public TutorActionsQueryHandler(QuerySession session)
+            public TutorActionsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
             public async Task<TutorActionsDto> GetAsync(TutorActionsQuery query, CancellationToken token)
             {
@@ -61,23 +61,23 @@ namespace Cloudents.Query.Tutor
                 var adminFuture = _session.Query<AdminTutor>().Where(w2 => w2.Country == query.Country)
                     .Select(s2 => s2.Tutor.Id).ToFutureValue();
 
-                var userDetailsFuture = _session.Query<User>()
-                    .Fetch(f => f.Tutor)
+                var userDetailsFuture = _session.Query<Core.Entities.Tutor>()
+                    .Fetch(f => f.User)
                     .Where(w => w.Id == query.UserId)
                     .Select(s => new
                     {
-                        s.PhoneNumberConfirmed,
-                        s.EmailConfirmed,
-                        s.Description,
-                        s.Tutor!.Bio,
-                        s.CoverImage,
-                        s.SbCountry
+                        s.User.PhoneNumberConfirmed,
+                        s.User.EmailConfirmed,
+                        s.Title,
+                        s.Paragraph2,
+                        s.User.CoverImage,
+                        s.User.SbCountry
                     }).ToFutureValue();
 
-                var coursesFuture = _session.Query<UserCourse>()
-                    .Where(w => w.User.Id == query.UserId)
-                    .Select(s => s.IsTeach)
-                    .ToFutureValue(f => f.Any());
+                //var coursesFuture = _session.Query<UserCourse>()
+                //    .Where(w => w.User.Id == query.UserId)
+                //    .Select(s => s.IsTeach)
+                //    .ToFutureValue(f => f.Any());
 
                 var liveSessionFuture = _session.Query<BroadCastStudyRoom>()
                      .Where(w => w.Tutor.Id == query.UserId)
@@ -105,7 +105,6 @@ namespace Cloudents.Query.Tutor
                     HaveHours = haveHours || userDetails.SbCountry != Country.Israel,
                     PhoneVerified = userDetails.PhoneNumberConfirmed,
                     EmailVerified = userDetails.EmailConfirmed,
-                    Courses = coursesFuture.Value,
                     LiveSession = liveSessionFuture.Value,
                     UploadContent = documentFuture.Value,
                     StripeAccount = stripeConnectFuture.Value != null || !(userDetails.SbCountry == Country.UnitedStates),
@@ -114,7 +113,9 @@ namespace Cloudents.Query.Tutor
                         Exists = bookedSession?.Id != null,
                         _TutorId = adminFuture.Value
                     },
-                    EditProfile = userDetails.Description != null || userDetails.Bio != null || userDetails.CoverImage != null
+                    EditProfile = userDetails.Paragraph2 != null 
+                                  || userDetails.Title != null 
+                                  || userDetails.CoverImage != null
                 };
 
                 return res;

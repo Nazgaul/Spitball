@@ -3,9 +3,9 @@
     public class ChangeConversationAssignCommand : ICommand
     {
         public string Identifier { get; }
-        public string AssignTo { get; }
+        public string? AssignTo { get; }
 
-        public ChangeConversationAssignCommand(string identifier, string assignTo)
+        public ChangeConversationAssignCommand(string identifier, string? assignTo)
         {
             Identifier = identifier;
             AssignTo = assignTo;

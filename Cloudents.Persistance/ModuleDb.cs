@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Diagnostics;
+using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Repositories;
 using Cloudents.Query;
@@ -36,7 +37,8 @@ namespace Cloudents.Persistence
                 .AsSelf()
                 .AsImplementedInterfaces().InstancePerDependency();
 
-            builder.RegisterType<QuerySession>().InstancePerDependency();
+          //  builder.RegisterType<QuerySession>().InstancePerDependency();
+            builder.RegisterType<ReadDbTransaction>().InstancePerDependency();
 
             builder.RegisterType<DapperRepository>().As<IDapperRepository>().AsSelf();
 

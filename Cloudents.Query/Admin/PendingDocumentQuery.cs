@@ -12,7 +12,7 @@ namespace Cloudents.Query.Admin
 {
     public class PendingDocumentQuery : IQueryAdmin<IList<PendingDocumentDto>>
     {
-        public PendingDocumentQuery(long? documentId, string country)
+        public PendingDocumentQuery(long? documentId, string? country)
         {
             DocumentId = documentId;
             Country = country;
@@ -26,9 +26,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public PendingDocumentQueryHandler(QuerySession session)
+            public PendingDocumentQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IList<PendingDocumentDto>> GetAsync(PendingDocumentQuery query, CancellationToken token)

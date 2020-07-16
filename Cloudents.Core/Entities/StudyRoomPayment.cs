@@ -1,18 +1,37 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class StudyRoomPayment : Entity<Guid>
     {
+        private StudyRoomSessionUser? _studyRoomSessionUser;
+
         public StudyRoomPayment(StudyRoomSessionUser studyRoomSessionUser)
         {
-            PricePerHour = (double) (studyRoomSessionUser.StudyRoomSession.StudyRoom.Price ??
-                                     studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor.Price.GetPrice());
             Tutor = studyRoomSessionUser.StudyRoomSession.StudyRoom.Tutor;
+            var isSubscriber = studyRoomSessionUser.User.Following.FirstOrDefault(w => w.User.Id == Tutor.Id)?.Subscriber ?? false;
+            PricePerHour = studyRoomSessionUser.StudyRoomSession.StudyRoom.Price.Amount;
+            if (isSubscriber)
+            {
+                PricePerHour = 0;
+            }
             User = studyRoomSessionUser.User;
             StudyRoomSessionUser = studyRoomSessionUser;
+            Created = DateTime.UtcNow;
+            
+        }
+
+        public StudyRoomPayment(StudyRoom studyRoom, User user, string receipt)
+        {
+            PricePerHour = studyRoom.Price.Amount;
+            StudyRoom = studyRoom;
+            Tutor = studyRoom.Tutor;
+            User = user;
+            ApproveSession(TimeSpan.FromHours(1),  studyRoom.Price.Amount);
+            Receipt = receipt;
             Created = DateTime.UtcNow;;
         }
 
@@ -22,7 +41,6 @@ namespace Cloudents.Core.Entities
             Tutor = tutor;
             User = user;
             ApproveSession(duration, price);
-            //StudyRoomSessionUser = studyRoomSessionUser;
             Created = DateTime.UtcNow;;
         }
 
@@ -57,7 +75,22 @@ namespace Cloudents.Core.Entities
             TotalPrice = price;
         }
 
-        public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
+      
+        public virtual StudyRoomSessionUser? StudyRoomSessionUser
+        {
+            get => _studyRoomSessionUser;
+            set
+            {
+                if (_studyRoomSessionUser != null)
+                {
+                    return;
+                }
+
+                _studyRoomSessionUser = value;
+            }
+        }
+
+        public virtual StudyRoom? StudyRoom { get; protected set; }
 
         public virtual TimeSpan? TutorApproveTime { get; protected set; }
 
@@ -72,5 +105,7 @@ namespace Cloudents.Core.Entities
         public virtual Tutor Tutor { get;protected set; }
 
         public virtual DateTime Created { get;protected set; }
+
+
     }
 }

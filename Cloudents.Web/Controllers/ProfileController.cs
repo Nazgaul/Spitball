@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Users;
@@ -63,18 +62,18 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (retVal.Tutor is null)
-            {
-                Response.Headers.Add("X-Robots-Tag", "noindex");
-                return View("Index");
-            }
+            //if (retVal.Tutor is null)
+            //{
+            //    Response.Headers.Add("X-Robots-Tag", "noindex");
+            //    return View("Index");
+            //}
 
             ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
-            ViewBag.metaDescription = _localizer["Description", retVal.Tutor.Description];
+            ViewBag.metaDescription = _localizer["Description", retVal.Title];
             if (retVal.Image != null)
             {
-                Country country = retVal.Tutor.TutorCountry ?? Country.UnitedStates;
-               
+                Country country = retVal.TutorCountry ?? Country.UnitedStates;
+
                 ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
                 {
                     width = 1200,
@@ -84,12 +83,8 @@ namespace Cloudents.Web.Controllers
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
                 ViewBag.ogTitle = retVal.Name;
-                if (retVal.Tutor.Subjects?.Any() == true)
-                {
-                    ViewBag.ogDescription =
-                        _localizer.WithCulture(country.MainLanguage)["OgDescription",
-                            string.Join(", ", retVal.Tutor.Subjects)];
-                }
+                ViewBag.ogDescription = retVal.Title;
+
 
             }
 

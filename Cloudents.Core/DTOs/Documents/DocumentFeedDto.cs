@@ -7,19 +7,19 @@ using System;
 
 namespace Cloudents.Core.DTOs.Documents
 {
-    public class DocumentFeedDto : FeedDto
+    public class DocumentFeedDto //: FeedDto
     {
         [EntityBind(nameof(Document.Id))]
         public long Id { get; set; }
         private TimeSpan? _duration;
-        public override FeedType Type => FeedType.Document;
+        //public override FeedType Type => FeedType.Document;
         public string Course { get; set; }
         public string? Snippet { get; set; }
         public string Title { get; set; }
         public DocumentUserDto User { get; set; }
-        public int? Views { get; set; }
+       // public int? Views { get; set; }
 
-        public int? Downloads { get; set; }
+        //public int? Downloads { get; set; }
 
         public string Url { get; set; }
 
@@ -30,7 +30,7 @@ namespace Cloudents.Core.DTOs.Documents
 
         public decimal? Price { get; set; }
         public string Preview { get; set; }
-        public int Purchased { get; set; }
+       // public int Purchased { get; set; }
 
         public PriceType PriceType { get; set; }
 

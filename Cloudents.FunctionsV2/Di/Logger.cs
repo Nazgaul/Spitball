@@ -9,14 +9,14 @@ namespace Cloudents.FunctionsV2.Di
     public class Logger : ILogger
     {
         private readonly TelemetryClient _telemetry = new TelemetryClient();
-        public void Exception(Exception ex, IDictionary<string, string> properties = null)
+        public void Exception(Exception ex, IDictionary<string, string>? properties = null)
         {
             _telemetry.TrackException(ex, properties);
         }
 
-        public void Info(string message, bool email = false)
+        public void Info(string message, IDictionary<string, string>? properties = null)
         {
-            _telemetry.TrackTrace(message);
+            _telemetry.TrackTrace(message,properties);
         }
 
         public void Warning(string message)
@@ -24,9 +24,9 @@ namespace Cloudents.FunctionsV2.Di
             _telemetry.TrackTrace(message, SeverityLevel.Warning);
         }
 
-        public void Error(string message)
+        public void Error(string message, IDictionary<string, string>? properties = null)
         {
-            _telemetry.TrackTrace(message, SeverityLevel.Error);
+            _telemetry.TrackTrace(message, SeverityLevel.Error, properties);
         }
 
         public void TrackMetric(string name, double value)

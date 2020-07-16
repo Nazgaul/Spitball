@@ -1,6 +1,5 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,8 +21,7 @@ namespace Cloudents.Command.CommandHandler
             user.ChangeName(message.FirstName, message.LastName);
             if (user.Tutor != null)
             {
-                user.Description = message.Description;
-                user.Tutor.UpdateSettings(message.Bio, message.Price);
+                user.Tutor.UpdateSettings(message.ShortParagraph,message.Title,message.Paragraph);
             }
             await _userRepository.UpdateAsync(user, token);
         }

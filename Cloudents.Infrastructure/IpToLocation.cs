@@ -29,11 +29,11 @@ namespace Cloudents.Infrastructure
             private readonly IIpToLocation _restClient;
             private readonly ICountryProvider _countryProvider;
 
-            public CountryByIpQueryQueryHandler(QuerySession session, IIpToLocation restClient, ICountryProvider countryProvider)
+            public CountryByIpQueryQueryHandler(IStatelessSession session, IIpToLocation restClient, ICountryProvider countryProvider)
             {
                 _restClient = restClient;
                 _countryProvider = countryProvider;
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             [Cache(TimeConst.Hour, "IpToLocation" + "3", true)]

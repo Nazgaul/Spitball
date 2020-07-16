@@ -1,16 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿//using System.ComponentModel.DataAnnotations;
 
-namespace Cloudents.Admin2.Models
-{
-    public class EditSubjectRequest 
-    {
-        [Required]
-        public long SubjectId { get; set; }
+//namespace Cloudents.Admin2.Models
+//{
+//    public class EditSubjectRequest 
+//    {
+//        [Required]
+//        public long SubjectId { get; set; }
 
-        [StringLength(300)]
-        [Required]
-        public string Name { get; set; }
+//        [StringLength(300)]
+//        [Required]
+//        public string Name { get; set; }
 
 
-    }
-}
+//    }
+//}

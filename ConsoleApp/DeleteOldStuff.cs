@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
-using Cloudents.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
-using Cloudents.Query;
-using Google.Apis.Docs.v1.Data;
 using NHibernate;
 using NHibernate.Linq;
 using Document = Cloudents.Core.Entities.Document;
@@ -24,17 +21,17 @@ namespace ConsoleApp
         private static IContainer Container = Program.Container;
 
 
-        public static async Task DoStuff()
+        public static async Task DoStuffAsync()
         {
-            await DeleteFlaggedDocument();
+            await DeleteFlaggedDocumentAsync();
             // await DeleteFlaggedDocument();
-            await DeleteOldQuestion();
-            await DeleteOldDocuments();
+            await DeleteOldQuestionAsync();
+            await DeleteOldDocumentsAsync();
             //await DeleteNotUsedCourses();
             //await ResyncTutorRead();
         }
 
-        private static async Task DeleteFlaggedDocument()
+        private static async Task DeleteFlaggedDocumentAsync()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
             int i;
@@ -58,7 +55,7 @@ and D.UpdateTime <'01-01-2020')
 
 
 
-        public static async Task ResyncTutorRead()
+        public static async Task ResyncTutorReadAsync()
         {
             var session = Container.Resolve<IStatelessSession>();
             //var bus = Container.Resolve<ICommandBus>();
@@ -70,21 +67,21 @@ Select id from sb.tutor t").ListAsync();
 
             foreach (dynamic z in x)
             {
-                var e = new RemoveCourseEvent(z);
-                await eventHandler.PublishAsync(e, default);
+                //var e = new RemoveCourseEvent(z);
+                //await eventHandler.PublishAsync(e, default);
                 //var command = new TeachCourseCommand(z[0], z[1]);
                 //await bus.DispatchAsync(command, default);
             }
 
             var storageProvider = Container.Resolve<ICloudStorageProvider>();
             var blobClient = storageProvider.GetBlobClient();
-            var container = blobClient.GetContainerReference("spitball");
-            var directory = container.GetDirectoryReference("AzureSearch");
-            var blob = directory.GetBlobReference("tutor-version.txt");
+            var container = blobClient.GetBlobContainerClient("spitball");
+            var blob = container.GetBlobClient("AzureSearch/tutor-version.txt");
+            //var directory = container.GetDirectoryReference("AzureSearch");
             await blob.DeleteAsync();
         }
 
-        private static async Task DeleteNotUsedCourses()
+        private static async Task DeleteNotUsedCoursesAsync()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
             while (true)
@@ -131,7 +128,7 @@ COMMIT;  ";
 
         }
 
-        private static async Task DeleteOldQuestion()
+        private static async Task DeleteOldQuestionAsync()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
             while (true)
@@ -202,7 +199,7 @@ COMMIT;  ";
             }
         }
 
-        private static async Task DeleteDocumentFromNotSupportCountries()
+        private static async Task DeleteDocumentFromNotSupportCountriesAsync()
         {
             var statelessSession = Container.Resolve<IStatelessSession>();
             int count;
@@ -231,7 +228,7 @@ COMMIT;  ";
 
         }
 
-        private static async Task DeleteOldDocuments()
+        private static async Task DeleteOldDocumentsAsync()
         {
 
             var statelessSession = Container.Resolve<IStatelessSession>();
@@ -264,7 +261,7 @@ COMMIT;  ";
                 foreach (var deletedDocument in deletedDocuments)
                 {
 
-                    var t =  DeleteDocument(deletedDocument);
+                    var t = DeleteDocumentAsync(deletedDocument);
 
 
                     tasks.Add(t);
@@ -275,18 +272,16 @@ COMMIT;  ";
         }
 
 
-        private static async Task DeleteDocument(long id)
+        private static async Task DeleteDocumentAsync(long id)
         {
-            using var child = Container.BeginLifetimeScope() ;
+            using var child = Container.BeginLifetimeScope();
             var blobProvider = child.Resolve<IDocumentDirectoryBlobProvider>();
 
             var statelessSession = child.Resolve<IStatelessSession>();
             Console.WriteLine(id);
-            var v = await blobProvider.FilesInDirectoryAsync("", id.ToString(), default);
-            if (v.Any())
-            {
-                await blobProvider.DeleteDirectoryAsync(id.ToString(), default);
-            }
+
+            await blobProvider.DeleteDirectoryAsync(id.ToString(), default);
+
 
             var sqlQuery =
                 statelessSession.CreateSQLQuery("delete from sb.DocumentsTags where documentid = :Id");

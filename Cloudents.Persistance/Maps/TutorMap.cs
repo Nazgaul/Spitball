@@ -11,18 +11,11 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.Foreign("User");
            
             HasOne(x => x.User).Constrained().Cascade.None();
-            Map(x => x.Bio).Length(1000);
-            Component(x => x.Price, y2 =>
-            {
-                y2.Map(z => z.Price).CustomSqlType("smallMoney");
-                y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
-            });
+            
 
-
-       
-
-
-
+            Map(x => x.Title).Nullable();
+            Map(x => x.Paragraph3).Nullable().Length(8000);
+            Map(x => x.Paragraph2).Nullable().Column("Bio").Length(1000);
 
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
@@ -50,7 +43,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Map(e => e.Created).Insert().Not.Update();
             //Map(x => x.ManualBoost).LazyLoad().Nullable();
-            Map(e => e.IsShownHomePage);
+          //  Map(e => e.IsShownHomePage);
             HasMany(x => x.AdminUsers).Inverse().Cascade.AllDeleteOrphan();
             DynamicUpdate();
             OptimisticLock.Version();

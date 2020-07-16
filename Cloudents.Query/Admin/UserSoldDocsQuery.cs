@@ -27,9 +27,9 @@ namespace Cloudents.Query.Admin
             private readonly IStatelessSession _session;
 
 
-            public UserSoldDocsQueryHandler(QuerySession session)
+            public UserSoldDocsQueryHandler(IStatelessSession session)
             {
-                _session = session.StatelessSession;
+                _session = session;
             }
 
             public async Task<IEnumerable<UserSoldItemsDto>> GetAsync(UserSoldDocsQuery query, CancellationToken token)

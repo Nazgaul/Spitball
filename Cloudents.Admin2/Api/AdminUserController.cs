@@ -1,6 +1,5 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
@@ -99,7 +98,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("suspend")]
         [ProducesResponseType(200)]
 
-        public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
+        public async Task<IActionResult> SuspendUserAsync(SuspendUserRequest model,
             CancellationToken token)
         {
             foreach (var id in model.Ids)
@@ -127,7 +126,7 @@ namespace Cloudents.Admin2.Api
                 var command = new SuspendUserCommand(id, lockout, model.Reason);
                 await _commandBus.DispatchAsync(command, token);
             }
-            return new SuspendUserResponse();
+            return Ok();
         }
 
         /// <summary>
@@ -175,41 +174,41 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteUserAsync([FromRoute]long id, CancellationToken token)
+        public async Task DeleteUserAsync([FromRoute] long id, CancellationToken token)
         {
             var userId = User.GetIdClaim();
             var command = new DeleteUserCommand(id, userId);
             await _commandBus.DispatchAsync(command, token);
         }
-        
 
 
-        [HttpPost("verify")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
-            CancellationToken token)
-        {
 
-            var phoneCommand = new ConfirmPhoneNumberCommand(model.Id);
-            var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
-            try
-            {
-                await _commandBus.DispatchAsync(phoneCommand, token);
-                await _commandBus.DispatchAsync(registrationBonusCommand, token);
-            }
+        //[HttpPost("verify")]
+        //[ProducesResponseType(200)]
+        //[ProducesResponseType(400)]
+        //public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
+        //    CancellationToken token)
+        //{
 
-            catch
-            {
-                return BadRequest();
-            }
+        //    var phoneCommand = new ConfirmPhoneNumberCommand(model.Id);
+        //    var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
+        //    try
+        //    {
+        //        await _commandBus.DispatchAsync(phoneCommand, token);
+        //        await _commandBus.DispatchAsync(registrationBonusCommand, token);
+        //    }
 
-            return Ok(new
-            {
-                model.Id
-            });
+        //    catch
+        //    {
+        //        return BadRequest();
+        //    }
 
-        }
+        //    return Ok(new
+        //    {
+        //        model.Id
+        //    });
+
+        //}
 
 
 
@@ -252,7 +251,7 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-     
+
 
         [HttpGet("sessions")]
         public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
@@ -284,24 +283,24 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("documents")]
-        public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, int page, [FromServices] IBlobProvider blobProvider,
+        public async Task<IEnumerable<UserDocumentsDto>> GetUserInfo(long id, [FromServices] IBlobProvider blobProvider,
              CancellationToken token)
         {
             var country = User.GetSbCountryClaim();
-            var query = new UserDocumentsQuery(id, page, country);
+            var query = new UserDocumentsQuery(id,  country);
 
 
             var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
-            var tasks = new Lazy<List<Task>>();
+            var tasks = new List<Task>();
 
             foreach (var document in retVal)
             {
-                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
-                var file = files.FirstOrDefault();
+                var file = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token).FirstOrDefaultAsync(token);
+
                 if (file != null)
                 {
                     document.Preview =
-                        blobProvider.GeneratePreviewLink(file,
+                     await blobProvider.GeneratePreviewLinkAsync(file,
                             TimeSpan.FromMinutes(20));
 
                     document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
@@ -309,10 +308,12 @@ namespace Cloudents.Admin2.Api
                 else
                 {
                     var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
-                    tasks.Value.Add(t);
+                    tasks.Add(t);
                 }
 
             }
+
+            await Task.WhenAll(tasks);
 
             return retVal;
         }
@@ -328,7 +329,7 @@ namespace Cloudents.Admin2.Api
 
         [HttpPut("phone")]
         public async Task<IActionResult> UpdatePhoneAsync(
-                [FromBody]UpdatePhoneRequest model, CancellationToken token)
+                [FromBody] UpdatePhoneRequest model, CancellationToken token)
         {
             var command = new UpdatePhoneCommand(model.UserId, model.NewPhone);
             try
@@ -348,7 +349,7 @@ namespace Cloudents.Admin2.Api
 
         [HttpPut("name")]
         public async Task<IActionResult> UpdateNameAsync(
-                [FromBody]UpdateNameRequest model, CancellationToken token)
+                [FromBody] UpdateNameRequest model, CancellationToken token)
         {
             var command = new UpdateNameCommand(model.UserId, model.FirstName, model.LastName);
             await _commandBus.DispatchAsync(command, token);
@@ -357,19 +358,23 @@ namespace Cloudents.Admin2.Api
 
         [HttpPut("email")]
         public async Task<IActionResult> UpdateEmailAsync(
-            [FromBody]UpdateEmailRequest model,
+            [FromBody] UpdateEmailRequest model,
             CancellationToken token)
         {
             try
             {
-                
+
                 var command = new UpdateEmailCommand(model.UserId, model.Email);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("this email belongs to someone else");
             }
         }
 
@@ -397,6 +402,6 @@ namespace Cloudents.Admin2.Api
             return await _queryBus.QueryAsync(query, token);
         }
 
-       
+
     }
 }

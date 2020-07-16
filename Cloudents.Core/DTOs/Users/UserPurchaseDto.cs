@@ -22,6 +22,11 @@ namespace Cloudents.Core.DTOs.Users
 
     public class PurchasedSessionDto : UserPurchaseDto
     {
+        [NonSerialized]
+        public decimal _oldPrice;
+        [NonSerialized]
+        public double? _price;
+
         public string TutorName { get; set; }
         public double TotalMinutes => Duration.GetValueOrDefault().TotalMinutes;
 
@@ -29,10 +34,10 @@ namespace Cloudents.Core.DTOs.Users
 
         public bool ShouldSerializeDuration() => false;
 
-        public string TutorImage { get; set; }
+        public string? TutorImage { get; set; }
         public long TutorId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
-        public decimal Price { get; set; }
+        public double Price => _price ?? (double) _oldPrice;
     }
 
     public class PurchasedBuyPointsDto : UserPurchaseDto

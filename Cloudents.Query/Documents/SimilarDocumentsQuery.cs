@@ -23,10 +23,10 @@ namespace Cloudents.Query.Documents
         private readonly IStatelessSession _session;
         private readonly IUrlBuilder _urlBuilder;
 
-        public SimilarDocumentsQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
+        public SimilarDocumentsQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
         {
             _urlBuilder = urlBuilder;
-            _session = session.StatelessSession;
+            _session = session;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(SimilarDocumentsQuery query, CancellationToken token)
         {
@@ -43,18 +43,8 @@ namespace Cloudents.Query.Documents
                                 d.CourseName as Course,
 d.Name as Title,  
                                 coalesce(d.Description, d.MetaContent) as Snippet,
-d.Views, 
-d.Downloads,
 d.Price, 
                                 d.DocumentType, d.Duration,  d.PriceType,
-                                (
-	                                select count(1)
-	                                from sb.[Transaction] t 
-	                                where t.TransactionType='Document' and 
-	                                t.DocumentId=d.Id
-	                                and t.[Action]='SoldDocument'
-                                ) as Purchased, 
-                                d.VoteCount as [Vote.Votes],
                                 u.Id as [User.Id], u.Name as [User.Name], 
                                 u.ImageName as [User.Image]
                                 from sb.[Document] d 

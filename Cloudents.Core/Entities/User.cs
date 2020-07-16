@@ -11,19 +11,36 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class User : BaseUser
     {
-        public User(string email, string firstName, string lastName,
-            Language language, string country)
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="email">the user email</param>
+        /// <param name="firstName">first name</param>
+        /// <param name="lastName">last name - note google can sometime doesn't return</param>
+        /// <param name="language">the user culture</param>
+        /// <param name="country">hte user country</param>
+        /// <param name="isTutor">if the user want to be tutor</param>
+        public User(string email, string firstName, string? lastName,
+            Language language, string country, bool isTutor = false)
         {
-            Email = email;
+            if (firstName == null) throw new ArgumentNullException(nameof(firstName));
+            //if (lastName == null) throw new ArgumentNullException(nameof(lastName));
+            if (country == null) throw new ArgumentNullException(nameof(country));
+            Email = email ?? throw new ArgumentNullException(nameof(email));
             ChangeName(firstName, lastName);
             FirstName = firstName;
             LastName = lastName;
             Language = language;
             Created = DateTime.UtcNow;
+            FinishRegistrationDate = DateTime.UtcNow;
             Country = country;
             SbCountry = Entities.Country.FromCountry(country);
             UserLogins = new List<UserLogin>();
             Transactions = new UserTransactions();
+            if (isTutor)
+            {
+                Tutor = new Tutor(this);
+            }
         }
 
 
@@ -69,29 +86,23 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourses(IEnumerable<Course> courses)
+        public virtual void AssignCourse(Course course)
         {
-            foreach (var course in courses)
+            var p = new UserCourse(this, course);
+            if (_userCourses.Add(p))
             {
-                var p = new UserCourse(this, course);
-                if (_userCourses.Add(p))
-                {
-                    course.Count++;
-                }
+                course.Count++;
+                AddEvent(new CanTeachCourseEvent(p));
             }
+
         }
 
-        //public virtual void UseCoupon(Tutor tutor)
-        //{
-        //    var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
-        //                                            && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
-        //    if (userCoupon is null) // we do not check before if user have coupon on that user
-        //    {
-        //        return;
-        //    }
-        //    userCoupon.UsedAmount++;
-        //    AddEvent(new UseCouponEvent(userCoupon));
-        //}
+        public virtual void BecomeTutor()
+        {
+            Tutor = new Tutor(this);
+        }
+
+
 
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -147,38 +158,22 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual void RemoveCourse(Course course)
-        {
-            var p = new UserCourse(this, course);
-            if (_userCourses.Remove(p))
-            {
-                course.Count--;
-            }
-            AddEvent(new RemoveCourseEvent(Id));
-        }
+        //public virtual void RemoveCourse(Course course)
+        //{
+        //    var p = new UserCourse(this, course);
+        //    if (_userCourses.Remove(p))
+        //    {
+        //        course.Count--;
+        //    }
+        //    AddEvent(new RemoveCourseEvent(Id));
+        //}
 
-        public virtual void CanTeachCourse(string courseName)
-        {
-            var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
-            course.ToggleCanTeach();
+        //public virtual void CanTeachCourse(string courseName)
+        //{
+        //    var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
+        //    course.ToggleCanTeach();
 
-        }
-
-
-
-        public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
-        {
-
-            Tutor = new Tutor(bio, this, price);
-            Description = description;
-            //SetUserType(UserType.Teacher);
-            ChangeName(firstName, lastName);
-            foreach (var userCourse in UserCourses)
-            {
-                userCourse.CanTeach();
-            }
-        }
-
+        //}
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
@@ -194,7 +189,8 @@ namespace Cloudents.Core.Entities
 
         public virtual string FirstName { get; protected set; }
         public virtual string? LastName { get; protected set; }
-        public virtual string Description { get; set; }
+        //[Obsolete]
+        //public virtual string Description { get; set; }
 
         public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
@@ -234,7 +230,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeName(string firstName, string lastName)
+        public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -244,13 +240,14 @@ namespace Cloudents.Core.Entities
             {
                 Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}";
             }
+            AddEvent(new UserChangeNameEvent(this));
         }
 
         public virtual void ChangeEmail(string email)
         {
             if (UserLogins.Count > 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("User is registered though 3rd party - cant change email");
             }
             Email = email;
         }
@@ -284,9 +281,9 @@ namespace Cloudents.Core.Entities
             Transactions.UpdateBalance(balance);
         }
 
-        public virtual void UpdateUserImage(string image, string imageName)
+        public virtual void UpdateUserImage(string imageName)
         {
-            Image = image;
+            //Image = image;
             ImageName = imageName;
             AddEvent(new UpdateImageEvent(Id));
         }
@@ -360,6 +357,7 @@ namespace Cloudents.Core.Entities
             }
             var follow = new Follow(this, follower, true);
             _followers.Add(follow);
+            AddEvent(new SubscribeToTutorEvent(this));
         }
 
 
@@ -409,11 +407,11 @@ namespace Cloudents.Core.Entities
             MakeTransaction(new ReferUserTransaction(user, price));
         }
 
-        public virtual void FinishRegistration()
-        {
-            FinishRegistrationDate = DateTime.UtcNow;
-            //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
-        }
+        //public virtual void FinishRegistration()
+        //{
+        //    FinishRegistrationDate = DateTime.UtcNow;
+        //    //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+        //}
 
         public virtual void ConfirmPhoneNumber()
         {
@@ -429,6 +427,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
         protected internal virtual ICollection<StudyRoomPayment> SessionPayments { get; protected set; }
+        protected internal virtual ICollection<StudyRoomSessionUser> StudyRoomSessionUsers { get; protected set; }
 
         public virtual void DeleteUserPayment()
         {

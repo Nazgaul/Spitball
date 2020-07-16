@@ -2,12 +2,14 @@
 using Cloudents.Core.Interfaces;
 using NHibernate.Event;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Persistence
 {
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting" , Justification = "Piple line of nhibernate")]
     public class PublishEventsListener : IPostDeleteEventListener
         , IPostInsertEventListener, IPostUpdateEventListener, IPostCollectionUpdateEventListener
 
@@ -23,59 +25,59 @@ namespace Cloudents.Persistence
 
         public async Task OnPostDeleteAsync(PostDeleteEvent @event, CancellationToken cancellationToken)
         {
-            await PublishEvents(@event.Entity, cancellationToken);
+            await PublishEventsAsync(@event.Entity, cancellationToken);
         }
 
 
 
         public void OnPostDelete(PostDeleteEvent @event)
         {
-            var t = PublishEvents(@event.Entity, CancellationToken.None);
+            var t = PublishEventsAsync(@event.Entity, CancellationToken.None);
             Task.WaitAll(t);
         }
 
         public async Task OnPostInsertAsync(PostInsertEvent @event, CancellationToken cancellationToken)
         {
-            await PublishEvents(@event.Entity, cancellationToken);
+            await PublishEventsAsync(@event.Entity, cancellationToken);
 
         }
 
         public void OnPostInsert(PostInsertEvent @event)
         {
-            var t = PublishEvents(@event.Entity, CancellationToken.None);
+            var t = PublishEventsAsync(@event.Entity, CancellationToken.None);
             Task.WaitAll(t);
         }
 
         public async Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
         {
-            await PublishEvents(@event.Entity, cancellationToken);
+            await PublishEventsAsync(@event.Entity, cancellationToken);
         }
 
         public void OnPostUpdate(PostUpdateEvent @event)
         {
-            var t = PublishEvents(@event.Entity, CancellationToken.None);
+            var t = PublishEventsAsync(@event.Entity, CancellationToken.None);
             Task.WaitAll(t);
         }
 
         public async Task OnPostUpdateCollectionAsync(PostCollectionUpdateEvent @event, CancellationToken cancellationToken)
         {
-            await PublishEvents(@event.AffectedOwnerOrNull, cancellationToken);
+            await PublishEventsAsync(@event.AffectedOwnerOrNull, cancellationToken);
         }
 
         public void OnPostUpdateCollection(PostCollectionUpdateEvent @event)
         {
-            var t = PublishEvents(@event.AffectedOwnerOrNull, CancellationToken.None);
+            var t = PublishEventsAsync(@event.AffectedOwnerOrNull, CancellationToken.None);
             Task.WaitAll(t);
         }
 
 
-        private async Task PublishEvents(object entity, CancellationToken cancellationToken)
+        private async Task PublishEventsAsync(object entity, CancellationToken cancellationToken)
         {
             if (entity is IEntity p)
             {
 
                 //I want to clear the domain event since AsQueryable reinject the publish event and then again... and stack-overflow exception 
-                var list = p.DomainEvents.Distinct().Distinct().ToList();
+                var list = p.DomainEvents.Distinct().ToList();
                 p.ClearEvents();
                 foreach (var ev in list)
                 {

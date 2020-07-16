@@ -42,28 +42,23 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
+        private readonly IUrlBuilder _urlBuilder;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
-            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, IUrlBuilder urlBuilder)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
+            _urlBuilder = urlBuilder;
         }
 
-        /// <summary>
-        /// Create study room between tutor and student for many sessions - happens in chat
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="client">Ignore</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpPost]
+        [HttpPost("private")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateStudyRoomCommandResult>> CreateStudyRoomAsync(CreateStudyRoomRequest model,
+        public async Task<ActionResult<CreateStudyRoomResponse>> CreateStudyRoomAsync(CreateStudyRoomRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
@@ -71,10 +66,10 @@ namespace Cloudents.Web.Api
             try
             {
                 var chatTextMessage = _localizer["StudyRoomCreatedChatMessage", model.Name];
-                var command = new CreateStudyRoomCommand(tutorId, model.UserId,
-                    chatTextMessage, model.Name, model.Price, model.Date, model.Type,model.Description);
-                var result = await _commandBus.DispatchAsync<CreateStudyRoomCommand, CreateStudyRoomCommandResult>(command, token);
-                return result;
+                var command = new CreatePrivateStudyRoomCommand(tutorId, model.UserId,
+                    chatTextMessage, model.Name, model.Price);
+                await _commandBus.DispatchAsync(command, token);
+                return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
             }
             catch (DuplicateRowException)
             {
@@ -85,6 +80,39 @@ namespace Cloudents.Web.Api
                 client.TrackException(e, new Dictionary<string, string>()
                 {
                     ["UserId"] = model.UserId.ToString(),
+                    ["tutorId"] = tutorId.ToString()
+                });
+                return BadRequest("user is not a tutor");
+            }
+        }
+
+        [HttpPost("live")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<CreateStudyRoomResponse>> CreateLiveStudyRoomAsync(CreateLiveStudyRoomRequest model,
+            [FromServices] TelemetryClient client,
+            CancellationToken token)
+        {
+            var tutorId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new CreateLiveStudyRoomCommand(tutorId,
+                     model.Name, model.Price,
+                     model.Date, model.Description, model.Repeat, model.EndDate, 
+                     model.EndAfterOccurrences, model.RepeatOn, model.Image);
+                await _commandBus.DispatchAsync(command, token);
+                return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
+            }
+            catch (DuplicateRowException)
+            {
+                return Conflict("Already active study room");
+            }
+            catch (InvalidOperationException e)
+            {
+                client.TrackException(e, new Dictionary<string, string>()
+                {
+                    //["UserId"] = model.UserId.ToString(),
                     ["tutorId"] = tutorId.ToString()
                 });
                 return BadRequest("user is not a tutor");
@@ -118,46 +146,42 @@ namespace Cloudents.Web.Api
         /// </summary>
         /// <param name="id"></param>
         /// <param name="urlBuilder"></param>
-        /// <param name="profile">No use in swagger</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-
-
         public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id,
             [FromServices] IUrlBuilder urlBuilder,
-            [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EnterStudyRoomCommand(id, userId);
-            try
+            string jwtToken = null;
+            if (_userManager.TryGetLongUserId(User, out var userId))
             {
-                await _commandBus.DispatchAsync(command, default);
-            }
-            catch (InvalidOperationException)
-            {
-                return NotFound();
+
+                try
+                {
+                    var command = new EnterStudyRoomCommand(id, userId);
+                    await _commandBus.DispatchAsync(command, default);
+                    jwtToken = command.JwtToken;
+                }
+                catch (InvalidOperationException)
+                {
+                    return NotFound();
+                }
             }
 
             var query = new StudyRoomQuery(id, userId);
             var result = await _queryBus.QueryAsync(query, token);
 
-            //TODO: need to add who is the tutor
             if (result == null)
             {
                 return NotFound();
             }
-
-            if (profile.Subscribers?.Contains(result.TutorId) == true)
-            {
-                result.TutorPrice = 0;
-            }
+          
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            result.Jwt = command.JwtToken;
+            result.Jwt = jwtToken;
             return result;
         }
 
@@ -173,7 +197,7 @@ namespace Cloudents.Web.Api
                 .UploadStreamAsync(fileName, file.OpenReadStream(), file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
             var uri = blobProvider.GetBlobUrl(fileName);
-            var link = blobProvider.GeneratePreviewLink(uri, TimeSpan.FromDays(1));
+            var link = await blobProvider.GeneratePreviewLinkAsync(uri, TimeSpan.FromDays(1));
 
             return Ok(new
             {
@@ -194,7 +218,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
-            var result =  await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
             return result.Where(w => w.Type == type);
 
         }
@@ -210,8 +234,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new CreateStudyRoomSessionCommand(id, userId);
-            var result = await _commandBus.DispatchAsync<CreateStudyRoomSessionCommand, CreateStudyRoomSessionCommandResult>(command, token);
-            return new CreateStudyRoomSessionResponse(result.JwtToken);
+            await _commandBus.DispatchAsync(command, token);
+            return new CreateStudyRoomSessionResponse(command.JwtToken);
 
         }
 
@@ -244,24 +268,24 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("{id:guid}/Video")]
-        [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
-        [RequestSizeLimit(209715200)]
-        public IActionResult UploadStudyRoomVideo(Guid id,
-            IFormFile file,
-            CancellationToken token)
-        {
-            if (file is null)
-            {
-                return BadRequest();
-            }
-            //var userId = _userManager.GetLongUserId(User);
-            //await using var stream = file.OpenReadStream();
-            //var command = new UploadStudyRoomVideoCommand(id, userId, stream);
-            //await _commandBus.DispatchAsync(command, token);
+        //[HttpPost("{id:guid}/Video")]
+        //[RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
+        //[RequestSizeLimit(209715200)]
+        //public IActionResult UploadStudyRoomVideo(Guid id,
+        //    IFormFile file,
+        //    CancellationToken token)
+        //{
+        //    if (file is null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    //var userId = _userManager.GetLongUserId(User);
+        //    //await using var stream = file.OpenReadStream();
+        //    //var command = new UploadStudyRoomVideoCommand(id, userId, stream);
+        //    //await _commandBus.DispatchAsync(command, token);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
         [HttpPost("review")]
@@ -300,6 +324,38 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-      
+
+        [HttpPost("image")]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> UploadCoverImageAsync([Required] IFormFile file,
+            [FromServices] IStudyRoomBlobProvider blobProvider,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            Uri uri;
+            try
+            {
+                uri = await blobProvider.UploadImageAsync(file.FileName, file.OpenReadStream(), file.ContentType, token);
+            }
+            catch (ArgumentException e)
+            {
+                //_telemetryClient.TrackException(e, new Dictionary<string, string>()
+                //{
+                //    ["fileName"] = file.FileName,
+                //    ["contentType"] = file.ContentType
+                //});
+                ModelState.AddModelError("x", "not an image");
+                return BadRequest(ModelState);
+            }
+
+            var fileName = uri.AbsolutePath.Split('/').Last();
+            var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            return Ok(new
+            {
+                fileName
+            });
+        }
+
+
     }
 }

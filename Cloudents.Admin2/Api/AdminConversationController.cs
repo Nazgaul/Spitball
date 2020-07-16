@@ -18,6 +18,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Admin2.Api
 {
@@ -110,8 +111,8 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> StartConversation(StartConversationRequest model,
             CancellationToken token)
         {
-            var command = new SendChatTextMessageCommand(model.Message, model.UserId,
-                model.TutorId, null);
+            var identifier = ChatRoom.BuildChatRoomIdentifier(model.UserId, model.TutorId);
+            var command = new SendChatTextMessageCommand(model.Message, model.UserId, identifier, model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
 

@@ -2,15 +2,14 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Extension;
-using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.FileProcessor;
-using Cloudents.Search.Document;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -32,7 +31,7 @@ namespace Cloudents.FunctionsV2
             [QueueTrigger("generate-search-preview")] string id,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,
             [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,
-            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
+            //[AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
             ILogger log,
             CancellationToken token)
@@ -66,27 +65,27 @@ namespace Cloudents.FunctionsV2
                 var command = UpdateDocumentMetaCommand.Document(longId, pageCount, snippet);
                 await commandBus.DispatchAsync(command, token);
 
-                await indexInstance.AddAsync(new AzureSearchSyncOutput()
-                {
-                    Item = new Search.Entities.Document
-                    {
-                        Id = id,
-                        Content = text.Truncate(6000)
-                    },
-                    Insert = true
-                }, token);
+                //await indexInstance.AddAsync(new AzureSearchSyncOutput()
+                //{
+                //    Item = new Search.Entities.Document
+                //    {
+                //        Id = id,
+                //        Content = text.Truncate(6000)
+                //    },
+                //    Insert = true
+                //}, token);
 
             }
             catch (ObjectNotFoundException)
             {
-                await indexInstance.AddAsync(new AzureSearchSyncOutput()
-                {
-                    Item = new Search.Entities.Document
-                    {
-                        Id = id,
-                    },
-                    Insert = false
-                }, token);
+                //await indexInstance.AddAsync(new AzureSearchSyncOutput()
+                //{
+                //    Item = new Search.Entities.Document
+                //    {
+                //        Id = id,
+                //    },
+                //    Insert = false
+                //}, token);
             }
             catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
             {
@@ -105,12 +104,12 @@ namespace Cloudents.FunctionsV2
         /// <param name="token"></param>
         /// <returns></returns>
         [FunctionName("DocumentDeleteOld")]
-        public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
+        public static async Task DeleteOldDocumentAsync([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
             [Blob("spitball-files/files")]CloudBlobDirectory directory,
             ILogger log,
             CancellationToken token)
         {
-            BlobContinuationToken blobToken = null;
+            BlobContinuationToken? blobToken = null;
             do
             {
 
@@ -209,6 +208,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("RemoveOldLocatorsVideo")]
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Entry point")]
         public static async Task RemoveOldLocatorsVideoAsync(
             [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
             [Inject] IVideoService videoService,
@@ -257,19 +257,17 @@ namespace Cloudents.FunctionsV2
                     var blob = blobs.Results.OfType<CloudBlockBlob>().First(f =>
                         f.Name.StartsWith("file", StringComparison.OrdinalIgnoreCase));
 
-
                     var md5 = blob.Properties.ContentMD5;
                     if (string.IsNullOrEmpty(md5))
                     {
                         var length = blob.Properties.Length;
-                        const long hugeFileThatWontFinishProcess = 16492145881;
+                        const long hugeFileThatWontFinishProcess = 13505445017;
                         if (length < hugeFileThatWontFinishProcess)
                         {
-                            //var etag = blob.Properties.ETag;
-                            // if (blob.Properties.Length)
                             log.LogInformation("no md5 calculating");
                             await using var sr = await blob.OpenReadAsync();
                             md5 = CalculateMd5(sr);
+                            log.LogInformation($"md5 is {md5}");
                             blob.Properties.ContentMD5 = md5;
                             await blob.SetPropertiesAsync();
                         }
