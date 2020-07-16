@@ -107,6 +107,7 @@
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
         </div>
+        <stripe ref="stripe"></stripe>
     </div>
 </template>
 
@@ -114,12 +115,14 @@
 import * as routeNames from '../../../../routes/routeNames';
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-16.svg'
+import stripe from "../../../pages/global/stripe.vue";
 
 export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        arrowDownIcon  
+        arrowDownIcon  ,
+        stripe
     },
     props: {
         userId: {

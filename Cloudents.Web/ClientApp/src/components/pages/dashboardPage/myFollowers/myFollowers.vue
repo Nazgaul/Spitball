@@ -19,7 +19,7 @@
             itemsPerPageOptions: [20]
          }">
          <template v-slot:top >
-            <div class="d-flex pa-2">
+            <div class="d-flex flex-wrap pa-2">
             <div class="myFollowers_title">
                   {{$t('dashboardPage_my_followers_title')}}
                   </div>
@@ -115,7 +115,7 @@ export default {
       SendEmail() {
          let emails = this.selected.map(x=>x.email);
          let myEmail = this.getAccountEmail;
-         window.open(`mailto:?to=${myEmail}&bcc=${emails.join(';')}`)
+         window.location.href = `mailto:?to=${myEmail}&bcc=${emails.join(';')}`;
       }
    },
    created() {

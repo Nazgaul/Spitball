@@ -28,7 +28,7 @@ import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileStats from './components/profileStats/profileStats.vue';
 import profileParagraph from './components/profileParagraph/profileParagraph.vue';
-import profileCalendarTab from '../calendar/calendarTab.vue';
+const profileCalendarTab = () => import('../calendar/calendarTab.vue');
 const profileSubscription = () => import('./components/profileSubscription/profileSubscription.vue');
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
 const profileItemsBox = () => import('./components/profileItemsBox/profileItemsBox.vue');

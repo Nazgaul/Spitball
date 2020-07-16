@@ -31,6 +31,9 @@
                                 :loading="avatarLoading"
                                 @setAvatarLoaded="val => avatarLoading = val"
                             />
+                            <v-btn depressed color="blue" class="mt-2" @click="becomeTutor" v-if="allowedToBecomeTutor" block>
+                                <span class="white--text" v-t="'become tutor'"></span>
+                            </v-btn>
                         </div>
                         <v-layout wrap>
                             <v-flex xs12 :class="{'pe-2': $vuetify.breakpoint.smAndUp}">
@@ -115,6 +118,9 @@ export default {
         }
     },
     computed: {
+        allowedToBecomeTutor() {
+            return global.country === "US"
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -136,6 +142,11 @@ export default {
         },
     },
     methods: {
+        becomeTutor() {
+            this.$store.dispatch('becomeTutor').then(() => {
+                window.location = '/'
+            })
+        },
         saveChanges() {
             if(this.$refs.formUser.validate()) {
                 this.btnLoading = true;

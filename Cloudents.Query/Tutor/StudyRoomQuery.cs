@@ -34,14 +34,6 @@ namespace Cloudents.Query.Tutor
 
             public async Task<StudyRoomDto?> GetAsync(StudyRoomQuery query, CancellationToken token)
             {
-                //TODO: make it better
-                //  using var conn = _repository.OpenConnection();
-
-                //var studyRoomSessionFuture = _statelessSession.Query<StudyRoomSession>()
-                //    .WithOptions(w => w.SetComment(nameof(StudyRoomSession)))
-                //    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null && w.Created > DateTime.UtcNow.AddHours(-6))
-                //    .OrderByDescending(o => o.Id).Take(1).ToFutureValue();
-
                 var futureStudyRoom = _statelessSession.Query<StudyRoom>()
                      .Fetch(f => f.Tutor)
                      .ThenFetch(f => f.User)
@@ -80,6 +72,19 @@ namespace Cloudents.Query.Tutor
                         .ToFutureValue();
                 }
 
+                var futurePayment = _statelessSession.Query<StudyRoomPayment>()
+                    .Where(w => w.StudyRoom!.Id == query.Id && w.User.Id == query.UserId)
+                    
+                    .ToFutureValue(f=>f.Any());
+
+
+                var futureSubscription = _statelessSession.Query<Follow>()
+                    .Where(w => w.User.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
+                        .Select(s => s.Tutor.Id).First())
+                    .Where(w => w.Follower.Id == query.UserId)
+                    .Select(s => s.Subscriber)
+                    .ToFutureValue();
+
 
 
                 var result = await futureStudyRoom.GetValueAsync(token);
@@ -95,6 +100,16 @@ namespace Cloudents.Query.Tutor
                 }
 
                 result.UserId = query.UserId;
+
+                if (futurePayment.Value)
+                {
+                    result._UserPaymentExists = true;
+                }
+                
+                if (futureSubscription.Value.GetValueOrDefault())
+                {
+                    result.TutorPrice = result.TutorPrice.ChangePrice(0);
+                }
 
 
                 var coupon = futureCoupon?.Value;
