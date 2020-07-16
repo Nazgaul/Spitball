@@ -16,7 +16,9 @@
             <img class="triangle" src="./images/triangle.png">
          </div>
          <div v-if="!isMobile" class="leftSide">
-            <img :src="roomImage">
+            <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image" class="skelLoader">
+            </v-skeleton-loader>
+            <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="roomImage">
          </div>
       </div>
       <div class="roomInfoBottom d-flex flex-wrap justify-center">
@@ -37,7 +39,9 @@
          </div>
       </div>
       <div v-if="isMobile" class="mobileImg">
-         <img :src="roomImage">
+         <v-skeleton-loader v-if="!imgLoaded" height="100%" width="100%"  type="image" class="skelLoader">
+         </v-skeleton-loader>
+         <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="roomImage">
       </div>
         <stripe ref="stripe"></stripe>
    </div>
@@ -56,6 +60,7 @@ export default {
       return {
          isSessionNow:false,
          loadingBtn:false,
+         imgLoaded:false,
       }
    },
    methods: {
@@ -237,6 +242,12 @@ export default {
             }
          }
          .leftSide{
+            .skelLoader{
+               background: white;
+               .v-skeleton-loader__image{
+                  height: inherit;
+               }
+            }
             width: 48%;
             img{
                width: 100%;
