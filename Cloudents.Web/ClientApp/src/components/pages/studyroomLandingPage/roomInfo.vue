@@ -1,6 +1,8 @@
 <template>
    <div class="roomInfoContainer d-flex flex-column">
-      <logo v-if="isMobile" :menuList="true" class="logoRoom"></logo>
+      <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
+         <logo :menuList="true" class="logoRoom"></logo>
+      </div>
       <div class="roomInfoTop d-flex">
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
             <div class="classTitle">{{$t('live_with',[tutorName])}}</div>

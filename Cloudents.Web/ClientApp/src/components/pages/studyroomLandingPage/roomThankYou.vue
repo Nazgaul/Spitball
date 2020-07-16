@@ -1,8 +1,10 @@
 <template>
    <div class="roomThankYou d-flex">
-      <logo v-if="!isMobile" class="logoThankYou"/>
+      <logo :menuList="true" class="logoThankYou cursor-pointer" v-if="!isMobile" @click.native="$router.push('/')"></logo>
       <div class="thankYouWrapper px-4">
-         <logo v-if="isMobile" :menuList="true" class="logoThankYouMobile"/>
+         <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
+            <logo :menuList="true" class="logoThankYouMobile"></logo>
+         </div>
          <img class="mt-5 mt-sm-8" src="./images/circleCheck.png" width="50px" height="50px" alt="">
          <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
          <div class="thankSubTitle" v-t="'we_will_email'"/>
@@ -100,6 +102,7 @@ export default {
          top: 14px;
          left: 14px;
          opacity: 0.4;
+         z-index: 2;
             .logo {
                fill: #fff !important;
                width: 120px;

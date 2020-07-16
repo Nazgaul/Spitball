@@ -3,7 +3,9 @@
       <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
          <v-window :value="isRoomEnrolled? 1 : 0">
             <v-window-item>
-               <logo v-if="!isMobile" class="pageLogo"/>
+               <div style="width: fit-content" class="cursor-pointer" v-if="!isMobile" @click="$router.push('/')">
+                  <logo class="pageLogo"/>
+               </div>
                <roomInfo/>
                <sessionInfo/>
                <hostInfo/>
