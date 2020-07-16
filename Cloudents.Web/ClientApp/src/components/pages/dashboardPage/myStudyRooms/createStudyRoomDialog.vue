@@ -1,6 +1,6 @@
 <template>
-   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="createStudyRoomDialog">
-      <div class=" px-sm-7 px-4 py-4 d-sm-block d-flex flex-column justify-space-between" :class="{'fixedHeight': isPrivate}">
+   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="[ isPrivate ? 'createStudyRoomDialog privateHeight' : 'createStudyRoomDialog liveHeight']">
+      <div class="createRoomWrapper px-sm-7 px-4 py-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
@@ -115,7 +115,8 @@ export default {
          this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj).catch((error) => {
                self.handleCreateError(error)
             }).finally(() => {
-               this.loisLoading = false;               
+               self.loisLoading = false;
+               self.$store.commit('setComponent')               
             })
       },
       createLiveSession() {
@@ -197,7 +198,6 @@ export default {
    background: white;
    position: relative;
 
-
    &::-webkit-scrollbar-track {
      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
     border-radius: 10px;
@@ -209,8 +209,18 @@ export default {
       border-radius: 10px;
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
    }
-   &.fixedHeight {
-      height: 100%;
+   &.liveHeight {
+      height: 700px;
+      @media (max-width: @screen-xs) {
+         height: 100%;
+      }
+   }
+   &.privateHeight {
+      .createRoomWrapper {
+         @media (max-width: @screen-xs) {
+            height: 100%;
+         }  
+      }
    }
    .close-dialog {
       position: absolute;

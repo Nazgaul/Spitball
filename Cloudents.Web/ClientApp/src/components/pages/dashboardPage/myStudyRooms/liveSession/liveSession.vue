@@ -178,6 +178,7 @@
                                         v-model.number="endAfterOccurrences"
                                         @keypress="inputRestriction"
                                         maxlength="4"
+                                        :rules="[rules.integer]"
                                         class="afterOccurrences pe-2"
                                         color="#304FFE"
                                         outlined
@@ -195,23 +196,19 @@
                     </v-radio-group>
                 </div>
             </div>
-
-            <!-- <v-col colse="12" class="pa-0 mt-3">
-               
-            </v-col> -->
        
          <v-textarea
-                    v-model="sessionAboutText"
-                    class="sessionAbout pb-2"
-                    :rules="[rules.required]"
-                    :label="$t('dashboardPage_label_session_about')"
-                    :rows="3"
-                    color="#304FFE"
-                    placeholder=" "
-                    dense
-                    outlined
-                    no-resize
-                ></v-textarea>
+            v-model="sessionAboutText"
+            class="sessionAbout pb-2 mb-5"
+            :rules="[rules.required]"
+            :label="$t('dashboardPage_label_session_about')"
+            :rows="3"
+            color="#304FFE"
+            placeholder=" "
+            dense
+            outlined
+            no-resize
+        ></v-textarea>
 
         <div class="sessionPriceWrap pb-5 mb-5">
             <div class="liveSubtitle mb-4" v-t="'session price'"></div>
@@ -268,8 +265,8 @@
                     >
                     </v-text-field>
                 </v-col>
-                <v-col cols="6" sm="4" class="pa-0">
-                    <div class="priceModified ps-sm-5" v-t="'price modified'"></div>
+                <v-col cols="12" sm="4" class="pa-0">
+                    <div class="priceModified ps-sm-4 mt-4 mt-sm-0" v-t="'price modified'"></div>
                 </v-col>
             </v-row>
         </div>
@@ -357,6 +354,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minVal(value,0),
+                integer: (value) => validationRules.integer(value),
             }
         }
     },
@@ -483,15 +481,15 @@ export default {
         font-weight: 600;
         color: @global-purple;
     }
+    .sessionPriceWrap {
+        border-bottom: 1px solid #dddddd;
+    }
     .custom-day {
         width: 50px;
         @media (max-width: @screen-xs) {
               width:80px;
             }
     }
-    // .sessionDetails, .sessionPriceWrap {
-    //     border-bottom: 1px solid #dddddd;
-    // }
     .sessionAbout {
          border-bottom: 1px solid #dddddd;
     }
