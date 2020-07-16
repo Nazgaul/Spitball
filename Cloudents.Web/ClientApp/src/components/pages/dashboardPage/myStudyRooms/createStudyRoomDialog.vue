@@ -166,8 +166,8 @@ export default {
       handleCreateError(error) {
          console.log(error)
          if(error.response?.status == 409){
-            self.errors.showErrorAlreadyCreated = true
-            self.currentError = 'showErrorAlreadyCreated'
+            this.errors.showErrorAlreadyCreated = true
+            this.currentError = 'showErrorAlreadyCreated'
          }
       },
       updateError(error) {
