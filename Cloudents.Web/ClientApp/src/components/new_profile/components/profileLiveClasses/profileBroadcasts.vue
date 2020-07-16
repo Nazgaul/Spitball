@@ -217,8 +217,7 @@ export default {
     },
     methods: {
         liveImage(session) {
-            let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${session.id}`
-            return this.$proccessImageUrl(imageUrl, 330, 220, 'crop')
+            return this.$proccessImageUrl(session.image, 330, 220, 'crop')
         },
         enterRoomById(id){
             let routeData = this.$router.resolve({
