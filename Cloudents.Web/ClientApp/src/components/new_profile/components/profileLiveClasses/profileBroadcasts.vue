@@ -55,7 +55,7 @@
                         <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
-                                    @click="enterRoomById(session.id)"
+                                    @click="goStudyRoomLandingPage(session.id)"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -78,7 +78,7 @@
                                 </v-btn>
                                 <v-btn
                                     v-else
-                                    @click="enrollSession(session.id)"
+                                    @click="goStudyRoomLandingPage(session.id)"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -107,22 +107,11 @@
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
         </div>
-
-        <v-snackbar
-            top
-            :timeout="5000"
-            :color="color"
-            @input="showSnack = false"
-            :value="showSnack"
-        >
-            <div class="text-center white--text">{{toasterText}}</div>
-        </v-snackbar>
     </div>
 </template>
 
 <script>
-import { StudyRoom } from '../../../../routes/routeNames'
-
+import * as routeNames from '../../../../routes/routeNames';
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-16.svg'
 
@@ -140,9 +129,6 @@ export default {
     data() {
         return {
             defOpen:false,
-            showSnack: false,
-            color: '',
-            toasterText: '',
             isExpand: false,
         }
     },
@@ -157,9 +143,6 @@ export default {
         broadCastTitle() {
             return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
         },
-        // buttonShowMore() {
-        //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
-        // },
         liveImage() {
             return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
         },
@@ -191,9 +174,6 @@ export default {
         isMyProfile(){
             return this.$store.getters.getIsMyProfile
         },
-        isLogged() {
-            return this.$store.getters.getUserLoggedInStatus
-        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -210,36 +190,11 @@ export default {
         },
     },
     methods: {
-        enterRoomById(id){
-            let routeData = this.$router.resolve({
-                name: StudyRoom,
-                params: { id }
-            });
-            global.open(routeData.href, "_self");
-        },
-        enrollSession(studyRoomId) {
-            if(!this.isLogged) {
-                sessionStorage.setItem('hash','#broadcast');
-                this.$store.commit('setComponent', 'register')
-                return
-            }
-            let session = {
-                userId: this.userId,
-                studyRoomId
-            }
-            let self = this
-            this.$store.dispatch('updateStudyroomLiveSessions', session)
-                .then(() => {
-                    self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.broadcastSessions.filter(s => s.id === studyRoomId)[0]
-                    currentSession.enrolled = true
-                }).catch(ex => {
-                    self.color = 'error'
-                    self.toasterText = this.$t('profile_enroll_error')
-                    self.$appInsights.trackException(ex);
-                }).finally(() => {
-                    self.showSnack = true
-                })
+        goStudyRoomLandingPage(id){
+            this.$router.push({
+                name: routeNames.StudyRoomLanding,
+                params: {id}
+            })
         }
     },
     filters: {
