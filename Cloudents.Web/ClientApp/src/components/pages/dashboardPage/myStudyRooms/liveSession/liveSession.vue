@@ -196,23 +196,19 @@
                     </v-radio-group>
                 </div>
             </div>
-
-            <!-- <v-col colse="12" class="pa-0 mt-3">
-               
-            </v-col> -->
        
          <v-textarea
-                    v-model="sessionAboutText"
-                    class="sessionAbout pb-2"
-                    :rules="[rules.required]"
-                    :label="$t('dashboardPage_label_session_about')"
-                    :rows="3"
-                    color="#304FFE"
-                    placeholder=" "
-                    dense
-                    outlined
-                    no-resize
-                ></v-textarea>
+            v-model="sessionAboutText"
+            class="sessionAbout pb-2 mb-5"
+            :rules="[rules.required]"
+            :label="$t('dashboardPage_label_session_about')"
+            :rows="3"
+            color="#304FFE"
+            placeholder=" "
+            dense
+            outlined
+            no-resize
+        ></v-textarea>
 
         <div class="sessionPriceWrap pb-5 mb-5">
             <div class="liveSubtitle mb-4" v-t="'session price'"></div>
