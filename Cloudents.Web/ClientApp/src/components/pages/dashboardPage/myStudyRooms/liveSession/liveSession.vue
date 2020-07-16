@@ -2,9 +2,8 @@
     <div class="liveSession">
         <div class="liveSubtitle mb-7" v-t="'session details'"></div>
 
-        <v-row class="sessionDetails d-flex ma-0 pa-0 mb-3" dense>
-            <v-col cols="12" class="pa-0">
-                <v-text-field 
+
+        <v-text-field 
                     v-model="liveSessionTitle"
                     type="text"
                     class="sessionTitleInput mb-3"
@@ -18,8 +17,8 @@
                     autocomplete="nope"
                 >
                 </v-text-field>
-            </v-col>
-            <v-col cols="6" sm="4" class="pa-0">
+        <v-row class="sessionDetails  ma-0 pa-0 mb-3"  no-gutters>
+            <v-col cols="6" sm="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
                         <v-text-field 
@@ -56,11 +55,10 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-
-            <v-col cols="6" sm="4" class="pa-0">
+            <v-col cols="6" sm="3" >
                 <v-select
                     v-model="hour"
-                    class="roomHour pl-sm-4 ps-2"
+                    class="roomHour ps-sm-3 ps-2"
                     :items="timeHoursList"
                     height="50"
                     :menu-props="{
@@ -75,11 +73,10 @@
                     outlined
                 ></v-select>
             </v-col>
-
-            <v-col cols="12" sm="4" class="pa-0">
+            <v-col cols="12" sm="5" >
                 <v-select
                     v-model="currentRepeatItem"
-                    class="roomHour pl-sm-4 mt-3 mt-sm-0"
+                    class="roomHour ps-sm-3 mt-3 mt-sm-0"
                     :items="repeatItems"
                     height="50"
                     :menu-props="{
@@ -95,9 +92,11 @@
                     outlined
                 ></v-select>
             </v-col>
+        </v-row>
+
             
-            <template v-if="currentRepeatItem.value !== 'none'">
-                <v-col cols="12" class="sessionRepeat d-sm-flex align-center mb-5 mb-sm-2" v-if="currentRepeatItem.value === 'custom'">
+            <div class="sessionDetails" v-if="currentRepeatItem.value !== 'none'">
+                <div  class="sessionRepeat flex-wrap d-sm-flex align-center mb-5 mb-sm-2" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth mb-4 mb-sm-0" v-t="'repeat'"></div>
                     <div class="d-flex flex-wrap flex-sm-nowrap">
                         <v-checkbox 
@@ -111,12 +110,12 @@
                             hide-details
                         ></v-checkbox>
                     </div>
-                </v-col>
+                </div>
 
-                <v-col cols="12" class="sessionEnd d-sm-flex">
+                <div  class="sessionEnd d-sm-flex">
                     <div class="labelWidth mb-4 mb-sm-0" v-t="'ends'"></div>
                     <v-radio-group v-model="radioEnd" class="mt-0" row>
-                        <v-radio class="mb-3" value="on">
+                        <v-radio class="mb-3" value="on" sel="datePicker">
                             <template v-slot:label>
                                 <span class="sessionOn">{{$t('on')}}</span>
                                 <div @click.stop.prevent="">
@@ -193,13 +192,16 @@
                             </template>
                         </v-radio>
                     </v-radio-group>
-                </v-col>
-            </template>
+                </div>
+            </div>
 
-            <v-col colse="12" class="pa-0 mt-3">
-                <v-textarea
+            <!-- <v-col colse="12" class="pa-0 mt-3">
+               
+            </v-col> -->
+       
+         <v-textarea
                     v-model="sessionAboutText"
-                    class="sessionAbout mb-2"
+                    class="sessionAbout pb-2"
                     :rules="[rules.required]"
                     :label="$t('dashboardPage_label_session_about')"
                     :rows="3"
@@ -209,8 +211,6 @@
                     outlined
                     no-resize
                 ></v-textarea>
-            </v-col>
-        </v-row>
 
         <div class="sessionPriceWrap pb-5 mb-5">
             <div class="liveSubtitle mb-4" v-t="'session price'"></div>
@@ -479,8 +479,11 @@ export default {
         font-weight: 600;
         color: @global-purple;
     }
-    .sessionDetails, .sessionPriceWrap {
-        border-bottom: 1px solid #dddddd;
+    // .sessionDetails, .sessionPriceWrap {
+    //     border-bottom: 1px solid #dddddd;
+    // }
+    .sessionAbout {
+         border-bottom: 1px solid #dddddd;
     }
     .sessionDetails {
         .labelWidth {
