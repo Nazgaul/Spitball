@@ -96,7 +96,7 @@
 
             
             <div class="sessionDetails" v-if="currentRepeatItem.value !== 'none'">
-                <div  class="sessionRepeat flex-wrap d-sm-flex align-center mb-5 mb-sm-2" v-if="currentRepeatItem.value === 'custom'">
+                <div  class="sessionRepeat flex-wrap d-sm-flex align-center mb-5" v-if="currentRepeatItem.value === 'custom'">
                     <div class="labelWidth mb-4 mb-sm-0" v-t="'repeat'"></div>
                     <div class="d-flex flex-wrap flex-sm-nowrap">
                         <v-checkbox class="custom-day" 
@@ -114,7 +114,7 @@
 
                 <div  class="sessionEnd d-sm-flex">
                     <div class="labelWidth mb-4 mb-sm-0" v-t="'ends'"></div>
-                    <v-radio-group v-model="radioEnd" class="mt-0" row>
+                    <v-radio-group v-model="radioEnd" class="mt-0 ms-sm-3" row>
                         <v-radio class="mb-3" value="on" sel="datePicker">
                             <template v-slot:label>
                                 <span class="sessionOn">{{$t('on')}}</span>
@@ -498,7 +498,10 @@ export default {
             font-size: 16px;
             font-weight: 600;
             color: #43425d;
-            width: 80px;
+            width: 100px;
+            @media (max-width: @screen-xs) {
+                width: 100%;
+            }
         }
     }
     .v-text-field__slot{
