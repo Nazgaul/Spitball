@@ -23,15 +23,21 @@ namespace Cloudents.Core.EventHandler
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "disposible")]
         public async Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
         {
-            if (eventMessage.Session.StudyRoom is BroadCastStudyRoom recurringSession && recurringSession.Schedule != null)
+            if (eventMessage.Session.StudyRoom is BroadCastStudyRoom recurringSession 
+                && recurringSession.Schedule != null)
             {
+                if (recurringSession.BroadcastTime < DateTime.UtcNow)
+                {
+                    return;
+                }
                 var dateTime = _cronService.GetNextOccurrence(recurringSession.Schedule!.CronString);
                 if (dateTime < recurringSession.Schedule.End)
                 {
                     recurringSession.BroadcastTime = dateTime;
                 }
+                await _unitOfWork.CommitAsync(token);
+
             }
-            await _unitOfWork.CommitAsync(token);
 
         }
 
