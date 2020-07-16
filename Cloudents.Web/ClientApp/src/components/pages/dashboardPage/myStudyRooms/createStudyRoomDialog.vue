@@ -49,7 +49,8 @@ export default {
             showErrorEmpty: false,
             showErrorMaxUsers: false,
             showErrorWrongTime: false,
-            showErrorAlreadyCreated: false
+            showErrorAlreadyCreated: false,
+            showErrorWrongNumber: false
          },
 
          currentError: '',
@@ -63,6 +64,7 @@ export default {
             showErrorAlreadyCreated: this.$t('dashboardPage_create_room_created_error'),
             showErrorMaxUsers: this.$t('dashboardPage_create_room_max_error'),
             showErrorWrongTime: this.$t('dashboardPage_pick_time_error'),
+            showErrorWrongNumber: this.$t('not number')
          }
       },
       isPrivate() {
@@ -76,7 +78,7 @@ export default {
       },
       isNoErrors() {
          return !this.errors.showErrorAlreadyCreated && !this.errors.showErrorEmpty &&
-                !this.errors.showErrorMaxUsers && !this.errors.showErrorWrongTime
+                !this.errors.showErrorMaxUsers && !this.errors.showErrorWrongTime && !this.errors.showErrorWrongNumber
       }
    },
    methods: {
@@ -130,6 +132,15 @@ export default {
             } 
          }
 
+         if(childComponent.radioEnd === 'after') {
+            if(isNaN(childComponent.endAfterOccurrences)) {
+               this.errors.showErrorWrongNumber = true
+               this.currentError = 'showErrorWrongNumber'
+               this.isLoading = false
+               return
+            }
+         }
+
          let liveObj = {
             name: childComponent.liveSessionTitle,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
@@ -167,6 +178,7 @@ export default {
          this.errors.showErrorAlreadyCreated = false
          this.errors.showErrorMaxUsers = false
          this.errors.showErrorWrongTime = false
+         this.errors.showErrorWrongNumber = false
          this.currentError = ''
       }
    },
