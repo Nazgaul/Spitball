@@ -28,13 +28,13 @@
             <div v-if="isMobile && roomPrice.amount" class="pt-7 sessionPrice">
                {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
              </div>
-            <v-btn v-if="isRoomTutor" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-if="isRoomTutor" @click="enterStudyRoom" :class="{'mt-7': isMobile && !roomPrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
-            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && !roomPrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{isRoomFull? $t('room_full') : $t('save_spot') }}
             </v-btn>
-            <!-- <v-btn block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn> -->
+            <v-btn v-if="roomPrice.amount" block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
@@ -56,6 +56,8 @@ import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
 import * as componentConsts from '../global/toasterInjection/componentConsts.js';
 import * as routeNames from '../../../routes/routeNames';
+import EventBus from '../../../eventBus.js';
+
 export default {
    components:{logo,sessionStartCounter,stripe},
    data() {
@@ -82,6 +84,14 @@ export default {
          });
          global.open(routeData.href, "_self");
       },
+      async goStripe() {
+         let session = {
+            userId: this.$store.getters.accountUser?.id,
+            studyRoomId: this.$route.params?.id
+         };
+         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
+         this.$refs.stripe.redirectToStripe(x);
+      },
       async enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
@@ -97,8 +107,7 @@ export default {
             studyRoomId
          }
          if (this.roomPrice.amount && this.tutorCountry !== 'IL') {
-            let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
-            this.$refs.stripe.redirectToStripe(x);
+            this.goStripe()
             return;
          }
          let self = this
@@ -142,9 +151,9 @@ export default {
       roomPrice(){
          return this.roomDetails?.price;
       },
-      isRoomNeedPayment(){
-         return this.$store.getters.getRoomIsNeedPayment;
-      },
+      // isRoomNeedPayment(){
+      //    return this.$store.getters.getRoomIsNeedPayment;
+      // },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
@@ -158,16 +167,28 @@ export default {
          return this.$store.getters.getUserLoggedInStatus
       },
    },
-   watch: {
-      isRoomNeedPayment:{
-         immediate:true,
-         handler(newVal,oldVal){
-            if(newVal === false && oldVal === true){
-               this.enrollSession()
-            }
+   mounted() {
+      EventBus.$on('applyCouponDone',()=>{
+         if (this.roomPrice?.amount && this.tutorCountry !== 'IL') {
+            this.goStripe()
+         }else{
+            this.enrollSession()
          }
-      },
+      });
    },
+   beforeDestroy() {
+      EventBus.$off('applyCouponDone', ()=>{})
+   },
+   // watch: {
+   //    isRoomNeedPayment:{
+   //       immediate:true,
+   //       handler(newVal,oldVal){
+   //          if(newVal === false && oldVal === true){
+   //             this.enrollSession()
+   //          }
+   //       }
+   //    },
+   // },
 }
 </script>
 

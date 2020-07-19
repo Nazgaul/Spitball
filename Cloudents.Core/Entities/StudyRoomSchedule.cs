@@ -5,10 +5,11 @@ namespace Cloudents.Core.Entities
 {
     public class StudyRoomSchedule : ValueObject
     {
-        public StudyRoomSchedule(string cronString, DateTime end)
+        public StudyRoomSchedule(string cronString, DateTime end,DateTime start)
         {
             End = end;
             CronString = cronString ?? throw new ArgumentNullException(nameof(cronString));
+            Start = start;
         }
 
         protected StudyRoomSchedule()
@@ -19,6 +20,10 @@ namespace Cloudents.Core.Entities
         public DateTime End { get;  }
 
         public string CronString { get; }
+
+
+        public DateTime Start { get; set; }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return CronString;
