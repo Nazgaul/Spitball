@@ -28,10 +28,10 @@
             <div v-if="isMobile && roomPrice.amount" class="pt-7 sessionPrice">
                {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
              </div>
-            <v-btn v-if="isRoomTutor" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-if="isRoomTutor" @click="enterStudyRoom" :class="{'mt-7': isMobile && !roomPrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
-            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && !roomPrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{isRoomFull? $t('room_full') : $t('save_spot') }}
             </v-btn>
             <!-- <v-btn block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn> -->
