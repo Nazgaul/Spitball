@@ -34,7 +34,7 @@
             <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && !roomPrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{isRoomFull? $t('room_full') : $t('save_spot') }}
             </v-btn>
-            <v-btn block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn v-if="roomPrice.amount" block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
          <div class="bottomLeft">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
@@ -169,7 +169,7 @@ export default {
    },
    mounted() {
       EventBus.$on('applyCouponDone',()=>{
-         if (this.roomPrice.amount && this.tutorCountry !== 'IL') {
+         if (this.roomPrice?.amount && this.tutorCountry !== 'IL') {
             this.goStripe()
          }else{
             this.enrollSession()
