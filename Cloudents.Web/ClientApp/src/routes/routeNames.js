@@ -43,6 +43,9 @@ export const Dashboard = 'dashboardTeacher';
 // Study Room:
 export const StudyRoom = 'tutoring';
 
+// StudyRoom Landing Page:
+export const StudyRoomLanding = 'live';
+
 // Question:
 export const Question = 'question';
 

@@ -23,7 +23,7 @@
 
                 <div class="d-sm-flex listWrapper">
                     <div class="leftSide d-sm-flex me-sm-6">
-                        <img :src="liveImage(session)" alt="" width="330" height="220">
+                        <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="330" height="220">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
 
@@ -55,7 +55,7 @@
                         <div class="bottom d-flex align-end justify-space-between text-center" :class="{'mt-5': session.description}">
                                 <v-btn
                                     v-if="isMyProfile || session.enrolled"
-                                    @click="enterRoomById(session.id)"
+                                    @click="goStudyRoomLandingPage(session.id)"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -78,8 +78,7 @@
                                 </v-btn>
                                 <v-btn
                                     v-else
-                                    @click="enrollSession(session)"
-                                    :loading="enrollBtnLoader"
+                                    @click="goStudyRoomLandingPage(session.id)"
                                     class="white--text btn"
                                     rounded
                                     depressed
@@ -108,23 +107,12 @@
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
         </div>
-
-        <v-snackbar
-            top
-            :timeout="5000"
-            :color="color"
-            @input="showSnack = false"
-            :value="showSnack"
-        >
-            <div class="text-center white--text">{{toasterText}}</div>
-        </v-snackbar>
         <stripe ref="stripe"></stripe>
     </div>
 </template>
 
 <script>
-import { StudyRoom } from '../../../../routes/routeNames'
-
+import * as routeNames from '../../../../routes/routeNames';
 import enterIcon from './enterRoom.svg'
 import arrowDownIcon from './group-3-copy-16.svg'
 import stripe from "../../../pages/global/stripe.vue";
@@ -144,11 +132,7 @@ export default {
     data() {
         return {
             defOpen:false,
-            showSnack: false,
-            color: '',
-            toasterText: '',
             isExpand: false,
-            enrollBtnLoader: false,
         }
     },
     watch: {
@@ -162,13 +146,6 @@ export default {
         broadCastTitle() {
             return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
         },
-        // buttonShowMore() {
-        //     return !this.isExpand ?  this.$t('See all live classes') : this.$t('See less live classes')
-        // },
-        // liveImage() {
-        //     return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
-        //     // return this.isMobile ? require('./live-banner-mobile.png') : require('./live-banner-desktop.png')
-        // },
         readBtnText() {
             return this.isOpen ? this.$t('profile_read_less') : this.$t('profile_read_more')
         },
@@ -197,9 +174,6 @@ export default {
         isMyProfile(){
             return this.$store.getters.getIsMyProfile
         },
-        isLogged() {
-            return this.$store.getters.getUserLoggedInStatus
-        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -216,47 +190,14 @@ export default {
         },
     },
     methods: {
+        goStudyRoomLandingPage(id){
+            this.$router.push({
+                name: routeNames.StudyRoomLanding,
+                params: {id}
+            })
+        },
         liveImage(session) {
             return this.$proccessImageUrl(session.image, 330, 220, 'crop')
-        },
-        enterRoomById(id){
-            let routeData = this.$router.resolve({
-                name: StudyRoom,
-                params: { id }
-            });
-            global.open(routeData.href, "_self");
-        },
-        async enrollSession(session) {
-            if(!this.isLogged) {
-                sessionStorage.setItem('hash','#broadcast');
-                this.$store.commit('setComponent', 'register')
-                return
-            }
-            let sessionObj = {
-                userId: this.userId,
-                studyRoomId: session.id
-            }
-            if (session.price?.amount && this.$store.getters.getProfileCountry !== 'IL' && !this.$store.getters.getIsSubscriber) {
-                let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', sessionObj);
-                this.$refs.stripe.redirectToStripe(x);
-                return;
-            }
-           
-            let self = this
-            this.enrollBtnLoader = true
-            this.$store.dispatch('updateStudyroomLiveSessions', sessionObj)
-                .then(() => {
-                    self.toasterText = this.$t('profile_enroll_success')
-                    let currentSession = self.broadcastSessions.filter(s => s.id === session.id)[0]
-                    currentSession.enrolled = true
-                }).catch(ex => {
-                    self.color = 'error'
-                    self.toasterText = this.$t('profile_enroll_error')
-                    self.$appInsights.trackException(ex);
-                }).finally(() => {
-                    this.enrollBtnLoader = false
-                    self.showSnack = true
-                })
         }
     },
     filters: {

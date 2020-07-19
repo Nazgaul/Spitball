@@ -36,9 +36,9 @@ namespace Cloudents.Command.CommandHandler
             if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
                 studyRoom.Tutor.User.SbCountry != Country.Israel && message.Receipt == null)
             {
-                if (studyRoom.Tutor.User.Followers
-                        .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
-                    false)
+                var subscription = studyRoom.Tutor.User.Followers
+                    .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber;
+                if (subscription.GetValueOrDefault() == false)
                 {
                     throw new UnauthorizedAccessException();
                 }
