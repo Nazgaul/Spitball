@@ -56,7 +56,7 @@ namespace Cloudents.FunctionsV2.Test
 
             var asyncCollector = new TestAsyncCollector<SendGridMessage>();
 
-            await EmailUpdateFunction.SendEmail(user,
+            await EmailUpdateFunction.SendEmailAsync(user,
                 asyncCollector,
                  _queryBusStub.Object,
                  null,
@@ -88,7 +88,7 @@ namespace Cloudents.FunctionsV2.Test
             
             var asyncCollector = new TestAsyncCollector<SendGridMessage>();
 
-            await EmailUpdateFunction.SendEmail(user,
+            await EmailUpdateFunction.SendEmailAsync(user,
                 asyncCollector,
                  _queryBusStub.Object,
                  null,
@@ -126,7 +126,7 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<GetUpdatesEmailByUserQuery>(), default)).ReturnsAsync(update);
 
             var asyncCollector = new TestAsyncCollector<SendGridMessage>();
-            await EmailUpdateFunction.SendEmail(user,
+            await EmailUpdateFunction.SendEmailAsync(user,
                 asyncCollector,
                 _queryBusStub.Object,
                 null,

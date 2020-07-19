@@ -129,9 +129,18 @@ namespace Cloudents.Core
         }
 
 
+        public string BuildStudyRoomThumbnailEndPoint(Guid id, object? parameters = null)
+        {
+            var path = $"image/studyRoom/{id}";//
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
+        //public const string ImageFunctionStudyRoomRoute = "image/studyroom/{id}";
         public string BuildUserImageEndpoint(long id, string? imageName, string? userName, object? parameters = null)
         {
 

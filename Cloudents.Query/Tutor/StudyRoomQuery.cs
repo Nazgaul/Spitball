@@ -40,6 +40,7 @@ namespace Cloudents.Query.Tutor
                      .Where(w => w.Id == query.Id)
                      .Select(s => new StudyRoomDto
                      {
+                         Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id ==query.UserId),
                          OnlineDocument = s.OnlineDocumentUrl,
                          ConversationId = s.Identifier,
                          TutorId = s.Tutor.Id,
@@ -100,6 +101,10 @@ namespace Cloudents.Query.Tutor
                 }
 
                 result.UserId = query.UserId;
+                if (result.TutorId == query.UserId)
+                {
+                    result.Enrolled = true;
+                }
 
                 if (futurePayment.Value)
                 {

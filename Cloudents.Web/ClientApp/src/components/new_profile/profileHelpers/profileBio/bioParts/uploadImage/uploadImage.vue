@@ -23,9 +23,19 @@
 
     export default {
         name: "uploadImage",
+        props: {
+            fromLiveSession: {
+                type: Boolean,
+                required: false
+            }
+        },
         methods: {
             ...mapActions(['uploadAccountImage', 'updateToasterParams']),
             uploadProfilePicture() {
+                if(this.fromLiveSession) {
+                    this.$emit('setLiveImage', this.$refs.profileImage.files)
+                    return
+                }
                 let self = this;
                 // will trigger in tutorInfoEdit and userInfoEdit skeleton loader
                 this.$emit('setProfileAvatarLoading', false)

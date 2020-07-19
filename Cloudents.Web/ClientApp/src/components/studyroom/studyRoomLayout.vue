@@ -85,16 +85,6 @@ export default {
         };
       }
     },
-    getRoomIsNeedPayment:{
-      immediate:true,
-      handler(newVal){
-        // note: we need the immediate cuz no one listen to getRoomIsNeedPayment and can 
-        // getStudyRoomData empty
-        if(newVal !== null){
-          this.handleNeedPayment(newVal)
-        }
-      }
-    },
     showRoomMutedToaster:{
       deep:true,
       handler(newVal){
@@ -125,12 +115,16 @@ export default {
       });
     },
   },
-  created() {
-      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            this.$router.push('/')
-          }
-        })
+  updated() {
+    this.$watch('getRoomIsNeedPayment', (newVal) => {
+        // note: we need the immediate cuz no one listen to getRoomIsNeedPayment and can 
+        // getStudyRoomData empty
+          let self = this;
+          self.$nextTick(()=>{
+            self.handleNeedPayment(newVal)
+          })
+      },{immediate:true}
+    );
   },
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');

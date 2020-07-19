@@ -294,47 +294,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        //[Theory]
-
-        //[InlineData("IN")]
-        //public async Task AdminLeadsQuery_Ok(string country)
-        //{
-        //    var query = new AdminLeadsQuery(country);
-        //    _ = await _fixture.QueryBus.QueryAsync(query, default);
-        //}
-
-        [Theory]
-        [InlineData( null, null)]
-        [InlineData( "IL", null)]
-        [InlineData( null, "V")]
-        [InlineData( "IL", "V")]
-        public async Task AdminCoursesQuery_Ok( string countryStr, string search)
-        {
-            var country = FromCountry(countryStr);
-            var query = new CoursesQuery( country, search);
-            var result = await _fixture.QueryBus.QueryAsync(query, default);
-
-
-            //check distinct
-            var v = from c in result
-                    group c by c.Name
-                into grp
-                    where grp.Count() > 1
-                    select grp.Key;
-            v.Should().BeEmpty();
-
-
-        }
-
-        //[Theory]
-        //[InlineData(159039, "", 0, "IL")]
-        //[InlineData(0, null, 0, "IL")]
-        //[InlineData(0, "Econ", 0, "IL")]
-        //public async Task AdminCourseSearchQuery_Ok(long userId, string term, int page, string country)
-        //{
-        //    var query = new CourseSearchQuery(userId, term, page, country);
-        //    await _fixture.QueryBus.QueryAsync(query, default);
-        //}
+       
 
         [Theory]
         [InlineData("IL")]

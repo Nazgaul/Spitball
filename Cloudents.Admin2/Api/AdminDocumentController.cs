@@ -82,7 +82,7 @@ namespace Cloudents.Admin2.Api
                 await Task.WhenAll(tasks.Value);
             }
 
-            string nextLink = null;
+            string? nextLink = null;
             if (id.HasValue)
             {
                 nextLink = Url.RouteUrl("Pending", new
@@ -110,14 +110,7 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        //[HttpPost("unDelete")]
-        //[Authorize]
-        //public async Task<IActionResult> UnDelete([FromBody] UnDeleteDocumentRequest model, CancellationToken token)
-        //{
-        //    var command = new UnDeleteDocumentCommand(model.Id);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Ok();
-        //}
+        
 
         [HttpPost]
         public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)

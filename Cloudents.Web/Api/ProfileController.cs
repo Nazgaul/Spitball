@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -16,6 +17,7 @@ using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.DTOs.Documents;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
@@ -28,13 +30,15 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly ICommandBus _commandBus;
+        private readonly IUrlBuilder _urlBuilder;
 
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
-              ICommandBus commandBus)
+              ICommandBus commandBus, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _commandBus = commandBus;
+            _urlBuilder = urlBuilder;
         }
 
         // GET
@@ -81,7 +85,13 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorUpcomingBroadcastStudyRoomQuery(id, userId);
-            return await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
+
+            return result.Select(s =>
+            {
+                s.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(s.Id);
+                return s;
+            });
         }
 
         [HttpPost("{id:long}/studyRoom"), Authorize]

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ExternalSignInController : Controller
     {
         private readonly SignInManager<User> _signInManager;
@@ -36,19 +37,19 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("External/Google")]
-        public IActionResult Index(string returnUrl, UserType userType)
+        public IActionResult Index(string returnUrl,
+            UserType userType)
         {
             var redirectUrl = Url.Action("ExternalCallBack",new
             {
                 returnUrl,
                 userType
-
             });
+            var allHeaders = Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString());
+            _logClient.TrackTrace("external sign in headers -", allHeaders);
+
             var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
-           // properties.SetParameter("access_type","offline");
-           // properties.SetParameter("prompt","select_account");
             return new ChallengeResult("Google", properties);
-            //return Ok("Hi Man");
         }
 
         [Route("ExternalLogin")]

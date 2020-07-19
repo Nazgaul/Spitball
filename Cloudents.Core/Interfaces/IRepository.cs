@@ -113,10 +113,10 @@ namespace Cloudents.Core.Interfaces
 
     
 
-    public interface ICourseRepository : IRepository<Course>
-    {
-       // Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
-        Task MigrateCourseAsync(string courseToKeepId, string courseToRemoveId, CancellationToken token);
-        Task RenameCourseAsync(string courseName, string newName, CancellationToken token);
-    }
+    //public interface ICourseRepository : IRepository<Course>
+    //{
+    //   // Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
+    //   // Task MigrateCourseAsync(string courseToKeepId, string courseToRemoveId, CancellationToken token);
+    //    Task RenameCourseAsync(string courseName, string newName, CancellationToken token);
+    //}
 }
