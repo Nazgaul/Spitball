@@ -7,20 +7,6 @@
                 class="broadcastList"
                 :class="{'expandLastChild': isExpand}"
                 :key="session.id">
-                <!-- <template v-if="isMobile">
-                    <div class="sessionTitle mb-sm-2 mb-3">{{session.name}}</div>
-                    <div class="header d-flex justify-space-between mb-2">
-                        <div>
-                            <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
-                            <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
-                        </div>
-                        <div>
-                            <v-icon size="20" color="#3b3b3c">sbf-clockIcon</v-icon>
-                            <span class="dateTime ms-1">{{$d(session.created, 'broadcastHour')}}</span>
-                        </div>
-                    </div>
-                </template> -->
-
                 <div class="d-sm-flex listWrapper py-sm-5">
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="330" height="220">
@@ -34,7 +20,7 @@
                                 <div class="orangeDot"></div>
                                 <div class="occurrenceDot">{{$moment(getEventDays(session).start).format('h:mm a')}}</div>
                                 <div class="orangeDot"></div>
-                                <div class="occurrenceDot">{{getEventDays(session).times}} {{$t('session')}}</div>
+                                <div class="occurrenceDot">{{$tc('session', getEventDays(session).times)}}</div>
                                 <div class="orangeDot"></div>
                                 <div class="occurrenceDot">{{getEventDays(session).days}}</div>
                             </div>

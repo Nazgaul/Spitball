@@ -699,6 +699,7 @@
   "seat_saved": "Your seat is saved!",
   "seesion require payment": "The Session require a payment of  {0}",
   "send-email": "Send Email",
+  "session": "{n} no session | {n} session | {n} sessions",
   "session details": "Add details about the session",
   "session price": "Session Price",
   "shareContent_copy": "Copy",
