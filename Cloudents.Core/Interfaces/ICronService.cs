@@ -11,6 +11,6 @@ namespace Cloudents.Core.Interfaces
         public string BuildCronCustom(DateTime baseDate, IEnumerable<DayOfWeek> days );
 
         public DateTime GetNextOccurrence(string cronSchedule);
-        public IEnumerable<DateTime> GetNextOccurrences(string cronSchedule, DateTime end);
+        public IEnumerable<DateTime> GetNextOccurrences(string cronSchedule,DateTime start, DateTime end);
     }
 }

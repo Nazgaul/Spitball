@@ -37,19 +37,19 @@ namespace Cloudents.Infrastructure
             return schedule.GetNextOccurrence(DateTime.UtcNow);
         }
 
-        public IEnumerable<DateTime> GetNextOccurrences(string cronSchedule, DateTime end)
+        public IEnumerable<DateTime> GetNextOccurrences(string cronSchedule,DateTime start, DateTime end)
         {
             var schedule = CrontabSchedule.Parse(cronSchedule);
-            return schedule.GetNextOccurrences(DateTime.UtcNow, end);
+            return schedule.GetNextOccurrences(start, end);
         }
 
-        public int GetAmountRecurring(string cronSchedule, DateTime end)
-        {
-            var schedule = CrontabSchedule.Parse(cronSchedule);
+        //public int GetAmountRecurring(string cronSchedule, DateTime end)
+        //{
+        //    var schedule = CrontabSchedule.Parse(cronSchedule);
 
 
-            return schedule.GetNextOccurrences(DateTime.UtcNow, end).Count();
+        //    return schedule.GetNextOccurrences(DateTime.UtcNow, end).Count();
 
-        }
+        //}
     }
 }

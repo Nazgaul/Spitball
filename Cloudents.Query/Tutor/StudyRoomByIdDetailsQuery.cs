@@ -77,7 +77,7 @@ namespace Cloudents.Query.Tutor
 
                 if (result.Schedule != null)
                 {
-                    result.NextEvents = _cronService.GetNextOccurrences(result.Schedule.CronString, result.Schedule.End);
+                    result.NextEvents = _cronService.GetNextOccurrences(result.Schedule.CronString, result.Schedule.Start, result.Schedule.End);
                 }
 
                 if (futureSubscription.Value.GetValueOrDefault())
