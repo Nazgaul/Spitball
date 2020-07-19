@@ -599,7 +599,7 @@
   "questionDetails_error_minChar": "תשובה מקורית צריכה להיות לפחות 15 תווים.",
   "questionDetails_question_dash": "/  שאלות  /",
   "questionTheard_Answers": "כל התשובות",
-  "recurring": "{0} מפגשים חיים - כל {1}",
+  "recurring": "{0} מפגשים חיים - כל יום {1}",
   "referralDialog_copied": "הועתק",
   "referralDialog_copy": "העתקה ללוח",
   "referralDialog_copy_link": "העתקת קישור",
