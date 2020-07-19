@@ -188,7 +188,6 @@ export default {
    .v-data-footer {
       padding: 6px 0;
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;

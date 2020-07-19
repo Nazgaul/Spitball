@@ -43,8 +43,6 @@
                         class="date-picker"
                         @input="datePickerMenu = false"
                         :allowed-dates="allowedDates"
-                        :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
-                        :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                         color="#4C59FF"
                         dense
                         no-title
@@ -154,8 +152,6 @@
                                             class="date-picker"
                                             @input="datePickerOcurrence = false"
                                             :allowed-dates="allowedDatesEnd"
-                                            :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
-                                            :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                                             color="#4C59FF"
                                             dense
                                             no-title
@@ -461,16 +457,15 @@ export default {
             }
         }
     },
-    created() {
-        if(this.isRtl) {
-            this.$nextTick(() => {
-                document.querySelectorAll('.roomHour .v-label').forEach(elem => {
-                    elem.style.right = '-28px'
-                })
-            })
-        }
-        
-    }
+    // created() {
+    //     if(this.isRtl) {
+    //         this.$nextTick(() => {
+    //             document.querySelectorAll('.roomHour .v-label').forEach(elem => {
+    //                 elem.style.right = '-28px'
+    //             })
+    //         })
+    //     }
+    // }
 }
 </script>
 
@@ -586,6 +581,11 @@ export default {
             font-size: 16px;
             color: #adb1b4;
         }
+    }
+}
+.date-picker {
+    .v-icon {
+        font-size: 14px !important;
     }
 }
 </style>
