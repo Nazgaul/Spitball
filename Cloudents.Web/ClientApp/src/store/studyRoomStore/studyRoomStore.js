@@ -2,6 +2,7 @@ import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import {twilio_SETTERS} from '../constants/twilioConstants.js';
 import Vue from 'vue';
+import Moment from 'moment'
 
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 function _getRoomParticipantsWithoutTutor(roomParticipants,roomTutor){
@@ -178,7 +179,7 @@ const mutations = {
          this.tutorName = objInit.tutorName; 
          this.tutorImage = objInit.tutorImage; 
          this.tutorBio = objInit.tutorBio; 
-         this.tutorCountry = objInit.tutorCountry;
+         this.nextEvents = objInit.nextEvents || null;
       }
       if(roomDetails?.id){
          state.roomDetails = new RoomDetails(roomDetails)
@@ -239,6 +240,27 @@ const getters = {
    },
    getRoomDetails:state => state.roomDetails,
    getStudyroomEnrolled:state => state.roomEnrolled,
+   getSessionRecurring: () => (nextEvents) => {
+      if(!nextEvents) return null;
+      let times = nextEvents.length;
+
+      let daysObj = nextEvents.map(day=>{
+         return {
+            text: Moment(day).format('ddd'),
+            digit:Moment(day).format('d')
+         }
+      }).sort((a,b)=>a.digit - b.digit)
+
+      let days = Array.from(new Set(daysObj.map(d=>d.text))).join(' ');
+      let start = nextEvents[0];
+      let startNext = nextEvents.filter(dateEvent=> Moment(dateEvent).isAfter())[0];
+      return {
+         times,
+         days,
+         start,
+         startNext
+      }
+   },
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
