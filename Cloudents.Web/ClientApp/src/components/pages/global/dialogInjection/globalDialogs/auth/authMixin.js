@@ -71,7 +71,7 @@ export default {
                     if(self.presetRouting()) return
 
                     window.location.reload()
-                }).catch(error => {      
+                }).catch(error => {
                     let { response: { data } } = error
 
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
@@ -80,6 +80,7 @@ export default {
         },
         gmailRegister() {
             let userType = this.teacher ? 'tutor' : 'student'
+            let returnUrlFromMessageCenter = this.fromMessageCenter(true)
             if(this.isFromTutorReuqest) {
                 sessionStorage.setItem('hash','#tutorRequest');
                 sessionStorage.setItem('tutorRequest', JSON.stringify({
@@ -88,7 +89,7 @@ export default {
                     tutorId: this.$store.getters.getCurrTutor?.userId 
                 }))
             }
-            window.location.assign(`/External/Google?usertype=${userType}&returnUrl=${encodeURIComponent(window.location.pathname+window.location.search)}`);
+            window.location.assign(`/External/Google?usertype=${userType}&returnUrl=${encodeURIComponent(returnUrlFromMessageCenter || window.location.pathname+window.location.search)}`);
         },
         verifyPhone(smsCode){
 			let self = this
@@ -109,12 +110,21 @@ export default {
                 this.fromTutorReuqest()
                 return true
             }
-
+            
+            this.fromMessageCenter()
             if(this.needRedirect()) return true
 
             this.fromStudyRoom()
-
             return false
+        },
+        fromMessageCenter(fromGmail = false) {
+            let routeStack = this.$store.getters.getRouteStack[0]
+            if(routeStack.name === routeNames.MessageCenter) {
+                if(fromGmail) {
+                    return routeStack.fullPath
+                }
+                window.location = routeStack.fullPath
+            }
         },
         needRedirect() {
             let pathToRedirect = ['/','/learn'];
