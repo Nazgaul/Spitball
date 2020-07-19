@@ -81,7 +81,9 @@ namespace Cloudents.Core.DTOs
         public Country TutorCountry { get; set; }
 
         public int? RecurringTimes => 50; // { get; set; }
-        public IEnumerable<DayOfWeek>? RecurringDays => new [] {DayOfWeek.Friday,DayOfWeek.Sunday,DayOfWeek.Tuesday,DayOfWeek.Wednesday}// get; set; }
+
+        public IEnumerable<DayOfWeek>? RecurringDays =>
+            new[] {DayOfWeek.Friday, DayOfWeek.Sunday, DayOfWeek.Tuesday, DayOfWeek.Wednesday};// get; set; }
         public DateTime? RecurringStart => DateTime.UtcNow.AddDays(-5); // { get; set; }
     }
 
