@@ -7,7 +7,7 @@
                 class="broadcastList"
                 :class="{'expandLastChild': isExpand}"
                 :key="session.id">
-                <template v-if="isMobile">
+                <!-- <template v-if="isMobile">
                     <div class="sessionTitle mb-sm-2 mb-3">{{session.name}}</div>
                     <div class="header d-flex justify-space-between mb-2">
                         <div>
@@ -19,27 +19,28 @@
                             <span class="dateTime ms-1">{{$d(session.created, 'broadcastHour')}}</span>
                         </div>
                     </div>
-                </template>
+                </template> -->
 
-                <div class="d-sm-flex listWrapper">
+                <div class="d-sm-flex listWrapper py-sm-5">
                     <div class="leftSide d-sm-flex me-sm-6">
                         <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="330" height="220">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
 
-                        <div class="header d-flex justify-space-between mb-3" v-if="!isMobile">
-                            <div>
-                                <v-icon size="20" color="#3b3b3c">sbf-dateIcon</v-icon>
-                                <span class="dateTime ms-1">{{$d(session.created, 'tableDate')}}</span>
-                            </div>
-                            <div>
-                                <v-icon size="20" color="#3b3b3c">sbf-clockIcon</v-icon>
-                                <span class="dateTime ms-1">{{$d(session.created, 'broadcastHour')}}</span>
+                        <div class="occurrenceWrap mb-5 mb-sm-0">
+                            <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
+                            <div class="d-flex align-center flex-wrap flex-sm-nowrap">
+                                <div class="occurrenceDot">{{$moment(getEventDays(session).start).format('ddd, DD MMMM')}}</div>
+                                <div class="orangeDot"></div>
+                                <div class="occurrenceDot">{{$moment(getEventDays(session).start).format('h:mm a')}}</div>
+                                <div class="orangeDot"></div>
+                                <div class="occurrenceDot">{{getEventDays(session).times}} {{$t('session')}}</div>
+                                <div class="orangeDot"></div>
+                                <div class="occurrenceDot">{{getEventDays(session).days}}</div>
                             </div>
                         </div>
 
                         <div class="center">
-                            <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
                             <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
                             <template>
                                 <div class="description">
@@ -121,7 +122,7 @@ export default {
     name: 'profileLiveClasses',
     components: {
         enterIcon,
-        arrowDownIcon  ,
+        arrowDownIcon,
         stripe
     },
     props: {
@@ -198,6 +199,9 @@ export default {
         },
         liveImage(session) {
             return this.$proccessImageUrl(session.image, 330, 220, 'crop')
+        },
+        getEventDays({created}) {
+            return this.$store.getters.getSessionRecurring([created])
         }
     },
     filters: {
@@ -292,7 +296,28 @@ export default {
                     object-fit: contain;
                     @media(max-width: @screen-xs) {
                         width: 100%;
+                        height: 100%;
                     }
+                }
+            }
+            .occurrenceWrap {
+                .responsive-property(font-size, 14px, null, 16px);
+                .occurrenceDot {
+                    margin: 0 8px;
+                }
+                .occurrenceDot:first-child {
+                    margin-left: 0;
+                }
+                .occurrenceDot:last-child {
+                    margin-right: 0;
+                }
+                .orangeDot {
+                    width: 6px;
+                    height: 6px;
+                    right: 8px;
+                    top: 7px;
+                    border-radius: 50%;
+                    background-color: #ff6f30;
                 }
             }
             .rightSide {
@@ -332,12 +357,12 @@ export default {
             }
         }
     }
-    .dateTime {
-        color: #363637;
-        font-weight: 600;
-        font-size: 15px;
-        vertical-align: middle;
-    }
+    // .dateTime {
+    //     color: #363637;
+    //     font-weight: 600;
+    //     font-size: 15px;
+    //     vertical-align: middle;
+    // }
     .sessionTitle {
         font-size: 19px;
         font-weight: 600;
