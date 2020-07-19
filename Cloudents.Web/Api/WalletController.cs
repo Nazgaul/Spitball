@@ -300,7 +300,7 @@ namespace Cloudents.Web.Api
                 }
             };
 
-            var result = service.CreatePaymentAsync(stripePaymentRequest, token);
+            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
             return Ok(new
             {
                 sessionId = result
