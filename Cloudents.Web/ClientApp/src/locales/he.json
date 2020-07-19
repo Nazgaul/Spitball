@@ -356,6 +356,8 @@
   "leaveReview_title_step1": "ציון כללי וחוות דעת",
   "leaveReview_title_step2": "נפלא, הענקתם ציון!",
   "live payment": "",
+  "live_every": "כל {0}",
+  "live_times": "",
   "live_with": "שידור חי עם {0}",
   "localAudioSend": "שמע מקומי: {0}",
   "localVideoSend": "וידאו מקומי: {0}",

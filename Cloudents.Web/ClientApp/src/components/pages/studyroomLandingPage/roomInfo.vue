@@ -8,7 +8,10 @@
             <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
             <div class="classSubject" v-text="roomName"/>
             <div v-if="recurringDetails">
-               <div class="pb-2">{{$t('recurring',[recurringDetails.times,recurringDetails.days])}}</div>
+               <div class="pb-2">
+                  {{$tc('live_times',recurringDetails.times)}} - {{$t('live_every',[recurringDetails.days])}}
+                  <!-- {{$t('recurring',[recurringDetails.times,recurringDetails.days])}} -->
+                  </div>
                <div>{{$t('starts_on',[$moment(recurringDetails.start).format('MMMM Do, h:mm a')])}}</div>
             </div>
             <div v-if="!isMobile && roomPrice.amount">
