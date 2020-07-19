@@ -101,6 +101,10 @@ namespace Cloudents.Query.Tutor
                 }
 
                 result.UserId = query.UserId;
+                if (result.TutorId == query.UserId)
+                {
+                    result.Enrolled = true;
+                }
 
                 if (futurePayment.Value)
                 {

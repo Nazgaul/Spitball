@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -71,9 +72,6 @@ namespace Cloudents.FunctionsV2
 
             using var logoImage = await ShareProfileImageFunction.GetImageFromBlobAsync("logo.png");
 
-
-            
-
             await using var bgBlobStream = await bgBlob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
 
@@ -102,7 +100,13 @@ namespace Cloudents.FunctionsV2
                     height = 471,
                     anchorPosition = AnchorPositionMode.Top.ToString("G")
                 });
-                await using var documentPreviewStream = await client.GetStreamAsync(uriBuilder.Uri);
+
+
+                await using var documentPreviewStream = await GetImageStreamAsync(client, uriBuilder.Uri, token);
+             
+                
+                
+                
                 using var documentImage = Image.Load<Rgba32>(documentPreviewStream);
 
                 image.Mutate(context =>
@@ -120,7 +124,9 @@ namespace Cloudents.FunctionsV2
                     height = 356,
                 });
 
-                await using var documentPreviewStream = await client.GetStreamAsync(uriBuilder.Uri);
+                await using var documentPreviewStream = await GetImageStreamAsync(client, uriBuilder.Uri, token);
+
+                //await using var documentPreviewStream = await client.GetStreamAsync(uriBuilder.Uri);
                 using var documentImage = Image.Load<Rgba32>(documentPreviewStream);
                 using var playerImage = await ShareProfileImageFunction.GetImageFromBlobAsync("video-player.png");
                 image.Mutate(context =>
@@ -141,6 +147,14 @@ namespace Cloudents.FunctionsV2
             }
 
             return new ImageResult(image, TimeSpan.FromDays(30));
+        }
+
+
+        private static async Task<Stream> GetImageStreamAsync(HttpClient client, Uri url,CancellationToken token)
+        {
+            var response =  await client.GetAsync(url, token);
+            //GetStream return stream without length image load need length - this return memory stream
+            return await response.Content.ReadAsStreamAsync();
         }
     }
 }

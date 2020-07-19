@@ -31,18 +31,19 @@ namespace Cloudents.Command.StudyRooms
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
 
-            
-            if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
-                studyRoom.Tutor.User.SbCountry != Country.Israel)
+            if (studyRoom.Tutor.Id != user.Id)
             {
-                if (studyRoom.Tutor.User.Followers
-                        .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
-                    false)
+                if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
+                    studyRoom.Tutor.User.SbCountry != Country.Israel)
                 {
-                    throw new UnauthorizedAccessException();
+                    if (studyRoom.Tutor.User.Followers
+                            .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
+                        false)
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
                 }
             }
-
 
             studyRoom.AddUserToStudyRoom(user);
            
