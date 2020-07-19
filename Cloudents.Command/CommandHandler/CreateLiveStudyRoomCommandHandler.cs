@@ -60,7 +60,7 @@ namespace Cloudents.Command.CommandHandler
                 {
                     throw new ArgumentException("end date is null");
                 }
-                schedule = new StudyRoomSchedule(z, endDate.Value);
+                schedule = new StudyRoomSchedule(z, endDate.Value, message.BroadcastTime);
             }
 
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
