@@ -72,6 +72,7 @@ function _twilioListeners(room,store) {
          }
       }
    }
+   
    store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,room.localParticipant)
    // romote participants events:
    room.participants.forEach((participant) => {
