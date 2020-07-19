@@ -78,6 +78,13 @@ export default {
                         name: componentConsts.FILE_NOT_SUPPORTED
                     }
                 },
+                [componentConsts.ENROLLED_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t('profile_enroll_error'),
+                        name: componentConsts.ENROLLED_ERROR
+                    }
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },

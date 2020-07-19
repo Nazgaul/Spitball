@@ -60,8 +60,25 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
+        public bool Enrolled { get; set; }
     };
 
+    public class StudyRoomDetailDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public DateTime BroadcastTime { get; set; }
+
+        public long TutorId { get; set; }
+        public string? TutorImage { get; set; }
+        public string TutorName { get; set; }
+        public bool Enrolled { get; set; }
+        public bool Full { get; set; }
+        public Money Price { get; set; }
+        public string? TutorBio { get; set; }
+        public Country TutorCountry { get; set; }
+    }
 
     public class FutureBroadcastStudyRoomDto
     {
