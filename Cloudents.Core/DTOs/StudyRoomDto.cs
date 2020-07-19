@@ -66,6 +66,8 @@ namespace Cloudents.Core.DTOs
 
     public class StudyRoomDetailDto
     {
+        [NonSerialized] public StudyRoomSchedule? Schedule;
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
@@ -80,11 +82,12 @@ namespace Cloudents.Core.DTOs
         public string? TutorBio { get; set; }
         public Country TutorCountry { get; set; }
 
-        public int? RecurringTimes => 50; // { get; set; }
+        public IEnumerable<DateTime>? NextEvents { get; set; }
+        //public int? RecurringTimes => 50; // { get; set; }
 
-        public IEnumerable<DayOfWeek>? RecurringDays =>
-            new[] {DayOfWeek.Friday, DayOfWeek.Sunday, DayOfWeek.Tuesday, DayOfWeek.Wednesday};// get; set; }
-        public DateTime? RecurringStart => DateTime.UtcNow.AddDays(-5); // { get; set; }
+        //public IEnumerable<DayOfWeek>? RecurringDays =>
+        //    new[] {DayOfWeek.Friday, DayOfWeek.Sunday, DayOfWeek.Tuesday, DayOfWeek.Wednesday};// get; set; }
+        //public DateTime? RecurringStart => DateTime.UtcNow.AddDays(-5); // { get; set; }
     }
 
     public class FutureBroadcastStudyRoomDto

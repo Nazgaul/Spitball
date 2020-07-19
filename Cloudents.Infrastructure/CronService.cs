@@ -27,14 +27,29 @@ namespace Cloudents.Infrastructure
 
         public string BuildCronCustom(DateTime baseDate, IEnumerable<DayOfWeek> days)
         {
-           var dayStr = string.Join(",", days.Union(new []{baseDate.DayOfWeek}).Distinct().Select(s=> (int)s));
-           return $"{baseDate.Minute} {baseDate.Hour} * * {dayStr}";
+            var dayStr = string.Join(",", days.Union(new[] { baseDate.DayOfWeek }).Distinct().Select(s => (int)s));
+            return $"{baseDate.Minute} {baseDate.Hour} * * {dayStr}";
         }
 
         public DateTime GetNextOccurrence(string cronSchedule)
         {
             var schedule = CrontabSchedule.Parse(cronSchedule);
             return schedule.GetNextOccurrence(DateTime.UtcNow);
+        }
+
+        public IEnumerable<DateTime> GetNextOccurrences(string cronSchedule, DateTime end)
+        {
+            var schedule = CrontabSchedule.Parse(cronSchedule);
+            return schedule.GetNextOccurrences(DateTime.UtcNow, end);
+        }
+
+        public int GetAmountRecurring(string cronSchedule, DateTime end)
+        {
+            var schedule = CrontabSchedule.Parse(cronSchedule);
+
+
+            return schedule.GetNextOccurrences(DateTime.UtcNow, end).Count();
+
         }
     }
 }

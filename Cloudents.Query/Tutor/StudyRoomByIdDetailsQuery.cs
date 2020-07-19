@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -23,10 +24,12 @@ namespace Cloudents.Query.Tutor
         internal sealed class StudyRoomByIdDetailsQueryHandler : IQueryHandler<StudyRoomByIdDetailsQuery, StudyRoomDetailDto?>
         {
             private readonly IStatelessSession _statelessSession;
+            private readonly ICronService _cronService;
 
-            public StudyRoomByIdDetailsQueryHandler(IStatelessSession repository)
+            public StudyRoomByIdDetailsQueryHandler(IStatelessSession repository, ICronService cronService)
             {
                 _statelessSession = repository;
+                _cronService = cronService;
             }
 
             public async Task<StudyRoomDetailDto?> GetAsync(StudyRoomByIdDetailsQuery query, CancellationToken token)
@@ -37,7 +40,7 @@ namespace Cloudents.Query.Tutor
                     .Where(w => w.Id == query.Id)
                     .Select(s => new StudyRoomDetailDto
                     {
-                        Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id ==query.UserId),
+                        Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id == query.UserId),
                         TutorId = s.Tutor.Id,
                         BroadcastTime = s.BroadcastTime,
                         Name = s.Name,
@@ -48,29 +51,10 @@ namespace Cloudents.Query.Tutor
                         Description = s.Description,
                         Full = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == query.Id) == 48,
                         Id = s.Id,
-                        TutorBio = s.Tutor.Paragraph2
+                        TutorBio = s.Tutor.Paragraph2,
+                        Schedule = s.Schedule
+
                     }).ToFutureValue();
-
-                //IFutureValue<CouponTemp>? futureCoupon = null;
-                //if (query.UserId > 0)
-                //{
-                //    futureCoupon  = _statelessSession.Query<UserCoupon>()
-                //        .Where(w => w.User.Id == query.UserId)
-                //        .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
-                //            .Select(s => s.Tutor.Id).First())
-                //        .Where(w => w.UsedAmount < 1)
-                //        .Select(s => new CouponTemp()
-                //        {
-                //            CouponType = s.Coupon.CouponType,
-                //            Value = s.Coupon.Value
-                //        })
-                //        .ToFutureValue();
-                //}
-
-                //var futurePayment = _statelessSession.Query<StudyRoomPayment>()
-                //    .Where(w => w.StudyRoom!.Id == query.Id && w.User.Id == query.UserId)
-                //    .ToFutureValue(f=>f.Any());
-
 
                 var futureSubscription = _statelessSession.Query<Follow>()
                     .Where(w => w.User.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
@@ -79,8 +63,6 @@ namespace Cloudents.Query.Tutor
                     .Select(s => s.Subscriber)
                     .ToFutureValue();
 
-
-
                 var result = await futureStudyRoom.GetValueAsync(token);
 
                 if (result is null)
@@ -88,35 +70,20 @@ namespace Cloudents.Query.Tutor
                     return null;
                 }
 
-                if (result.BroadcastTime  < DateTime.UtcNow.AddHours(-6))
+                if (result.BroadcastTime < DateTime.UtcNow.AddHours(-6))
                 {
                     return null;
                 }
 
-                //result.UserId = query.UserId;
-
-                //if (futurePayment.Value)
-                //{
-                //    result._UserPaymentExists = true;
-                //}
+                if (result.Schedule != null)
+                {
+                    result.NextEvents = _cronService.GetNextOccurrences(result.Schedule.CronString, result.Schedule.End);
+                }
 
                 if (futureSubscription.Value.GetValueOrDefault())
                 {
                     result.Price = result.Price.ChangePrice(0);
                 }
-
-
-                //var coupon = futureCoupon?.Value;
-                //if (coupon is null)
-                //{
-                //    //no coupon
-                //    return result;
-                //}
-
-
-                //var newPrice = Coupon.CalculatePrice(coupon.CouponType,
-                //    result.TutorPrice.Amount, coupon.Value);
-                //result.TutorPrice = new Money(newPrice, result.TutorPrice.Currency);
 
                 return result;
             }
