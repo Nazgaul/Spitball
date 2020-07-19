@@ -7,10 +7,13 @@
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
             <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
             <div class="classSubject" v-text="roomName"/>
-            <!-- <div> -->
-               <!-- <div class="pb-2">10 live sessions - every Tue and Thu</div> -->
-               <div>{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
-            <!-- </div> -->
+            <div v-if="recurringDetails">
+               <div class="pb-2">
+                  {{$tc('live_times',recurringDetails.times)}} - {{$t('live_every',[recurringDetails.days])}}
+                  <!-- {{$t('recurring',[recurringDetails.times,recurringDetails.days])}} -->
+                  </div>
+               <div>{{$t('starts_on',[$moment(recurringDetails.start).format('MMMM Do, h:mm a')])}}</div>
+            </div>
             <div v-if="!isMobile && roomPrice.amount">
                {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
             </div>
@@ -141,6 +144,9 @@ export default {
       roomImage(){
          let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.roomDetails?.id}`
          return this.$proccessImageUrl(imageUrl, 528, 357)
+      },
+      recurringDetails(){
+         return this.$store.getters.getSessionRecurring(this.roomDetails.nextEvents)
       },
       tutorName(){
          return this.roomDetails?.tutorName;
