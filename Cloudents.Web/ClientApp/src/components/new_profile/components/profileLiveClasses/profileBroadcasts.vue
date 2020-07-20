@@ -9,22 +9,35 @@
                 :key="session.id">
                 <div class="d-sm-flex listWrapper py-sm-5">
                     <div class="leftSide d-sm-flex me-sm-6">
-                        <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="330" height="220">
+                        <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="320" height="210">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 px-3 pa-3 pa-sm-0 pt-2 pt-sm-0 pe-0 ps-0 pe-sm-4">
-                        <div class="occurrenceWrap mb-5 mb-sm-0">
+                        <div class="occurrenceWrap mb-5 mb-sm-2">
                             <div class="sessionTitle mb-2">{{session.name}}</div>
                             <div class="d-flex align-center flex-wrap flex-sm-nowrap">
-                                <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMM')}}</div>
-                                <div class="orangeDot"></div>
-                                <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('h:mm a')}}</div>
-                                <div class="orangeDot" v-if="session.nextEvents"></div>
-                                <div class="occurrenceDot" v-if="session.nextEvents">{{$tc('session', getEventDays(session).times)}}</div>
-                                <div class="orangeDot" v-if="session.nextEvents"></div>
-                                <div class="occurrenceDot" v-if="session.nextEvents">{{$t('live_every',[getEventDays(session).days])}}</div>
+                                <div class="d-flex align-center justify-space-between flex-grow-1 flex-sm-grow-0">
+                                    <div class="d-flex align-center">
+                                        <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMM')}}</div>
+                                        <!-- <div class="orangeDot" v-if="session.nextEvents"></div> -->
+                                    </div>
+
+                                    <div class="d-flex align-center">
+                                        <div class="orangeDot mx-2" v-if="session.nextEvents || !isMobile"></div>
+                                        <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('h:mm a')}}</div>
+                                    </div>
+
+                                    <div class="d-flex align-center" v-if="session.nextEvents">
+                                        <div class="orangeDot mx-2"></div>
+                                        <div class="occurrenceDot">{{$tc('session', getEventDays(session).times)}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-center" v-if="session.nextEvents">
+                                    <div class="orangeDot mx-sm-2 me-2"></div>
+                                    <div class="occurrenceDot">{{$t('live_every',[getEventDays(session).days])}}</div>
+                                </div>
                             </div>
                         </div>
-
                         <div class="center">
                             <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
                             <template>
@@ -238,7 +251,7 @@ export default {
         display: none;
     }
     .restOfText {
-        margin-top: 8px;
+        // margin-top: 12px;
         font-size: 16px;
         height: 0;
         opacity: 0;
@@ -289,15 +302,15 @@ export default {
             }
             .occurrenceWrap {
                 .responsive-property(font-size, 14px, null, 16px);
-                .occurrenceDot {
-                    margin: 0 8px;
-                }
-                .occurrenceDot:first-child {
-                    margin-left: 0;
-                }
-                .occurrenceDot:last-child {
-                    margin-right: 0;
-                }
+                // .occurrenceDot {
+                //     margin: 0 8px;
+                // }
+                // .occurrenceDot:first-child {
+                //     margin-left: 0;
+                // }
+                // .occurrenceDot:last-child {
+                //     margin-right: 0;
+                // }
                 .orangeDot {
                     width: 6px;
                     height: 6px;
