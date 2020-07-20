@@ -252,7 +252,7 @@ const getters = {
          }
       }).sort((a,b)=>a.digit - b.digit)
 
-      let days = Array.from(new Set(daysObj.map(d=>d.text))).join(' ');
+      let days = Array.from(new Set(daysObj.map(d=>d.text))).join(', ');
       let start = nextEvents[0];
       let startNext = nextEvents.filter(dateEvent=> Moment(dateEvent).isAfter())[0];
       return {
