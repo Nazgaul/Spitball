@@ -17,7 +17,7 @@
                             <div class="d-flex align-center flex-wrap flex-sm-nowrap">
                                 <div class="d-flex align-center justify-space-between flex-grow-1 flex-sm-grow-0">
                                     <div class="d-flex align-center">
-                                        <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMM')}}</div>
+                                        <div class="occurrenceDot">{{$moment(session.created).format('ddd, DD MMM')}}</div>
                                         <!-- <div class="orangeDot" v-if="session.nextEvents"></div> -->
                                     </div>
 
