@@ -20,12 +20,8 @@ export const messageCenterRoutes = [
         next()
         return
       }else{
-        store.dispatch("getAllConversations").then((data)=>{
-          if(data) {
-            next()
-            return
-          }
-          next('/')
+        store.dispatch("getAllConversations").then(()=>{
+          next()
         })
       }
     }

@@ -264,7 +264,6 @@ const actions = {
                     })
                 });
             }
-            return data.length
         });
     },
     syncMessagesByConversationId:({dispatch, state, getters, commit})=>{
