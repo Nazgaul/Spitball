@@ -238,6 +238,8 @@ export default {
         display: none;
     }
     .restOfText {
+        margin-top: 8px;
+        font-size: 16px;
         height: 0;
         opacity: 0;
         visibility: hidden;
