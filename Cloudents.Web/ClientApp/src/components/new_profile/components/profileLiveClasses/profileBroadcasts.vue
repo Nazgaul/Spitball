@@ -15,7 +15,7 @@
                         <div class="occurrenceWrap mb-5 mb-sm-0">
                             <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
                             <div class="d-flex align-center flex-wrap flex-sm-nowrap">
-                                <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMMM')}}</div>
+                                <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMM')}}</div>
                                 <div class="orangeDot"></div>
                                 <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('h:mm a')}}</div>
                                 <div class="orangeDot" v-if="session.nextEvents"></div>
