@@ -164,7 +164,7 @@ export default {
             return this.$vuetify.breakpoint.xsOnly
         },
         textLimit(){
-            return this.isMobile ? 110 : 214;
+            return this.isMobile ? 110 : 200;
         },
         isOpen :{
             get(){
