@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -25,15 +26,17 @@ namespace Cloudents.Query.Tutor
         internal sealed class TutorUpcomingBroadcastStudyRoomQueryHandler : IQueryHandler<TutorUpcomingBroadcastStudyRoomQuery, IEnumerable<FutureBroadcastStudyRoomDto>>
         {
             private readonly IStatelessSession _session;
+            private readonly ICronService _cronService;
 
-            public TutorUpcomingBroadcastStudyRoomQueryHandler(IStatelessSession session)
+            public TutorUpcomingBroadcastStudyRoomQueryHandler(IStatelessSession session, ICronService cronService)
             {
                 _session = session;
+                _cronService = cronService;
             }
             public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetAsync(TutorUpcomingBroadcastStudyRoomQuery query, CancellationToken token)
             {
                 const int studyRoomMaxUsers = 48;
-                return await _session.Query<BroadCastStudyRoom>()
+                var result = await _session.Query<BroadCastStudyRoom>()
                     .Where(w => w.Tutor.Id == query.TutorId &&
                                 //Add to broadcast time date is not supported
                                 w.BroadcastTime > DateTime.UtcNow.AddHours(-1))
@@ -46,8 +49,26 @@ namespace Cloudents.Query.Tutor
                         DateTime = s.BroadcastTime,
                         Description = s.Description,
                         IsFull = _session.Query<StudyRoomUser>().Count(w => w.Room.Id == s.Id) >= studyRoomMaxUsers,
-                        Enrolled = _session.Query<StudyRoomUser>().Any(w => w.Room.Id == s.Id && w.User.Id == query.UserId)
+                        Enrolled = _session.Query<StudyRoomUser>()
+                            .Any(w => w.Room.Id == s.Id && w.User.Id == query.UserId),
+                        Schedule = s.Schedule
                     }).ToListAsync(token);
+
+                return result.Select(s =>
+                 {
+                     if (s.Schedule != null)
+                     {
+                         s.NextEvents = _cronService.GetNextOccurrences(s.Schedule.CronString,
+                             s.Schedule.Start, s.Schedule.End);
+                     }
+
+                     return s;
+                 });
+
+
+
+
+
             }
         }
     }
