@@ -21,7 +21,7 @@
                                 <div class="orangeDot" v-if="session.nextEvents"></div>
                                 <div class="occurrenceDot" v-if="session.nextEvents">{{$tc('session', getEventDays(session).times)}}</div>
                                 <div class="orangeDot" v-if="session.nextEvents"></div>
-                                <div class="occurrenceDot" v-if="session.nextEvents">{{getEventDays(session).days}}</div>
+                                <div class="occurrenceDot" v-if="session.nextEvents">{{$t('live_every',[getEventDays(session).days])}}</div>
                             </div>
                         </div>
 
