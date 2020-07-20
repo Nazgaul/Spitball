@@ -701,7 +701,7 @@
   "seat_saved": "המושב שלך נשמר!",
   "seesion require payment": "",
   "send-email": "שלח אימייל",
-  "session": "",
+  "session": "אין שידורים חיים | {n} שידור חי | {n} שידורים חיים",
   "session details": "הוספת פרטים אודות השידור החי",
   "session price": "מחיר עבור השידור החי",
   "shareContent_copy": "העתק",
