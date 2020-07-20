@@ -13,7 +13,7 @@
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 px-3 pa-3 pa-sm-0 pt-2 pt-sm-0 pe-0 ps-0 pe-sm-4">
                         <div class="occurrenceWrap mb-5 mb-sm-0">
-                            <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
+                            <div class="sessionTitle mb-2">{{session.name}}</div>
                             <div class="d-flex align-center flex-wrap flex-sm-nowrap">
                                 <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMM')}}</div>
                                 <div class="orangeDot"></div>
