@@ -12,17 +12,16 @@
                         <img class="cursor-pointer" @click="goStudyRoomLandingPage(session.id)"  :src="liveImage(session)" alt="" width="330" height="220">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 pa-3 pt-2 pt-sm-2 pe-0 ps-0 pe-sm-4">
-
                         <div class="occurrenceWrap mb-5 mb-sm-0">
                             <div class="sessionTitle mb-2" v-if="!isMobile">{{session.name}}</div>
                             <div class="d-flex align-center flex-wrap flex-sm-nowrap">
-                                <div class="occurrenceDot">{{$moment(getEventDays(session).start).format('ddd, DD MMMM')}}</div>
+                                <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('ddd, DD MMMM')}}</div>
                                 <div class="orangeDot"></div>
-                                <div class="occurrenceDot">{{$moment(getEventDays(session).start).format('h:mm a')}}</div>
-                                <div class="orangeDot"></div>
-                                <div class="occurrenceDot">{{$tc('session', getEventDays(session).times)}}</div>
-                                <div class="orangeDot"></div>
-                                <div class="occurrenceDot">{{getEventDays(session).days}}</div>
+                                <div class="occurrenceDot">{{$moment(session.nextEvents ? getEventDays(session).start : session.created).format('h:mm a')}}</div>
+                                <div class="orangeDot" v-if="session.nextEvents"></div>
+                                <div class="occurrenceDot" v-if="session.nextEvents">{{$tc('session', getEventDays(session).times)}}</div>
+                                <div class="orangeDot" v-if="session.nextEvents"></div>
+                                <div class="occurrenceDot" v-if="session.nextEvents">{{getEventDays(session).days}}</div>
                             </div>
                         </div>
 
@@ -186,8 +185,8 @@ export default {
         liveImage(session) {
             return this.$proccessImageUrl(session.image, 330, 220, 'crop')
         },
-        getEventDays({created}) {
-            return this.$store.getters.getSessionRecurring([created])
+        getEventDays({nextEvents}) {
+            return this.$store.getters.getSessionRecurring(nextEvents)
         }
     },
     filters: {
