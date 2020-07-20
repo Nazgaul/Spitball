@@ -10,9 +10,11 @@
             <div v-if="recurringDetails">
                <div class="pb-2">
                   {{$tc('live_times',recurringDetails.times)}} - {{$t('live_every',[recurringDetails.days])}}
-                  <!-- {{$t('recurring',[recurringDetails.times,recurringDetails.days])}} -->
-                  </div>
+               </div>
                <div>{{$t('starts_on',[$moment(recurringDetails.start).format('MMMM Do, h:mm a')])}}</div>
+            </div>
+            <div v-else class="pb-2">
+               {{$moment(roomDate).format('MMMM Do, h:mm a')}}
             </div>
             <div v-if="!isMobile && roomPrice.amount">
                {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
