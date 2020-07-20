@@ -28,8 +28,8 @@ const actions = {
     },
     updateCoupon({commit, getters}, params){
         return couponInstance.post('/apply', params).then(({data}) => {
-            let tutorUser = getters.getRoomTutor;
-            tutorUser.tutorPrice.amount = data.price;
+            let tutorUser = getters.getRoomDetails?.price || getters.getRoomTutor.tutorUser?.tutorPrice
+            tutorUser.amount = data.price;
             
             commit('setCouponError', false);
             commit('setCouponDialog', false);

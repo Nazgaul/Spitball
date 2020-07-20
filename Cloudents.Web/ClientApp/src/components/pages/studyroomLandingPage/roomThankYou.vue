@@ -9,7 +9,9 @@
          <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
          <div class="thankSubTitle" v-t="'we_will_email'"/>
          <div class="thankBox">
-            <img width="100%" :src="roomImage">
+            <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image">
+            </v-skeleton-loader>
+            <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="roomImage">
             <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
             <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
             <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
@@ -32,6 +34,7 @@ export default {
       return {
          isTimmerFinished:false,
          isRoomReady: false,
+         imgLoaded:false,
       }
    },
    computed: {

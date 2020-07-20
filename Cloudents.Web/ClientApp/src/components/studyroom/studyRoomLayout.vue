@@ -42,7 +42,8 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      showRoomMutedToaster:false
+      showRoomMutedToaster:false,
+      isReady:false,
     }
   },
   components: {
@@ -105,9 +106,12 @@ export default {
         this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG)
         return;
       }
+      if(!this.isReady){
       this.setStudyRoom(this.id);
+      }
     },
     setStudyRoom() {
+      this.isReady = true;
       let self = this;
       this.$store.dispatch('getChatById',this.$store.getters.getRoomConversationId).then(({ data }) => {
         let currentConversationObj = chatService.createActiveConversationObj(data);
