@@ -41,7 +41,20 @@ export default {
       }
    },
    watch: {
-      "$route.params.id": function(){
+      "$route.params.id": function(newVal,oldVal){
+         if(this.isMobile){
+            if(newVal && !oldVal && !this.$store.getters.getActiveConversationObj?.conversationId){
+               let conversation = this.getConversations.find(c => c.conversationId == newVal)
+               let currentConversationObj = chatService.createActiveConversationObj(conversation)
+               this.$store.dispatch('setActiveConversationObj',currentConversationObj);
+               this.$router.push({...this.$route,params:{id:conversation.conversationId}}).catch(()=>{})
+               return
+            }
+            if(!newVal && oldVal){
+               this.$store.dispatch('setActiveConversationObj',{});
+               return
+            }
+         }
          this.isTeacherInfoOpen = false;
       },
       getConversations:{
