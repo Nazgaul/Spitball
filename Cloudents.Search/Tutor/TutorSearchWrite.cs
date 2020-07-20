@@ -45,7 +45,7 @@ namespace Cloudents.Search.Tutor
                         TextWeights = new TextWeights(new Dictionary<string, double>
                         {
                             [nameof(Entities.Tutor.Courses)] =2,
-                            [nameof(Entities.Tutor.Subjects)] =1.2,
+                            //[nameof(Entities.Tutor.Subjects)] =1.2,
                             [nameof(Entities.Tutor.Prefix)] = 0.9,
                         }),
                         Functions = new List<ScoringFunction>

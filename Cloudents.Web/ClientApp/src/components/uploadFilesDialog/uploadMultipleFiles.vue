@@ -5,10 +5,10 @@
             <v-card class="uf-main elevation-0">
                 <v-stepper class="uf-mStepper elevation-0" v-model="currentStep">
                     
-                    <v-stepper-header class="uf-mHeader elevation-0 mb-2" :class="[isMobile ? 'pt-2' : 'pl-4']">
+                    <v-stepper-header class="uf-mHeader elevation-0 mb-2" :class="[isMobile ? 'pt-2' : 'ps-4']">
                         <template>
                             <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="image" />
-                            <h2 class="uf-mTitle" :class="{'ml-4': !isMobile}" v-t="'upload_uf_mTitle'"></h2>
+                            <h2 class="uf-mTitle" :class="{'ms-4': !isMobile}" v-t="'upload_uf_mTitle'"></h2>
                         </template>
                     </v-stepper-header>
 
@@ -93,7 +93,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['accountUser', 'getSelectedClasses', 'getFileData']),
+        ...mapGetters(['accountUser', 'getFileData']),
 
         isError(){
             return this.getFileData.every(item=>item.error)
@@ -114,40 +114,49 @@ export default {
     },
     methods: {
         ...mapActions(['resetUploadData', 'updateToasterParams']),
+        sendFile(fileObj){
+            if(fileObj.error) return Promise.reject();
+            let self = this;
+            let serverFormattedObj = uploadService.createServerFileData(fileObj);
+            return documentService.sendDocumentData(serverFormattedObj)
+                .then(() => {
+                    analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
+                    analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
+                }).catch(error => {
+                    fileObj.errorText = self.$t("upload_multiple_error_upload_something_wrong");
 
-        sendDocumentData() {
+                    if(error.response?.data?.Name) {
+                        fileObj.errorText = error.response.data.Name[0];
+                    }
+
+                    fileObj.error = true;
+                })
+        },
+        async sendDocumentData() {
             if(!this.lock){
                 this.lock = true;
                 this.loading = true;
-            let docData = this.getFileData;
-            let self = this;
-            docData.forEach((fileObj) => {
-                if(fileObj.error)return;
-                let serverFormattedObj = uploadService.createServerFileData(fileObj);
-                documentService.sendDocumentData(serverFormattedObj)
-                    .then(() => {
-                        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                        analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
-                        self.loading = false;
-                        this.updateToasterParams({
-                            toasterText: self.$t("upload_CreateOk"),
-                            showToaster: true
-                        });
-                        this.closeUpload()
-                    }).catch(error => {
-                        fileObj.errorText = self.$t("upload_multiple_error_upload_something_wrong");
+                let docData = this.getFileData;
+                let self = this;
+                let isError;
 
-                        if(error.response?.data?.Name) {
-                            fileObj.errorText = error.response.data.Name[0];
-                        }
-
-                        fileObj.error = true;
-                        self.loading = false;
-                        })
-                        .finally(()=>{
-                            this.lock = false;
-                        });
-                })
+                for(const fileObj of docData){
+                    try{
+                        await self.sendFile(fileObj);
+                    }
+                    catch(e){
+                        isError = true
+                    }
+                }
+                self.updateToasterParams({
+                    toasterText: self.$t("upload_CreateOk"),
+                    showToaster: true
+                });
+                self.loading = false;
+                self.lock = false;
+                if(!isError){
+                    self.closeUpload()
+                }
             }
         },
         closeUpload() {
@@ -171,29 +180,6 @@ export default {
             this.chackValidation = !this.chackValidation;
         },
     },
-    created() {
-        let self = this
-            this.$store.dispatch('getManageCourses').then(courses => {
-                if(courses.length === 0){
-                    // fix shadow overlay issue 
-                    setTimeout(() => {
-                        self.$store.commit('setComponent')
-                    }, 200)
-                    self.$router.push({name: "addCourse"})
-                }
-            })
-        }
-
-    // this code open the dialog with no restriction
-        // if(!this.getSelectedClasses.length){
-        //     this.$store.dispatch('getManageCourses').then(courses => {
-        //         if(courses.length === 0){
-        //             this.$router.push({name: "addCourse"})
-        //             return
-        //         }
-        //     })
-        // }
-    // },
 }
 </script>
 

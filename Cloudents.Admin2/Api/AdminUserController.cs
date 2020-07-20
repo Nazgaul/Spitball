@@ -1,6 +1,5 @@
 ﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
@@ -99,7 +98,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("suspend")]
         [ProducesResponseType(200)]
 
-        public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
+        public async Task<IActionResult> SuspendUserAsync(SuspendUserRequest model,
             CancellationToken token)
         {
             foreach (var id in model.Ids)
@@ -127,7 +126,7 @@ namespace Cloudents.Admin2.Api
                 var command = new SuspendUserCommand(id, lockout, model.Reason);
                 await _commandBus.DispatchAsync(command, token);
             }
-            return new SuspendUserResponse();
+            return Ok();
         }
 
         /// <summary>
@@ -184,32 +183,32 @@ namespace Cloudents.Admin2.Api
 
 
 
-        [HttpPost("verify")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
-            CancellationToken token)
-        {
+        //[HttpPost("verify")]
+        //[ProducesResponseType(200)]
+        //[ProducesResponseType(400)]
+        //public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
+        //    CancellationToken token)
+        //{
 
-            var phoneCommand = new ConfirmPhoneNumberCommand(model.Id);
-            var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
-            try
-            {
-                await _commandBus.DispatchAsync(phoneCommand, token);
-                await _commandBus.DispatchAsync(registrationBonusCommand, token);
-            }
+        //    var phoneCommand = new ConfirmPhoneNumberCommand(model.Id);
+        //    var registrationBonusCommand = new FinishRegistrationCommand(model.Id);
+        //    try
+        //    {
+        //        await _commandBus.DispatchAsync(phoneCommand, token);
+        //        await _commandBus.DispatchAsync(registrationBonusCommand, token);
+        //    }
 
-            catch
-            {
-                return BadRequest();
-            }
+        //    catch
+        //    {
+        //        return BadRequest();
+        //    }
 
-            return Ok(new
-            {
-                model.Id
-            });
+        //    return Ok(new
+        //    {
+        //        model.Id
+        //    });
 
-        }
+        //}
 
 
 
@@ -369,9 +368,13 @@ namespace Cloudents.Admin2.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("this email belongs to someone else");
             }
         }
 

@@ -2,14 +2,14 @@
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
-            <hamburgerIcon class="ml-2 hamburgerIcon"/>
+            <hamburgerIcon class="ms-2 hamburgerIcon"/>
         </v-btn>
         <router-link @click.prevent="resetItems()" to="/" :class="{'globalHeader_logo': !$route.meta.tutorHeaderSlot}">
             <logoComponent/>
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-left mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <!-- <div class="globalHeader_items_left" v-if="!isMobile">
@@ -40,8 +40,8 @@
                     </template>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setComponent', 'login')" v-t="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$store.commit('setComponent', 'registerType')" v-t="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in me-2" @click="$store.commit('setComponent', 'login')" v-t="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up me-4" @click="$store.commit('setComponent', 'registerType')" v-t="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">
@@ -54,6 +54,8 @@
                                     :userImageUrl="userImageUrl"
                                     :userName="userName"
                                     :fontSize="14"
+                                    :loading="avatarUpdate"
+                                    @setAvatarLoaded="val => avatarUpdate = val"
                                 />
                             </div>
                             <template v-if="loggedIn">
@@ -61,7 +63,7 @@
                                     <span class="ur_greets">{{$t('header_greets', [userName])}}</span>
                                     <div class="ur_balance">
                                         <span>{{$t('header_balance', {'0': getUserBalance})}}</span>
-                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
+                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ms-2"/>
                                     </div>
                                 </div>
                             </template>
@@ -118,6 +120,7 @@ export default {
 components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
+            avatarUpdate: false,
             drawer: false,
             profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
@@ -132,6 +135,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
     },
     computed: {
         ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance', 'getIsTeacher']),
+        tutorName() {
+            return this.$store.getters.getProfileTutorName
+        },
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -205,13 +211,13 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 this.closeDrawer();
             })
         })
+        this.$root.$on("avatarUpdate", (val) => {
+            this.avatarUpdate = val
+        })
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;
         })[0];
-    },
-    beforeDestroy(){
-            document.body.removeAttribute("class","noscroll");
     }
 }
 </script>

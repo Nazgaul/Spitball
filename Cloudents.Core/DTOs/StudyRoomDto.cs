@@ -52,13 +52,6 @@ namespace Cloudents.Core.DTOs
             }
         }
 
-       // public CouponType? CouponType { get; set; }
-
-       // public bool ShouldSerializeCouponType() => false;
-      //  public bool ShouldSerializeCouponValue() => false;
-
-      //  public decimal? CouponValue { get; set; }
-
         public Money TutorPrice { get; set; }
         public string? Jwt { get; set; }
 
@@ -68,52 +61,33 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
+        public bool Enrolled { get; set; }
     };
 
-    public class StudyRoomSeoDto
+    public class StudyRoomDetailDto
     {
-        public string Name { get; set; }
-        public string TutorName { get; set; }
-        public string Description { get; set; }
-    }
+        [NonSerialized] public StudyRoomSchedule? Schedule;
 
-
-    public class UserStudyRoomDto
-    {
-        public UserStudyRoomDto(string name, Guid id, DateTime dateTime,
-            string conversationId, DateTime? lastSession, StudyRoomType type,
-            DateTime? scheduled, IEnumerable<string> userNames, Money money)
-        {
-            Name = name;
-            Id = id;
-            DateTime = dateTime;
-            ConversationId = conversationId;
-            LastSession = lastSession;
-            Type = type;
-            Scheduled = scheduled;
-            UserNames = userNames;
-            Price = money;
-
-        }
-
-        public UserStudyRoomDto()
-        {
-        }
-
-        public string Name { get; set; }
         public Guid Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public DateTime BroadcastTime { get; set; }
 
-        public string ConversationId { get; set; }
-        public DateTime? LastSession { get; set; }
+        public long TutorId { get; set; }
+        public string? TutorImage { get; set; }
+        public string TutorName { get; set; }
+        public bool Enrolled { get; set; }
+        public bool Full { get; set; }
+        public Money Price { get; set; }
+        public string? TutorBio { get; set; }
+        public Country TutorCountry { get; set; }
 
-        public StudyRoomType Type { get; set; }
+        public IEnumerable<DateTime>? NextEvents { get; set; }
+        //public int? RecurringTimes => 50; // { get; set; }
 
-        public DateTime? Scheduled { get; set; }
-
-        public IEnumerable<string> UserNames { get; set; }
-        public Money Price { get; }
-
+        //public IEnumerable<DayOfWeek>? RecurringDays =>
+        //    new[] {DayOfWeek.Friday, DayOfWeek.Sunday, DayOfWeek.Tuesday, DayOfWeek.Wednesday};// get; set; }
+        //public DateTime? RecurringStart => DateTime.UtcNow.AddDays(-5); // { get; set; }
     }
 
     public class FutureBroadcastStudyRoomDto
@@ -129,5 +103,7 @@ namespace Cloudents.Core.DTOs
         public string? Description { get; set; }
 
         public bool IsFull { get; set; }
+
+        public string Image { get; set; }
     }
 }

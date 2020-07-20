@@ -30,7 +30,7 @@
                       :class="{'active_list_dash': currentPageChecker(item.route)}"
                     >
                         <v-icon size="18" class="group_list_icon_dash">{{item.icon}}</v-icon>
-                        <span class="group_list_title_dash ml-3">{{item.name}}</span>
+                        <span class="group_list_title_dash ms-3">{{item.name}}</span>
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -59,7 +59,6 @@ export default {
         mySalesItem:{name: this.$t('schoolBlock_my_sales'), route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
         myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
         myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-my-coupon', sel:'sidemenu_dashboard_myCoupons'},
-        myCoursesItem:{name: this.$t('schoolBlock_courses'), route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
       },
     };

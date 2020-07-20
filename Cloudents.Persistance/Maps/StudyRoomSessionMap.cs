@@ -8,11 +8,13 @@ namespace Cloudents.Persistence.Maps
         public StudyRoomSessionMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.StudyRoom).Column("StudyRoomId").ForeignKey("Session_Room").Not.Nullable();
+            References(x => x.StudyRoom).Column("StudyRoomId")
+                .ForeignKey("Session_Room").Not.Nullable().LazyLoad(Laziness.NoProxy);
             Map(x => x.Created).Not.Nullable();
             Map(x => x.Ended);
             //Map(x => x.RejoinCount);
             Map(x => x.Duration);
+            Map(x => x.DurationTicks).Column("Duration").ReadOnly();
             Map(x => x.RealDuration);
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);

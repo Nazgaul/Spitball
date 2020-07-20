@@ -13,21 +13,9 @@ namespace Cloudents.Persistence.Maps
             HasOne(x => x.User).Constrained().Cascade.None();
             
 
-            Map(x => x.Title);
-            
-            Map(x => x.Paragraph3).Length(1000);
-            Map(x => x.Paragraph2).Column("Bio").Length(1000);
-            //Component(x => x.Price, y2 =>
-            //{
-            //    y2.Map(z => z.Price).CustomSqlType("smallMoney");
-            //    y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
-            //});
-
-
-       
-
-
-
+            Map(x => x.Title).Nullable();
+            Map(x => x.Paragraph3).Nullable().Length(8000);
+            Map(x => x.Paragraph2).Nullable().Column("Bio").Length(1000);
 
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()

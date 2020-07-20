@@ -1,5 +1,5 @@
 <template>
-    <div class="profileSubscription pa-4 text-center" id="subscription">
+    <div class="profileSubscription pa-4 text-center">
         <div class="subscriptionWrapper pa-4">
             <div class="mainTitle mb-1" v-t="'profile_subscribe_title'"></div>
             <div class="subTitle text-truncate">{{$t('profile_subscribe_subtitle', [firstName])}}</div>
@@ -22,7 +22,7 @@
 export default {
     name: 'profileSubscription',
     props: {
-        id: {
+        userId: {
             required: true
         }
     },
@@ -44,10 +44,11 @@ export default {
     methods: {
         subscribeNow() {
             if(!this.isLogged) {
-                this.$store.commit('setComponent', 'login')
+                sessionStorage.setItem('hash','#subscription');
+                this.$store.commit('setComponent', 'register')
                 return
             }
-            this.$store.dispatch('subscribeToTutor', this.id)
+            this.$store.dispatch('subscribeToTutor', this.userId)
         }
     },
     mounted() {
@@ -65,7 +66,7 @@ export default {
 .profileSubscription {
     max-width: 960px;
     background: #fff;
-    margin: 54px auto 0;
+    margin: 38px auto 0;
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     

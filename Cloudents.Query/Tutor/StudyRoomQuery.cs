@@ -34,20 +34,13 @@ namespace Cloudents.Query.Tutor
 
             public async Task<StudyRoomDto?> GetAsync(StudyRoomQuery query, CancellationToken token)
             {
-                //TODO: make it better
-                //  using var conn = _repository.OpenConnection();
-
-                //var studyRoomSessionFuture = _statelessSession.Query<StudyRoomSession>()
-                //    .WithOptions(w => w.SetComment(nameof(StudyRoomSession)))
-                //    .Where(w => w.StudyRoom.Id == query.Id && w.Ended == null && w.Created > DateTime.UtcNow.AddHours(-6))
-                //    .OrderByDescending(o => o.Id).Take(1).ToFutureValue();
-
                 var futureStudyRoom = _statelessSession.Query<StudyRoom>()
                      .Fetch(f => f.Tutor)
                      .ThenFetch(f => f.User)
                      .Where(w => w.Id == query.Id)
                      .Select(s => new StudyRoomDto
                      {
+                         Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id ==query.UserId),
                          OnlineDocument = s.OnlineDocumentUrl,
                          ConversationId = s.Identifier,
                          TutorId = s.Tutor.Id,
@@ -64,12 +57,33 @@ namespace Cloudents.Query.Tutor
                          TutorCountry = s.Tutor.User.SbCountry
                      }).ToFutureValue();
 
-                var futureCoupon = _statelessSession.Query<UserCoupon>()
-                    .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
+                IFutureValue<CouponTemp>? futureCoupon = null;
+                if (query.UserId > 0)
+                {
+                    futureCoupon  = _statelessSession.Query<UserCoupon>()
+                        .Where(w => w.User.Id == query.UserId)
+                        .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
+                            .Select(s => s.Tutor.Id).First())
+                        .Where(w => w.UsedAmount < 1)
+                        .Select(s => new CouponTemp()
+                        {
+                            CouponType = s.Coupon.CouponType,
+                           Value = s.Coupon.Value
+                        })
+                        .ToFutureValue();
+                }
+
+                var futurePayment = _statelessSession.Query<StudyRoomPayment>()
+                    .Where(w => w.StudyRoom!.Id == query.Id && w.User.Id == query.UserId)
+                    
+                    .ToFutureValue(f=>f.Any());
+
+
+                var futureSubscription = _statelessSession.Query<Follow>()
+                    .Where(w => w.User.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
                         .Select(s => s.Tutor.Id).First())
-                    .Where(w => w.UsedAmount < 1)
-                    .Select(s => new { s.Coupon.CouponType, s.Coupon.Value })
+                    .Where(w => w.Follower.Id == query.UserId)
+                    .Select(s => s.Subscriber)
                     .ToFutureValue();
 
 
@@ -87,9 +101,23 @@ namespace Cloudents.Query.Tutor
                 }
 
                 result.UserId = query.UserId;
+                if (result.TutorId == query.UserId)
+                {
+                    result.Enrolled = true;
+                }
+
+                if (futurePayment.Value)
+                {
+                    result._UserPaymentExists = true;
+                }
+                
+                if (futureSubscription.Value.GetValueOrDefault())
+                {
+                    result.TutorPrice = result.TutorPrice.ChangePrice(0);
+                }
 
 
-                var coupon = futureCoupon.Value;
+                var coupon = futureCoupon?.Value;
                 if (coupon is null)
                 {
                     //no coupon
@@ -99,17 +127,15 @@ namespace Cloudents.Query.Tutor
 
                 var newPrice = Coupon.CalculatePrice(coupon.CouponType,
                     result.TutorPrice.Amount, coupon.Value);
-                result.TutorPrice = new Money(newPrice,result.TutorPrice.Currency);
-
-
-
-                //if (result.TutorPrice.CompareTo(0) == 0)
-                //{
-                //    result.NeedPayment = false;
-                //}
+                result.TutorPrice = new Money(newPrice, result.TutorPrice.Currency);
 
                 return result;
             }
+        }
+        internal class CouponTemp
+        {
+            public CouponType CouponType { get; set; }
+            public decimal Value { get; set; }
         }
     }
 }

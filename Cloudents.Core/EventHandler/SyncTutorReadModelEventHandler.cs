@@ -12,17 +12,14 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<TutorAddReviewEvent>,
         IEventHandler<UpdateTutorSettingsEvent>,
         IEventHandler<CanTeachCourseEvent>,
-        IEventHandler<RemoveCourseEvent>,
         IEventHandler<UpdateImageEvent>,
         IEventHandler<EndStudyRoomSessionEvent>,
         IEventHandler<ChangeCountryEvent>,
-        IEventHandler<CourseChangeSubjectEvent>,
         IEventHandler<TutorSubscriptionEvent>,
         IEventHandler<TutorSuspendedEvent>,
         IEventHandler<TutorUnSuspendedEvent>,
-        IEventHandler<UserChangeNameEvent>,
+        IEventHandler<UserChangeNameEvent>
 
-        IDisposable
     {
         private readonly IReadTutorRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -81,32 +78,26 @@ namespace Cloudents.Core.EventHandler
             await _unitOfWork.CommitAsync(token);
         }
       
-        public void Dispose()
-        {
-            _unitOfWork.Dispose();
-        }
+       
 
-        public Task HandleAsync(RemoveCourseEvent eventMessage, CancellationToken token)
-        {
-            return SubmitAsync(eventMessage.UserId, token);
-        }
+       
 
         public Task HandleAsync(ChangeCountryEvent eventMessage, CancellationToken token)
         {
             return SubmitAsync(eventMessage.UserId, token);
         }
 
-        public async Task HandleAsync(CourseChangeSubjectEvent eventMessage, CancellationToken token)
-        {
-            foreach (var courseUser in eventMessage.Course.Users)
-            {
-                if (courseUser.User.Tutor != null)
-                {
-                    await SubmitAsync(courseUser.User.Tutor.Id, token);
-                }
-            }
+        //public async Task HandleAsync(CourseChangeSubjectEvent eventMessage, CancellationToken token)
+        //{
+        //    foreach (var courseUser in eventMessage.Course.Users)
+        //    {
+        //        if (courseUser.User.Tutor != null)
+        //        {
+        //            await SubmitAsync(courseUser.User.Tutor.Id, token);
+        //        }
+        //    }
 
-        }
+        //}
 
         public Task HandleAsync(TutorCreatedEvent eventMessage, CancellationToken token)
         {

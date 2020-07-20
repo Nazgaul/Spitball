@@ -1,7 +1,7 @@
 <template>
    <a :href="`https://wa.me/${fullNumber}?text=${text?encodeURIComponent(text) : encodeURIComponent(' ') }`"
-   target="_blank" class="phoneNumberSlot pr-1 pr-sm-3 pr-md-6">
-      <whatsAppIcon class="whatsApp-icon mr-1"/>
+   target="_blank" class="phoneNumberSlot pe-1 pe-sm-3 pe-md-6">
+      <whatsAppIcon class="whatsApp-icon me-1"/>
       <span class="text-phone">{{previewNumber}}</span>
    </a>
 </template>

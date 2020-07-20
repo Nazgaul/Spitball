@@ -17,7 +17,14 @@
                     <button class="tutorUrl me-4 mb-4" :class="{'text-truncate': isMobile}" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
-                        :to="myProfileRedirect"
+                        :to="{
+                            name: this.profileName,
+                            params: {
+                                id: this.userId,
+                                name: this.userName
+                            },
+                            hash: '#tutorEdit'
+                        }"
                         v-if="isEditActionComplete"
                         rounded
                         outlined
@@ -71,12 +78,11 @@
 
 
         <v-snackbar
-            absolute
             top
             :timeout="4000"
             :value="verifyEmailState"
         >
-            <div class="text-wrap" v-t="'dashboardTeacher_email_verify'"></div>
+            <div class="text-center" v-t="'dashboardTeacher_email_verify'"></div>
         </v-snackbar>
     </div>
 </template>
@@ -133,12 +139,6 @@ export default {
                     text: this.$t('dashboardTeacher_link_text_book'),
                     btnText: this.$t('dashboardTeacher_btn_text_book'),
                     method: this.bookSession
-                },
-                [constants.COURSES]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_courses'),
-                    btnText: this.$t('dashboardTeacher_btn_text_courses'),
-                    routeName: { name: routeName.EditCourse }
                 },
                 [constants.STRIPE]: {
                     color: colors.blue,
@@ -229,7 +229,7 @@ export default {
             this.$ga.event("Dashboard Video", "Get Started How It Works");
         },
         openPhoneDialog() {
-            this.$store.commit('setComponent', 'verifyPhone')
+            this.$store.commit('setComponent', 'setPhone')
         },
         bookSession() {
             this.$router.push({

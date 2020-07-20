@@ -35,8 +35,8 @@ namespace Cloudents.Search.Entities
         [IsSearchable, IndexAnalyzer("prefix"), SearchAnalyzer(AnalyzerName.AsString.StandardLucene)]
         public string[] Prefix { get; set; }
 
-        [IsSearchable]
-        public string[] Subjects { get; set; }
+        //[IsSearchable]
+        //public string[] Subjects { get; set; }
 
         //[IsFilterable, Obsolete]
         //public string Country { get; set; }

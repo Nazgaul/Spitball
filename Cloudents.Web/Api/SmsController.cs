@@ -1,10 +1,6 @@
-﻿using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
@@ -26,14 +22,13 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
+    [Authorize(Policy = "Tutor")]
 
     public class SmsController : Controller
     {
         private readonly SignInManager<User> _signInManager;
         private readonly SbUserManager _userManager;
         private readonly ISmsSender _client;
-        private readonly ICommandBus _commandBus;
-        //private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
         private readonly IStringLocalizer<SmsController> _smsLocalizer;
         private readonly ILogger _logger;
 
@@ -41,15 +36,12 @@ namespace Cloudents.Web.Api
         private const string PhoneCallTime = "phoneCallTime";
 
         public SmsController(SignInManager<User> signInManager, SbUserManager userManager,
-            ISmsSender client, ICommandBus commandBus,
-            //IStringLocalizer<DataAnnotationSharedResource> localizer,
+            ISmsSender client, 
             ILogger logger, IStringLocalizer<SmsController> smsLocalizer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _client = client;
-            _commandBus = commandBus;
-            // _localizer = localizer;
             _logger = logger;
             _smsLocalizer = smsLocalizer;
         }
@@ -70,30 +62,12 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
+       
         public async Task<IActionResult> SetUserPhoneNumberAsync(
             [FromBody] PhoneNumberRequest model,
-            [FromHeader(Name = "User-Agent")] string? agent,
             CancellationToken token)
         {
-            User user;
-            if (User.Identity.IsAuthenticated)
-            {
-                user = await _userManager.GetUserAsync(User);
-                if (user.Tutor == null)
-                {
-                    return Unauthorized();
-                }
-            }
-            else
-            {
-                user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            }
-
-            if (user == null)
-            {
-                _logger.Error("Set User Phone number We can't identify the user");
-                return Unauthorized();
-            }
+            var user = await _userManager.GetUserAsync(User);
             if (user.PhoneNumberConfirmed)
             {
                 _logger.Error("Phone number is confirmed Unauthorized");
@@ -103,40 +77,18 @@ namespace Cloudents.Web.Api
             var retVal = await _userManager.SetPhoneNumberAndCountryAsync(user,
                 model.PhoneNumber, model.CountryCode.ToString(), token);
 
-            //Ram: I disable this - we have an issue that sometime we get the wrong ip look at id 
-            //3DCDBF98-6545-473A-8EAA-A9DF00787C70 of UserLocation table in dev sql
-            //if (country != null)
-            //{
-            //    if (!string.Equals(user.Country, country, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
-            //        var t1 = _commandBus.DispatchAsync(command2, token);
-            //        await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
-            //        ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["PhoneNumberNotSameCountry"]);
-            //        var t2 = _signInManager.SignOutAsync();
-            //        await Task.WhenAll(t1, t2);
-            //        return BadRequest(ModelState);
-
-            //    }
-            //}
-
             if (retVal.Succeeded)
             {
-                if (User.Identity.IsAuthenticated)
-                {
-                    TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-                    TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
-                    await _client.SendSmsAsync(user, token);
-                    return Ok();
-                }
 
-                return await FinishRegistrationAsync(user, agent, token);
+                TempData[SmsTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                TempData[PhoneCallTime] = DateTime.UtcNow.AddMinutes(-2).ToString(CultureInfo.InvariantCulture);
+                await _client.SendSmsAsync(user, token);
+                return Ok();
+
             }
 
             if (retVal.Errors.Any(a => a.Code == "CountryNotSupported"))
             {
-                //var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress());
-                //var t1 = _commandBus.DispatchAsync(command2, token);
                 await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
                 ModelState.AddModelError(nameof(model.PhoneNumber), _smsLocalizer["CountryNotSupported"]);
                 var t2 = _signInManager.SignOutAsync();
@@ -161,7 +113,7 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        [Authorize]
+       
         [HttpPost("sendCode")]
         public async Task<IActionResult> SendVerificationCodeAsync(CancellationToken token)
         {
@@ -185,7 +137,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("verify")]
-        [Authorize]
+       
         public async Task<IActionResult> VerifySmsAsync(
             [FromBody] CodeRequest model,
             CancellationToken token)
@@ -208,44 +160,9 @@ namespace Cloudents.Web.Api
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(User user,
-            string userAgent, CancellationToken token)
-        {
-            if (TempData[HomeController.Referral] != null)
-            {
-                if (Base62.TryParse(TempData[HomeController.Referral]?.ToString(), out var base62))
-                {
-                    try
-                    {
-                        var command = new ReferringUserCommand(base62, user.Id);
-                        await _commandBus.DispatchAsync(command, token);
-                    }
-                    catch (UserLockoutException)
-                    {
-                        _logger.Warning($"{user.Id} got locked referring user {TempData[HomeController.Referral]}");
-                    }
-                }
-                else
-                {
-                    _logger.Error($"{user.Id} got wrong referring user {TempData[HomeController.Referral]}");
-                }
-                TempData.Remove(HomeController.Referral);
-            }
-            TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, HttpContext.GetIpAddress(), userAgent);
-            var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
-            var t1 = _commandBus.DispatchAsync(command2, token);
-            var t2 = _signInManager.SignInAsync(user, false);
-            var t3 = _commandBus.DispatchAsync(registrationBonusCommand, token);
-            await Task.WhenAll(t1, t2, t3);
-            return Ok(new
-            {
-                user.Id
-            });
-        }
-
-        [HttpPost("resend"), Authorize]
+        [HttpPost("resend")]
+        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -271,7 +188,8 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("call"), Authorize]
+        [HttpPost("call")]
+       
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

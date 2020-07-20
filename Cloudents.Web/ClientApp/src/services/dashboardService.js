@@ -59,6 +59,8 @@ const Item = {
       this.id = objInit.id;
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
+      this.tutorId = objInit.tutorId;
+      this.tutorName = objInit.tutorName
       this.name = objInit.name;
       this.date = objInit.dateTime;
       this.amountStudent = objInit.userNames.length
@@ -83,7 +85,6 @@ const Item = {
    },
    Follower:function(objInit){
       this.email = objInit.email;
-      this.phoneNumber = objInit.phoneNumber;
       this.hasCreditCard = objInit.hasCreditCard || null;
    },
    SaleSession: function(objInit) {

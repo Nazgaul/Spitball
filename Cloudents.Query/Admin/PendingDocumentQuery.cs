@@ -12,7 +12,7 @@ namespace Cloudents.Query.Admin
 {
     public class PendingDocumentQuery : IQueryAdmin<IList<PendingDocumentDto>>
     {
-        public PendingDocumentQuery(long? documentId, string country)
+        public PendingDocumentQuery(long? documentId, string? country)
         {
             DocumentId = documentId;
             Country = country;

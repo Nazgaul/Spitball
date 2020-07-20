@@ -1,8 +1,4 @@
-﻿using Cloudents.Core.DTOs.Feed;
-using Cloudents.Core.Enum;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs.Tutors
 {
@@ -12,34 +8,7 @@ namespace Cloudents.Core.DTOs.Tutors
         public string Name { get; set; } = null!;
         public string? Image { get; set; }
         public IEnumerable<string>? Courses { get; set; }
-        public IEnumerable<string>? Subjects { get; set; }
-
-        //public decimal TutorPrice { get; set; }
-        //public override FeedType Type => FeedType.Tutor;
-
-
-        //Document by id need to have nullable
-        //public Country? SbCountry { get; set; }
-
-        //public bool ShouldSerializeSbCountry() => false;
-
-
-
-        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
-        //public decimal Price { get; set; }
-
-        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
-        //public string Currency => (SbCountry ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
-
-        //public decimal? DiscountPrice { get; set; }
-
-
-        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
-        //public bool ShouldSerializeTutorCountry()
-        //{
-        //    return NeedSerializer;
-        //}
-
+       // public IEnumerable<string>? Subjects { get; set; }
 
         public double? Rate { get; set; }
         public int ReviewsCount { get; set; }

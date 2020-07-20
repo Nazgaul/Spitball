@@ -20,10 +20,13 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Query.Payment;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -32,6 +35,7 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class WalletController : ControllerBase
     {
+        public const string StudyroomidMetaData = "StudyRoomId";
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
@@ -210,18 +214,58 @@ namespace Cloudents.Web.Api
        
 
         #region Stripe
-        [HttpPost("Stripe/StudyRoom")]
-        public async Task<IActionResult> StripeAsync(
+        [HttpPost("Stripe/StudyRoom/{id}")]
+        public async Task<IActionResult> StripeAsync(Guid id,
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] IStripeService service,
             CancellationToken token)
         {
+            var email = User.FindFirstValue(ClaimTypes.Email);
             var userId = _userManager.GetLongUserId(User);
-            var command = new AddStripeCustomerCommand(userId);
-            await _commandBus.DispatchAsync(command, token);
+            var query = new StudyRoomQuery(id,userId);
+            var studyRoomResult = await _queryBus.QueryAsync(query, token);
+
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
+            };
+            
+            var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom, new
+            {
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+
+            var stripePaymentRequest = new StripePaymentRequest(studyRoomResult.Name,
+                studyRoomResult.TutorPrice,
+                email,
+                successCallback,
+                referer)
+            {
+                Metadata = new Dictionary<string, string>()
+                {
+                    [StudyroomidMetaData] = id.ToString(),
+                    ["UserId"] = userId.ToString()
+                }
+            };
+
+            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
             return Ok(new
             {
-                secret = command.ClientSecretId
+                sessionId = result
             });
+
+
+            //var command = new AddStripeCustomerCommand(userId);
+            //await _commandBus.DispatchAsync(command, token);
+            //return Ok(new
+            //{
+            //    secret = command.ClientSecretId
+            //});
         }
+
+
         
 
       
@@ -244,7 +288,19 @@ namespace Cloudents.Web.Api
             var bundle = Enumeration.FromValue<PointBundle>(model.Points);
             var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
 
-            var result = await service.BuyPointsAsync(bundle!, user.Email, successCallback, referer, token);
+            var stripePaymentRequest = new StripePaymentRequest("Buy Points on Spitball",
+                new Money(bundle!.PriceInUsd, "usd"),
+                user.Email,
+                successCallback,
+                referer)
+            {
+                Metadata = new Dictionary<string, string>()
+                {
+                    ["Points"] = bundle.Points.ToString()
+                }
+            };
+
+            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
             return Ok(new
             {
                 sessionId = result

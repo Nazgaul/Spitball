@@ -25,7 +25,8 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
 
 
-            HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
+            //TODO do not extra lazy load on set
+            HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             Map(x => x.OldPrice).Column("Price").CustomType(nameof(NHibernateUtil.Currency));
@@ -37,7 +38,8 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
-
+            HasMany(x => x.StudyRoomPayments).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.AllDeleteOrphan();
 
             //HasMany(x => x.UserTokens)
             //    .Access.CamelCaseField(Prefix.Underscore)
@@ -66,6 +68,13 @@ namespace Cloudents.Persistence.Maps
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
             Map(x => x.Description).Length(4000).Nullable();
+
+            Component(x => x.Schedule, z =>
+            {
+                z.Map(x => x.End).Column("ScheduleEnd");
+                z.Map(x => x.CronString).Column("ScheduleCron");
+                z.Map(x => x.Start).Column("ScheduleStart");
+            });
         }
     }
 

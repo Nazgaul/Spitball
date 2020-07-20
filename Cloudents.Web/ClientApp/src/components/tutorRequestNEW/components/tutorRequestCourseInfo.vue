@@ -11,7 +11,6 @@
             <fieldset  class="fieldset-select px-2">
                 <legend v-t="'tutorRequest_select_course_placeholder'"/>
                 <v-combobox sel="course_request"
-                    v-if="!isLoggedIn"
                     class="text-truncate"
                     @keyup="searchCourses"
                     flat hide-no-data
@@ -19,22 +18,9 @@
                     v-model="tutorCourse"
                     :rules="[rules.required]"
                     :items="suggestsCourses"/>
-                    <v-combobox sel="course_request"
-                    v-else
-                    class="text-truncate"
-                    flat hide-no-data
-                    :append-icon="''"
-                    @keyup="onCourseChange"
-                    v-model="tutorCourse"
-                    :rules="[rules.required]"
-                    :items="getSelectedClasses"/>
             </fieldset>
-            <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
-                        :label="$t('tutorRequest_more_tutors', [getCurrTutor.name])" 
-                        v-model="moreTutors" off-icon="sbf-check-box-un" 
-                        on-icon="sbf-check-box-done"/>
     </v-form>
-        <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
+        <div class="tutorRequest-bottom mt-6">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
                 <span v-t="'tutorRequest_cancel'"/>
             </v-btn>
@@ -52,6 +38,7 @@ import courseService from '../../../services/courseService.js'
 import debounce from "lodash/debounce";
 import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
+import * as componentConsts from '../../pages/global/toasterInjection/componentConsts.js';
 
 export default {
     name: 'tutorRequestCourseInfo',
@@ -60,10 +47,8 @@ export default {
             isReady:false,
             isFromMounted: false,
             isFromQuery:false,
-            moreTutors:false,
             isLoading:false,
             validRequestTutorForm: false,
-            checkbox:false,
             description:'',
             tutorCourse: '',
             suggestsCourses: [],
@@ -71,37 +56,17 @@ export default {
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
                 notSpaces: (value) => validationRules.notSpaces(value),
                 required: (value) => validationRules.required(value),
-                matchCourse:() => (
-                    (   this.suggestsCourses.length && 
-                        this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)
-                        ) || this.isFromMounted ) 
-                    || this.$t("tutorRequest_invalid"),
-                matchLocalCourse:() => (
-                    (   this.getSelectedClasses.length && 
-                        this.getSelectedClasses.some(course=>course.text === this.tutorCourse.text)
-                        ) || this.isFromMounted ) 
-                    || this.$t("tutorRequest_invalid"),
-                matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || this.$t("tutorRequest_invalid") 
             },
         }
     },
     computed: {
-        ...mapGetters(['getProfile',
-                       'getCourseDescription',
+        ...mapGetters(['getCourseDescription',
                        'getSelectedCourse',
-                       'getSelectedClasses',
                        'accountUser',
                        'getCurrTutor',
                        'getTutorRequestAnalyticsOpenedFrom']),
         isLoggedIn(){
             return !!this.accountUser
-        },
-        currentTutorCourses(){
-            if(!!this.getCurrTutor && this.getCurrTutor.courses.length){
-                return this.getCurrTutor.courses
-            }else{
-                return []
-            }
         },
         isTutor(){
             return !!this.getCurrTutor
@@ -115,16 +80,13 @@ export default {
                        'updateCourseDescription',
                        'updateSelectedCourse',
                        'resetRequestTutor',
-                       'sendTutorRequest',
-                       'updateMoreTutors',
-                       'updateCurrTutor']),
+                       'sendTutorRequest']),
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
             this.resetRequestTutor()
         },
         searchCourses: debounce(function(ev){
             this.isFromMounted = false;
-            // let term = this.isFromQuery ? ev : ev.target.value.trim() need to check this
             let term = ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
@@ -151,7 +113,6 @@ export default {
             if(this.$refs.tutorRequestForm.validate()){
                 this.updateCourseDescription(this.description)
                 this.updateSelectedCourse(this.tutorCourse)
-                this.updateMoreTutors(this.moreTutors)
                 this.updateRequestDialog(false);
                 
                 this.$store.commit('setIsFromTutorStep', true)
@@ -186,18 +147,12 @@ export default {
                     phone: null,
                     course: this.tutorCourse? this.tutorCourse.text || this.tutorCourse : null,
                     tutorId: tutorId,
-                    moreTutors: this.moreTutors
+               
                 }                    
                 let self = this;
                 this.sendTutorRequest(serverObj)
-                    .catch(err=>{
-                        let serverResponse = err.response.data || { error : [self.$t('tutorRequest_request_error')]};
-                        let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
-                        self.$store.dispatch('updateToasterParams',{
-                            toasterText: errorMsg,
-                            showToaster: true,
-                            toasterType: 'error-toaster'
-                        });
+                    .catch(()=>{
+                        self.$store.commit('addComponent',componentConsts.WENT_WRONG)
                     })
                     .finally(()=>{
                         this.isLoading = false;
@@ -206,9 +161,6 @@ export default {
                     })
             }
         },
-        onCourseChange(e) {
-            this.tutorCourse = e.target.value;
-        }
     },
     mounted() {
         if(this.getCourseDescription){
@@ -267,28 +219,6 @@ export default {
             @media (max-width: @screen-xs) {
                 margin-top: 26px;
             }
-
-            .checkbox-userinfo{
-                .v-input__control {
-                    width: 100%;
-                    .v-input__slot{
-                    display: flex;
-                    align-items: unset;
-                        .v-icon{
-                            color: @global-blue !important;
-                        }
-                        .v-messages{
-                            display: none;
-                        }
-                        .v-label {
-                            display: block;
-                            // overflow: hidden;
-                            // text-overflow: ellipsis;
-                            // white-space: nowrap;
-                        }
-                    }
-                }
-            }
             .v-input__slot{
                 margin-bottom: 8px;
             }
@@ -296,13 +226,6 @@ export default {
                 font-size: 14px;
                 letter-spacing: -0.3px;
                 color:@global-purple;
-            }
-            .more-tutors-checkbox{
-                margin-top: 28px;
-
-                @media (max-width: @screen-xs) {
-                    margin-top: 22px;
-                }
             }
         }
     .tutorRequest-bottom{

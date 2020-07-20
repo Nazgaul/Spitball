@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.WebJobs;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Threading;
@@ -9,7 +10,8 @@ namespace Cloudents.Functions
     public static class BlobPreview
     {
         [FunctionName("BlobPreview")]
-        public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
+        [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting" ,Justification = "Entry point")]
+        public static async Task RunAsync([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
             CloudBlockBlob myBlob, string id, string name,
             [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
             TraceWriter log,

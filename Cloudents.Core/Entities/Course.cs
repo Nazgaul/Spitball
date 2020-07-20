@@ -1,9 +1,7 @@
-using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Event;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
@@ -20,23 +18,23 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public Course(string name) 
+        public Course(string name)
         {
             Id = name.Trim();//.Replace("+", string.Empty);
             if (Id.Length > MaxLength || Id.Length < MinLength)
             {
                 throw new ArgumentException($"Name is {Id}", nameof(Id));
             }
-            State = ItemState.Pending;
+            // State = ItemState.Pending;
             Created = DateTime.UtcNow;
             Users = new HashSet<UserCourse>();
         }
 
-        public Course(string name, CourseSubject subject) :this(name)
-        {
-            Subject = subject;
-            State = ItemState.Ok;
-        }
+        //public Course(string name, CourseSubject subject) :this(name)
+        //{
+        //    Subject = subject;
+        //    State = ItemState.Ok;
+        //}
 
         protected bool Equals(Course? other)
         {
@@ -68,22 +66,22 @@ namespace Cloudents.Core.Entities
         //    return !Equals(left, right);
         //}
 
-        public virtual void Approve()
-        {
-            //TODO: maybe put an event to that
-            if (State == ItemState.Pending)
-            {
-                State = ItemState.Ok;
-            }
-        }
+        //public virtual void Approve()
+        //{
+        //    //TODO: maybe put an event to that
+        //    if (State == ItemState.Pending)
+        //    {
+        //        State = ItemState.Ok;
+        //    }
+        //}
 
-        public virtual void SetSubject(CourseSubject? subject)
-        {
-            Subject = subject;
-            AddEvent(new CourseChangeSubjectEvent(this));
-        }
+        //public virtual void SetSubject(CourseSubject? subject)
+        //{
+        //    Subject = subject;
+        //    AddEvent(new CourseChangeSubjectEvent(this));
+        //}
 
-     
+
         public virtual int Count { get; protected internal set; }
 
 
@@ -91,11 +89,11 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
 
 
-        protected internal virtual ISet<UserCourse> Users { get;  set; }
+        protected internal virtual ISet<UserCourse> Users { get; set; }
 
 
-        public virtual ItemState State { get; protected set; }
-        public virtual CourseSubject? Subject { get; protected set; }
+        // public virtual ItemState State { get; protected set; }
+        //  public virtual CourseSubject? Subject { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }

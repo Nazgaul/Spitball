@@ -1,11 +1,9 @@
 import registrationService from '../../../../../../services/registrationService2';
 import analyticsService from '../../../../../../services/analytics.service.js';
 import * as routeNames from '../../../../../../routes/routeNames'
+import isWebView from  "is-ua-webview";
 export default {
     props: {
-        goTo: {
-            type: Function
-        },
         teacher: {
             type: Boolean,
             default: false
@@ -14,9 +12,6 @@ export default {
     data() {
         return {
             studyroomRoute: routeNames.StudyRoom,
-            googleLoaded:false,
-            googleLoading: false,
-            googleFailed: false,
             routeNames,
             localCode: '',
             phoneNumber: '',
@@ -32,6 +27,10 @@ export default {
     computed: {
         isStudyRoomRoute() {
             return this.$route.name === this.studyroomRoute
+        },
+        cIsWebView() {  
+            const retVal = isWebView(navigator.userAgent);
+            return !retVal;
         },
         isVerifyPhone() {
             return this.component === 'verifyPhone'
@@ -80,37 +79,20 @@ export default {
                 })
         },
         gmailRegister() {
-            this.googleLoading = true;
-            let self = this
             let userType = this.teacher ? 'tutor' : 'student'
-            registrationService.googleRegistration(userType)
-                .then(({data}) => {
-                    self.googleLoading = false;
-                    if (!data.isSignedIn) {
-                        analyticsService.sb_unitedEvent('Registration', 'Start Google')
-                        if(data.param?.phoneNumber) {
-                            self.component = 'verifyPhone'
-                            return
-                        }
-                        self.component = 'setPhone2'
-                        return
-                    }
-                    analyticsService.sb_unitedEvent('Login', 'Start Google')
-                    
-                    if(self.presetRouting()) return
-
-                    window.location.reload()
-                }).catch(error => {
-                    self.$emit('showToasterError', error);
-                    self.googleLoading = false;
-                    self.$appInsights.trackException(error)
-                })
+            if(this.isFromTutorReuqest) {
+                sessionStorage.setItem('hash','#tutorRequest');
+                sessionStorage.setItem('tutorRequest', JSON.stringify({
+                    text: this.$store.getters.getCourseDescription ,
+                    course: this.$store.getters.getSelectedCourse?.text || this.$store.getters.getSelectedCourse, 
+                    tutorId: this.$store.getters.getCurrTutor?.userId 
+                }))
+            }
+            window.location.assign(`/External/Google?usertype=${userType}&returnUrl=${encodeURIComponent(window.location.pathname+window.location.search)}`);
         },
-        verifyPhone(){
-            let childComp = this.$refs.childComponent
-
+        verifyPhone(smsCode){
 			let self = this
-			registrationService.smsCodeVerification({number: childComp.smsCode})
+			registrationService.smsCodeVerification({number: smsCode})
 				.then(() => {
                     analyticsService.sb_unitedEvent('Registration', 'Phone Verified');
                     self.$store.commit('setComponent', '');
@@ -143,39 +125,11 @@ export default {
             return false
         },
         sendSms() {
-            let childComp = this.$refs.childComponent
             let smsObj = {
-                countryCode: childComp.localCode,
-                phoneNumber: childComp.phoneNumber
+                countryCode: this.localCode,
+                phoneNumber: this.phoneNumber
             }
-
-            let self = this
-            registrationService.smsRegistration(smsObj)
-                .then(function (){
-                    analyticsService.sb_unitedEvent('Registration', 'Phone Submitted');
-
-                    // when tutor is in dashboard and want change number
-                    if(self.isLogged) {
-                        self.component = 'verifyPhone'
-                        return
-                    }
-
-                    if(self.presetRouting()) return
-                    console.log("fsda;klfmasdkl; gfsdjagjklsgjklsgjkls");
-                    
-					// dispatch('userStatus').then(() => {
-                    //     self.$router.push({name: self.routeNames.LoginRedirect})
-                    // })
-                    window.location.reload()
-
-                }).catch(error => {
-                    console.error(error);
-                    
-                    let { response: { data } } = error
-                    
-                    self.errors.phone = data && data["PhoneNumber"] ? data["PhoneNumber"][0] : ''
-                    self.$appInsights.trackException(error);
-                })
+            return registrationService.smsRegistration(smsObj)
         },
         phoneCall(){
 			let self = this
@@ -195,7 +149,6 @@ export default {
 
             this.$store.dispatch('updateRequestDialog', true);
             this.$store.dispatch('updateTutorReqStep', 'tutorRequestSuccess')
-            this.$store.dispatch('toggleProfileFollower', true)
         },
         fromStudyRoom() {
             if(this.$route.name === this.routeNames.StudyRoom){
@@ -215,23 +168,5 @@ export default {
         goStep(step) {
             this.component = step
         }
-    },
-    mounted() {
-        let self = this;
-        this.$nextTick(function () {
-            this.$loadScript("https://apis.google.com/js/client:platform.js")
-                .then(()=>{
-                    //self.$store.dispatch('gapiLoad');
-                    return self.$store.dispatch('gapiLoad').then(() => {
-                        // console.log(x);
-                        // console.log(gapi.auth2.getAuthInstance());
-                        self.googleLoaded = true;
-                    });
-                }).catch(ex => {
-                    self.googleFailed = true;
-                    console.error(ex);
-                    self.$appInsights.trackException(ex);
-                })
-        });
     }
 }

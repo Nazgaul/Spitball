@@ -60,6 +60,7 @@ function _insightEvent(...args) {
    insightService.track.event(insightService.EVENT_TYPES.LOG, ...args);
 }
 function _twilioListeners(room,store) { 
+   let isStateInit = false; // to prevent multiple initials 
    store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
    if(!store.getters.getRoomIsBroadcast && room.localParticipant.tracks.size){
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
@@ -81,6 +82,18 @@ function _twilioListeners(room,store) {
             _addParticipantTrack(track,participant)
          }
       });
+      participant.on('trackSubscriptionFailed',(error, trackPublication)=>{
+         // this participant publish a track the local participant couldn't subscribe
+         let params = {
+            errorCode: error?.code,
+            errorMessage: error?.message,
+            publisher: participant?.identity,
+            subscriber: room.localParticipant?.identity,
+            priority: trackPublication?.publishPriority,
+            kind: trackPublication?.trackName,
+         }
+         _insightEvent('trackSubscriptionFailed', params, null);
+      })
    });
    // local participant events
    room.localParticipant.on('trackStopped',(track)=>{
@@ -124,6 +137,15 @@ function _twilioListeners(room,store) {
       }
       store.commit(studyRoom_SETTERS.ROOM_NETWORK_QUALITY,stats)
    });
+   room.localParticipant.on('trackPublicationFailed',(error,localTrack)=>{
+      let params = {
+         errorCode: error?.code,
+         errorMessage: error?.message,
+         publisher: room.localParticipant?.identity,
+         ...localTrack,
+      }
+      _insightEvent('trackPublicationFailed', params, null);
+   })
    room.localParticipant.on('trackPublished',(track)=>{
       store.commit(studyRoom_SETTERS.ROOM_ACTIVE,true)
       _changeState(room.localParticipant);
@@ -138,15 +160,26 @@ function _twilioListeners(room,store) {
       }
    })
    // room tracks events: 
-   room.on('trackSubscribed', (track) => {
-      _insightEvent('TwilioTrackSubscribed', track, null);
+   room.on('trackSubscribed', (track, publication, participant) => {
+      let params = {
+         kind: track?.name,
+         subscriber: room.localParticipant.identity,
+         publisher: participant?.identity,
+         priority: publication?.publishPriority,
+      }
+      _insightEvent('TwilioTrackSubscribed', params, null);
    })
-   room.on('dominantSpeakerChanged', participant => {
-      _insightEvent('dominantSpeakerChanged', participant?.identity, null);
-      console.log('The new dominant speaker in the Room is:',participant?.identity);
-    });
+   // room.on('dominantSpeakerChanged', participant => {
+   //    _insightEvent('dominantSpeakerChanged', {participant: participant?.identity}, null);
+   //  });
    room.on('trackUnsubscribed', (track,trackPublication,participant) => {
-      _insightEvent('TwilioTrackUnsubscribed', track, null);
+      let params = {
+         kind: track?.name,
+         unSubscriber: room.localParticipant.identity,
+         publisher: participant?.identity,
+         priority: trackPublication?.publishPriority,
+      }
+      _insightEvent('TwilioTrackUnsubscribed', params, null);
       _deleteParticipantTrack(track,participant)
       _detachTracks([track],store);
    })
@@ -159,8 +192,7 @@ function _twilioListeners(room,store) {
    // room tracks events: 
    room.on('trackMessage', (message) => {
       let data = JSON.parse(message);
-      _insightEvent('trackMessage', data, null);
-      if (data.type === CURRENT_STATE_UPDATE) {
+      if (data.type === CURRENT_STATE_UPDATE && !isStateInit) {
          if(data.fullScreen){
             store.dispatch('updateFullScreen',data.fullScreen)
          }
@@ -168,6 +200,7 @@ function _twilioListeners(room,store) {
          store.dispatch('updateAudioToggleByRemote',data.mute);
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
+         isStateInit = true; // to prevent multiple initials 
          return;
       }
       if (data.type === "muteAll") {
@@ -182,8 +215,19 @@ function _twilioListeners(room,store) {
    // room connections events:
    room.on('participantConnected', (participant) => {
       store.commit(studyRoom_SETTERS.ADD_ROOM_PARTICIPANT,participant);
-
-      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
+      store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size);
+      participant.on('trackSubscriptionFailed',(error, trackPublication)=>{
+         // this participant publish a track the local participant couldn't subscribe
+         let params = {
+            errorCode: error?.code,
+            errorMessage: error?.message,
+            publisher: participant?.identity,
+            subscriber: room.localParticipant?.identity,
+            priority: trackPublication?.publishPriority,
+            kind: trackPublication?.trackName,
+         }
+         _insightEvent('trackSubscriptionFailed', params, null);
+      })
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userConnected');
          participant.on('trackSubscribed',(track)=>{
@@ -194,7 +238,7 @@ function _twilioListeners(room,store) {
             }
          })
       }
-      _insightEvent('TwilioParticipantConnected', participant, null);
+      _insightEvent('TwilioParticipantConnected', {participant: participant.identity}, null);
    })
    room.on('participantDisconnected', (participant) => {
       store.commit(studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT,participant)
@@ -203,11 +247,19 @@ function _twilioListeners(room,store) {
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
       }
-      _insightEvent('TwilioParticipantDisconnected', participant, null);
+      let params = {
+         participant: participant.identity,
+         networkQualityLevel:participant.networkQualityLevel
+      }
+      _insightEvent('TwilioParticipantDisconnected', params, null);
       _detachTracks(Array.from(participant.tracks.values()),store)
    })
-   room.on('reconnecting', () => {
-      _insightEvent('reconnecting', null, null);
+   room.on('reconnecting', (error) => {
+      let params = {
+         errorCode: error?.code,
+         errorMessage: error?.message
+      }
+      _insightEvent('reconnecting', params, null);
    })
    room.on('disconnected', (dRoom, error) => {
       if (error?.code) {
@@ -466,6 +518,12 @@ export default () => {
             if(value){
                track.enable()
             }
+            let params = {
+               participant: track?.identity,
+               kind: track?.name,
+               status: track?.isEnabled
+            }
+            _insightEvent('toggleTrack', params, null);
          }
       }
       function _getRoomConfigByTopologyType(roomTopologyType){
@@ -479,7 +537,7 @@ export default () => {
             networkQuality: {local:2, remote: 2}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
             maxVideoBitrate : isMobileMode ? 500000 : undefined, // problem with screen share maybe we should put in on the student side only cuz he have only 1 video track 
-            video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 },
+            // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 }, // makes problems with share screen... choppy
          }
          if(roomTopologyType == 'PeerToPeer'){
             return defaultRoomSettings

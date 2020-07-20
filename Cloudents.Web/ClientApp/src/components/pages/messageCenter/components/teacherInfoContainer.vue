@@ -1,7 +1,7 @@
 <template>
    <v-flex xs12 sm6 md3 class="teacherInfoContainer">
-      <div class="teacherInfoHeader pl-4 d-flex flex-grow-0 flex-shrink-0 align-center ">
-         <v-icon @click="$emit('toggleTeacherInfo')" class="mr-5 mr-sm-3 d-flex d-md-none" size="16" :color="isMobile? '#ffffff' : '#69687d'">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
+      <div class="teacherInfoHeader ps-4 d-flex flex-grow-0 flex-shrink-0 align-center ">
+         <v-icon @click="$emit('toggleTeacherInfo')" class="me-5 me-sm-3 d-flex d-md-none" size="16" :color="isMobile? '#ffffff' : '#69687d'">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
          <span v-t="'chat_teacher_info'"/>
       </div>
       <div class="teacherInfoContent px-5 py-3">
@@ -20,21 +20,13 @@
                   <v-icon color="#41c4bc" size="20">sbf-enter-room</v-icon>
                   <div class="actionName">{{chatText}}</div>
                </v-btn>
-               <v-btn v-if="tutorEmail" target="_blank" :href="`mailto:${tutorEmail}`" block depressed text class="actionBox mb-3 cursor-pointer">
-                  <v-icon color="#de5642" size="14">sbf-email-chat</v-icon>
-                  <div class="actionName" v-t="'chat_teacher_btn_mail'"/>
-               </v-btn>
-               <v-btn target="_blank" v-if="tutorPhoneNumber" block depressed text class="actionBox mb-5 cursor-pointer" @click="sendWhatsApp">
-                  <v-icon color="#29d367" size="20">sbf-whatsup-share</v-icon>
-                  <div class="actionName" v-t="'chat_teacher_btn_whatsapp'"/>
-               </v-btn>
             </div>
 
             <div v-if="participants" class="participantList">
                <div class="listHeader px-4 d-flex justify-space-between align-center flex-grow-0 flex-shrink-0">
                   <span class="participantsTitle" v-t="'chat_participants'"/>
                   <span>
-                     <v-icon size="14" color="#7a798c" class="pr-1">sbf-users</v-icon>
+                     <v-icon size="14" color="#7a798c" class="pe-1">sbf-users</v-icon>
                      {{participantsCount}}
                   </span>
                </div>
@@ -43,7 +35,7 @@
                      <v-divider :key="index+'_'" v-if="index > 0" class="dividerList"></v-divider>
                      <v-list-item :key="index">
                         <div class="d-flex align-center">
-                           <user-avatar class="mr-4" :size="'32'" :userImageUrl="item.image" :user-name="item.name"/>
+                           <user-avatar class="me-4" :size="'32'" :userImageUrl="item.image" :user-name="item.name"/>
                            <span class="listUserTitle">{{item.name}}</span>
                         </div>
                      </v-list-item>
@@ -77,12 +69,6 @@ export default {
       tutorName(){
          return this.currentTutor?.name
       },
-      tutorEmail(){
-         return this.currentTutor?.email
-      },
-      tutorPhoneNumber(){
-         return this.currentTutor?.phoneNumber
-      },
       tutorAvatar(){
          return this.currentTutor?.image;
       },
@@ -110,7 +96,6 @@ export default {
             return this.$t('chat_teacher_btn_studyroom')
          }
          return this.$t('chat_teacher_btn_studyroom_create');
-        
       }
    },
    methods: {
@@ -126,11 +111,6 @@ export default {
       },
       createStudyRoom(){
          this.$router.push({name:routeNames.MyStudyRooms})
-      },
-      sendWhatsApp(){
-         let phoneNumber = this.currentTutor.phoneNumber.replace('+','')
-         let defaultMessage = encodeURIComponent(this.$t('chat_whatsapp_default'));
-         window.open(`https://wa.me/${phoneNumber}?text=${defaultMessage}`);
       }
    },
 }
@@ -143,6 +123,7 @@ export default {
    @headerHeight:62px;
    @media(max-width: @screen-xs) {
       @headerHeight: 60px;
+      height: 100vh;
    }
    height: 100%;
    border-left: 1px solid #e4e4e4;
@@ -217,6 +198,7 @@ export default {
                }
             }
             .list{
+               background: none;
                padding: 0;
                overflow-y: auto;
                .dividerList{

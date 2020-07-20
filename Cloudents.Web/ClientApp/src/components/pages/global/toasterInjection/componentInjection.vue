@@ -8,7 +8,7 @@
 import * as componentConsts from './componentConsts.js';
 
 const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
-
+const TUTOR_EDIT_PROFILE = () => import('../../../new_profile/profileHelpers/userInfoEdit/tutorInfoEdit.vue');
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
@@ -32,7 +32,7 @@ const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/
 export default {
     components: {
         PAYMENT_DIALOG,
-        
+        TUTOR_EDIT_PROFILE,
         auth,
         simpleToaster,
         simpleErrorToaster,
@@ -53,6 +53,37 @@ export default {
             componentObj: {
                 [componentConsts.PAYMENT_DIALOG]:{
                     name: componentConsts.PAYMENT_DIALOG,
+                },
+                [componentConsts.TUTOR_EDIT_PROFILE]: {
+                    name: componentConsts.TUTOR_EDIT_PROFILE 
+                },
+                [componentConsts.BOOK_FAILED]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("calendar_error_create_event"),
+                        name: componentConsts.BOOK_FAILED
+                    }
+                },
+                [componentConsts.WENT_WRONG]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("tutorRequest_request_error"),
+                        name: componentConsts.WENT_WRONG
+                    }
+                },
+                [componentConsts.FILE_NOT_SUPPORTED]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("upload_multiple_error_extension_title"),
+                        name: componentConsts.FILE_NOT_SUPPORTED
+                    }
+                },
+                [componentConsts.ENROLLED_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t('profile_enroll_error'),
+                        name: componentConsts.ENROLLED_ERROR
+                    }
                 },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
@@ -126,6 +157,19 @@ export default {
                         component: 'registerType'
                     }
                 },
+                setPhone: {
+                    name: 'auth',
+                    params: {
+                        component: 'setPhone',
+                    }
+                },
+                verifyPhone: {
+                    name: 'auth',
+                    params: {
+                        component: 'register',
+                        goTo: 'verifyPhone'
+                    }
+                },
                 studyRoomSettings: {
                     name: 'studRoomSettings',
                 },
@@ -147,13 +191,6 @@ export default {
                 createCoupon: {
                     name: 'createCoupon'
                 },
-                verifyPhone: {
-                    name: 'auth',
-                    params: {
-                        component: 'register',
-                        goTo: 'verifyPhone'
-                    }
-                },
                 applyCoupon: {
                     name: 'applyCoupon'
                 },
@@ -167,8 +204,16 @@ export default {
         componentsList:{
             deep:true,
             immediate:true,
-            handler(){}
-        },
+            handler(val){
+                if (val.length) {
+                    if (this.$vuetify.breakpoint.xs) {
+                        document.body.classList.add('noscroll')
+                    }
+                } else {
+                    document.body.classList.remove('noscroll')
+                }
+            }
+        }
     },
     computed: {
         componentsList(){

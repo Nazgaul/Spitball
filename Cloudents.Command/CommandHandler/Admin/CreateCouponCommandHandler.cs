@@ -26,8 +26,6 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
             var coupon = new Coupon(message.Code, message.CouponType, tutor,
                 message.Value, 
-                //message.AmountOfUsers,
-                //message.AmountOfUsePerUser,
                 message.Expiration,
                 message.Description);
             await _couponRepository.AddAsync(coupon, token);

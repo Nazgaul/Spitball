@@ -2,11 +2,11 @@
    <v-card class="priceD-change-wrap">
       <v-flex align-center justify-center class="relative-pos">
          <div class="title-wrap">
-            <span class="change-title pr-1" v-t="'resultNote_change_for'"></span>
+            <span class="change-title pe-1" v-t="'resultNote_change_for'"></span>
             <span class="change-title">&nbsp;"{{dialogData.name}}"</span>
          </div>
          <div class="input-wrap d-flex align-center justify-center">
-            <div :class="['price-wrap']">
+            <div class="price-wrap">
             <vue-numeric
                :currency="currentCurrency"
                class="sb-input-upload-price"
@@ -22,7 +22,7 @@
          </div>
       </v-flex>
       <div class="change-price-actions">
-         <button @click="$emit('closeDialog')" class="cancel mr-2">
+         <button @click="$emit('closeDialog')" class="cancel me-2">
             <span v-t="'resultNote_action_cancel'"/>
          </button>
          <button @click="submitNewPrice()" class="change-price">
@@ -49,7 +49,7 @@ export default {
          title: this.$t('resultNote_change_price'),
          rules:{
             integer: (value) => validationRules.integer(value),
-            maximum: (value) => validationRules.maxVal(value, 2147483647),
+            maximum: (value) => validationRules.maxVal(value, 214748),
          }
       }
    },

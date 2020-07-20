@@ -1,24 +1,24 @@
 <template>
-    <div class="settingDetailsWrap ml-md-12 pa-4 pa-sm-0" :style="!roomName? 'visibility: hidden': ''">
+    <div class="settingDetailsWrap ms-md-12 pa-4 pa-sm-0" :style="!roomName? 'visibility: hidden': ''">
         <div class="mb-5 settingDetails">
             <div class="settingTitle mb-2 mb-sm-3">{{roomName}}</div>
             <div>
                 <table class="settingTable">
                     <tr>
                         <td class="" v-t="'studyRoomSettings_tutor_name'"></td>
-                        <td class="pl-4">{{roomTutor.tutorName}}</td>
+                        <td class="ps-4">{{roomTutor.tutorName}}</td>
                     </tr>
                     <tr v-if="!isMyRoom">
                         <td class="" v-t="'studyRoomSettings_price'"></td>
                         <td class="ps-4 d-flex">
                             <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
                             <span v-else v-t="'studyRoomSettings_free'"></span>
-                            <button v-if="roomPrice" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
+                            <button v-if="showApplyCouponBtn" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
                         </td>
                     </tr>
                     <tr>
                         <td class="" v-t="'studyRoomSettings_share'"></td>
-                        <td class="pl-1">
+                        <td class="ps-1">
                             <shareContent
                                 class="settingShareContent pa-0"
                                 :link="shareContentParams.link"
@@ -45,7 +45,7 @@
 
         <template>
             <v-btn :loading="loadings.student" v-if="!isRoomTutor" @click="studentEnterRoom()" class="joinNow white--text px-8"
-                :disabled="isRoomDisabled" height="50" block color="#5360FC" rounded depressed>
+                :disabled="isJoinButton" height="50" block color="#5360FC" rounded depressed>
                 {{$t('studyRoomSettings_join_now')}}
             </v-btn>
 
@@ -54,10 +54,10 @@
                     <v-btn 
                         :loading="loadings[roomModes.whiteboard]" 
                         @click="tutorActions(roomModes.whiteboard)" 
-                        class="mr-sm-2 mr-0 mb-4"
+                        class="me-sm-2 me-0 mb-4"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <whiteboardSvg width="18" />
-                        <div class="flex-grow-1 btnText ml-sm-1 ma-0 pr-2 pr-sm-0 ml-1">{{$t('studyRoomSettings_whiteboard')}}</div>
+                        <div class="flex-grow-1 btnText ms-sm-1 ma-0 pe-2 pe-sm-0 ms-1">{{$t('studyRoomSettings_whiteboard')}}</div>
                     </v-btn>
                 </div>
                 <div>
@@ -65,29 +65,32 @@
                         @click="tutorActions(roomModes.present)" class="mx-sm-2 mx-0 mb-4"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined :block="$vuetify.breakpoint.xsOnly">
                         <presentSvg width="18" />
-                        <div class="flex-grow-1 btnText pr-2 pr-sm-0 ml-1">{{$t('studyRoomSettings_present')}}</div>
+                        <div class="flex-grow-1 btnText pe-2 pe-sm-0 ms-1">{{$t('studyRoomSettings_present')}}</div>
                     </v-btn>
                 </div>
                 <div>
                     <v-btn :loading="loadings[roomModes.fullview]" :disabled="!$store.getters.settings_getIsVideo"
-                        @click="tutorActions(roomModes.fullview)" class="fullscreen ml-sm-2 ml-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
+                        @click="tutorActions(roomModes.fullview)" class="fullscreen ms-sm-2 ms-0 mb-4" :block="$vuetify.breakpoint.xsOnly"
                         color="#4c59ff" height="44" min-width="140" depressed rounded outlined>
                         <fullviewSvg width="18" />
-                        <div class="flex-grow-1 btnText pr-2 pr-sm-0 ml-1" >{{$t('studyRoomSettings_full_view')}}</div>
+                        <div class="flex-grow-1 btnText pe-2 pe-sm-0 ms-1" >{{$t('studyRoomSettings_full_view')}}</div>
                     </v-btn>
                 </div>
             </div>
         </template>
+        <registerToJoinDialog @closeRegisterToJoin="isRegisterToJoinDialog = false" v-if="isRegisterToJoinDialog"/>
     </div>
 </template>
 
 <script>
+import registerToJoinDialog from '../../../layouts/registerToJoinDialog/registerToJoinDialog.vue';
 import sessionStartCounter from '../../sessionStartCounter/sessionStartCounter.vue'
 import shareContent from '../../../../pages/global/shareContent/shareContent.vue'
 
 import whiteboardSvg from '../images/whiteboard.svg'
 import presentSvg from '../images/present.svg'
 import fullviewSvg from '../images/fullview.svg'
+import * as routeNames from '../../../../../routes/routeNames.js';
 
 export default {
     components: {
@@ -95,7 +98,8 @@ export default {
         shareContent,
         whiteboardSvg,
         presentSvg,
-        fullviewSvg
+        fullviewSvg,
+        registerToJoinDialog
     },
     props: {
         isRoomActive: {
@@ -105,6 +109,7 @@ export default {
     },
     data() {
         return {
+            isRegisterToJoinDialog:false,
             waitingForTutor:false,
             clickOccur: false,
             loadings:{
@@ -127,6 +132,16 @@ export default {
         }
     },
     computed: {
+        isLoggedIn(){
+            return this.$store.getters.getUserLoggedInStatus;
+        },
+        isJoinButton(){
+            if(!this.isLoggedIn){
+                return false;
+            }else{
+                return this.isRoomDisabled
+            }
+        },
         isWaiting(){
             if(!this.isRoomTutor){
                 return (this.isRoomDisabled && this.waitingForTutor) || (this.isRoomDisabled && !this.isRoomBroadcast)
@@ -141,7 +156,12 @@ export default {
             return !this.$store.getters.getJwtToken;
         },
         shareContentParams(){
-            let urlLink = `${window.origin}/studyroom/${this.$route.params.id}?t=${Date.now()}`;
+            let link = this.$router.resolve({
+                name: routeNames.StudyRoomLanding,
+                params: {id:this.$route.params.id}
+            })
+            // let urlLink = `${window.origin}/studyroom/${this.$route.params.id}?t=${Date.now()}`;
+            let urlLink = `${window.origin}${link.href}?t=${Date.now()}`;
             let paramObJ = {
                 link: urlLink,
                 twitter: this.$t('shareContent_share_profile_twitter',[this.roomTutor.tutorName,urlLink]),
@@ -177,11 +197,17 @@ export default {
         roomTutor() {
             return this.$store.getters.getRoomTutor
         },
-        roomLink() {
-            // @idan - I think this better approach getting the room id with $route.params instead of passing props
-            // TODO: Make room link getter from store
-            return `${window.origin}/studyroom/${this.$route.params.id}`
+        showApplyCouponBtn(){
+            if(this.isRoomBroadcast) return false;
+            else{
+                return this.isLoggedIn && this.roomPrice
+            }
         }
+        // roomLink() {
+        //     // @idan - I think this better approach getting the room id with $route.params instead of passing props
+        //     // TODO: Make room link getter from store
+        //     return `${window.origin}/studyroom/${this.$route.params.id}`
+        // }
     },
     watch: {
         isRoomDisabled(val){
@@ -193,8 +219,12 @@ export default {
     },
     methods: {
         studentEnterRoom(){
-            this.loadings.student = true;
-            this.$store.dispatch('updateRoomIsJoined',true)
+            if(!this.isLoggedIn){
+                this.isRegisterToJoinDialog = true;
+            }else{
+                this.loadings.student = true;
+                this.$store.dispatch('updateRoomIsJoined',true)
+            }
         },
         tutorActions(roomMode){
         if(Object.values(this.loadings).some(loader=>loader)){

@@ -18,13 +18,12 @@ namespace Cloudents.Web.EventHandler
             _hubContext = hubContext;
         }
 
-        public async Task HandleAsync(StudentPaymentReceivedEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(StudentPaymentReceivedEvent eventMessage, CancellationToken token)
         {
-
             var message = new SignalRTransportType(SignalRType.User,
                 SignalREventAction.PaymentReceived, new object());
 
-            await _hubContext.Clients.User(eventMessage.User.Id.ToString())
+            return _hubContext.Clients.User(eventMessage.User.Id.ToString())
                 .SendAsync(SbHub.MethodName, message, token);
         }
     }

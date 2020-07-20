@@ -12,7 +12,7 @@ namespace Cloudents.Query.Admin
 {
     public class PendingQuestionsQuery : IQueryAdmin<IEnumerable<PendingQuestionDto>>
     {
-        public PendingQuestionsQuery(string country)
+        public PendingQuestionsQuery(string? country)
         {
             Country = country;
         }

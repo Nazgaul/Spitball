@@ -4,12 +4,8 @@
     <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
-    <v-content :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
+    <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-
-
-      
-
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -46,10 +42,9 @@
         </sb-dialog>
 
       <mobile-footer v-if="showMobileFooter" />
-    </v-content>
+    </v-main>
     
     <v-snackbar
-      absolute
       top
       :timeout="getToasterTimeout"
       :class="getShowToasterType"
@@ -121,9 +116,7 @@ export default {
       'myContent',
       'myPurchases',
       'myStudyRooms',
-      'myCalendar',
-      'addCourse',
-      'editCourse'].some(route => this.$route.name === route)
+      'myCalendar'].some(route => this.$route.name === route)
       return isRoutes && !this.getIsTeacher
     },
     isMobile() {
@@ -138,7 +131,8 @@ export default {
     //   }
     // },
     showMobileFooter() {
-      return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
+      let isMobileChatConversation = this.$route.name === routeNames.MessageCenter && this.$route.params?.id
+      return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage' && !isMobileChatConversation;
     },
     showHeader(){
       if(this.$route.name == routeNames.MessageCenter){
