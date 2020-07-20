@@ -73,6 +73,7 @@ namespace Cloudents.Persistence.Maps
             {
                 z.Map(x => x.End).Column("ScheduleEnd");
                 z.Map(x => x.CronString).Column("ScheduleCron");
+                z.Map(x => x.Start).Column("ScheduleStart");
             });
         }
     }

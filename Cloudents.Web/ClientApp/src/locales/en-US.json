@@ -356,6 +356,8 @@
   "leaveReview_title_step1": "Rate and Review",
   "leaveReview_title_step2": "Thank you, your score was recorded",
   "live payment": "Live Class Payment",
+  "live_every": "every {0}",
+  "live_times": "{n} live session | {n} live sessions",
   "live_with": "Live class with {0}",
   "localAudioSend": "local Audio Send: {0}",
   "localVideoSend": "local Video Send: {0}",
@@ -597,6 +599,7 @@
   "questionDetails_error_minChar": "Genuine answer should be more than 15 characters.",
   "questionDetails_question_dash": "/  Questions  /",
   "questionTheard_Answers": "Answers",
+  "recurring": "{0} live sessions - every {1}",
   "referralDialog_copied": "Copied",
   "referralDialog_copy": "Copy",
   "referralDialog_copy_link": "Copy Link",
@@ -931,6 +934,6 @@
   "wallet_spent": "Spent",
   "wallet_total": "Total",
   "we_will_email": "We will be sending you an email with the rest of your instructions for the webinar. We look forward to seeing you there.",
-  "what_learn": "What You Will Learn",
-  "weekly": "Weekly"
+  "weekly": "Weekly",
+  "what_learn": "What You Will Learn"
 }
