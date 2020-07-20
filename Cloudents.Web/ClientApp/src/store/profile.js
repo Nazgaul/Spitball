@@ -149,7 +149,7 @@ const mutations = {
          this.enrolled = objInit.enrolled;
          this.description = objInit.description;
          this.image = objInit.image;
-         this.nextEvents = objInit.nextEvents;
+         this.nextEvents = objInit?.nextEvents?.length? objInit.nextEvents : null;
       }
    },
    setProfileFaq(state, data) {
