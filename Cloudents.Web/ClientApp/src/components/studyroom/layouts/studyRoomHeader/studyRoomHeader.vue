@@ -315,7 +315,8 @@ export default {
                left: @barWidth * 4 + 15px
             } 
             &.barFull{
-               background: rgb(108 117 253);
+               // background: rgb(108 117 253);
+               background: #3742CF;
                z-index: 2;
             }
          }
