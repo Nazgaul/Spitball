@@ -183,7 +183,7 @@ export default {
             })
         },
         liveImage(session) {
-            return this.$proccessImageUrl(session.image, 330, 220, 'crop')
+            return this.$proccessImageUrl(session.image, 320, 212, 'crop')
         },
         getEventDays({nextEvents}) {
             return this.$store.getters.getSessionRecurring(nextEvents)
