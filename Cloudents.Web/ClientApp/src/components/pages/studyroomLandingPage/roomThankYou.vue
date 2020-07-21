@@ -55,7 +55,7 @@ export default {
          return this.$vuetify.breakpoint.smAndDown? 74 : 82;
       },
       isButtonDisabled(){
-         if(this.$store.getters.getJwtToken || this.$store.getters.getRoomDetails?.isRoomStarted) return false;
+         if(this.$store.getters.getJwtToken || this.$store.getters.getRoomDetails?.sessionStarted) return false;
          else return !this.isRoomReady
       }
    },
