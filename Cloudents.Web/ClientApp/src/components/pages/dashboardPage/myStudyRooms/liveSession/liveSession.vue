@@ -235,6 +235,7 @@
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
                         dense
+                        autocomplete="off"
                         height="50"
                         hide-details
                         outlined

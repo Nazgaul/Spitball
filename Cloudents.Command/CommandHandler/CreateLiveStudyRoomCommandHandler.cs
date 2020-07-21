@@ -52,15 +52,22 @@ namespace Cloudents.Command.CommandHandler
                 }
                 if (message.EndAfterOccurrences.HasValue)
                 {
-                    endDate =
-                        _cronService.CalculateEndTime(message.BroadcastTime, z, message.EndAfterOccurrences.Value);
+                    if (message.EndAfterOccurrences.Value == 1)
+                    {
+                        endDate = message.BroadcastTime;
+                    }
+                    else
+                    {
+                        endDate =
+                            _cronService.CalculateEndTime(message.BroadcastTime, z, message.EndAfterOccurrences.Value - 1);
+                    }
                 }
 
                 if (!endDate.HasValue)
                 {
                     throw new ArgumentException("end date is null");
                 }
-                schedule = new StudyRoomSchedule(z, endDate.Value);
+                schedule = new StudyRoomSchedule(z, endDate.Value, message.BroadcastTime);
             }
 
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,

@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure
         public DateTime CalculateEndTime(DateTime start, string cronSchedule, int endAfter)
         {
             var schedule = CrontabSchedule.Parse(cronSchedule);
-            var nextOccurrences = schedule.GetNextOccurrences(start, start.AddDays(7 * endAfter));
+            var nextOccurrences = schedule.GetNextOccurrences(start, start.AddDays(7 * endAfter) + TimeSpan.FromMinutes(1));
             return nextOccurrences.Take(endAfter).Last().AddMinutes(15);
         }
 
@@ -27,8 +27,8 @@ namespace Cloudents.Infrastructure
 
         public string BuildCronCustom(DateTime baseDate, IEnumerable<DayOfWeek> days)
         {
-           var dayStr = string.Join(",", days.Union(new []{baseDate.DayOfWeek}).Distinct().Select(s=> (int)s));
-           return $"{baseDate.Minute} {baseDate.Hour} * * {dayStr}";
+            var dayStr = string.Join(",", days.Union(new[] { baseDate.DayOfWeek }).Distinct().Select(s => (int)s));
+            return $"{baseDate.Minute} {baseDate.Hour} * * {dayStr}";
         }
 
         public DateTime GetNextOccurrence(string cronSchedule)
@@ -36,5 +36,20 @@ namespace Cloudents.Infrastructure
             var schedule = CrontabSchedule.Parse(cronSchedule);
             return schedule.GetNextOccurrence(DateTime.UtcNow);
         }
+
+        public IEnumerable<DateTime> GetNextOccurrences(string cronSchedule,DateTime start, DateTime end)
+        {
+            var schedule = CrontabSchedule.Parse(cronSchedule);
+            return schedule.GetNextOccurrences(start, end);
+        }
+
+        //public int GetAmountRecurring(string cronSchedule, DateTime end)
+        //{
+        //    var schedule = CrontabSchedule.Parse(cronSchedule);
+
+
+        //    return schedule.GetNextOccurrences(DateTime.UtcNow, end).Count();
+
+        //}
     }
 }
