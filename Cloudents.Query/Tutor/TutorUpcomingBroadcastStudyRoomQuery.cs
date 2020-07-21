@@ -61,7 +61,6 @@ namespace Cloudents.Query.Tutor
                          s.NextEvents = _cronService.GetNextOccurrences(s.Schedule.CronString,
                              s.Schedule.Start, s.Schedule.End);
                      }
-
                      return s;
                  });
 
