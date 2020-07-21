@@ -115,7 +115,7 @@
                     <v-radio-group v-model="radioEnd" class="mt-0 ms-sm-3" row>
                         <v-radio class="mb-3" value="on" sel="datePicker">
                             <template v-slot:label>
-                                <span class="sessionOn">{{$t('on')}}</span>
+                                <span class="sessionOn" :class="{'ml-4': $vuetify.rtl}">{{$t('on')}}</span>
                                 <div @click.stop.prevent="">
                                     <v-menu 
                                         ref="datePickerOcurrence"
@@ -166,7 +166,7 @@
                         </v-radio>
                         <v-radio value="after">
                             <template v-slot:label>
-                                <span class="sessionAfter">
+                                <span class="sessionAfter" :class="{'ml-4': $vuetify.rtl}">
                                     {{$t('after')}}
                                 </span>
                                 <div @click.stop.prevent="" class="d-flex align-center">
