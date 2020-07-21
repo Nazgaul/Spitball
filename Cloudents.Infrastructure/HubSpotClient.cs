@@ -23,34 +23,38 @@ namespace Cloudents.Infrastructure
                     var contact = await _api.GetByEmailAsync<HubSpotContact>(email);
                     return contact;
                 }
-               
-                catch(HubSpotException e)
+
+                catch (HubSpotException e)
                 {
-                    //502 error -  https://github.com/skarpdev/dotnetcore-hubspot-client/pull/30
-                    if (e.Message.StartsWith("<"))
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                        continue;
-                    }
-                    dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
-                    if (response.errorType == "RATE_LIMIT")
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                    }
-                    else
+                    if (TimeSpan.FromMilliseconds(timeToWaitInMillisecond) > TimeSpan.FromMinutes(1))
                     {
                         throw;
                     }
+                    //502 error -  https://github.com/skarpdev/dotnetcore-hubspot-client/pull/30
+                    //if (e.Message.StartsWith("<"))
+                    //{
+                    //    await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                    //    timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
+                    //    continue;
+                    //}
+                    //dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
+                    //if (response.errorType == "RATE_LIMIT")
+                    //{
+                    await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                    timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
             } while (true);
         }
 
-       
 
-        
- 
+
+
+
         public async Task CreateOrUpdateAsync(HubSpotContact contact, bool needInsert)
         {
             var timeToWaitInMillisecond = 5;
@@ -80,7 +84,7 @@ namespace Cloudents.Infrastructure
                     {
                         await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
                         timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                       
+
                     }
                     else
                     {
@@ -88,12 +92,12 @@ namespace Cloudents.Infrastructure
                     }
 
                 }
-             
+
             } while (true);
         }
     }
 
-     [DataContract]
+    [DataContract]
     public class HubSpotContact : ContactHubSpotEntity
     {
         public ItemState _status;
