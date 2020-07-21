@@ -291,7 +291,7 @@ export default () => {
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
          }
-         if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload) {
+         if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload && store.getters.getRouteStack[0].name === routeNames.StudyRoom) {
             if(store.getters.getIsBrowserNotSupport){
                return
             }
