@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure
         public DateTime CalculateEndTime(DateTime start, string cronSchedule, int endAfter)
         {
             var schedule = CrontabSchedule.Parse(cronSchedule);
-            var nextOccurrences = schedule.GetNextOccurrences(start, start.AddDays(7 * endAfter));
+            var nextOccurrences = schedule.GetNextOccurrences(start, start.AddDays(7 * endAfter) + TimeSpan.FromMinutes(1));
             return nextOccurrences.Take(endAfter).Last().AddMinutes(15);
         }
 

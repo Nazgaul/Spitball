@@ -71,7 +71,9 @@ namespace Cloudents.FunctionsV2
                 height = SquareProfileImageDimension
             });
 
-            await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
+            var clientResponse = await client.GetAsync(uriBuilder.Uri, token);
+
+            await using var profileImageStream = await clientResponse.Content.ReadAsStreamAsync();
             var bgBlobName = $"share-placeholder/bg-profile-{(isRtl ? "rtl" : "ltr")}.jpg";
             var bgBlob = Blobs.Single(s => s.Name == bgBlobName);
 
