@@ -77,32 +77,32 @@ export default {
             headers:[
                 {
                     text: this.$t('marketing_tableCoupon_code'),
-                    align: 'left',
+                    align: '',
                     value: 'code',
                 },
                 {
                     text: this.$t('marketing_tableCoupon_type'),
-                    align: 'left',
+                    align: '',
                     value: 'couponType',
                 },
                 {
                     text: this.$t('marketing_tableCoupon_value'),
-                    align: 'left',
+                    align: '',
                     value: 'value',
                 },
                 {
                     text: this.$t('marketing_tableCoupon_amount'),
-                    align: 'left',
+                    align: '',
                     value: 'amountOfUsers',
                 },
                 {
                     text: this.$t('marketing_tableCoupon_created'),
-                    align: 'left',
+                    align: '',
                     value: 'createTime',
                 },
                 {
                     text: this.$t('marketing_tableCoupon_expired'),
-                    align: 'left',
+                    align: '',
                     value: 'expiration',
                 },
             ],
