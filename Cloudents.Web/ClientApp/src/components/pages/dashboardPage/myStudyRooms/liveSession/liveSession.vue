@@ -310,7 +310,6 @@ export default {
             currentMinutes = 0;
         }
         return {
-            isRtl: global.isRtl,
             currentRepeatDayOfTheWeek: new Date().getDay(),
             radioEnd: 'on',
             liveSessionTitle: '',
@@ -456,16 +455,7 @@ export default {
                 })
             }
         }
-    },
-    // created() {
-    //     if(this.isRtl) {
-    //         this.$nextTick(() => {
-    //             document.querySelectorAll('.roomHour .v-label').forEach(elem => {
-    //                 elem.style.right = '-28px'
-    //             })
-    //         })
-    //     }
-    // }
+    }
 }
 </script>
 

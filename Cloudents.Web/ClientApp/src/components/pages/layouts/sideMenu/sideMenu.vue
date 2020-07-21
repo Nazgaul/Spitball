@@ -5,7 +5,7 @@
       :class="{'higherIndex':isMediumAndUp}"
       :mini-variant.sync="isMiniSideMenu"
       :temporary="isMediumAndUp"
-      :right="isRtl"
+      :right="$vuetify.rtl"
       :permanent="!$vuetify.breakpoint.xsOnly"
       width="220"
       mini-variant-width="62"
@@ -47,7 +47,6 @@ export default {
   data() {
     return {
       isMiniSideMenuState: false,
-      isRtl: global.isRtl,
       drawer: false,
       dashboardList: {
         myDashboard:{name: this.$t('schoolBlock_dashboard'), route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},

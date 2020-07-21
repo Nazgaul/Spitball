@@ -109,8 +109,7 @@ export default {
       datePickerMenu:false,
       date: new Date().FormatDateToString(),
       dateFormatted: '',
-      couponErr:'',
-      isRtl: global.isRtl,
+      couponErr:''
     }
   },
   watch: {

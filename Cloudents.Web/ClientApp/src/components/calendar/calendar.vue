@@ -242,7 +242,7 @@ export default {
       return currentDateStemp >= lastDateStemp;
     },
     isRtl() {
-      return global.isRtl;
+      return this.$vuetify.rtl;
     },
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
@@ -351,7 +351,7 @@ export default {
       let year = this.selectedDate.slice(0, 4);
       let month = this.selectedDate.slice(5, 7);
       let day = this.selectedDate.slice(8, 11);
-      if (global.isRtl) {
+      if (this.isRtl) {
         let options = { weekday: "long", month: "short", day: "numeric" };
         let dateStr = new Date(year, month - 1, day, 0, 0, 0, 0)
           .toLocaleDateString(`${global.lang}-${global.country}`, options)
@@ -381,7 +381,7 @@ export default {
       } else {
         endTime = `${endTime}:00`;
       }
-      return `${this.selectedTime} - ${endTime} ${global.isRtl ? "" : ampm}`;
+      return `${this.selectedTime} - ${endTime} ${this.isRtl ? "" : ampm}`;
     },
     closeDialog() {
       this.selectedTime = "";
