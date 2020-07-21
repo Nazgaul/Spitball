@@ -19,7 +19,7 @@
                 </v-text-field>
         <v-row class="sessionDetails  ma-0 pa-0 mb-3"  no-gutters>
             <v-col cols="6" sm="4" >
-                <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
+                <v-menu ref="datePickerMenu" v-model="datePickerMenu" attach :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
                         <v-text-field 
                             v-on="on"
@@ -58,6 +58,7 @@
             <v-col cols="6" sm="3" >
                 <v-select
                     v-model="hour"
+                    attach
                     class="roomHour ps-sm-3 ps-2"
                     :items="timeHoursList"
                     height="50"
@@ -76,6 +77,7 @@
             <v-col cols="12" sm="5" >
                 <v-select
                     v-model="currentRepeatItem"
+                    attach
                     class="roomHour ps-sm-3 mt-3 mt-sm-0"
                     :items="repeatItems"
                     height="50"
@@ -122,6 +124,7 @@
                                     <v-menu 
                                         ref="datePickerOcurrence"
                                         v-model="datePickerOcurrence"
+                                        attach
                                         :close-on-content-click="false"
                                         transition="scale-transition"
                                         offset-y
@@ -220,6 +223,7 @@
                     <v-select
                         v-model="currentVisitorPriceSelect"
                         :items="items"
+                        attach
                         class="selectVisitorPrice mb-6 mb-sm-0"
                         color="#304FFE"
                         height="50"
@@ -239,6 +243,7 @@
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
                         dense
+                        autocomplete="off"
                         height="50"
                         hide-details
                         outlined
