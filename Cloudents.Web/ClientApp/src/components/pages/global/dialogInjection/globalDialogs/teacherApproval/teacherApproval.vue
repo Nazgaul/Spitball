@@ -11,7 +11,7 @@
                     <span class="white--text" v-t="'teacherApproval_error'"></span>
                 </div>
 
-                <table class="table text-left">
+                <table class="table text-start">
                     <tr>
                         <td>
                             <div class="pb-3" v-t="'teacherApproval_date'"></div>
