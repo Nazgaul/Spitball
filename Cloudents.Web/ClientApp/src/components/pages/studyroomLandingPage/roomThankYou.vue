@@ -14,7 +14,7 @@
             <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="roomImage">
             <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
             <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
-            <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
          </div>
@@ -54,6 +54,10 @@ export default {
          }
          return this.$vuetify.breakpoint.smAndDown? 74 : 82;
       },
+      isButtonDisabled(){
+         if(this.$store.getters.getJwtToken || this.$store.getters.getRoomDetails?.isRoomStarted) return false;
+         else return !this.isRoomReady
+      }
    },
    methods: {
       enterStudyRoom(){
