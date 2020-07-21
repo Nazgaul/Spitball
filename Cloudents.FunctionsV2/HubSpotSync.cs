@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -21,7 +20,7 @@ namespace Cloudents.FunctionsV2
 {
     public static class HubSpotSync
     {
-        private static readonly HubSpotClient _client = new HubSpotClient();
+        private static readonly HubSpotClient Client = new HubSpotClient();
 
         [FunctionName("HubSpotSync")]
         public static async Task RunOrchestratorAsync(
@@ -88,12 +87,12 @@ namespace Cloudents.FunctionsV2
                     .ToListAsync();
             foreach (var tutor in tutors)
             {
-                var contact = await _client.GetContactByEmailAsync(tutor.Email);
+                var contact = await Client.GetContactByEmailAsync(tutor.Email);
 
-                IFutureEnumerable<string> coursesFuture = null;
+                IFutureEnumerable<string>? coursesFuture = null;
 
                 var average = 0f;
-                IFutureEnumerable<StudyRoomDto> studyRoomFuture = null;
+                IFutureEnumerable<StudyRoomDto>? studyRoomFuture = null;
                 if (tutor.Courses)
                 {
                     coursesFuture = statelessSession.Query<UserCourse>().Where(w => w.User.Id == tutor.Id).Select(s => s.Course.Id)
@@ -130,7 +129,7 @@ namespace Cloudents.FunctionsV2
                         average = (reviewsFutureValue.Value?.Sum ?? 0) / reviewCount;
                     }
                 }
-                IEnumerable<string> courses;
+                IEnumerable<string>? courses;
                 if (coursesFuture != null)
                 {
                     courses = await coursesFuture?.GetEnumerableAsync();
@@ -193,7 +192,6 @@ namespace Cloudents.FunctionsV2
                 contact.Courses = string.Join(", ", courses);
 
                 contact.Rate = average;
-                //.contact.
                 contact.LiveDone = studyRoomData.Count(w =>
                     w.Type == StudyRoomType.Broadcast && w.BroadcastTime < DateTime.UtcNow);
                 contact.LiveScheduled = studyRoomData.Count(w =>
@@ -203,7 +201,8 @@ namespace Cloudents.FunctionsV2
                 contact.PrivateDone = contact.PrivateScheduled =
                     studyRoomData.Count(w => w.Type == StudyRoomType.Private);
 
-                await _client.CreateOrUpdateAsync(contact, needInsert);
+                contact.TutorState = contact.LiveDone == 0 && contact.LiveScheduled == 0 ? "Opportunity" : "Customer";
+                await Client.CreateOrUpdateAsync(contact, needInsert);
             }
 
 
@@ -232,13 +231,13 @@ namespace Cloudents.FunctionsV2
             {
                 Type = type;
                 BroadcastTime = broadcastTime;
-                Count = count;
+              //  Count = count;
             }
 
-            public StudyRoomType Type { get; set; }
-            public DateTime? BroadcastTime { get; set; }
+            public StudyRoomType Type { get;  }
+            public DateTime? BroadcastTime { get;  }
 
-            public int Count { get; set; }
+           // private int Count { get; }
         }
     }
 }
