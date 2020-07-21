@@ -53,7 +53,7 @@ namespace Cloudents.Query.Tutor
                         Id = s.Id,
                         TutorBio = s.Tutor.Paragraph2,
                         Schedule = s.Schedule,
-                        SessionStarted = _statelessSession.Query<StudyRoomSession>().All(w=>w.StudyRoom.Id== query.Id && w.Ended ==null)
+                        SessionStarted = _statelessSession.Query<StudyRoomSession>().Any(w=>w.StudyRoom.Id== query.Id && w.Ended ==null)
                     }).ToFutureValue();
 
                 var futureSubscription = _statelessSession.Query<Follow>()
