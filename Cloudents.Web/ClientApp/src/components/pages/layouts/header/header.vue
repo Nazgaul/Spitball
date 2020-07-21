@@ -9,7 +9,7 @@
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate mb-1">{{tutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-start mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <!-- <div class="globalHeader_items_left" v-if="!isMobile">
@@ -266,10 +266,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             color: #363637;
             font-weight: bold;
             font-size: 22px;
-            text-align: left;
+
             @media(max-width: @screen-xs) {
                 font-size: 18px;
-                text-align: center;
             }
         }
     .mobileHeaderSearch{
