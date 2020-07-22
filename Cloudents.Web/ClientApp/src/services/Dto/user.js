@@ -1,6 +1,6 @@
-function _createIsTutorState(str){
-    return str && str.toLowerCase() === 'ok'
-}
+// function _createIsTutorState(str){
+//     return str && str.toLowerCase() === 'ok'
+// }
 
 export const User = {
     Default: function (objInit) {
@@ -19,26 +19,26 @@ export const User = {
     //     this.pendingSessionsPayments = objInit.pendingSessionsPayments || null;
     //     this.description = objInit.description || '';
     // },
-    Tutor: function (objInit) {
-        return{
-                price : objInit.price || 0,
-                bio: objInit.bio || '',
-                lessons: objInit.lessons || 0,
-                discountPrice: objInit.discountPrice,
-                pendingSessionsPayments: objInit.pendingSessionsPayments || null,
-                description: objInit.description || '',
-                contentCount: objInit.contentCount,
-                hasCoupon: objInit.hasCoupon,
-                rate: objInit.rate || 0,
-                reviewCount: objInit.reviewCount || 0,
-                firstName: objInit.firstName || '',
-                lastName: objInit.lastName || '',
-                students: objInit.students || 0,
-                subscriptionPrice: objInit.subscriptionPrice,
-                isSubscriber : objInit.isSubscriber
-        }
-        
-    },
+    // Tutor: function (objInit) {
+    //     return{
+    //             price : objInit.price || 0,
+    //             bio: objInit.bio || '',
+    //             lessons: objInit.lessons || 0,
+    //             discountPrice: objInit.discountPrice,
+    //             pendingSessionsPayments: objInit.pendingSessionsPayments || null,
+    //             description: objInit.description || '',
+    //             contentCount: objInit.contentCount,
+    //             hasCoupon: objInit.hasCoupon,
+    //             rate: objInit.rate || 0,
+    //             reviewCount: objInit.reviewCount || 0,
+    //             firstName: objInit.firstName || '',
+    //             lastName: objInit.lastName || '',
+    //             students: objInit.students || 0,
+    //             subscriptionPrice: objInit.subscriptionPrice,
+    //             isSubscriber : objInit.isSubscriber
+    //     }
+    //
+    // },
     // TutorItem: function(objInit){
     //     return Object.assign(
     //         new User.Default(objInit),
@@ -54,24 +54,24 @@ export const User = {
     //         }
     //     )
     // },
-    Account: function(objInit){
-        return {
-            id: objInit.id,
-            email: objInit.email,
-            lastName: objInit.lastName,
-            firstName: objInit.firstName,
-            name: `${objInit.firstName} ${objInit.lastName}`,
-            image: objInit.image || '',
-            balance: objInit.balance,
-            currencySymbol: objInit.currencySymbol,
-            subscription: objInit.tutorSubscription,
-            needPayment: objInit.needPayment,
-            isTutor: _createIsTutorState(objInit.isTutor),
-            isSold: objInit.isSold,
-            pendingSessionsPayments: objInit.pendingSessionsPayments,
-            chatUnread: objInit.chatUnread,
-        }        
-    },
+    // Account: function(objInit){
+    //     return {
+    //         id: objInit.id,
+    //         email: objInit.email,
+    //         lastName: objInit.lastName,
+    //         firstName: objInit.firstName,
+    //         name: `${objInit.firstName} ${objInit.lastName}`,
+    //         image: objInit.image || '',
+    //         balance: objInit.balance,
+    //         currencySymbol: objInit.currencySymbol,
+    //         subscription: objInit.tutorSubscription,
+    //         needPayment: objInit.needPayment,
+    //         isTutor: _createIsTutorState(objInit.isTutor),
+    //         isSold: objInit.isSold,
+    //         pendingSessionsPayments: objInit.pendingSessionsPayments,
+    //         chatUnread: objInit.chatUnread,
+    //     }
+    // },
     // Stats: function(objInit){
     //     this.revenue = objInit.revenue
     //     this.sales = objInit.sales

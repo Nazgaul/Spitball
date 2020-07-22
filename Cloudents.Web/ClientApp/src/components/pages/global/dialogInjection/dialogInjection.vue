@@ -64,10 +64,10 @@ export default {
                     }
                     if(self.component){
                         return
-                    }else{
-                        self.component = dialogNameFromRoute
-                        return
                     }
+                    self.component = dialogNameFromRoute
+                    return
+                    
                 })
             }   
         }

@@ -1,5 +1,5 @@
 import { mapGetters } from 'vuex';
-import * as dialogNames from './dialogNames.js'
+//import * as dialogNames from './dialogNames.js'
 // const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 // const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 // const login = () => import('./globalDialogs/login/login.vue');
@@ -43,32 +43,32 @@ export default {
             // TODO make it Promise!!
                 return this[dialogChekerName](dialogNameFromRoute);
         },
-        check_auth(){
-            if(!this.getUserLoggedInStatus){
-                this.component = dialogNames.Login;
-            }
-        },
-        check_notAuth(){
-            if(this.getUserLoggedInStatus && global.isAuth){
-                this.component = '';
-                this.$closeDialog()
-                return 'break'
-            }
-        },
-        check_tutor(){
-            if(!this.accountUser.isTutor){
-                this.component = '';
-                this.$closeDialog()
-                return 'break'
-            } 
-        },
-        check_params() {
-            if(!Object.keys(this.$route.params).length) {
-                this.component = '';
-                this.$closeDialog()
-                return 'break'   
-            }
-        },
+        // check_auth(){
+        //     if(!this.getUserLoggedInStatus){
+        //         this.component = dialogNames.Login;
+        //     }
+        // },
+        // check_notAuth(){
+        //     if(this.getUserLoggedInStatus && global.isAuth){
+        //         this.component = '';
+        //         this.$closeDialog()
+        //         return 'break'
+        //     }
+        // },
+        // check_tutor(){
+        //     if(!this.accountUser.isTutor){
+        //         this.component = '';
+        //         this.$closeDialog()
+        //         return 'break'
+        //     }
+        // },
+        // check_params() {
+        //     if(!Object.keys(this.$route.params).length) {
+        //         this.component = '';
+        //         this.$closeDialog()
+        //         return 'break'
+        //     }
+        // },
     },
   
 }

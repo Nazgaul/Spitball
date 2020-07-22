@@ -62,9 +62,9 @@ function DocumentObject(objInit){
     //return new DocumentObject(ObjInit);
 //}
 export default {
-    async voteDocument(id, voteType){ 
-        return await documentInstance.post('vote',{id,voteType})
-    },
+    // async voteDocument(id, voteType){
+    //     return await documentInstance.post('vote',{id,voteType})
+    // },
     async changeDocumentName(data){ 
         return await documentInstance.post('rename',data)
     },

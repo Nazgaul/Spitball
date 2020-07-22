@@ -38,6 +38,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
    data() {
       return {

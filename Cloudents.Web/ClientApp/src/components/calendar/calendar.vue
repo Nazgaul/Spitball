@@ -182,9 +182,9 @@ export default {
         return a.toUpperCase();
       });
     },
-    calendarType() {
-      return this.getCalendarType;
-    },
+    // calendarType() {
+    //   return this.getCalendarType;
+    // },
     calendarLocale() {
       return `${global.lang}-${global.country}`.toLowerCase();
     },
@@ -255,15 +255,11 @@ export default {
       return this.getNeedPayment;
     },
     isSelfTutor() {
-      if (
-        this.$route.name == "myCalendar" ||
-        (!!this.getProfile &&
-          !!this.accountUser &&
-          this.getProfile.user.id == this.accountUser.id)
-      ) {
-        return true;
-      }
-      return false;
+      return this.$route.name == "myCalendar" ||
+              (!!this.getProfile &&
+                      !!this.accountUser &&
+                      this.getProfile.user.id == this.accountUser.id);
+
     }
   },
   methods: {
@@ -293,7 +289,7 @@ export default {
       //debugger;
       let dateEvent = this.eventsMap[date];
       if (dateEvent) {
-        var e = dateEvent.find(x => x.time === time);
+        const e = dateEvent.find(x => x.time === time);
         if (e != null) {
           return true;
         }
@@ -693,8 +689,7 @@ export default {
   .my-event {
     text-align: center;
     font-size: 12px;
-    padding: 5px;
-    padding-bottom: 0;
+    padding: 5px 5px 0;
     margin-right: 8px;
     position: relative;
 

@@ -110,8 +110,7 @@ export default {
          font-weight: 600;
          color: #43425d;
          margin: 0;
-         padding: 0;
-         padding-top: 10px;
+          padding: 10px 0 0;
           @media (max-width: @screen-md-plus) {
              font-size: 14px;
           }

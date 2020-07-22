@@ -239,12 +239,10 @@ export default {
          }
 
          &.tutorNavTab-active{
-            border-radius: initial;
-            color: #4c59ff;
+             color: #4c59ff;
             background: white;
-            border-top-right-radius: 6px;
-            border-top-left-radius: 6px;
-            display: flex;
+             border-radius: 6px 6px initial initial;
+             display: flex;
             justify-content: center;
             align-items: center;
          }

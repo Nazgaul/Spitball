@@ -89,9 +89,9 @@ const actions = {
     // updatePaypalStudyRoom(context,model){
     //     return walletService.paypalStudyRoom(model)
     // },
-    getStripeSecret() {
-        return walletService.getStripeSecret()
-    }
+    // getStripeSecret() {
+    //     return walletService.getStripeSecret()
+    // }
 };
 
 export default {

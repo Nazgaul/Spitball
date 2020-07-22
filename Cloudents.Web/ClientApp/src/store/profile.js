@@ -39,10 +39,10 @@ const getters = {
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileDocuments: state => state.documents,
-   getProfileDocumentsLength: state => state.documents.length,
+   //getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
-   getProfileCountry: state => state.profile?.user?.tutorCountry,
+   //getProfileCountry: state => state.profile?.user?.tutorCountry,
 }
 
 const mutations = {
@@ -210,7 +210,7 @@ const actions = {
       return profileInstance.get(`${id}`).then(({data}) => {
          commit('setProfile', data)
          dispatch('setUserStatus', state.profile.user);
-         return
+
       })
    },
    updateProfileReviews({commit}, id) {

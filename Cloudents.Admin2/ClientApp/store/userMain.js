@@ -5,7 +5,6 @@ const state = {
     tokensDilaogState: false,
     suspendDialog: false,
     userInfo: {},
-    userQuestions: [],
     userDocuments: [],
     userPurchasedDocs: [],
     userConversations: [],
@@ -23,7 +22,6 @@ const mutations = {
 
     clearUserData(state) {
         state.userInfo = {};
-        state.userQuestions = [];
         state.userDocuments = [];
         state.userPurchasedDocs = [];
         state.userConversations = [];
@@ -82,9 +80,6 @@ const mutations = {
     // setUserType(state, data){
     //     state.userInfo.userType.value = data;
     // },
-    setUserQuestions(state, data) {
-        state.userQuestions = data;
-    },
     setUserPurchasedDocs(state, data) {
         state.userPurchasedDocs = data;
     },
@@ -99,10 +94,6 @@ const mutations = {
     },
     setUserSessions(state, data) {
         state.userSessions = data;
-    },
-
-    removeQuestion(state, index) {
-        state.userQuestions.splice(index, 1);
     },
     removeDocument(state, index) {
         state.userDocuments.splice(index, 1);
@@ -124,7 +115,6 @@ const getters = {
     suspendDialogState: (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
     userInfo: (state) => state.userInfo,
-    userQuestions: (state) => state.userQuestions,
     userDocuments: (state) => state.userDocuments,
     userPurchasedDocuments: (state) => state.userPurchasedDocs,
     userConversations: (state) => state.userConversations,
@@ -215,29 +205,8 @@ const actions = {
             context.commit('updateCalenderSate');
         });
     },
-
-    deleteQuestionItem({commit}, index) {
-        commit('removeQuestion', index);
-    },
     deleteDocumentItem({commit}, index) {
         commit('removeDocument', index);
-    },
-
-    getUserQuestions(context, idPageObj) {
-        context.commit("setShowLoader", true);
-        return userMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserQuestions', data);
-                }
-                if (data.length < quantityPerPage) {
-                    return true;
-                }
-
-            },
-            (error) => {
-                console.log(error, 'error');
-            }
-        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserPurchasedDocuments(context, idPageObj) {
         context.commit("setShowLoader", true);

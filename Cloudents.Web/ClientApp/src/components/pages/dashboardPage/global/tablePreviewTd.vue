@@ -6,7 +6,7 @@
          <span v-if="item.online" class="tablePreview_online"/>
          <img v-if="item.image || item.preview" width="80" height="80" :src="formatImg(item)" class="tablePreview_img">
          
-         <v-avatar v-else :tile="true" tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
+         <v-avatar v-else :tile="true" tag="v-avatar" class="tablePreview_img tablePreview_no_image" :class="' userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
             <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
       </router-link>

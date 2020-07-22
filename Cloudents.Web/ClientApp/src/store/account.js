@@ -158,7 +158,7 @@ const actions = {
                 return
             }
             commit('setAccountStudentInfo', params)
-            return
+
         })
     },
     updateUserStats(context, days) {

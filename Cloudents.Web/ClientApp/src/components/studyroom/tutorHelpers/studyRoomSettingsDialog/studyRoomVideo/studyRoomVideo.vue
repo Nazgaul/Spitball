@@ -135,7 +135,7 @@ export default {
                             videoTrack.addTrack(stream.getVideoTracks()[0])
                             self.connectVideoTrack(videoTrack)
                         }
-                        return
+
                     })
                     .catch(err=>{
                         if(err.code === 0) {
@@ -156,7 +156,7 @@ export default {
             this.MIXIN_getMediaTrack(videoParams)
                 .then(stream=>{
                     self.connectVideoTrack(stream)
-                    return
+
                 })
                 .catch(err=>{
                     if(err.code === 0) {
@@ -225,7 +225,7 @@ export default {
             deviceId = videoTrack.getVideoTracks()[0].getSettings().deviceId
             this.$store.dispatch('updateVideoDeviceId',deviceId)
             this.$store.commit('settings_setIsVideo',true)
-            return
+
         },
         connectAudioTrack(audioTrack){
             this.microphoneOn = true

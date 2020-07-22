@@ -45,11 +45,7 @@ export default {
     computed: {
         OverlayActive() {
             if (this.$vuetify.breakpoint.xs) {
-                if (this.activateOverlay) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return !this.activateOverlay;
             } else {
                 return false;
             }

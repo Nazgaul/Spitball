@@ -102,8 +102,8 @@ export default {
         },
         showDesktopButtons() {
             if(this.docPreview) {
-                if(this.$vuetify.breakpoint.xsOnly || this.docPreview.length < 2) return false;
-                return true;
+                return !(this.$vuetify.breakpoint.xsOnly || this.docPreview.length < 2);
+
             }
             return false;
         },

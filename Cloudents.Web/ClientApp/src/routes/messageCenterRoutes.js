@@ -18,11 +18,11 @@ export const messageCenterRoutes = [
       let conversationsList = store.getters.getConversations
       if(conversationsList.length){
         next()
-        return
+
       }else{
         store.dispatch("getAllConversations").then(()=>{
           next()
-          return
+
         })
       }
     }

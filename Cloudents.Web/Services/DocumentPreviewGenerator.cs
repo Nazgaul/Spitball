@@ -30,7 +30,7 @@ namespace Cloudents.Web.Services
         {
             var result = Enumerable.Range(0, model.Pages).Select(i =>
             {
-                var uri = _blobProvider.GetPreviewImageLink(model.Document.Id, i);
+                var uri = _blobProvider.GetPreviewImageLink(model.Id, i);
                 var effect = ImageProperties.BlurEffect.None;
                 if (!model.IsPurchased)
                 {
@@ -72,14 +72,14 @@ namespace Cloudents.Web.Services
             string locator;
             if (model.IsPurchased)
             {
-                locator = await _videoService.BuildUserStreamingLocatorAsync(model.Document.Id, userId, token);
+                locator = await _videoService.BuildUserStreamingLocatorAsync(model.Id, userId, token);
             }
             else
             {
-                locator = await _videoService.GetShortStreamingUrlAsync(model.Document.Id, token);
+                locator = await _videoService.GetShortStreamingUrlAsync(model.Id, token);
             }
 
-            var uri = _urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id);
+            var uri = _urlBuilder.BuildDocumentThumbnailEndpoint(model.Id);
 
 
             return new { locator, poster = uri };
