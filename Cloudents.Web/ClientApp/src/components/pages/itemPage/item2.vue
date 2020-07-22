@@ -186,7 +186,9 @@ export default {
     this.clearDocument();
   },
   mounted() {
-    this.documentRequest(this.id);
+    this.documentRequest(this.id).catch(err=>{
+      this.$store.dispatch('updateCurrentItem');
+    });
   },
   created() {
     storeService.lazyRegisterModule(this.$store,"studyDocumentsStore",studyDocumentsStore);

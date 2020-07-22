@@ -1,6 +1,6 @@
 import { auth_SETTER } from '../store/constants/authConstants';
-import { TUTOR_EDIT_PROFILE } from '../components/pages/global/toasterInjection/componentConsts'
-import { Profile } from '../routes/routeNames'
+import { TUTOR_EDIT_PROFILE ,ITEM_DIALOG} from '../components/pages/global/toasterInjection/componentConsts'
+import { Profile } from '../routes/routeNames.js';
 
 export default () => {
   return store => {
@@ -10,6 +10,9 @@ export default () => {
         if (!isLogged){
           store.commit('setComponent', auth_SETTER.register)
         }
+      }
+      if(mutation.payload?.query?.d && mutation.payload?.name == Profile) {
+        store.dispatch('updateCurrentItem',mutation.payload?.query?.d)
       }
       if(mutation.type === 'route/ROUTE_CHANGED') {
         let { name, hash, params } = store.state.route

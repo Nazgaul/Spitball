@@ -5,7 +5,7 @@
       <v-toolbar color="#4452fc" flat>
         <h1 class="ps-sm-4 text-center text-sm-left text-truncate titleText">{{getDocumentName}}</h1>
         <v-spacer></v-spacer>
-        <v-icon absolute right color="white" @click="$emit('close')" size="14" v-text="'sbf-close'"/> 
+        <v-icon absolute right color="white" @click="closeItem" size="14" v-text="'sbf-close'"/> 
       </v-toolbar>
 
       <item2 class="pa-5" :id="id"/>
@@ -22,11 +22,16 @@ export default {
   components:{
     item2
   },
-  props:{
-    id:{}
-  },
   computed: {
-    ...mapGetters(['getDocumentName'])
+    ...mapGetters(['getDocumentName']),
+    id(){
+      return this.$store.getters.getCurrentItemId;
+    }
+  },
+  methods: {
+    closeItem(){
+      this.$store.dispatch('updateCurrentItem')
+    }
   },
 }
 </script>

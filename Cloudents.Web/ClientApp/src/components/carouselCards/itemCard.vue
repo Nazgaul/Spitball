@@ -35,9 +35,6 @@
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
-    <template v-if="itemDialogState">
-        <itemDialog :id="item.id" @close="itemDialogState = false"/>
-    </template>
     </div>
 </template>
 
@@ -47,15 +44,9 @@ import * as routeNames from '../../routes/routeNames';
 import documentPrice from '../pages/global/documentPrice/documentPrice.vue'
 import intersection from '../pages/global/intersection/intersection.vue';
 import vidSVG from '../../components/results/svg/vid.svg'
-import itemDialog from '../pages/global/itemDialog/itemDialog.vue';
 
 export default {
-    components:{vidSVG, intersection, documentPrice,itemDialog},
-    data() {
-        return {
-            itemDialogState:false,
-        }
-    },
+    components:{vidSVG, intersection, documentPrice},
     props:{
         item:{
             type:Object,
@@ -93,7 +84,7 @@ export default {
     },
     methods: {
         openItemDialog(){
-            this.itemDialogState = true;
+            this.$store.dispatch('updateCurrentItem',this.item.id);
         },
         goSubscription() {
             if(!this.isProfilePage) {

@@ -29,6 +29,8 @@ const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoom
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
+const ITEM_DIALOG = () => import('../itemDialog/itemDialog.vue');
+
 export default {
     components: {
         PAYMENT_DIALOG,
@@ -45,12 +47,21 @@ export default {
         applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
-        teacherBillOfflineDialog
+        teacherBillOfflineDialog,
+        ITEM_DIALOG
     },
     data() {
         return {
             component: {},
             componentObj: {
+                // DIALOGS:
+                [componentConsts.ITEM_DIALOG]:{
+                    name:componentConsts.ITEM_DIALOG,
+                    params:{
+                        name: componentConsts.ITEM_DIALOG
+                    }
+                },
+
                 [componentConsts.PAYMENT_DIALOG]:{
                     name: componentConsts.PAYMENT_DIALOG,
                 },

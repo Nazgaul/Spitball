@@ -1,8 +1,5 @@
 <template>
-  <div v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" 
-    @click="openItemDialog">
-
-  <!-- <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''"> -->
+  <div v-show="url" class="d-block note-block" @click="openItemDialog">
     <div class="document-header-container">
       <div class="document-header-large-sagment">
 
@@ -59,7 +56,7 @@
     <slot name="descriptionTitle"></slot>
 
     <v-flex grow class="top-row">
-      <template v-if="!fromItemPage">
+      <template>
         <v-skeleton-loader
           v-if="!isPreviewReady"
           class="document-body-card-img"
@@ -85,7 +82,7 @@
         </div>
       </template>
 
-      <div class="type-wrap" :class="{'type-wrap--noPadding': fromItemPage}">
+      <div class="type-wrap">
           <div class="wrapHeight">
             <v-flex grow class="data-row">
               <div class="content-wrap">
@@ -106,12 +103,12 @@
             </v-flex>
           </div>
 
-          <documentLikes v-if="!isMobile && !fromItemPage" :item="item" />
+          <documentLikes v-if="!isMobile" :item="item" />
       </div>
       
     </v-flex>
 
-    <documentLikes v-if="isMobile && !fromItemPage" :item="item" />
+    <documentLikes v-if="isMobile" :item="item" />
 
     <sb-dialog
       :showDialog="showReport"
@@ -164,10 +161,6 @@
     </sb-dialog>
 
     <slot name="isTutor"></slot>
-
-    <template v-if="itemDialogState">
-        <itemDialog :id="item.id" @close="itemDialogState = false"/>
-    </template>
   </div>
   <!-- </router-link> -->
 </template>
@@ -186,8 +179,6 @@ const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 const documentPrice = () => import("../pages/global/documentPrice/documentPrice.vue");
 
-import itemDialog from '../pages/global/itemDialog/itemDialog.vue';
-
 import VueNumeric from 'vue-numeric'
 
 import vidSVG from "./svg/vid.svg";
@@ -202,12 +193,9 @@ export default {
     documentPrice,
     VueNumeric,
 
-    itemDialog
   },
   data() {
     return {
-      itemDialogState:false,
-
       defOpen:false,
       isExpand: false,
       isPreviewReady: false,
@@ -246,10 +234,6 @@ export default {
   props: {
     item: { type: Object, required: true },
     index: { Number },
-    fromItemPage: {
-      type: Boolean,
-      default: false
-    }
   },
   watch: {
     priceDialog(val) {
@@ -402,7 +386,7 @@ export default {
       this.showMenu = true;
     },
     openItemDialog(){
-        this.itemDialogState = true;
+      this.$store.dispatch('updateCurrentItem',this.item.id);
     },
   },
   filters: {

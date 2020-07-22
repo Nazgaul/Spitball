@@ -1,6 +1,7 @@
 import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
 import { router } from '../main.js';
+import {ITEM_DIALOG} from '../components/pages/global/toasterInjection/componentConsts'
 
 const state = {
     document: {},
@@ -9,6 +10,7 @@ const state = {
     showPurchaseConfirmation: false,
     documentLoaded: false,
     toaster: false,
+    currentItemId: null
 };
 
 const getters = {
@@ -49,8 +51,9 @@ const getters = {
     getDocumentPriceTypeSubscriber: state => state.document?.details?.priceType === 'Subscriber',
     getDocumentPriceTypeHasPrice: state => state.document?.details?.priceType === 'HasPrice',
     //getIsDocumentTutorSubscriber: state => state.document?.details?.tutor?.subscriptionPrice,
-    getDocumentUserName: state => state.document?.details?.user?.name
-
+    getDocumentUserName: state => state.document?.details?.user?.name,
+    getCurrentItemId: state => state.currentItemId
+    
     // getIsDocumentFree: (state, _getters) => state.document?.details?.price > 0 && _getters.getDocumentSubscriber,
 };
 
@@ -81,6 +84,9 @@ const mutations = {
     },
     setShowItemToaster(state, val) {
         state.toaster = val
+    },
+    setCurrentItemId(state,itemId){
+        state.currentItemId = itemId
     }
 };
 
@@ -91,9 +97,7 @@ const actions = {
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
             commit('setDocument', DocumentObj);
-            return true;
-        }, (err) => {
-            return err;
+            return;
         });
     },
     downloadDocument({getters}, item) {
@@ -144,6 +148,18 @@ const actions = {
     updateItemToaster({commit}, val){
         commit('setShowItemToaster', val);
     },
+
+
+    // new ITEM thing:
+    updateCurrentItem({commit},itemId){
+        if(itemId){
+            commit('setCurrentItemId',itemId);
+            commit('addComponent',ITEM_DIALOG);
+        }else{
+            commit('setCurrentItemId',null);
+            commit('removeComponent',ITEM_DIALOG);
+        }
+    }
 };
 
 export default {
