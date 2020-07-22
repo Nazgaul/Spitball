@@ -175,27 +175,27 @@ namespace Cloudents.FunctionsV2
             {
                 await processor.ProcessFileAsync(long.Parse(id), originalBlob, binder, log, token);
             }
-            catch (Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.ApiException ex)
-            {
-                if (ex.Message.Contains("virus"))
-                {
-                    await session.Query<Core.Entities.Document>().Where(w => w.Id == long.Parse(id))
-                        .UpdateBuilder()
-                        .Set(c => c.Status.State, x => ItemState.Deleted)
-                        .Set(c => c.Status.DeletedOn, x => DateTime.UtcNow)
-                        .Set(c => c.Status.FlagReason, x => "Virus")
-                        .UpdateAsync(token);
-                    foreach (var item in segment.Results.OfType<CloudBlockBlob>())
-                    {
+            //catch (Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.ApiException ex)
+            //{
+            //    if (ex.Message.Contains("virus"))
+            //    {
+            //        await session.Query<Core.Entities.Document>().Where(w => w.Id == long.Parse(id))
+            //            .UpdateBuilder()
+            //            .Set(c => c.Status.State, x => ItemState.Deleted)
+            //            .Set(c => c.Status.DeletedOn, x => DateTime.UtcNow)
+            //            .Set(c => c.Status.FlagReason, x => "Virus")
+            //            .UpdateAsync(token);
+            //        foreach (var item in segment.Results.OfType<CloudBlockBlob>())
+            //        {
 
-                        await item.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
-                    }
+            //            await item.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+            //        }
 
-                }
+            //    }
 
-                originalBlob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
-                await originalBlob.SetMetadataAsync();
-            }
+            //    originalBlob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
+            //    await originalBlob.SetMetadataAsync();
+            //}
             catch (Exception ex)
             {
                 originalBlob.Metadata["error"] = ex.Message;

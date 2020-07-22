@@ -99,9 +99,9 @@ namespace Cloudents.FunctionsV2.Di
                     FileTypesExtension.Video.Extensions));
 
 
-            builder.RegisterType<PowerPointProcessor>().AsSelf().As<IFileProcessor>()
-                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
-                    FileTypesExtension.PowerPoint.Extensions));
+            //builder.RegisterType<PowerPointProcessor>().AsSelf().As<IFileProcessor>()
+            //    .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+            //        FileTypesExtension.PowerPoint.Extensions));
 
             builder.RegisterType<AudioProcessor>().AsSelf().As<IFileProcessor>()
                 .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,

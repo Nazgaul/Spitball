@@ -74,27 +74,26 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             });
         }
 
-        [Theory]
-        [InlineData("api/document/similar", "Economics", 50413L, false)]
-        [InlineData("api/document/similar", "Economics", 50413L, true)]
-        public async Task GetSimilarDocuments_OkAsync(string url, string course, long documentId, bool authUser)
-        {
-            var endPoint = $"{url}?course={course}&documentId={documentId}";
-            if (authUser)
-            {
-                await _client.LogInAsync();
-            }
-            var response = await _client.GetAsync(endPoint);
-            response.StatusCode.Should().Be(200);
+        //[Theory]
+        //[InlineData("api/document/similar", "Economics", 50413L, false)]
+        //[InlineData("api/document/similar", "Economics", 50413L, true)]
+        //public async Task GetSimilarDocuments_OkAsync(string url, string course, long documentId, bool authUser)
+        //{
+        //    var endPoint = $"{url}?course={course}&documentId={documentId}";
+        //    if (authUser)
+        //    {
+        //        await _client.LogInAsync();
+        //    }
+        //    var response = await _client.GetAsync(endPoint);
+        //    response.StatusCode.Should().Be(200);
 
-            var str = await response.Content.ReadAsStringAsync();
+        //    var str = await response.Content.ReadAsStringAsync();
 
-            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
-        }
+        //    str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+        //}
 
         [Theory]
         [InlineData("api/document/29106")]
-        [InlineData("api/document/similar?documentId=29106")]
         public async Task GetAsync_Document_OKAsync(string url)
         {
             var response = await _client.GetAsync(url);
