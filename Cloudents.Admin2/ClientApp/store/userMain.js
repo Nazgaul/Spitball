@@ -109,9 +109,6 @@ const mutations = {
     removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
     },
-    removeAnswer(state, index) {
-        state.userAnswers.splice(index, 1);
-    },
     removeDocument(state, index) {
         state.userDocuments.splice(index, 1);
     },
@@ -227,9 +224,6 @@ const actions = {
 
     deleteQuestionItem({commit}, index) {
         commit('removeQuestion', index);
-    },
-    deleteAnswerItem({commit}, index) {
-        commit('removeAnswer', index);
     },
     deleteDocumentItem({commit}, index) {
         commit('removeDocument', index);
