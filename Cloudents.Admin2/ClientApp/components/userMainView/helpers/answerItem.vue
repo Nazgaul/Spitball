@@ -3,9 +3,6 @@
    
     <v-card class="elevation-0 mb-2 answerItem">
       <v-card-title class="justify-end grey lighten-2 py-0">
-        <v-btn flat v-if="!isOk && !isDeleted" @click="approveAnswer(answer, index)" :disabled="proccessedAnswers.includes(answer.id)">
-          <v-icon color="green">check</v-icon>
-        </v-btn>
         <v-btn icon v-if="!isDeleted" :disabled="proccessedAnswers.includes(answer.id)" @click="deleteAnswer(answer, index)">
           <v-icon>delete</v-icon>
         </v-btn>
@@ -26,7 +23,6 @@
 
 <script>
 import { deleteAnswer } from "../../answer/answerComponents/delete/deleteAnswerService";
-import { aproveAnswer } from "../../answer/answerComponents/flaggedAnswers/flaggedAnswersService";
 import { mapActions } from "vuex";
 export default {
   name: "answerItem",
@@ -44,9 +40,6 @@ export default {
   },
   computed: {
     ...mapActions(["deleteAnswerItem"]),
-    isOk() {
-      return this.filterVal === "ok";
-    },
     isPending() {
       return this.filterVal === "pending";
     },
@@ -82,18 +75,6 @@ export default {
         this.proccessedAnswers.push(arrIds[i]);
       }
       return this.proccessedAnswers;
-    },
-
-    approveAnswer(answer, index) {
-      aproveAnswer(answer.id).then(
-        resp => {
-          this.$toaster.success(`Answer ${answer.id} approved`);
-          this.markAsProccessed([answer.id]);
-        },
-        error => {
-          this.$toaster.error("Something went wrong");
-        }
-      );
     }
   }
 };
