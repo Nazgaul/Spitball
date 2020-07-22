@@ -389,12 +389,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task UserVotesByCategoryQuery_Ok()
-        {
-            var query = new UserVotesByCategoryQuery(159039);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task UserVotesByCategoryQuery_Ok()
+        //{
+        //    var query = new UserVotesByCategoryQuery(159039);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Fact]
         public async Task AboutTutorQuery_Ok()

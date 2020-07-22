@@ -81,12 +81,12 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
 
-            model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
-            if (model.Tutor != null)
-            {
-                model.Tutor.Image =
-                    urlBuilder.BuildUserImageEndpoint(model.Tutor.UserId, model.Tutor.Image);
-            }
+            //model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
+            //if (model.Tutor != null)
+            //{
+            //    model.Tutor.Image =
+            //        urlBuilder.BuildUserImageEndpoint(model.Tutor.UserId, model.Tutor.Image);
+            //}
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
             //var textTask = Task;
@@ -95,9 +95,9 @@ namespace Cloudents.Web.Api
             //    textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             //}
 
-            var taskFiles = generatorIndex[model.Document.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
+            var taskFiles = generatorIndex[model.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
             await Task.WhenAll(tQueue, taskFiles);
-            model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
+            //model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
             var files = await taskFiles;
            // var text = await textTask;
             return new DocumentPreviewResponse(model, files);
