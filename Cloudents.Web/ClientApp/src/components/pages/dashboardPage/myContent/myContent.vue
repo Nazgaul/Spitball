@@ -37,7 +37,7 @@
    
                   <router-link v-else :to="item.url" class="tablePreview">
                      <span v-if="item.online" class="tablePreview_online"></span>
-                     <img v-if="item.image || item.preview || checkIsQuestion(item.type)" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
+                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
                      
                      <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
@@ -72,16 +72,16 @@
                            <span>{{item.name}}</span>
                         </div>
                      </template>
-                     <template v-if="checkIsQuestion(item.type)">
-                        <div class="text-truncate">
-                           <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>
-                           <span class="text-truncate">{{item.text}}</span>
-                        </div>
-                        <div class="text-truncate" v-if="item.answerText">
-                           <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>
-                           <span>{{item.answerText}}</span>
-                        </div>
-                     </template>
+<!--                     <template v-if="checkIsQuestion(item.type)">-->
+<!--                        <div class="text-truncate">-->
+<!--                           <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>-->
+<!--                           <span class="text-truncate">{{item.text}}</span>-->
+<!--                        </div>-->
+<!--                        <div class="text-truncate" v-if="item.answerText">-->
+<!--                           <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>-->
+<!--                           <span>{{item.answerText}}</span>-->
+<!--                        </div>-->
+<!--                     </template>-->
                      <template v-if="item.conversationId">
                         <div class="text-truncate">
                            <span>{{item.name}}</span>
@@ -104,7 +104,7 @@
             <template v-slot:item.date="{item}">{{ $d(item.date) }}</template>
 
             <template v-slot:item.action="{item}">
-               <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(item.type)">
+               <v-menu bottom left v-model="showMenu">
                   <template v-slot:activator="{ on }">
                      <v-icon @click="currentItemIndex = item.itemId" v-on="on" slot="activator" small icon>{{$vuetify.icons.values.dotMenu}}</v-icon>
                   </template>
@@ -221,16 +221,16 @@ export default {
          this.isChangePriceDialog = false;
          this.currentItem = '';
       },
-      checkIsQuestion(type){
-         return type === 'Question' || type === 'Answer';
-      },
+      // checkIsQuestion(type){
+      //    return type === 'Question' || type === 'Answer';
+      // },
       formatImg(item){
-         if(item.preview || item.image){
+        // if(item.preview || item.image){
             return this.$proccessImageUrl(item.preview,80,80)
-         }
-         if(this.checkIsQuestion(item.type)){
-            return require('../global/images/qs.png') 
-         }
+         //}
+         // if(this.checkIsQuestion(item.type)){
+         //    return require('../global/images/qs.png')
+         // }
       }
    },
    created() {

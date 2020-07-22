@@ -27,8 +27,8 @@ export default {
       return {
          dictionary:{
             types:{
-               'Question': this.$t('dashboardPage_qa'),
-               'Answer': this.$t('dashboardPage_qa'),
+               //'Question': this.$t('dashboardPage_qa'),
+               //'Answer': this.$t('dashboardPage_qa'),
                'Document': this.$t('dashboardPage_document'),
                'Video': this.$t('dashboardPage_video'),
                'TutoringSession': this.$t('dashboardPage_tutor_session'),
