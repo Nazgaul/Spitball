@@ -14,9 +14,7 @@ using Xunit;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Users;
 using Cloudents.Query.Courses;
-using Cloudents.Query.Questions;
 using Cloudents.Query.General;
-using Cloudents.Core.DTOs.Feed;
 using Cloudents.Query.Session;
 using Cloudents.Query.StudyRooms;
 using Cloudents.Query.Sync;
@@ -253,12 +251,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         //}
 
-        [Fact]
-        public async Task QuestionDataByIdQuery_Ok()
-        {
-            var query = new QuestionDataByIdQuery(10626);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task QuestionDataByIdQuery_Ok()
+        //{
+        //    var query = new QuestionDataByIdQuery(10626);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData(638)]
@@ -528,12 +526,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    var _ = await fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Fact]
-        public async Task AdminFictivePendingQuestionEmptyQuery_Ok()
-        {
-            var query = new FictivePendingQuestionEmptyQuery();
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminFictivePendingQuestionEmptyQuery_Ok()
+        //{
+        //    var query = new FictivePendingQuestionEmptyQuery();
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData(159039, 7)]

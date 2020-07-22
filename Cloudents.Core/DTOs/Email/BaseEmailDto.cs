@@ -64,13 +64,13 @@ namespace Cloudents.Core.DTOs.Email
         public DateTime Since { get; set; }
     }
 
-    public class QuestionUpdateEmailDto : UpdateEmailDto
-    {
-        public long QuestionId { get; set; }
-        public string QuestionText { get; set; }
-        public string AnswerText { get; set; }
+    //public class QuestionUpdateEmailDto : UpdateEmailDto
+    //{
+    //    public long QuestionId { get; set; }
+    //    public string QuestionText { get; set; }
+    //    public string AnswerText { get; set; }
 
-    }
+    //}
 
     public class DocumentUpdateEmailDto : UpdateEmailDto
     {

@@ -50,38 +50,38 @@ namespace Cloudents.Query.Users
                     }).ToFuture<UserContentDto>();
 
 
-                var questionFuture = _session.Query<Question>()
-                    .FetchMany(f => f.Answers)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => new UserQuestionsDto()
-                    {
-                        Id = s.Id,
-                        //State = s.Status.State,
-                        Date = s.Created,
-                        Course = s.Course.Id,
-                        Text = s.Text,
-                        AnswerText = s.Answers.Select(si => si.Text).FirstOrDefault()
-                    }).ToFuture<UserContentDto>();
+                //var questionFuture = _session.Query<Question>()
+                //    .FetchMany(f => f.Answers)
+                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                //    .Select(s => new UserQuestionsDto()
+                //    {
+                //        Id = s.Id,
+                //        //State = s.Status.State,
+                //        Date = s.Created,
+                //        Course = s.Course.Id,
+                //        Text = s.Text,
+                //        AnswerText = s.Answers.Select(si => si.Text).FirstOrDefault()
+                //    }).ToFuture<UserContentDto>();
 
-                var answerFuture = _session.Query<Answer>()
-                    .Fetch(f => f.User).Fetch(f => f.Question)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
-                    .Select(s => new UserAnswersDto()
-                    { 
-                        QuestionId = s.Question.Id,
-                        //State = s.Status.State,
-                        Date = s.Created,
-                        Course = s.Question.Course.Id,
-                        QuestionText = s.Question.Text,
-                        AnswerText = s.Text
+                //var answerFuture = _session.Query<Answer>()
+                //    .Fetch(f => f.User).Fetch(f => f.Question)
+                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
+                //    .Select(s => new UserAnswersDto()
+                //    { 
+                //        QuestionId = s.Question.Id,
+                //        //State = s.Status.State,
+                //        Date = s.Created,
+                //        Course = s.Question.Course.Id,
+                //        QuestionText = s.Question.Text,
+                //        AnswerText = s.Text
 
-                    }).ToFuture<UserContentDto>();
+                //    }).ToFuture<UserContentDto>();
 
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
-                var questionResult = await questionFuture.GetEnumerableAsync(token);
-                var answerResult = await answerFuture.GetEnumerableAsync(token);
+               // var questionResult = await questionFuture.GetEnumerableAsync(token);
+                //var answerResult = await answerFuture.GetEnumerableAsync(token);
 
-                return documentResult.Union(questionResult).Union(answerResult).OrderByDescending(o => o.Date);
+                return documentResult.OrderByDescending(o => o.Date);
             }
         }
     }

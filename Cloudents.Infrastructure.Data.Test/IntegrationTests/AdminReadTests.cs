@@ -110,12 +110,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    await Task.WhenAll(t1, t2);
         //}
 
-        [Fact]
-        public async Task AdminUserAnswersQuery_Ok()
-        {
-            var query = new UserAnswersQuery(159039, 0, FromCountry("IL"));
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminUserAnswersQuery_Ok()
+        //{
+        //    var query = new UserAnswersQuery(159039, 0, FromCountry("IL"));
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData("")]
@@ -191,12 +191,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task AdminUserQuestionsQuery_Ok()
-        {
-            var query = new UserQuestionsQuery(159039, 0, FromCountry("IL"));
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminUserQuestionsQuery_Ok()
+        //{
+        //    var query = new UserQuestionsQuery(159039, 0, FromCountry("IL"));
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
         //[Fact]
         //public async Task AdminAllCoursesEmptyQuery_Ok()
         //{
@@ -212,12 +212,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    await _fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Fact]
-        public async Task FlaggedQuestionEmptyQuery_Ok()
-        {
-            var query = new FlaggedQuestionQuery("IL");
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task FlaggedQuestionEmptyQuery_Ok()
+        //{
+        //    var query = new FlaggedQuestionQuery("IL");
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData("IL")]
@@ -229,15 +229,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Theory]
-        [InlineData("IL")]
-        [InlineData(null)]
-        public async Task FlaggedAnswerEmptyQuery_Ok(string countryStr)
-        {
-            var country = FromCountry(countryStr);
-            var query = new FlaggedAnswerQuery(country);
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData("IL")]
+        //[InlineData(null)]
+        //public async Task FlaggedAnswerEmptyQuery_Ok(string countryStr)
+        //{
+        //    var country = FromCountry(countryStr);
+        //    var query = new FlaggedAnswerQuery(country);
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData(203300, "IL")]
@@ -262,14 +262,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    await fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Theory]
-        [InlineData("IL")]
-        [InlineData(null)]
-        public async Task PendingQuestionsEmptyQuery_Ok(string country)
-        {
-            var query = new PendingQuestionsQuery(country);
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData("IL")]
+        //[InlineData(null)]
+        //public async Task PendingQuestionsEmptyQuery_Ok(string country)
+        //{
+        //    var query = new PendingQuestionsQuery(country);
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
         [Theory]
         [InlineData("IL")]
         [InlineData(null)]
