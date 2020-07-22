@@ -19,8 +19,7 @@ import {mapActions} from 'vuex';
 export default {
 computed:{
     voiceErrorImg(){
-        let isRtl = global.isRtl;
-        if(isRtl){
+        if(this.$vuetify.rtl){
             return require('./img/voice-recording-rtl.png')
         }else{
             return require('./img/voice-recording.png')

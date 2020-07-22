@@ -184,19 +184,19 @@ export default {
       let headersBuilder = [
         {
           text: this.$t("studyRoom_created"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "date"
         },
         {
           text: this.$t("dashboardPage_name"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "name"
         },
         {
           text: this.$t("dashboardPage_type"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "type"
         }
@@ -204,7 +204,7 @@ export default {
       if (this.isStudyroomLive) {
         headersBuilder.push({
           text: this.$t("dashboardPage_scheduled"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "scheduled"
         });
@@ -212,19 +212,19 @@ export default {
       headersBuilder = headersBuilder.concat([
         {
           text: this.$t("dashboardPage_students"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "students"
         },
         {
           text: this.$t("dashboardPage_last_date"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "lastSession"
         },
         {
           text: this.$t("study room price"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "price"
         },
@@ -466,7 +466,6 @@ export default {
   }
   .sbf-arrow-right-carousel,
   .sbf-arrow-left-carousel {
-    transform: none /*rtl:rotate(180deg)*/;
     color: #43425d !important;
     height: inherit;
     font-size: 14px !important;
