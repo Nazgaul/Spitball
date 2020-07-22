@@ -6,7 +6,6 @@ const state = {
     suspendDialog: false,
     userInfo: {},
     userQuestions: [],
-    userAnswers: [],
     userDocuments: [],
     userPurchasedDocs: [],
     userConversations: [],
@@ -25,7 +24,6 @@ const mutations = {
     clearUserData(state) {
         state.userInfo = {};
         state.userQuestions = [];
-        state.userAnswers = [];
         state.userDocuments = [];
         state.userPurchasedDocs = [];
         state.userConversations = [];
@@ -87,9 +85,6 @@ const mutations = {
     setUserQuestions(state, data) {
         state.userQuestions = data;
     },
-    setUserAnswers(state, data) {
-        state.userAnswers = data;
-    },
     setUserPurchasedDocs(state, data) {
         state.userPurchasedDocs = data;
     },
@@ -130,7 +125,6 @@ const getters = {
     getUserBalance: (state) => state.userBalance,
     userInfo: (state) => state.userInfo,
     userQuestions: (state) => state.userQuestions,
-    userAnswers: (state) => state.userAnswers,
     userDocuments: (state) => state.userDocuments,
     userPurchasedDocuments: (state) => state.userPurchasedDocs,
     userConversations: (state) => state.userConversations,
@@ -238,23 +232,6 @@ const actions = {
                 if (data.length < quantityPerPage) {
                     return true;
                 }
-
-            },
-            (error) => {
-                console.log(error, 'error');
-            }
-        ).finally(() => context.commit("setShowLoader", false));
-    },
-    getUserAnswers(context, idPageObj) {
-        context.commit("setShowLoader", true);
-        return userMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserAnswers', data);
-                }
-                if (data.length < quantityPerPage) {
-                    return true;
-                }
-
 
             },
             (error) => {

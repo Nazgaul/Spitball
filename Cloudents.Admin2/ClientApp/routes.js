@@ -26,7 +26,6 @@ import flaggedDocument from './components/document/documentComponents/flaggedDoc
 
 import userMain from './components/userMainView/userMainView.vue';
 import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
-import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
@@ -65,11 +64,6 @@ export const routes = [
                 name: 'userQuestions',
                 path: 'userQuestions',
                 component: userQuestions
-            },
-            {
-                name: 'userAnswers',
-                path:'userAnswers',
-                component: userAnswers
             },
             {
                 name:'userDocuments',
