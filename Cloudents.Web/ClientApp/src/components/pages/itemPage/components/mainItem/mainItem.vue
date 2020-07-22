@@ -5,7 +5,7 @@
                 <img :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
             </div>
         </template>
-        <div v-if="!isLoad && videoLoader">
+        <div v-if="videoLoader">
             <template v-if="isVideo && videoSrc">
                 <div style="margin: 0 auto;background:black" class="text-center mainItem__item">
                 <v-fade-transition>
@@ -27,6 +27,7 @@
             <div class="mainItem__item" v-else>
                 <template v-if="docPreview">
                     <div class="mainItem__item__wrap">
+                        <!-- <div style="max-height: 500px;overflow-y: scroll;border: 1px solid #ddd;" :style="{height: `${dynamicWidthAndHeight.height}px`}"> -->
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
                             <v-scroll-x-reverse-transition>
                                 <unlockItem v-touch="{
@@ -78,9 +79,6 @@ export default {
     props: {
         document: {
             type: Object
-        },
-        isLoad:{
-            type: Boolean
         }
     },
     data() {
@@ -93,11 +91,7 @@ export default {
         '$route.params.id'(){
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             // let self = this;
-            // this.isLoad = true;
             this.docPage = 0;
-            // setTimeout(()=>{
-            //     self.isLoad = false;
-            // })
         },
     },
     computed: {

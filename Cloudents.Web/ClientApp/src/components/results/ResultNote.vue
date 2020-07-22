@@ -1,5 +1,8 @@
 <template>
-  <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''">
+  <div v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" 
+    @click="openItemDialog">
+
+  <!-- <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''"> -->
     <div class="document-header-container">
       <div class="document-header-large-sagment">
 
@@ -162,7 +165,11 @@
 
     <slot name="isTutor"></slot>
 
-  </router-link>
+    <template v-if="itemDialogState">
+        <itemDialog :id="item.id" @close="itemDialogState = false"/>
+    </template>
+  </div>
+  <!-- </router-link> -->
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -178,6 +185,9 @@ const reportItem = () => import("./helpers/reportItem/reportItem.vue");
 const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 const documentPrice = () => import("../pages/global/documentPrice/documentPrice.vue");
+
+import itemDialog from '../pages/global/itemDialog/itemDialog.vue';
+
 import VueNumeric from 'vue-numeric'
 
 import vidSVG from "./svg/vid.svg";
@@ -190,10 +200,14 @@ export default {
     vidSVG,
     intersection,
     documentPrice,
-    VueNumeric
+    VueNumeric,
+
+    itemDialog
   },
   data() {
     return {
+      itemDialogState:false,
+
       defOpen:false,
       isExpand: false,
       isPreviewReady: false,
@@ -386,7 +400,10 @@ export default {
     },
     showReportOptions() {
       this.showMenu = true;
-    }
+    },
+    openItemDialog(){
+        this.itemDialogState = true;
+    },
   },
   filters: {
     truncate(val, isOpen, suffix, textLimit){

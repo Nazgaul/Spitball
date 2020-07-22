@@ -1,5 +1,5 @@
 <template>
-    <router-link v-if="item.url" :to="item.url" class="itemCarouselCard">
+    <div class="itemCarouselCard cursor-pointer" @click="openItemDialog">
         <div class="imageWrapper" :class="{'subscribed': isSubscribed && !isLearnRoute}">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
@@ -32,12 +32,13 @@
                 </div>
             </div>
             <div class="itemCard-bottom">
-                <!-- <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
-                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span> -->
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
-    </router-link>
+    <template v-if="itemDialogState">
+        <itemDialog :id="item.id" @close="itemDialogState = false"/>
+    </template>
+    </div>
 </template>
 
 <script>
@@ -46,9 +47,15 @@ import * as routeNames from '../../routes/routeNames';
 import documentPrice from '../pages/global/documentPrice/documentPrice.vue'
 import intersection from '../pages/global/intersection/intersection.vue';
 import vidSVG from '../../components/results/svg/vid.svg'
+import itemDialog from '../pages/global/itemDialog/itemDialog.vue';
 
 export default {
-    components:{vidSVG, intersection, documentPrice},
+    components:{vidSVG, intersection, documentPrice,itemDialog},
+    data() {
+        return {
+            itemDialogState:false,
+        }
+    },
     props:{
         item:{
             type:Object,
@@ -85,6 +92,9 @@ export default {
         // },
     },
     methods: {
+        openItemDialog(){
+            this.itemDialogState = true;
+        },
         goSubscription() {
             if(!this.isProfilePage) {
                 this.$router.push({
@@ -222,14 +232,7 @@ export default {
         }
         .itemCard-bottom{
             display: flex;
-            //justify-content: space-between;
             justify-content: flex-end;
-            //align-items: center;
-            // .item-purchases{
-            //     font-size: 13px;
-            //     font-weight: bold;
-            //     color: @global-purple;
-            // }
             // .item-pts{
             //     font-size: 14px;
             //     font-weight: bold;
