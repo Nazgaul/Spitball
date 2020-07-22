@@ -23,7 +23,7 @@
                </template>
                <template v-slot:item="props">
                   <tr class="mySales_table_tr">
-                     <td class="text-left">
+                     <td class="text-start">
                         <span>{{wallet[props.item.type]}}</span>
                      </td>
                      <td class="text-center">
@@ -268,7 +268,6 @@ export default {
          }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px !important;

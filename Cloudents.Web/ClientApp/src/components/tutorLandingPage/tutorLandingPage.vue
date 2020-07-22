@@ -275,7 +275,6 @@ export default {
             background-color: initial !important;
             box-shadow: none !important;
             i{
-                transform: scaleX(1)/*rtl:scaleX(-1)*/; 
                 color: rgb(68, 82, 252) !important;
                 font-size: 16px;
             }

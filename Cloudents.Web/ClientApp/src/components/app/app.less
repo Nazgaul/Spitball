@@ -31,24 +31,24 @@ html {
 //   min-height: -webkit-fill-available !important; //safari ios - studyroom
 // }
  //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
-html[dir="rtl"] {
-  .v-text-field__slot >  label, .v-select__slot > label { 
-    /*rtl:ignore */
-    left: unset !important;
-  }
-   fieldset+.v-text-field__slot > label  {
-    /*rtl:ignore */
-    left :unset !important ;
-  }
-  .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
-     /*rtl:ignore */
-    right: -27px !important;
-  }
-  .v-time-picker-clock__item {
-    /*rtl:ignore */
-    transform: translate(-50%, -50%);
-  }
-}
+// html[dir="rtl"] {
+//   .v-text-field__slot >  label, .v-select__slot > label { 
+//     /*rtl:ignore */
+//     left: unset !important;
+//   }
+//    fieldset+.v-text-field__slot > label  {
+//     /*rtl:ignore */
+//     left :unset !important ;
+//   }
+//   .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
+//      /*rtl:ignore */
+//     right: -27px !important;
+//   }
+//   .v-time-picker-clock__item {
+//     /*rtl:ignore */
+//     transform: translate(-50%, -50%);
+//   }
+// }
 
 // issue with safari svg icons height
 svg {

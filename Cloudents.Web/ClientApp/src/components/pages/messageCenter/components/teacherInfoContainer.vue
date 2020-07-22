@@ -1,7 +1,7 @@
 <template>
    <v-flex xs12 sm6 md3 class="teacherInfoContainer">
       <div class="teacherInfoHeader ps-4 d-flex flex-grow-0 flex-shrink-0 align-center ">
-         <v-icon @click="$emit('toggleTeacherInfo')" class="me-5 me-sm-3 d-flex d-md-none" size="16" :color="isMobile? '#ffffff' : '#69687d'">{{isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
+         <v-icon @click="$emit('toggleTeacherInfo')" class="me-5 me-sm-3 d-flex d-md-none" size="16" :color="isMobile? '#ffffff' : '#69687d'">{{$vuetify.rtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'}}</v-icon>
          <span v-t="'chat_teacher_info'"/>
       </div>
       <div class="teacherInfoContent px-5 py-3">
@@ -54,7 +54,6 @@ import * as routeNames from '../../../../routes/routeNames.js';
 export default {
    data() {
       return {
-         isRtl:global.isRtl,
          profileRoute: routeNames.Profile,
       }
    },

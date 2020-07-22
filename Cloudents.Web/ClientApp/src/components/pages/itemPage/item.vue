@@ -115,7 +115,7 @@
           ></div>
         </div>
 
-        <div style="direction:ltr">
+        <div>
           <v-slide-group
             v-model="model"
             class="pa-0 itemSlider"
@@ -651,20 +651,18 @@ export default {
         .v-slide-group__content {
           white-space: normal;
         }
-        .item-cont {
-          direction: ltr; /* rtl:direction:ltr */
-        }
+        // .item-cont {
+        //   direction: ltr; /* rtl:direction:ltr */
+        // }
         .itemCard-itemPage {
           margin: 10px;
           border: none;
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
           display: block;
           &:first-child {
-            /*rtl:ignore */
             margin-left: 0;
           }
           &:last-child {
-            /*rtl:ignore */
             margin-right: 0;
           }
         }
