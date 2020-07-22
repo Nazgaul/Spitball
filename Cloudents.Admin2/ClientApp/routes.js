@@ -9,7 +9,6 @@ import qPending from './components/question/questionComponents/pendingQuestions/
 import qFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
 
 import answer from './components/answer/answer.vue';
-import aDelete from './components/answer/answerComponents/delete/deleteAnswer.vue';
 import aAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
 
 import user from './components/user/user.vue';
@@ -188,21 +187,12 @@ export const routes = [
         component: answer,
         children: [
             {
-              path: '',
-              redirect: 'flaggedAnswers'
-            },
-            {
-                path: 'delete',
-                component: aDelete
-            },
-          
-            {
                 path: 'acceptAnswer',
                 component: aAccept
             },
             {
               path: '*',
-              redirect: 'delete'
+              redirect: 'acceptAnswer'
             }
         ]
     },
