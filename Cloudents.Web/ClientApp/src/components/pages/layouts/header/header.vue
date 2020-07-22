@@ -109,7 +109,7 @@ import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
-import helpIcon from './images/helpIcon.svg';
+import helpIcon from '../../../../font-icon/help-icon.svg';
 import chatIcon from './images/chatIcon.svg';
 import arrowDownIcon from './images/arrowDownIcon.svg';
 import hamburgerIcon from './images/hamburgerIcon.svg';
@@ -173,7 +173,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            let showRoutes = [routeNames.Profile, routeNames.Document];
+            let showRoutes = [routeNames.Profile, routeNames.Document, routeNames.Learning];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {
@@ -421,7 +421,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 width: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
-
+                outline: none;
                 &--margin {
                     margin-right: 20px;
                     margin-bottom: 1px;
