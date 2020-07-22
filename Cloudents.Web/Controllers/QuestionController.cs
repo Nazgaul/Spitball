@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Questions;
 using Cloudents.Web.Filters;
@@ -26,7 +25,7 @@ namespace Cloudents.Web.Controllers
             _localizer = localizer;
         }
 
-        [Route("question/{id:long}", Name = SeoTypeString.Question), SignInWithToken]
+        [Route("question/{id:long}", Name = "Question"), SignInWithToken]
         // GET: /<controller>/
         public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
         {
@@ -62,7 +61,7 @@ namespace Cloudents.Web.Controllers
                             {
                                 Name = s.User.Name
                             },
-                            Url = new Uri(Url.RouteUrl(SeoTypeString.Question, new { id }, "https", null, $"answer-{i}"))
+                            Url = new Uri(Url.RouteUrl("Question", new { id }, "https", null, $"answer-{i}"))
                         })),
 
                 }
