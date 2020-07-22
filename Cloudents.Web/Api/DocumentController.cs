@@ -275,31 +275,31 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet("similar")]
-        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync(
-            [FromQuery] SimilarDocumentsRequest request,
-            [FromServices] ICrawlerResolver crawlerResolver,
-            [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
-             CancellationToken token)
-        {
-            if (crawlerResolver.Crawler != null)
-            {
-                return Enumerable.Empty<DocumentFeedDto>();
-            }
-            var query = new SimilarDocumentsQuery(request.DocumentId);
-            var res = await _queryBus.QueryAsync(query, token);
+        //[HttpGet("similar")]
+        //public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync(
+        //    [FromQuery] SimilarDocumentsRequest request,
+        //    [FromServices] ICrawlerResolver crawlerResolver,
+        //    [ProfileModelBinder(ProfileServiceQuery.Subscribers)] UserProfile profile,
+        //     CancellationToken token)
+        //{
+        //    //if (crawlerResolver.Crawler != null)
+        //    //{
+        //        return Enumerable.Empty<DocumentFeedDto>();
+        //    //}
+        //    //var query = new SimilarDocumentsQuery(request.DocumentId);
+        //    //var res = await _queryBus.QueryAsync(query, token);
 
-            return res.Select(s =>
-            {
-                if (profile.Subscribers?.Contains(s.User.Id) == true)
-                {
-                    s.PriceType = PriceType.Free;
-                    s.Price = 0;
-                }
-                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                return s;
-            });
-        }
+        //    //return res.Select(s =>
+        //    //{
+        //    //    if (profile.Subscribers?.Contains(s.User.Id) == true)
+        //    //    {
+        //    //        s.PriceType = PriceType.Free;
+        //    //        s.Price = 0;
+        //    //    }
+        //    //    s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
+        //    //    return s;
+        //    //});
+        //}
 
         [HttpPost("rename"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
