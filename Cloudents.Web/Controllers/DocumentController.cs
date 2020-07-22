@@ -137,15 +137,6 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (model.DuplicateId.HasValue && id != model.DuplicateId)
-            {
-
-                var url = Url.RouteUrl("ShortDocumentLink2",
-                    new { id = model.DuplicateId.Value }, "https");
-
-                Response.Headers.Add("Link", $"<{url}>; rel=\"canonical\"");
-            }
-
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
             ViewBag.metaDescription = _localizer["Description", model.Document.Course];
             Country country = model.Document.User.Country ?? Country.UnitedStates;
@@ -190,7 +181,7 @@ namespace Cloudents.Web.Controllers
             return View();
         }
 
-        [Route("document/{courseName}/{name}/{id:long}/download", Name = "ItemDownload")]
+        [Route("document/{id:long}/download", Name = "ItemDownload")]
         [Authorize]
         public async Task<ActionResult> DownloadAsync(long id, [FromServices] ICommandBus commandBus,
             [FromServices] IBlobProvider blobProvider2, CancellationToken token)
@@ -199,13 +190,6 @@ namespace Cloudents.Web.Controllers
             var query = new DocumentById(id, user);
             var tItem = _queryBus.QueryAsync(query, token);
             var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token).FirstAsync(cancellationToken: token);
-            
-            //await Task.WhenAll(tItem, tFiles);
-
-
-
-
-
             var item = await tItem;
 
             if (item == null)
@@ -222,15 +206,12 @@ namespace Cloudents.Web.Controllers
             }
 
             var uri = await tFiles;
-            //var uri = files.First();
             var file = uri.Segments.Last();
 
             Task followTask = Task.CompletedTask;
-            //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
             if (item.Document.User.Id != user)
             {
                 var command = new DownloadDocumentCommand(item.Document.Id, user);
-                //var command = new FollowUserCommand(item.Document.User.Id, user);
                 followTask = commandBus.DispatchAsync(command, token);
             }
             var messageTask = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);

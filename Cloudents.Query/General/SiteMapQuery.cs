@@ -84,21 +84,22 @@ namespace Cloudents.Query.General
 
                 UserCourse userCourseAlias = null!;
                 Core.Entities.Tutor tutorAlias = null!;
+                User userAlias = null!;
 
 
 
                 var tutorCoursesFutureQuery = _session.QueryOver(() => tutorAlias)
-                    .JoinQueryOver(x => x.User)
+                    .JoinAlias(x => x.User,()=> userAlias)
                     .JoinEntityAlias(() => userCourseAlias, () => tutorAlias.Id == userCourseAlias.User.Id)
                     .Where(() => userCourseAlias.IsTeach)
                     .SelectList(t => t.SelectCountDistinct(() => userCourseAlias.Course.Id));
                 if (query.IsFrymo)
                 {
-                    tutorCoursesFutureQuery.Where(w => w.SbCountry == Country.India);
+                    tutorCoursesFutureQuery.Where(() =>userAlias.SbCountry == Country.India);
                 }
                 else
                 {
-                    tutorCoursesFutureQuery.Where(w => w.SbCountry != Country.India);
+                    tutorCoursesFutureQuery.Where(() =>userAlias.SbCountry != Country.India);
 
                 }
 
