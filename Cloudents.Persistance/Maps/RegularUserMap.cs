@@ -19,8 +19,8 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
             Map(e => e.LockoutReason);
-            HasMany(x => x.Answers).Inverse()
-                .Cascade.AllDeleteOrphan();
+            //HasMany(x => x.Answers).Inverse()
+            //    .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
