@@ -169,7 +169,6 @@ export default {
     .v-data-footer__icons-before,
     .v-data-footer__icons-after {
         .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-            transform: none /*rtl:rotate(180deg)*/;
             // color: @global-purple !important; //vuetify
             font-size: 14px;
         }

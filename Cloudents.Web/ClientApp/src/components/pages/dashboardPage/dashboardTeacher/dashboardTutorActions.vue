@@ -39,7 +39,8 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <video class="dashboardVideo" @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
+                <img src="./images/group-14-copy-2@2x.png" v-if="!isMobile" @click="startVideo" width="250" height="150" alt="Spitball How It Works">
+                <video class="dashboardVideo" v-else @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
             </div>
         </div>
 
@@ -77,6 +78,14 @@
         <analyticOverview class="px-0" />
 
 
+        <v-dialog
+            v-model="showSpitballDialog"
+            max-width="1200px"
+            contet-class="spitballDialogVideo"
+        >
+            <video v-if="showSpitballDialog" class="dashboardVideo" ref="howItWork" :controls="true" autoplay="true" :src="onBoardingVideo"></video>
+        </v-dialog>
+
         <v-snackbar
             top
             :timeout="4000"
@@ -111,6 +120,7 @@ export default {
     },
     data() {
         return {
+            showSpitballDialog: false,
             controls: false,
             autoplay: false,
             verifyEmailState: false,
@@ -173,6 +183,13 @@ export default {
             }
         }
     },
+    // watch: {
+    //     showSpitballDialog(val) {
+    //         if(!val) {
+    //             this.$refs.howItWork.pause()
+    //         }
+    //     }
+    // },
     computed: {
         isEditActionComplete() {
             return this.$store.getters.getTutorListActions[constants.EDIT]?.value
@@ -223,9 +240,14 @@ export default {
     },
     methods: {
         startVideo() {
-            if(this.controls && this.autoplay) return
-            this.controls = true
-            this.autoplay = true
+
+            if(this.isMobile) {
+                if(this.controls && this.autoplay) return
+                this.controls = true
+                this.autoplay = true
+            } else {
+                this.showSpitballDialog = true
+            }
             this.$ga.event("Dashboard Video", "Get Started How It Works");
         },
         openPhoneDialog() {

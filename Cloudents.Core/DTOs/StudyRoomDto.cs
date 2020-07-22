@@ -83,6 +83,10 @@ namespace Cloudents.Core.DTOs
         public Country TutorCountry { get; set; }
 
         public IEnumerable<DateTime>? NextEvents { get; set; }
+
+        public bool SessionStarted { get; set; }
+
+        public string Image { get; set; }
         //public int? RecurringTimes => 50; // { get; set; }
 
         //public IEnumerable<DayOfWeek>? RecurringDays =>
@@ -105,5 +109,8 @@ namespace Cloudents.Core.DTOs
         public bool IsFull { get; set; }
 
         public string Image { get; set; }
+
+        [NonSerialized] public StudyRoomSchedule? Schedule;
+        public IEnumerable<DateTime>? NextEvents { get; set; }
     }
 }

@@ -52,9 +52,7 @@
                         </div>
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
-                        <v-carousel 
-                            :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
-                            :next-icon="isRtl ? 'sbf-arrow-right left': 'sbf-arrow-right right'"
+                        <v-carousel
                             interval="600000" 
                             cycle 
                             full-screen
@@ -151,7 +149,6 @@ export default {
             showReportReasons: false,
             itemId: 0,
             maximumAnswersToDisplay: 3,
-            isRtl: global.isRtl,
             showDialog: false,
             selectedImage: '',
             isQuestionPage: false,

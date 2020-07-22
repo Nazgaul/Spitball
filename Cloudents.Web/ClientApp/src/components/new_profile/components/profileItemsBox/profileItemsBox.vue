@@ -10,7 +10,6 @@
          <v-slide-group
             v-model="model"
             class="profileitemsWrap"
-            style="direction: ltr;"
             show-arrows
          >
             <v-slide-item v-for="(result) in item.result" :key="result.id" >
@@ -144,11 +143,9 @@ export default {
             }
          }
          .v-slide-group__prev {
-            /*rtl:ignore */
             left: -20px;
          }
          .v-slide-group__next {
-            /*rtl:ignore */
             right: -20px;
          }
 
@@ -161,11 +158,9 @@ export default {
                border-radius: 0;
             }
             &:first-child {
-               /*rtl:ignore */
                margin-left: 0;
             } 
             &:last-child {
-               /*rtl:ignore */
                margin-right: 0;
             }
          }

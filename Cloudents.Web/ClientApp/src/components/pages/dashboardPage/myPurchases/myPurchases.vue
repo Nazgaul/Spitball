@@ -19,12 +19,12 @@
             <template v-slot:header="{props}">
                <thead>
                   <tr>
-                     <th class="text-left"
+                     <th class="text-start"
                         v-for="header in props.headers"
                         :key="header.value"
                         :class="['column',{'sortable':header.sortable}]"
                         @click="changeSort(header.value)">
-                        <span class="text-left">{{ header.text }}
+                        <span class="text-start">{{ header.text }}
                            <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
                         </span>
                      </th>
@@ -38,9 +38,9 @@
                   <td>
                      <tableInfoTd :item="props.item"/>
                   </td>
-                  <td class="text-left" v-text="dictionary.types[props.item.type]"/>
-                  <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-left">{{ $d(new Date(props.item.date)) }}</td> 
+                  <td class="text-start" v-text="dictionary.types[props.item.type]"/>
+                  <td class="text-start" v-text="formatPrice(props.item.price,props.item.type)"/>
+                  <td class="text-start">{{ $d(new Date(props.item.date)) }}</td> 
                   
                   
                   <td class="text-center">
@@ -188,7 +188,6 @@ export default {
    .v-data-footer {
       padding: 6px 0;
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;

@@ -32,7 +32,7 @@
 import debounce from "lodash/debounce";
 import courseService from "../../../../services/courseService";
 import analyticsService from '../../../../services/analytics.service';
-
+import { Learning } from '../../../../routes/routeNames';
 export default {
     name: "tutor-search-input",
     props: {
@@ -69,7 +69,7 @@ export default {
             }
 
             //this.$router.push({ path: `/tutor-list/${encodeURIComponent(this.msg)}` }).catch(() => {});
-            this.$router.push({ name: 'tutorLandingPage', params: {course: this.msg} }).catch(() => {});
+            this.$router.push({ name: Learning, params: {course: this.msg || undefined} }).catch(() => {});
             
             this.closeSuggestions();
             // to remove keyboard on mobile
@@ -235,7 +235,6 @@ export default {
         height:100%;
         box-shadow: none !important;
         background: none;
-        padding: 0;
         margin-bottom: 0!important;
         input {
           padding-right: 15px;

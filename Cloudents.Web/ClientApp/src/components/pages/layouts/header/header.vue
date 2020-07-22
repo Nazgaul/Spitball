@@ -9,7 +9,7 @@
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate text-center text-sm-left mb-1">{{tutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-start mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
             <!-- <div class="globalHeader_items_left" v-if="!isMobile">
@@ -62,7 +62,7 @@
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
                                     <span class="ur_greets">{{$t('header_greets', [userName])}}</span>
                                     <div class="ur_balance">
-                                        <span>{{$t('header_balance', {'0': getUserBalance})}}</span>
+                                        <span>{{$t('header_balance', {'0': $n(getUserBalance)})}}</span>
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ms-2"/>
                                     </div>
                                 </div>
@@ -84,17 +84,16 @@
             </div>
         </template> -->
     </v-app-bar>
-        <v-navigation-drawer
-            temporary
-            v-model="drawer"
-            light
-            :right="!isRtl"
-            fixed
-            app
-            v-if="$vuetify.breakpoint.xsOnly"
+        <v-navigation-drawer 
+            temporary 
+            v-model="drawer" 
+            light 
+            :right="!$vuetify.rtl"
+            fixed 
+            app 
+            v-if="$vuetify.breakpoint.xsOnly" 
             class="drawerIndex"
-            width="280"
-        >
+            width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
@@ -109,7 +108,7 @@ import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
-import helpIcon from './images/helpIcon.svg';
+import helpIcon from '../../../../font-icon/help-icon.svg';
 import chatIcon from './images/chatIcon.svg';
 import arrowDownIcon from './images/arrowDownIcon.svg';
 import hamburgerIcon from './images/hamburgerIcon.svg';
@@ -127,7 +126,6 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             languageChoisesAval: [],
             currLanguage: document.documentElement.lang,
             clickOnce: false,
-            isRtl: global.isRtl
         }
     },
     props: {
@@ -173,7 +171,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            let showRoutes = [routeNames.Profile, routeNames.Document];
+            let showRoutes = [routeNames.Profile, routeNames.Document, routeNames.Learning];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {
@@ -421,7 +419,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 width: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
-
+                outline: none;
                 &--margin {
                     margin-right: 20px;
                     margin-bottom: 1px;

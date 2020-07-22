@@ -49,7 +49,6 @@ const MY_ICONS = {
   // unfold: '...',
   // file: '...',
 }
-
 const opts = {
   lang: {
     locales: { en, he },
@@ -60,7 +59,8 @@ const opts = {
   // },
   icons: {
     values: MY_ICONS
-  }
+  },
+  rtl: document.dir === "rtl"//global.isRtl
 }
 
 export default new Vuetify(opts)

@@ -135,11 +135,11 @@ export default {
                     font-weight: 600;
                 }
             }
-            .arrowRight {
-                transform: none /*rtl:scaleX(-1)*/;
-                vertical-align: bottom;
-                width: 10px;
-            }
+            // .arrowRight {
+            //     transform: none /*rtl:scaleX(-1)*/;
+            //     vertical-align: bottom;
+            //     width: 10px;
+            // }
         }
     }
 </style>

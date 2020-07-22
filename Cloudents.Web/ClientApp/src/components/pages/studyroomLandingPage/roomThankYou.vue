@@ -14,7 +14,7 @@
             <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="roomImage">
             <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
             <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
-            <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
          </div>
@@ -42,8 +42,7 @@ export default {
          return this.$store.getters.getRoomDetails?.date;
       },
       roomImage(){
-         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.$store.getters.getRoomDetails?.id}`
-         return this.$proccessImageUrl(imageUrl, 402, 268)
+         return this.$proccessImageUrl(this.$store.getters.getRoomDetails?.image, 402, 268)
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
@@ -54,6 +53,10 @@ export default {
          }
          return this.$vuetify.breakpoint.smAndDown? 74 : 82;
       },
+      isButtonDisabled(){
+         if(this.$store.getters.getJwtToken || this.$store.getters.getRoomDetails?.sessionStarted) return false;
+         else return !this.isRoomReady
+      }
    },
    methods: {
       enterStudyRoom(){

@@ -175,11 +175,13 @@ const mutations = {
          this.price = objInit.price;
          this.enrolled = objInit.enrolled;
          this.full = objInit.full;
+         this.image = objInit.image;
          this.tutorId = objInit.tutorId; 
          this.tutorName = objInit.tutorName; 
          this.tutorImage = objInit.tutorImage; 
          this.tutorBio = objInit.tutorBio; 
-         this.nextEvents = objInit.nextEvents || null;
+         this.nextEvents = objInit?.nextEvents?.length? objInit.nextEvents : null;
+         this.sessionStarted = objInit.sessionStarted || null;
       }
       if(roomDetails?.id){
          state.roomDetails = new RoomDetails(roomDetails)
@@ -251,7 +253,7 @@ const getters = {
          }
       }).sort((a,b)=>a.digit - b.digit)
 
-      let days = Array.from(new Set(daysObj.map(d=>d.text))).join(' ');
+      let days = Array.from(new Set(daysObj.map(d=>d.text))).join(', ');
       let start = nextEvents[0];
       let startNext = nextEvents.filter(dateEvent=> Moment(dateEvent).isAfter())[0];
       return {
