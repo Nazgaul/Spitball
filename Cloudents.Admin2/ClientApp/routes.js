@@ -11,7 +11,6 @@ import qFlagged from './components/question/questionComponents/flaggedQuestions/
 import answer from './components/answer/answer.vue';
 import aDelete from './components/answer/answerComponents/delete/deleteAnswer.vue';
 import aAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
-import aFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue';
 
 import user from './components/user/user.vue';
 import uToken from './components/user/token/tokenUser.vue';
@@ -200,10 +199,6 @@ export const routes = [
             {
                 path: 'acceptAnswer',
                 component: aAccept
-            },
-            {
-                path: 'flaggedAnswers',
-                component: aFlagged
             },
             {
               path: '*',
