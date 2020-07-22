@@ -180,7 +180,7 @@ const mutations = {
          this.tutorImage = objInit.tutorImage; 
          this.tutorBio = objInit.tutorBio; 
          this.nextEvents = objInit?.nextEvents?.length? objInit.nextEvents : null;
-         // this.nextEvents = objInit.nextEvents || null;
+         this.sessionStarted = objInit.sessionStarted || null;
       }
       if(roomDetails?.id){
          state.roomDetails = new RoomDetails(roomDetails)
