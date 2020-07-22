@@ -8,9 +8,6 @@ import qAccept from './components/question/questionComponents/accept/acceptQuest
 import qPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue';
 import qFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
 
-import answer from './components/answer/answer.vue';
-import aAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
-
 import user from './components/user/user.vue';
 import uToken from './components/user/token/tokenUser.vue';
 import uCashout from './components/user/cashout/cashoutUser.vue';
@@ -180,23 +177,6 @@ export const routes = [
           }
         ]
     },
-
-    {
-        path: '/answer',
-        name: 'answer',
-        component: answer,
-        children: [
-            {
-                path: 'acceptAnswer',
-                component: aAccept
-            },
-            {
-              path: '*',
-              redirect: 'acceptAnswer'
-            }
-        ]
-    },
-
       {
         path: '/user',
         name: 'user',
