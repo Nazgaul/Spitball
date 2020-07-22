@@ -82,13 +82,6 @@ function createUserInfoItem(data) {
     return new UserInfo(data);
 }
 
-function QuestionItem(objInit) {
-    this.id = objInit.id || 0;
-    this.create = objInit.created;
-    this.text = objInit.text;
-    this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
-}
-
 function DocumentItem(objInit) {
     this.name = objInit.name;
     this.id = objInit.id;
@@ -105,12 +98,6 @@ function PurchasedDocItem(objInit) {
     this.title = objInit.title  || 'not specified';
     this.class = objInit.class  || 'not specified';
     this.price = Math.abs(objInit.price ) || 'not specified';
-}
-
-function createQuestionItem(data) {
-    return data.map((item) => {
-        return new QuestionItem(item);
-    });
 }
 
 function createDocumentItem(data) {
@@ -207,17 +194,6 @@ export default {
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createDocumentItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return error;
-            });
-    },
-    getUserQuestions: (id, page) => {
-        let path = `AdminUser/questions?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createQuestionItem(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');

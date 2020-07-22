@@ -111,7 +111,6 @@
             <v-spacer></v-spacer>
             <v-flex xs10 class="ml-2">
                 <v-tabs centered color="light-green">
-                    <v-tab :to="{name: 'userQuestions', params : {userId: userId} }">Question</v-tab>
                     <v-tab :to="{name: 'userDocuments', params:{userId: userId}}">Documents</v-tab>
                     <v-tab :to="{name: 'userPurchasedDocuments', params:{userId: userId}}">Purchased Documents</v-tab>
                     <v-tab :to="{name: 'userSoldItems', params:{userId: userId}}">Sold Items</v-tab>
