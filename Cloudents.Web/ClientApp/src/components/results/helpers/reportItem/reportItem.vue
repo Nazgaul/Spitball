@@ -96,11 +96,11 @@
                 type: String,
                 required: true,
             },
-            //only for type answer, passing additional props(question id and answer id)
-            answerDelData: {
-                type: Object,
-                required: false
-            }
+            // //only for type answer, passing additional props(question id and answer id)
+            // answerDelData: {
+            //     type: Object,
+            //     required: false
+            // }
         },
         watch: {
             preDefinedReason(val){
@@ -115,12 +115,12 @@
             }
         },
         methods: {
-            ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
+            ...mapActions([ 'reportDocument']),
             callRelevantAction(type, data) {
                 let actions = {
-                    "Question": this.Feeds_reportQuestion,
+                   // "Question": this.Feeds_reportQuestion,
                     "Document": this.reportDocument,
-                    "answer": this.Feeds_reportAnswer
+                  //  "answer": this.Feeds_reportAnswer
                 };
                 return actions[type](data);
             },
@@ -149,10 +149,10 @@
                 let self = this;
                 this.callRelevantAction(this.itemType, data).then(() => {                    
                     //in case answer is flaged
-                    if (self.itemType === "answer") {
-                        //after successfull flag remove answer from client side
-                        self.answerRemoved(this.answerDelData);
-                    }
+                    // if (self.itemType === "answer") {
+                    //     //after successfull flag remove answer from client side
+                    //     self.answerRemoved(this.answerDelData);
+                    // }
                     self.closeReportPop()
                     self.$router.push({name : 'feed' });
                 })

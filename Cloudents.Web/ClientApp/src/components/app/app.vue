@@ -6,7 +6,7 @@
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-        <sb-dialog
+        <!-- <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
           :popUpType="'newQuestion'"
@@ -14,7 +14,7 @@
           :content-class="'question-request-dialog'"
         >
           <AddQuestion v-if="newQuestionDialogSate"></AddQuestion>
-        </sb-dialog>
+        </sb-dialog> -->
 
         <sb-dialog
           :isPersistent="true"
@@ -62,7 +62,7 @@ import { mapGetters, mapActions } from "vuex";
 import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
+//const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 // const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
@@ -71,7 +71,7 @@ const referralDialog = () => import("../question/helpers/referralDialog/referral
 export default {
   components: {
     referralDialog,
-    AddQuestion,
+  //  AddQuestion,
     sbDialog,
     mobileFooter,
     tutorRequest,
@@ -87,7 +87,7 @@ export default {
     ...mapGetters([
       "getReferralDialog",
       "accountUser",
-      "newQuestionDialogSate",
+      //"newQuestionDialogSate",
       "getShowToaster",
       "getShowToasterType",
       "getToasterTimeout",
