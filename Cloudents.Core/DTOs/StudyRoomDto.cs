@@ -83,6 +83,8 @@ namespace Cloudents.Core.DTOs
         public Country TutorCountry { get; set; }
 
         public IEnumerable<DateTime>? NextEvents { get; set; }
+
+        public bool SessionStarted { get; set; }
         //public int? RecurringTimes => 50; // { get; set; }
 
         //public IEnumerable<DayOfWeek>? RecurringDays =>
