@@ -47,9 +47,9 @@ namespace Cloudents.Query.Documents
                 BaseUser userAlias = null!;
                 DocumentDetailDto dtoAlias = null!;
 
-                var similarDocumentQueryOver = QueryOver.Of<Document>()
-                    .Where(w => w.Md5 == documentAlias.Md5 && w.Status.State == ItemState.Ok)
-                    .And(x => x.Md5 != null).OrderBy(o => o.Id).Asc.Select(s => s.Id).Take(1);
+                //var similarDocumentQueryOver = QueryOver.Of<Document>()
+                //    .Where(w => w.Md5 == documentAlias.Md5 && w.Status.State == ItemState.Ok)
+                //    .And(x => x.Md5 != null).OrderBy(o => o.Id).Asc.Select(s => s.Id).Take(1);
 
 
                 var futureValue = _session.QueryOver(() => documentAlias)
@@ -58,7 +58,7 @@ namespace Cloudents.Query.Documents
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .SelectList(l =>
                         l.Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.Pages)
-                            .SelectSubQuery(similarDocumentQueryOver).WithAlias(() => dtoAlias.DuplicateId)
+                            //.SelectSubQuery(similarDocumentQueryOver).WithAlias(() => dtoAlias.DuplicateId)
                             .Select(Projections.Property(() => documentAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Id)}"))
                             .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
                             .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
@@ -103,17 +103,11 @@ namespace Cloudents.Query.Documents
 
                 var scribedQueryFuture = _session.Query<Follow>()
                       .Where(w => w.Follower.Id == query.UserId)
-                      .Where(w=> w.User.Id == _session.Query<Document>().Where(w=>w.Id == query.Id).Select(s=>s.User.Id).Single())
+                      .Where(w => w.User.Id == _session.Query<Document>().Where(w => w.Id == query.Id).Select(s => s.User.Id).Single())
                       //.Where(w => w.User.Id == query.Id)
                       .Select(s => s.Subscriber).ToFutureValue();
 
-             //   var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
-             //.Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-             //.SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
 
-                //var voteQuery = _session.QueryOver<Vote>()
-                //    .Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType)
-                //    .Take(1).FutureValue<VoteType>();
 
 
 
@@ -125,15 +119,7 @@ namespace Cloudents.Query.Documents
                     return null;
                 }
                 result.IsPurchased = true;
-              //  var voteResult = await voteQuery.GetValueAsync(token);
-                //if (voteResult == VoteType.None)
-                //{
-                //    result.Document.Vote.Vote = null;
-                //}
-                //else
-                //{
-                //    result.Document.Vote.Vote = voteResult;
-                //}
+
                 if (result.Document.Price.GetValueOrDefault() <= 0) return result;
                 if (purchaseFuture == null)
                 {
@@ -152,7 +138,6 @@ namespace Cloudents.Query.Documents
                         result.IsPurchased = scribedQueryFuture.Value ?? transactionResult != null;
                     }
                 }
-               // result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
                 return result;
             }
         }
