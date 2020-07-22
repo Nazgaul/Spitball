@@ -83,7 +83,7 @@
             max-width="1200px"
             contet-class="spitballDialogVideo"
         >
-            <video class="dashboardVideo" ref="howItWork" :controls="true" autoplay="true" :src="onBoardingVideo"></video>
+            <video v-if="showSpitballDialog" class="dashboardVideo" ref="howItWork" :controls="true" autoplay="true" :src="onBoardingVideo"></video>
         </v-dialog>
 
         <v-snackbar
@@ -183,13 +183,13 @@ export default {
             }
         }
     },
-    watch: {
-        showSpitballDialog(val) {
-            if(!val) {
-                this.$refs.howItWork.pause()
-            }
-        }
-    },
+    // watch: {
+    //     showSpitballDialog(val) {
+    //         if(!val) {
+    //             this.$refs.howItWork.pause()
+    //         }
+    //     }
+    // },
     computed: {
         isEditActionComplete() {
             return this.$store.getters.getTutorListActions[constants.EDIT]?.value
@@ -361,7 +361,4 @@ export default {
             font-weight: 600;
         }
     }
-            .spitballDialogVideo {
-                box-shadow: none;
-            }
 </style>
