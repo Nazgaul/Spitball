@@ -52,7 +52,7 @@
         <div
           class="sessionType"
           :class="{'private': !isStudyroomLive}"
-          v-t="!isStudyroomLive ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
+          {{!isStudyroomLive? $t('dashboardPage_type_private'):$t('dashboardPage_type_broadcast')}}
         ></div>
       </template>
 

@@ -9,7 +9,7 @@
                   class="me-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
             </v-icon>
          </template>
-         <span v-text="$t(isShareScreen?'tutor_btn_stop_sharing':'tutor_btn_share_screen')"/>
+         <span {{isShareScreen?$t('tutor_btn_stop_sharing'):$t('tutor_btn_share_screen')}}) />
       </v-tooltip>
 
       <v-tooltip top>
@@ -34,7 +34,7 @@
                   <v-icon v-else size="17" color="white">sbf-camera-ignore</v-icon>
                </v-btn>
             </template>
-            <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
+            <span v-text={{isVideoActive?$t('tutor_tooltip_video_pause'):$t('tutor_tooltip_video_resume')}} />
          </v-tooltip>
          <v-tooltip top>
             <template v-slot:activator="{ on }">
