@@ -134,9 +134,8 @@ export default {
       .collapseIcon {
          width: 32px;
 
-         border-radius: 0; //vuetify override
-         border-top-left-radius: 8px;
-         border-bottom-left-radius: 8px;
+          //vuetify override
+          border-radius: 8px 0 0 8px;
       }
       .collapseBtnDrawer{
          position: absolute;

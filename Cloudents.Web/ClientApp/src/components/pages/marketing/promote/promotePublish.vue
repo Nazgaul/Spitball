@@ -69,7 +69,7 @@ export default {
     },
     publishImage() {
       let user = this.user;
-      let rtl = global.country === 'IL' ? true : false;
+      let rtl = global.country === 'IL';
       //TODO: move to store
       if(this.dataType === 'profile') {
         return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}`

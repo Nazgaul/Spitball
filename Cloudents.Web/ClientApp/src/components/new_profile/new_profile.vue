@@ -95,9 +95,9 @@ export default {
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
         },
-        showItems(){
-            return this.$store.getters.getProfileDocumentsLength
-        },
+        // showItems(){
+        //     return this.$store.getters.getProfileDocumentsLength
+        // },
         showCalendarTab() {
             let isCalendar = this.$store.getters.getProfileIsCalendar
             if(this.isMyProfile) {
@@ -154,8 +154,8 @@ export default {
         next();
     },
     created() {
-      var hash =  sessionStorage.getItem('hash');
-      if (hash) {
+        const hash = sessionStorage.getItem('hash');
+        if (hash) {
          this.$router.push({hash:hash});
          sessionStorage.clear();
       }

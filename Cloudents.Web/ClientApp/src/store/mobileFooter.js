@@ -9,11 +9,7 @@ const state = {
 };
 const getters = {
     getMobileFooterState: (state, val, {route}) => {
-        if(!!route.meta && route.meta.hasOwnProperty('showMobileFooter') ){
-            return true;
-        }else{
-            return false;
-        }
+        return !!route.meta && route.meta.hasOwnProperty('showMobileFooter');
     },
 
 };

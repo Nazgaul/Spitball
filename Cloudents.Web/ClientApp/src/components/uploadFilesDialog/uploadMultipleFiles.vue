@@ -209,7 +209,6 @@ export default {
         height: 100%;
         @media (max-width: @screen-xs) {
             display: flex;
-            justify-content: center;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;

@@ -11,13 +11,13 @@ const mutations = {
         state.isConnected = val;
     },
     signalR_emit() {
-        return
+
     },
     signalR_reconnect() {
-        return
+
     },
     signalR_disconnect() {
-        return
+
     }
 };
 

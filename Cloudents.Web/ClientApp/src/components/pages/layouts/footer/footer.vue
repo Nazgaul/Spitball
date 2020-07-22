@@ -88,11 +88,7 @@ import logoComponent from '../../../app/logo/logo.vue';
         },
         methods: {
             isShowBlog(link){
-                if(link.name == 'blog' && global.siteName =='frymo'){
-                    return false;
-                }else{
-                    return true;
-                }
+                return !(link.name == 'blog' && global.siteName == 'frymo');
             },
             // footerLinksRoute(link) {
             //     if(link === 'blog') {

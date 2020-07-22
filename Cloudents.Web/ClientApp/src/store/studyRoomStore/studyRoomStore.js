@@ -375,7 +375,7 @@ const actions = {
    updateCreateStudyRoomLive({dispatch}, params) {
       return studyRoomService.createLiveRoom(params).then(({data}) => {
          dispatch('updateCreateStudyRoom', {data, params})
-         return
+
       })
    },
    updateCreateStudyRoomPrivate({dispatch}, params) {
@@ -403,7 +403,7 @@ const actions = {
          studyRoomId:data.studyRoomId
       }
       commit('ADD_CONVERSATION_STUDYROOM',chatParams)
-      return
+
    },
    updateRoomDisconnected({commit,getters,dispatch}){
       commit(twilio_SETTERS.VIDEO_AVAILABLE,false);

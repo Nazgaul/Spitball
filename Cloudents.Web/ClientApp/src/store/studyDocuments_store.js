@@ -1,6 +1,5 @@
 import searchService from "./../services/searchService";
 import reportService from "./../services/cardActionService"
-import documentService from './../services/documentService.js';
 
 // function _updateVoteCounter(item, type){
 //     if(type === "up"){

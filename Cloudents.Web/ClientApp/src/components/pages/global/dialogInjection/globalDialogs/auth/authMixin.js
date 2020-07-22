@@ -32,9 +32,9 @@ export default {
             const retVal = isWebView(navigator.userAgent);
             return !retVal;
         },
-        isVerifyPhone() {
-            return this.component === 'verifyPhone'
-        },
+        // isVerifyPhone() {
+        //     return this.component === 'verifyPhone'
+        // },
         btnLoading() {
             return this.$store.getters.getGlobalLoading
         },
@@ -131,18 +131,18 @@ export default {
             }
             return registrationService.smsRegistration(smsObj)
         },
-        phoneCall(){
-			let self = this
-			registrationService.voiceConfirmation()
-            	.then(() => {
-					self.$store.dispatch('updateToasterParams',{
-						toasterText: self.$t("login_call_code"),
-						showToaster: true,
-					});
-				}).catch(error => {
-                    self.$appInsights.trackException(error);
-                })
-        },
+        // phoneCall(){
+		// 	let self = this
+		// 	registrationService.voiceConfirmation()
+        //     	.then(() => {
+		// 			self.$store.dispatch('updateToasterParams',{
+		// 				toasterText: self.$t("login_call_code"),
+		// 				showToaster: true,
+		// 			});
+		// 		}).catch(error => {
+        //             self.$appInsights.trackException(error);
+        //         })
+        // },
         fromTutorReuqest() {
             this.$store.dispatch('userStatus')
             this.needRedirect()

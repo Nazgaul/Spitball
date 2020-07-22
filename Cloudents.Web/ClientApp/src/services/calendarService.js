@@ -26,7 +26,7 @@ function _formatDayRead(UTC){
 }
 const Calendar = {
     Event:function(objInit){
-        var date = new Date(objInit);
+        const date = new Date(objInit);
         this.needToAdd = function() {
             return date.getHours() >7 && date.getHours() <= 23;
         };

@@ -228,14 +228,8 @@ export default {
     //this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {
-        if (
-          (document && document.activeElement.tagName == "INPUT") ||
-          document.activeElement.tagName == "TEXTAREA"
-        ) {
-          this.hideFooter = true;
-        } else {
-          this.hideFooter = false;
-        }
+        this.hideFooter = (document && document.activeElement.tagName == "INPUT") ||
+            document.activeElement.tagName == "TEXTAREA";
       });
     }
     global.addEventListener("error", event => {

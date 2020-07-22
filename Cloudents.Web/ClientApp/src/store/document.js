@@ -14,10 +14,8 @@ const state = {
 const getters = {
     _getDocumentLoaded: state => {
         let x = state.document?.details || '';
-        if (typeof(x) === "string") {
-            return false;
-        }
-        return true;
+        return typeof (x) !== "string";
+
     },
     getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,

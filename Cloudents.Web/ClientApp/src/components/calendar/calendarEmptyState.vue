@@ -123,10 +123,10 @@
                             })
                         })
                         
-                        return
+
                     }else{
                         this.initCalendar()
-                        return
+
                     }
                 }
             },
@@ -166,8 +166,7 @@
                 line-height: 1.5;
                 letter-spacing: -0.51px;
                 color: @global-purple;
-                padding: 0 150px;
-                padding-bottom: 16px;
+                padding: 0 150px 16px;
                 text-align: center;
                 @media (max-width: @screen-xs) {
                     padding: 0 0 20px;

@@ -44,13 +44,13 @@ export default {
               }
             });
             MathJax.AuthorInit = function(texstring, callback) {
-              var input = texstring;
-              var wrapper = document.createElement("div");
+              const input = texstring;
+              const wrapper = document.createElement("div");
               wrapper.innerHTML = input;
-              var output = { svg: "" };
+              const output = {svg: ""};
               MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
               MathJax.Hub.Queue(function() {
-                var mjOut = wrapper.getElementsByTagName("svg")[0];
+                const mjOut = wrapper.getElementsByTagName("svg")[0];
                 if (!mjOut) {
                   return null;
                 }
@@ -69,12 +69,12 @@ export default {
 </script>
 <style lang="less">
 .canvas-window {
-  background: transparent; //overide vuetify
+    //overide vuetify
   background-size: 20px 20px;
-  background-image: linear-gradient(to right, #EBEBEB 1px, transparent 1px),
+    background: transparent linear-gradient(to right, #EBEBEB 1px, transparent 1px),
     linear-gradient(to bottom, #EBEBEB 1px, transparent 1px);
 
-  .tabs {
+    .tabs {
     background: #e0e0e1;
   }
 }

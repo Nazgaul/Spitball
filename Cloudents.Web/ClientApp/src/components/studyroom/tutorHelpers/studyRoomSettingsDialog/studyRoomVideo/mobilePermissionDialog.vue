@@ -72,9 +72,8 @@ export default {
 .mobilePermissionDialog{
    background: white;
    border-radius: 6px;
-   padding: 16px;
-   padding-top: 34px;
-   text-align: center;
+    padding: 34px 16px 16px;
+    text-align: center;
    position: relative;
    width: 100%;
   box-shadow: 0 13px 21px 0 rgba(0, 0, 0, 0.51);
