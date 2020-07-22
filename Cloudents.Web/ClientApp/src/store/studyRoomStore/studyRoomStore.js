@@ -175,6 +175,7 @@ const mutations = {
          this.price = objInit.price;
          this.enrolled = objInit.enrolled;
          this.full = objInit.full;
+         this.image = objInit.image;
          this.tutorId = objInit.tutorId; 
          this.tutorName = objInit.tutorName; 
          this.tutorImage = objInit.tutorImage; 
