@@ -6,7 +6,6 @@ using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
-using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -25,12 +24,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
-using Cloudents.Web.Binders;
 using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
@@ -44,10 +39,8 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
-        private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
 
-        private static readonly Task<string> Task = System.Threading.Tasks.Task.FromResult<string>(null);
 
         public DocumentController(IQueryBus queryBus,
             ICommandBus commandBus, UserManager<User> userManager,
@@ -60,7 +53,6 @@ namespace Cloudents.Web.Api
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
-            _blobProvider = blobProvider;
             _localizer = localizer;
         }
 
@@ -97,18 +89,18 @@ namespace Cloudents.Web.Api
             }
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
-            var textTask = Task;
-            if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document)
-            {
-                textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
-            }
+            //var textTask = Task;
+            //if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document)
+            //{
+            //    textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
+            //}
 
             var taskFiles = generatorIndex[model.Document.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
-            await System.Threading.Tasks.Task.WhenAll(tQueue, textTask,taskFiles);
+            await Task.WhenAll(tQueue, taskFiles);
             model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
             var files = await taskFiles;
-            var text = await textTask;
-            return new DocumentPreviewResponse(model, files, text);
+           // var text = await textTask;
+            return new DocumentPreviewResponse(model, files);
         }
 
         [HttpPost, Authorize]
@@ -324,7 +316,7 @@ namespace Cloudents.Web.Api
         [NonAction]
         public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)
         {
-            return System.Threading.Tasks.Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
     }
