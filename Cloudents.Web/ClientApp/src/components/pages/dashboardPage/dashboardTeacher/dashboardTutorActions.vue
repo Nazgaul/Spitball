@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <img src="./images/group-14-copy-2@2x.png" @click="startVideo" width="250" height="150" alt="Spitball How It Works">
-                <!-- <video class="dashboardVideo" @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video> -->
+                <img src="./images/group-14-copy-2@2x.png" v-if="!isMobile" @click="startVideo" width="250" height="150" alt="Spitball How It Works">
+                <video class="dashboardVideo" v-else @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
             </div>
         </div>
 
@@ -240,11 +240,15 @@ export default {
     },
     methods: {
         startVideo() {
-            // if(this.controls && this.autoplay) return
-            // this.controls = true
-            // this.autoplay = true
+
+            if(this.isMobile) {
+                if(this.controls && this.autoplay) return
+                this.controls = true
+                this.autoplay = true
+            } else {
+                this.showSpitballDialog = true
+            }
             this.$ga.event("Dashboard Video", "Get Started How It Works");
-            this.showSpitballDialog = true
         },
         openPhoneDialog() {
             this.$store.commit('setComponent', 'setPhone')
