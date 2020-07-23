@@ -1,4 +1,3 @@
-import { mapActions } from 'vuex';
 
 export default {
     props: {
@@ -70,14 +69,7 @@ export default {
                 if (!!this.onclosefn) {
                     this.onclosefn();
                 }
-                this.updateNewQuestionDialogState(false);
             }
         }
     },
-
-    methods: {
-        ...mapActions(['updateNewQuestionDialogState']),
-    },
-
-
 }
