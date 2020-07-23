@@ -39,23 +39,6 @@
                             path: '/home'
                         },
                     },
-                    {
-                        setting: {
-                            title: 'Questions/Answers Actions',
-                            path: '/question'
-                        },
-                        childrens: [
-                            {
-                                name: 'Pending Questions',
-                                link: '/question/pendingQuestions',
-                                icon: 'notifications_paused'
-                            },
-                            { name: 'Flagged Questions', link: '/question/flaggedQuestions', icon: 'outlined_flag' },
-                            { name: 'Delete', link: '/question/delete', icon: 'delete_outline' },
-                            { name: 'Add', link: '/question/add', icon: 'add' },
-                            { name: 'Add Multiple', link: '/question/addBulk', icon: 'add_circle_outline' },
-                        ]
-                    },
 
                     {
                         setting: {

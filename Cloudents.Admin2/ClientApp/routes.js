@@ -1,13 +1,4 @@
 //import Home from './components/Home.vue';
-
-import question from './components/question/question.vue';
-import qDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
-import qAdd from './components/question/questionComponents/add/addQuestion.vue';
-import qAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
-import qAccept from './components/question/questionComponents/accept/acceptQuestion.vue';
-import qPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue';
-import qFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
-
 import user from './components/user/user.vue';
 import uToken from './components/user/token/tokenUser.vue';
 import uCashout from './components/user/cashout/cashoutUser.vue';
@@ -120,49 +111,6 @@ export const routes = [
               path: 'tutorList',
               component: tutorList
             }
-        ]
-    },
-    {
-        path: '/question',
-        name: 'question',
-        // route level code-splitting
-        // this generates a separate chunk (question.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        // component: () => import(/* webpackChunkName: "about" */ './components/question/question')
-        component: question,
-        children: [
-          {
-            path: '',
-            redirect: 'pendingQuestions'
-          },
-          {
-            path:'delete',
-            component: qDelete
-          },
-          {
-            path:'add',
-            component: qAdd
-          },
-          {
-            path:'addBulk',
-            component: qAddBulk
-          },
-          {
-            path:'acceptQuestion',
-            component: qAccept
-          },
-          {
-            path:'pendingQuestions',
-            component: qPending
-          },
-          {
-            path:'flaggedQuestions',
-            component: qFlagged
-          },
-          {
-            path: '*',
-            redirect: 'pendingQuestions'
-          }
         ]
     },
       {
