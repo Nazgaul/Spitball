@@ -11,8 +11,8 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(Tutor tutor,
              string onlineDocumentUrl,
-            string name, decimal price, DateTime broadcastTime, string? description, StudyRoomSchedule? schedule)
-            : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, name, price)
+            Course course, decimal price, DateTime broadcastTime, string? description, StudyRoomSchedule? schedule)
+            : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, price)
         {
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);
@@ -20,6 +20,7 @@ namespace Cloudents.Core.Entities
             TopologyType = StudyRoomTopologyType.GroupRoom;
             Description = description;
             Schedule = schedule;
+            Course = course;
         }
 
         protected BroadCastStudyRoom() : base()
@@ -32,6 +33,8 @@ namespace Cloudents.Core.Entities
         public virtual string? Description { get; protected set; }
 
         public virtual StudyRoomSchedule? Schedule { get; protected set; }
+
+        public virtual Course Course { get; set; }
 
         public virtual void AddPayment(User user,string receipt)
         {

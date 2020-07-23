@@ -37,7 +37,7 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Coupons)
                 .Cascade.AllDeleteOrphan().Inverse();
 
-
+            //no inverse so we can have position persist in db - i know extra update
             HasMany(x => x.Courses)
                 .Cascade.AllDeleteOrphan().AsList(x =>
                 {

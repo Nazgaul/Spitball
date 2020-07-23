@@ -74,7 +74,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.Validate),
+                            DbConnectionString.DataBaseIntegration.Update),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -194,16 +194,37 @@ namespace ConsoleApp
                         //course = new Course(document.OldCourse.Id,tutor);
                         //await courseRepository.AddAsync(course, default);
                     }
-
                     document.Course = course;
-
                     await uow.CommitAsync();
-
                     Console.WriteLine("no");
                 }
             } while (documents.Count > 0);
 
-           // await DeleteOldStuff.ResyncTutorRead();
+
+            List<BroadCastStudyRoom> broadCastStudyRooms;
+            do
+            {
+                broadCastStudyRooms = await session.Query<BroadCastStudyRoom>()
+                    .Where(w =>
+                                 w.Course == null)
+                    .Take(100)
+                    .ToListAsync();
+
+                foreach (var broadCastStudyRoom in broadCastStudyRooms)
+                {
+                    Console.WriteLine($"Processing broadCastStudyRoom {broadCastStudyRoom.Id}");
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    var courseRepository = Container.Resolve<ICourseRepository>();
+
+
+                    var tutor = broadCastStudyRoom.Tutor;
+                    var course = tutor.AddCourse(broadCastStudyRoom.Name);
+                    broadCastStudyRoom.Course = course;
+                    await uow.CommitAsync();
+                    Console.WriteLine("no");
+                }
+            } while (broadCastStudyRooms.Count > 0);
+
         }
 
         private static async Task UpdateTwilioParticipants()

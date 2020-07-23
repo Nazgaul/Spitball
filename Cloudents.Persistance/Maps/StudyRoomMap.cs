@@ -9,6 +9,7 @@ namespace Cloudents.Persistence.Maps
     {
         public StudyRoomMap()
         {
+            DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Identifier).Not.Nullable().Unique();
             References(x => x.Tutor).Not.Nullable();
@@ -65,9 +66,11 @@ namespace Cloudents.Persistence.Maps
     {
         public BroadCastStudyRoomMap()
         {
+            DynamicUpdate();
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
             Map(x => x.Description).Length(4000).Nullable();
+            References(x => x.Course).Column("CourseId").Not.Nullable().ForeignKey("StudyRoom_course2");
 
             Component(x => x.Schedule, z =>
             {

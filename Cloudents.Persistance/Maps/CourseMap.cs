@@ -40,6 +40,10 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
+
+            HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.AllDeleteOrphan();
+
             References(x => x.Tutor).Not.Nullable();
             Table("Course2");
         }

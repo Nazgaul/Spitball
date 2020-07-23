@@ -27,5 +27,11 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<Document> Documents => _documents;
 
+
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
+        private readonly ICollection<StudyRoom> _studyRooms = new List<StudyRoom>();
+
+        public virtual IEnumerable<StudyRoom> StudyRooms => _studyRooms;
+
     }
 }
