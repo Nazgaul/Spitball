@@ -126,7 +126,7 @@ import logoComponent from '../../../app/logo/logo.vue';
 .footer {
   background-color: #f1f1f4;
   @media (max-width: @screen-xs) {
-    padding-bottom: 20px;
+    padding-bottom: 60px;
   }
   @media (max-width: 941px) { // flex-wrap is breaking in 941
     padding-top: 20px;

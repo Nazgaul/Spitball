@@ -217,7 +217,7 @@ export default {
           visible: true
         },
         {
-          title: 'resultNote_action_delete_doc',
+          title: this.$t('resultNote_action_delete_doc'),
           action: this.deleteDocument,
           isDisabled: this.isOwner,
           isVisible: this.isVisible,

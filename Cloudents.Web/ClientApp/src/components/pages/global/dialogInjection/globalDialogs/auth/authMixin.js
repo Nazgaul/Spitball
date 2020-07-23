@@ -71,7 +71,7 @@ export default {
                     if(self.presetRouting()) return
 
                     window.location.reload()
-                }).catch(error => {      
+                }).catch(error => {
                     let { response: { data } } = error
 
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
@@ -109,11 +109,10 @@ export default {
                 this.fromTutorReuqest()
                 return true
             }
-
+            
             if(this.needRedirect()) return true
 
             this.fromStudyRoom()
-
             return false
         },
         needRedirect() {

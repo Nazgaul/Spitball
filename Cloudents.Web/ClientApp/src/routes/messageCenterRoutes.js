@@ -22,7 +22,6 @@ export const messageCenterRoutes = [
       }else{
         store.dispatch("getAllConversations").then(()=>{
           next()
-
         })
       }
     }
