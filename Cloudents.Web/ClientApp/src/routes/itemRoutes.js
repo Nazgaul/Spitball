@@ -1,5 +1,6 @@
 // import {lazyComponent,staticComponents} from './routesUtils.js';
-// import store from '../store';
+import store from '../store';
+import * as routeNames from "./routeNames.js";
 
 export const itemRoutes = [
     {
@@ -15,17 +16,26 @@ export const itemRoutes = [
             default: (route) => ({
                 id: route.params.id
             }),
+        },
+        beforeEnter: (to, from, next) => {
+            let itemId = to.params?.id;
+            store.dispatch('documentRequest',itemId)
+                .then(()=>{
+                    let item = store.getters.getDocumentDetails;
+                    next({
+                        name: routeNames.Profile,
+                        params: {
+                            id: item.userId,
+                            name: item.userName
+                        },
+                        query:{
+                            d: item.id
+                        }
+                    })
+                })
+                .catch(()=>{
+                    next('/')
+                })
         }
-        // beforeEnter: (to, from, next) => {
-        //     let itemId = to.params?.id;
-
-        //     store.dispatch('documentRequest',itemId)
-        //         .then(()=>{
-        //             // debugger
-        //         })
-        //         .catch((err)=>{
-        //             // debugger
-        //         })
-        // }
     },
 ]
