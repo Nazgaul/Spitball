@@ -149,15 +149,15 @@ namespace Cloudents.Core.Entities
             AddEvent(new DocumentDeletedEvent(this));
         }
 
-        public virtual void Flag(string messageFlagReason, BaseUser user)
-        {
-            if (User == user)
-            {
-                throw new UnauthorizedAccessException("you cannot flag your own document");
-            }
-            Status = Status.Flag(messageFlagReason, user);
-            AddEvent(new DocumentFlaggedEvent(this));
-        }
+        //public virtual void Flag(string messageFlagReason, BaseUser user)
+        //{
+        //    if (User == user)
+        //    {
+        //        throw new UnauthorizedAccessException("you cannot flag your own document");
+        //    }
+        //    Status = Status.Flag(messageFlagReason, user);
+        //    AddEvent(new DocumentFlaggedEvent(this));
+        //}
 
         public virtual void UnFlag()
         {
@@ -170,11 +170,7 @@ namespace Cloudents.Core.Entities
             Status = Public;
         }
 
-        //public virtual void UnDelete()
-        //{
-        //    Status = Public;
-        //    AddEvent(new DocumentUndeletedEvent(this));
-        //}
+       
 
 
 

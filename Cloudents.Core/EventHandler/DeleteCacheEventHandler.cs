@@ -10,7 +10,6 @@ namespace Cloudents.Core.EventHandler
     public class DeleteCacheEventHandler :
         IEventHandler<TransactionEvent>,
         IEventHandler<DocumentPriceChangeEvent>, 
-        IEventHandler<DocumentFlaggedEvent>,
         IEventHandler<DocumentDeletedEvent>,
         IEventHandler<SubscribeToTutorEvent>,
         IEventHandler<DocumentCreatedEvent>,
@@ -42,12 +41,7 @@ namespace Cloudents.Core.EventHandler
             return Task.CompletedTask;
         }
 
-        public Task HandleAsync(DocumentFlaggedEvent eventMessage, CancellationToken token)
-        {
-            _cacheProvider.DeleteRegion(DocumentById);
-            _cacheProvider.DeleteRegion(ProfilePageDocument);
-            return Task.CompletedTask;
-        }
+     
 
         public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
         {

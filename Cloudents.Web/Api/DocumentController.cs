@@ -4,7 +4,6 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Documents.ChangePrice;
 using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
-using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -166,25 +165,25 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("flag"), Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> FlagAsync([FromBody] FlagDocumentRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new FlagDocumentCommand(userId, model.Id, model.FlagReason);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return BadRequest("Cannot flag you own document");
-            }
+        //[HttpPost("flag"), Authorize]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> FlagAsync([FromBody] FlagDocumentRequest model, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    try
+        //    {
+        //        var command = new FlagDocumentCommand(userId, model.Id, model.FlagReason);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        return BadRequest("Cannot flag you own document");
+        //    }
             
-        }
+        //}
 
 
         [HttpPost("purchase"), Authorize]
