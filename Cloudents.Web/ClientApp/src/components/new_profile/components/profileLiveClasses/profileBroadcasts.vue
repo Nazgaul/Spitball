@@ -42,11 +42,11 @@
                             <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
                             <template>
                                 <div class="description">
-                                    {{session.description | truncate(isOpen, '...', textLimit)}}
+                                    <span>{{session.description | truncate(isOpen, '...', textLimit)}}</span>
                                 </div>
                                 <label :for="session.index" v-if="session.description && session.description.length >= textLimit" sel="bio_more" class="readMore">{{readBtnText}}</label>
                                 <div class="restOfText">
-                                    {{session.description}}
+                                    <span>{{session.description}}</span>
                                 </div>
                             </template>
                         </div>
@@ -268,6 +268,7 @@ export default {
             opacity: 1;
             height: auto;
             visibility: visible;
+            white-space: pre-line;
         }
         & ~label {
             display: none;
