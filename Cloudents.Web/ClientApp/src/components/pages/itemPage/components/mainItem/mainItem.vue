@@ -214,9 +214,9 @@ export default {
         },
         handleSwipe(dir){
             if(dir){
-                global.isRtl? this.nextDoc() : this.prevDoc();
+                this.$vuetify.rtl ? this.nextDoc() : this.prevDoc();
             }else{
-                global.isRtl? this.prevDoc() : this.nextDoc();
+                this.$vuetify.rtl ? this.prevDoc() : this.nextDoc();
             }
         }
     },

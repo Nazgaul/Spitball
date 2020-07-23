@@ -42,8 +42,7 @@ export default {
          return this.$store.getters.getRoomDetails?.date;
       },
       roomImage(){
-         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.$store.getters.getRoomDetails?.id}`
-         return this.$proccessImageUrl(imageUrl, 402, 268)
+         return this.$proccessImageUrl(this.$store.getters.getRoomDetails?.image, 402, 268)
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
