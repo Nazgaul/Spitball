@@ -146,15 +146,21 @@ export default {
     },
     openPurchaseDialog() {
       if (this.getDocumentPriceTypeSubscriber) {
-        this.$router.push({
-          name: routeNames.Profile,
-          params: {
-            id: this.doucmentDetails.userId,
-            name: this.doucmentDetails.userName
-          },
-          hash: "#subscription"
-        });
-        return;
+        if(this.$route.name == routeNames.Profile){
+          this.$vuetify.goTo('#subscription');
+          this.$store.dispatch('updateCurrentItem');
+          return
+        }else{
+          this.$router.push({
+            name: routeNames.Profile,
+            params: {
+              id: this.doucmentDetails.userId,
+              name: this.doucmentDetails.userName
+            },
+            hash: "#subscription"
+          });
+          return;
+        }
       }
       if (this.accountUser) {
         this.updatePurchaseConfirmation(true);
