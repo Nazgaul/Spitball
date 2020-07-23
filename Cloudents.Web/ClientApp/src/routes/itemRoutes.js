@@ -1,5 +1,4 @@
 import store from '../store';
-import * as routeNames from "./routeNames.js";
 
 export const itemRoutes = [
     {
@@ -10,25 +9,9 @@ export const itemRoutes = [
                 id: route.params.id
             }),
         },
-        beforeEnter: (to, from, next) => {
+        beforeEnter: (to) => {
             let itemId = to.params?.id;
-            store.dispatch('documentRequest',itemId)
-                .then(()=>{
-                    let item = store.getters.getDocumentDetails;
-                    next({
-                        name: routeNames.Profile,
-                        params: {
-                            id: item.userId,
-                            name: item.userName
-                        },
-                        query:{
-                            d: item.id
-                        }
-                    })
-                })
-                .catch(()=>{
-                    next('/')
-                })
+            store.dispatch('updateCurrentItem',itemId);
         }
     },
 ]
