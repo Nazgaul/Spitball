@@ -64,7 +64,7 @@ namespace Cloudents.FunctionsV2
             ILogger log, CancellationToken token)
         {
             var amountOfTutors = await statelessSession.Query<Tutor>().Fetch(f => f.User)
-                .Where(w => w.User.SbCountry == Country.UnitedStates)
+                .Where(w => w.User.SbCountry == Country.UnitedStates  && w.State != ItemState.Flagged)
                 .CountAsync(cancellationToken: token);
             return amountOfTutors;
         }
@@ -78,7 +78,7 @@ namespace Cloudents.FunctionsV2
         {
             log.LogInformation($"Processing index {index}");
             var tutors = await statelessSession.Query<Tutor>().Fetch(f => f.User)
-                    .Where(w => w.User.SbCountry == Country.UnitedStates)
+                    .Where(w => w.User.SbCountry == Country.UnitedStates && w.State != ItemState.Flagged)
                     .Select(s => new
                     {
                         s.User.Email,
@@ -103,6 +103,7 @@ namespace Cloudents.FunctionsV2
                     .ToListAsync();
             foreach (var tutor in tutors)
             {
+                
                 var contact = await Client.GetContactByEmailAsync(tutor.Email);
 
                 IFutureEnumerable<string>? coursesFuture = null;
@@ -241,7 +242,7 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            const string instanceId = "HubSpotSync2";
+            const string instanceId = "HubSpotSync3";
             DurableOrchestrationStatus? status;
             do
             {
@@ -253,17 +254,6 @@ namespace Cloudents.FunctionsV2
                 }
 
             } while (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running);
-            //var status = await starter.GetStatusAsync("HubSpotSync2");
-            
-            //if (status.RuntimeStatus == OrchestrationRuntimeStatus.Running)
-            //{
-            //     await starter.TerminateAsync("HubSpotSync2", "new run");
-            //     while (status == OrchestrationRuntimeStatus.Running)
-            //     {
-            //         status = await starter.GetStatusAsync("HubSpotSync2");
-            //     }
-            //}
-            // Function input comes from the request content.
             string instanceId2 = await starter.StartNewAsync("HubSpotSync", instanceId);
             log.LogInformation($"Started orchestration with ID = '{instanceId2}'.");
         }
