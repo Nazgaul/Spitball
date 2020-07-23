@@ -47,6 +47,7 @@ export default {
          @media(max-width: @screen-xs) {
             font-size: 18px;
          }
+         white-space: pre-line;
          font-size: 20px;
          line-height: 1.7;
          max-width: 855px;
