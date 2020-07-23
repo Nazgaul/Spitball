@@ -225,6 +225,7 @@ namespace ConsoleApp
                 }
             } while (broadCastStudyRooms.Count > 0);
 
+            await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()
