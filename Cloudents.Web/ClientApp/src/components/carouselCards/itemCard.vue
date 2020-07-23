@@ -6,7 +6,7 @@
             </intersection>
             <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3">{{subscribeText}}</div>
-                <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
+                <v-btn class="btn" color="#fff" rounded block @click.stop.prevent="goSubscription">
                     <span>{{subscribeBtnText}}</span>
                 </v-btn>
             </div>
