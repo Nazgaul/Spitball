@@ -154,7 +154,7 @@ export default {
            
          }
          let liveObj = {
-            name: childComponent.liveSessionTitle,
+            name: childComponent.liveSessionTitle.text || childComponent.liveSessionTitle,
             price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
             date: userChooseDate,
             description: childComponent.sessionAboutText,
