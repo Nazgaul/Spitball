@@ -48,7 +48,7 @@
                       </div>
                   </div>
                 </td>
-                <td class="insideBox"><div class="">{{$t(dataType === 'Video' ? 'promote_table_video' : 'promote_table_document')}}</div></td>
+                <td class="insideBox"><div class="">{{dataType === 'Video' ? $t('promote_table_video') : $t('promote_table_document')}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.likes}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.views}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.downloads}}</div></td>

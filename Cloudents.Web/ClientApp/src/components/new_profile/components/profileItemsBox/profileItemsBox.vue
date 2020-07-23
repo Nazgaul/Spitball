@@ -1,5 +1,5 @@
 <template>
-   <div id="profileItemsBox" v-intersect.quiet="onIntersect">
+   <div id="profileItemsBox" v-intersect.once="onIntersect">
       <div
          v-for="(item, index) in filterItems"
          :key="index"
@@ -67,7 +67,8 @@ export default {
    },
    methods: {
       onIntersect(entries) {
-         if(entries[0].isIntersecting && !this.items.length) {
+
+         if(entries[0].isIntersecting) {
             this.getItems()
          }
       },
