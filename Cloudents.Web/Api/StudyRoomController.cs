@@ -158,6 +158,7 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
             result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+            result.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(result.Id);
             return result;
         }
 

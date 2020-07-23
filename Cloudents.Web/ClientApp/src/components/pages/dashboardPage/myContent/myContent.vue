@@ -335,13 +335,6 @@ export default {
       }
 
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
-         color: @global-purple !important;
-         height: inherit;
-         font-size: 14px;
-      }
-      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
          color: @global-purple !important;
          height: inherit;
          font-size: 14px;
