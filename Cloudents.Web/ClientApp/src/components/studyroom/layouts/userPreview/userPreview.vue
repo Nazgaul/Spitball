@@ -9,7 +9,7 @@
                   class="me-2">{{isShareScreen? 'sbf-stop-share' : 'sbf-shareScreen'}}
             </v-icon>
          </template>
-         <span {{isShareScreen?$t('tutor_btn_stop_sharing'):$t('tutor_btn_share_screen')}}) />
+         <span> {{isShareScreen?$t('tutor_btn_stop_sharing'):$t('tutor_btn_share_screen')}}) />
       </v-tooltip>
 
       <v-tooltip top>
