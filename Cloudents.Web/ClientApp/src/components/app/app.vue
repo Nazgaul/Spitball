@@ -109,7 +109,6 @@ export default {
     drawerPlaceholder() {
       // need to think of better way to check if placeholder
       let isRoutes = [
-      'feed',
       'question',
       'myFollowers',
       'mySales',

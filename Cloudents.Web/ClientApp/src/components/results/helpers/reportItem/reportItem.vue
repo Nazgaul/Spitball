@@ -154,7 +154,7 @@
                     //     self.answerRemoved(this.answerDelData);
                     // }
                     self.closeReportPop()
-                    self.$router.push({name : 'feed' });
+                    self.$router.push('/');
                 })
 
             },
