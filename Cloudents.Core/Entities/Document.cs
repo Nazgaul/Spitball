@@ -20,12 +20,12 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
 
         public Document(string name,
-            Course course,
+            OldCourse course,
             Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
-            Course = course ?? throw new ArgumentNullException(nameof(course));
+            OldCourse = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();
@@ -55,7 +55,13 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; protected set; }
 
 
-        public virtual Course Course { get; protected set; }
+        [Obsolete]
+        public virtual OldCourse OldCourse { get; protected set; }
+
+
+        public virtual Course Course { get; set; }
+
+        
 
         public virtual string? Description { get; protected set; }
 
@@ -93,7 +99,7 @@ namespace Cloudents.Core.Entities
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
-        public virtual short? Boost { get; set; }
+        //public virtual short? Boost { get; set; }
 
         public virtual DocumentPrice DocumentPrice { get; protected set; }
 

@@ -17,7 +17,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string ItemName { get; set; }
         [EntityBind(nameof(Document.TimeStamp.CreationTime))]
         public DateTime ItemCreated { get; set; }
-        [EntityBind(nameof(Document.Course))]
+        [EntityBind(nameof(Document.OldCourse))]
         public string ItemCourse { get; set; }
         [EntityBind(nameof(Document.Status.State))]
         public ItemState ItemState { get; set; }

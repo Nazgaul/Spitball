@@ -89,7 +89,7 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.Name).WithAlias(() => documentEmailDtoAlias.Name);
                         sl.Select(() => userAlias.Name).WithAlias(() => documentEmailDtoAlias.UserName);
                         sl.Select(() => userAlias.Id).WithAlias(() => documentEmailDtoAlias.UserId);
-                        sl.Select(x => x.Course.Id).WithAlias(() => documentEmailDtoAlias.Course);
+                        sl.Select(x => x.OldCourse.Id).WithAlias(() => documentEmailDtoAlias.Course);
                         sl.Select(() => userAlias.ImageName).WithAlias(() => documentEmailDtoAlias.UserImage);
                         sl.Select(x => x.DocumentType).WithAlias(() => documentEmailDtoAlias.DocumentType);
                         return sl;

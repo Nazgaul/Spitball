@@ -6,9 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Persistence.Maps
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
-    public sealed class CourseMap : ClassMap<Course>
+    public sealed class OldCourseMap : ClassMap<OldCourse>
     {
-        public CourseMap()
+        public OldCourseMap()
         {
             Id(e => e.Id).Column("Name").GeneratedBy.Assigned().Length(150);
             Map(x => x.Count).Not.Nullable();
@@ -18,11 +18,30 @@ namespace Cloudents.Persistence.Maps
             //References(x => x.Subject).Column("SubjectId").Nullable().ForeignKey("FK_1152B92");
            // Map(x => x.SchoolType).CustomType<GenericEnumStringType<SchoolType>>().Nullable();
             HasMany(x => x.Users)
-                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().Cascade.AllDeleteOrphan().AsSet();
+                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User")
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
            // Map(x => x.Country);
             DynamicUpdate();
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
+            Table("Course");
+        }
+    }
+
+    public sealed class CourseMap : ClassMap<Course>
+    {
+        public CourseMap()
+        {
+            Id(x=>x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "5",
+                $"{nameof(HiLoGenerator.TableName)}='Course'");
+            Map(x => x.Name).Not.Nullable();
+
+
+            HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.AllDeleteOrphan();
+
+            References(x => x.Tutor).Not.Nullable();
+            Table("Course2");
         }
     }
 }

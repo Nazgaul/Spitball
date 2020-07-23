@@ -16,11 +16,11 @@ namespace Cloudents.Command.CommandHandler
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IRepository<Tutor> _userRepository;
         private readonly IRepository<Document> _documentRepository;
-        private readonly IRepository<Course> _courseRepository;
+        private readonly IRepository<OldCourse> _courseRepository;
 
         public CreateDocumentCommandHandler(IDocumentDirectoryBlobProvider blobProvider,
             IRepository<Tutor> userRepository,
-            IRepository<Document> documentRepository, IRepository<Course> courseRepository
+            IRepository<Document> documentRepository, IRepository<OldCourse> courseRepository
             )
         {
             _blobProvider = blobProvider;
@@ -35,7 +35,7 @@ namespace Cloudents.Command.CommandHandler
             var course = await _courseRepository.GetAsync(message.Course, token);
             if (course == null)
             {
-                course = new Course(message.Course);
+                course = new OldCourse(message.Course);
                 await _courseRepository.AddAsync(course, token);
 
             }

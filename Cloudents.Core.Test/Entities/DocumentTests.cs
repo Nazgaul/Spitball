@@ -21,7 +21,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitDocument_NullUser_Error()
         {
-            var course = new Course("Some name");
+            var course = new OldCourse("Some name");
             Assert.Throws<ArgumentNullException>(() => new Document("some name", course, null!, 0,
                 DocumentType.Document, null, PriceType.Free));
         }
@@ -30,7 +30,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitDocument_NullName_Error()
         {
-            var course = new Course("Some name");
+            var course = new OldCourse("Some name");
             Assert.Throws<ArgumentNullException>(() => new Document(null!, course, null!, 0, DocumentType.Document, null,
                 PriceType.Free));
         }
@@ -39,7 +39,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitDocument_Ok_StateOk()
         {
-            var course = new Course("Some name");
+            var course = new OldCourse("Some name");
             var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
@@ -54,7 +54,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitDocumentWithPrice_Ok_StateOk()
         {
-            var course = new Course("Some name");
+            var course = new OldCourse("Some name");
             var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);

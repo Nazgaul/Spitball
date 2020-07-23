@@ -74,7 +74,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.None),
+                            DbConnectionString.DataBaseIntegration.Validate),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -156,61 +156,12 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
 
-            using var sr = File.OpenRead(@"C:\Users\Ram\Downloads\1594672075.png");
-
-            var image = SixLabors.ImageSharp.Image.Load(sr);
-            image.Mutate(x=>x.Quantize(new WuQuantizer()));
-
-
-            using var sw = File.OpenWrite(@"C:\Users\Ram\Downloads\1594672075-1.png");
-            //image.SaveAsJpeg(sw,new JpegEncoder()
-            //{
-            //    Quality = 80
-            //});
-            image.SaveAsPng(sw, new PngEncoder()
-            {
-                Quantizer = new WuQuantizer() ,
-                BitDepth = PngBitDepth.Bit8
-                //  CompressionLevel = PngCompressionLevel.BestCompression,
-                //                IgnoreMetadata = true,
-                //BitDepth = PngBitDepth.Bit8,
-                //IgnoreMetadata = true,
-                //Quantizer = new OctreeQuantizer()
-                //CompressionLevel = PngCompressionLevel.BestCompression,
-                //Quantizer = new WuQuantizer(),
-                //InterlaceMethod = PngInterlaceMode.Adam7
-                
-                //ChunkFilter = PngChunkFilter.ExcludeAll,
-
-            });
-
-            //var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
-            //    DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
-            //    null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
-
-            //var bus = Container.Resolve<ICommandBus>();
-            //await bus.DispatchAsync(command);
+            await Dbi();
 
         }
 
 
-        //private static async Task HubSportAsync()
-        //{
-        //    var session = Container.Resolve<IStatelessSession>();
-
-        //    var phoneNumber = await session.Query<User>().Where(w => w.Email == "jaron@spitball.co").Select(s => s.Id)
-        //        .SingleOrDefaultAsync();
-
-        //    //https://api.hubapi.com/contacts/v1/contact/email/jaron@spitball.co/profile?hapikey=57453297-0104-4d83-8a3c-e58588c15a90
-        //    var api = new HubSpotContactClient("57453297-0104-4d83-8a3c-e58588c15a90");
-            
-        //    var contact = await api.GetByEmailAsync<HubSpotExtra>("jaron@spitball.co");
-            
-        //    //contact.Phone = phoneNumber;
-
-        //    //await api.UpdateAsync(contact);
-           
-        //}
+      
 
      
 
@@ -219,42 +170,38 @@ namespace ConsoleApp
             var session = Container.Resolve<ISession>();
             long i = 0;
 
-            List<Tutor> users;
+            List<Document> documents;
             do
             {
-                users = await session.Query<Tutor>()
-                    .Fetch(f => f.User)
-                    .Where(w => w.Id  > i)
-                    .Take(100).ToListAsync();
+                documents = await session.Query<Document>()
+                    .Where(w => ((User) w.User).Tutor.Created != null 
+                                && w.Status.State == ItemState.Ok && w.Course == null)
+                    .Take(100)
+                    .ToListAsync();
 
-                foreach (var user in users)
+                foreach (var document in documents)
                 {
-                    i = user.Id;
+                    Console.WriteLine($"Processing documentid {document.Id}");
                     using var uow = Container.Resolve<IUnitOfWork>();
+                    var courseRepository = Container.Resolve<ICourseRepository>();
+                   
+                    var course = await courseRepository.GetCourseByNameAsync(document.User.Id,  document.OldCourse.Id, default);
 
-                    var title = user.Title;
-                    var p2 = user.Paragraph2;
-                    var p3 = user.Paragraph3;
-
-                    if (p2?.Length > 80)
+                    if (course == null)
                     {
-                        p3 = p2;
-                        p2 = null;
+                        var tutor = await session.LoadAsync<Tutor>(document.User.Id);
+                        tutor.AddCourse(document.OldCourse.Id);
+                        //course = new Course(document.OldCourse.Id,tutor);
+                        //await courseRepository.AddAsync(course, default);
                     }
 
-                    if (title?.Length > 25)
-                    {
-                        p3 = p2;
-                        p2 = title;
-                        title = null;
-                    }
+                    document.Course = course;
 
-                    user.UpdateSettings(p2, title, p3);
                     await uow.CommitAsync();
 
                     Console.WriteLine("no");
                 }
-            } while (users.Count > 0);
+            } while (documents.Count > 0);
 
            // await DeleteOldStuff.ResyncTutorRead();
         }

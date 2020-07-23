@@ -89,7 +89,7 @@ namespace ConsoleApp
                         //}
 
                         Console.WriteLine($"Processing {courseName}");
-                        var result = await session.Query<Course>()
+                        var result = await session.Query<OldCourse>()
                             .Where(w => w.Id == courseName).SingleOrDefaultAsync();
                         if (result is null)
                         {
@@ -107,7 +107,7 @@ namespace ConsoleApp
                         }
 
                         var documents = await session.Query<Document>()
-                            .Where(w => w.Course.Id == courseName).ToListAsync();
+                            .Where(w => w.OldCourse.Id == courseName).ToListAsync();
 
 
                         foreach (var document in documents.Where(w => w.Status.State == ItemState.Deleted))
@@ -206,7 +206,7 @@ namespace ConsoleApp
                             //await session.Query<Lead>().Where(w => w.Course.Id == courseName)
                             //    .DeleteAsync(CancellationToken.None);
 
-                            await session.Query<Course>().Where(w => w.Id == courseName)
+                            await session.Query<OldCourse>().Where(w => w.Id == courseName)
                                 .DeleteAsync(CancellationToken.None);
 
                             string range2 = $"Ram Sheet!E{i}";

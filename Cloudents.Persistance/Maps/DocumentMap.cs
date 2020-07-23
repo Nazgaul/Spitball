@@ -15,7 +15,12 @@ namespace Cloudents.Persistence.Maps
             
             Component(x => x.TimeStamp);
 
-            References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
+            References(x => x.OldCourse).Column("CourseName").Nullable().ForeignKey("Document_course");
+
+            References(x => x.Course).Column("CourseId").Not.Nullable().ForeignKey("Document_course2");
+
+
+
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
@@ -45,7 +50,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
           //  Map(e => e.IsShownHomePage);
-            Map(x => x.Boost);
+           // Map(x => x.Boost);
             Component(x => x.Status);
 
             Component(x => x.DocumentPrice, y =>

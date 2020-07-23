@@ -86,7 +86,7 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourse(Course course)
+        public virtual void AssignCourse(OldCourse course)
         {
             var p = new UserCourse(this, course);
             if (_userCourses.Add(p))

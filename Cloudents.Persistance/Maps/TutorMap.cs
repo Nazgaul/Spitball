@@ -37,6 +37,14 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Coupons)
                 .Cascade.AllDeleteOrphan().Inverse();
 
+
+            HasMany(x => x.Courses)
+                .Cascade.AllDeleteOrphan().AsList(x =>
+                {
+                    x.Type<int>();
+                    x.Column("Position");
+                });
+
             HasMany(x => x.UserCoupons)
                 .Cascade.AllDeleteOrphan().Inverse();
 

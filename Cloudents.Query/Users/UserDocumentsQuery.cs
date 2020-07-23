@@ -45,12 +45,12 @@ namespace Cloudents.Query.Users
                     .WithOptions(w => w.SetComment(nameof(UserDocumentsQuery)))
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
-                r = r.OrderByDescending(o => o.Boost ?? 0).ThenByDescending(o => o.TimeStamp.UpdateTime);
+                r = r.OrderByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
                     DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Id,
+                    Course = s.OldCourse.Id,
                     Title = s.Name,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,

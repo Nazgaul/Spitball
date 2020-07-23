@@ -11,7 +11,7 @@ namespace Cloudents.Web.Models
         [Required]
         public string BlobName { get; set; }
         [Required]
-        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
+        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.OldCourse.MinLength)]
         public string Name { get; set; }
 
         [Required]

@@ -12,7 +12,7 @@ namespace Cloudents.Core.Test.Entities
         public void IllegalCourseNameTests(char c, int num)
         {
             string str = new string(c, num);
-            Assert.Throws<ArgumentException>(() => new Course(str));
+            Assert.Throws<ArgumentException>(() => new OldCourse(str));
         }
 
         [Theory]
@@ -21,7 +21,7 @@ namespace Cloudents.Core.Test.Entities
         public void CourseNameEdgeTests(char c, int num)
         {
             string str = new string(c, num);
-            _ = new Course(str);
+            _ = new OldCourse(str);
         }
 
         //[Fact]
