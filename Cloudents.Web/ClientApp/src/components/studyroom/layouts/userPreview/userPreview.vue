@@ -34,7 +34,7 @@
                   <v-icon v-else size="17" color="white">sbf-camera-ignore</v-icon>
                </v-btn>
             </template>
-            <span v-text={{isVideoActive?$t('tutor_tooltip_video_pause'):$t('tutor_tooltip_video_resume')}} />
+            <span v-text="isVideoActive?$t('tutor_tooltip_video_pause'):$t('tutor_tooltip_video_resume')" />
          </v-tooltip>
          <v-tooltip top>
             <template v-slot:activator="{ on }">
