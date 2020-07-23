@@ -13,7 +13,7 @@
                 </v-fade-transition>
                 <sbVideoPlayer 
                     @videoEnded="updateAfterVideo()"
-                    :id="`${document.details.id}`"
+                    :id="`${document.id}`"
                     :height="videoHeight" 
                     :width="videoWidth" 
                     style="margin: 0 auto" 
@@ -41,7 +41,7 @@
                                 :height="dynamicWidthAndHeight.height" 
                                 v-model="docPage">
                                 <v-carousel-item v-for="(doc, index) in docPreview" :key="index">
-                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img" :alt="index === 0 ? document.content : ''">
+                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img" alt="">
                                 </v-carousel-item>
                             </v-carousel>
                         </div>
@@ -108,10 +108,7 @@ export default {
             return false;
         },
         isPurchased() {
-            if (this.document.details) {
-                return this.document.details.isPurchased;
-            }
-            return false;
+            return this.document?.id ? this.document.isPurchased : false;
         },
 
         videoSrc:{
@@ -189,10 +186,7 @@ export default {
             return this.calculateWidthByScreenSize;
         },
         courseName() {
-            if (this.document.details && this.document.details.name) {
-                return this.document.details.name;
-            }
-            return null
+            return this.document?.title || null;
         },
         selector() {
             let element = document.querySelector('.itemPage__main')

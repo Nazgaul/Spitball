@@ -15,26 +15,25 @@ const state = {
 
 const getters = {
     _getDocumentLoaded: state => {
-        let x = state.document?.details || '';
+        let x = state.document?.id ? state.document : '';
         return typeof (x) !== "string";
-
     },
     getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
     getDocumentName: (state,_getter)=>  {
         if (_getter._getDocumentLoaded) {
-            return  state.document.details.feedItem.title;
+            return  state.document.title;
         }
         return ''
     },
     getDocumentPrice: (state,_getter) => {
         if (_getter._getDocumentLoaded) {
-            return  state.document.details.price;
+            return  state.document.price;
         }
         return 0
     },
     getIsPurchased: (state,_getter) => {
-        return state.document?.details?.isPurchased || _getter.getDocumentPrice === 0
+        return state.document?.isPurchased || _getter.getDocumentPrice === 0
     },
     getBtnLoading: (state, _getter) => {
         if (_getter._getDocumentLoaded) {
@@ -45,14 +44,11 @@ const getters = {
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getRelatedDocuments: state => state.itemsList,
-    getDocumentPriceTypeFree: state => state.document?.details?.priceType === 'Free',
-    getDocumentPriceTypeSubscriber: state => state.document?.details?.priceType === 'Subscriber',
-    getDocumentPriceTypeHasPrice: state => state.document?.details?.priceType === 'HasPrice',
-    //getIsDocumentTutorSubscriber: state => state.document?.details?.tutor?.subscriptionPrice,
-    getDocumentUserName: state => state.document?.details?.user?.name,
+    getDocumentPriceTypeFree: state => state.document?.priceType === 'Free',
+    getDocumentPriceTypeSubscriber: state => state.document?.priceType === 'Subscriber',
+    getDocumentPriceTypeHasPrice: state => state.document?.priceType === 'HasPrice',
+    getDocumentUserName: state => state.document?.userName,
     getCurrentItemId: state => state.currentItemId
-    
-    // getIsDocumentFree: (state, _getters) => state.document?.details?.price > 0 && _getters.getDocumentSubscriber,
 };
 
 const mutations = {
@@ -75,7 +71,7 @@ const mutations = {
         state.itemsList = payload;
     },
     // setNewDocumentPrice(state, price){
-    //     state.document.details.price = price;
+    //     state.document.price = price;
     // },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
@@ -100,12 +96,11 @@ const actions = {
     },
     downloadDocument({getters}, item) {
         let user = getters.accountUser;
-
         if(!user) return router.push({query:{...router.currentRoute.query,dialog:'login'}});
 
-        let {id, course} = item;     
+        let {id} = item;     
 
-        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
+        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}`);
     },
     purchaseDocument({commit, dispatch, state, getters}, item) {
         let cantBuyItem = getters.accountUser.balance < item.price;
@@ -136,7 +131,7 @@ const actions = {
         });
     },
     // setNewDocumentPrice({ commit }, price) {
-    //     if(!!state.document && !!state.document.details){
+    //     if(!!state.document && !!state.document){
     //         commit('setNewDocumentPrice', price);
     //     }
     // },

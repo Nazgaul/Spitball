@@ -1,4 +1,5 @@
 // import {lazyComponent,staticComponents} from './routesUtils.js';
+// import store from '../store';
 
 export const itemRoutes = [
     {
@@ -15,5 +16,16 @@ export const itemRoutes = [
                 id: route.params.id
             }),
         }
+        // beforeEnter: (to, from, next) => {
+        //     let itemId = to.params?.id;
+
+        //     store.dispatch('documentRequest',itemId)
+        //         .then(()=>{
+        //             // debugger
+        //         })
+        //         .catch((err)=>{
+        //             // debugger
+        //         })
+        // }
     },
 ]
