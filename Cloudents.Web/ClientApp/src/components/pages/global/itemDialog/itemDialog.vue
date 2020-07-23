@@ -14,8 +14,6 @@
 
 <script>
 import item2 from '../../itemPage/item2.vue';
-import storeService from "../../../../services/store/storeService";
-import studyDocumentsStore from "../../../../store/studyDocuments_store";
 import { mapGetters } from 'vuex';
 
 export default {

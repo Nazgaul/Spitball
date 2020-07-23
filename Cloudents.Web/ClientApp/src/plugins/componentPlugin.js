@@ -1,5 +1,5 @@
 import { auth_SETTER } from '../store/constants/authConstants';
-import { TUTOR_EDIT_PROFILE ,ITEM_DIALOG} from '../components/pages/global/toasterInjection/componentConsts'
+import { TUTOR_EDIT_PROFILE } from '../components/pages/global/toasterInjection/componentConsts'
 import { Profile } from '../routes/routeNames.js';
 
 export default () => {

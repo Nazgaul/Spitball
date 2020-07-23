@@ -186,7 +186,7 @@ export default {
     this.clearDocument();
   },
   mounted() {
-    this.documentRequest(this.id).catch(err=>{
+    this.documentRequest(this.id).catch(()=>{
       this.$store.dispatch('updateCurrentItem');
     });
   },
