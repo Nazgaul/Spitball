@@ -327,6 +327,7 @@ export default {
                         font-size: 16px;
                         line-height: 1.5;
                         display: contents;
+                        white-space: pre-line;
                     }
                     .readMore {
                         font-weight: 600;
