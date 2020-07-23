@@ -64,10 +64,10 @@
       <div class="btns-wrap">
         <!-- <v-btn v-closeDialog class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed> -->
         <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed>
-          <span> {{showSuccess?$t('coupon_btn_exit'):$t('coupon_btn_cancel')}} />
+          <span> {{showSuccess?$t('coupon_btn_exit'):$t('coupon_btn_cancel')}} </span>
         </v-btn>
         <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ms-1 ms-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
-          <span> {{showSuccess?$t('coupon_btn_copy'):$t('coupon_btn_submit')}} />
+          <span> {{showSuccess?$t('coupon_btn_copy'):$t('coupon_btn_submit')}} </span>
         </v-btn>
       </div>
     </div>
