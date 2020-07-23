@@ -45,13 +45,13 @@ export default {
         },
         check_auth(){
         },
-        // check_notAuth(){
-        //     if(this.getUserLoggedInStatus && global.isAuth){
-        //         this.component = '';
-        //         this.$closeDialog()
-        //         return 'break'
-        //     }
-        // },
+        check_notAuth(){
+            if(this.getUserLoggedInStatus && global.isAuth){
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            }
+        },
         // check_tutor(){
         //     if(!this.accountUser.isTutor){
         //         this.component = '';
