@@ -215,7 +215,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("HubSpotSync_TimerStart")]
         public static async Task TimerStartAsync(
-            [TimerTrigger("0 0 */12 * * *", RunOnStartup = true)] TimerInfo time,
+            [TimerTrigger("0 0 */12 * * *")] TimerInfo time,
             [DurableClient] IDurableOrchestrationClient starter,
             [Inject] IConfigurationKeys configuration,
             ILogger log)
