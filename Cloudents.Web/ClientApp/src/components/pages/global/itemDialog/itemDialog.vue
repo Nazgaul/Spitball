@@ -8,17 +8,17 @@
         <v-icon absolute right color="white" @click="closeItem" size="14" v-text="'sbf-close'"/> 
       </v-toolbar>
 
-      <item2 class="pa-5" :id="id"/>
+      <itemForDialog class="pa-5" :id="id"/>
   </v-dialog>
 </template>
 
 <script>
-import item2 from '../../itemPage/item2.vue';
+import itemForDialog from '../../itemPage/itemForDialog.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components:{
-    item2
+    itemForDialog
   },
   computed: {
     ...mapGetters(['getDocumentName']),

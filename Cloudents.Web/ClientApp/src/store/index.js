@@ -5,7 +5,6 @@ import Vuex from "vuex";
 import User from "./User";
 import Account from "./account";
 import Toaster from "./Toaster";
-import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import mobileFooter from './mobileFooter';
 import chatStore from './chatStore';
@@ -76,7 +75,6 @@ const store = new Vuex.Store({
         Account,
        // Question,
         Toaster,
-        newQuestionDialog,
         uploadFiles,
         document,
         mobileFooter,

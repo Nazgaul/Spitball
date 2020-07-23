@@ -60,25 +60,16 @@ export default {
             return this.getPurchaseConfirmation;
         },
         uploaderName() {
-            if (this.document.details && this.document.details.user.name) {
-                return this.document.details.user.name;
-            }
-            return null
+          return this.document?.userName || null;
         },
         docPrice() {
-            if (this.document.details && this.document.details.price >= 0) {
-                return this.document.details.price.toFixed(2);
-            }
-            return null
+          return this.document?.id && this.document.price >= 0 ? this.document.price.toFixed(2) : null;
         },
         isVideo(){      
             return this.document.documentType === 'Video';
         },
         docTitle() {
-            if (this.document.details && this.document.details.feedItem) {
-                return this.document.details.feedItem.title;
-            }
-            return null
+          return this.document?.title || null;
         },
     },
     methods: {
@@ -86,8 +77,8 @@ export default {
 
         unlockDocument() {
             let item = {
-                id: this.document.details.id,
-                price: this.document.details.price
+                id: this.document.id,
+                price: this.document.price
             };
             let self = this;
             this.purchaseDocument(item)

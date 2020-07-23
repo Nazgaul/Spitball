@@ -106,8 +106,8 @@ export default {
                this.$router.push({
                   name: routeNames.Profile,
                   params: {
-                  id: this.getDocumentDetails.details.tutor.userId,
-                  name: this.getDocumentDetails.details.tutor.name
+                  id: this.getDocumentDetails.userId,
+                  name: this.getDocumentDetails.userName
                   },
                   hash: '#subscription'
                })

@@ -82,7 +82,6 @@ export default {
       // "getDocumentName",
       "getDocumentPrice",
       "getIsPurchased",
-      // "getRelatedDocuments",
       "getShowItemToaster",
       "getBtnLoading",
       "getDocumentPriceTypeFree",
@@ -120,19 +119,13 @@ export default {
     },
     doucmentDetails() {
       //TODO why explaind why not use document()
-      if (this.getDocumentDetails && this.getDocumentDetails.details) {
-        return this.getDocumentDetails.details;
-      }
-      return {};
+      return this.getDocumentDetails;
     },
     isVideo() {
       return this.document.documentType === "Video";
     },
     priceWithComma() {
-      if (this.document && this.document.details) {
-        return this.document.details.price.toLocaleString();
-      }
-      return null;
+      return this.document?.id ? this.document.price.toLocaleString() : null;
     },
     downloadUrl(){
       return `/document/${this.id}/download`;
@@ -142,7 +135,6 @@ export default {
     ...mapActions([
       "documentRequest",
       "clearDocument",
-      // "getStudyDocuments",
       "updateItemToaster",
       "updatePurchaseConfirmation",
       "downloadDocument"
@@ -154,15 +146,21 @@ export default {
     },
     openPurchaseDialog() {
       if (this.getDocumentPriceTypeSubscriber) {
-        this.$router.push({
-          name: routeNames.Profile,
-          params: {
-            id: this.doucmentDetails.tutor.userId,
-            name: this.doucmentDetails.tutor.name
-          },
-          hash: "#subscription"
-        });
-        return;
+        if(this.$route.name == routeNames.Profile){
+          this.$vuetify.goTo('#subscription');
+          this.$store.dispatch('updateCurrentItem');
+          return
+        }else{
+          this.$router.push({
+            name: routeNames.Profile,
+            params: {
+              id: this.doucmentDetails.userId,
+              name: this.doucmentDetails.userName
+            },
+            hash: "#subscription"
+          });
+          return;
+        }
       }
       if (this.accountUser) {
         this.updatePurchaseConfirmation(true);
@@ -175,8 +173,7 @@ export default {
         e.preventDefault();
       }
       let item = {
-        course: this.document.details.course,
-        id: this.document.details.id
+        id: this.document.id
       };
       this.downloadDocument(item);
     }

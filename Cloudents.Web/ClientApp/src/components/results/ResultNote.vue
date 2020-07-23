@@ -109,15 +109,6 @@
     </v-flex>
 
     <documentLikes v-if="isMobile" :item="item" />
-
-    <sb-dialog
-      :showDialog="showReport"
-      :maxWidth="'438px'"
-      :popUpType="'reportDialog'"
-      :content-class="`reportDialog`"
-    >
-      <report-item v-if="showReport" :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
-    </sb-dialog>
     <sb-dialog
       :showDialog="priceDialog"
       :maxWidth="'438px'"
@@ -174,7 +165,6 @@ import documentService from "../../services/documentService";
 import * as routeNames from '../../routes/routeNames';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const reportItem = () => import("./helpers/reportItem/reportItem.vue");
 const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 const documentPrice = () => import("../pages/global/documentPrice/documentPrice.vue");
@@ -186,7 +176,6 @@ import vidSVG from "./svg/vid.svg";
 export default {
   components: {
     sbDialog,
-    reportItem,
     documentLikes,
     vidSVG,
     intersection,
@@ -201,13 +190,6 @@ export default {
       isPreviewReady: false,
       loading: false,
       actions: [
-        {
-          title: 'questionCard_Report',
-          action: this.reportItem,
-          isDisabled: this.isDisabled,
-          isVisible: this.isVisible,
-          visible: true
-        },
         {
           title: 'resultNote_change_price',
           action: this.showPriceChangeDialog,
@@ -224,8 +206,6 @@ export default {
           visible: true
         }
       ],
-      itemId: 0,
-      showReport: false,
       showMenu: false,
       priceDialog: false,
       newPrice: this.item.price ? this.item.price : 0,
@@ -350,13 +330,6 @@ export default {
     showPriceChangeDialog() {
       this.priceDialog = true;
     },
-    isDisabled() {
-      return this.cardOwner || !this.accountUser;
-    },
-    reportItem() {
-      this.itemId = this.item.id;
-      this.showReport = !this.showReport;
-    },
     deleteDocument() {
       let id = this.item.id;
       documentService.deleteDoc(id).then(() => {
@@ -378,9 +351,6 @@ export default {
           });
         }
       );
-    },
-    closeReportDialog() {
-      this.showReport = false;
     },
     showReportOptions() {
       this.showMenu = true;

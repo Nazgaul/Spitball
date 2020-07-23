@@ -43,18 +43,15 @@ export default {
             // TODO make it Promise!!
                 return this[dialogChekerName](dialogNameFromRoute);
         },
-        // check_auth(){
-        //     if(!this.getUserLoggedInStatus){
-        //         this.component = dialogNames.Login;
-        //     }
-        // },
-        // check_notAuth(){
-        //     if(this.getUserLoggedInStatus && global.isAuth){
-        //         this.component = '';
-        //         this.$closeDialog()
-        //         return 'break'
-        //     }
-        // },
+        check_auth(){
+        },
+        check_notAuth(){
+            if(this.getUserLoggedInStatus && global.isAuth){
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            }
+        },
         // check_tutor(){
         //     if(!this.accountUser.isTutor){
         //         this.component = '';
