@@ -44,9 +44,6 @@ export default {
                 return this[dialogChekerName](dialogNameFromRoute);
         },
         check_auth(){
-            if(!this.getUserLoggedInStatus){
-                this.component = dialogNames.Login;
-            }
         },
         // check_notAuth(){
         //     if(this.getUserLoggedInStatus && global.isAuth){
