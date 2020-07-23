@@ -142,27 +142,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task CourseSearchQuery_Ok()
+        [Theory]
+        [InlineData(null)]
+
+        [InlineData("ארה\"ב")]
+        [InlineData("ממ\"")]
+        [InlineData("אלגברה ל")]
+        public async Task CourseSearchQuery_Ok(string term)
         {
-            var query = new CourseSearchQuery(638, 0);
+            var query = new CourseSearchQuery(638, term);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Theory]
-        [InlineData("ארה\"ב", 0)]
-        [InlineData("ממ\"", 0)]
-        [InlineData("אלגברה ל", 0)]
-        public async Task CourseSearchWithTermQuery_Ok(string term, int page)
-        {
-            var userId = await fixture.StatelessSession.Query<User>().Where(w => w.Country == "IL").Select(s => s.Id).FirstAsync();
-
-            var query = new CourseSearchWithTermQuery(userId, term, page);
-
-            var z = await fixture.QueryBus.QueryAsync(query, default);
-
-            z.Should().HaveCountGreaterOrEqualTo(1);
-        }
+       
 
         [Theory]
         [InlineData(0)]
