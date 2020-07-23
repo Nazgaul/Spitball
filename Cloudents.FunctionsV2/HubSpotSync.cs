@@ -30,7 +30,7 @@ namespace Cloudents.FunctionsV2
             //Inject Istateless session comes when it already dispose - need to figure it out this is a work out
             //using var child = lifetimeScope.BeginLifetimeScope();
             //var statelessSession =  child.Resolve<IStatelessSession>();
-            var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount",null);
+            var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount", null);
 
             for (int i = 0; i < amountOfTutors / 100; i++)
             {
@@ -52,7 +52,7 @@ namespace Cloudents.FunctionsV2
                 .CountAsync(cancellationToken: token);
             return amountOfTutors;
         }
-      
+
 
 
         [FunctionName("HubSpotSync_DoSync")]
@@ -80,7 +80,7 @@ namespace Cloudents.FunctionsV2
                         s.SubscriptionPrice,
                         Courses = statelessSession.Query<UserCourse>().Any(w => w.User.Id == s.Id),
                         StudyRoom = statelessSession.Query<StudyRoom>().Any(a => a.Tutor.Id == s.Id),
-                        Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 =>  w2.User.Id == s.Id),
+                        Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 => w2.User.Id == s.Id),
                         Followers = statelessSession.Query<Follow>().Count(c => c.User.Id == s.Id),
                         Lessons = statelessSession.Query<StudyRoomSession>().Count(c => c.StudyRoom.Tutor.Id == s.Id),
                     }).OrderBy(o => o.Id).Take(100).Skip(100 * index)
@@ -174,6 +174,11 @@ namespace Cloudents.FunctionsV2
                     contact.Website = $"https://www.spitball.co/p/{tutor.Id}";
                 }
 
+                if (string.IsNullOrEmpty(contact.LeadStatus))
+                {
+                    contact.LeadStatus = "NEW";
+                }
+
                 if (string.IsNullOrEmpty(contact.OwnerId))
                 {
                     contact.OwnerId = "49087036";
@@ -201,7 +206,7 @@ namespace Cloudents.FunctionsV2
                 contact.PrivateDone = contact.PrivateScheduled =
                     studyRoomData.Count(w => w.Type == StudyRoomType.Private);
 
-                contact.TutorState = contact.LiveDone == 0 && contact.LiveScheduled == 0 ? "Opportunity" : "Customer";
+                contact.TutorState = contact.LiveDone == 0 && contact.LiveScheduled == 0 ? "opportunity" : "customer";
                 await Client.CreateOrUpdateAsync(contact, needInsert);
             }
 
@@ -210,7 +215,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("HubSpotSync_TimerStart")]
         public static async Task TimerStartAsync(
-            [TimerTrigger("0 0 */12 * * *")] TimerInfo time,
+            [TimerTrigger("0 0 */12 * * *", RunOnStartup = true)] TimerInfo time,
             [DurableClient] IDurableOrchestrationClient starter,
             [Inject] IConfigurationKeys configuration,
             ILogger log)
@@ -219,9 +224,32 @@ namespace Cloudents.FunctionsV2
             {
                 return;
             }
+
+            const string instanceId = "HubSpotSync2";
+            DurableOrchestrationStatus? status;
+            do
+            {
+                status  = await starter.GetStatusAsync(instanceId);
+                if (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+                {
+                    await starter.TerminateAsync(instanceId, "new run");
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+                }
+
+            } while (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running);
+            //var status = await starter.GetStatusAsync("HubSpotSync2");
+            
+            //if (status.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+            //{
+            //     await starter.TerminateAsync("HubSpotSync2", "new run");
+            //     while (status == OrchestrationRuntimeStatus.Running)
+            //     {
+            //         status = await starter.GetStatusAsync("HubSpotSync2");
+            //     }
+            //}
             // Function input comes from the request content.
-            string instanceId = await starter.StartNewAsync("HubSpotSync", "HubSpotSync2");
-            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+            string instanceId2 = await starter.StartNewAsync("HubSpotSync", instanceId);
+            log.LogInformation($"Started orchestration with ID = '{instanceId2}'.");
         }
 
 
@@ -231,13 +259,13 @@ namespace Cloudents.FunctionsV2
             {
                 Type = type;
                 BroadcastTime = broadcastTime;
-              //  Count = count;
+                //  Count = count;
             }
 
-            public StudyRoomType Type { get;  }
-            public DateTime? BroadcastTime { get;  }
+            public StudyRoomType Type { get; }
+            public DateTime? BroadcastTime { get; }
 
-           // private int Count { get; }
+            // private int Count { get; }
         }
     }
 }
