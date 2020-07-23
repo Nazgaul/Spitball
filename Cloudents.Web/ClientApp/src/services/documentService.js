@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {Item} from './Dto/item.js';
 
 const documentInstance = axios.create({
     baseURL:'/api/Document'
@@ -54,10 +53,6 @@ export default {
     },
     async purchaseDocument(id){ 
         return await documentInstance.post('purchase',{id})
-    },
-    async getStudyDocuments(params){ 
-        let {data} = await documentInstance.get('similar',{params})
-        return data.map(doc=> new Item[doc.documentType](doc))
     },
     async getDocument(id){ 
         let {data} = await documentInstance.get(`${id}`)

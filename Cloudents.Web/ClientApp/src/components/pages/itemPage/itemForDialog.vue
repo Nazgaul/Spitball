@@ -82,7 +82,6 @@ export default {
       // "getDocumentName",
       "getDocumentPrice",
       "getIsPurchased",
-      // "getRelatedDocuments",
       "getShowItemToaster",
       "getBtnLoading",
       "getDocumentPriceTypeFree",
@@ -136,7 +135,6 @@ export default {
     ...mapActions([
       "documentRequest",
       "clearDocument",
-      // "getStudyDocuments",
       "updateItemToaster",
       "updatePurchaseConfirmation",
       "downloadDocument"

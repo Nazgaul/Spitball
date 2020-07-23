@@ -5,7 +5,6 @@ import {ITEM_DIALOG} from '../components/pages/global/toasterInjection/component
 
 const state = {
     document: {},
-    itemsList:[],
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
@@ -43,7 +42,6 @@ const getters = {
     },
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
-    getRelatedDocuments: state => state.itemsList,
     getDocumentPriceTypeFree: state => state.document?.priceType === 'Free',
     getDocumentPriceTypeSubscriber: state => state.document?.priceType === 'Subscriber',
     getDocumentPriceTypeHasPrice: state => state.document?.priceType === 'HasPrice',
@@ -54,7 +52,6 @@ const getters = {
 const mutations = {
     resetState(state){
         state.document = {};
-        state.itemsList = [];
         state.btnLoading = false;    
         state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
@@ -66,9 +63,6 @@ const mutations = {
     setDocument(state, payload) {
         state.document = payload;    
         state.documentLoaded = true;    
-    },
-    setRelatedDocs(state, payload) {
-        state.itemsList = payload;
     },
     // setNewDocumentPrice(state, price){
     //     state.document.price = price;
@@ -124,11 +118,6 @@ const actions = {
                     commit('setBtnLoading', false);
                 }, 500);
             });
-    },
-    getStudyDocuments({commit}, {course,id}) {
-        documentService.getStudyDocuments({course, documentId: id}).then(items => {
-            commit('setRelatedDocs', items);
-        });
     },
     // setNewDocumentPrice({ commit }, price) {
     //     if(!!state.document && !!state.document){
