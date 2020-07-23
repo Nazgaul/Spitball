@@ -13,6 +13,7 @@ using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using NHibernate.Linq;
+using SendGrid.Helpers.Mail;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -27,12 +28,9 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             CancellationToken token)
         {
-            //Inject Istateless session comes when it already dispose - need to figure it out this is a work out
-            //using var child = lifetimeScope.BeginLifetimeScope();
-            //var statelessSession =  child.Resolve<IStatelessSession>();
             var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount", null);
 
-            for (int i = 0; i < amountOfTutors / 100; i++)
+            for (int i = 0; i <= amountOfTutors / 100; i++)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -40,6 +38,24 @@ namespace Cloudents.FunctionsV2
                 }
                 await context.CallActivityAsync("HubSpotSync_DoSync", i);
             }
+
+            await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
+        }
+
+
+        [FunctionName("HubSpotSync_FinishProcess")]
+        public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+            CancellationToken token)
+        {
+            var message = new SendGridMessage()
+            {
+
+                Subject = "Finish Sync Hubspot",
+                PlainTextContent = $"Finish process {amountOfTutors}"
+            };
+            message.AddTo("ram@cloudents.com");
+            await emailProvider.AddAsync(message, token);
         }
 
         [FunctionName("HubSpotSync_GetCount")]
