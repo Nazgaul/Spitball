@@ -1,5 +1,4 @@
 import searchService from "./../services/searchService";
-import reportService from "./../services/cardActionService"
 
 // function _updateVoteCounter(item, type){
 //     if(type === "up"){
@@ -88,14 +87,6 @@ const actions = {
     removeDocumentItemAction({commit}, notificationQuestionObject) {
        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
         commit('StudyDocuments_removeDocument', documentObj);
-    },
-    reportDocument({dispatch}, data) {
-        return reportService.reportDocument(data).then(() => {
-            let objToRemove = {
-                id: data.id
-            };
-            dispatch('removeDocItemAction', objToRemove);
-        });
     },
     removeItemFromList({dispatch}, itemId) {
         let docToRemove = { id: itemId };
