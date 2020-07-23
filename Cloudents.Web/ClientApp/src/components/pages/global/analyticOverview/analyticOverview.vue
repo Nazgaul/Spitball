@@ -118,10 +118,10 @@ export default {
     },
     analyticTypeResource(key) {
       let resource = {
-        revenue: $t('dashboardTeacher_revenue'),
-        sales: $t('dashboardTeacher_sales'),
-        views: $t('dashboardTeacher_views'),
-        followers: $t('dashboardTeacher_followers')
+        revenue: this.$t('dashboardTeacher_revenue'),
+        sales: this.$t('dashboardTeacher_sales'),
+        views: this.$t('dashboardTeacher_views'),
+        followers: this.$t('dashboardTeacher_followers')
       }
       return resource[key]
     }
