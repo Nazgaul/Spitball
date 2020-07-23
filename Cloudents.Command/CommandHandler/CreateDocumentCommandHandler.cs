@@ -16,30 +16,22 @@ namespace Cloudents.Command.CommandHandler
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IRepository<Tutor> _userRepository;
         private readonly IRepository<Document> _documentRepository;
-        private readonly IRepository<OldCourse> _courseRepository;
 
         public CreateDocumentCommandHandler(IDocumentDirectoryBlobProvider blobProvider,
             IRepository<Tutor> userRepository,
-            IRepository<Document> documentRepository, IRepository<OldCourse> courseRepository
+            IRepository<Document> documentRepository
             )
         {
             _blobProvider = blobProvider;
             _userRepository = userRepository;
             _documentRepository = documentRepository;
-            _courseRepository = courseRepository;
         }
 
         public async Task ExecuteAsync(CreateDocumentCommand message, CancellationToken token)
         {
             var tutor = await _userRepository.LoadAsync(message.UserId, token);
-            var course = await _courseRepository.GetAsync(message.Course, token);
-            if (course == null)
-            {
-                course = new OldCourse(message.Course);
-                await _courseRepository.AddAsync(course, token);
 
-            }
-            tutor.User.AssignCourse(course);
+            var course = tutor.AddCourse(message.Course);
             var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
 
             if (tutor.HasSubscription() && message.Price > 0)

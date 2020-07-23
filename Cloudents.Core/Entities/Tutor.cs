@@ -168,8 +168,13 @@ namespace Cloudents.Core.Entities
 
         public virtual Course AddCourse(string name)
         {
-            var course = new Course(name,this);
-            Courses.Add(course);
+            var course = Courses.SingleOrDefault(s => s.Name == name);
+            if (course == null)
+            {
+                course = new Course(name, this);
+                Courses.Add(course);
+            }
+
             return course;
         }
 

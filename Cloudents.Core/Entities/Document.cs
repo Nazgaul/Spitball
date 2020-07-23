@@ -20,12 +20,12 @@ namespace Cloudents.Core.Entities
         public const int MaxLength = 150;
 
         public Document(string name,
-            OldCourse course,
+            Course course,
             Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
-            OldCourse = course ?? throw new ArgumentNullException(nameof(course));
+            Course = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;
             TimeStamp = new DomainTimeStamp();
             DocumentDownloads = new HashSet<UserDownloadDocument>();
