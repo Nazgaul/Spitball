@@ -3,7 +3,7 @@
     persistent :overlay="false" max-width="974px" transition="dialog-transition" scrollable>
     <v-card>
       <v-card-title class="itemTitle px-4 pt-4 pt-sm-3 pb-0 pb-sm-3">
-        <h1 class="itemTitleText">{{getDocumentName}}</h1>
+        <h1 class="itemTitleText" :class="{'text-truncate':!isMobile}">{{getDocumentName}}</h1>
         <v-spacer v-if="!isMobile"></v-spacer>
         <template v-if="!getIsPurchased">
           <v-btn :loading="getBtnLoading" @click="openPurchaseDialog" rounded outlined class="font-weight-bold me-0 me-sm-8 mb-3 mb-sm-0" color="#4c59ff">
@@ -168,7 +168,9 @@ export default {
       flex-direction: column;
     }
     .itemTitleText{
+      max-width: 70%;
       @media (max-width: @screen-xs) {
+        max-width: 100%;
         padding-bottom: 16px;
         text-align: center;
         padding-right: 10px;
