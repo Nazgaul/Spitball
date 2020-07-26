@@ -26,7 +26,7 @@
         <itemForDialog :id="id"/>
       </v-card-text>
       <v-card-actions class="justify-center pa-sm-4 pa-0" :class="{'pb-sm-0':isVideo}">
-        <div class="paging" v-if="!isVideo">
+        <div class="paging" v-if="!isVideo && $store.getters.getDocumentLoaded">
           <v-layout class="actions">
             <button class="actions--left" @click="prevDoc()" v-if="showDesktopButtons">
                 <v-icon class="actions--img" v-html="'sbf-arrow-left-carousel'"/>
