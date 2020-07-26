@@ -102,7 +102,7 @@ namespace Cloudents.Web.Controllers
         }
 
         internal const string PaymeCallbackRouteName = "ReturnUrl";
-        internal const string PaymeCallbackRouteName2 = "ReturnUrl2";
+        //internal const string PaymeCallbackRouteName2 = "ReturnUrl2";
         [Route("PaymentProcessing", Name = PaymeCallbackRouteName)]
         public async Task<IActionResult> Processing(PaymeSuccessCallback model,
             [FromServices] ICommandBus commandBus,
@@ -124,25 +124,25 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("PaymentProcessing2", Name = PaymeCallbackRouteName2)]
-        public async Task<IActionResult> BuyTokensProcessing(PaymeSuccessCallback model, [FromQuery]int points,
-            [FromServices] ICommandBus commandBus,
-            [FromServices] TelemetryClient logger,
-            CancellationToken token)
-        {
-            if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
-            {
-                var command = new TransferMoneyToPointsCommand(model.UserId, points, model.TransactionId);
-                await commandBus.DispatchAsync(command, token);
-            }
-            else
-            {
-                var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
-                values.Add("userId", model.UserId.ToString());
-                logger.TrackTrace("Credit Card Process Failed", values);
-            }
-            return View("Processing", model);
-        }
+        //[Route("PaymentProcessing2", Name = PaymeCallbackRouteName2)]
+        //public async Task<IActionResult> BuyTokensProcessing(PaymeSuccessCallback model, [FromQuery]int points,
+        //    [FromServices] ICommandBus commandBus,
+        //    [FromServices] TelemetryClient logger,
+        //    CancellationToken token)
+        //{
+        //    if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        var command = new TransferMoneyToPointsCommand(model.UserId, points, model.TransactionId);
+        //        await commandBus.DispatchAsync(command, token);
+        //    }
+        //    else
+        //    {
+        //        var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
+        //        values.Add("userId", model.UserId.ToString());
+        //        logger.TrackTrace("Credit Card Process Failed", values);
+        //    }
+        //    return View("Processing", model);
+        //}
 
 
       
