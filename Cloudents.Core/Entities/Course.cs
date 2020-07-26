@@ -9,8 +9,8 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
     public class OldCourse : Entity<string>
     {
-        public const int MinLength = 4;
-        public const int MaxLength = 150;
+        //public const int MinLength = 4;
+        //public const int MaxLength = 150;
 
 
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]

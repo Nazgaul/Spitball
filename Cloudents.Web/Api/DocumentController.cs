@@ -1,7 +1,6 @@
 ﻿using Autofac.Features.Indexed;
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Command.Documents.ChangePrice;
 using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
@@ -25,7 +24,6 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Wangkanai.Detection;
 
 namespace Cloudents.Web.Api
 {
@@ -61,9 +59,7 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
-            [FromServices] ICrawlerResolver crawlerResolver,
             [FromServices] IIndex<DocumentType, IDocumentGenerator> generatorIndex,
-            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             long? userId = null;
@@ -80,25 +76,10 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
 
-            //model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
-            //if (model.Tutor != null)
-            //{
-            //    model.Tutor.Image =
-            //        urlBuilder.BuildUserImageEndpoint(model.Tutor.UserId, model.Tutor.Image);
-            //}
-
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
-            //var textTask = Task;
-            //if (crawlerResolver.Crawler != null && model.Document.DocumentType == DocumentType.Document)
-            //{
-            //    textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
-            //}
-
             var taskFiles = generatorIndex[model.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
             await Task.WhenAll(tQueue, taskFiles);
-            //model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
             var files = await taskFiles;
-           // var text = await textTask;
             return new DocumentPreviewResponse(model, files);
         }
 
@@ -109,10 +90,10 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> CreateDocumentAsync([FromBody] CreateDocumentRequest model,
             CancellationToken token)
         {
-            if (model.Price.HasValue)
-            {
-                model.PriceType = PriceType.HasPrice;
-            }
+            //if (model.Price.HasValue)
+            //{
+            //    model.PriceType = PriceType.HasPrice;
+            //}
             var userId = _userManager.GetLongUserId(User);
             if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
             {
@@ -120,7 +101,7 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
             var command = new CreateDocumentCommand(model.BlobName, model.Name,
-                model.Course, userId, model.Price, model.Description, model.PriceType);
+                model.Course, userId,  model.Description);
             await _commandBus.DispatchAsync(command, token);
 
 
@@ -215,17 +196,17 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("price"), Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new ChangeDocumentPriceCommand(model.Id, userId, model.Price);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("price"), Authorize]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new ChangeDocumentPriceCommand(model.Id, userId, model.Price);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         [HttpDelete("{id}"), Authorize]
         [ProducesResponseType(400)]

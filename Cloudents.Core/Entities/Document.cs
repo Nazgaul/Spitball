@@ -21,7 +21,12 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
+            Tutor tutor,
+            //decimal price,
+            DocumentType documentType,
+            string? description
+            //PriceType priceType
+            )
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
@@ -37,7 +42,7 @@ namespace Cloudents.Core.Entities
             }
             Status = GetInitState(tutor.User);
             DocumentType = documentType;
-            DocumentPrice = new DocumentPrice(price, priceType, tutor);
+            DocumentPrice = new DocumentPrice(0, PriceType.Free, tutor);
             AddEvent(new DocumentCreatedEvent(this));
           
         }
@@ -174,23 +179,23 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangePrice(decimal newPrice)
-        {
-            if (DocumentPrice.Price == newPrice)
-            {
-                return;
-            }
+        //public virtual void ChangePrice(decimal newPrice)
+        //{
+        //    if (DocumentPrice.Price == newPrice)
+        //    {
+        //        return;
+        //    }
 
-            if (DocumentPrice.Type == PriceType.Subscriber)
-            {
-                throw new ArgumentException("Subscribe cannot have price");
-            }
+        //    if (DocumentPrice.Type == PriceType.Subscriber)
+        //    {
+        //        throw new ArgumentException("Subscribe cannot have price");
+        //    }
 
-            DocumentPrice.ChangePrice(newPrice);
+        //    DocumentPrice.ChangePrice(newPrice);
 
-            TimeStamp.UpdateTime = DateTime.UtcNow;
-            AddEvent(new DocumentPriceChangeEvent(this));
-        }
+        //    TimeStamp.UpdateTime = DateTime.UtcNow;
+        //    AddEvent(new DocumentPriceChangeEvent(this));
+        //}
 
         public virtual void Rename(string name)
         {
