@@ -28,7 +28,7 @@
             <button class="actions--left" @click="prevDoc()" v-if="showDesktopButtons">
                 <v-icon class="actions--img" v-html="'sbf-arrow-left-carousel'"/>
             </button>
-            <div class="mx-4 paging--text justify-center">{{$t('documentPage_docPage', [docPage + 1, documentPreviews.length])}}</div>          
+            <div class="mx-4 paging--text justify-center">{{$t('documentPage_docPage', [$store.getters.getCurrentPage + 1, documentPreviews.length])}}</div>          
             <button class="actions--right" @click="nextDoc()" v-if="showDesktopButtons">
                 <v-icon class="actions--img" v-html="'sbf-arrow-right-carousel'"/>
             </button>
@@ -44,14 +44,8 @@
 import itemForDialog from '../../itemPage/itemForDialog.vue';
 import { mapGetters, mapActions } from 'vuex';
 import * as routeNames from "../../../../routes/routeNames";
-import EventBus from '../../../../eventBus.js';
 
 export default {
-  data() {
-    return {
-      docPage:0
-    }
-  },
   components:{
     itemForDialog
   },
@@ -135,16 +129,11 @@ export default {
       this.downloadDocument(item);
     },
     prevDoc(){
-      EventBus.$emit('prevDoc')
+      this.$store.dispatch('updateItemPaging',false)
     },
     nextDoc(){
-      EventBus.$emit('nextDoc')
+      this.$store.dispatch('updateItemPaging',true)
     }
-  },
-  mounted() {
-      EventBus.$on('docPage',(val)=>{
-        this.docPage = val;
-      })
   },
 }
 </script>
