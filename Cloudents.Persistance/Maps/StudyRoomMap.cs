@@ -70,7 +70,8 @@ namespace Cloudents.Persistence.Maps
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
             Map(x => x.Description).Length(4000).Nullable();
-            References(x => x.Course).Column("CourseId").Not.Nullable().ForeignKey("StudyRoom_course2");
+            //Cannot put not nullable because no inverse on course.
+            References(x => x.Course).Column("CourseId")/*.Not.Nullable()*/.ForeignKey("StudyRoom_course2");
 
             Component(x => x.Schedule, z =>
             {

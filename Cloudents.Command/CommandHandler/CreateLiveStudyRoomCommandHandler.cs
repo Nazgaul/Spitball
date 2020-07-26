@@ -70,8 +70,9 @@ namespace Cloudents.Command.CommandHandler
                 schedule = new StudyRoomSchedule(z, endDate.Value, message.BroadcastTime);
             }
 
-            var course = tutor.AddCourse(message.Name);
-
+            var course = tutor.AddCourse(message.Name); 
+            //To persist the course if needed
+            await _tutorRepository.UpdateAsync(tutor, default);
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
                 course, message.Price,
                 message.BroadcastTime, message.Description, schedule);

@@ -20,7 +20,7 @@ namespace Cloudents.Core.Entities
             TopologyType = StudyRoomTopologyType.GroupRoom;
             Description = description;
             Schedule = schedule;
-            Course = course;
+            Course = course ?? throw new ArgumentNullException(nameof(course));
         }
 
         protected BroadCastStudyRoom() : base()
