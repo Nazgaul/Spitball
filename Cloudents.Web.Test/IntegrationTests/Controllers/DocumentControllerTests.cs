@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc.Testing;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Controllers
@@ -27,7 +29,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         public async Task GetAsync_OldDocument_OKAsync()
         {
             var response = await _client.GetAsync("document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457");
-            response.EnsureSuccessStatusCode();
+            response.StatusCode.Should().Be(HttpStatusCode.Redirect);
+            //response.EnsureSuccessStatusCode();
         }
 
 
@@ -39,7 +42,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         {
 
             var response = await _client.GetAsync($"document/פריוריטי-פיתוח/פריוריטי-בניית-דוחות/22?culture={culture}");
-            response.EnsureSuccessStatusCode();
+            response.StatusCode.Should().Be(HttpStatusCode.Redirect);
         }
     }
 }
