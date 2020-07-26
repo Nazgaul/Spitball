@@ -37,11 +37,11 @@ namespace Cloudents.Persistence.Maps
                 .Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
                 .Inverse();
             //Map(x => x.OldId).Nullable();
-            HasMany(x => x.Votes)
-                .Access.CamelCaseField(Prefix.Underscore)
-                .KeyColumns.Add("DocumentId")
-                .Inverse().Cascade.AllDeleteOrphan();
-            Map(m => m.VoteCount);
+            //HasMany(x => x.Votes)
+            //    .Access.CamelCaseField(Prefix.Underscore)
+            //    .KeyColumns.Add("DocumentId")
+            //    .Inverse().Cascade.AllDeleteOrphan();
+            //Map(m => m.VoteCount);
 
             HasMany(x => x.DocumentDownloads)
              .Cascade.AllDeleteOrphan()

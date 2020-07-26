@@ -3,7 +3,6 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Documents.Delete;
 using Cloudents.Command.Documents.PurchaseDocument;
-using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -112,39 +111,39 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("vote"), Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> VoteAsync([FromBody]
-            AddVoteDocumentRequest model,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType.GetValueOrDefault(VoteType.None));
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (DuplicateRowException)
-            {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
-                return BadRequest(ModelState);
-            }
+        //[HttpPost("vote"), Authorize]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> VoteAsync([FromBody]
+        //    AddVoteDocumentRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    try
+        //    {
+        //        var command = new AddVoteDocumentCommand(userId, model.Id, model.VoteType.GetValueOrDefault(VoteType.None));
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (DuplicateRowException)
+        //    {
+        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
+        //        return BadRequest(ModelState);
+        //    }
 
-            catch (UnauthorizedAccessException)
-            {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
-                return BadRequest(ModelState);
-            }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+        //        return BadRequest(ModelState);
+        //    }
 
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-        }
+        //    catch (NotFoundException)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
 
         //[HttpPost("flag"), Authorize]
         //[ProducesResponseType(StatusCodes.Status200OK)]
