@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { CREATE_BROADCAST_ERROR } from '../../global/toasterInjection/componentConsts'
 const Broadcast = () => import('./liveSession/liveSession.vue');
 const Private = () => import('./privateSession/privateSession.vue');
 
@@ -168,19 +169,21 @@ export default {
          
          let self = this
          this.$store.dispatch('updateCreateStudyRoomLive', liveObj)
-            .catch((error) => {
+            .then(() => {
+               self.$store.commit('setComponent')
+            }).catch((error) => {
                self.handleCreateError(error)
             }).finally(() => {
                self.isLoading = false;
-               self.$store.commit('setComponent')
             })
       },
       handleCreateError(error) {
-         console.log(error)
          if(error.response?.status == 409){
             this.errors.showErrorAlreadyCreated = true
             this.currentError = 'showErrorAlreadyCreated'
+            return
          }
+         this.$store.commit('setComponent', CREATE_BROADCAST_ERROR)
       },
       updateError(error) {
          this.currentError = error
