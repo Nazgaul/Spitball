@@ -80,6 +80,7 @@ export default {
         },
         gmailRegister() {
             let userType = this.teacher ? 'tutor' : 'student'
+            this.$store.commit('setGlobalLoading', true);
             if(this.isFromTutorReuqest) {
                 sessionStorage.setItem('hash','#tutorRequest');
                 sessionStorage.setItem('tutorRequest', JSON.stringify({
