@@ -45,17 +45,6 @@
                                 </v-carousel-item>
                             </v-carousel>
                         </div>
-                        <div class="mainItem__item__wrap__paging">
-                            <v-layout class="mainItem__item__wrap__paging__actions">
-                                <button class="mainItem__item__wrap__paging__actions--left"  @click="prevDoc()" v-if="showDesktopButtons">
-                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-left-carousel'"/>
-                                </button>
-                                <div class="mx-4 mainItem__item__wrap__paging--text justify-center">{{$t('documentPage_docPage', [docPage + 1, docPreview.length])}}</div>          
-                                <button class="mainItem__item__wrap__paging__actions--right" @click="nextDoc()" v-if="showDesktopButtons">
-                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-right-carousel'"/>
-                                </button>
-                            </v-layout>
-                        </div>
                     </div>
                 </template>
             </div>
@@ -69,6 +58,7 @@ import utillitiesService from "../../../../../services/utilities/utilitiesServic
 
 const sbVideoPlayer = () => import('../../../../sbVideoPlayer/sbVideoPlayer.vue');
 const unlockItem = () => import('../unlockItem/unlockItem.vue');
+import EventBus from '../../../../../eventBus.js';
 
 export default {
     name: 'mainItem',
@@ -88,6 +78,12 @@ export default {
         }
     },
     watch:{
+        docPage:{
+            immediate:true,
+            handler(val){
+                EventBus.$emit('docPage',val);
+            }
+        },
         '$route.params.id'(){
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             // let self = this;
@@ -99,13 +95,6 @@ export default {
 
         showUnlockPage(){
             return (this.docPage > 1 && !this.isPurchased)
-        },
-        showDesktopButtons() {
-            if(this.docPreview) {
-                return !(this.$vuetify.breakpoint.xsOnly || this.docPreview.length < 2);
-
-            }
-            return false;
         },
         isPurchased() {
             return this.document?.id ? this.document.isPurchased : false;
@@ -214,6 +203,10 @@ export default {
             }
         }
     },
+    mounted() {
+        EventBus.$on('prevDoc',this.prevDoc)
+        EventBus.$on('nextDoc',this.nextDoc)
+    },
 }
 </script>
 
@@ -246,50 +239,6 @@ export default {
 
                     @media (max-width: @screen-xs) {
                         border-radius: 0;
-                    }
-                }
-                &__paging{
-                    &__actions {
-                            display: flex;
-                            justify-content: center;
-                            background: #fff;
-                            padding: 14px 0;
-                            border-radius: 0 0 8px 8px;
-                        &--img {
-                            transform: none /*rtl:scaleX(-1)*/;
-                            color: #4c59ff !important; //vuetify
-                            font-size: 14px !important; //vuetify
-                            font-weight: 600;
-    
-                            &:before {
-                                font-weight: 600 !important;
-                            }
-                        }
-                        &--left {
-                            width: 32px;
-                            padding: 2px 6px 6px 6px;
-                            border-radius: 38px 0 0 38px;
-                            border: solid 1px #d7d7d7;
-                            outline: none;
-                            background: #fff;
-                        }
-                        &--right {
-                            width: 32px;
-                            padding: 2px 6px 6px 6px;
-                            border-radius: 0 38px 38px 0;
-                            border: solid 1px #d7d7d7;
-                            outline: none;
-                            background: #fff;
-                        }
-                    }
-                    &--text {
-                        min-width: 120px;
-                        text-align: center;
-                        display: flex;
-                        align-items: center;
-                        font-size: 16px;
-                        color: #4d4b69;
-                        font-weight: 600;
                     }
                 }
             }
