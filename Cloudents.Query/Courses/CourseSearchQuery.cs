@@ -44,7 +44,7 @@ namespace Cloudents.Query.Courses
 
                 if (!string.IsNullOrEmpty(query.Term))
                 {
-                    dbQuery = dbQuery.Where(w => w.Name.Like(query.Term));
+                    dbQuery = dbQuery.Where(w => w.Name.Like($"{query.Term}%"));
                 }
 
                 return await dbQuery.Select(s => new CourseDto()

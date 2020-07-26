@@ -145,13 +145,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(null)]
 
-        [InlineData("ארה\"ב")]
+        [InlineData("t")]
         [InlineData("ממ\"")]
         [InlineData("אלגברה ל")]
         public async Task CourseSearchQuery_Ok(string term)
         {
             var query = new CourseSearchQuery(638, term);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var x = await fixture.QueryBus.QueryAsync(query, default);
         }
 
        
