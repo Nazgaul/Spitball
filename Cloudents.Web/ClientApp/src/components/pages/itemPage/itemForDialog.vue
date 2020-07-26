@@ -2,39 +2,11 @@
   <div class="itemPage">
     <div class="itemPage__main">
       <div class="itemPage__main__document">
-        <mainItem :document="document"></mainItem>
-        <v-card class="itemActions pt-sm-11 pt-4 px-4 elevation-0">
-          <div class="docWrapper d-block d-sm-flex justify-sm-center text-center pb-4">
-            <template v-if="getDocumentPrice && !getIsPurchased">
-              <div class="d-flex align-end me-4 justify-center mb-2 mb-sm-0">
-                <template v-if="isFree || getDocumentPriceTypeHasPrice">
-                  <div class="me-1 price">{{priceWithComma}}</div>
-                  <span class="points" v-t="'documentPage_points'"></span>
-                </template>
-              </div>
-            </template>
-
-            <v-btn v-if="!getIsPurchased" class="itemPage__side__btn white--text"
-              :loading="getBtnLoading" @click="openPurchaseDialog"
-              height="42" color="#4c59ff" depressed rounded large>
-              <span v-if="isVideo">{{unlockVideoBtnText}}</span>
-              <span v-else>{{unlockDocumentBtnText}}</span>
-            </v-btn>
-
-            <v-btn v-if="!isVideo && getIsPurchased"
-              class="itemPage__side__btn white--text"
-              tag="a" :href="downloadUrl" target="_blank"
-              :loading="getBtnLoading" @click="downloadDoc"
-              color="#4c59ff" rounded depressed height="42" large>
-              <span v-t="'documentPage_download_btn'"></span>
-            </v-btn>
-
-          </div>
-        </v-card>
+        <mainItem :document="getDocumentDetails"></mainItem>
       </div>
     </div>
 
-    <unlockDialog :document="document"></unlockDialog>
+    <unlockDialog :document="getDocumentDetails"></unlockDialog>
 
     <v-snackbar v-model="snackbar" :top="true" :timeout="8000">
       <div class="d-flex justify-space-between align-center" >
@@ -54,7 +26,6 @@ import { mapActions, mapGetters } from "vuex";
 
 //services
 import * as dialogNames from "../global/dialogInjection/dialogNames.js";
-import * as routeNames from "../../../routes/routeNames";
 
 //store
 import storeService from "../../../services/store/storeService";
@@ -71,38 +42,14 @@ export default {
     unlockDialog,
   },
   props: {
-    id: {
-      // type: String
-    }
+    id: {}
   },
   computed: {
     ...mapGetters([
-      "accountUser",
-      "getDocumentDetails",
       // "getDocumentName",
-      "getDocumentPrice",
-      "getIsPurchased",
       "getShowItemToaster",
-      "getBtnLoading",
-      "getDocumentPriceTypeFree",
-      "getDocumentPriceTypeHasPrice",
-      "getDocumentPriceTypeSubscriber"
+      'getDocumentDetails'
     ]),
-    isFree() {
-      return this.getDocumentPriceTypeFree;
-    },
-    unlockDocumentBtnText() {
-      if(this.isFree || this.getDocumentPriceTypeHasPrice) {
-        return this.$t('documentPage_unlock_document_btn')
-      }
-      return this.$t('documentPage_unlock_document_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
-    },
-    unlockVideoBtnText() {
-      if(this.isFree || this.getDocumentPriceTypeHasPrice) {
-        return this.$t('documentPage_unlock_video_btn')
-      }
-      return this.$t('documentPage_unlock_video_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
-    },
     snackbar: {
       get() {
         return this.getShowItemToaster;
@@ -111,72 +58,18 @@ export default {
         this.updateItemToaster(val);
       }
     },
-    document() {
-      if (this.getDocumentDetails) {
-        return this.getDocumentDetails;
-      }
-      return {};
-    },
-    doucmentDetails() {
-      //TODO why explaind why not use document()
-      return this.getDocumentDetails;
-    },
-    isVideo() {
-      return this.document.documentType === "Video";
-    },
-    priceWithComma() {
-      return this.document?.id ? this.document.price.toLocaleString() : null;
-    },
-    downloadUrl(){
-      return `/document/${this.id}/download`;
-    }
   },
   methods: {
     ...mapActions([
       "documentRequest",
       "clearDocument",
       "updateItemToaster",
-      "updatePurchaseConfirmation",
-      "downloadDocument"
     ]),
 
     openBuyTokenDialog() {
       this.updateItemToaster(false);
       this.$openDialog(dialogNames.BuyPoints);
     },
-    openPurchaseDialog() {
-      if (this.getDocumentPriceTypeSubscriber) {
-        if(this.$route.name == routeNames.Profile){
-          this.$vuetify.goTo('#subscription');
-          this.$store.dispatch('updateCurrentItem');
-          return
-        }else{
-          this.$router.push({
-            name: routeNames.Profile,
-            params: {
-              id: this.doucmentDetails.userId,
-              name: this.doucmentDetails.userName
-            },
-            hash: "#subscription"
-          });
-          return;
-        }
-      }
-      if (this.accountUser) {
-        this.updatePurchaseConfirmation(true);
-      } else {
-        this.$store.commit("setComponent", "register");
-      }
-    },
-    downloadDoc(e) {
-      if (!this.accountUser) {
-        e.preventDefault();
-      }
-      let item = {
-        id: this.document.id
-      };
-      this.downloadDocument(item);
-    }
   },
 
   beforeDestroy() {
@@ -240,26 +133,10 @@ export default {
     }
     &__document {
       width: 100%;
-      margin: 0 auto 16px;
-
+      margin: 0 auto;
       @media (max-width: @screen-sm) {
         width: auto;
-        margin: 0 auto 8px;
-      }
-      .itemActions {
-        color: @global-purple;
-        @media (max-width: @screen-xs) {
-          border-top: 1px solid #ddd;
-        }
-        .docWrapper {
-          font-weight: 600;
-          .price {
-            .responsive-property(font-size, 30px, null, 18px);
-          }
-          .points {
-            .responsive-property(font-size, 14px, null, 18px);
-          }
-        }
+        margin: 0 auto;
       }
       &__tutor {
         display: flex;

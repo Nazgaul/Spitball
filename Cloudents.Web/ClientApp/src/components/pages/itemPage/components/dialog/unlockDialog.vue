@@ -66,7 +66,7 @@ export default {
           return this.document?.id && this.document.price >= 0 ? this.document.price.toFixed(2) : null;
         },
         isVideo(){      
-            return this.document.documentType === 'Video';
+            return this.document?.documentType === 'Video';
         },
         docTitle() {
           return this.document?.title || null;
