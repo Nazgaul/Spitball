@@ -75,6 +75,13 @@ export default {
                         name: componentConsts.BOOK_FAILED
                     }
                 },
+                [componentConsts.CREATE_BROADCAST_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("create_broadcast_error"),
+                        name: componentConsts.CREATE_BROADCAST_ERROR
+                    }
+                },
                 [componentConsts.WENT_WRONG]:{
                     name:'simpleErrorToaster',
                     params:{

@@ -4,6 +4,8 @@ export const PAYMENT_DIALOG = 'PAYMENT_DIALOG';
 export const ITEM_DIALOG = 'ITEM_DIALOG';
 
 
+// Create Broadcast
+export const CREATE_BROADCAST_ERROR = 'CREATE_BROADCAST_ERROR'
 
 // PROFILE PAGE
 
