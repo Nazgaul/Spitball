@@ -1,10 +1,10 @@
 <template>
     <div class="itemCarouselCard cursor-pointer" @click="openItemDialog">
-        <div class="imageWrapper" :class="{'subscribed': isSubscribed && !isLearnRoute}">
+        <div class="imageWrapper" :class="{'subscribed': !isMyProfile && isSubscribed && !isLearnRoute}">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
-            <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
+            <div class="overlay text-center px-8" v-if="!isMyProfile && isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3">{{subscribeText}}</div>
                 <v-btn class="btn" color="#fff" rounded block @click.stop.prevent="goSubscription">
                     <span>{{subscribeBtnText}}</span>
@@ -78,6 +78,9 @@ export default {
             let price = this.$price(this.item.price, 'USD')
             return this.isMobile ? this.$t('resultNote_subscribe_mobile_btn', [price]) : this.$t('resultNote_subscribe_desktop_btn', [price])
         },
+        isMyProfile() {
+            return this.$store.getters.getIsMyProfile
+        }
         // subscribedPrice() {
         //     return this.item.price
         // },
