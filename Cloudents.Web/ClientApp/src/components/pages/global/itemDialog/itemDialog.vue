@@ -66,7 +66,6 @@ export default {
       'getDocumentPriceTypeSubscriber',
       'getDocumentDetails',
       'getUserLoggedInStatus',
-      'updatePurchaseConfirmation',
       'getDocumentPriceTypeHasPrice',
       'getDocumentPriceTypeFree',
       'getDocumentPrice'
@@ -100,7 +99,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['downloadDocument']),
+    ...mapActions(['downloadDocument',
+      'updatePurchaseConfirmation',
+    ]),
     closeItem(){
       this.$store.dispatch('updateCurrentItem')
     },
