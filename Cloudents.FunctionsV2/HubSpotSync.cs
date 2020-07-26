@@ -13,6 +13,7 @@ using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using NHibernate.Linq;
+using SendGrid.Helpers.Mail;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -27,12 +28,9 @@ namespace Cloudents.FunctionsV2
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             CancellationToken token)
         {
-            //Inject Istateless session comes when it already dispose - need to figure it out this is a work out
-            //using var child = lifetimeScope.BeginLifetimeScope();
-            //var statelessSession =  child.Resolve<IStatelessSession>();
-            var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount",null);
+            var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount", null);
 
-            for (int i = 0; i < amountOfTutors / 100; i++)
+            for (int i = 0; i <= amountOfTutors / 100; i++)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -40,6 +38,24 @@ namespace Cloudents.FunctionsV2
                 }
                 await context.CallActivityAsync("HubSpotSync_DoSync", i);
             }
+
+            await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
+        }
+
+
+        [FunctionName("HubSpotSync_FinishProcess")]
+        public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+            CancellationToken token)
+        {
+            var message = new SendGridMessage()
+            {
+
+                Subject = "Finish Sync Hubspot",
+                PlainTextContent = $"Finish process {amountOfTutors}"
+            };
+            message.AddTo("ram@cloudents.com");
+            await emailProvider.AddAsync(message, token);
         }
 
         [FunctionName("HubSpotSync_GetCount")]
@@ -48,11 +64,11 @@ namespace Cloudents.FunctionsV2
             ILogger log, CancellationToken token)
         {
             var amountOfTutors = await statelessSession.Query<Tutor>().Fetch(f => f.User)
-                .Where(w => w.User.SbCountry == Country.UnitedStates)
+                .Where(w => w.User.SbCountry == Country.UnitedStates  && w.State != ItemState.Flagged)
                 .CountAsync(cancellationToken: token);
             return amountOfTutors;
         }
-      
+
 
 
         [FunctionName("HubSpotSync_DoSync")]
@@ -62,7 +78,7 @@ namespace Cloudents.FunctionsV2
         {
             log.LogInformation($"Processing index {index}");
             var tutors = await statelessSession.Query<Tutor>().Fetch(f => f.User)
-                    .Where(w => w.User.SbCountry == Country.UnitedStates)
+                    .Where(w => w.User.SbCountry == Country.UnitedStates && w.State != ItemState.Flagged)
                     .Select(s => new
                     {
                         s.User.Email,
@@ -80,13 +96,14 @@ namespace Cloudents.FunctionsV2
                         s.SubscriptionPrice,
                         Courses = statelessSession.Query<UserCourse>().Any(w => w.User.Id == s.Id),
                         StudyRoom = statelessSession.Query<StudyRoom>().Any(a => a.Tutor.Id == s.Id),
-                        Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 =>  w2.User.Id == s.Id),
+                        Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 => w2.User.Id == s.Id),
                         Followers = statelessSession.Query<Follow>().Count(c => c.User.Id == s.Id),
                         Lessons = statelessSession.Query<StudyRoomSession>().Count(c => c.StudyRoom.Tutor.Id == s.Id),
                     }).OrderBy(o => o.Id).Take(100).Skip(100 * index)
                     .ToListAsync();
             foreach (var tutor in tutors)
             {
+                
                 var contact = await Client.GetContactByEmailAsync(tutor.Email);
 
                 IFutureEnumerable<string>? coursesFuture = null;
@@ -174,6 +191,11 @@ namespace Cloudents.FunctionsV2
                     contact.Website = $"https://www.spitball.co/p/{tutor.Id}";
                 }
 
+                if (string.IsNullOrEmpty(contact.LeadStatus))
+                {
+                    contact.LeadStatus = "NEW";
+                }
+
                 if (string.IsNullOrEmpty(contact.OwnerId))
                 {
                     contact.OwnerId = "49087036";
@@ -201,7 +223,7 @@ namespace Cloudents.FunctionsV2
                 contact.PrivateDone = contact.PrivateScheduled =
                     studyRoomData.Count(w => w.Type == StudyRoomType.Private);
 
-                contact.TutorState = contact.LiveDone == 0 && contact.LiveScheduled == 0 ? "Opportunity" : "Customer";
+                contact.TutorState = contact.LiveDone == 0 && contact.LiveScheduled == 0 ? "opportunity" : "customer";
                 await Client.CreateOrUpdateAsync(contact, needInsert);
             }
 
@@ -219,9 +241,21 @@ namespace Cloudents.FunctionsV2
             {
                 return;
             }
-            // Function input comes from the request content.
-            string instanceId = await starter.StartNewAsync("HubSpotSync", "HubSpotSync2");
-            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+
+            const string instanceId = "HubSpotSync3";
+            DurableOrchestrationStatus? status;
+            do
+            {
+                status  = await starter.GetStatusAsync(instanceId);
+                if (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+                {
+                    await starter.TerminateAsync(instanceId, "new run");
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+                }
+
+            } while (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running);
+            string instanceId2 = await starter.StartNewAsync("HubSpotSync", instanceId);
+            log.LogInformation($"Started orchestration with ID = '{instanceId2}'.");
         }
 
 
@@ -231,13 +265,13 @@ namespace Cloudents.FunctionsV2
             {
                 Type = type;
                 BroadcastTime = broadcastTime;
-              //  Count = count;
+                //  Count = count;
             }
 
-            public StudyRoomType Type { get;  }
-            public DateTime? BroadcastTime { get;  }
+            public StudyRoomType Type { get; }
+            public DateTime? BroadcastTime { get; }
 
-           // private int Count { get; }
+            // private int Count { get; }
         }
     }
 }
