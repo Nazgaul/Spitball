@@ -2,7 +2,7 @@
   <v-dialog :value="true" content-class="itemDialog" :fullscreen="$vuetify.breakpoint.xsOnly"
     persistent :overlay="false" max-width="974px" transition="dialog-transition" scrollable>
     <v-card>
-      <v-card-title class="itemTitle px-4 pt-4 pt-sm-3 pb-0 pb-sm-3">
+      <v-card-title class="itemTitle px-4 pt-6 pt-sm-3 pb-0 pb-sm-3">
         <h1 class="itemTitleText" :class="{'text-truncate':!isMobile}">{{getDocumentName}}</h1>
         <v-spacer v-if="!isMobile"></v-spacer>
         <template v-if="$store.getters.getDocumentLoaded">
