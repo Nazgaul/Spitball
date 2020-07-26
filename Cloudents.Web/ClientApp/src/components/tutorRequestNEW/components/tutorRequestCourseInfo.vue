@@ -94,7 +94,7 @@ export default {
                 return 
             }
             if(!!term){
-                courseService.getCourse({term, page:0}).then(data=>{
+                courseService.getCourse({term}).then(data=>{
                     this.suggestsCourses = data;
                     if(this.suggestsCourses.length) {
                         this.suggestsCourses.forEach(course=>{
