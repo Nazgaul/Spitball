@@ -39,13 +39,13 @@ export const studyRoomRoutes = [
                         global.open(routeData.href, "_self"); 
                     }else{
                         next();
-                        return
+
                     }
                 })
                 .catch((err)=>{
                     if(err?.response){
                         next('/');
-                        return
+
                     }
                 })
         }
@@ -60,16 +60,16 @@ export const studyRoomRoutes = [
         beforeEnter: (to, from, next) => {
             if(!to.params?.id){
                 next('/');
-                return
+
             }else{
                 store.dispatch('updateRoomDetails',to.params.id)
                      .then(()=>{
                         next();
-                        return;
+
                     })
                     .catch(()=>{
                         next('/');
-                        return
+
                     })
             }
         }

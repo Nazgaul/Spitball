@@ -1,14 +1,8 @@
 <template>
-  <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''">
+  <div v-show="url" class="d-block note-block" @click="openItemDialog">
     <div class="document-header-container">
       <div class="document-header-large-sagment">
-        <!-- <user-avatar
-          size="34"
-          v-if="authorName"
-          :userImageUrl="userImageUrl"
-          :user-name="authorName"
-          :user-id="authorId"
-        /> -->
+
         <userAvatarNew 
           v-if="authorName"
           :userImageUrl="userImageUrl"
@@ -62,7 +56,7 @@
     <slot name="descriptionTitle"></slot>
 
     <v-flex grow class="top-row">
-      <template v-if="!fromItemPage">
+      <template>
         <v-skeleton-loader
           v-if="!isPreviewReady"
           class="document-body-card-img"
@@ -88,7 +82,7 @@
         </div>
       </template>
 
-      <div class="type-wrap" :class="{'type-wrap--noPadding': fromItemPage}">
+      <div class="type-wrap">
           <div class="wrapHeight">
             <v-flex grow class="data-row">
               <div class="content-wrap">
@@ -109,21 +103,12 @@
             </v-flex>
           </div>
 
-          <documentLikes v-if="!isMobile && !fromItemPage" :item="item" />
+          <documentLikes v-if="!isMobile" :item="item" />
       </div>
       
     </v-flex>
 
-    <documentLikes v-if="isMobile && !fromItemPage" :item="item" />
-
-    <sb-dialog
-      :showDialog="showReport"
-      :maxWidth="'438px'"
-      :popUpType="'reportDialog'"
-      :content-class="`reportDialog`"
-    >
-      <report-item v-if="showReport" :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
-    </sb-dialog>
+    <documentLikes v-if="isMobile" :item="item" />
     <sb-dialog
       :showDialog="priceDialog"
       :maxWidth="'438px'"
@@ -167,8 +152,8 @@
     </sb-dialog>
 
     <slot name="isTutor"></slot>
-
-  </router-link>
+  </div>
+  <!-- </router-link> -->
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -180,10 +165,10 @@ import documentService from "../../services/documentService";
 import * as routeNames from '../../routes/routeNames';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const reportItem = () => import("./helpers/reportItem/reportItem.vue");
 const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 const documentPrice = () => import("../pages/global/documentPrice/documentPrice.vue");
+
 import VueNumeric from 'vue-numeric'
 
 import vidSVG from "./svg/vid.svg";
@@ -191,12 +176,12 @@ import vidSVG from "./svg/vid.svg";
 export default {
   components: {
     sbDialog,
-    reportItem,
     documentLikes,
     vidSVG,
     intersection,
     documentPrice,
-    VueNumeric
+    VueNumeric,
+
   },
   data() {
     return {
@@ -206,13 +191,6 @@ export default {
       loading: false,
       actions: [
         {
-          title: 'questionCard_Report',
-          action: this.reportItem,
-          isDisabled: this.isDisabled,
-          isVisible: this.isVisible,
-          visible: true
-        },
-        {
           title: 'resultNote_change_price',
           action: this.showPriceChangeDialog,
           isDisabled: this.isOwner,
@@ -221,15 +199,13 @@ export default {
           visible: true
         },
         {
-          title: 'resultNote_action_delete_doc',
+          title: this.$t('resultNote_action_delete_doc'),
           action: this.deleteDocument,
           isDisabled: this.isOwner,
           isVisible: this.isVisible,
           visible: true
         }
       ],
-      itemId: 0,
-      showReport: false,
       showMenu: false,
       priceDialog: false,
       newPrice: this.item.price ? this.item.price : 0,
@@ -238,10 +214,6 @@ export default {
   props: {
     item: { type: Object, required: true },
     index: { Number },
-    fromItemPage: {
-      type: Boolean,
-      default: false
-    }
   },
   watch: {
     priceDialog(val) {
@@ -358,13 +330,6 @@ export default {
     showPriceChangeDialog() {
       this.priceDialog = true;
     },
-    isDisabled() {
-      return this.cardOwner || !this.accountUser;
-    },
-    reportItem() {
-      this.itemId = this.item.id;
-      this.showReport = !this.showReport;
-    },
     deleteDocument() {
       let id = this.item.id;
       documentService.deleteDoc(id).then(() => {
@@ -387,12 +352,12 @@ export default {
         }
       );
     },
-    closeReportDialog() {
-      this.showReport = false;
-    },
     showReportOptions() {
       this.showMenu = true;
-    }
+    },
+    openItemDialog(){
+      this.$store.dispatch('updateCurrentItem',this.item.id);
+    },
   },
   filters: {
     truncate(val, isOpen, suffix, textLimit){

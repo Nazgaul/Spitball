@@ -1,12 +1,12 @@
 <template>
-    <router-link v-if="item.url" :to="item.url" class="itemCarouselCard">
+    <div class="itemCarouselCard cursor-pointer" @click="openItemDialog">
         <div class="imageWrapper" :class="{'subscribed': isSubscribed && !isLearnRoute}">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
             </intersection>
             <div class="overlay text-center px-8" v-if="isSubscribed && !isLearnRoute">
                 <div class="unlockText white--text mb-3">{{subscribeText}}</div>
-                <v-btn class="btn" color="#fff" rounded block @click.prevent="goSubscription">
+                <v-btn class="btn" color="#fff" rounded block @click.stop.prevent="goSubscription">
                     <span>{{subscribeBtnText}}</span>
                 </v-btn>
             </div>
@@ -32,12 +32,10 @@
                 </div>
             </div>
             <div class="itemCard-bottom">
-                <!-- <span v-if="item.price" class="item-purchases">{{$tc('itemCardCarousel_purchased', item.purchased)}}</span>
-                <span v-else class="item-purchases">{{$tc('itemCardCarousel_downloaded', item.downloads)}}</span> -->
                 <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
             </div>
         </div>
-    </router-link>
+    </div>
 </template>
 
 <script>
@@ -85,6 +83,9 @@ export default {
         // },
     },
     methods: {
+        openItemDialog(){
+            this.$store.dispatch('updateCurrentItem',this.item.id);
+        },
         goSubscription() {
             if(!this.isProfilePage) {
                 this.$router.push({
@@ -222,14 +223,7 @@ export default {
         }
         .itemCard-bottom{
             display: flex;
-            //justify-content: space-between;
             justify-content: flex-end;
-            //align-items: center;
-            // .item-purchases{
-            //     font-size: 13px;
-            //     font-weight: bold;
-            //     color: @global-purple;
-            // }
             // .item-pts{
             //     font-size: 14px;
             //     font-weight: bold;

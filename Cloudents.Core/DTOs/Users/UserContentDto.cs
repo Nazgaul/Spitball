@@ -23,19 +23,19 @@ namespace Cloudents.Core.DTOs.Users
         public string Url { get; set; }
     }
 
-    public class UserQuestionsDto : UserContentDto
-    {
-        public long Id { get; set; }
-        public override string Type => "Question";
-        public string Text { get; set; }
-        public string AnswerText { get; set; }
-    }
+    //public class UserQuestionsDto : UserContentDto
+    //{
+    //    public long Id { get; set; }
+    //    public override string Type => "Question";
+    //    public string Text { get; set; }
+    //    public string AnswerText { get; set; }
+    //}
 
-    public class UserAnswersDto : UserContentDto
-    {
-        public long QuestionId { get; set; }
-        public override string Type => "Answer";
-        public string QuestionText { get; set; }
-        public string AnswerText { get; set; }
-    }
+    //public class UserAnswersDto : UserContentDto
+    //{
+    //    public long QuestionId { get; set; }
+    //    public override string Type => "Answer";
+    //    public string QuestionText { get; set; }
+    //    public string AnswerText { get; set; }
+    //}
 }

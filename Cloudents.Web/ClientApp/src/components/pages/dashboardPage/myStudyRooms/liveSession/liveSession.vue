@@ -43,8 +43,6 @@
                         class="date-picker"
                         @input="datePickerMenu = false"
                         :allowed-dates="allowedDates"
-                        :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
-                        :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                         color="#4C59FF"
                         dense
                         no-title
@@ -117,7 +115,7 @@
                     <v-radio-group v-model="radioEnd" class="mt-0 ms-sm-3" row>
                         <v-radio class="mb-3" value="on" sel="datePicker">
                             <template v-slot:label>
-                                <span class="sessionOn">{{$t('on')}}</span>
+                                <span class="sessionOn" :class="{'ml-4': $vuetify.rtl}">{{$t('on')}}</span>
                                 <div @click.stop.prevent="">
                                     <v-menu 
                                         ref="datePickerOcurrence"
@@ -154,8 +152,6 @@
                                             class="date-picker"
                                             @input="datePickerOcurrence = false"
                                             :allowed-dates="allowedDatesEnd"
-                                            :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
-                                            :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                                             color="#4C59FF"
                                             dense
                                             no-title
@@ -170,7 +166,7 @@
                         </v-radio>
                         <v-radio value="after">
                             <template v-slot:label>
-                                <span class="sessionAfter">
+                                <span class="sessionAfter" :class="{'ml-4': $vuetify.rtl}">
                                     {{$t('after')}}
                                 </span>
                                 <div @click.stop.prevent="" class="d-flex align-center">
@@ -307,15 +303,14 @@ export default {
         },
     },
     data() {
-        var currentTime = new Date();
-        var currentHour = currentTime.getHours().toString().padStart(2,'0')
-        var currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
+        const currentTime = new Date();
+        let currentHour = currentTime.getHours().toString().padStart(2, '0');
+        let currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
         if (currentMinutes === 60) {
             currentHour++;
             currentMinutes = 0;
         }
         return {
-            isRtl: global.isRtl,
             currentRepeatDayOfTheWeek: new Date().getDay(),
             radioEnd: 'on',
             liveSessionTitle: '',
@@ -461,16 +456,6 @@ export default {
                 })
             }
         }
-    },
-    created() {
-        if(this.isRtl) {
-            this.$nextTick(() => {
-                document.querySelectorAll('.roomHour .v-label').forEach(elem => {
-                    elem.style.right = '-28px'
-                })
-            })
-        }
-        
     }
 }
 </script>
@@ -587,6 +572,11 @@ export default {
             font-size: 16px;
             color: #adb1b4;
         }
+    }
+}
+.date-picker {
+    .v-icon {
+        font-size: 14px !important;
     }
 }
 </style>

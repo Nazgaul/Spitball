@@ -1,6 +1,7 @@
 
 // DIALOGS:
 export const PAYMENT_DIALOG = 'PAYMENT_DIALOG';
+export const ITEM_DIALOG = 'ITEM_DIALOG';
 
 
 
@@ -12,6 +13,7 @@ export const TUTOR_EDIT_PROFILE = 'TUTOR_EDIT_PROFILE'
 export const REGISTER = 'register';
 
 // TOASTERS:
+export const PURCHASE_TRANSACTION = 'PURCHASE_TRANSACTION';
 
 // TOASTERS: ERRORS:
 export const BOOK_FAILED = 'BOOK_FAILED';

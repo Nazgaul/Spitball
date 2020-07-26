@@ -38,11 +38,11 @@ const injectMetadata = async function(blob) {
         elms.forEach((elm) => { reader.read(elm); });
         reader.stop();
 
-        var refinedMetadataBuf = tools.makeMetadataSeekable(
-            reader.metadatas, reader.duration, reader.cues);
-        var body = buffer.slice(reader.metadataSize);
+       const refinedMetadataBuf = tools.makeMetadataSeekable(
+           reader.metadatas, reader.duration, reader.cues);
+       const body = buffer.slice(reader.metadataSize);
 
-        const result = new Blob([refinedMetadataBuf, body],
+       const result = new Blob([refinedMetadataBuf, body],
             {type: blob.type});
 
        return result;

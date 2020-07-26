@@ -343,10 +343,9 @@ export default {
                 }
                 .v-input{
                     margin: 0;
-                    padding: 0;
                     font-weight: 600;
-                    padding-left: 4px;
-                    padding-top: 2px;
+                    padding: 2px 0 0 4px;
+
                     .v-input__control {
                         .v-input__slot{
                             margin: 0;

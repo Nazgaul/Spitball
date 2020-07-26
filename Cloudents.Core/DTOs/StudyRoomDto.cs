@@ -85,6 +85,8 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<DateTime>? NextEvents { get; set; }
 
         public bool SessionStarted { get; set; }
+
+        public string Image { get; set; }
         //public int? RecurringTimes => 50; // { get; set; }
 
         //public IEnumerable<DayOfWeek>? RecurringDays =>

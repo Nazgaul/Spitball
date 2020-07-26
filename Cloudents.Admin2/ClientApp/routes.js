@@ -1,18 +1,4 @@
 //import Home from './components/Home.vue';
-
-import question from './components/question/question.vue';
-import qDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
-import qAdd from './components/question/questionComponents/add/addQuestion.vue';
-import qAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
-import qAccept from './components/question/questionComponents/accept/acceptQuestion.vue';
-import qPending from './components/question/questionComponents/pendingQuestions/pendingQuestions.vue';
-import qFlagged from './components/question/questionComponents/flaggedQuestions/flaggedQuestions.vue';
-
-import answer from './components/answer/answer.vue';
-import aDelete from './components/answer/answerComponents/delete/deleteAnswer.vue';
-import aAccept from './components/answer/answerComponents/accept/acceptAnswer.vue';
-import aFlagged from './components/answer/answerComponents/flaggedAnswers/flaggedAnswers.vue';
-
 import user from './components/user/user.vue';
 import uToken from './components/user/token/tokenUser.vue';
 import uCashout from './components/user/cashout/cashoutUser.vue';
@@ -30,8 +16,6 @@ import flaggedDocument from './components/document/documentComponents/flaggedDoc
 
 
 import userMain from './components/userMainView/userMainView.vue';
-import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
-import userAnswers from './components/userMainView/userAnswers/userAnswers.vue';
 import userDocuments from './components/userMainView/userDocuments/userDocuments.vue';
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
@@ -66,16 +50,6 @@ export const routes = [
        component: userMain,
        props: true,
         children: [
-            {
-                name: 'userQuestions',
-                path: 'userQuestions',
-                component: userQuestions
-            },
-            {
-                name: 'userAnswers',
-                path:'userAnswers',
-                component: userAnswers
-            },
             {
                 name:'userDocuments',
                 path:'userDocuments',
@@ -139,79 +113,6 @@ export const routes = [
             }
         ]
     },
-    {
-        path: '/question',
-        name: 'question',
-        // route level code-splitting
-        // this generates a separate chunk (question.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        // component: () => import(/* webpackChunkName: "about" */ './components/question/question')
-        component: question,
-        children: [
-          {
-            path: '',
-            redirect: 'pendingQuestions'
-          },
-          {
-            path:'delete',
-            component: qDelete
-          },
-          {
-            path:'add',
-            component: qAdd
-          },
-          {
-            path:'addBulk',
-            component: qAddBulk
-          },
-          {
-            path:'acceptQuestion',
-            component: qAccept
-          },
-          {
-            path:'pendingQuestions',
-            component: qPending
-          },
-          {
-            path:'flaggedQuestions',
-            component: qFlagged
-          },
-          {
-            path: '*',
-            redirect: 'pendingQuestions'
-          }
-        ]
-    },
-
-    {
-        path: '/answer',
-        name: 'answer',
-        component: answer,
-        children: [
-            {
-              path: '',
-              redirect: 'flaggedAnswers'
-            },
-            {
-                path: 'delete',
-                component: aDelete
-            },
-          
-            {
-                path: 'acceptAnswer',
-                component: aAccept
-            },
-            {
-                path: 'flaggedAnswers',
-                component: aFlagged
-            },
-            {
-              path: '*',
-              redirect: 'delete'
-            }
-        ]
-    },
-
       {
         path: '/user',
         name: 'user',

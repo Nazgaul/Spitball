@@ -41,9 +41,9 @@ export default {
         // docPurchased() {
         //     return this.item.purchased;
         // },
-        logged() {
-            return this.$store.getters.getUserLoggedInStatus;
-        }
+        // logged() {
+        //     return this.$store.getters.getUserLoggedInStatus;
+        // }
     }
 }
 </script>

@@ -117,7 +117,7 @@ const actions = {
             if(b[sortBy] > a[sortBy])return 1;
             return 0;
          });
-         return;
+
       }
    },
    // updateTutorActions() {

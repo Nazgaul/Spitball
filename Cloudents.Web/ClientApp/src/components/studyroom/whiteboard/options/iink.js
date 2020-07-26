@@ -46,10 +46,10 @@ const sizeProportion = 2;
 const getImageDimensions = function(text, id){
    return new Promise(function(resolve){
     MathJax.AuthorInit(`$$${text}$$`, (output)=>{
-        var DOMURL = window.URL || window.webkitURL || window;     
+        const DOMURL = window.URL || window.webkitURL || window;
         let img = new Image();
-        var svg = new Blob([output.svg], {type: 'image/svg+xml'});
-        var url = DOMURL.createObjectURL(svg);
+        const svg = new Blob([output.svg], {type: 'image/svg+xml'});
+        const url = DOMURL.createObjectURL(svg);
         img.onload = function() {
             let imgObj = {
                 img,
@@ -65,12 +65,12 @@ const getImageDimensions = function(text, id){
 
 
 const drawContext = function(svgText, textObj){
-    var DOMURL = window.URL || window.webkitURL || window;     
+    const DOMURL = window.URL || window.webkitURL || window;
     let img = new Image();
-    let self = this; 
-    var svg = new Blob([svgText.svg], {type: 'image/svg+xml'});
-     var url = DOMURL.createObjectURL(svg);
-     img.onload = function() {
+    let self = this;
+    const svg = new Blob([svgText.svg], {type: 'image/svg+xml'});
+    const url = DOMURL.createObjectURL(svg);
+    img.onload = function() {
         let imgObj = {
             img,
             text: textObj.text

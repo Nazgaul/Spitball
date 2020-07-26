@@ -43,7 +43,7 @@
                   @selectedDocument="selectedDocument"
                   ref="childComponent">
                 </component>
-                <div class="text-sm-right text-center">
+                <div class="text-sm-end text-center">
                   <v-alert type="error" class="text-left mt-4 mb-0" v-show="error">{{$t('promote_table_error')}}</v-alert>
                   <v-btn class="white--text mt-10" width="120" depressed v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
                   <v-btn class="white--text mt-10" width="120" depressed v-if="step == 4" :to="{name: routeNames.Dashboard}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
@@ -96,14 +96,16 @@ export default {
           title2: this.$t('promote_createOffer_title2'),
           image: require('../images/promoteVideo.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteVideos
+          action: this.promoteVideos,
+          isDisabled:true
         },
         box3: {
           title1: this.$t('promote_createVideo_title1'),
           title2: this.$t('promote_createVideo_title2'),
           image: require('../images/promoteContent.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteDocuments
+          action: this.promoteDocuments,
+          isDisabled:true
         }
       }
     }

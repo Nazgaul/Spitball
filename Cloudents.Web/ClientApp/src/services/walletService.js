@@ -36,7 +36,7 @@ export default {
         
     },
     async subscribe(id) {
-        var {data} =  await axios.post(`/Tutor/${id}/subscribe`);
+        let {data} = await axios.post(`/Tutor/${id}/subscribe`);
         return data;
        
     }

@@ -83,9 +83,9 @@ const actions = {
     setAllCourse({commit}, course){
         commit('updateCourseToAll', course);
     },
-    setCourse({commit}, course){
-        commit('updateCourse', course);
-    },
+    // setCourse({commit}, course){
+    //     commit('updateCourse', course);
+    // },
     setFileBlobNameById({commit}, fileIdName){
         commit('updateBlobName', fileIdName);
     }

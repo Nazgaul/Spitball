@@ -27,7 +27,7 @@ versionCheck();
 
 function errorHandling(err) {
     let body = document.body;
-    var errJson = JSON.stringify(err);
+    const errJson = JSON.stringify(err);
     console.error(err);
     //for (let prop in err) {
     let el = document.createElement('div');

@@ -21,6 +21,7 @@
   </v-app>
 </template>
 
+<!--suppress JSUnusedGlobalSymbols -->
 <script>
 const studyRoomDrawer = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomDrawer/studyRoomDrawer.vue');
 const studyRoomFooter = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomFooter/studyRoomFooter.vue');

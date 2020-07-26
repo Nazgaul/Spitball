@@ -144,8 +144,7 @@ export default {
          return this.roomDetails?.tutorId == this.$store.getters.accountUser?.id;
       },
       roomImage(){
-         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.roomDetails?.id}`
-         return this.$proccessImageUrl(imageUrl, 528, 357)
+         return this.$proccessImageUrl(this.roomDetails?.image, 528, 357)
       },
       recurringDetails(){
          return this.$store.getters.getSessionRecurring(this.roomDetails.nextEvents)

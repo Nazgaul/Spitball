@@ -179,10 +179,8 @@
             return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
             },
             termOfServiceLink() {
-                if(global.country === 'US') {
-                    return true
-                }
-                return false
+                return global.country === 'US';
+
             }
         },
         watch: {

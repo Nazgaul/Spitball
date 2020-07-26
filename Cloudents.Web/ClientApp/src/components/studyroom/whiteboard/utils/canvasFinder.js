@@ -152,7 +152,7 @@ const getShapeByPoint = function(x, y, globalObj, dragData){
                 let isShapeFound = clickSearchShapeByType[shape.type](x, y, shape, ctx);
                 if(isShapeFound){
                     selectedShape[shape.id] = shape;
-                    return;
+
                 }
         });
     }
@@ -270,7 +270,7 @@ const getBoundriesPoints = function(points){
       
         let transform = ctx.transform;
         ctx.transform = function(a,b,c,d,e,f){
-            var m2 = svg.createSVGMatrix();
+            const m2 = svg.createSVGMatrix();
             m2.a=a; m2.b=b; m2.c=c; m2.d=d; m2.e=e; m2.f=f;
             xform = xform.multiply(m2);
             return transform.call(ctx,a,b,c,d,e,f);

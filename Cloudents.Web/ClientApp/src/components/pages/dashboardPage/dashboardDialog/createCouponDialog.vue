@@ -43,7 +43,7 @@
                       v-model="dateFormatted" prepend-inner-icon="sbf-calendar" @blur="date = parseDate(dateFormatted)"
                       dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44" v-on="on" />
                   </template>                  
-                  <v-date-picker color="#4C59FF" class="date-picker-coupon" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
+                  <v-date-picker color="#4C59FF" class="date-picker-coupon" v-model="date" no-title @input="datePickerMenu = false">
                     <v-spacer></v-spacer>
                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
                     <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
@@ -64,10 +64,10 @@
       <div class="btns-wrap">
         <!-- <v-btn v-closeDialog class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed> -->
         <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed>
-          <span v-t="showSuccess?'coupon_btn_exit':'coupon_btn_cancel'"/>
+          <span> {{showSuccess?$t('coupon_btn_exit'):$t('coupon_btn_cancel')}} </span>
         </v-btn>
         <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ms-1 ms-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
-          <span v-t="showSuccess?'coupon_btn_copy':'coupon_btn_submit'"/>
+          <span> {{showSuccess?$t('coupon_btn_copy'):$t('coupon_btn_submit')}} </span>
         </v-btn>
       </div>
     </div>
@@ -109,8 +109,7 @@ export default {
       datePickerMenu:false,
       date: new Date().FormatDateToString(),
       dateFormatted: '',
-      couponErr:'',
-      isRtl: global.isRtl,
+      couponErr:''
     }
   },
   watch: {

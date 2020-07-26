@@ -42,8 +42,7 @@ export default {
          return this.$store.getters.getRoomDetails?.date;
       },
       roomImage(){
-         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.$store.getters.getRoomDetails?.id}`
-         return this.$proccessImageUrl(imageUrl, 402, 268)
+         return this.$proccessImageUrl(this.$store.getters.getRoomDetails?.image, 402, 268)
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
@@ -142,8 +141,7 @@ export default {
             }
          }
          .logoThankYouMobile{
-            margin: 0;
-            margin-top: 10px;
+            margin: 10px 0 0;
             opacity: 0.4;
             text-align: initial;
             .logo {
@@ -167,11 +165,10 @@ export default {
             @media(max-width: @screen-xs) {
                max-width: initial;
                width: 100%;
-               padding: 0;
-               border: none;
+                border: none;
                border-radius: initial;
                height: auto;
-               padding-bottom: 50px;
+                padding: 0 0 50px;
             }
             .saveBtn{
                width: 100%;

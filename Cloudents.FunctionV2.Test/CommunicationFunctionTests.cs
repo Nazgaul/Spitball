@@ -24,19 +24,19 @@ namespace Cloudents.FunctionsV2.Test
         }
 
 
-        [Fact]
-        public async Task EmailFunctionAsync_Some_JsonFailed()
-        {
-            var v = new GotAnswerEmail("some question text", "some text", "some answer text", "some link",
-                CultureInfo.InvariantCulture);
+        //[Fact]
+        //public async Task EmailFunctionAsync_Some_JsonFailed()
+        //{
+        //    var v = new GotAnswerEmail("some question text", "some text", "some answer text", "some link",
+        //        CultureInfo.InvariantCulture);
 
-            var jsonText = JsonConvert.SerializeObject(v, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
-            var emailProviderStub = new Mock<IAsyncCollector<SendGridMessage>>();
-            var cloudMessage = new CloudQueueMessage(jsonText);
-            await CommunicationFunction.EmailFunctionAsync(cloudMessage, emailProviderStub.Object, _logger, CancellationToken.None);
-        }
+        //    var jsonText = JsonConvert.SerializeObject(v, new JsonSerializerSettings
+        //    {
+        //        TypeNameHandling = TypeNameHandling.All
+        //    });
+        //    var emailProviderStub = new Mock<IAsyncCollector<SendGridMessage>>();
+        //    var cloudMessage = new CloudQueueMessage(jsonText);
+        //    await CommunicationFunction.EmailFunctionAsync(cloudMessage, emailProviderStub.Object, _logger, CancellationToken.None);
+        //}
     }
 }

@@ -117,7 +117,7 @@ export default {
           });
           this.updateRequestDialog(true);
       } else if(user.isTutor && user.userId == this.accountUser.id) { // this is my profile
-        return
+
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
           let conversationObj = {
@@ -151,10 +151,10 @@ export default {
       return '';
     },
     isSubjects() {
-      return this.tutorData && this.tutorData.subjects.length > 0 ? true : false;
+      return !!(this.tutorData && this.tutorData.subjects.length > 0);
     },
     isCourses() {
-      return this.tutorData && this.tutorData.courses.length > 0 ? true : false;
+      return !!(this.tutorData && this.tutorData.courses.length > 0);
     },
     subjects() {
       return this.tutorData.subjects.join(', ');
@@ -168,7 +168,7 @@ export default {
       return name;
     },
     isReviews() {
-      return this.tutorData.reviews > 0 ? true : false;
+      return this.tutorData.reviews > 0;
     },
     isDiscount() {
       return this.tutorData.discountPrice !== undefined;

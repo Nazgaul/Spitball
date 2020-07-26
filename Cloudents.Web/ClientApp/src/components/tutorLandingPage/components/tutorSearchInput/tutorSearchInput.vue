@@ -235,7 +235,6 @@ export default {
         height:100%;
         box-shadow: none !important;
         background: none;
-        padding: 0;
         margin-bottom: 0!important;
         input {
           padding-right: 15px;
