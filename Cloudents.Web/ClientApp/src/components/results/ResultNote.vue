@@ -109,48 +109,6 @@
     </v-flex>
 
     <documentLikes v-if="isMobile" :item="item" />
-    <sb-dialog
-      :showDialog="priceDialog"
-      :maxWidth="'438px'"
-      :popUpType="'priceUpdate'"
-      :onclosefn="closeNewPriceDialog"
-      :activateOverlay="true"
-      :isPersistent="true"
-      :content-class="`priceUpdate`"
-    >
-      <v-card class="price-change-wrap">
-        <v-flex align-center justify-center class="relative-pos">
-          <div class="title-wrap">
-            <span class="change-title" v-t="'resultNote_change_for'"></span>
-            <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
-          </div>
-          <div class="input-wrap align-center justify-center">
-            <div class="price-wrap">
-              <vue-numeric
-                :currency="$t('app_currency_dynamic')"
-                class="sb-input-upload-price"
-                :minus="false"
-                :min="0"
-                :precision="2"
-                :max="2147483647"
-                :currency-symbol-position="'suffix'"
-                separator=","
-                v-model="newPrice"
-              ></vue-numeric>
-            </div>
-          </div>
-        </v-flex>
-        <div class="change-price-actions">
-          <button @click="closeNewPriceDialog()" class="cancel me-2">
-            <span v-t="'resultNote_action_cancel'"></span>
-          </button>
-          <button @click="submitNewPrice()" class="change-price">
-            <span v-t="'resultNote_action_apply_price'"></span>
-          </button>
-        </div>
-      </v-card>
-    </sb-dialog>
-
     <slot name="isTutor"></slot>
   </div>
   <!-- </router-link> -->
@@ -164,23 +122,18 @@ import documentService from "../../services/documentService";
 
 import * as routeNames from '../../routes/routeNames';
 
-const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const documentLikes = () => import("./resultDocument/documentLikes.vue");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 const documentPrice = () => import("../pages/global/documentPrice/documentPrice.vue");
-
-import VueNumeric from 'vue-numeric'
 
 import vidSVG from "./svg/vid.svg";
 
 export default {
   components: {
-    sbDialog,
     documentLikes,
     vidSVG,
     intersection,
     documentPrice,
-    VueNumeric,
 
   },
   data() {
@@ -191,14 +144,6 @@ export default {
       loading: false,
       actions: [
         {
-          title: 'resultNote_change_price',
-          action: this.showPriceChangeDialog,
-          isDisabled: this.isOwner,
-          isVisible: this.isVisible,
-          icon: "sbf-delete",
-          visible: true
-        },
-        {
           title: this.$t('resultNote_action_delete_doc'),
           action: this.deleteDocument,
           isDisabled: this.isOwner,
@@ -207,20 +152,11 @@ export default {
         }
       ],
       showMenu: false,
-      priceDialog: false,
-      newPrice: this.item.price ? this.item.price : 0,
     }
   },
   props: {
     item: { type: Object, required: true },
     index: { Number },
-  },
-  watch: {
-    priceDialog(val) {
-      if (!val) {
-        this.newPrice = this.item.price;
-      }
-    }
   },
   computed: {
     ...mapGetters(["accountUser"]),
@@ -299,36 +235,12 @@ export default {
         hash: '#subscription'
       })
     },
-    updateItemPrice(val) {
-      if (val || val === 0) {
-        return (this.item.price = val);
-      }
-    },
     isVisible(val) {
       return val;
-    },
-    submitNewPrice() {
-      let data = { id: this.item.id, price: this.newPrice };
-      let self = this;
-      documentService.changeDocumentPrice(data).then(
-        () => {
-          self.updateItemPrice(self.newPrice);
-          self.closeNewPriceDialog();
-        },
-        error => {
-          console.error("erros change price", error);
-        }
-      );
-    },
-    closeNewPriceDialog() {
-      this.priceDialog = false;
     },
     isOwner() {
       let owner = this.cardOwner;
       return !owner;
-    },
-    showPriceChangeDialog() {
-      this.priceDialog = true;
     },
     deleteDocument() {
       let id = this.item.id;
