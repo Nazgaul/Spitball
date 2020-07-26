@@ -5,16 +5,19 @@
       <v-card-title class="itemTitle px-4 pt-4 pt-sm-3 pb-0 pb-sm-3">
         <h1 class="itemTitleText" :class="{'text-truncate':!isMobile}">{{getDocumentName}}</h1>
         <v-spacer v-if="!isMobile"></v-spacer>
-        <template v-if="!getIsPurchased">
-          <v-btn :loading="getBtnLoading" @click="openPurchaseDialog" rounded outlined class="font-weight-bold me-0 me-sm-8 mb-3 mb-sm-0" color="#4c59ff">
-            <span>{{unlockBtnText}}</span>
-          </v-btn>
+        <template v-if="$store.getters.getDocumentLoaded">
+          <template v-if="!getIsPurchased">
+            <v-btn :loading="getBtnLoading" @click="openPurchaseDialog" rounded outlined class="font-weight-bold me-0 me-sm-8 mb-3 mb-sm-0" color="#4c59ff">
+              <span>{{unlockBtnText}}</span>
+            </v-btn>
+          </template>
+          <template v-if="!isVideo && getIsPurchased">
+            <v-btn :loading="getBtnLoading" tag="a" :href="downloadUrl" target="_blank" @click="downloadDoc" rounded outlined class="font-weight-bold me-0 me-sm-8 mb-3 mb-sm-0" color="#4c59ff">
+              <span v-t="'documentPage_download_btn'"></span>
+            </v-btn>
+          </template>
         </template>
-        <template v-if="!isVideo && getIsPurchased">
-          <v-btn :loading="getBtnLoading" tag="a" :href="downloadUrl" target="_blank" @click="downloadDoc" rounded outlined class="font-weight-bold me-0 me-sm-8 mb-3 mb-sm-0" color="#4c59ff">
-            <span v-t="'documentPage_download_btn'"></span>
-          </v-btn>
-        </template>
+
         <v-icon @click="closeItem" class="closeIcon" size="14" v-text="'sbf-close'"/> 
       
       </v-card-title>
