@@ -33,40 +33,6 @@ namespace Cloudents.Query.General
 
 
 
-                //var documentCountFutureQuery = _session.QueryOver<Document>()
-                //    .JoinAlias(x => x.User, () => userAlias)
-                //    .Where(w => w.Status.State == ItemState.Ok);
-                //if (query.IsFrymo)
-                //{
-
-                //    documentCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
-                //}
-                //else
-                //{
-                //    documentCountFutureQuery.Where(() => userAlias.SbCountry != Country.India);
-
-                //}
-                //var documentCountFuture = documentCountFutureQuery.ToRowCountQuery().UnderlyingCriteria.SetComment(nameof(SiteMapQuery)).FutureValue<int>();
-
-
-                //var questionCountFutureQuery = _session.QueryOver<Question>()
-                //    .JoinAlias(x => x.User, () => userAlias)
-                //    .Where(w => w.Status.State == ItemState.Ok);
-
-                //if (query.IsFrymo)
-                //{
-                //    questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
-                //}
-                //else
-                //{
-                //    //questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
-                //    questionCountFutureQuery.Where(() => userAlias.SbCountry != Country.India);
-
-                //}
-
-                //var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().FutureValue<int>();
-
-
                 var tutorCountFutureQuery = _session.Query<Core.Entities.Tutor>();
 
                 if (query.IsFrymo)
@@ -82,24 +48,23 @@ namespace Cloudents.Query.General
                 var tutorCountFuture = tutorCountFutureQuery.ToFutureValue(f => f.Count());
 
 
-                UserCourse userCourseAlias = null!;
                 Core.Entities.Tutor tutorAlias = null!;
+                Course courseAlias = null!;
                 User userAlias = null!;
 
 
 
                 var tutorCoursesFutureQuery = _session.QueryOver(() => tutorAlias)
-                    .JoinAlias(x => x.User,()=> userAlias)
-                    .JoinEntityAlias(() => userCourseAlias, () => tutorAlias.Id == userCourseAlias.User.Id)
-                    .Where(() => userCourseAlias.IsTeach)
-                    .SelectList(t => t.SelectCountDistinct(() => userCourseAlias.Course.Id));
+                    .JoinAlias(x => x.Courses, () => courseAlias)
+                    .JoinAlias(x => x.User, () => userAlias)
+                    .SelectList(t => t.SelectCountDistinct(() => courseAlias.Name));
                 if (query.IsFrymo)
                 {
-                    tutorCoursesFutureQuery.Where(() =>userAlias.SbCountry == Country.India);
+                    tutorCoursesFutureQuery.Where(() => userAlias.SbCountry == Country.India);
                 }
                 else
                 {
-                    tutorCoursesFutureQuery.Where(() =>userAlias.SbCountry != Country.India);
+                    tutorCoursesFutureQuery.Where(() => userAlias.SbCountry != Country.India);
 
                 }
 

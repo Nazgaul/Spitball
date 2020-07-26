@@ -173,6 +173,8 @@ namespace Cloudents.Core.Entities
             {
                 course = new Course(name, this);
                 Courses.Add(course);
+
+                AddEvent(new NewCourseEvent(course));
             }
 
             return course;

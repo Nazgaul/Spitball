@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.DTOs;
-using Dapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,14 +12,14 @@ namespace Cloudents.Query.Courses
 {
     public class CourseSearchQuery : IQuery<IEnumerable<CourseDto>>
     {
-        public CourseSearchQuery(long userId,  string term)
+        public CourseSearchQuery(long userId, string? term)
         {
             UserId = userId;
             Term = term;
         }
 
         private long UserId { get; }
-        private string Term { get; }
+        private string? Term { get; }
 
 
 
@@ -35,8 +34,13 @@ namespace Cloudents.Query.Courses
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
-                var dbQuery = _statelessSession.Query<Course>()
-                    .Where(w => w.Tutor.Id == query.UserId);
+                var dbQuery = _statelessSession.Query<Course>();
+
+                if (query.UserId > 0)
+                {
+                    dbQuery = dbQuery.Where(w => w.Tutor.Id == query.UserId);
+                }
+
 
                 if (!string.IsNullOrEmpty(query.Term))
                 {
