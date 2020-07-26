@@ -124,7 +124,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(638)]
-
+        [InlineData(160413)]
         public async Task UserDocumentsQueryHandler_Ok(long userId)
         {
             var query = new UserDocumentsQuery(userId, 0);
