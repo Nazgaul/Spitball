@@ -144,7 +144,7 @@
   "dashboardPage_my_sales_action_need_btn_tutor": "חייב את התלמיד/ה",
   "dashboardPage_my_sales_action_need_tutor": "לימדת במקום אחר?",
   "dashboardPage_my_sales_action_redeem": "יש לך {0} נק' למימוש",
-  "dashboardPage_my_sales_action_redeem_btn": "ממש 1,000 נקודות",
+  "dashboardPage_my_sales_action_redeem_btn": "ממש {0} נקודות",
   "dashboardPage_my_sales_title": "המכירות שלי",
   "dashboardPage_my_studyrooms_create_live": "לימוד בשידור חי",
   "dashboardPage_my_studyrooms_create_room": "לימוד פרטני",
