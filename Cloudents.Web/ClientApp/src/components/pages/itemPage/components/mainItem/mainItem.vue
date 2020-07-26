@@ -216,7 +216,11 @@ export default {
     .mainItem {
         &__loader {
             img {
+                max-height: 530px;
                 width: 100% !important;
+                @media (max-width: @screen-xs) {
+                    max-height: initial;
+                }
             }
         }
         &__item {
