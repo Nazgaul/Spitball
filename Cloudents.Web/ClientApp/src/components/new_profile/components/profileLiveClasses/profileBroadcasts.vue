@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="center">
+                        <div class="center" dir="auto">
                             <input type="checkbox" value="false" class="toggleCheckbox" :id="session.index" />
                             <template>
                                 <div class="description">
