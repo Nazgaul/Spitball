@@ -9,7 +9,8 @@ const state = {
     showPurchaseConfirmation: false,
     documentLoaded: false,
     toaster: false,
-    currentItemId: null
+    currentItemId: null,
+    currentPage: 0
 };
 
 const getters = {
@@ -46,7 +47,8 @@ const getters = {
     getDocumentPriceTypeSubscriber: state => state.document?.priceType === 'Subscriber',
     getDocumentPriceTypeHasPrice: state => state.document?.priceType === 'HasPrice',
     getDocumentUserName: state => state.document?.userName,
-    getCurrentItemId: state => state.currentItemId
+    getCurrentItemId: state => state.currentItemId,
+    getCurrentPage: state => state.currentPage,
 };
 
 const mutations = {
@@ -75,6 +77,9 @@ const mutations = {
     },
     setCurrentItemId(state,itemId){
         state.currentItemId = itemId
+    },
+    setItemPage(state,page){
+        state.currentPage = page;
     }
 };
 
@@ -141,6 +146,17 @@ const actions = {
             commit('setCurrentItemId',null);
             commit('removeComponent',ITEM_DIALOG);
         }
+    },
+    updateItemPaging({commit,getters},isNext){
+        let page;
+        if(isNext){
+            if(getters.getCurrentPage < getters.getDocumentDetails?.preview?.length -1){
+                page = getters.getCurrentPage +1;
+            }
+        }else{
+            page = getters.getCurrentPage -1;
+        }
+        commit('setItemPage',page)
     }
 };
 
