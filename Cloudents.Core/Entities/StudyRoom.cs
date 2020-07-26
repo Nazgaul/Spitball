@@ -36,6 +36,8 @@ namespace Cloudents.Core.Entities
         {
         }
 
+        public virtual string Name { get; set; }
+
         public override void AddUserToStudyRoom(User user)
         {
             if (Tutor.User.Id == user.Id)
@@ -93,8 +95,7 @@ namespace Cloudents.Core.Entities
 
       //  public virtual StudyRoomType StudyRoomType { get; protected set; }
 
-        [Obsolete]
-        public virtual string Name { get; set; }
+        
 
         public virtual Tutor Tutor { get; protected set; }
 

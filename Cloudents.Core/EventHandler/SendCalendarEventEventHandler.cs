@@ -20,10 +20,9 @@ namespace Cloudents.Core.EventHandler
         {
             var studyRoom = eventMessage.BroadCastStudyRoom;
             var user = eventMessage.User;
-            //var x = new System.Resources.ResourceManager(typeof(CalendarResources));
             var eventName = //x.GetString("EnrollCalendarMessage", CultureInfo.CurrentUICulture)
-                             $"Spitball Live session - {studyRoom.Name}";
-            eventName = string.Format(eventName, studyRoom.Name);
+                             $"Spitball Live session - {studyRoom.Course.Name}";
+            eventName = string.Format(eventName, studyRoom.Course.Name);
 
             var url = _urlBuilder.BuildStudyRoomEndPoint(studyRoom.Id);
             return _calendarService.SendCalendarInviteAsync(

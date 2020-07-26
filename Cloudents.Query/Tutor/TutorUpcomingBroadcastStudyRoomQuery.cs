@@ -45,7 +45,7 @@ namespace Cloudents.Query.Tutor
                     {
                         Id = s.Id,
                         Price = s.Price,
-                        Name = s.Name,
+                        Name = s.Course.Name,
                         DateTime = s.BroadcastTime,
                         Description = s.Description,
                         IsFull = _session.Query<StudyRoomUser>().Count(w => w.Room.Id == s.Id) >= studyRoomMaxUsers,

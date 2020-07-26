@@ -2,7 +2,10 @@
 {
     public class StudyRoomSeoDto
     {
-        public string Name { get; set; }
+        public string? CourseName { get; set; }
+        public string? PrivateName { get; set; }
+
+        public string Name => CourseName ?? PrivateName!;
         public string TutorName { get; set; }
         public string Description { get; set; }
     }

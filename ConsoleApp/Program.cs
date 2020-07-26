@@ -167,65 +167,65 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<ISession>();
-            long i = 0;
+            //var session = Container.Resolve<ISession>();
+            //long i = 0;
 
-            List<Document> documents;
-            do
-            {
-                documents = await session.Query<Document>()
-                    .Where(w => ((User) w.User).Tutor.Created != null 
-                                && w.Status.State == ItemState.Ok && w.Course == null)
-                    .Take(100)
-                    .ToListAsync();
+            //List<Document> documents;
+            //do
+            //{
+            //    documents = await session.Query<Document>()
+            //        .Where(w => ((User) w.User).Tutor.Created != null 
+            //                    && w.Status.State == ItemState.Ok && w.Course == null)
+            //        .Take(100)
+            //        .ToListAsync();
 
-                foreach (var document in documents)
-                {
-                    Console.WriteLine($"Processing documentid {document.Id}");
-                    using var uow = Container.Resolve<IUnitOfWork>();
-                    var courseRepository = Container.Resolve<ICourseRepository>();
+            //    foreach (var document in documents)
+            //    {
+            //        Console.WriteLine($"Processing documentid {document.Id}");
+            //        using var uow = Container.Resolve<IUnitOfWork>();
+            //        var courseRepository = Container.Resolve<ICourseRepository>();
                    
-                    var course = await courseRepository.GetCourseByNameAsync(document.User.Id,  document.OldCourse.Id, default);
+            //        var course = await courseRepository.GetCourseByNameAsync(document.User.Id,  document.OldCourse.Id, default);
 
-                    if (course == null)
-                    {
-                        var tutor = await session.LoadAsync<Tutor>(document.User.Id);
-                        tutor.AddCourse(document.OldCourse.Id);
-                        //course = new Course(document.OldCourse.Id,tutor);
-                        //await courseRepository.AddAsync(course, default);
-                    }
-                    document.Course = course;
-                    await uow.CommitAsync();
-                    Console.WriteLine("no");
-                }
-            } while (documents.Count > 0);
-
-
-            List<BroadCastStudyRoom> broadCastStudyRooms;
-            do
-            {
-                broadCastStudyRooms = await session.Query<BroadCastStudyRoom>()
-                    .Where(w =>
-                                 w.Course == null)
-                    .Take(100)
-                    .ToListAsync();
-
-                foreach (var broadCastStudyRoom in broadCastStudyRooms)
-                {
-                    Console.WriteLine($"Processing broadCastStudyRoom {broadCastStudyRoom.Id}");
-                    using var uow = Container.Resolve<IUnitOfWork>();
-                    var courseRepository = Container.Resolve<ICourseRepository>();
+            //        if (course == null)
+            //        {
+            //            var tutor = await session.LoadAsync<Tutor>(document.User.Id);
+            //            tutor.AddCourse(document.OldCourse.Id);
+            //            //course = new Course(document.OldCourse.Id,tutor);
+            //            //await courseRepository.AddAsync(course, default);
+            //        }
+            //        document.Course = course;
+            //        await uow.CommitAsync();
+            //        Console.WriteLine("no");
+            //    }
+            //} while (documents.Count > 0);
 
 
-                    var tutor = broadCastStudyRoom.Tutor;
-                    var course = tutor.AddCourse(broadCastStudyRoom.Name);
-                    broadCastStudyRoom.Course = course;
-                    await uow.CommitAsync();
-                    Console.WriteLine("no");
-                }
-            } while (broadCastStudyRooms.Count > 0);
+            //List<BroadCastStudyRoom> broadCastStudyRooms;
+            //do
+            //{
+            //    broadCastStudyRooms = await session.Query<BroadCastStudyRoom>()
+            //        .Where(w =>
+            //                     w.Course == null)
+            //        .Take(100)
+            //        .ToListAsync();
 
-            await DeleteOldStuff.ResyncTutorReadAsync();
+            //    foreach (var broadCastStudyRoom in broadCastStudyRooms)
+            //    {
+            //        Console.WriteLine($"Processing broadCastStudyRoom {broadCastStudyRoom.Id}");
+            //        using var uow = Container.Resolve<IUnitOfWork>();
+            //        var courseRepository = Container.Resolve<ICourseRepository>();
+
+
+            //        var tutor = broadCastStudyRoom.Tutor;
+            //        var course = tutor.AddCourse(broadCastStudyRoom.Name);
+            //        broadCastStudyRoom.Course = course;
+            //        await uow.CommitAsync();
+            //        Console.WriteLine("no");
+            //    }
+            //} while (broadCastStudyRooms.Count > 0);
+
+            //await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()
