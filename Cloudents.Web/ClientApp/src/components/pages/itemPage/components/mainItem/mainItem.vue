@@ -5,7 +5,7 @@
                 <img :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
             </div>
         </template>
-        <div v-if="!isLoad && videoLoader">
+        <div v-if="videoLoader">
             <template v-if="isVideo && videoSrc">
                 <div style="margin: 0 auto;background:black" class="text-center mainItem__item">
                 <v-fade-transition>
@@ -13,7 +13,7 @@
                 </v-fade-transition>
                 <sbVideoPlayer 
                     @videoEnded="updateAfterVideo()"
-                    :id="`${document.details.id}`"
+                    :id="`${document.id}`"
                     :height="videoHeight" 
                     :width="videoWidth" 
                     style="margin: 0 auto" 
@@ -27,6 +27,7 @@
             <div class="mainItem__item" v-else>
                 <template v-if="docPreview">
                     <div class="mainItem__item__wrap">
+                        <!-- <div style="max-height: 500px;overflow-y: scroll;border: 1px solid #ddd;" :style="{height: `${dynamicWidthAndHeight.height}px`}"> -->
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
                             <v-scroll-x-reverse-transition>
                                 <unlockItem v-touch="{
@@ -40,20 +41,9 @@
                                 :height="dynamicWidthAndHeight.height" 
                                 v-model="docPage">
                                 <v-carousel-item v-for="(doc, index) in docPreview" :key="index">
-                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img" :alt="index === 0 ? document.content : ''">
+                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img" alt="">
                                 </v-carousel-item>
                             </v-carousel>
-                        </div>
-                        <div class="mainItem__item__wrap__paging">
-                            <v-layout class="mainItem__item__wrap__paging__actions">
-                                <button class="mainItem__item__wrap__paging__actions--left"  @click="prevDoc()" v-if="showDesktopButtons">
-                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-left-carousel'"/>
-                                </button>
-                                <div class="mx-4 mainItem__item__wrap__paging--text justify-center">{{$t('documentPage_docPage', [docPage + 1, docPreview.length])}}</div>          
-                                <button class="mainItem__item__wrap__paging__actions--right" @click="nextDoc()" v-if="showDesktopButtons">
-                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-right-carousel'"/>
-                                </button>
-                            </v-layout>
                         </div>
                     </div>
                 </template>
@@ -68,6 +58,7 @@ import utillitiesService from "../../../../../services/utilities/utilitiesServic
 
 const sbVideoPlayer = () => import('../../../../sbVideoPlayer/sbVideoPlayer.vue');
 const unlockItem = () => import('../unlockItem/unlockItem.vue');
+import EventBus from '../../../../../eventBus.js';
 
 export default {
     name: 'mainItem',
@@ -78,9 +69,6 @@ export default {
     props: {
         document: {
             type: Object
-        },
-        isLoad:{
-            type: Boolean
         }
     },
     data() {
@@ -90,14 +78,16 @@ export default {
         }
     },
     watch:{
+        docPage:{
+            immediate:true,
+            handler(val){
+                EventBus.$emit('docPage',val);
+            }
+        },
         '$route.params.id'(){
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             // let self = this;
-            // this.isLoad = true;
             this.docPage = 0;
-            // setTimeout(()=>{
-            //     self.isLoad = false;
-            // })
         },
     },
     computed: {
@@ -106,18 +96,8 @@ export default {
         showUnlockPage(){
             return (this.docPage > 1 && !this.isPurchased)
         },
-        showDesktopButtons() {
-            if(this.docPreview) {
-                if(this.$vuetify.breakpoint.xsOnly || this.docPreview.length < 2) return false;
-                return true;
-            }
-            return false;
-        },
         isPurchased() {
-            if (this.document.details) {
-                return this.document.details.isPurchased;
-            }
-            return false;
+            return this.document?.id ? this.document.isPurchased : false;
         },
 
         videoSrc:{
@@ -195,10 +175,7 @@ export default {
             return this.calculateWidthByScreenSize;
         },
         courseName() {
-            if (this.document.details && this.document.details.name) {
-                return this.document.details.name;
-            }
-            return null
+            return this.document?.title || null;
         },
         selector() {
             let element = document.querySelector('.itemPage__main')
@@ -226,6 +203,10 @@ export default {
             }
         }
     },
+    mounted() {
+        EventBus.$on('prevDoc',this.prevDoc)
+        EventBus.$on('nextDoc',this.nextDoc)
+    },
 }
 </script>
 
@@ -235,7 +216,11 @@ export default {
     .mainItem {
         &__loader {
             img {
+                max-height: 530px;
                 width: 100% !important;
+                @media (max-width: @screen-xs) {
+                    max-height: initial;
+                }
             }
         }
         &__item {
@@ -258,50 +243,6 @@ export default {
 
                     @media (max-width: @screen-xs) {
                         border-radius: 0;
-                    }
-                }
-                &__paging{
-                    &__actions {
-                            display: flex;
-                            justify-content: center;
-                            background: #fff;
-                            padding: 14px 0;
-                            border-radius: 0 0 8px 8px;
-                        &--img {
-                            transform: none /*rtl:scaleX(-1)*/;
-                            color: #4c59ff !important; //vuetify
-                            font-size: 14px !important; //vuetify
-                            font-weight: 600;
-    
-                            &:before {
-                                font-weight: 600 !important;
-                            }
-                        }
-                        &--left {
-                            width: 32px;
-                            padding: 2px 6px 6px 6px;
-                            border-radius: 38px 0 0 38px;
-                            border: solid 1px #d7d7d7;
-                            outline: none;
-                            background: #fff;
-                        }
-                        &--right {
-                            width: 32px;
-                            padding: 2px 6px 6px 6px;
-                            border-radius: 0 38px 38px 0;
-                            border: solid 1px #d7d7d7;
-                            outline: none;
-                            background: #fff;
-                        }
-                    }
-                    &--text {
-                        min-width: 120px;
-                        text-align: center;
-                        display: flex;
-                        align-items: center;
-                        font-size: 16px;
-                        color: #4d4b69;
-                        font-weight: 600;
                     }
                 }
             }

@@ -31,8 +31,7 @@ export const Learning = 'Learning';
 // Profile:
 export const Profile = 'profile';
 
-// Feed:
-//export const Feed = 'feed';
+
 
 // Document:
 export const Document = 'document';
@@ -49,8 +48,7 @@ export const StudyRoomLanding = 'live';
 // Question:
 export const Question = 'question';
 
-// Tutor List:
-//export const TutorList = 'tutorLandingPage';
+
 
 // Message Center:
 export const MessageCenter = 'messages';

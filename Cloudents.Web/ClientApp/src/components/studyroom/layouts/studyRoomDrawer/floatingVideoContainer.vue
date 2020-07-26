@@ -46,7 +46,7 @@ export default {
                      let videoTag = localMediaContainer.querySelector("video");
                      if (videoTag) {localMediaContainer.removeChild(videoTag)}
                      localMediaContainer.appendChild(track.attach());
-                     return
+
                   }
                })
             }

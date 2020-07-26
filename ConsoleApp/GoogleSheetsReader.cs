@@ -144,7 +144,7 @@ namespace ConsoleApp
                         }
 
 
-                        var questions = await session.Query<Question>().FetchMany(f => f.Answers).Where(w => w.Course.Id == courseName).ToListAsync();
+                        //var questions = await session.Query<Question>().FetchMany(f => f.Answers).Where(w => w.Course.Id == courseName).ToListAsync();
                         //if (questions.Any())
                         //{
                         //    //var deleteQuestionCommand =
@@ -153,50 +153,50 @@ namespace ConsoleApp
                         //    //Console.WriteLine("Cant delete question");
                         //    //continue;
                         //}
-                        foreach (var question in questions)
-                        {
-                            //    var response2 = ConsoleKey.Y;
-                            //    if (question.Status.State == ItemState.Ok)
-                            //    {
-                            //        Console.WriteLine($"Delete document id : {question.Id} text {question.Text}");
-                            //        response2 = Console.ReadKey(false).Key;
-                            //    }
+                        //foreach (var question in questions)
+                        //{
+                        //    //    var response2 = ConsoleKey.Y;
+                        //    //    if (question.Status.State == ItemState.Ok)
+                        //    //    {
+                        //    //        Console.WriteLine($"Delete document id : {question.Id} text {question.Text}");
+                        //    //        response2 = Console.ReadKey(false).Key;
+                        //    //    }
 
 
-                            //    if (response2 == ConsoleKey.Y)
-                            //    {
-                            //var deleteQuestionCommand =
-                            //    new Cloudents.Command.Command.Admin.DeleteQuestionCommand(question.Id);
-                            //await bus.DispatchAsync(deleteQuestionCommand, default);
-                          await  session.CreateSQLQuery("delete from sb.[transaction] where questionId=:id")
-                                .SetInt64("id", question.Id).ExecuteUpdateAsync();
+                        //    //    if (response2 == ConsoleKey.Y)
+                        //    //    {
+                        //    //var deleteQuestionCommand =
+                        //    //    new Cloudents.Command.Command.Admin.DeleteQuestionCommand(question.Id);
+                        //    //await bus.DispatchAsync(deleteQuestionCommand, default);
+                        //  await  session.CreateSQLQuery("delete from sb.[transaction] where questionId=:id")
+                        //        .SetInt64("id", question.Id).ExecuteUpdateAsync();
 
-                            //await session.Query<QuestionTransaction>().Where(w => w.Question.Id == question.Id)
-                            //    .DeleteAsync(CancellationToken.None);
+                        //    //await session.Query<QuestionTransaction>().Where(w => w.Question.Id == question.Id)
+                        //    //    .DeleteAsync(CancellationToken.None);
 
-                            //await session.Query<AwardsTransaction>().Where(w => w.Question.Id == question.Id)
-                            //    .DeleteAsync(CancellationToken.None);
+                        //    //await session.Query<AwardsTransaction>().Where(w => w.Question.Id == question.Id)
+                        //    //    .DeleteAsync(CancellationToken.None);
 
-                            foreach (var answer in question.Answers)
-                            {
-                                await session.Query<QuestionTransaction>().Where(w => w.Answer.Id == answer.Id)
-                                    .DeleteAsync(CancellationToken.None);
-
-
-
-                            }
-                            await session.CreateSQLQuery("delete from sb.vote where questionid = :id")
-                                .SetInt64("id", question.Id).ExecuteUpdateAsync();
-                            await session.CreateSQLQuery("update sb.question set correctanswer_id = null where id = :id")
-                                 .SetInt64("id", question.Id).ExecuteUpdateAsync();
+                        //    foreach (var answer in question.Answers)
+                        //    {
+                        //        await session.Query<QuestionTransaction>().Where(w => w.Answer.Id == answer.Id)
+                        //            .DeleteAsync(CancellationToken.None);
 
 
 
-                            await session.Query<Answer>().Where(w => w.Question.Id == question.Id)
-                                .DeleteAsync(CancellationToken.None);
-                            await session.Query<Question>().Where(w => w.Id == question.Id)
-                                .DeleteAsync(CancellationToken.None);
-                        }
+                        //    }
+                        //    await session.CreateSQLQuery("delete from sb.vote where questionid = :id")
+                        //        .SetInt64("id", question.Id).ExecuteUpdateAsync();
+                        //    await session.CreateSQLQuery("update sb.question set correctanswer_id = null where id = :id")
+                        //         .SetInt64("id", question.Id).ExecuteUpdateAsync();
+
+
+
+                        //    await session.Query<Answer>().Where(w => w.Question.Id == question.Id)
+                        //        .DeleteAsync(CancellationToken.None);
+                        //    await session.Query<Question>().Where(w => w.Id == question.Id)
+                        //        .DeleteAsync(CancellationToken.None);
+                        //}
 
                         try
                         {

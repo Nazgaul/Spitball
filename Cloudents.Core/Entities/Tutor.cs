@@ -147,7 +147,6 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
-      //  public virtual bool IsShownHomePage { get; protected set; }
 
 
         protected internal virtual ICollection<AdminTutor> AdminUsers { get; set; }

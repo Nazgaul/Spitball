@@ -95,7 +95,7 @@ export default {
       this.getData();
     },
     getData() {
-      let self = this
+      let self = this;
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
         self.results = data;
       }).catch(ex => {

@@ -95,10 +95,8 @@ export default {
          return this.type === 'Document';
       },
       isLoading() {
-         if(this.type && !this.getBtnLoading) {
-               return false;
-         }
-         return true;
+         return !(this.type && !this.getBtnLoading);
+
       },
    },
    methods: {
@@ -108,8 +106,8 @@ export default {
                this.$router.push({
                   name: routeNames.Profile,
                   params: {
-                  id: this.getDocumentDetails.details.tutor.userId,
-                  name: this.getDocumentDetails.details.tutor.name
+                  id: this.getDocumentDetails.userId,
+                  name: this.getDocumentDetails.userName
                   },
                   hash: '#subscription'
                })
@@ -164,10 +162,8 @@ export default {
          .unlockItem_document_title{
                font-size: 20px;
                font-weight: bold;
-               padding: 0 20px;
-               padding-bottom: 8px;
-               padding-top: 50px;
-               height: auto !important;
+             padding: 50px 20px 8px;
+             height: auto !important;
                text-shadow: 2px 2px 2px white;
                @media (max-width: @screen-xs) {
                   font-size: 18px;
@@ -279,7 +275,6 @@ export default {
 
          }
          .unlockItem_video_img{
-            height: auto;
             width: inherit;
             object-fit: contain;
             height: 30%;

@@ -24,20 +24,20 @@ namespace Cloudents.Core.DTOs
       public override double Price => (double) _price;
     }
 
-    public class QuestionSaleDto : SaleDto
-    {
-        public long Id{ get; set; }
-        public string Course { get; set; }
-        public string Text { get; set; }
-        public string AnswerText { get; set; }
-       // public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
-        public override ContentType Type => ContentType.Question;
+    //public class QuestionSaleDto : SaleDto
+    //{
+    //    public long Id{ get; set; }
+    //    public string Course { get; set; }
+    //    public string Text { get; set; }
+    //    public string AnswerText { get; set; }
+    //   // public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
+    //    public override ContentType Type => ContentType.Question;
 
-        [NonSerialized] public decimal _price;
+    //    [NonSerialized] public decimal _price;
 
-        //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
-        public override double Price => (double) _price;
-    }
+    //    //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
+    //    public override double Price => (double) _price;
+    //}
     public class SessionSaleDto : SaleDto
     {
         public string StudyRoomName { get; set; }
@@ -75,7 +75,7 @@ namespace Cloudents.Core.DTOs
         Document,
         Video,
         TutoringSession,
-        Question,
+      //  Question,
         BuyPoints
     }
 }

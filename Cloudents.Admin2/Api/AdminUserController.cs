@@ -235,21 +235,21 @@ namespace Cloudents.Admin2.Api
             return res;
         }
 
-        [HttpGet("questions")]
-        public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
-        {
-            var country = User.GetSbCountryClaim();
-            var query = new UserQuestionsQuery(id, page, country);
-            return await _queryBus.QueryAsync(query, token);
-        }
+        //[HttpGet("questions")]
+        //public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
+        //{
+        //    var country = User.GetSbCountryClaim();
+        //    var query = new UserQuestionsQuery(id, page, country);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
 
-        [HttpGet("answers")]
-        public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
-        {
-            var country = User.GetSbCountryClaim();
-            var query = new UserAnswersQuery(id, page, country);
-            return await _queryBus.QueryAsync(query, token);
-        }
+        //[HttpGet("answers")]
+        //public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
+        //{
+        //    var country = User.GetSbCountryClaim();
+        //    var query = new UserAnswersQuery(id, page, country);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
 
 
 

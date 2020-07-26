@@ -72,7 +72,8 @@
                           <v-flex xs2 class="card-converstaion-content-col-1 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1 text-truncate font-weight-bold" color="81C784">{{conversation.userName}}</router-link>
+                                  <span class="body-1 text-truncate font-weight-bold">{{conversation.userName}}</span>
+                                  <!-- <router-link :to="{name: 'userQuestions', params: {userId: conversation.userId}}" target="_blank" class="body-1 text-truncate font-weight-bold" color="81C784">{{conversation.userName}}</router-link> -->
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>
@@ -87,7 +88,8 @@
                           <v-flex xs2 class="card-converstaion-content-col-2 pl-3">
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Name</span>
-                                  <router-link :to="{name: 'userQuestions', params: {userId: conversation.tutorId}}" target="_blank" class="body-1 text-truncate font-weight-bold ">{{conversation.tutorName}}</router-link>
+                                  <span class="body-1 text-truncate font-weight-bold">{{conversation.tutorName}}</span>
+                                  <!-- <router-link :to="{name: 'userQuestions', params: {userId: conversation.tutorId}}" target="_blank" class="body-1 text-truncate font-weight-bold ">{{conversation.tutorName}}</router-link> -->
                               </v-layout>
                               <v-layout row wrap align-center justify-start>
                                   <span class="grey--text caption pa-2">Email</span>

@@ -33,7 +33,7 @@ const actions = {
             
             commit('setCouponError', false);
             commit('setCouponDialog', false);
-            return
+
         }).catch(ex => {
             commit('setCouponError', true);
             console.error(ex);

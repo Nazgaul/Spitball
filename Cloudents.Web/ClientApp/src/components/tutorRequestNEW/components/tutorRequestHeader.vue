@@ -61,13 +61,12 @@ export default {
        // line-height: normal;
         .tutorRequest-img{
             display: block; //to honor the margin
-            margin: 0 auto;
             border-radius: 50%;
             width: 66px;
             height: 66px;
             object-fit: cover;
-             margin-top: 10px;
-          
+            margin: 10px auto 0;
+
         }
         p{
             margin-top: 8px;

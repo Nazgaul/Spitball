@@ -45,7 +45,7 @@
 <script>
 import utilitiesService from "../../../services/utilities/utilitiesService";
 
-var typeingTimer;
+let typeingTimer;
 export default {
   name: "uploadCover",
   props: {

@@ -54,13 +54,13 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildQuestionEndPoint
-            (long id, object? parameters = null)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
-            builder.AddQuery(parameters);
-            return builder.ToString();
-        }
+        //public string BuildQuestionEndPoint
+        //    (long id, object? parameters = null)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
+        //    builder.AddQuery(parameters);
+        //    return builder.ToString();
+        //}
 
         public string BuildProfileEndPoint(long id)
         {
@@ -112,8 +112,7 @@ namespace Cloudents.Core
 
         public string BuildDocumentEndPoint(long id, object? parameters = null)
         {
-            var base62 = new Base62(id);
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{base62}" };
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"d/{id}" };
             builder.AddQuery(parameters);
             return builder.ToString();
         }

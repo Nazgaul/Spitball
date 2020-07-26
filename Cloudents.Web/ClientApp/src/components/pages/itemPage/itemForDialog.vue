@@ -1,0 +1,200 @@
+<template>
+  <div class="itemPage">
+    <div class="itemPage__main">
+      <div class="itemPage__main__document">
+        <mainItem :document="getDocumentDetails"></mainItem>
+      </div>
+    </div>
+
+    <unlockDialog :document="getDocumentDetails"></unlockDialog>
+
+    <v-snackbar v-model="snackbar" :top="true" :timeout="8000">
+      <div class="d-flex justify-space-between align-center" >
+        <span v-t="'resultNote_unsufficient_fund'"></span>
+        <v-btn class="px-4" outlined rounded @click="openBuyTokenDialog">
+          <span v-t="'dashboardPage_my_sales_action_need_btn'"></span>
+        </v-btn>
+      </div>
+    </v-snackbar>
+
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from "vuex";
+
+
+//services
+import * as dialogNames from "../global/dialogInjection/dialogNames.js";
+
+//store
+import storeService from "../../../services/store/storeService";
+import studyDocumentsStore from "../../../store/studyDocuments_store";
+
+// components
+import mainItem from "./components/mainItem/mainItem.vue";
+
+import unlockDialog from "./components/dialog/unlockDialog.vue";
+export default {
+  name: "itemPage",
+  components: {
+    mainItem,
+    unlockDialog,
+  },
+  props: {
+    id: {}
+  },
+  computed: {
+    ...mapGetters([
+      // "getDocumentName",
+      "getShowItemToaster",
+      'getDocumentDetails'
+    ]),
+    snackbar: {
+      get() {
+        return this.getShowItemToaster;
+      },
+      set(val) {
+        this.updateItemToaster(val);
+      }
+    },
+  },
+  methods: {
+    ...mapActions([
+      "documentRequest",
+      "clearDocument",
+      "updateItemToaster",
+    ]),
+
+    openBuyTokenDialog() {
+      this.updateItemToaster(false);
+      this.$openDialog(dialogNames.BuyPoints);
+    },
+  },
+
+  beforeDestroy() {
+    this.clearDocument();
+  },
+  mounted() {
+    this.documentRequest(this.id).catch(()=>{
+      this.$store.dispatch('updateCurrentItem');
+    });
+  },
+  created() {
+    storeService.lazyRegisterModule(this.$store,"studyDocumentsStore",studyDocumentsStore);
+  }
+};
+</script>
+
+<style lang="less">
+@import "../../../styles/mixin";
+
+.itemPage {
+  //hacks to finish this fast
+  .price-area,
+  .content-wrap,
+  hr,
+  .spacer {
+    display: none !important;
+  }
+  .bottom-row,
+  .data-row {
+    margin-right: 30% !important;
+    @media (max-width: @screen-xs) {
+      margin-right: auto !important;
+      justify-content: space-between;
+    }
+  }
+  .azuremediaplayer {
+    background: #fff !important;
+  }
+  position: relative;
+  margin: 0 auto;
+  max-width: 960px;
+  @media (max-width: @screen-md) {
+    margin: 20px;
+  }
+  @media (max-width: @screen-xs) {
+    margin: 0;
+    display: block;
+  }
+  .sticky-item {
+    position: sticky;
+    height: fit-content;
+    top: 80px;
+    &.sticky-item_bannerActive {
+      top: 150px;
+    }
+  }
+  &__main {
+    @media (max-width: @screen-sm) {
+      margin-right: 0;
+      max-width: auto;
+    }
+    &__document {
+      width: 100%;
+      margin: 0 auto;
+      @media (max-width: @screen-sm) {
+        width: auto;
+        margin: 0 auto;
+      }
+      &__tutor {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        font-weight: 600;
+        font-size: 14px;
+        &__link {
+          @media (max-width: @screen-md) {
+            margin-bottom: 6px;
+          }
+          &--title1 {
+            display: inline-block;
+            color: #5560ff;
+            cursor: pointer;
+            @media (max-width: @screen-xs) {
+              white-space: nowrap;
+              display: block;
+            }
+          }
+          &--title2 {
+            color: #4d4b69;
+            display: inline-block;
+            cursor: text;
+            @media (max-width: @screen-xs) {
+              white-space: nowrap;
+              display: block;
+            }
+          }
+          @media (max-width: @screen-xs) {
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 10px;
+          }
+        }
+        &--btn {
+          border: solid 1px #4452fc;
+          border-radius: 28px;
+          background: #fff !important; //vuetify
+          @media (max-width: @screen-xs) {
+            padding: 0 10px;
+          }
+          div {
+            color: #4452fc;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: initial;
+            margin-bottom: 1px;
+          }
+        }
+      }
+      &--loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 160px;
+      }
+    }
+  }
+}
+</style>

@@ -303,9 +303,9 @@ export default {
         },
     },
     data() {
-        var currentTime = new Date();
-        var currentHour = currentTime.getHours().toString().padStart(2,'0')
-        var currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
+        const currentTime = new Date();
+        let currentHour = currentTime.getHours().toString().padStart(2, '0');
+        let currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
         if (currentMinutes === 60) {
             currentHour++;
             currentMinutes = 0;

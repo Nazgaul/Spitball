@@ -22,10 +22,10 @@ namespace Cloudents.Core.Interfaces
         // Task FlushAsync(CancellationToken token);
     }
 
-    public interface IFictiveUserRepository : IRepository<SystemUser>
-    {
-        Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token);
-    }
+    //public interface IFictiveUserRepository : IRepository<SystemUser>
+    //{
+    //    Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token);
+    //}
 
 
     public interface IRegularUserRepository : IRepository<User>
@@ -41,17 +41,17 @@ namespace Cloudents.Core.Interfaces
         Task UpdateNumberOfDownloadsAsync(long id, CancellationToken token);
     }
 
-    public interface IQuestionRepository : IRepository<Question>
-    {
-        Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
-    }
+    //public interface IQuestionRepository : IRepository<Question>
+    //{
+    //    Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
+    //}
 
 
 
-    public interface IAnswerRepository : IRepository<Answer>
-    {
-        Task<int> GetNumberOfPendingAnswerAsync(long userId, CancellationToken token);
-    }
+    //public interface IAnswerRepository : IRepository<Answer>
+    //{
+    //    Task<int> GetNumberOfPendingAnswerAsync(long userId, CancellationToken token);
+    //}
 
     public interface IChatRoomRepository : IRepository<ChatRoom>
     {

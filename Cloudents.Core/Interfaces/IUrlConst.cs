@@ -10,7 +10,6 @@ namespace Cloudents.Core.Interfaces
 
         string BuildCourseEndPoint(string courseName);
 
-        string BuildQuestionEndPoint(long id, object? parameters = null);
         string BuildProfileEndPoint(long id);
 
 

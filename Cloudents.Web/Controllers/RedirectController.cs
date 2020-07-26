@@ -9,6 +9,7 @@ namespace Cloudents.Web.Controllers
         [Route("tutor")]
         [Route("flashcard")]
         [Route("note")]
+        //[Route("question/{id:long}"(, )]
         public IActionResult Index()
         {
             return RedirectPermanent("/");

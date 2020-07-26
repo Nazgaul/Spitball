@@ -70,7 +70,6 @@ export default {
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
-            deleteUserQuestions: false,
             valid: true,
             requiredRules: [
                 v => !!v || 'Name is required'

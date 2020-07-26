@@ -3,6 +3,7 @@
         top
         :timeout="5000"
         :value="true"
+        @input="onCloseToaster"
     >
     <div class="text-center">{{params.text}}</div>
     </v-snackbar>
@@ -12,11 +13,16 @@
 <script>
 
 export default {
-    name: 'buyPointsTransaction',
+    name: 'PURCHASE_TRANSACTION',
     props: {
         params: {
             type:Object,
             required:true
+        }
+    },
+    methods: {
+        onCloseToaster() {
+            this.$store.commit('removeComponent',this.params.name)
         }
     },
 }

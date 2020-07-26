@@ -102,10 +102,8 @@ export default {
             return this.getFileData.every(item=>item.error)
         },
         errorFile(){
-            if(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError){
-                return true;
-            }
-            return false;
+            return !!(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError);
+
         }
     },
     watch:{
@@ -142,7 +140,7 @@ export default {
             }
         },
         DbFilesList() {
-            var self = this;
+            const self = this;
             let singleFile;
             let options = {
                 success: (files) => {

@@ -158,7 +158,7 @@ const actions = {
                 return
             }
             commit('setAccountStudentInfo', params)
-            return
+
         })
     },
     updateUserStats(context, days) {
@@ -177,7 +177,7 @@ const actions = {
             commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
         if (getters.getIsBuyPoints || state.user.balance > newBalance) {
-            commit('setComponent', 'buyPointsTransaction')
+            commit('addComponent', componentConsts.PURCHASE_TRANSACTION)
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });
     },

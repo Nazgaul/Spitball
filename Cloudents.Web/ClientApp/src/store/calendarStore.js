@@ -187,7 +187,7 @@ const actions ={
          //   to: toISO,
             tutorId: state.tutorId
         };
-        return await calendarService.addEvent(insertEventObj);
+        return calendarService.addEvent(insertEventObj);
     },
     updateNeedPayment({commit},val){
         commit('setNeedPayment',val);

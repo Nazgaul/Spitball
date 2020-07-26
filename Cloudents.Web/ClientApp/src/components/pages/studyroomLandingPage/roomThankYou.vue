@@ -141,8 +141,7 @@ export default {
             }
          }
          .logoThankYouMobile{
-            margin: 0;
-            margin-top: 10px;
+            margin: 10px 0 0;
             opacity: 0.4;
             text-align: initial;
             .logo {
@@ -166,11 +165,10 @@ export default {
             @media(max-width: @screen-xs) {
                max-width: initial;
                width: 100%;
-               padding: 0;
-               border: none;
+                border: none;
                border-radius: initial;
                height: auto;
-               padding-bottom: 50px;
+                padding: 0 0 50px;
             }
             .saveBtn{
                width: 100%;

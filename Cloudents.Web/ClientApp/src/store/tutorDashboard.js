@@ -1,6 +1,6 @@
 import axios from 'axios'
 import constants from './constants/dashboardConstants';
-import registerService from '../services/registrationService2';
+//import registerService from '../services/registrationService2';
 
 const state = {
     tutorLinkActions: {},
@@ -67,9 +67,9 @@ const actions = {
                 commit('setTutorNotifications', data)
             })
     },
-    updatePhoneCode() {
-        return registerService.sendSmsCode()
-    },
+    // updatePhoneCode() {
+    //     return registerService.sendSmsCode()
+    // },
     verifyTutorEmail() {
         return axios.post('/register/verifyEmail')
     },

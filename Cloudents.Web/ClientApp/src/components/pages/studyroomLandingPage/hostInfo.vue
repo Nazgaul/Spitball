@@ -89,8 +89,7 @@ export default {
          .hostText{
             padding-left: 24px;
             @media(max-width: @screen-xs) {
-               padding: 0 16px;
-               padding-top: 24px;
+                padding: 24px 16px 0;
             }
             display: flex;
             flex-direction: column;

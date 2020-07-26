@@ -181,7 +181,7 @@ export default {
             if (!/\d/.test(e.key)) {
                 e.preventDefault();
             }
-            var x = parseInt(this.newSessionDuration + e.key,10);
+            const x = parseInt(this.newSessionDuration + e.key, 10);
             if (x >= this.MAX_DIGITS) {
                 e.preventDefault();
                 

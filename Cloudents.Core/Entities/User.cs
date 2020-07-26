@@ -65,8 +65,8 @@ namespace Cloudents.Core.Entities
         public virtual string? LockoutReason { get; set; }
 
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
-        protected internal virtual ICollection<Answer> Answers { get; protected set; }
+        //[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        //protected internal virtual ICollection<Answer> Answers { get; protected set; }
         protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
