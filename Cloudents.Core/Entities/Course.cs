@@ -18,17 +18,17 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public OldCourse(string name)
-        {
-            Id = name.Trim();//.Replace("+", string.Empty);
-            if (Id.Length > MaxLength || Id.Length < MinLength)
-            {
-                throw new ArgumentException($"Name is {Id}", nameof(Id));
-            }
-            // State = ItemState.Pending;
-            Created = DateTime.UtcNow;
-            Users = new HashSet<UserCourse>();
-        }
+        //public OldCourse(string name)
+        //{
+        //    Id = name.Trim();//.Replace("+", string.Empty);
+        //    if (Id.Length > MaxLength || Id.Length < MinLength)
+        //    {
+        //        throw new ArgumentException($"Name is {Id}", nameof(Id));
+        //    }
+        //    // State = ItemState.Pending;
+        //    Created = DateTime.UtcNow;
+        //    Users = new HashSet<UserCourse>();
+        //}
 
         protected bool Equals(OldCourse? other)
         {
@@ -53,7 +53,7 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime Created { get; protected set; }
 
-        protected internal virtual ISet<UserCourse> Users { get; set; }
+       // protected internal virtual ISet<UserCourse> Users { get; set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }

@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Courses;
 using Cloudents.Web.Extensions;
@@ -7,7 +6,6 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

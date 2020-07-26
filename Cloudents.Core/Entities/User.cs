@@ -78,9 +78,9 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
 
-        private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
+        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
-        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+        //public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
 
 
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();

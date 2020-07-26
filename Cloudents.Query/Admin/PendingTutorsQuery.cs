@@ -48,25 +48,10 @@ namespace Cloudents.Query.Admin
                     Image = s.User.ImageName,
                     Created = s.Created,
                     Id = s.Id,
-                    Courses2 = s.User.UserCourses.Select(s2 => s2.Course.Id)
+                    Courses2 = s.Courses.Select(s2 => s2.Name)
                 }).ToListAsync(token);
 
-//                const string sql = @"select u.Id, u.FirstName, u.LastName,
-//u.Email, t.Bio, t.Created, 
-//(select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
-//from sb.UsersCourses dt 
-//where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
-//u.ImageName as Image
-//from sb.[User] u
-//join sb.Tutor t
-//	on u.Id = t.Id 
-//where t.State = 'Pending' AND (@Country IS NULL OR u.SbCountry = @Country) order by t.id desc OPTION(RECOMPILE)";
 
-
-//                using var connection = _dapper.OpenConnection();
-//                var res = await connection.QueryAsync<PendingTutorsDto>(sql,
-//                    new { Country = query.Country?.Id });
-//                return res;
             }
         }
     }
