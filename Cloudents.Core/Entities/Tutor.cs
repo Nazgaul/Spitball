@@ -35,7 +35,10 @@ namespace Cloudents.Core.Entities
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 
-        protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
+        private readonly ICollection<UserCoupon> _userCoupons =new List<UserCoupon>();
+       
+        public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
+
         protected internal virtual ICollection<Coupon> Coupons { get; set; }
 
 
