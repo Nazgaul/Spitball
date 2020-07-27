@@ -152,7 +152,7 @@ namespace ConsoleApp
 
         }
 
-       
+
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
@@ -164,13 +164,29 @@ namespace ConsoleApp
         }
 
 
-      
 
-     
+
+
 
         private static async Task Dbi()
         {
-            //var session = Container.Resolve<ISession>();
+            var session = Container.Resolve<IStatelessSession>();
+            int amount = 0;
+            do
+            {
+
+               var ids = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
+                    .Where(w => w.Course == null)
+                    .Take(100).Select(s => s.Id).ToListAsync();
+
+                amount = await session.Query<Document>()
+                   .Where(w => ids.Contains(w.Id))
+                   .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
+                   .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
+                   .Set(x => x.Status.FlagReason, "Document not of tutor")
+                   .UpdateAsync(default);
+            } while (amount > 0);
+
             //long i = 0;
 
             //List<Document> documents;
@@ -187,7 +203,7 @@ namespace ConsoleApp
             //        Console.WriteLine($"Processing documentid {document.Id}");
             //        using var uow = Container.Resolve<IUnitOfWork>();
             //        var courseRepository = Container.Resolve<ICourseRepository>();
-                   
+
             //        var course = await courseRepository.GetCourseByNameAsync(document.User.Id,  document.OldCourse.Id, default);
 
             //        if (course == null)
