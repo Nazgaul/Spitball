@@ -60,7 +60,6 @@ const mutations = {
             documentCourses: objInit.documentCourses,
             coursesString: objInit.documentCourses.toString().replace(/,/g, ", "),
             calendarShared: objInit.calendarShared || false,
-            isFollowing: objInit.isFollowing,
             followers: objInit.followers || 0,
             contentCount: objInit.contentCount,
             hoursTaught: objInit.hoursTaught,
@@ -164,16 +163,6 @@ const mutations = {
       state.profileCoverLoading = false;
       state.documents = []
    },
-   setProfileFollower(state, val) {
-      if(state.profile?.user) {
-         state.profile.user.isFollowing = val;
-         if (val) {
-            state.profile.user.followers += 1;
-         } else {
-            state.profile.user.followers -= 1;
-         }
-      }
-   },
    // setEditDialog(state, val) {
    //    state.showEditDataDialog = val;
    // },
@@ -226,20 +215,6 @@ const actions = {
             commit('setProfileDocuments', data);
          });
    },
-   // toggleProfileFollower({ state, commit, getters }, val) {
-   //    let id = getters.getCurrTutor?.id || state.profile?.user?.id
-   //    if (val) {
-   //       return profileInstance.post('follow',{ id }).then(() => {
-   //          commit('setProfileFollower', true)
-   //          return Promise.resolve()
-   //       })
-   //    } else {
-   //       return profileInstance.delete(`unfollow/${id}`).then(() => {
-   //          commit('setProfileFollower', false)
-   //          return Promise.resolve()
-   //       })
-   //    }
-   // },
    getStudyroomLiveSessions({ commit }, id) {
       profileInstance.get(`${id}/studyRoom`).then(({data}) => {
          commit('setLiveSession', data)

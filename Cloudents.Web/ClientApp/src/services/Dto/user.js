@@ -76,6 +76,5 @@ export const User = {
     //     this.revenue = objInit.revenue
     //     this.sales = objInit.sales
     //     this.views = objInit.views
-    //     this.followers = objInit.followers
     // }
 }
