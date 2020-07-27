@@ -1,22 +1,20 @@
 <template>
     <div class="liveSession">
         <div class="liveSubtitle mb-7" v-t="'session details'"></div>
-
-
-        <v-text-field 
-                    v-model="liveSessionTitle"
-                    type="text"
-                    class="sessionTitleInput mb-3"
-                    :rules="[rules.required]"
-                    :label="$t('dashboardPage_label_live_title')"
-                    height="50"
-                    color="#304FFE"
-                    dense
-                    outlined
-                    placeholder=" "
-                    autocomplete="nope"
-                >
-                </v-text-field>
+        <v-combobox
+            v-model="liveSessionTitle"
+            class="sessionTitleInput mb-3"
+            :items="suggestsCourses"
+            :rules="[rules.required]"
+            @keyup="searchCourses"
+            :label="$t('dashboardPage_label_live_title')"
+            height="50"
+            color="#304FFE"
+            dense
+            outlined
+            placeholder=" "
+            autocomplete="abcd"
+        />
         <v-row class="sessionDetails  ma-0 pa-0 mb-3"  no-gutters>
             <v-col cols="6" sm="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
@@ -289,6 +287,9 @@
 import { validationRules } from '../../../../../services/utilities/formValidationRules.js'
 import uploadImage from '../../../../new_profile/profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
+import debounce from "lodash/debounce";
+import courseService from '../../../../../services/courseService.js';
+
 export default {
     name: 'liveSession',
     components: {
@@ -334,7 +335,7 @@ export default {
                 // 'Friday',
                 // 'Saturday',
             ],
-            
+            suggestsCourses: [],
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('free'), value: 'free' },
@@ -443,7 +444,6 @@ export default {
             }
         },
         handleLiveImage(previewImage) {
-
             if(previewImage) {
                 let formData;
                 formData = new FormData();
@@ -455,7 +455,28 @@ export default {
                     this.newLiveImage = data.fileName
                 })
             }
-        }
+        },
+        searchCourses(ev){
+            let term = ev.target.value.trim()
+            if(!term) {
+                this.liveSessionTitle = ''
+                this.suggestsCourses = []
+                return 
+            }
+            this.liveSessionTitle = term;
+            this.searchDebounce(term)
+        },
+        searchDebounce: debounce(function(term){
+            courseService.getCourse({term}).then(data=>{
+                this.suggestsCourses = data;
+                if(this.suggestsCourses.length) {
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.liveSessionTitle){
+                            this.liveSessionTitle = course
+                        }}) 
+                }
+            })
+        },200)
     }
 }
 </script>

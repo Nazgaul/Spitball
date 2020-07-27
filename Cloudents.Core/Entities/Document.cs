@@ -24,6 +24,7 @@ namespace Cloudents.Core.Entities
             Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
+            if (course == null) throw new ArgumentNullException(nameof(course));
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;
@@ -55,7 +56,13 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; protected set; }
 
 
-        public virtual Course Course { get; protected set; }
+        [Obsolete]
+        public virtual OldCourse OldCourse { get; protected set; }
+
+
+        public virtual Course Course { get; set; }
+
+        
 
         public virtual string? Description { get; protected set; }
 
@@ -93,7 +100,7 @@ namespace Cloudents.Core.Entities
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
 
-        public virtual short? Boost { get; set; }
+        //public virtual short? Boost { get; set; }
 
         public virtual DocumentPrice DocumentPrice { get; protected set; }
 
@@ -143,15 +150,15 @@ namespace Cloudents.Core.Entities
             AddEvent(new DocumentDeletedEvent(this));
         }
 
-        public virtual void Flag(string messageFlagReason, BaseUser user)
-        {
-            if (User == user)
-            {
-                throw new UnauthorizedAccessException("you cannot flag your own document");
-            }
-            Status = Status.Flag(messageFlagReason, user);
-            AddEvent(new DocumentFlaggedEvent(this));
-        }
+        //public virtual void Flag(string messageFlagReason, BaseUser user)
+        //{
+        //    if (User == user)
+        //    {
+        //        throw new UnauthorizedAccessException("you cannot flag your own document");
+        //    }
+        //    Status = Status.Flag(messageFlagReason, user);
+        //    AddEvent(new DocumentFlaggedEvent(this));
+        //}
 
         public virtual void UnFlag()
         {
@@ -164,11 +171,7 @@ namespace Cloudents.Core.Entities
             Status = Public;
         }
 
-        //public virtual void UnDelete()
-        //{
-        //    Status = Public;
-        //    AddEvent(new DocumentUndeletedEvent(this));
-        //}
+       
 
 
 

@@ -16,6 +16,8 @@ namespace Cloudents.Core.Entities
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
             AddEvent(new TutorCreatedEvent(this));
+            Courses = new List<Course>();
+            ;
 
         }
 
@@ -34,6 +36,8 @@ namespace Cloudents.Core.Entities
         public virtual User User { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
+
+        public virtual IList<Course> Courses { get; protected set; }
 
         private readonly ICollection<UserCoupon> _userCoupons =new List<UserCoupon>();
        
@@ -162,6 +166,21 @@ namespace Cloudents.Core.Entities
                 AdminUsers.Clear();
                 AdminUsers.Add(value);
             }
+        }
+
+
+        public virtual Course AddCourse(string name)
+        {
+            var course = Courses.SingleOrDefault(s => s.Name == name);
+            if (course == null)
+            {
+                course = new Course(name, this);
+                Courses.Add(course);
+
+                AddEvent(new NewCourseEvent(course));
+            }
+
+            return course;
         }
 
 

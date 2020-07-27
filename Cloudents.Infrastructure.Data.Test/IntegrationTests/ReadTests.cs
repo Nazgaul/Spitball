@@ -124,7 +124,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(638)]
-
+        [InlineData(160413)]
         public async Task UserDocumentsQueryHandler_Ok(long userId)
         {
             var query = new UserDocumentsQuery(userId, 0);
@@ -142,27 +142,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task CourseSearchQuery_Ok()
-        {
-            var query = new CourseSearchQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
-
         [Theory]
-        [InlineData("ארה\"ב", 0)]
-        [InlineData("ממ\"", 0)]
-        [InlineData("אלגברה ל", 0)]
-        public async Task CourseSearchWithTermQuery_Ok(string term, int page)
+        [InlineData(null)]
+
+        [InlineData("t")]
+        [InlineData("ממ\"")]
+        [InlineData("אלגברה ל")]
+        public async Task CourseSearchQuery_Ok(string term)
         {
-            var userId = await fixture.StatelessSession.Query<User>().Where(w => w.Country == "IL").Select(s => s.Id).FirstAsync();
-
-            var query = new CourseSearchWithTermQuery(userId, term, page);
-
-            var z = await fixture.QueryBus.QueryAsync(query, default);
-
-            z.Should().HaveCountGreaterOrEqualTo(1);
+            var query = new CourseSearchQuery(638, term);
+            var x = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+       
 
         [Theory]
         [InlineData(0)]

@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2.Test.Integration
                 return;
             }
 
-            var body = response.Content.ReadAsStringAsync();
+            var body = await response.Content.ReadAsStringAsync();
             throw new ArgumentException($"response is {response.StatusCode} , body: {body}");
         }
     }

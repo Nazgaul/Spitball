@@ -1,79 +1,58 @@
 ﻿using Cloudents.Core.DTOs;
-using Dapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
 
 namespace Cloudents.Query.Courses
 {
     public class CourseSearchQuery : IQuery<IEnumerable<CourseDto>>
     {
-        public CourseSearchQuery(long userId, int page)
+        public CourseSearchQuery(long userId, string? term)
         {
             UserId = userId;
-            Page = page;
+            Term = term;
         }
 
         private long UserId { get; }
-        private int Page { get; }
+        private string? Term { get; }
 
 
 
         internal sealed class CoursesByTermQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseDto>>
         {
-            private readonly IDapperRepository _dapperRepository;
+            private readonly IStatelessSession _statelessSession;
 
-            public CoursesByTermQueryHandler(IDapperRepository dapperRepository)
+            public CoursesByTermQueryHandler(IStatelessSession statelessSession)
             {
-                _dapperRepository = dapperRepository;
+                _statelessSession = statelessSession;
             }
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
-                const int pageSize = 30;
-                const string sql =
-                            @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
+                var dbQuery = _statelessSession.Query<Course>();
 
-
-
-
-with cte as 
-(
-select distinct CourseId
-		from sb.UsersCourses uc1 
-		join sb.[user] u1 
-			on u1.Id = uc1.UserId 
-		
-		where u1.Country = @Country
-)
-
-select Name,
-	1 as IsFollowing,
-	c.count as Students
-from sb.Course c
-join sb.UsersCourses uc
-	on c.Name = uc.CourseId and uc.UserId = @Id
-union all
-select Name,
-	0 as IsFollowing,
-	c.count as Students
-from sb.Course c
-
-where exists (select CourseId from cte where CourseId = c.Name)
-and not exists (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
-and (c.Country is null or c.Country = @Country)
-order by IsFollowing desc,
-		c.count desc
-OFFSET @PageSize * @Page ROWS
-FETCH NEXT @PageSize ROWS ONLY;";
-                using var conn = _dapperRepository.OpenConnection();
-                return await conn.QueryAsync<CourseDto>(sql, new
+                if (query.UserId > 0)
                 {
-                    Id = query.UserId,
-                    PageSize = pageSize,
-                    query.Page
-                });
+                    dbQuery = dbQuery.Where(w => w.Tutor.Id == query.UserId);
+                }
+
+
+                if (!string.IsNullOrEmpty(query.Term))
+                {
+                    dbQuery = dbQuery.Where(w => w.Name.StartsWith(query.Term));
+                }
+
+                return await dbQuery.Select(s => new CourseDto()
+                {
+                    Name = s.Name
+
+                }).ToListAsync(token);
+
             }
         }
     }

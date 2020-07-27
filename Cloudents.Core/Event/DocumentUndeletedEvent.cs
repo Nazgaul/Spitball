@@ -24,13 +24,13 @@ namespace Cloudents.Core.Event
     }
 
 
-    public class DocumentFlaggedEvent : IEvent
-    {
-        public DocumentFlaggedEvent(Document document)
-        {
-            Document = document;
-        }
+    //public class DocumentFlaggedEvent : IEvent
+    //{
+    //    public DocumentFlaggedEvent(Document document)
+    //    {
+    //        Document = document;
+    //    }
 
-        public Document Document { get; }
-    }
+    //    public Document Document { get; }
+    //}
 }

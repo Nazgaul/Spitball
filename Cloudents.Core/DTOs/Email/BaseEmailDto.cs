@@ -17,7 +17,7 @@ namespace Cloudents.Core.DTOs.Email
 
     public class DocumentPurchaseEmailDto : EmailDto
     {
-        [EntityBind(nameof(Document.Course.Id))]
+        [EntityBind(nameof(Document.OldCourse.Id))]
         public string CourseName { get; set; }
 
         [EntityBind(nameof(Document.Name))] public string DocumentName { get; set; }

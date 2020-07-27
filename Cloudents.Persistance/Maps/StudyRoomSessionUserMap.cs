@@ -12,7 +12,7 @@ namespace Cloudents.Persistence.Maps
                 .Not.Nullable().UniqueKey("k_StudyRoomSessionUser");
             References(x => x.User).Not.Nullable().UniqueKey("k_StudyRoomSessionUser");
 
-            HasOne(x => x.StudyRoomPayment).Constrained().PropertyRef(x=>x.StudyRoomSessionUser)
+            HasOne(x => x.StudyRoomPayment).Constrained().PropertyRef(x=>x!.StudyRoomSessionUser)
                 .Cascade.All().LazyLoad(Laziness.NoProxy);
 
             Map(x => x.Duration).Nullable();

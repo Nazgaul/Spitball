@@ -7,7 +7,7 @@ namespace Cloudents.Web.Models
         [Required]
         public long DocumentId { get; set; }
         [Required]
-        [StringLength(150, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
+        [StringLength(150, ErrorMessage = "StringLength", MinimumLength = 4)]
         public string Name { get; set; }
     }
 }

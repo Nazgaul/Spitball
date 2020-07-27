@@ -78,24 +78,24 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
 
-        private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
+        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
-        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+        //public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
 
 
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourse(Course course)
-        {
-            var p = new UserCourse(this, course);
-            if (_userCourses.Add(p))
-            {
-                course.Count++;
-                AddEvent(new CanTeachCourseEvent(p));
-            }
+        //public virtual void AssignCourse(OldCourse course)
+        //{
+        //    var p = new UserCourse(this, course);
+        //    if (_userCourses.Add(p))
+        //    {
+        //        course.Count++;
+        //        AddEvent(new CanTeachCourseEvent(p));
+        //    }
 
-        }
+        //}
 
         public virtual void BecomeTutor()
         {

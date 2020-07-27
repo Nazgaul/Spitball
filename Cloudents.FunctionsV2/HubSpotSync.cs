@@ -94,7 +94,7 @@ namespace Cloudents.FunctionsV2
                         s.Title,
                         s.SellerKey,
                         s.SubscriptionPrice,
-                        Courses = statelessSession.Query<UserCourse>().Any(w => w.User.Id == s.Id),
+                        Courses = statelessSession.Query<Core.Entities.Course>().Any(w => w.Tutor.Id == s.Id),
                         StudyRoom = statelessSession.Query<StudyRoom>().Any(a => a.Tutor.Id == s.Id),
                         Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 => w2.User.Id == s.Id),
                         Followers = statelessSession.Query<Follow>().Count(c => c.User.Id == s.Id),
@@ -112,7 +112,7 @@ namespace Cloudents.FunctionsV2
                 IFutureEnumerable<StudyRoomDto>? studyRoomFuture = null;
                 if (tutor.Courses)
                 {
-                    coursesFuture = statelessSession.Query<UserCourse>().Where(w => w.User.Id == tutor.Id).Select(s => s.Course.Id)
+                    coursesFuture = statelessSession.Query<Core.Entities.Course>().Where(w => w.Tutor.Id == tutor.Id).Select(s => s.Name)
                         .ToFuture();
                 }
                 if (tutor.StudyRoom)

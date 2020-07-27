@@ -12,7 +12,7 @@
             </span> -->
         </div>
         <v-spacer v-if="isMobile"></v-spacer>
-        <documentPrice :price="item.price" v-if="isMobile" />
+        <documentPrice :price="item.price" v-if="isMobile" :isSubscribed="isSubscribed" />
     </v-flex>
 </template>
 
@@ -32,6 +32,9 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
+        isSubscribed() {
+            return this.item.priceType === 'Subscriber'
+        }
         // docViews() {
         //     return this.item.views;
         // },

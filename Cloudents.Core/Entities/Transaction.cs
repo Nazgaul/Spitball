@@ -38,12 +38,12 @@ namespace Cloudents.Core.Entities
         {
         }
 
-
+        public const decimal CashOutValue = 250;
         public static CashOutTransaction CashOut()
         {
             return new CashOutTransaction
             {
-                Price = -1000,
+                Price = -CashOutValue,
                 Action = TransactionActionType.CashOut,
                 Type = TransactionType.Spent
             };
