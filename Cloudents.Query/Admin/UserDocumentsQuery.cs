@@ -41,7 +41,7 @@ namespace Cloudents.Query.Admin
 
                 return await dbQuery.Select(s => new UserDocumentsDto
                 {
-                    Course = s.OldCourse.Id,
+                    Course = s.Course.Name,
                     Id = s.Id,
                     Name = s.Name,
                     State = s.Status.State,

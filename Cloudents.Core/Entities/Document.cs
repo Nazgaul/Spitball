@@ -61,8 +61,7 @@ namespace Cloudents.Core.Entities
         public virtual string Name { get; protected set; }
 
 
-        [Obsolete]
-        public virtual OldCourse OldCourse { get; protected set; }
+        
 
 
         public virtual Course Course { get; set; }

@@ -94,7 +94,7 @@ namespace Cloudents.Query.Users
                 var documentCoursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User)
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => s.OldCourse.Id).Distinct()
+                    .Select(s => s.Course.Name).Distinct()
                     .ToFuture();
 
 

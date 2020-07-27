@@ -17,7 +17,6 @@ using Cloudents.Query.Courses;
 using Cloudents.Query.General;
 using Cloudents.Query.Session;
 using Cloudents.Query.StudyRooms;
-using Cloudents.Query.Sync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -62,21 +61,21 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Theory]
-        [InlineData(0, 0)]
-        [InlineData(0, 1)]
-        [InlineData(1, 0)]
-        [InlineData(1, 1)]
-        public async Task DocumentSyncAzureSearchQuery_Ok(int version, int page)
-        {
-            var query = new SyncAzureQuery(version, page);
-            //var query2 = new TutorSyncAzureSearchQuery(version);
+        //[Theory]
+        //[InlineData(0, 0)]
+        //[InlineData(0, 1)]
+        //[InlineData(1, 0)]
+        //[InlineData(1, 1)]
+        //public async Task DocumentSyncAzureSearchQuery_Ok(int version, int page)
+        //{
+        //    var query = new SyncAzureQuery(version, page);
+        //    //var query2 = new TutorSyncAzureSearchQuery(version);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-            //await fixture.QueryBus.QueryAsync(query2, default);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //    //await fixture.QueryBus.QueryAsync(query2, default);
 
 
-        }
+        //}
 
        
 
@@ -395,12 +394,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task GetDocumentPurchasedEmailQuery_Ok()
-        {
-            var query = new GetDocumentPurchasedEmailQuery(Guid.Parse("FA99DD71-F925-4B53-A7AD-A9C600F2FAEE"));
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task GetDocumentPurchasedEmailQuery_Ok()
+        //{
+        //    var query = new GetDocumentPurchasedEmailQuery(Guid.Parse("FA99DD71-F925-4B53-A7AD-A9C600F2FAEE"));
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Fact]
         public async Task GetEmailByEventQuery_Ok()

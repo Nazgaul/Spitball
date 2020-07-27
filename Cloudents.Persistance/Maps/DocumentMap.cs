@@ -15,7 +15,7 @@ namespace Cloudents.Persistence.Maps
             
             Component(x => x.TimeStamp);
 
-            References(x => x.OldCourse).Column("CourseName").Nullable().ForeignKey("Document_course");
+            //References(x => x.OldCourse).Column("CourseName").Nullable().ForeignKey("Document_course");
 
             //Cannot put not nullable because no inverse on course.
             References(x => x.Course).Column("CourseId").ForeignKey("Document_course2");
