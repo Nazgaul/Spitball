@@ -12,10 +12,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
-//store
-import storeService from "../../../services/store/storeService";
-import studyDocumentsStore from "../../../store/studyDocuments_store";
-
 // components
 import mainItem from "./components/mainItem/mainItem.vue";
 import unlockDialog from "./components/dialog/unlockDialog.vue";
@@ -49,9 +45,6 @@ export default {
       this.$store.dispatch('updateCurrentItem');
     });
   },
-  created() {
-    storeService.lazyRegisterModule(this.$store,"studyDocumentsStore",studyDocumentsStore);
-  }
 };
 </script>
 
@@ -61,18 +54,9 @@ export default {
 .itemPage {
   //hacks to finish this fast
   .price-area,
-  .content-wrap,
   hr,
   .spacer {
     display: none !important;
-  }
-  .bottom-row,
-  .data-row {
-    margin-right: 30% !important;
-    @media (max-width: @screen-xs) {
-      margin-right: auto !important;
-      justify-content: space-between;
-    }
   }
   .azuremediaplayer {
     background: #fff !important;

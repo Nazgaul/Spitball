@@ -41,7 +41,6 @@ export default {
                'likes': {text:this.$t('dashboardPage_likes'), align:'', sortable: true, value:'likes'},
                'views': {text:this.$t('dashboardPage_views'), align:'', sortable: true, value:'views'},
                'downloads': {text:this.$t('dashboardPage_downloads'), align:'', sortable: true, value:'downloads'},
-               'purchased': {text:this.$t('dashboardPage_purchased'), align:'', sortable: true, value:'purchased'},
                'price': {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
                'date': {text: this.$t('dashboardPage_date'), align:'', sortable: true, value:'date'},
                'action': {text: '', align:'center', sortable: false, value:'action'},

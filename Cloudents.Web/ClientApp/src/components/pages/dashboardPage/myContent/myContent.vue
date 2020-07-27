@@ -99,8 +99,6 @@
             <template v-slot:item.likes="{item}">{{item.likes}}</template>
             <template v-slot:item.views="{item}">{{item.views}}</template>
             <template v-slot:item.downloads="{item}">{{item.downloads}}</template>
-            <template v-slot:item.purchased="{item}">{{item.purchased}}</template>
-            <template v-slot:item.price="{item}">{{formatPrice(item.price,item.type)}}</template>
             <template v-slot:item.date="{item}">{{ $d(item.date) }}</template>
 
             <template v-slot:item.action="{item}">
@@ -157,15 +155,13 @@ export default {
             this.dictionary.headers['likes'],
             this.dictionary.headers['views'],
             this.dictionary.headers['downloads'],
-            this.dictionary.headers['purchased'],
-            this.dictionary.headers['price'],
             this.dictionary.headers['date'],
             this.dictionary.headers['action'],
          ]
       }
    },
    computed: {
-      ...mapGetters(['getContentItems','accountUser']),
+      ...mapGetters(['getContentItems']),
       contentItems(){
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
@@ -178,23 +174,6 @@ export default {
       }
    },
    methods: {
-      formatPrice(price,type){
-         if(isNaN(price)) return;
-         if(price < 0){
-            price = Math.abs(price)
-         }
-         price = Math.round(+price).toLocaleString();
-         let currency;
-         if(type === 'Document' || type === 'Video' ){
-            currency = this.$t('dashboardPage_pts');
-            return `${price} ${currency}`
-         }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
-            currency = this.accountUser.currencySymbol
-            return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
-         }
-         return `${price} ${currency}`
-      },
       openChangeNameDialog(item){
          this.currentItem = item;
          this.isChangeNameDialog = true;
