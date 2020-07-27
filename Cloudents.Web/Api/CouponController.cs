@@ -50,7 +50,7 @@ namespace Cloudents.Web.Api
             }
             catch (DuplicateRowException)
             {
-                return BadRequest("This coupon already exists");
+                return Ok();
             }
             catch (SqlConstraintViolationException)
             {

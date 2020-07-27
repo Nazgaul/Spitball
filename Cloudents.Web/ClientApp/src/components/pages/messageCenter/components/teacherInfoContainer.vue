@@ -8,7 +8,9 @@
          <div class="content">
             <div class="teacherAvatar text-center">
                <user-avatar class="pt-2" :size="'107'" :userImageUrl="tutorAvatar" :user-name="tutorName"/>
-               <div class="teacherAvatarName text-center pt-2" v-t="{path:$t('chat_teacher_name'),args:{0:tutorName}}"/>
+               <div class="teacherAvatarName text-center pt-2">
+                  {{$t('chat_teacher_name',[tutorName])}}
+               </div>
             </div>
             <div class="actionBoxs pt-4">
                <v-btn v-if="isBookSession" block depressed text class="actionBox mb-3 cursor-pointer" 

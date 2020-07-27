@@ -48,11 +48,11 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
-            if (user.PhoneNumber == null)
-            {
-                ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
-                return BadRequest(ModelState);
-            }
+            //if (user.PhoneNumber == null)
+            //{
+            //    ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
+            //    return BadRequest(ModelState);
+            //}
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
             if (result == SignInResult.Success)
