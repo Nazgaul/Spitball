@@ -4,7 +4,7 @@
             <profileCover  />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
-        <profileStats />
+        <profileStats v-if="showProfileStats" />
         <profileParagraph />
         <div class="profilePage_main mx-0 mx-sm-5">
             <profileCalendarTab
@@ -107,6 +107,17 @@ export default {
         },
         isCoverImageLoaded() {
           return this.$store.getters.getProfileCoverLoading
+        },
+        showProfileStats(){
+          if(this.$store.getters.getProfile){
+            let stats = [
+              this.$store.getters.getProfileStatsHours,
+              this.$store.getters.getProfileStatsReviews,
+              this.$store.getters.getProfileStatsFollowers,
+              this.$store.getters.getProfileStatsResources,
+            ]
+            return stats.reduce((a, b) => a + b, 0) > 4
+          }else return false;
         }
     },
     watch: {
