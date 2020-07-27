@@ -1,3 +1,5 @@
+import { staticComponents } from './routesUtils'
+import { CourseCreate } from './routeNames'
 export const courseRoutes = [
    {
       path: "/courses",
@@ -6,8 +8,31 @@ export const courseRoutes = [
          {
             path: '*',
             redirect: '/',
-
          }
       ]
+   },
+   {
+      path: '/course',
+      components: {
+         default: () => import(`../components/pages/coursePage/course.vue`),
+         ...staticComponents(['banner', 'header', 'sideMenu']),
+      },
+      children: [
+         {
+            path: '/',
+            redirect: 'create'
+         },
+         {
+            path: 'create',
+            name: CourseCreate,
+         },
+         {
+            path: '*',
+            redirect: 'create',
+         }
+      ],
+      meta: {
+         requiresAuth: true,
+      },
    }
 ]

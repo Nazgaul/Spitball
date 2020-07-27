@@ -54,3 +54,7 @@ export const Question = 'question';
 export const MessageCenter = 'messages';
 
 export const notFound = '404'
+
+// Courses
+
+export const CourseCreate = 'create'
