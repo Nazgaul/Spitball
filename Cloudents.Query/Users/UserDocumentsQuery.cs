@@ -49,14 +49,13 @@ namespace Cloudents.Query.Users
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
-                    DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.Course.Name,
                     Title = s.Name,
-                    Snippet = s.Description ?? s.MetaContent,
-                    Price = s.DocumentPrice.Price,
-                    PriceType = s.DocumentPrice.Type ?? PriceType.Free,
+                    Course = s.Course.Name,
+                   // Snippet = s.Description ?? s.MetaContent,
+                   // Price = s.DocumentPrice.Price,
+                   // PriceType = s.DocumentPrice.Type ?? PriceType.Free,
                     DocumentType = s.DocumentType,
-                    Duration = s.Duration,
+                   // Duration = s.Duration,
                     Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id, null)
                 }).ToFuture();
 
@@ -79,8 +78,8 @@ namespace Cloudents.Query.Users
                 {
                     futureResult = futureResult.Select(s =>
                     {
-                        s.PriceType = PriceType.Free;
-                        s.Price = null;
+                       // s.PriceType = PriceType.Free;
+                       // s.Price = null;
                         return s;
                     });
                 }

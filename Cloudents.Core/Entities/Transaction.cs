@@ -189,26 +189,26 @@ namespace Cloudents.Core.Entities
 
         public virtual Document Document { get; protected set; }
 
-        public static Transaction Buyer(Document document)
-        {
-            return new DocumentTransaction(document)
-            {
-                Action = TransactionActionType.PurchaseDocument,
-                Price = -document.DocumentPrice.Price,
-                Type = TransactionType.Spent
-            };
-        }
+        //public static Transaction Buyer(Document document)
+        //{
+        //    return new DocumentTransaction(document)
+        //    {
+        //        Action = TransactionActionType.PurchaseDocument,
+        //        Price = -document.DocumentPrice.Price,
+        //        Type = TransactionType.Spent
+        //    };
+        //}
 
-        public static Transaction Seller(Document document)
-        {
-            return new DocumentTransaction(document)
-            {
-                Action = TransactionActionType.SoldDocument,
-                Price = document.DocumentPrice.Price,
-                Type = TransactionType.Earned,
+        //public static Transaction Seller(Document document)
+        //{
+        //    return new DocumentTransaction(document)
+        //    {
+        //        Action = TransactionActionType.SoldDocument,
+        //        Price = document.DocumentPrice.Price,
+        //        Type = TransactionType.Earned,
 
-            };
-        }
+        //    };
+        //}
 
     }
 

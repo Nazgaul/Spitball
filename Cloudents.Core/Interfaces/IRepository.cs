@@ -70,10 +70,10 @@ namespace Cloudents.Core.Interfaces
 
 
 
-    public interface ITransactionRepository : IRepository<Transaction>
-    {
-        Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
-    }
+    //public interface ITransactionRepository : IRepository<Transaction>
+    //{
+    //    Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
+    //}
 
    
     //public interface IReferUserTransactionRepository : IRepository<ReferUserTransaction>

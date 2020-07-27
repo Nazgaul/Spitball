@@ -37,16 +37,6 @@ namespace Cloudents.Query.Documents
             [Cache(TimeConst.Minute * 2, CacheRegions.DocumentById, false)]
             public async Task<DocumentDetailDto?> GetAsync(DocumentById query, CancellationToken token)
             {
-
-                //Document documentAlias = null!;
-                //ReadTutor tutorAlias = null!;
-                //BaseUser userAlias = null!;
-                //DocumentDetailDto dtoAlias = null!;
-
-                //var similarDocumentQueryOver = QueryOver.Of<Document>()
-                //    .Where(w => w.Md5 == documentAlias.Md5 && w.Status.State == ItemState.Ok)
-                //    .And(x => x.Md5 != null).OrderBy(o => o.Id).Asc.Select(s => s.Id).Take(1);
-
                 var futureValue = _session.Query<Document>()
                     .Fetch(f => f.User).ThenFetch(x => ((User) x).Tutor)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -60,29 +50,9 @@ namespace Cloudents.Query.Documents
                         UserName = ((User) s.User).Name,
                         DocumentType = s.DocumentType,
                         Pages = s.PageCount ?? 0,
-                        Price = s.DocumentPrice.Price,
-                        PriceType = s.DocumentPrice.Type
+                        //Price = s.DocumentPrice.Price,
+                        //PriceType = s.DocumentPrice.Type
                     }).ToFutureValue();
-
-
-                //var futureValue = _session.QueryOver(() => documentAlias)
-                //    .JoinAlias(x => x.User, () => userAlias)
-                //    .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
-                //    .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
-                //    .SelectList(l =>
-                //        l.Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.Pages)
-                //            .Select(Projections.Property(() => documentAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Id)}"))
-                //            .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
-                //            .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
-                //            .Select(Projections.Property(() => documentAlias.DocumentPrice.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
-                //            .Select(Projections.Property(() => documentAlias.DocumentPrice.Type).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.PriceType)}"))
-                //            .Select(Projections.Property(() => documentAlias.DocumentType).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DocumentType)}"))
-
-
-                //    )
-                //    .TransformUsing(new DeepTransformer<DocumentDetailDto>())
-                //    .UnderlyingCriteria.SetComment(nameof(DocumentById))
-                //    .FutureValue<DocumentDetailDto>();
 
 
                 if (!query.UserId.HasValue)
