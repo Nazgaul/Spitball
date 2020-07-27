@@ -170,38 +170,27 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            //var session = Container.Resolve<ISession>();
+            var session = Container.Resolve<ISession>();
             //long i = 0;
 
-            //List<Document> documents;
-            //do
-            //{
-            //    documents = await session.Query<Document>()
-            //        .Where(w => ((User) w.User).Tutor.Created != null 
-            //                    && w.Status.State == ItemState.Ok && w.Course == null)
-            //        .Take(100)
-            //        .ToListAsync();
+            List<Course> courses;
+            do
+            {
+                courses = await session.Query<Course>()
+                    .Where(w=>w.Price == null)
+                    .Take(100)
+                    .OrderBy(o=>o.Id)
+                    .ToListAsync();
 
-            //    foreach (var document in documents)
-            //    {
-            //        Console.WriteLine($"Processing documentid {document.Id}");
-            //        using var uow = Container.Resolve<IUnitOfWork>();
-            //        var courseRepository = Container.Resolve<ICourseRepository>();
-                   
-            //        var course = await courseRepository.GetCourseByNameAsync(document.User.Id,  document.OldCourse.Id, default);
 
-            //        if (course == null)
-            //        {
-            //            var tutor = await session.LoadAsync<Tutor>(document.User.Id);
-            //            tutor.AddCourse(document.OldCourse.Id);
-            //            //course = new Course(document.OldCourse.Id,tutor);
-            //            //await courseRepository.AddAsync(course, default);
-            //        }
-            //        document.Course = course;
-            //        await uow.CommitAsync();
-            //        Console.WriteLine("no");
-            //    }
-            //} while (documents.Count > 0);
+                    foreach (var course in courses)
+                    {
+                       using var uow = Container.Resolve<IUnitOfWork>();
+                       course.SetInitPrice();
+
+                        await uow.CommitAsync();
+                    }
+            } while (courses.Count > 0);
 
 
             //List<BroadCastStudyRoom> broadCastStudyRooms;

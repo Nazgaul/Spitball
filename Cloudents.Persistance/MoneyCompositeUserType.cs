@@ -58,6 +58,10 @@ namespace Cloudents.Persistence
             }
             double val = (double)amountValue;
             string currency = NHibernateUtil.String.NullSafeGet(dr, currencyColumn, session, owner).ToString();
+            if (string.IsNullOrEmpty(currency))
+            {
+                return null;
+            } 
             Money money = new Money(val, currency);
 
             return money;

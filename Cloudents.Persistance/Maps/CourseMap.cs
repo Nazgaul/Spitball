@@ -35,7 +35,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("SubscriptionPrice","SubscriptionCurrency");
-            Map(x => x.Price).Not.Nullable()
+            Map(x => x.Price)//.Not.Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("Price","PriceCurrency");
 

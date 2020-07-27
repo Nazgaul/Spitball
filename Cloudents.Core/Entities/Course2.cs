@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
@@ -21,8 +24,30 @@ namespace Cloudents.Core.Entities
 
         public virtual int Position { get; }
 
-        public virtual Money Price { get; }
-        public virtual Money SubscriptionPrice { get; }
+        public virtual Money? Price { get; protected set; }
+        public virtual Money? SubscriptionPrice { get; }
+
+        public virtual void SetInitPrice()
+        {
+
+            var amountInPoints = Documents.Where(w=>w.DocumentPrice.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
+            var fiatValue = new Money( amountInPoints * Tutor.User.SbCountry.ConversationRate,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+
+            var fiatStudyRoomCheck =  StudyRooms.Select(s => s.Price).GroupBy(g => g.Currency).Select(s => new
+            {
+                c = s.Key,
+                v = s.DefaultIfEmpty().Aggregate((l, r) => l + r)
+            });
+
+            if (fiatStudyRoomCheck.Count() > 1)
+            {
+                throw new ArgumentException();
+            }
+
+            var fiatStudyRoom = StudyRooms.Select(s => s.Price).DefaultIfEmpty().Aggregate((l, r) => l + r);
+
+            Price = fiatValue + fiatStudyRoom;
+        }
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]

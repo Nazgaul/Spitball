@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    public class OldCourse : Entity<string>
+    public abstract class OldCourse : Entity<string>
     {
         //public const int MinLength = 4;
         //public const int MaxLength = 150;
