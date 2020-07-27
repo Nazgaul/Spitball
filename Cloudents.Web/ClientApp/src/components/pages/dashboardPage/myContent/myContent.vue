@@ -35,7 +35,7 @@
             <template v-slot:item.preview="{item}">
                   <img v-if="item.type === 'BuyPoints'" :src="item.image" class="tablePreview_img buyPointsLayoutPreview">
    
-                  <router-link v-else :to="item.url" class="tablePreview">
+                  <router-link v-else :to="itemUrl(item)" class="tablePreview">
                      <span v-if="item.online" class="tablePreview_online"></span>
                      <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
                      
@@ -52,7 +52,7 @@
                         <span>{{$t('dashboardPage_info_buy_points')}}</span>
                      </div>
                   </template>
-                  <router-link v-else class="tableInfo_router" :to="item.url">
+                  <router-link v-else class="tableInfo_router" :to="itemUrl(item)">
                      <template v-if="item.type === 'TutoringSession'">
                         <div class="text-truncate">
                            <div v-if="item.roomName" class="text-truncate">
@@ -111,7 +111,6 @@
                
                   <v-list v-if="item.itemId == currentItemIndex">
                      <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)" v-t="'dashboardPage_rename'"></v-list-item>
-                     <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(item)" v-t="'resultNote_change_price'"></v-list-item>
                   </v-list>
                </v-menu>
             </template>
@@ -128,16 +127,6 @@
          :content-class="'pop-dashboard-container'">
             <changeNameDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
       </sb-dialog>
-      <sb-dialog 
-         :showDialog="isChangePriceDialog"
-         :isPersistent="true"
-         :popUpType="'dashboardDialog'"
-         :onclosefn="closeDialog"
-         :activateOverlay="true"
-         :max-width="'fit-content'"
-         :content-class="'pop-dashboard-container'">
-            <changePriceDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
-      </sb-dialog>
    </div>
 </template>
 
@@ -145,11 +134,10 @@
 import { mapGetters } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
-import changePriceDialog from '../dashboardDialog/changePriceDialog.vue';
 
 export default {
    name:'myContent',
-   components:{sbDialog,changeNameDialog,changePriceDialog},
+   components:{sbDialog,changeNameDialog},
    props:{
       dictionary:{
          type: Object,
@@ -160,7 +148,6 @@ export default {
       return {
          currentItem: '',
          isChangeNameDialog: false,
-         isChangePriceDialog: false,
          currentItemIndex: '',
          showMenu: false,
          headers: [
@@ -212,13 +199,8 @@ export default {
          this.currentItem = item;
          this.isChangeNameDialog = true;
       },
-      openChangePriceDialog(item){
-         this.currentItem = item;
-         this.isChangePriceDialog = true;
-      },
       closeDialog(){
          this.isChangeNameDialog = false;
-         this.isChangePriceDialog = false;
          this.currentItem = '';
       },
       // checkIsQuestion(type){
@@ -231,6 +213,9 @@ export default {
          // if(this.checkIsQuestion(item.type)){
          //    return require('../global/images/qs.png')
          // }
+      },
+      itemUrl(item){
+         return item.url || `/document/${item.id}/`
       }
    },
    created() {

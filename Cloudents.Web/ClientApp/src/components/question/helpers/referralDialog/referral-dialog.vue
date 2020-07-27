@@ -1,7 +1,7 @@
 <template>
     <v-card class="ref-block" elevation="0"
             :style="isTransparent ? 'backgroundColor: transparent;' : 'background-color: #fff;' ">
-        <div class="dialog-wrapp referral-container">
+        <div class="dialog-wrapp flex-grow-1 referral-container">
             <v-icon class="close-btn-referral body-1 pe-3 pt-3" @click.prevent="requestDialogClose()">sbf-close</v-icon>
             <v-layout column v-show="!isUploadReferral">
                 <v-flex xs12   class="mb-4">
@@ -87,7 +87,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <v-layout align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
+        <v-layout align-center class="ref-bottom-section px-3 flex-grow-0" v-show="!isUploadReferral">
             <v-flex xs1 >
                 <!-- <i class="bottom-five"> -->
                     <v-icon  class="spread-out-loud-icon">sbf-spread-loud</v-icon>

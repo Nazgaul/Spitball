@@ -31,6 +31,7 @@ using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
+using Cloudents.Query.Users;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using Microsoft.Azure.Management.Media.Models;
 using NCrontab;
@@ -74,7 +75,7 @@ namespace ConsoleApp
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
-                            DbConnectionString.DataBaseIntegration.Update),
+                            DbConnectionString.DataBaseIntegration.None),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
@@ -104,6 +105,8 @@ namespace ConsoleApp
 
 
         }
+
+        private static IQueryBus QueryBus => Container.Resolve<IQueryBus>();
 
         static async Task Main()
         {

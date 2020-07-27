@@ -8,8 +8,8 @@ const state = {
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
-    toaster: false,
-    currentItemId: null
+    currentItemId: null,
+    currentPage: 0
 };
 
 const getters = {
@@ -17,7 +17,6 @@ const getters = {
         let x = state.document?.id ? state.document : '';
         return typeof (x) !== "string";
     },
-    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
     getDocumentName: (state,_getter)=>  {
         if (_getter._getDocumentLoaded) {
@@ -46,7 +45,8 @@ const getters = {
     getDocumentPriceTypeSubscriber: state => state.document?.priceType === 'Subscriber',
     getDocumentPriceTypeHasPrice: state => state.document?.priceType === 'HasPrice',
     getDocumentUserName: state => state.document?.userName,
-    getCurrentItemId: state => state.currentItemId
+    getCurrentItemId: state => state.currentItemId,
+    getCurrentPage: state => state.currentPage,
 };
 
 const mutations = {
@@ -55,7 +55,6 @@ const mutations = {
         state.btnLoading = false;    
         state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
-        state.toaster = false;
     },
     setPurchaseConfirmation(state,val){
         state.showPurchaseConfirmation = val;
@@ -64,17 +63,14 @@ const mutations = {
         state.document = payload;    
         state.documentLoaded = true;    
     },
-    // setNewDocumentPrice(state, price){
-    //     state.document.price = price;
-    // },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
-    setShowItemToaster(state, val) {
-        state.toaster = val
-    },
     setCurrentItemId(state,itemId){
         state.currentItemId = itemId
+    },
+    setItemPage(state,page){
+        state.currentPage = page;
     }
 };
 
@@ -100,7 +96,6 @@ const actions = {
         let cantBuyItem = getters.accountUser.balance < item.price;
 
         if(cantBuyItem) {
-            dispatch('updateItemToaster', true);
             return
         }
 
@@ -119,16 +114,8 @@ const actions = {
                 }, 500);
             });
     },
-    // setNewDocumentPrice({ commit }, price) {
-    //     if(!!state.document && !!state.document){
-    //         commit('setNewDocumentPrice', price);
-    //     }
-    // },
     clearDocument({commit}){
         commit('resetState');
-    },
-    updateItemToaster({commit}, val){
-        commit('setShowItemToaster', val);
     },
 
 
@@ -141,6 +128,17 @@ const actions = {
             commit('setCurrentItemId',null);
             commit('removeComponent',ITEM_DIALOG);
         }
+    },
+    updateItemPaging({commit,getters},isNext){
+        let page;
+        if(isNext){
+            if(getters.getCurrentPage < getters.getDocumentDetails?.preview?.length -1){
+                page = getters.getCurrentPage +1;
+            }
+        }else{
+            page = getters.getCurrentPage -1;
+        }
+        commit('setItemPage',page)
     }
 };
 

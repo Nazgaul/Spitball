@@ -136,7 +136,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError("error", "Study room with session");
+                ModelState.AddModelError("error", "Cannot delete an active session");
                 return BadRequest(ModelState);
             }
         }

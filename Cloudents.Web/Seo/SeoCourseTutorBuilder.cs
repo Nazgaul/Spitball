@@ -38,26 +38,27 @@ namespace Cloudents.Web.Seo
 
             const int pageSize = 50;
 
-            var t = _session.Query<Tutor>().Fetch(f => f.User)
-                .FetchMany(f => f.Courses)
+            var t = _session.Query<Course>()
+                .Fetch(f => f.Tutor)
+                //.FetchMany(f => f.Courses)
                 //.Join(_session.Query<UserCourse>(), x => x.Id, z => z.User.Id, (tutor, course) => new
                 //{
                 //    tutor,
                 //    course
                 //})
-                .Where(w => w.State == ItemState.Ok);
+                .Where(w => w.Tutor.State == ItemState.Ok);
                //  .Where(w => w.course.IsTeach);
 
             if (isFrymo)
             {
-                t = t.Where(w => w.User.Country == Country.India.Name);
+                t = t.Where(w => w.Tutor.User.Country == Country.India.Name);
             }
             else
             {
-                t = t.Where(w => w.User.Country != Country.India.Name);
+                t = t.Where(w => w.Tutor.User.Country != Country.India.Name);
             }
 
-            var query = t.GroupBy(x => x.Courses).Select(s => new { Course = s.Key, Count = s.Count() });
+            var query = t.GroupBy(x => x.Id).Select(s => new { Course = s.Key, Count = s.Count() });
           
             foreach (var group in query)
             {

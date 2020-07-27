@@ -227,10 +227,6 @@ export default {
         .itemCard-bottom{
             display: flex;
             justify-content: flex-end;
-            // .item-pts{
-            //     font-size: 14px;
-            //     font-weight: bold;
-            // }
             .documentPrice {
                 .docFree {
                 font-size: 13px;

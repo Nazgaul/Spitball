@@ -44,39 +44,6 @@
                 >
                 </v-text-field>
             </v-col>
-            <v-col cols="12" sm="3" class="pa-0" order="3" order-sm="4">
-                <v-select
-                    v-model="item.priceType"
-                    v-if="isTutorSubscribe"
-                    :items="currentPriceItems"
-                    :rules="[rules.required]"
-                    :label="$t('upload_file_price_label')"
-                    :append-icon="'sbf-menu-down'"
-                    placeholder=" "
-                    color="#4c59ff"
-                    height="44"
-                    autocomplete="off"
-                    hide-no-data
-                    outlined
-                    dense
-                >
-                </v-select>
-                <v-text-field class="uf_price pt-0"
-                    v-model="item.price" 
-                    v-else
-                    type="number"
-                    :label="$t('upload_file_price_label')"
-                    :rules="[rules.integer,rules.minimum,rules.maximum]"
-                    placeholder=" "
-                    :suffix="item.price ? $t('upload_uf_price_pts') : ''"
-                    color="#4c59ff"
-                    autocomplete="off"
-                    height="44"
-                    outlined
-                    dense
-                >
-                </v-text-field>
-            </v-col>
         </v-row>
     </v-card>
 </template>
@@ -93,15 +60,8 @@ export default {
         return {
             suggestsCourses: [],
             currentPrice: null,
-            currentPriceItems: [
-                { text: this.$t('upload_free_all'), value: 'Free' },
-                { text: this.$t('upload_subscriber_only'), value: 'Subscriber' }
-            ],
             rules: {
                 required: (value) => validationRules.required(value),
-                integer: (value) => validationRules.integer(value),
-                maximum: (value) => validationRules.maxVal(value, 2147483647),
-                minimum: (value) => validationRules.minVal(value,0),
                 minimumChars: value => validationRules.minimumChars(value, 4),
                 maximumChars: value => validationRules.maximumChars(value, 150)
             }
@@ -137,9 +97,6 @@ export default {
     },
     computed: {
         ...mapGetters(['getFileData']),
-        isTutorSubscribe() {
-            return this.$store.getters.getIsTutorSubscription
-        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -162,7 +119,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['changeFileByIndex', 'deleteFileByIndex', 'updatePriceToAll']),
+        ...mapActions(['changeFileByIndex', 'deleteFileByIndex']),
         deleteFile() {
             this.deleteFileByIndex(this.singleFileIndex)
         },
@@ -202,24 +159,6 @@ export default {
 
     .uf-sEdit-close{
         z-index: 99;
-    }
-    .uf_price{
-        input[type='number'] {
-            -moz-appearance:textfield;
-        }
-
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-        }
-        .v-text-field__suffix {
-            font-size: 14px;
-            font-weight: 600;
-            color: @global-purple; 
-        }
-        .v-input__slot {
-            margin-bottom:8px;
-        }
     }
     .v-input__slot {
         border-radius: 6px;

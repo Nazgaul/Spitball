@@ -60,7 +60,7 @@ const mutations = {
             this.email = objInit.email
             this.lastName = objInit.lastName
             this.firstName = objInit.firstName
-            this.name = `${objInit.firstName} ${objInit.lastName}`
+            this.name = `${objInit.firstName} ${objInit.lastName || ''}`
             this.image = objInit.image || ''
             this.balance = objInit.balance
             this.currencySymbol = objInit.currencySymbol
@@ -176,7 +176,7 @@ const actions = {
         if(getters.getIsComponentActiveByName(componentConsts.PAYMENT_DIALOG)){
             commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
-        if (getters.getIsBuyPoints || state.user.balance > newBalance) {
+        if (state.user.balance > newBalance) {
             commit('addComponent', componentConsts.PURCHASE_TRANSACTION)
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });
