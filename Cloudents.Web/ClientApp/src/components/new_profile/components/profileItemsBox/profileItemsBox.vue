@@ -13,9 +13,8 @@
             show-arrows
          >
             <v-slide-item v-for="(result) in item.result" :key="result.id" >
-               <v-card class="profileItemCard mb-1 elevation-0" >
-                  <itemCard class="itemCard-profilePage" v-if="$vuetify.breakpoint.smAndUp" :item="result" />
-                  <resultNote v-else :item="result" class="pa-3 mb-2" />
+               <v-card class="profileItemCard mb-1 elevation-0 px-4 px-sm-0" >
+                  <itemCard class="itemCard-profilePage"  :item="result" />
                </v-card>
             </v-slide-item>
          </v-slide-group>
@@ -30,16 +29,13 @@
 </template>
 
 <script>
-// const itemCard = () => import(/* webpackChunkName: "itemCard" */ '../../../carouselCards/itemCard.vue');
 import itemCard from '../../../carouselCards/itemCard.vue'
-import resultNote from "../../../results/ResultNote.vue";
 import arrowDownIcon from '../profileLiveClasses/group-3-copy-16.svg'
 
 export default {
    name:'profileItemsBox',
    components:{
       itemCard,
-      resultNote,
       arrowDownIcon
    },
    data() {
@@ -168,8 +164,6 @@ export default {
             border: 1px solid #ddd;
             box-shadow: none;
             flex: 0 0 32%;
-            width: 230px;
-            height: 100%;
          }
 
          // mobile

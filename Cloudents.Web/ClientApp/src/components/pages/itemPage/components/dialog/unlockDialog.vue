@@ -150,10 +150,6 @@ export default {
             color: @color-blue-new;
             font-size: 24px;
           }
-          .doc-type-text {
-            color: @color-blue-new;
-            font-size: 13px;
-          }
         }
         .doc-title {
           color: @textColor;

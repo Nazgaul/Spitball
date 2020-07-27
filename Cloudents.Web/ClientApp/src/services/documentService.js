@@ -39,9 +39,9 @@ export default {
     async changeDocumentName(data){ 
         return await documentInstance.post('rename',data)
     },
-    async deleteDoc(id){ 
-        return await documentInstance.delete(`${id}`)
-    },
+    // async deleteDoc(id){ 
+    //    return await documentInstance.delete(`${id}`)
+    // },
     async sendDocumentData(data){ 
         return await documentInstance.post('',data)
     },

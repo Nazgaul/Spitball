@@ -1,6 +1,4 @@
-﻿import {Item} from './Dto/item.js';
-
-function TutorItem(objInit) {
+﻿function TutorItem(objInit) {
     this.userId = objInit.userId;
     this.name = objInit.name || '';
     this.image = objInit.image;
@@ -19,16 +17,6 @@ function createTutorItem(objInit) {
     return new TutorItem(objInit);
 }
 
-function createDocumentItem(objInit) {
-    return new Item[objInit.documentType](objInit)
-}
-
-
-
 export default {
-
-
-
     createTutorItem,
-    createDocumentItem,
 }
