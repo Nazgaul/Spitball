@@ -5,6 +5,7 @@
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
+        <roosterEditor />
         <router-view class="main-container"></router-view>
         <sb-dialog
           :isPersistent="true"
@@ -60,7 +61,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import * as routeNames from '../../routes/routeNames.js';
-
+import roosterEditor from '../rooster/rooster.vue';
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 // const walletService = () => import("../../services/walletService");
@@ -70,6 +71,7 @@ const referralDialog = () => import("../question/helpers/referralDialog/referral
 
 export default {
   components: {
+    roosterEditor,
     referralDialog,
     AddQuestion,
     sbDialog,

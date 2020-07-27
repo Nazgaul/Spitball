@@ -88,6 +88,7 @@
     "myscript": "^4.3.0",
     "postcss-loader": "^3.0.0",
     "postcss-rtl": "^1.7.3",
+    "roosterjs": "^7.14.2",
     "timeago.js": "^4.0.2",
     "twilio-video": "2.6.0",
     "unused-webpack-plugin": "^2.4.0",
