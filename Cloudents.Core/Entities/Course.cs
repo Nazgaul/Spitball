@@ -12,6 +12,7 @@ namespace Cloudents.Core.Entities
         {
             Name = name;
             Tutor = tutor;
+            State = ItemState.Ok;
         }
 
         protected Course()
@@ -28,6 +29,8 @@ namespace Cloudents.Core.Entities
         public virtual Money? SubscriptionPrice { get; }
 
         public virtual string Description { get; set; }
+
+        public virtual ItemState State { get; set; }
 
         public virtual void SetInitPrice()
         {

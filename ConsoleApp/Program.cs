@@ -151,7 +151,7 @@ namespace ConsoleApp
 
         }
 
-       
+
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
@@ -163,33 +163,82 @@ namespace ConsoleApp
         }
 
 
-      
 
-     
+
+
 
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
             //long i = 0;
 
+            //us update
+            var ids = await session.Query<Course>()
+                .Where(w => w.Tutor.User.SbCountry == Country.UnitedStates)
+                .Select(s => s.Id).ToListAsync();
+
+            await session.Query<Course>()
+                .Where(w =>ids.Contains(w.Id))
+                .UpdateBuilder()
+                .Set(s => s.State, ItemState.Ok)
+                .UpdateAsync(default);
+
+
+            //il update
+            ids = await session.Query<Course>()
+                .Where(w => w.Tutor.User.SbCountry == Country.Israel)
+                .Where(w=>w.Tutor.SellerKey != null)
+                .Select(s => s.Id).ToListAsync();
+
+            await session.Query<Course>()
+                .Where(w =>ids.Contains(w.Id))
+                .UpdateBuilder()
+                .Set(s => s.State, ItemState.Ok)
+                .UpdateAsync(default);
+
+            ids = await session.Query<Course>()
+                .Where(w => w.Tutor.User.SbCountry == Country.Israel)
+                .Where(w=>w.Tutor.SellerKey == null)
+                .Select(s => s.Id).ToListAsync();
+
+            await session.Query<Course>()
+                .Where(w =>ids.Contains(w.Id))
+                .UpdateBuilder()
+                .Set(s => s.State, ItemState.Pending)
+                .UpdateAsync(default);
+
+            //in update
+            ids = await session.Query<Course>()
+                .Where(w => w.Tutor.User.SbCountry == Country.India)
+                .Select(s => s.Id).ToListAsync();
+
+            await session.Query<Course>()
+                .Where(w =>ids.Contains(w.Id))
+                .UpdateBuilder()
+                .Set(s => s.State, ItemState.Pending)
+                .UpdateAsync(default);
+
             List<Course> courses;
             do
             {
                 courses = await session.Query<Course>()
-                    .Where(w=>w.Price == null)
+                    .Where(w => w.Price == null)
                     .Take(100)
-                    .OrderBy(o=>o.Id)
+                    .OrderBy(o => o.Id)
                     .ToListAsync();
 
 
-                    foreach (var course in courses)
-                    {
-                       using var uow = Container.Resolve<IUnitOfWork>();
-                       course.SetInitPrice();
+                foreach (var course in courses)
+                {
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    course.SetInitPrice();
 
-                        await uow.CommitAsync();
-                    }
+                    await uow.CommitAsync();
+                }
             } while (courses.Count > 0);
+
+
+           
 
 
             //List<BroadCastStudyRoom> broadCastStudyRooms;
