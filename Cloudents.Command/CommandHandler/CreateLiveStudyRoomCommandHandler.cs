@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 
@@ -70,7 +72,17 @@ namespace Cloudents.Command.CommandHandler
                 schedule = new StudyRoomSchedule(z, endDate.Value, message.BroadcastTime);
             }
 
-            var course = tutor.AddCourse(message.Name); 
+            var course = tutor.Courses.FirstOrDefault(f => f.Name == message.Name);
+            if (course != null)
+            {
+                throw new DuplicateRowException();
+            }
+            course = new Course(message.Name, tutor)
+            {
+                Description = message.Description,
+                Price = new Money(message.Price, tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol)
+            };
+
             //To persist the course if needed
             await _tutorRepository.UpdateAsync(tutor, default);
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,

@@ -97,10 +97,10 @@ namespace Cloudents.Core.DTOs
     public class FutureBroadcastStudyRoomDto
     {
         public DateTime DateTime { get; set; }
-        public string Name { get; set; }
+       // public string Name { get; set; }
         public Guid Id { get; set; }
 
-        public Money Price { get; set; }
+       // public Money Price { get; set; }
 
         public bool Enrolled { get; set; }
 

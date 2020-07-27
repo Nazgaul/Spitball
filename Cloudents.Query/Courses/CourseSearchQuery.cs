@@ -10,7 +10,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Courses
 {
-    public class CourseSearchQuery : IQuery<IEnumerable<CourseDto>>
+    public class CourseSearchQuery : IQuery<IEnumerable<CourseNameDto>>
     {
         public CourseSearchQuery(long userId, string? term)
         {
@@ -23,7 +23,7 @@ namespace Cloudents.Query.Courses
 
 
 
-        internal sealed class CoursesByTermQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseDto>>
+        internal sealed class CoursesByTermQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseNameDto>>
         {
             private readonly IStatelessSession _statelessSession;
 
@@ -32,7 +32,7 @@ namespace Cloudents.Query.Courses
                 _statelessSession = statelessSession;
             }
 
-            public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
+            public async Task<IEnumerable<CourseNameDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
                 var dbQuery = _statelessSession.Query<Course>();
 
@@ -47,7 +47,7 @@ namespace Cloudents.Query.Courses
                     dbQuery = dbQuery.Where(w => w.Name.StartsWith(query.Term));
                 }
 
-                return await dbQuery.Select(s => new CourseDto()
+                return await dbQuery.Select(s => new CourseNameDto()
                 {
                     Name = s.Name
 

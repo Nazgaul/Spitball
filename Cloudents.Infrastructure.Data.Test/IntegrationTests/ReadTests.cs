@@ -121,14 +121,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Reviews.Should().BeInDescendingOrder(x => x.Created);
         }
 
-        [Theory]
-        [InlineData(638)]
-        [InlineData(160413)]
-        public async Task UserDocumentsQueryHandler_Ok(long userId)
-        {
-            var query = new UserDocumentsQuery(userId, 0);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData(638)]
+        //[InlineData(160413)]
+        //public async Task UserDocumentsQueryHandler_Ok(long userId)
+        //{
+        //    var query = new UserDocumentsQuery(userId, 0);
+        //    var result = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
        

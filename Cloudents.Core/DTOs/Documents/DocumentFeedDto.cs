@@ -15,7 +15,7 @@ namespace Cloudents.Core.DTOs.Documents
 
         public DocumentType DocumentType { get; set; }
 
-        public string Course { get; set; }
+        //public string Course { get; set; }
     }
 
     

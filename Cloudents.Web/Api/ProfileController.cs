@@ -67,32 +67,39 @@ namespace Cloudents.Web.Api
             return res;
         }
 
-
-
-        [HttpGet("{id:long}/documents")]
-        [ProducesResponseType(200)]
-        public async Task<IDictionary<string,List<DocumentFeedDto>>> GetDocumentsAsync(
-            [FromQuery] ProfileDocumentsRequest request, CancellationToken token)
+        [HttpGet("id:{long}/courses")]
+        public async Task<UserProfileReviewsDto> GetCourses(long id, CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new UserDocumentsQuery(request.Id, userId);
-            var x = await _queryBus.QueryAsync(query, token);
-            return x;
+            var query = new UserProfileReviewsQuery(id);
+            var res = await _queryBus.QueryAsync(query, token);
+            return res;
         }
 
-        [HttpGet("{id:long}/studyRoom")]
-        public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetUpcomingEventsAsync(long id, CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
 
-            return result.Select(s =>
-            {
-                s.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(s.Id);
-                return s;
-            });
-        }
+        //[HttpGet("{id:long}/documents")]
+        //[ProducesResponseType(200)]
+        //public async Task<IDictionary<string,List<DocumentFeedDto>>> GetDocumentsAsync(
+        //    [FromQuery] ProfileDocumentsRequest request, CancellationToken token)
+        //{
+        //    _userManager.TryGetLongUserId(User, out var userId);
+        //    var query = new UserDocumentsQuery(request.Id, userId);
+        //    var x = await _queryBus.QueryAsync(query, token);
+        //    return x;
+        //}
+
+        //[HttpGet("{id:long}/studyRoom")]
+        //public async Task<IEnumerable<FutureBroadcastStudyRoomDto>> GetUpcomingEventsAsync(long id, CancellationToken token)
+        //{
+        //    _userManager.TryGetLongUserId(User, out var userId);
+        //    var query = new TutorUpcomingBroadcastStudyRoomQuery(id, userId);
+        //    var result = await _queryBus.QueryAsync(query, token);
+
+        //    return result.Select(s =>
+        //    {
+        //        s.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(s.Id);
+        //        return s;
+        //    });
+        //}
 
         [HttpPost("{id:long}/studyRoom"), Authorize]
         public async Task EnrollUpcomingEventAsync(EnrollStudyRoomRequest model, CancellationToken token)

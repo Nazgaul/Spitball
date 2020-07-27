@@ -24,8 +24,10 @@ namespace Cloudents.Core.Entities
 
         public virtual int Position { get; }
 
-        public virtual Money? Price { get; protected set; }
+        public virtual Money? Price { get;  set; }
         public virtual Money? SubscriptionPrice { get; }
+
+        public virtual string Description { get; set; }
 
         public virtual void SetInitPrice()
         {
@@ -57,9 +59,9 @@ namespace Cloudents.Core.Entities
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
-        private readonly ICollection<StudyRoom> _studyRooms = new List<StudyRoom>();
+        private readonly ICollection<BroadCastStudyRoom> _studyRooms = new List<BroadCastStudyRoom>();
 
-        public virtual IEnumerable<StudyRoom> StudyRooms => _studyRooms;
+        public virtual IEnumerable<BroadCastStudyRoom> StudyRooms => _studyRooms;
 
     }
 }
