@@ -7,7 +7,7 @@ namespace Cloudents.Command.Command
     public class CreateLiveStudyRoomCommand : ICommand
     {
         public CreateLiveStudyRoomCommand(long tutorId, 
-            string name, decimal price, DateTime broadcastTime,  string? description, StudyRoomRepeat? repeat, DateTime? endDate, int? endAfterOccurrences, IEnumerable<DayOfWeek> repeatOn, string? image)
+            string name, decimal price, DateTime broadcastTime,  string description, StudyRoomRepeat? repeat, DateTime? endDate, int? endAfterOccurrences, IEnumerable<DayOfWeek> repeatOn, string? image)
         {
             TutorId = tutorId;
             Name = name;
@@ -29,7 +29,7 @@ namespace Cloudents.Command.Command
         public decimal Price { get;  }
         public DateTime BroadcastTime { get; }
 
-        public string? Description { get; }
+        public string Description { get; }
 
 
         public StudyRoomRepeat? Repeat { get; }

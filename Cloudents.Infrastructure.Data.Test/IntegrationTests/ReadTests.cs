@@ -115,20 +115,20 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task UserProfileAboutQuery_Ok()
         {
-            var query = new UserProfileAboutQuery(638);
+            var query = new UserProfileReviewsQuery(638);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Reviews.Should().BeInDescendingOrder(x => x.Created);
         }
 
-        [Theory]
-        [InlineData(638)]
-        [InlineData(160413)]
-        public async Task UserDocumentsQueryHandler_Ok(long userId)
-        {
-            var query = new UserDocumentsQuery(userId, 0);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData(638)]
+        //[InlineData(160413)]
+        //public async Task UserDocumentsQueryHandler_Ok(long userId)
+        //{
+        //    var query = new UserDocumentsQuery(userId, 0);
+        //    var result = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
        

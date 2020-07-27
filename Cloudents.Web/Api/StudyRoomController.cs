@@ -24,8 +24,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
-using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api

@@ -53,13 +53,13 @@ namespace Cloudents.Core.Entities
             var money = new Money(price, currency);
             SubscriptionPrice = money;
 
-            foreach (var document in User.Documents)
-            {
-                if (document.DocumentPrice.Price > 0)
-                {
-                    document.ChangeToSubscribeMode(this);
-                }
-            }
+            //foreach (var document in User.Documents)
+            //{
+            //    if (document.DocumentPrice.Price > 0)
+            //    {
+            //        document.ChangeToSubscribeMode(this);
+            //    }
+            //}
 
             AddEvent(new TutorSubscriptionEvent(Id));
         }
