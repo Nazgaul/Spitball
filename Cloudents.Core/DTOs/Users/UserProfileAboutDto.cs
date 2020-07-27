@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs.Users
 {
-    public class UserProfileAboutDto
+    public class UserProfileReviewsDto
     {
         // public IEnumerable<CourseDto> Courses { get; set; }
 
