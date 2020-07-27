@@ -13,7 +13,7 @@
             dense
             outlined
             placeholder=" "
-            autocomplete="nope"
+            autocomplete="abcd"
         />
         <v-row class="sessionDetails  ma-0 pa-0 mb-3"  no-gutters>
             <v-col cols="6" sm="4" >

@@ -9,7 +9,7 @@
                 <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
 <template v-if="cIsWebView">
                 <v-btn 
-                    
+                    :loading="btnLoading"
                     @click="gmailRegister"
                     depressed
                     block

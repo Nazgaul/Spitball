@@ -29,6 +29,7 @@ namespace Cloudents.Core.Entities
             )
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
+            if (course == null) throw new ArgumentNullException(nameof(course));
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = tutor.User;

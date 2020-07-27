@@ -141,18 +141,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
-        [Theory]
-        [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
-        public async Task ShortUrl_Invalid_404Async(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            //var p = response.Headers.Location;
-            //p.ToString().Should().StartWith("/Error/NotFound");
-            //p.LocalPath.Should().Be("/Error/NotFound");
-            //Assert.EndsWith("error/notfound", p.AbsolutePath);
-        }
+      
 
         [Theory]
         [InlineData("api/document/2999")]

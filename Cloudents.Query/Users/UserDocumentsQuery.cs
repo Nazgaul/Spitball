@@ -50,7 +50,7 @@ namespace Cloudents.Query.Users
                 {
                     Id = s.Id,
                     DateTime = s.TimeStamp.UpdateTime,
-                    Course = s.OldCourse.Id,
+                    Course = s.Course.Name,
                     Title = s.Name,
                     Snippet = s.Description ?? s.MetaContent,
                     Price = s.DocumentPrice.Price,
@@ -73,7 +73,7 @@ namespace Cloudents.Query.Users
 
 
                 var futureResult = await result.GetEnumerableAsync(token);
-                var isSubscribed = scribedQueryFuture?.Value ?? false;// ?? query.UserId == query.Id;
+                var isSubscribed = scribedQueryFuture?.Value ?? false;
 
                 if (isSubscribed)
                 {

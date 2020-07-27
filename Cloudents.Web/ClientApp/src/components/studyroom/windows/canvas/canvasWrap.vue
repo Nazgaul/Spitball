@@ -69,13 +69,13 @@ export default {
 </script>
 <style lang="less">
 .canvas-window {
-    //overide vuetify
+  background: transparent; //overide vuetify
   background-size: 20px 20px;
-    background: transparent linear-gradient(to right, #EBEBEB 1px, transparent 1px),
+  background-image: linear-gradient(to right, #EBEBEB 1px, transparent 1px),
     linear-gradient(to bottom, #EBEBEB 1px, transparent 1px);
 
-    .tabs {
+  .tabs {
     background: #e0e0e1;
-  }
+  } 
 }
 </style>

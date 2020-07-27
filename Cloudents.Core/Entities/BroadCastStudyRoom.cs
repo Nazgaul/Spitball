@@ -21,6 +21,7 @@ namespace Cloudents.Core.Entities
             Description = description;
             Schedule = schedule;
             Course = course ?? throw new ArgumentNullException(nameof(course));
+            Name = Course.Name;// temp for now
         }
 
         protected BroadCastStudyRoom() : base()

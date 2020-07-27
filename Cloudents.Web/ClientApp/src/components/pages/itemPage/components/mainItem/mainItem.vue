@@ -58,7 +58,6 @@ import utillitiesService from "../../../../../services/utilities/utilitiesServic
 
 const sbVideoPlayer = () => import('../../../../sbVideoPlayer/sbVideoPlayer.vue');
 const unlockItem = () => import('../unlockItem/unlockItem.vue');
-import EventBus from '../../../../../eventBus.js';
 
 export default {
     name: 'mainItem',
@@ -73,17 +72,10 @@ export default {
     },
     data() {
         return {
-            docPage: 0,
             showAfterVideo:false,
         }
     },
     watch:{
-        docPage:{
-            immediate:true,
-            handler(val){
-                EventBus.$emit('docPage',val);
-            }
-        },
         '$route.params.id'(){
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             // let self = this;
@@ -92,6 +84,14 @@ export default {
     },
     computed: {
         ...mapGetters(['getDocumentLoaded', 'getDocumentPriceType']),
+        docPage:{
+            get(){
+                return this.$store.getters.getCurrentPage;
+            },
+            set(val){
+                this.$store.commit('setItemPage',val)
+            }
+        },
 
         showUnlockPage(){
             return (this.docPage > 1 && !this.isPurchased)
@@ -188,9 +188,7 @@ export default {
             this.docPage--;
         },
         nextDoc() {
-            if(this.docPage < this.docPreview.length -1){
-                this.docPage++;
-            }
+            this.docPage++;
         },
         updateAfterVideo(){
             this.showAfterVideo = true;
@@ -202,10 +200,6 @@ export default {
                 this.$vuetify.rtl ? this.prevDoc() : this.nextDoc();
             }
         }
-    },
-    mounted() {
-        EventBus.$on('prevDoc',this.prevDoc)
-        EventBus.$on('nextDoc',this.nextDoc)
     },
 }
 </script>
