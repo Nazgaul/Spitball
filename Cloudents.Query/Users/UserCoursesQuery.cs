@@ -41,7 +41,7 @@ namespace Cloudents.Query.Users
 
 
                 var result =  await _statelessSession.Query<Course>()
-                    .Where(w => w.Tutor.Id == query.UserId)
+                    .Where(w => w.Tutor.Id == query.UserId && w.State == ItemState.Ok)
                     .Select(s => new CourseDto
                     {
                         Name = s.Name,

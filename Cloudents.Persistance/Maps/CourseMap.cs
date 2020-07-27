@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
@@ -41,6 +42,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
 
             References(x => x.Tutor).Not.Nullable();
+            Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Table("Course2");
         }
     }

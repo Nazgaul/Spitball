@@ -575,14 +575,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
         }
 
-        [Theory]
-        [InlineData(638,159039)]
-        [InlineData(160171,159039)]
-        public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok(long tutorId, long userId)
-        {
-            var query = new TutorUpcomingBroadcastStudyRoomQuery(tutorId, userId);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData(638,159039)]
+        //[InlineData(160171,159039)]
+        //public async Task TutorUpcomingBroadcastStudyRoomQuery_Ok(long tutorId, long userId)
+        //{
+        //    var query = new TutorUpcomingBroadcastStudyRoomQuery(tutorId, userId);
+        //    var result = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData("9f54280c-103e-46a6-8184-aabf00801beb")]
