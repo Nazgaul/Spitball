@@ -224,17 +224,6 @@ export default {
       event.stopPropagation();
       event.preventDefault();
     });
-
-    // let failedTranscationId = global.localStorage.getItem(
-    //   "sb_transactionError"
-    // );
-    // if (failedTranscationId) {
-    //   global.localStorage.removeItem("sb_transactionError");
-    //   let transactionObjectError = {
-    //     points: failedTranscationId
-    //   };
-      // this.tryBuyTokens(transactionObjectError);
-    // }
   }
 };
 </script>

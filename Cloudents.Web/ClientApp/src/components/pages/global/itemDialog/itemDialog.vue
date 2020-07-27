@@ -93,9 +93,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['downloadDocument',
-      'updatePurchaseConfirmation',
-    ]),
+    ...mapActions(['downloadDocument','updatePurchaseConfirmation']),
     closeItem(){
       this.$store.dispatch('updateCurrentItem')
     },

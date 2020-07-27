@@ -8,7 +8,6 @@ const state = {
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
-    toaster: false,
     currentItemId: null,
     currentPage: 0
 };
@@ -18,7 +17,6 @@ const getters = {
         let x = state.document?.id ? state.document : '';
         return typeof (x) !== "string";
     },
-    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
     getDocumentName: (state,_getter)=>  {
         if (_getter._getDocumentLoaded) {
@@ -57,7 +55,6 @@ const mutations = {
         state.btnLoading = false;    
         state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
-        state.toaster = false;
     },
     setPurchaseConfirmation(state,val){
         state.showPurchaseConfirmation = val;
@@ -71,9 +68,6 @@ const mutations = {
     // },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
-    },
-    setShowItemToaster(state, val) {
-        state.toaster = val
     },
     setCurrentItemId(state,itemId){
         state.currentItemId = itemId
@@ -105,7 +99,6 @@ const actions = {
         let cantBuyItem = getters.accountUser.balance < item.price;
 
         if(cantBuyItem) {
-            dispatch('updateItemToaster', true);
             return
         }
 
@@ -131,9 +124,6 @@ const actions = {
     // },
     clearDocument({commit}){
         commit('resetState');
-    },
-    updateItemToaster({commit}, val){
-        commit('setShowItemToaster', val);
     },
 
 
