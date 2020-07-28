@@ -8,6 +8,7 @@ export default {
       paymentLink: () => connectivityModule.http.get(`${BASE_URL}/getPaymentLink`),
    },
    post: {
+      buyTokens: (points) => connectivityModule.http.post(`${BASE_URL}/buyTokens`, points),
       redeem: (amount) => connectivityModule.http.post(`${BASE_URL}/redeem`, {amount}),
    },
 }

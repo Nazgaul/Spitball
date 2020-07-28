@@ -116,6 +116,7 @@ export default {
             if(!!this.accountUser) {
                 this.updatePurchaseConfirmation(true)
             } else {
+               // this.$openDialog('login')
                this.$store.commit('setComponent', 'register')
             }
       }
