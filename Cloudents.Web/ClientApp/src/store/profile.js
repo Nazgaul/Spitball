@@ -57,8 +57,6 @@ const mutations = {
             name: `${objInit.firstName} ${objInit.lastName}`,
             image: objInit.image || '',
             cover: objInit.cover || '',
-            documentCourses: objInit.documentCourses,
-            coursesString: objInit.documentCourses.toString().replace(/,/g, ", "),
             calendarShared: objInit.calendarShared || false,
             followers: objInit.followers || 0,
             contentCount: objInit.contentCount,
