@@ -170,21 +170,21 @@ namespace ConsoleApp
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            int amount = 0;
+            int amount2 = 0;
             do
             {
 
-               var ids = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
+               var ids2 = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
                     .Where(w => w.Course == null)
                     .Take(100).Select(s => s.Id).ToListAsync();
 
-                amount = await session.Query<Document>()
-                   .Where(w => ids.Contains(w.Id))
+               amount2 = await session.Query<Document>()
+                   .Where(w => ids2.Contains(w.Id))
                    .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
                    .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
                    .Set(x => x.Status.FlagReason, "Document not of tutor")
                    .UpdateAsync(default);
-            } while (amount > 0);
+            } while (amount2 > 0);
 
             //long i = 0;
 
@@ -256,21 +256,7 @@ namespace ConsoleApp
 
            
 
-             int amount = 0;
-            do
-            {
-
-               var ids = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.Course == null)
-                    .Take(100).Select(s => s.Id).ToListAsync();
-
-                amount = await session.Query<Document>()
-                   .Where(w => ids.Contains(w.Id))
-                   .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
-                   .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
-                   .Set(x => x.Status.FlagReason, "Document not of tutor")
-                   .UpdateAsync(default);
-            } while (amount > 0);
+         
 
 
             //List<BroadCastStudyRoom> broadCastStudyRooms;

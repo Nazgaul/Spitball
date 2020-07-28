@@ -1,11 +1,8 @@
-﻿using System;
-using Cloudents.Core.DTOs;
-using Dapper;
+﻿using Cloudents.Core.DTOs;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -38,9 +35,6 @@ namespace Cloudents.Query.Users
 
             public async Task<IEnumerable<CourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
             {
-
-
-
                 var result =  await _statelessSession.Query<Course>()
                     .Where(w => w.Tutor.Id == query.UserId && w.State == ItemState.Ok)
                     .Select(s => new CourseDto
@@ -48,7 +42,10 @@ namespace Cloudents.Query.Users
                         Name = s.Name,
                         Price = s.Price,
                         SubscriptionPrice = s.SubscriptionPrice,
-
+                        Description = s.Description,
+                        Id = s.Id,
+                        StudyRoomCount = s.StudyRooms.Count(),
+                        StartTime = s.StudyRooms.Select(s2=>s2.BroadcastTime).Min()
                         //Documents = s.Documents.Where(w=>w.Status.State == ItemState.Ok).Select(s2 => new DocumentFeedDto()
                         //{
                         //    Title = s2.Name,
@@ -69,20 +66,7 @@ namespace Cloudents.Query.Users
                         //})
                     }).ToListAsync(token);
 
-                return result.Select(s =>
-                {
-                    s.StudyRooms = s.StudyRooms.Select(s2 =>
-                    {
-                        if (s2.Schedule != null)
-                        {
-                            s2.NextEvents = _cronService.GetNextOccurrences(s2.Schedule.CronString,
-                                s2.Schedule.Start, s2.Schedule.End);
-                        }
-
-                        return s2;
-                    });
-                    return s;
-                });
+                return result;
 
 
             }

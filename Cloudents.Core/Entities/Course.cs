@@ -17,8 +17,8 @@ namespace Cloudents.Core.Entities
 
         protected Course()
         {
-            
         }
+
         public virtual string Name { get; set; }
 
         public virtual Tutor Tutor { get; set; }

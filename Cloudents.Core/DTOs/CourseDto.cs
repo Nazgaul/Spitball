@@ -29,6 +29,7 @@ namespace Cloudents.Core.DTOs
 
         public int StudyRoomCount { get; set; }
 
+        public string Image { get; set; }
        // public IEnumerable<DocumentFeedDto> Documents { get; set; }
         //public IEnumerable<FutureBroadcastStudyRoomDto> StudyRooms { get; set; }
 
