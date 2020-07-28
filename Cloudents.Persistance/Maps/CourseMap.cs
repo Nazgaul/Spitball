@@ -41,6 +41,10 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
+
+            HasMany(x => x.CourseEnrollments).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.AllDeleteOrphan();
+
             References(x => x.Tutor).Not.Nullable();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Table("Course2");

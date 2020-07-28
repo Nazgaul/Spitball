@@ -6,13 +6,14 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
 {
-    public class Course :Entity<long>
+    public class Course : Entity<long>
     {
         public Course(string name, Tutor tutor)
         {
             Name = name;
             Tutor = tutor;
             State = ItemState.Ok;
+            Price = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
         }
 
         protected Course()
@@ -25,8 +26,8 @@ namespace Cloudents.Core.Entities
 
         public virtual int Position { get; }
 
-        public virtual Money? Price { get;  set; }
-        public virtual Money? SubscriptionPrice { get; }
+        public virtual Money Price { get; set; }
+        public virtual Money? SubscriptionPrice { get; protected set; }
 
         public virtual string Description { get; set; }
 
@@ -35,10 +36,10 @@ namespace Cloudents.Core.Entities
         public virtual void SetInitPrice()
         {
 
-            var amountInPoints = Documents.Where(w=>w.DocumentPrice.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
-            var fiatValue = new Money( amountInPoints * Tutor.User.SbCountry.ConversationRate,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            var amountInPoints = Documents.Where(w => w.DocumentPrice.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
+            var fiatValue = new Money(amountInPoints * Tutor.User.SbCountry.ConversationRate, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
 
-            var fiatStudyRoomCheck =  StudyRooms.Select(s => s.Price).GroupBy(g => g.Currency).Select(s => new
+            var fiatStudyRoomCheck = StudyRooms.Select(s => s.Price).GroupBy(g => g.Currency).Select(s => new
             {
                 c = s.Key,
                 v = s.DefaultIfEmpty().Aggregate((l, r) => l + r)
@@ -52,6 +53,10 @@ namespace Cloudents.Core.Entities
             var fiatStudyRoom = StudyRooms.Select(s => s.Price).DefaultIfEmpty().Aggregate((l, r) => l + r);
 
             Price = fiatValue + fiatStudyRoom;
+            if (Tutor.HasSubscription())
+            {
+                SubscriptionPrice = new Money(0d, Price.Currency);
+            }
         }
 
 
@@ -65,6 +70,11 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<BroadCastStudyRoom> _studyRooms = new List<BroadCastStudyRoom>();
 
         public virtual IEnumerable<BroadCastStudyRoom> StudyRooms => _studyRooms;
+
+
+        private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
+
+        public virtual IEnumerable<CourseEnrollment> CourseEnrollments => _courseEnrollments;
 
     }
 }
