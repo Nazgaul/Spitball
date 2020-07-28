@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.DTOs.Documents;
@@ -22,8 +23,14 @@ namespace Cloudents.Core.DTOs
         public Money? Price { get; set; }
         public Money? SubscriptionPrice { get; set; }
 
-        public IEnumerable<DocumentFeedDto> Documents { get; set; }
-        public IEnumerable<FutureBroadcastStudyRoomDto> StudyRooms { get; set; }
+        public string? Description { get; set; }
+
+        public DateTime? StartTime { get; set; }
+
+        public int StudyRoomCount { get; set; }
+
+       // public IEnumerable<DocumentFeedDto> Documents { get; set; }
+        //public IEnumerable<FutureBroadcastStudyRoomDto> StudyRooms { get; set; }
 
     }
 

@@ -40,6 +40,7 @@ namespace Cloudents.Query.Users
             {
 
 
+
                 var result =  await _statelessSession.Query<Course>()
                     .Where(w => w.Tutor.Id == query.UserId && w.State == ItemState.Ok)
                     .Select(s => new CourseDto
@@ -48,24 +49,24 @@ namespace Cloudents.Query.Users
                         Price = s.Price,
                         SubscriptionPrice = s.SubscriptionPrice,
 
-                        Documents = s.Documents.Where(w=>w.Status.State == ItemState.Ok).Select(s2 => new DocumentFeedDto()
-                        {
-                            Title = s2.Name,
-                            DocumentType = s2.DocumentType,
-                            Id = s2.Id,
-                            Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
-                        }),
-                        Id = s.Id,
-                        StudyRooms = s.StudyRooms.Where(w=> w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(s2 => new FutureBroadcastStudyRoomDto()
-                        {
-                            Id = s2.Id,
-                            DateTime = s2.BroadcastTime,
-                            Description = s2.Description,
-                            //IsFull = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == s2.Id) >= 48,
-                            //Enrolled = _statelessSession.Query<StudyRoomUser>()
-                            //    .Any(w => w.Room.Id == s2.Id && w.User.Id == query.UserId),
-                            Schedule = s2.Schedule
-                        })
+                        //Documents = s.Documents.Where(w=>w.Status.State == ItemState.Ok).Select(s2 => new DocumentFeedDto()
+                        //{
+                        //    Title = s2.Name,
+                        //    DocumentType = s2.DocumentType,
+                        //    Id = s2.Id,
+                        //    Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
+                        //}),
+                        //Id = s.Id,
+                        //StudyRooms = s.StudyRooms.Where(w=> w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(s2 => new FutureBroadcastStudyRoomDto()
+                        //{
+                        //    Id = s2.Id,
+                        //    DateTime = s2.BroadcastTime,
+                        //    Description = s2.Description,
+                        //    //IsFull = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == s2.Id) >= 48,
+                        //    //Enrolled = _statelessSession.Query<StudyRoomUser>()
+                        //    //    .Any(w => w.Room.Id == s2.Id && w.User.Id == query.UserId),
+                        //    Schedule = s2.Schedule
+                        //})
                     }).ToListAsync(token);
 
                 return result.Select(s =>

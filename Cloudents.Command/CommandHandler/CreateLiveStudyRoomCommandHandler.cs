@@ -92,7 +92,7 @@ namespace Cloudents.Command.CommandHandler
 
             if (message.Image != null)
             {
-                await _blobProvider.MoveAsync(message.Image, studyRoom.Id.ToString(), "0.jpg", token);
+                await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
             }
 
             message.StudyRoomId = studyRoom.Id;

@@ -29,6 +29,9 @@ namespace Cloudents.Web.Api
             _userManager = userManager;
         }
 
+        //[HttpGet("{id:long}")]
+        //public 
+
         /// <summary>
         /// Perform course search - we can't put cache because the user can re-enter the page
         /// </summary>
