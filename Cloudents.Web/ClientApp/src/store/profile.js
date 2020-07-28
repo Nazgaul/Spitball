@@ -6,13 +6,13 @@ const profileInstance = axios.create({
 let cancelTokenList;
 
 const state = {
+   courses: [],
    profile: null,
    // documents: [],
    faq: [],
    documents: [],
    profileReviews: null,
    profileLiveSessions: [],
-   //showEditDataDialog: false,
    amountOfReviews: 0,
    profileCoverLoading: false
 }
@@ -20,12 +20,11 @@ const state = {
 const getters = {
    getProfile: state => state.profile,
    getProfileReviews: state => state.profileReviews,
-   getProfileLiveSessions: state => state.profileLiveSessions,
+   // getProfileLiveSessions: state => state.profileLiveSessions,
    getProfileStatsHours: state => state.profile?.user?.hoursTaught,
    getProfileStatsReviews: state => state.profile?.user?.reviewCount,
    getProfileStatsFollowers: state => state.profile?.user?.followers,
    getProfileStatsResources: state => state.profile?.user?.contentCount,
-   // getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
@@ -43,6 +42,7 @@ const getters = {
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
    //getProfileCountry: state => state.profile?.user?.tutorCountry,
+   getProfileCourses: state => state.courses,
 }
 
 const mutations = {
@@ -161,9 +161,6 @@ const mutations = {
       state.profileCoverLoading = false;
       state.documents = []
    },
-   // setEditDialog(state, val) {
-   //    state.showEditDataDialog = val;
-   // },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
@@ -186,6 +183,29 @@ const mutations = {
    setExpandItems(state, item) {
       let document = state.documents.filter(doc => doc.courseName === item.courseName)[0]
       document.isExpand = !document.isExpand
+   },
+   setProfileCourses(state,courses){
+      state.courses = courses.map(course => new Course(course))
+
+      function Course(objInit){
+         this.id = objInit.id;
+         this.name = objInit.name;
+         this.image = objInit.image;
+         this.price = {
+            amount: objInit.price?.amount,
+            currency: objInit.price?.currency
+         }
+         this.studyRoomCount = objInit.studyRoomCount;
+         this.startTime = objInit.startTime;
+         
+         this.description = objInit.description;
+         this.subscriptionPrice = objInit.subscriptionPrice;
+
+         this.subscriptionPrice = {
+            amount: objInit.subscriptionPrice?.amount,
+            currency: objInit.subscriptionPrice?.currency
+         }
+      }
    }
 }
 
@@ -213,11 +233,16 @@ const actions = {
             commit('setProfileDocuments', data);
          });
    },
-   getStudyroomLiveSessions({ commit }, id) {
-      profileInstance.get(`${id}/studyRoom`).then(({data}) => {
-         commit('setLiveSession', data)
+   updateProfileCourses({commit},id){
+      profileInstance.get(`${id}/courses`).then(({data}) => {
+         commit('setProfileCourses', data)
       })
    },
+   // getStudyroomLiveSessions({ commit }, id) {
+   //    profileInstance.get(`${id}/studyRoom`).then(({data}) => {
+   //       commit('setLiveSession', data)
+   //    })
+   // },
    async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
       let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);

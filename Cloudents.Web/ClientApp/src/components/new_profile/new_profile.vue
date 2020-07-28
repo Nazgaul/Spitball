@@ -16,7 +16,7 @@
             />
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" :key="componentRenderKey" />
-            <profileItemsBox />
+            <!-- <profileItemsBox /> -->
             <profileReviewsBox v-if="showProfileReviews"/>
             <!-- <profileFAQ /> -->
         </div>
