@@ -47,7 +47,7 @@ namespace Cloudents.Query.Tutor
                          BroadcastTime = ((BroadCastStudyRoom)s).BroadcastTime,
                          Type = s is BroadCastStudyRoom ? StudyRoomType.Broadcast : StudyRoomType.Private,
                          TopologyType = s.TopologyType,
-                         Name = s.Name,
+                         Name = ((BroadCastStudyRoom)s).Course.Name ?? ((PrivateStudyRoom)s).Name,
                          TutorPrice = s.Price,
                          TutorName = s.Tutor.User.Name,
                          TutorImage = s.Tutor.User.ImageName,

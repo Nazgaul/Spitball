@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
                      .Where(w => (((BroadCastStudyRoom)w).BroadcastTime != null ? ((BroadCastStudyRoom)w).BroadcastTime : DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow.AddHours(-1))
                      .OrderByDescending(o => o.DateTime.CreationTime)
                      .Select(s => new UserStudyRoomDto(
-                         s.Name,
+                         ((BroadCastStudyRoom)s).Course.Name ?? ((PrivateStudyRoom)s).Name,// s.Name,
                          s.Id,
                          s.DateTime.CreationTime,
                          s.Identifier,

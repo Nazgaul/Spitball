@@ -43,7 +43,7 @@ namespace Cloudents.Query.Tutor
                         Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id == query.UserId),
                         TutorId = s.Tutor.Id,
                         BroadcastTime = s.BroadcastTime,
-                        Name = s.Name,
+                        Name = s.Course.Name ,
                         Price = s.Price,
                         TutorName = s.Tutor.User.Name,
                         TutorImage = s.Tutor.User.ImageName,

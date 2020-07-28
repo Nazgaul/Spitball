@@ -14,8 +14,6 @@ export const Item = {
      // this.downloads = objInit.downloads;
       this.url = objInit.url;
       this.dateTime = new Date(objInit.dateTime);
-      this.votes = !!objInit.vote ? objInit.vote.votes : null;
-      //this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up") : false) : null;
       //TODO REMOVE THIS
       this.price = objInit.price ? objInit.price.toFixed(0) : 0;
 

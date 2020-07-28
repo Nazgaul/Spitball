@@ -21,6 +21,9 @@ namespace Cloudents.Core.Entities
 
         public virtual int Position { get; }
 
+        public virtual Money Price { get; }
+        public virtual Money SubscriptionPrice { get; }
+
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<Document> _documents = new List<Document>();

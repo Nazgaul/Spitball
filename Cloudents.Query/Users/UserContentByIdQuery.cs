@@ -40,7 +40,7 @@ namespace Cloudents.Query.Users
                         Name = s.Name,
                         Course = s.OldCourse.Id,
                         Type = s.DocumentType.ToString(),
-                        Likes = s.VoteCount,
+                       // Likes = s.VoteCount,
                         Price = s.DocumentPrice.Price,
                         //State = s.Status.State,
                         Date = s.TimeStamp.CreationTime,

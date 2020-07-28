@@ -21,7 +21,12 @@ namespace Cloudents.Core.Entities
 
         public Document(string name,
             Course course,
-            Tutor tutor, decimal price, DocumentType documentType, string? description, PriceType priceType)
+            Tutor tutor,
+            //decimal price,
+            DocumentType documentType,
+            string? description
+            //PriceType priceType
+            )
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             if (course == null) throw new ArgumentNullException(nameof(course));
@@ -38,7 +43,7 @@ namespace Cloudents.Core.Entities
             }
             Status = GetInitState(tutor.User);
             DocumentType = documentType;
-            DocumentPrice = new DocumentPrice(price, priceType, tutor);
+            DocumentPrice = new DocumentPrice(0, PriceType.Free, tutor);
             AddEvent(new DocumentCreatedEvent(this));
           
         }
@@ -91,10 +96,10 @@ namespace Cloudents.Core.Entities
 
         public virtual ItemStatus Status { get; protected set; }
 
-        private readonly ICollection<Vote> _votes = new List<Vote>();
-        public virtual IEnumerable<Vote> Votes => _votes;
+        //private readonly ICollection<Vote> _votes = new List<Vote>();
+        //public virtual IEnumerable<Vote> Votes => _votes;
 
-        public virtual int VoteCount { get; protected set; }
+       // public virtual int VoteCount { get; protected set; }
 
         public virtual int? PurchaseCount { get; protected set; }
 
@@ -114,26 +119,26 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual void Vote(VoteType type, User user)
-        {
-            if (type == VoteType.Down)
-            {
-                throw new NotSupportedException();
-            }
-            if (Status != Public)
-            {
-                throw new NotFoundException();
-            }
+        //public virtual void Vote(VoteType type, User user)
+        //{
+        //    if (type == VoteType.Down)
+        //    {
+        //        throw new NotSupportedException();
+        //    }
+        //    if (Status != Public)
+        //    {
+        //        throw new NotFoundException();
+        //    }
 
-            var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
-            if (vote == null)
-            {
-                vote = new Vote(user, this, type);
-                _votes.Add(vote);
-            }
-            vote.VoteType = type;
-            VoteCount = Votes.Sum(s => (int)s.VoteType);
-        }
+        //    var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
+        //    if (vote == null)
+        //    {
+        //        vote = new Vote(user, this, type);
+        //        _votes.Add(vote);
+        //    }
+        //    vote.VoteType = type;
+        //    VoteCount = Votes.Sum(s => (int)s.VoteType);
+        //}
 
         public virtual void MakePublic()
         {
@@ -145,7 +150,7 @@ namespace Cloudents.Core.Entities
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
-            _votes.Clear();
+            //_votes.Clear();
             DocumentDownloads.Clear();
             AddEvent(new DocumentDeletedEvent(this));
         }
@@ -163,11 +168,11 @@ namespace Cloudents.Core.Entities
         public virtual void UnFlag()
         {
             if (Status != Flagged) return;
-            if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
-            {
-                _votes.Clear();
-                VoteCount = 0;
-            }
+            //if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
+            //{
+            //  //  _votes.Clear();
+            //    VoteCount = 0;
+            //}
             Status = Public;
         }
 
@@ -175,23 +180,23 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangePrice(decimal newPrice)
-        {
-            if (DocumentPrice.Price == newPrice)
-            {
-                return;
-            }
+        //public virtual void ChangePrice(decimal newPrice)
+        //{
+        //    if (DocumentPrice.Price == newPrice)
+        //    {
+        //        return;
+        //    }
 
-            if (DocumentPrice.Type == PriceType.Subscriber)
-            {
-                throw new ArgumentException("Subscribe cannot have price");
-            }
+        //    if (DocumentPrice.Type == PriceType.Subscriber)
+        //    {
+        //        throw new ArgumentException("Subscribe cannot have price");
+        //    }
 
-            DocumentPrice.ChangePrice(newPrice);
+        //    DocumentPrice.ChangePrice(newPrice);
 
-            TimeStamp.UpdateTime = DateTime.UtcNow;
-            AddEvent(new DocumentPriceChangeEvent(this));
-        }
+        //    TimeStamp.UpdateTime = DateTime.UtcNow;
+        //    AddEvent(new DocumentPriceChangeEvent(this));
+        //}
 
         public virtual void Rename(string name)
         {

@@ -1,21 +1,8 @@
 @import "../../styles/mixin.less";
-@import "../dialogs/changePrice/changePrice.less";
 
 @colorUploadDate: rgba(0, 0, 0, 0.38);
 @placeholderGrey: rgba(74, 74, 74, 0.25);
 @colorPrice: rgba(74, 74, 74, 0.87);
-.relative-pos {
-  position: relative;
-  .input-wrap {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left: 0;
-    bottom: -12px;
-    right: 0; 
-  }
-}
 
 .note-block {
   background-color: #FFF;
@@ -354,34 +341,6 @@
         }
         &.type-document {
           background: fade(@colorTypeDocDefault, 7%);
-        }
-        .title-wrap {
-          display: flex;
-          align-items: flex-start;
-          word-break: break-all;
-          word-break: break-word;
-          i.doc {
-            color: @colorBlackNew;
-            font-size: 14px;
-            padding-top: 3px;
-            padding-right: 4px;
-          }
-          .doc-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: @textColor;
-            margin-bottom: 0;
-            flex-grow: 1;
-            display: inline-flex;
-            //firefox fix for line clamp, needs specific max-height
-            &.foxLineClamp {
-              max-height: 56px !important;
-              display: block !important;
-            }
-            @media (max-width: @screen-xs) {
-              line-height: 20px;
-            }
-          }
         }
         .content-text {
           padding-top: 9px;

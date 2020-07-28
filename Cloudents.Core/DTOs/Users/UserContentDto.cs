@@ -16,7 +16,7 @@ namespace Cloudents.Core.DTOs.Users
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Views { get; set; }
-        public int Likes { get; set; }
+        public int Likes => 0;
         public int Downloads{ get; set; }
         public int Purchased { get; set; }
         public string Preview { get; set; }
