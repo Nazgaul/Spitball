@@ -12,7 +12,7 @@ namespace Cloudents.Core.Interfaces
         Task<GenerateSaleResponse> CreateBuyerAsync(string callback, string successRedirect, CancellationToken token);
 
 
-        Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token);
+      //  Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token);
     }
 
     public interface IPaymentProvider

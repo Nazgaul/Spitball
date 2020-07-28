@@ -88,29 +88,29 @@ namespace Cloudents.Web.Api
 
         #region PayMe
 
-        [HttpPost("BuyTokens")]
-        public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model, CancellationToken token)
-        {
+        //[HttpPost("BuyTokens")]
+        //public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model, CancellationToken token)
+        //{
 
-            var user = await _userManager.GetUserAsync(User);
-            var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName2, new
-            {
-                userId = user.Id,
-                points = model.Points
-            }, "https");
+        //    var user = await _userManager.GetUserAsync(User);
+        //    var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName2, new
+        //    {
+        //        userId = user.Id,
+        //        points = model.Points
+        //    }, "https");
 
-            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
-            var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
-            var saleUrl = new UriBuilder(result.SaleUrl);
-            saleUrl.AddQuery(new NameValueCollection()
-            {
-                ["first_name"] = user.FirstName,
-                ["last_name"] = user.LastName,
-                ["phone"] = user.PhoneNumber,
-                ["email"] = user.Email,
-            });
-            return new SaleResponse(saleUrl.Uri);
-        }
+        //    var bundle = Enumeration.FromValue<PointBundle>(model.Points);
+        //    var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
+        //    var saleUrl = new UriBuilder(result.SaleUrl);
+        //    saleUrl.AddQuery(new NameValueCollection()
+        //    {
+        //        ["first_name"] = user.FirstName,
+        //        ["last_name"] = user.LastName,
+        //        ["phone"] = user.PhoneNumber,
+        //        ["email"] = user.Email,
+        //    });
+        //    return new SaleResponse(saleUrl.Uri);
+        //}
 
         /// <summary>
         /// Generate a buyer for - don't forget to run ngrok if you run it locally
@@ -269,43 +269,43 @@ namespace Cloudents.Web.Api
         
 
       
-        [HttpPost("Stripe")]
-        public async Task<IActionResult> GetStripe(
-            BuyPointsRequest model,
-            [FromHeader(Name = "referer")] string referer,
-            [FromServices] IStripeService service,
-            CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var uriBuilder = new UriBuilder(referer)
-            {
-                Query = string.Empty
-            };
-            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
-            {
-                redirectUrl = uriBuilder.ToString()
-            }, "https"));
-            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
-            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+        //[HttpPost("Stripe")]
+        //public async Task<IActionResult> GetStripe(
+        //    BuyPointsRequest model,
+        //    [FromHeader(Name = "referer")] string referer,
+        //    [FromServices] IStripeService service,
+        //    CancellationToken token)
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    var uriBuilder = new UriBuilder(referer)
+        //    {
+        //        Query = string.Empty
+        //    };
+        //    var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+        //    {
+        //        redirectUrl = uriBuilder.ToString()
+        //    }, "https"));
+        //    var bundle = Enumeration.FromValue<PointBundle>(model.Points);
+        //    var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
 
-            var stripePaymentRequest = new StripePaymentRequest("Buy Points on Spitball",
-                new Money(bundle!.PriceInUsd, "usd"),
-                user.Email,
-                successCallback,
-                referer)
-            {
-                Metadata = new Dictionary<string, string>()
-                {
-                    ["Points"] = bundle.Points.ToString()
-                }
-            };
+        //    var stripePaymentRequest = new StripePaymentRequest("Buy Points on Spitball",
+        //        new Money(bundle!.PriceInUsd, "usd"),
+        //        user.Email,
+        //        successCallback,
+        //        referer)
+        //    {
+        //        Metadata = new Dictionary<string, string>()
+        //        {
+        //            ["Points"] = bundle.Points.ToString()
+        //        }
+        //    };
 
-            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
-            return Ok(new
-            {
-                sessionId = result
-            });
-        }
+        //    var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
+        //    return Ok(new
+        //    {
+        //        sessionId = result
+        //    });
+        //}
 
         
 
