@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
@@ -94,7 +95,7 @@ namespace Cloudents.Query.Users
                         Date = s.Created,
                         _price = s.TotalPrice,
                         StudentName = s.User.Name,
-                        Duration = s.TutorApproveTime ?? s.StudyRoomSessionUser!.Duration!.Value,
+                        Duration = s.TutorApproveTime ?? s.StudyRoomSessionUser.Duration.Value,
                         StudentImage = s.User.ImageName,
                         StudyRoomName = ((BroadCastStudyRoom)s.StudyRoom).Course.Name ?? ((PrivateStudyRoom)s.StudyRoom).Name,
                         StudentId = s.User.Id
