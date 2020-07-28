@@ -108,10 +108,6 @@ namespace Cloudents.Query.Courses
                 result.Full = fullFuture.Value == 48;
                 result.Enrolled = enrollmentsFuture.Value;
                 result.SessionStarted = sessionStartedFuture.Value;
-                //if (result.BroadcastTime < DateTime.UtcNow.AddHours(-6))
-                //{
-                //    return null;
-                //}
 
                 result.StudyRooms = result.StudyRooms.Select(s =>
                 {

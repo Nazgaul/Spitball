@@ -78,14 +78,7 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("{id:long}/studyRoom"), Authorize]
-        public async Task EnrollUpcomingEventAsync(EnrollStudyRoomRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new EnrollStudyRoomBroadCastCommand(userId, model.StudyRoomId);
-            await _commandBus.DispatchAsync(command, token);
-
-        }
+       
 
     }
 }

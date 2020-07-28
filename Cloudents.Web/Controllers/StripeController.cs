@@ -56,10 +56,10 @@ namespace Cloudents.Web.Controllers
         {
             var metaData = await _stripeService.GetMetaDataAsync(sessionId, token);
 
-            var studyRoomId = Guid.Parse(metaData[WalletController.StudyroomidMetaData]);
+            var courseId = long.Parse(metaData[WalletController.StudyroomIdMetaData]);
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new EnrollStudyRoomBroadCastCommand(userId, studyRoomId, sessionId);
+            var command = new CourseEnrollCommand(userId, courseId, sessionId);
             await _commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }

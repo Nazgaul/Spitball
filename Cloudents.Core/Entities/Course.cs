@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.Entities
@@ -76,6 +77,13 @@ namespace Cloudents.Core.Entities
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
 
         public virtual IEnumerable<CourseEnrollment> CourseEnrollments => _courseEnrollments;
+
+        public virtual void EnrollUser(User user, string? receipt, Money price)
+        {
+            var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
+
+            _courseEnrollments.Add(courseEnrollment);
+        }
 
     }
 }
