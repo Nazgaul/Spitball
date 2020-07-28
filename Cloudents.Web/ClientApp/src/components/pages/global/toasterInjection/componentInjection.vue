@@ -61,13 +61,13 @@ export default {
                         name: componentConsts.ITEM_DIALOG
                     }
                 },
-
                 [componentConsts.PAYMENT_DIALOG]:{
                     name: componentConsts.PAYMENT_DIALOG,
                 },
                 [componentConsts.TUTOR_EDIT_PROFILE]: {
                     name: componentConsts.TUTOR_EDIT_PROFILE 
                 },
+                // TOASTERS:ERRORS
                 [componentConsts.BOOK_FAILED]:{
                     name:'simpleErrorToaster',
                     params:{
@@ -103,6 +103,16 @@ export default {
                         name: componentConsts.ENROLLED_ERROR
                     }
                 },
+                [componentConsts.UPLOAD_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t('upload_err'),
+                        name: componentConsts.UPLOAD_ERROR
+                    }
+                },
+
+
+                
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -204,8 +214,11 @@ export default {
                         type: 'broadcast'
                     }
                 },
-                upload: {
+                [componentConsts.UPLOAD_DIALOG]: {
                     name: 'upload',
+                    params:{
+                        name: componentConsts.UPLOAD_DIALOG
+                    }
                 },
                 createCoupon: {
                     name: 'createCoupon'

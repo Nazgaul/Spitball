@@ -722,6 +722,7 @@
   "tutor_waiting_in_studyRoom_link": "study room",
   "upload images": "Upload Images to your site",
   "upload_CreateOk": "Your file was uploaded successfully! You will be able to view shortly.",
+  "upload_err": "upload error",
   "upload_file_course_label": "Course",
   "upload_file_description_label": "Description",
   "upload_file_price_label": "Price",
