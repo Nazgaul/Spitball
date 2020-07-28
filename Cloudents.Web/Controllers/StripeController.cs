@@ -35,18 +35,18 @@ namespace Cloudents.Web.Controllers
             _configuration = configuration;
         }
 
-        //[Route("BuyPoints", Name = "stripe-buy-points")]
-        //public async Task<IActionResult> StripeCallbackBuyPointsAsync(
-        //    string redirectUrl, string sessionId,
-        //    CancellationToken token)
-        //{
-        //    var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId, token);
+        [Route("BuyPoints", Name = "stripe-buy-points")]
+        public async Task<IActionResult> StripeCallbackBuyPointsAsync(
+            string redirectUrl, string sessionId,
+            CancellationToken token)
+        {
+            var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId, token);
 
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new TransferMoneyToPointsCommand(userId, points, receipt);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Redirect(redirectUrl);
-        //}
+            var userId = _userManager.GetLongUserId(User);
+            var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+            await _commandBus.DispatchAsync(command, token);
+            return Redirect(redirectUrl);
+        }
 
 
         [Route("Enroll", Name = EnrollStudyRoom)]
