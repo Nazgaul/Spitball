@@ -144,9 +144,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
       
 
         [Theory]
-        [InlineData("api/document/2999")]
+        [InlineData("api/document/6072")]
         public async Task Valid_Url_200Async(string url)
         {
+            
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();

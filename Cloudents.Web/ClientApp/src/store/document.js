@@ -66,9 +66,6 @@ const mutations = {
         state.document = payload;    
         state.documentLoaded = true;    
     },
-    // setNewDocumentPrice(state, price){
-    //     state.document.price = price;
-    // },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
@@ -124,11 +121,6 @@ const actions = {
                 }, 500);
             });
     },
-    // setNewDocumentPrice({ commit }, price) {
-    //     if(!!state.document && !!state.document){
-    //         commit('setNewDocumentPrice', price);
-    //     }
-    // },
     clearDocument({commit}){
         commit('resetState');
     },

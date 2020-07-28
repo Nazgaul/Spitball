@@ -1,10 +1,11 @@
 <template>
     <div class="profilePage">
+      <div>
         <div class="coverWrapper" :key="componentRenderKey">
             <profileCover  />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
-        <profileStats />
+        <profileStats v-if="showProfileStats" />
         <profileParagraph />
         <div class="profilePage_main mx-0 mx-sm-5">
             <profileCalendarTab
@@ -16,10 +17,14 @@
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" :key="componentRenderKey" />
             <profileItemsBox />
-            <profileReviewsBox />
+            <profileReviewsBox v-if="showProfileReviews"/>
             <!-- <profileFAQ /> -->
         </div>
+
+      </div>
+
         <profileFooter />
+
     </div>
 </template>
 
@@ -107,6 +112,20 @@ export default {
         },
         isCoverImageLoaded() {
           return this.$store.getters.getProfileCoverLoading
+        },
+        showProfileStats(){
+          if(this.$store.getters.getProfile){
+            let stats = [
+              this.$store.getters.getProfileStatsHours,
+              this.$store.getters.getProfileStatsReviews,
+              this.$store.getters.getProfileStatsFollowers,
+              this.$store.getters.getProfileStatsResources,
+            ]
+            return stats.reduce((a, b) => a + b, 0) > 4
+          }else return false;
+        },
+        showProfileReviews(){
+          return this.$store.getters.getProfileStatsReviews;
         }
     },
     watch: {
@@ -167,6 +186,11 @@ export default {
 <style lang="less">
 @import "../../styles/mixin.less";
 .profilePage {
+    // min-height: calc(~"100vh - 52px");
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   .coverWrapper {
     position: relative;
   }

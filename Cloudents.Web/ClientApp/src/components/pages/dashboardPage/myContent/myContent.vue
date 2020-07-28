@@ -20,7 +20,7 @@
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'dashboardPage_my_content_title'"></div>
                   <div>
                      <v-btn
-                        @click="$store.commit('setComponent', 'upload')"
+                        @click="$store.commit('addComponent', UPLOAD_DIALOG)"
                         class="white--text"
                         depressed
                         rounded
@@ -111,7 +111,6 @@
                
                   <v-list v-if="item.itemId == currentItemIndex">
                      <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)" v-t="'dashboardPage_rename'"></v-list-item>
-                     <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(item)" v-t="'resultNote_change_price'"></v-list-item>
                   </v-list>
                </v-menu>
             </template>
@@ -128,16 +127,6 @@
          :content-class="'pop-dashboard-container'">
             <changeNameDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
       </sb-dialog>
-      <sb-dialog 
-         :showDialog="isChangePriceDialog"
-         :isPersistent="true"
-         :popUpType="'dashboardDialog'"
-         :onclosefn="closeDialog"
-         :activateOverlay="true"
-         :max-width="'fit-content'"
-         :content-class="'pop-dashboard-container'">
-            <changePriceDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
-      </sb-dialog>
    </div>
 </template>
 
@@ -145,11 +134,11 @@
 import { mapGetters } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
-import changePriceDialog from '../dashboardDialog/changePriceDialog.vue';
+import {UPLOAD_DIALOG} from '../../global/toasterInjection/componentConsts.js';
 
 export default {
    name:'myContent',
-   components:{sbDialog,changeNameDialog,changePriceDialog},
+   components:{sbDialog,changeNameDialog},
    props:{
       dictionary:{
          type: Object,
@@ -158,9 +147,9 @@ export default {
    },
    data() {
       return {
+         UPLOAD_DIALOG:UPLOAD_DIALOG,
          currentItem: '',
          isChangeNameDialog: false,
-         isChangePriceDialog: false,
          currentItemIndex: '',
          showMenu: false,
          headers: [
@@ -212,13 +201,8 @@ export default {
          this.currentItem = item;
          this.isChangeNameDialog = true;
       },
-      openChangePriceDialog(item){
-         this.currentItem = item;
-         this.isChangePriceDialog = true;
-      },
       closeDialog(){
          this.isChangeNameDialog = false;
-         this.isChangePriceDialog = false;
          this.currentItem = '';
       },
       // checkIsQuestion(type){

@@ -9,7 +9,7 @@ namespace Cloudents.Core.EventHandler
 {
     public class DeleteCacheEventHandler :
         IEventHandler<TransactionEvent>,
-        IEventHandler<DocumentPriceChangeEvent>, 
+      //  IEventHandler<DocumentPriceChangeEvent>, 
         IEventHandler<DocumentDeletedEvent>,
         IEventHandler<SubscribeToTutorEvent>,
         IEventHandler<DocumentCreatedEvent>,
@@ -22,12 +22,12 @@ namespace Cloudents.Core.EventHandler
             _cacheProvider = cacheProvider;
         }
 
-        public Task HandleAsync(DocumentPriceChangeEvent eventMessage, CancellationToken token)
-        {
-            _cacheProvider.DeleteRegion(DocumentById);
-            _cacheProvider.DeleteRegion(ProfilePageDocument);
-            return Task.CompletedTask;
-        }
+        //public Task HandleAsync(DocumentPriceChangeEvent eventMessage, CancellationToken token)
+        //{
+        //    _cacheProvider.DeleteRegion(DocumentById);
+        //    _cacheProvider.DeleteRegion(ProfilePageDocument);
+        //    return Task.CompletedTask;
+        //}
         public Task HandleAsync(TransactionEvent eventMessage, CancellationToken token)
         {
             //Document purchased
@@ -75,6 +75,6 @@ namespace Cloudents.Core.EventHandler
     public static class CacheRegions
     {
         public const string DocumentById = "document-by-id2";
-        public const string ProfilePageDocument = "UserDocumentsQuery3";
+        public const string ProfilePageDocument = "UserDocumentsQuery4";
     }
 }

@@ -30,13 +30,6 @@ const mutations = {
    setFollowersItems(state,val) {
       state.followersItems = val;
    },
-   dashboard_setPrice(state,{newPrice,itemId}){
-      state.contentItems.forEach(item =>{
-         if(item.id === itemId){
-            item.price = newPrice;
-         }
-      });
-   },
    dashboard_setName(state,{newName,itemId}){
       state.contentItems.forEach(item =>{
          if(item.id === itemId){
@@ -90,9 +83,6 @@ const actions = {
       return dashboardService.getFollowersItems().then(items=>{
          commit('setFollowersItems', items);
       });
-   },
-   dashboard_updatePrice({commit},paramObj){
-      commit('dashboard_setPrice',paramObj);
    },
    dashboard_updateName({commit},paramObj){
       commit('dashboard_setName',paramObj);
