@@ -48,6 +48,11 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+
+        }
+    },
     computed: {
         ...mapGetters(['accountUser', 'getPurchaseConfirmation']),
 
@@ -69,6 +74,7 @@ export default {
     },
     methods: {
         ...mapActions(['updatePurchaseConfirmation', 'purchaseDocument']),
+
         unlockDocument() {
             let item = {
                 id: this.document.id,
