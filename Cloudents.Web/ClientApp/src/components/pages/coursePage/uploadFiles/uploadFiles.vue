@@ -1,0 +1,67 @@
+<template>
+    <div class="uploadFiles" v-if="!item.error">
+        <div class="uploadFilesTitle" v-t="'upload_files'"></div>
+
+        <div class="uploadFilesWrap d-flex align-center justify-space-between">
+            <div class="d-flex align-center">
+                <v-text-field
+                    v-model="item.name"
+                    :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
+                    :label="$t('upload_file_title_label')"
+                    placeholder=" "
+                    color="#4c59ff"
+                    height="44"
+                    hide-details
+                    dir="ltr"
+                    outlined
+                    dense
+                >
+                </v-text-field>
+                <v-icon @click="removeFile" size="12" class="ps-3" color="#b8c0d1">{{$vuetify.icons.values.close}}</v-icon>
+            </div>
+
+            <v-switch
+                v-model="fileSwitch"
+                :label="$t('visible')"
+            ></v-switch>
+
+        </div>
+    </div>
+</template>
+
+<script>
+import { validationRules } from '../../../../services/utilities/formValidationRules';
+
+export default {
+    name: 'uploadFiles',
+    props: {
+        singleFileIndex: {}
+    },
+    data() {
+        return {
+            fileSwitch: false,
+            rules: {
+                required: (value) => validationRules.required(value),
+                minimumChars: value => validationRules.minimumChars(value, 4),
+                maximumChars: value => validationRules.maximumChars(value, 150)
+            }
+        }
+    },
+    computed: {
+        item() {
+            return this.$store.getters.getFileData[this.singleFileIndex]
+        },
+    },
+    methods: {
+        removeFile() {
+            this.$store.commit('deleteFileByIndex', this.singleFileIndex)
+        }
+    }
+}
+</script>
+
+<style lang="less">
+.uploadFiles {
+
+}
+</style>

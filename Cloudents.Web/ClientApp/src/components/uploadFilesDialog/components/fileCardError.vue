@@ -1,6 +1,5 @@
 <template>
-    <v-layout align-center justify-space-between wrap 
-    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'ps-4':isMobile}]">
+    <v-layout align-center justify-space-between wrap :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'ps-4':isMobile}]" v-if="item.error">
         <v-flex xs12 sm7 class="ufItem-error-content">
                 <div class="ufItem-error-txt">
                     <span>{{item.name}}</span>
@@ -20,12 +19,6 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: "fileCard",
     props: {
-        fileItem: {
-            type: Object,
-            default(){
-                return {}
-            }
-        },
         singleFileIndex: {
             type: Number,
             required: true

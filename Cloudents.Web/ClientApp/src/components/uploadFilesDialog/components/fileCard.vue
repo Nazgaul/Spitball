@@ -1,5 +1,5 @@
 <template>
-    <v-card class="uf-sEdit-item mb-3 px-3 py-2">
+    <v-card class="uf-sEdit-item mb-3 px-3 py-2" v-if="item">
         <div class="text-right pb-4">
             <v-icon v-if="!isLastItem" class="uf-sEdit-close" color="#adadba" size="12" @click="deleteFile()">sbf-close</v-icon>
         </div>
@@ -68,19 +68,9 @@ export default {
         }
     },
     props: {
-        fileItem: {
-            type: Object,
-            default(){
-                return {}
-            }
-        },
         singleFileIndex: {
             type: Number,
             required: true
-        },
-        quantity: {
-            type: Number,
-            required: false
         }
     },
     watch: {

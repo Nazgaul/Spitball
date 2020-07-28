@@ -1,7 +1,7 @@
 <template>
-    <div class="uf-sDrop-container mb-4 mx-4" :class="{'uf-sDrop-container-active': isDraggin}">
-        <span v-if="isDraggin" class="uf-sDrop-drop" v-t="'upload_uf_sDrop_drop'"></span>
-        <div v-if="!errorFile && uploadStarted" class="uf-uploading-container">
+    <div class="uf-sDrop-container mb-4" :class="{'uf-sDrop-container-active': isDraggin}">
+        <div v-if="isDraggin" class="uf-sDrop-drop d-flex align-center justify-center" v-t="'upload_uf_sDrop_drop'"></div>
+        <div v-if="uploadStarted" class="uf-uploading-container">
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
@@ -9,7 +9,7 @@
             </div>
             <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
         </div>
-        <div class="uf-upload-screen-container" v-show="!uploadStarted">
+        <div class="uf-upload-screen-container" :class="{'dragActive': isDraggin}" v-show="!uploadStarted">
             
             <template v-if="!isDraggin && !isMobile">
                 <span class="uf-sDrop-title" v-t="'upload_uf_sDrop_title'"></span>
@@ -72,17 +72,17 @@ export default {
     name: "upload-step-1",
     components: {FileUpload},
     props: {
-        callBackmethods: {
-            type: Object,
-            default() {
-                return {}
-            },
-            required: false
-        },
+        // callBackmethods: {
+        //     type: Object,
+        //     default() {
+        //         return {}
+        //     },
+        //     required: false
+        // },
     },
     data() {
         return {
-            isDraggin:false,
+            isDraggin: false,
             uploadUrl: '/api/Document/upload',
             dbReady: false,
             files: [],
@@ -99,11 +99,10 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         isError(){
-            return this.getFileData.every(item=>item.error)
+            return this.getFileData.every(item => item.error)
         },
         errorFile(){
             return !!(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError);
-
         }
     },
     watch:{
@@ -114,7 +113,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateFile', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById', 'deleteFileByIndex']),
+        ...mapActions(['updateFile', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById']),
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
@@ -133,12 +132,6 @@ export default {
                 this.dbReady = true; // enable dropbox upload btn when script is ready
             }
         },
-        goToNextStep() {
-            if (!this.nextStepCalled) {
-                this.nextStepCalled = true;
-                this.callBackmethods.next(1);
-            }
-        },
         DbFilesList() {
             const self = this;
             let singleFile;
@@ -153,7 +146,7 @@ export default {
                                     item.blobName = response.data.fileName ? response.data.fileName : '';
                                     singleFile = uploadService.createFileData(item);
                                     self.updateFile(singleFile);
-                                    self.goToNextStep();
+                                    debugger
                                 },
                                 error => {
                                     console.log('error drop box api call', error)
@@ -170,12 +163,6 @@ export default {
             };
             global.Dropbox.choose(options);
         },
-        // progressHandler(progress){
-        //     this.progress = progress;
-        //     if(progress >= 100){
-        //         this.goToNextStep()
-        //     }
-        // },
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
@@ -183,6 +170,7 @@ export default {
                 // Upload progress
                 if (newFile.progress === 100) {
                     this.stopUploadProgress(newFile)
+                    this.uploadStarted = false
                 }
                 // happens once file is added and upload starts
                 if (!oldFile) {
@@ -191,6 +179,7 @@ export default {
                     // Upload error
                     if (newFile.error !== oldFile.error) {
                         this.uploadingError(newFile, oldFile)
+                        this.uploadStarted = false
                     }
                     // Get response data
                     if (!newFile.active && oldFile.active) {
@@ -198,7 +187,7 @@ export default {
                     }
                     if (newFile.success !== oldFile.success) {
                         if (this.$refs.upload.active) {
-                            this.goToNextStep()
+                            //TODO
                         }
                     }
                 }
@@ -276,15 +265,16 @@ export default {
 <style lang="less">
     @import "../../../styles/mixin.less";
 .uf-sDrop-container {
-    height: 174px;
+    padding: 12px;
     border-radius: 6px;
     border: dashed 2px #d8d8df;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: @global-blue;
-    position: relative;
+    height: 194px;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // color: @global-blue;
+    // position: relative;
     @media (max-width: @screen-xs) {
         height: unset;
         border: none;
@@ -306,10 +296,10 @@ export default {
         .v-progress-linear{
             margin: 10px 0;
             border-radius: 4px;
-            width: 350px;
-            @media (max-width: @screen-xs) {
-                width: 250px;
-            }
+            // width: 350px;
+            // @media (max-width: @screen-xs) {
+            //     width: 250px;
+            // }
         }
     }
     
@@ -321,21 +311,27 @@ export default {
     .uf-sDrop-drop{
         font-size: 24px;
         font-weight: 600;
-        font-style: normal;
-        font-stretch: normal;
+        height: 100%;
         line-height: 1.17;
         color: #848bbc;
     }
-    .uf-upload-screen-container{
+    .uf-upload-screen-container {
+        padding: 10px;
+        // padding-bottom: 30px;
+        background: #f0f4f8;
+        border-radius: 6px;
         display: flex;
         flex-direction: column;
         align-items: center;
         line-height: normal;
+        height: 100%;
+        &.dragActive {
+            display: none;
+        }
     .uf-sDrop-title{
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 18px;
         margin-top: 16px;
-        color: @global-purple;
+        color: rgba(67, 66, 93, 0.56);
     }
     .uf-sDrop-or{
         padding-top: 18px;
@@ -402,7 +398,7 @@ export default {
         }
         .uf-sDrop-btn{
             color: @global-blue;
-            border: 1px solid @global-blue !important;
+            // border: 1px solid @global-blue !important;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
             }
