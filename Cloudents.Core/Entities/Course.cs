@@ -29,7 +29,7 @@ namespace Cloudents.Core.Entities
         public virtual Money Price { get; set; }
         public virtual Money? SubscriptionPrice { get; protected set; }
 
-        public virtual string Description { get; set; }
+        public virtual string? Description { get; set; }
 
         public virtual ItemState State { get; set; }
 
@@ -50,6 +50,7 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException();
             }
 
+            Description = StudyRooms.FirstOrDefault(f => f.Description != null)?.Description;
             var fiatStudyRoom = StudyRooms.Select(s => s.Price).DefaultIfEmpty().Aggregate((l, r) => l + r);
 
             Price = fiatValue + fiatStudyRoom;
