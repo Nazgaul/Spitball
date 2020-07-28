@@ -14,7 +14,7 @@ namespace Cloudents.Core.Interfaces
         //    string successCallback, string fallbackCallback,
         //    CancellationToken token);
 
-        //Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token);
+        Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token);
 
         Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token);
 

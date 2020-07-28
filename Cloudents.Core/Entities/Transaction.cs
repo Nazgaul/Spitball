@@ -82,14 +82,14 @@ namespace Cloudents.Core.Entities
 
     public class BuyPointsTransaction : Transaction
     {
-        //[SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        //public BuyPointsTransaction(decimal price, string transactionId)
-        //{
-        //    TransactionId = transactionId;
-        //    Price = Math.Abs(price);
-        //    Action = TransactionActionType.Buy;
-        //    Type = TransactionType.Earned;
-        //}
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public BuyPointsTransaction(decimal price, string transactionId)
+        {
+            TransactionId = transactionId;
+            Price = Math.Abs(price);
+            Action = TransactionActionType.Buy;
+            Type = TransactionType.Earned;
+        }
 
         public virtual string TransactionId { get; protected set; }
 
