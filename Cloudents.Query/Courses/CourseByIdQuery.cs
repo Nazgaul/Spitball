@@ -64,7 +64,7 @@ namespace Cloudents.Query.Courses
                                 //    .Any(w => w.Room.Id == s2.Id && w.User.Id == query.UserId),
                                 Schedule = s2.Schedule
                             }),
-                        Enrolled = s.CourseEnrollments.Any(a => a.User.Id == query.UserId),
+                        //Enrolled = _statelessSession.Query<CourseEnrollment>().Any(a => a.User.Id == query.UserId),
                         TutorId = s.Tutor.Id,
                         //BroadcastTime = s.BroadcastTime,
                         Name = s.Name,
@@ -74,7 +74,7 @@ namespace Cloudents.Query.Courses
                         TutorImage = s.Tutor.User.ImageName,
                         TutorCountry = s.Tutor.User.SbCountry,
                         Description = s.Description,
-                        Full = s.CourseEnrollments.Count() == 48,
+                       // Full = _statelessSession.Query<CourseEnrollment>().Count(w=>w.Course.Id == s.Id )  == 48,
                         TutorBio = s.Tutor.Paragraph2,
 
                         //SessionStarted =  _statelessSession.Query<StudyRoomSession>().Any(w=>w.StudyRoom.Id== query.Id && w.Ended ==null)
@@ -88,6 +88,16 @@ namespace Cloudents.Query.Courses
                     .Select(s => s.Subscriber)
                     .ToFutureValue();
 
+                var enrollmentsFuture = _statelessSession.Query<CourseEnrollment>()
+                    .Where(a => a.User.Id == query.UserId && a.Course.Id == query.Id).ToFutureValue(f => f.Any());
+
+                var fullFuture = _statelessSession.Query<CourseEnrollment>()
+                    .Where(a => a.Course.Id == query.Id).ToFutureValue(f => f.Count());
+
+                var sessionStartedFuture = _statelessSession.Query<StudyRoomSession>()
+                    .Where(w => ((BroadCastStudyRoom) w.StudyRoom).Course.Id == query.Id && w.Ended != null)
+                    .ToFutureValue(f => f.Any());
+
                 var result = await futureStudyRoom.GetValueAsync(token);
 
                 if (result is null)
@@ -95,6 +105,9 @@ namespace Cloudents.Query.Courses
                     return null;
                 }
 
+                result.Full = fullFuture.Value == 48;
+                result.Enrolled = enrollmentsFuture.Value;
+                result.SessionStarted = sessionStartedFuture.Value;
                 //if (result.BroadcastTime < DateTime.UtcNow.AddHours(-6))
                 //{
                 //    return null;

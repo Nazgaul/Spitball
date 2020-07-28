@@ -51,6 +51,7 @@ namespace Cloudents.Core.DTOs
         public string Image { get; set; }
         public bool Enrolled { get; set; }
         public bool Full { get; set; }
+        public bool SessionStarted { get; set; }
 
         [NonSerialized]
         public Money? SubscriptionPrice;

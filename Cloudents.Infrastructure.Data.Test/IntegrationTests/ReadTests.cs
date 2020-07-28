@@ -94,15 +94,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         //StudyRoomByIdDetailsQuery
-        [Theory]
-        [InlineData("0F70AF05-BAD4-4299-8341-AA38007858CF")]
-        [InlineData("30869fd9-f2f3-41ef-baee-ab9500b3832a")]
-        public async Task StudyRoomByIdDetailsQuery_Ok(string id)
-        {
-            var query = new StudyRoomByIdDetailsQuery(Guid.Parse(id), 159039);
+        //[Theory]
+        //[InlineData("0F70AF05-BAD4-4299-8341-AA38007858CF")]
+        //[InlineData("30869fd9-f2f3-41ef-baee-ab9500b3832a")]
+        //public async Task StudyRoomByIdDetailsQuery_Ok(string id)
+        //{
+        //    var query = new StudyRoomByIdDetailsQuery(Guid.Parse(id), 159039);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData("0F70AF05-BAD4-4299-8341-AA38007858CF")]

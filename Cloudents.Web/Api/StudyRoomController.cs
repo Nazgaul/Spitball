@@ -140,25 +140,25 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpGet("{id:guid}/details"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDetailDto?>> GetStudyRoomDetailAsync(Guid id,
-            [FromServices] IUrlBuilder urlBuilder,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new StudyRoomByIdDetailsQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            result.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(result.Id);
-            return result;
-        }
+        //[HttpGet("{id:guid}/details"), AllowAnonymous]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesDefaultResponseType]
+        //public async Task<ActionResult<StudyRoomDetailDto?>> GetStudyRoomDetailAsync(Guid id,
+        //    [FromServices] IUrlBuilder urlBuilder,
+        //    CancellationToken token)
+        //{
+        //    _userManager.TryGetLongUserId(User, out var userId);
+        //    var query = new StudyRoomByIdDetailsQuery(id, userId);
+        //    var result = await _queryBus.QueryAsync(query, token);
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+        //    result.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(result.Id);
+        //    return result;
+        //}
 
         /// <summary>
         /// Get Study Room data and sessionId if opened
