@@ -31,16 +31,29 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new NotFoundException();
             }
+
             
 
             if (studyRoom.Price.Cents > 0 && studyRoom.Type == StudyRoomType.Broadcast &&
                 studyRoom.Tutor.User.SbCountry != Country.Israel && message.Receipt == null)
             {
-                var subscription = studyRoom.Tutor.User.Followers
-                    .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber;
-                if (subscription.GetValueOrDefault() == false)
+                var coupon = studyRoom.Tutor.UserCoupons.FirstOrDefault(f => f.User.Id == message.UserId && f.IsNotUsed());
+
+                var tempPrice = 100d;
+                if (coupon != null)
                 {
-                    throw new UnauthorizedAccessException();
+                    tempPrice = Coupon.CalculatePrice(coupon.Coupon.CouponType, studyRoom.Price.Amount,
+                        coupon.Coupon.Value);
+                }
+
+                if (tempPrice > 0)
+                {
+                    var subscription = studyRoom.Tutor.User.Followers
+                        .SingleOrDefault(s => s.Follower.Id == message.UserId)?.Subscriber;
+                    if (subscription.GetValueOrDefault() == false)
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
                 }
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);

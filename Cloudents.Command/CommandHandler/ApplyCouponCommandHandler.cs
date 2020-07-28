@@ -39,10 +39,7 @@ namespace Cloudents.Command.CommandHandler
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.ApplyCoupon(coupon, tutor);
-
-
             var roomId = await _studyRoomRepository.LoadAsync(message.RoomId, token);
-            //var tutorPrice = (double)tutor.Price.Price;
 
             message.NewPrice = Coupon.CalculatePrice(coupon.CouponType, roomId.Price.Amount, coupon.Value);
 

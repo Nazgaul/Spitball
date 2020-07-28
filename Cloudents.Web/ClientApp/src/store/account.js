@@ -176,7 +176,7 @@ const actions = {
         if(getters.getIsComponentActiveByName(componentConsts.PAYMENT_DIALOG)){
             commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
-        if (state.user.balance > newBalance) {
+        if (getters.getIsBuyPoints || state.user.balance > newBalance) {
             commit('addComponent', componentConsts.PURCHASE_TRANSACTION)
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });

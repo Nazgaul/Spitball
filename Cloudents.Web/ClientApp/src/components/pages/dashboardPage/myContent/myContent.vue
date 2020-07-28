@@ -20,7 +20,7 @@
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'dashboardPage_my_content_title'"></div>
                   <div>
                      <v-btn
-                        @click="$store.commit('setComponent', 'upload')"
+                        @click="$store.commit('addComponent', UPLOAD_DIALOG)"
                         class="white--text"
                         depressed
                         rounded
@@ -132,6 +132,7 @@
 import { mapGetters } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
+import {UPLOAD_DIALOG} from '../../global/toasterInjection/componentConsts.js';
 
 export default {
    name:'myContent',
@@ -144,6 +145,7 @@ export default {
    },
    data() {
       return {
+         UPLOAD_DIALOG:UPLOAD_DIALOG,
          currentItem: '',
          isChangeNameDialog: false,
          currentItemIndex: '',

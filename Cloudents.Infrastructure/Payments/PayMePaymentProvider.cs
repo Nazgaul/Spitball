@@ -70,12 +70,12 @@ namespace Cloudents.Infrastructure.Payments
             return GenerateSaleAsync(token, generateSale);
         }
 
-        //public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
-        //{
-        //    var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
+        public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        {
+            var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
 
-        //    return GenerateSaleAsync(token, generateSale);
-        //}
+            return GenerateSaleAsync(token, generateSale);
+        }
 
         private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
         {
@@ -124,17 +124,17 @@ namespace Cloudents.Infrastructure.Payments
 
             }
 
-            //public static GenerateSale BuyTokens(PointBundle price, string saleReturnUrl, string sellerId)
-            //{
-            //    return new GenerateSale()
-            //    {
-            //        CaptureBuyer = 0,
-            //        SalePrice = (price.PriceInILS * 100),
-            //        SaleReturnUrl = saleReturnUrl,
-            //        SellerPaymeId = sellerId,
-            //        ProductName = "עבור קניית נקודות בספיטבול"
-            //    };
-            //}
+            public static GenerateSale BuyTokens(PointBundle price, string saleReturnUrl, string sellerId)
+            {
+                return new GenerateSale()
+                {
+                    CaptureBuyer = 0,
+                    SalePrice = (price.PriceInILS * 100),
+                    SaleReturnUrl = saleReturnUrl,
+                    SellerPaymeId = sellerId,
+                    ProductName = "עבור קניית נקודות בספיטבול"
+                };
+            }
 
             public static GenerateSale CreateBuyer(string saleCallbackUrl, string saleReturnUrl, string sellerId)
             {
