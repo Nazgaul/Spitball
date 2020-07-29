@@ -144,14 +144,20 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountryAdmin(string country)
         {
-            if (Tutor != null)
+            var newRegion =  Entities.Country.FromCountry(country);
+            if (SbCountry != newRegion)
             {
-                if (Tutor.HasSubscription())
+                if (Tutor != null)
                 {
-                    throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                    if (Tutor.HasSubscription())
+                    {
+                        throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                    }
                 }
+
+                PaymentExists = PaymentStatus.None;
             }
-            PaymentExists = PaymentStatus.None;
+
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
