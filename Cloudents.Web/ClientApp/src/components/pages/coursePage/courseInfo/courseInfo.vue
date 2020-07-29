@@ -18,8 +18,8 @@
         <v-text-field 
             v-model="followerPrice"
             type="number"
-            class="priceFollower mb-6"
-            :rules="[rules.required,rules.minimum]"
+            class="priceFollower"
+            :rules="[rules.required, rules.minimum, rules.subscription]"
             :label="$t('follower_price')"
             :prefix="getSymbol"
             placeholder=" "
@@ -27,7 +27,6 @@
             color="#304FFE"
             autocomplete="off"
             height="50"
-            hide-details
             outlined
         >
         </v-text-field>
@@ -35,7 +34,7 @@
         <template v-if="isSubscription">
             <v-switch
                 v-model="subscribeSwitch"
-                class="my-6 pa-0"
+                class="mb-6 mt-2 pa-0"
                 :label="$t('set_subscriber_price')"
                 hide-details
             ></v-switch>
@@ -107,9 +106,10 @@ export default {
             suggestsCourses: [],
             previewImage: null,
             rules: {
-                required: (value) => validationRules.required(value),
-                minimum: (value) => validationRules.minVal(value,0),
-                integer: (value) => validationRules.integer(value),
+                required: (val) => validationRules.required(val),
+                minimum: (val) => validationRules.minVal(val,0),
+                integer: (val) => validationRules.integer(val),
+                subscription: val => (val >= 5 || val <= 0) || this.$t('minimum_price')
             }
         }
     },
