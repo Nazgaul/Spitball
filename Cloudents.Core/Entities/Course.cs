@@ -58,6 +58,10 @@ namespace Cloudents.Core.Entities
             if (Tutor.HasSubscription())
             {
                 SubscriptionPrice = new Money(0d, Price.Currency);
+                if (Price.Cents == 0)
+                {
+                    Price = Price.ChangePrice(200);
+                }
             }
         }
 

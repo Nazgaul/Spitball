@@ -235,14 +235,16 @@ namespace ConsoleApp
                 .UpdateAsync(default);
 
             List<Course> courses;
+            var i = 0;
             do
             {
                 courses = await session.Query<Course>()
-                    .Where(w => w.Price == null)
-                    .Take(100)
+
+                  //  .Where(w => w.Price == null)
+                    .Take(100).Skip(i*100)
                     .OrderBy(o => o.Id)
                     .ToListAsync();
-
+                i++;
 
                 foreach (var course in courses)
                 {
