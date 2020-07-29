@@ -38,21 +38,17 @@ namespace Cloudents.Query.Documents
             public async Task<DocumentDetailDto?> GetAsync(DocumentById query, CancellationToken token)
             {
                 var futureValue = _session.Query<Document>()
-                    //.Fetch(f => f.User).ThenFetch(x => ((User) x).Tutor)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => new DocumentDetailDto()
                     {
                         Title = s.Name,
-                        //DateTime = s.TimeStamp.UpdateTime,
                         Id = s.Id,
                         UserId = ((User)s.User).Tutor!.Id,
-                        //Duration = s.Duration,
                         UserName = ((User) s.User).Name,
                         DocumentType = s.DocumentType,
                         Pages = s.PageCount ?? 0,
                         Price = s.Course.Price,
                         SubscriptionPrice = s.Course.SubscriptionPrice
-                        //PriceType = s.DocumentPrice.Type
                     }).ToFutureValue();
 
 
@@ -65,8 +61,8 @@ namespace Cloudents.Query.Documents
                 var purchaseFuture = _session.Query<CourseEnrollment>()
                     .Where(w => w.User.Id == query.UserId.Value
                                 && w.Course.Id == _session.Query<Document>()
-                                    .Single(w2 => w2.Id == query.Id && w2.Status.State == ItemState.Ok)
-                                    .Course.Id
+                                    .Where(w2 => w2.Id == query.Id 
+                                            && w2.Status.State == ItemState.Ok).Select(s=>s.Course.Id).FirstOrDefault()
                     )
                     .ToFutureValue(f => f.Any());
 

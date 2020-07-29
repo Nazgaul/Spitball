@@ -86,6 +86,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(45209, 638)]
         [InlineData(29106, 638)]
         [InlineData(29106, 0)]
+        [InlineData(53262,638)]
         public async Task DocumentById_Ok(long documentId, long? userId)
         {
             var query = new DocumentById(documentId, userId);
