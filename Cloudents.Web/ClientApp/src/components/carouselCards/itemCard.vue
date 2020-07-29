@@ -41,7 +41,7 @@ export default {
             if(isMobile){
                 return this.$proccessImageUrl(this.item.preview,344,196)
             }else{
-                return this.$proccessImageUrl(this.item.preview,220,150)
+                return this.$proccessImageUrl(this.item.preview,248,150)
             }
         }
         // isSubscribed() {
@@ -80,7 +80,7 @@ export default {
         width: 100%;
         max-width: 344px;
     }
-    width: 220px;
+    width: 248px;
     height: 214px;
     background: white;
     border-radius: 6px;
