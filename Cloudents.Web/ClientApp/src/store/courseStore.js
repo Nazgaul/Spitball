@@ -36,19 +36,15 @@ const mutations = {
                documentType: item.documentType,
             }
          })
-         
          this.sessionStarted = objInit.sessionStarted || null;
          this.studyRooms = objInit.studyRooms;
          this.documents = objInit.documents
-
          this.tutorName = objInit.tutorName; 
          this.tutorImage = objInit.tutorImage;
          this.tutorId = objInit.tutorId; 
          this.tutorCountry = objInit.tutorCountry;
          this.tutorBio = objInit.tutorBio;
-         
-         this.startTime = objInit.startTime || '2020-07-30T09:15:00Z';
-         this.nextEvents = [] // need to delete after
+         this.startTime = objInit.broadcastTime;
       }
    }
 }
