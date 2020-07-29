@@ -46,7 +46,7 @@ namespace Cloudents.Core.Entities
                 v = s.DefaultIfEmpty().Aggregate((l, r) => l + r)
             });
 
-            if (fiatStudyRoomCheck.Count() > 1)
+            if (fiatStudyRoomCheck.Count(c=>c.v.Cents> 0) > 1)
             {
                 throw new ArgumentException();
             }
@@ -62,6 +62,11 @@ namespace Cloudents.Core.Entities
                 {
                     Price = Price.ChangePrice(200);
                 }
+            }
+
+            if (Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
+            {
+                Price = new Money(5d, "ILS");
             }
         }
 

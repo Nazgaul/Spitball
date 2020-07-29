@@ -9,11 +9,14 @@ using Cloudents.Web.Api;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PaymeController : Controller
     {
         // GET

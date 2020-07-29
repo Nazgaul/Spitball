@@ -210,7 +210,7 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("Payme/Course/id:long")]
+        [HttpPost("Payme/Course/{id:long}")]
         public async Task<IActionResult> PaymeAsync(long id,
             [FromServices] IPaymeProvider paymeProvider,
             [FromHeader(Name = "referer")] string referer,

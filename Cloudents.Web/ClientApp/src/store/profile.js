@@ -197,7 +197,12 @@ const actions = {
    // },
    async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
-      let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);
+      let {data} = await axios.post(`wallet/Stripe/Course/${studyRoomId}`);
+      return data.sessionId;
+   },
+   async updateStudyroomLiveSessionsWithPricePayMe(context,session) {
+      let studyRoomId = session.studyRoomId
+      let {data} = await axios.post(`wallet/Payme/Course/${studyRoomId}`);
       return data.sessionId;
    },
    async updateStudyroomLiveSessions(context, session) {

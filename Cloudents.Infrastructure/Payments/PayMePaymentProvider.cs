@@ -73,7 +73,6 @@ namespace Cloudents.Infrastructure.Payments
         public Task<GenerateSaleResponse> BuyCourseAsync(Money  price,string courseName,  string successRedirect, string sellerId , CancellationToken token)
         {
             var generateSale = GenerateSale.BuyCourse(price, courseName,successRedirect,sellerId);
-
             return GenerateSaleAsync(token, generateSale);
         }
 

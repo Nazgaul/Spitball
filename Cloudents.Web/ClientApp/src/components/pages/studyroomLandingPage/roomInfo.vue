@@ -90,12 +90,21 @@ export default {
       },
       async goStripe() {
          let session = {
-            userId: this.$store.getters.accountUser?.id,
+          //  userId: this.$store.getters.accountUser?.id,
             studyRoomId: this.$route.params?.id
          };
          let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
          this.$refs.stripe.redirectToStripe(x);
       },
+      async goPayme() {
+         let session = {
+          //  userId: this.$store.getters.accountUser?.id,
+            studyRoomId: this.$route.params?.id
+         };
+         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
+         location.href = x;
+      },
+
       async enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
@@ -110,8 +119,12 @@ export default {
             userId,
             studyRoomId
          }
-         if (this.coursePrice.amount && this.tutorCountry !== 'IL') {
-            this.goStripe()
+         if (this.coursePrice.amount) {
+            if (this.tutorCountry !== 'IL'){
+               this.goStripe()
+               return;
+            }
+            this.goPayme();
             return;
          }
          let self = this
