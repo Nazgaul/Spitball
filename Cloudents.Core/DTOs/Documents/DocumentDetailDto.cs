@@ -47,6 +47,7 @@ namespace Cloudents.Core.DTOs.Documents
         public Money? SubscriptionPrice { get; set; }
         public long UserId { get; set; }
         public string UserName { get; set; }
+        public long CourseId { get; set; }
     }
 
    
