@@ -556,14 +556,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task SessionApprovalQuery_Ok()
         {
-            var resultQuery = await fixture.StatelessSession.Query<StudyRoomSessionUser>()
-                .Fetch(f => f.StudyRoomSession)
-                .ThenFetch(f => f.StudyRoom)
+            var resultQuery = await fixture.StatelessSession.Query<StudyRoomPayment>()
+                //.Fetch(f => f.StudyRoomSession)
+                //.ThenFetch(f => f.StudyRoom)
                 .Select(s => new
                 {
                     SessionId = s.Id,
                     UserId = s.User.Id,
-                    TutorId = s.StudyRoomSession.StudyRoom.Tutor.Id
+                    TutorId = s.Tutor.Id
                 })
                 .Take(1).SingleOrDefaultAsync();
             if (resultQuery == null)
