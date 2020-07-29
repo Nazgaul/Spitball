@@ -73,6 +73,7 @@ namespace Cloudents.Query.Courses
                         TutorName = s.Tutor.User.Name,
                         TutorImage = s.Tutor.User.ImageName,
                         TutorCountry = s.Tutor.User.SbCountry,
+                        TutorSellerKey = s.Tutor.SellerKey,
                         Description = s.Description,
                        // Full = _statelessSession.Query<CourseEnrollment>().Count(w=>w.Course.Id == s.Id )  == 48,
                         TutorBio = s.Tutor.Paragraph2,
@@ -105,6 +106,7 @@ namespace Cloudents.Query.Courses
                     return null;
                 }
 
+                result.BroadcastTime = result.StudyRooms.Min(m => m.DateTime);
                 result.Full = fullFuture.Value == 48;
                 result.Enrolled = enrollmentsFuture.Value;
                 result.SessionStarted = sessionStartedFuture.Value;

@@ -40,7 +40,7 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<DocumentFeedDto> Documents { get; set; }
         public long Id { get; set; }
         public IEnumerable<FutureBroadcastStudyRoomDto> StudyRooms { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public Country TutorCountry { get; set; }
         public string? TutorImage { get; set; }
         public string TutorName { get; set; }
@@ -52,9 +52,13 @@ namespace Cloudents.Core.DTOs
         public bool Enrolled { get; set; }
         public bool Full { get; set; }
         public bool SessionStarted { get; set; }
+        public DateTime BroadcastTime { get; set; }
 
         [NonSerialized]
         public Money? SubscriptionPrice;
+
+        [NonSerialized]
+        public string? TutorSellerKey;
     }
 
 
