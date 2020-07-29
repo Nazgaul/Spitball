@@ -102,7 +102,6 @@ export default {
             studyRoomId: this.$route.params?.id
          };
          let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
-         debugger;
          location.href = x;
       },
 
@@ -120,7 +119,6 @@ export default {
             userId,
             studyRoomId
          }
-          debugger;
          if (this.coursePrice.amount) {
             
             if (this.tutorCountry !== 'IL'){

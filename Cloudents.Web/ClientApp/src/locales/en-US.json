@@ -525,7 +525,7 @@
   "session": "No sessions | {n} session | {n} sessions",
   "session details": "Add details about the session",
   "session price": "Session Price",
-  "sessionCount": "{0} Live lectures",
+  "sessionCount": "no live lectures | one live lecture | {0} Live lectures",
   "shareContent_copy": "Copy",
   "shareContent_copy_tool": "Link Copied",
   "shareContent_share_profile_email_body": "Hey,\r\nI found a great teacher on Spitball check out {0}’s site {1}",
