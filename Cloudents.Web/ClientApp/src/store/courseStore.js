@@ -76,6 +76,7 @@ export default {
    getters,
    actions
 }
+/*
 const fakeDocs = [
    {
      "id": 53197,
@@ -554,3 +555,5 @@ const fakeDocs = [
      "course": "Economics"
    }
  ]
+
+ */
