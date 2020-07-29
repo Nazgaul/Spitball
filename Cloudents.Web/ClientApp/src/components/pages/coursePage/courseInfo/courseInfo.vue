@@ -34,7 +34,7 @@
         <template v-if="isSubscription">
             <v-switch
                 v-model="subscribeSwitch"
-                class="mb-6 mt-2 pa-0"
+                class="mb-7 mt-0 pa-0"
                 :label="$t('set_subscriber_price')"
                 hide-details
             ></v-switch>

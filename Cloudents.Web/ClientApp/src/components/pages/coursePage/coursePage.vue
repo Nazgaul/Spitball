@@ -50,7 +50,11 @@ export default {
     methods: {
         saveCourseInfo() {
             if(this.$refs.createCourse.validate()) {
-                this.$store.dispatch('updateCourseInfo')
+                this.$store.dispatch('updateCourseInfo').then(res => {
+                    console.log(res);
+                }).catch(ex => {
+                    console.error(ex);
+                })
             }
         }
     },

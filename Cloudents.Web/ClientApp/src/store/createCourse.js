@@ -67,15 +67,21 @@ const mutations = {
 
 const actions = {
     updateCourseInfo({commit, state, getters}) {
+        // validate if tutor enter documents or studyroom
+        if(!getters.getFileData.length || !state.teachingDates.length) {
+            return Promise.reject()
+        }
+
         let params = {
             courseName: state.courseName,
             followerPrice: state.followerPrice,
             subscribePrice: state.subscribePrice,
             description: state.description,
-            teachingDates: state.teachingDates,
             courseVisible: state.courseVisible,
+            teachingDates: state.teachingDates,
             files: getters.getFileData.filter(file => !file.error)
         }
+        
         console.log(params);
         // axios.post(`api/`, params).then(() => {
         //     commit()
