@@ -232,7 +232,7 @@ namespace Cloudents.Web.Api
             
             return Ok(new
             {
-                sessionId = result
+                sessionId = result.SaleUrl
             });
 
 
