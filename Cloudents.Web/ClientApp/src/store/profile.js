@@ -3,14 +3,10 @@ const profileInstance = axios.create({
     baseURL:'/api/profile'
 })
 
-let cancelTokenList;
-
 const state = {
    courses: [],
    profile: null,
-   // documents: [],
    faq: [],
-   documents: [],
    profileReviews: null,
    profileLiveSessions: [],
    amountOfReviews: 0,
@@ -37,8 +33,6 @@ const getters = {
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
-   getProfileDocuments: state => state.documents,
-   //getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
    //getProfileCountry: state => state.profile?.user?.tutorCountry,
@@ -74,33 +68,6 @@ const mutations = {
                isSubscriber : objInit.isSubscriber,
                paragraph: objInit.paragraph3 || '',
             }
-         }
-      }
-   },
-   setProfileDocuments(state, data) {
-      state.documents = Object.keys(data).map(objData => new Document(objData, data[objData]))
-
-      function Document(name, objInit) {
-         this.result = Object.keys(objInit).map(objData => new DocumentItem(objInit[objData]));
-         this.courseName = name
-         this.isExpand = false
-         this.count = objInit.length
-      }
-
-      function DocumentItem(objInit) {
-         this.id = objInit.id;
-         // this.type = objInit.type;
-         this.course = objInit.course;
-         this.dateTime = new Date(objInit.dateTime);
-         this.documentType = objInit.documentType;
-         this.preview = objInit.preview;
-         this.title = objInit.title;
-         this.url = `/document/${encodeURIComponent(this.course)}/${encodeURIComponent(this.title)}/${encodeURIComponent(this.id)}`;
-         this.template = 'result-note';
-         this.priceType =  objInit.priceType || 'Free'; //Free,HasPrice,Subscriber
-         this.price = objInit.price ? objInit.price.toFixed(0) : 0;
-         if (this.price == 0 ) {
-            this.priceType = 'Free'
          }
       }
    },
@@ -159,7 +126,6 @@ const mutations = {
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
-      state.documents = []
    },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
@@ -179,10 +145,6 @@ const mutations = {
    },
    setProfileCoverLoading(state, val) {
       state.profileCoverLoading = val;
-   },
-   setExpandItems(state, item) {
-      let document = state.documents.filter(doc => doc.courseName === item.courseName)[0]
-      document.isExpand = !document.isExpand
    },
    setProfileCourses(state,courses){
       state.courses = courses.map(course => new Course(course))
@@ -222,16 +184,6 @@ const actions = {
       return profileInstance.get(`${id}/about`).then(({data}) => {
          commit('setProfileReviews', data)
       })
-   },
-   updateProfileItemsByType({ commit }, id) {
-      cancelTokenList?.cancel();
-      const axiosSource = axios.CancelToken.source();
-      cancelTokenList = axiosSource;
-
-      return profileInstance.get(`${id}/documents`, { cancelToken : axiosSource.token })
-         .then(({data}) => {
-            commit('setProfileDocuments', data);
-         });
    },
    updateProfileCourses({commit},id){
       profileInstance.get(`${id}/courses`).then(({data}) => {
