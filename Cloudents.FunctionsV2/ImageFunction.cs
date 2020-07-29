@@ -37,7 +37,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("ImageFunctionStudyRoom")]
         public static async Task<IActionResult> RunStudyRoomImageAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyRoom/{id:guid}")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyRoom/{id}")]
             HttpRequest req, Guid id,
             [Blob("spitball-files/study-room/{id}/0.jpg")]
             CloudBlockBlob blob,
