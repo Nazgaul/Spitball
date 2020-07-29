@@ -15,11 +15,12 @@
             dense
             outlined
         />
+        
         <v-text-field 
             v-model="followerPrice"
             type="number"
             class="priceFollower"
-            :rules="[rules.required, rules.minimum, rules.subscription]"
+            :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
             :label="$t('follower_price')"
             :prefix="getSymbol"
             placeholder=" "
@@ -44,7 +45,7 @@
                 v-if="subscribeSwitch"
                 type="number"
                 class="priceSubscriber mb-6"
-                :rules="[rules.required,rules.minimum]"
+                :rules="[rules.requiredNum, rules.minimum]"
                 :label="$t('subscriber_price')"
                 :prefix="getSymbol"
                 placeholder=" "
@@ -105,11 +106,13 @@ export default {
             subscribeSwitch: false,
             suggestsCourses: [],
             previewImage: null,
+            newLiveImage: null,
             rules: {
+                requiredNum: (val) => !isNaN(val) || this.$t("formErrors_required"),
                 required: (val) => validationRules.required(val),
                 minimum: (val) => validationRules.minVal(val,0),
                 integer: (val) => validationRules.integer(val),
-                subscription: val => (val >= 5 || val <= 0) || this.$t('minimum_price')
+                subscriptionPrice: val => (val >= 5 || val <= 0) || this.$t('minimum_price')
             }
         }
     },
@@ -163,14 +166,13 @@ export default {
     methods: {
         handleLiveImage(previewImage) {
             if(previewImage) {
-                let formData;
-                formData = new FormData();
-                let file = previewImage[0];
-                formData.append("file", file);
-
+                let formData = new FormData();
+                formData.append("file", previewImage[0]);
+                let self = this
                 this.$store.dispatch('updateLiveImage', formData).then(({data}) => {
-                    this.previewImage = window.URL.createObjectURL(previewImage[0])
-                    this.newLiveImage = data.fileName
+                    self.previewImage = window.URL.createObjectURL(previewImage[0])
+                    self.newLiveImage = data.fileName
+                    self.$store.commit('setCourseCoverImage', self.newLiveImage)
                 })
             }
         },
