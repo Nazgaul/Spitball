@@ -4,34 +4,20 @@ import * as componentConsts from '../components/pages/global/toasterInjection/co
 
 const state = {
     paymentURL: null,
-    isBuyPoints: null
 };
 
 const mutations = {
     setPaymentURL(state,url){
         state.paymentURL = url;
     },
-    setIsBuyPoints(state,val){
-        state.isBuyPoints = val;
-    },
 };
 
 const getters = {
     getPaymentURL:state => state.paymentURL,
-    getIsBuyPoints:state => state.isBuyPoints,
     getStripeToken: () => window.stripe
 };
 
 const actions = {
-    buyPointsUS({getters}, points) {
-        walletService.stripeTransaction(points).then(async ({data}) => {
-            const stripePromise = window.Stripe(getters.getStripeToken);
-            const stripe = await stripePromise;
-            await stripe.redirectToCheckout({
-               sessionId:  data.sessionId,
-            });
-        })
-    },
     async subscribeToTutor({getters}, id) {
         let data = await walletService.subscribe(id);
         const stripePromise = window.Stripe(getters.getStripeToken);
@@ -39,16 +25,6 @@ const actions = {
 
         await stripe.redirectToCheckout({
             sessionId: data.sessionId,
-        });
-    },
-    buyToken({dispatch ,commit}, points) {
-        return walletService.buyTokens(points).then(({ data }) => {
-            dispatch('updatePaymentLink',data.link)
-            commit('setIsBuyPoints',true)
-            commit('addComponent',componentConsts.PAYMENT_DIALOG);
-        }).catch(() => {
-            global.localStorage.setItem("sb_transactionError", points);
-            return Promise.reject()
         });
     },
     requestPaymentURL({dispatch,getters}){
@@ -65,7 +41,6 @@ const actions = {
     },
     signalR_ReleasePaymeStatus({getters,dispatch,commit}){
         let isStudyRoom = getters.getRoomIdSession;
-        commit('setIsBuyPoints',false)
         if(isStudyRoom){ // studyroom payment
             let isRoomNeedPayment = getters.getRoomIsNeedPayment;
             if(isRoomNeedPayment){
@@ -79,9 +54,6 @@ const actions = {
     },
     updatePaymentLink({commit},link){
         commit('setPaymentURL',link);
-    },
-    updateIsBuyPoints({commit},val){
-        commit('setIsBuyPoints',val)
     },
     // updatePaypalBuyTokens(context,id){
     //     return walletService.paypalBuyTokens(id)
