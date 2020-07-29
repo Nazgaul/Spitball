@@ -12,15 +12,16 @@ namespace Cloudents.Command.CommandHandler
         private readonly ICouponRepository _couponRepository;
         private readonly IRegularUserRepository _userRepository;
         private readonly ITutorRepository _tutorRepository;
-        private readonly IRepository<StudyRoom> _studyRoomRepository;
+        private readonly IRepository<Course> _courseRepository;
 
         public ApplyCouponCommandHandler(ICouponRepository couponRepository,
-            IRegularUserRepository userRepository, ITutorRepository tutorRepository, IRepository<StudyRoom> studyRoomRepository)
+            IRegularUserRepository userRepository, ITutorRepository tutorRepository
+            , IRepository<Course> studyRoomRepository)
         {
             _couponRepository = couponRepository;
             _userRepository = userRepository;
             _tutorRepository = tutorRepository;
-            _studyRoomRepository = studyRoomRepository;
+            _courseRepository = studyRoomRepository;
         }
 
         public async Task ExecuteAsync(ApplyCouponCommand message, CancellationToken token)
@@ -39,9 +40,9 @@ namespace Cloudents.Command.CommandHandler
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.ApplyCoupon(coupon, tutor);
-            var roomId = await _studyRoomRepository.LoadAsync(message.RoomId, token);
+            var course = await _courseRepository.LoadAsync(message.CourseId, token);
 
-            message.NewPrice = Coupon.CalculatePrice(coupon.CouponType, roomId.Price.Amount, coupon.Value);
+            message.NewPrice = Coupon.CalculatePrice(coupon.CouponType, course.Price.Amount, coupon.Value);
 
         }
     }
