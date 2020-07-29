@@ -48,7 +48,8 @@ namespace Cloudents.Query.Documents
                         DocumentType = s.DocumentType,
                         Pages = s.PageCount ?? 0,
                         Price = s.Course.Price,
-                        SubscriptionPrice = s.Course.SubscriptionPrice
+                        SubscriptionPrice = s.Course.SubscriptionPrice,
+                        CourseId = s.Course.Id
                     }).ToFutureValue();
 
 
@@ -105,19 +106,7 @@ namespace Cloudents.Query.Documents
                 }
 
                 return result;
-                //else
-                //{
-                //    if (result.UserId == query.UserId.Value)
-                //    {
-                //        result.IsPurchased = true;
-                //    }
-                //    else
-                //    {
-                //        var transactionResult = await purchaseFuture.GetValueAsync(token);
-                //        result.IsPurchased = scribedQueryFuture.Value ?? transactionResult != null;
-                //    }
-                //}
-                //return result;
+
             }
         }
     }
