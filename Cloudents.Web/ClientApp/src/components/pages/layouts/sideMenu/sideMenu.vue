@@ -60,7 +60,6 @@ export default {
         myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-my-coupon', sel:'sidemenu_dashboard_myCoupons'},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
         mySearch:{name: this.$t('schoolBlock_search'), route: routeNames.Learning, icon:'sbf-searchP', sel:'sidemenu_dashboard_learn'},
-        myCourse:{name: this.$t('schoolBlock_course'), route: routeNames.CourseCreate, icon:'sbf-searchP', sel:'sidemenu_dashboard_course'},
       },
     };
   },

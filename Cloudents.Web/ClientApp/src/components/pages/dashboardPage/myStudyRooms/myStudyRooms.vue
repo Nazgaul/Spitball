@@ -277,7 +277,8 @@ export default {
       this.$store.commit("setComponent", "createPrivateSession");
     },
     openLiveSession() {
-      this.$store.commit("setComponent", "createLiveSession");
+      this.$router.push({name: routeNames.CourseCreate})
+      // this.$store.commit("setComponent", "createLiveSession");
     },
     deleteSession(id) {
       let self = this;
