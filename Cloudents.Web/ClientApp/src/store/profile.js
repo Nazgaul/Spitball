@@ -8,7 +8,6 @@ const state = {
    profile: null,
    faq: [],
    profileReviews: null,
-   profileLiveSessions: [],
    amountOfReviews: 0,
    profileCoverLoading: false
 }
@@ -16,7 +15,6 @@ const state = {
 const getters = {
    getProfile: state => state.profile,
    getProfileReviews: state => state.profileReviews,
-   // getProfileLiveSessions: state => state.profileLiveSessions,
    getProfileStatsHours: state => state.profile?.user?.hoursTaught,
    getProfileStatsReviews: state => state.profile?.user?.reviewCount,
    getProfileStatsFollowers: state => state.profile?.user?.followers,
@@ -96,24 +94,6 @@ const mutations = {
          state.amountOfReviews = amountOfRevies;
       }
    },
-   setLiveSession(state, data) {
-      state.profileLiveSessions = data.map(broadcast => new BroadcastSession(broadcast))
-
-      function BroadcastSession(objInit) {
-         this.id = objInit.id;
-         this.name = objInit.name;
-         this.price = {
-            amount: objInit.price.amount,
-            currency: objInit.price.currency
-         }
-         this.isFull= objInit.isFull
-         this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
-         this.enrolled = objInit.enrolled;
-         this.description = objInit.description;
-         this.image = objInit.image;
-         this.nextEvents = objInit?.nextEvents?.length? objInit.nextEvents : null;
-      }
-   },
    setProfileFaq(state, data) {
       state.faq = data.map(faq => new ProfileFaq(faq))
 
@@ -190,11 +170,6 @@ const actions = {
          commit('setProfileCourses', data)
       })
    },
-   // getStudyroomLiveSessions({ commit }, id) {
-   //    profileInstance.get(`${id}/studyRoom`).then(({data}) => {
-   //       commit('setLiveSession', data)
-   //    })
-   // },
    async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
       let {data} = await axios.post(`wallet/Stripe/Course/${studyRoomId}`);
