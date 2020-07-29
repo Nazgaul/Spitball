@@ -52,20 +52,20 @@ export default {
                 return 'break'
             }
         },
-        // check_tutor(){
-        //     if(!this.accountUser.isTutor){
-        //         this.component = '';
-        //         this.$closeDialog()
-        //         return 'break'
-        //     }
-        // },
-        // check_params() {
-        //     if(!Object.keys(this.$route.params).length) {
-        //         this.component = '';
-        //         this.$closeDialog()
-        //         return 'break'
-        //     }
-        // },
+        check_tutor(){
+            if(!this.$store.getters.getIsTeacher){
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            }
+        },
+        check_params() {
+            if(!Object.keys(this.$route.params).length) {
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            }
+        },
     },
   
 }
