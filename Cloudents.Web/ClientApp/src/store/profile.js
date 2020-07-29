@@ -249,10 +249,10 @@ const actions = {
       return data.sessionId;
    },
    async updateStudyroomLiveSessions(context, session) {
-       let id = session.userId
+       //let id = session.userId
        let studyRoomId = session.studyRoomId
     
-      return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
+      return axios.post(`course/${studyRoomId}/enroll`); // profileInstance.post(`${id}/studyRoom`, { studyRoomId })
    },
 
 

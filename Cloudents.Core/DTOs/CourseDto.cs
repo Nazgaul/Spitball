@@ -52,7 +52,7 @@ namespace Cloudents.Core.DTOs
         public bool Enrolled { get; set; }
         public bool Full { get; set; }
         public bool SessionStarted { get; set; }
-        public DateTime BroadcastTime { get; set; }
+        public DateTime? BroadcastTime { get; set; }
 
         [NonSerialized]
         public Money? SubscriptionPrice;

@@ -51,7 +51,12 @@ export const studyRoomRoutes = [
         }
     },
     {
-        path: '/live/:id?',
+        path: `/live/:id?`,
+        name: 'studyroomSettings',
+        redirect: { name: routeName.StudyRoomLanding }
+    },
+    {
+        path: '/course/:id?',
         name: routeName.StudyRoomLanding,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
