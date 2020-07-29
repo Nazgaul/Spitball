@@ -61,7 +61,6 @@ const mutations = {
         item.visible = val
     },
     setShowCourse(state, val) {
-        console.log(val);
         state.courseVisible = val
     }
 }

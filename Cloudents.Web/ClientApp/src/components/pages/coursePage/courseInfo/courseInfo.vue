@@ -18,7 +18,7 @@
         <v-text-field 
             v-model="followerPrice"
             type="number"
-            class="priceFollower"
+            class="priceFollower mb-6"
             :rules="[rules.required,rules.minimum]"
             :label="$t('follower_price')"
             :prefix="getSymbol"
@@ -32,30 +32,32 @@
         >
         </v-text-field>
 
-        <v-switch
-            v-model="subscribeSwitch"
-            class="my-6 pa-0"
-            :label="$t('set_subscriber_price')"
-            hide-details
-        ></v-switch>
+        <template v-if="isSubscription">
+            <v-switch
+                v-model="subscribeSwitch"
+                class="my-6 pa-0"
+                :label="$t('set_subscriber_price')"
+                hide-details
+            ></v-switch>
 
-        <v-text-field
-            v-model="subscriberPrice"
-            v-if="subscribeSwitch"
-            type="number"
-            class="priceSubscriber mb-11"
-            :rules="[rules.required,rules.minimum]"
-            :label="$t('subscriber_price')"
-            :prefix="getSymbol"
-            placeholder=" "
-            dense
-            color="#304FFE"
-            autocomplete="off"
-            height="50"
-            hide-details
-            outlined
-        >
-        </v-text-field>
+            <v-text-field
+                v-model="subscriberPrice"
+                v-if="subscribeSwitch"
+                type="number"
+                class="priceSubscriber mb-6"
+                :rules="[rules.required,rules.minimum]"
+                :label="$t('subscriber_price')"
+                :prefix="getSymbol"
+                placeholder=" "
+                dense
+                color="#304FFE"
+                autocomplete="off"
+                height="50"
+                hide-details
+                outlined
+            >
+            </v-text-field>
+        </template>
 
         <v-textarea
             v-model="courseDescription"
@@ -112,6 +114,9 @@ export default {
         }
     },
     computed: {
+        isSubscription(){
+            return this.$store.getters.getIsTutorSubscription
+        },
         liveImage() {
             return this.isMobile ? require('../../../new_profile/components/profileLiveClasses/live-banner-mobile.png') : require('../../../new_profile/components/profileLiveClasses/live-banner-desktop.png')
         },
