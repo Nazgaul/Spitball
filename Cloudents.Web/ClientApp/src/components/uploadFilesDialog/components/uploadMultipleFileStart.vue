@@ -1,5 +1,5 @@
 <template>
-    <div class="uf-sDrop-container mb-4" :class="{'uf-sDrop-container-active': isDraggin}">
+    <div class="uf-sDrop-container mb-4" :class="{'uf-sDrop-container-active': isDraggin, 'd-flex align-center justify-center': uploadStarted}">
         <div v-if="isDraggin" class="uf-sDrop-drop d-flex align-center justify-center" v-t="'upload_uf_sDrop_drop'"></div>
         <div v-if="uploadStarted" class="uf-uploading-container">
             <div class="uf-uploading-text">
@@ -146,7 +146,7 @@ export default {
                                     item.blobName = response.data.fileName ? response.data.fileName : '';
                                     singleFile = uploadService.createFileData(item);
                                     self.updateFile(singleFile);
-                                    debugger
+                                    this.uploadStarted = false
                                 },
                                 error => {
                                     console.log('error drop box api call', error)

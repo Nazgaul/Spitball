@@ -1,25 +1,19 @@
 <template>
     <div class="courseTeaching mx-5 pt-5" :class="{'pb-5': numberOfLecture === index}">
-        <div class="d-flex align-center justify-space-between mb-11">
+        <div class="mb-11" v-if="index === 1">
             <div class="courseTeachingTitle" v-t="'set_Teaching'"></div>
-            <v-switch
-                v-if="index === 1"
-                v-model="scheduleSwitch"
-                class="pa-0 ma-0"
-                :label="$t('schedule_course')"
-                hide-details
-            ></v-switch>
-            <v-icon v-else @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
         </div>
 
-        <div class="lectureTitle mb-6">{{$t('live_lecture', [index])}}</div>
+        <div class="lectureTitle d-flex align-center justify-space-between mb-6">
+            <div>{{$t('live_lecture', [index])}}</div>
+            <v-icon v-if="index > 1" @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
+        </div>
 
         <div>
             <v-text-field 
                 v-model="lectureTopic"
                 :rules="[rules.required]"
                 :label="$t('lecture_topic')"
-                :disabled="!scheduleSwitch && index === 1"
                 height="50"
                 color="#304FFE"
                 autocomplete="off"
@@ -40,7 +34,6 @@
                             class="dateInput"
                             :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
-                            :disabled="!scheduleSwitch && index === 1"
                             height="50"
                             prepend-inner-icon="sbf-dateIcon"
                             color="#304FFE"
@@ -71,7 +64,6 @@
                     v-model="hour"
                     class="roomHour ps-sm-5"
                     :items="timeHoursList"
-                    :disabled="!scheduleSwitch && index === 1"
                     :menu-props="{
                         maxHeight: 200
                     }"
@@ -86,9 +78,9 @@
                 ></v-select>
             </v-col>
         </v-row>
-        <div class="addLecture" v-if="numberOfLecture === index">
+        <div class="addLecture d-flex" v-if="numberOfLecture === index">
             <v-icon size="14" color="#4c59ff">sbf-plus-regular</v-icon>
-            <button v-t="'another_lecture'" @click="addLecture" :disabled="!scheduleSwitch && index === 1"></button>
+            <button class="ms-1" v-t="'another_lecture'" @click="addLecture"></button>
         </div>
     </div>
 </template>
@@ -106,7 +98,6 @@ export default {
     data() {
         return {
             datePickerMenu: false,
-            scheduleSwitch: false,
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minVal(value,0),
@@ -208,6 +199,9 @@ export default {
         button {
             outline: none;
         }
+    }
+    .v-input__prepend-inner, .v-input__append-inner {
+        margin-top: 14px !important;
     }
 }
 </style>

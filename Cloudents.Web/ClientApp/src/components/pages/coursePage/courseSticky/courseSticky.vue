@@ -1,12 +1,17 @@
 <template>
     <div class="courseSticky ms-6">
-        <div class="visibleSection d-flex align-center justify-space-between pa-3 mb-4">
-            <div class="courseStickyTitle" v-t="'visible'"></div>
-            <v-switch
-                v-model="visible"
-                class="ma-0 pa-0"
-                hide-details
-            ></v-switch>
+        <div class="visibleSection pa-3 mb-4">
+            <div class="d-flex align-center justify-space-between mb-3">
+                <div class="courseStickyTitle" v-t="'visible'"></div>
+                <v-switch
+                    v-model="courseVisible"
+                    class="ma-0 pa-0"
+                    @change="$store.commit('setShowCourse')"
+                    hide-details
+                ></v-switch>
+            </div>
+
+            <div class="courseStickyTitle" v-t="'course_visible'"></div>
         </div>
 
         <div class="promoteSection pt-3 pb-4 px-5">
@@ -44,9 +49,14 @@ export default {
         inviteSvg,
         emailSvg
     },
-    data() {
-        return {
-            visible: false,
+    computed: {
+        courseVisible: {
+            get() {
+                return this.$store.getters.getCourseVisible
+            },
+            set(val) {
+                this.$store.commit('setShowCourse', val)
+            }
         }
     }
 }

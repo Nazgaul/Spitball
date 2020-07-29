@@ -6,7 +6,7 @@ const state = {
     followerPrice: 0,
     subscribePrice: 0,
     description: '',
-    
+    courseVisible: true,
     teachingDates: [] // courseTeaching.vue
 }
 
@@ -16,7 +16,7 @@ const getters = {
     getFollowerPrice: state => state.followerPrice,
     getSubscriberPrice: state => state.subscribePrice,
     getDescription: state => state.description,
-
+    getCourseVisible: state => state.courseVisible,
     getTeachLecture: state => state.teachingDates,
     getTeachTime: () => {
         const currentTime = new Date();
@@ -59,6 +59,10 @@ const mutations = {
     },
     setVisibleFile(state, {val, item}) {
         item.visible = val
+    },
+    setShowCourse(state, val) {
+        console.log(val);
+        state.courseVisible = val
     }
 }
 
@@ -70,6 +74,7 @@ const actions = {
             subscribePrice: state.subscribePrice,
             description: state.description,
             teachingDates: state.teachingDates,
+            courseVisible: state.courseVisible,
             files: getters.getFileData.filter(file => !file.error)
         }
         console.log(params);
