@@ -37,15 +37,15 @@ export default {
          return this.$vuetify.breakpoint.xsOnly;
       },
       isRoomEnrolled(){
-         let isRoomTutor = this.$store.getters.accountUser?.id == this.$store.getters.getRoomDetails?.tutorId;
+         let isRoomTutor = this.$store.getters.accountUser?.id == this.$store.getters.getCourseDetails?.tutorId;
          if(isRoomTutor) return false;
          else{
-            return this.$store.getters.getRoomDetails?.enrolled;
+            return this.$store.getters.getCourseDetails?.enrolled;
          }
       },
    },
    beforeRouteLeave (to, from, next) {
-      this.$store.dispatch('updateRoomDetails',null)
+      this.$store.dispatch('updateCourseDetails',null)
       next()
    }
 }
