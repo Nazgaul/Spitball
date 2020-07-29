@@ -139,7 +139,7 @@ namespace Cloudents.Web.Api
                 }, "https");
 
 
-                var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName, new
+                var urlReturn = Url.RouteUrl(PaymeController.PaymeCallbackRouteName, new
                 {
                     userId = user.Id
                 }, "https");
@@ -162,7 +162,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
+        public async Task<IActionResult> PayMeCallbackAsync([FromQuery] long userId,
             [FromForm] PayMeBuyerCallbackRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
@@ -210,9 +210,38 @@ namespace Cloudents.Web.Api
 
 
 
+        [HttpPost("Payme/Course/id:long")]
+        public async Task<IActionResult> PaymeAsync(long id,
+            [FromServices] IPaymeProvider paymeProvider,
+            [FromHeader(Name = "referer")] string referer,
+            CancellationToken token)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            var query = new CourseByIdQuery(id, user.Id);
+            var courseDetail = await _queryBus.QueryAsync(query, token);
+
+            var urlReturn = Url.RouteUrl(PaymeController.EnrollStudyRoom, new
+            {
+                userId = user.Id,
+                courseId = id,
+                redirectUrl = referer
+            }, "https");
+            var result = await paymeProvider.BuyCourseAsync(courseDetail.Price, courseDetail.Name, urlReturn,
+                courseDetail.TutorSellerKey, token);
+            
+            return Ok(new
+            {
+                sessionId = result
+            });
+
+
+        }
+
+
         #endregion
 
-       
+
 
         #region Stripe
         [HttpPost("Stripe/Course/{id:long}")]
@@ -223,14 +252,14 @@ namespace Cloudents.Web.Api
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var userId = _userManager.GetLongUserId(User);
-            var query = new CourseByIdQuery(id,userId);
+            var query = new CourseByIdQuery(id, userId);
             var studyRoomResult = await _queryBus.QueryAsync(query, token);
 
             var uriBuilder = new UriBuilder(referer)
             {
                 Query = string.Empty
             };
-            
+
             var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom, new
             {
                 redirectUrl = uriBuilder.ToString()
@@ -257,7 +286,7 @@ namespace Cloudents.Web.Api
                 sessionId = result
             });
         }
-        
+
         #endregion
 
     }

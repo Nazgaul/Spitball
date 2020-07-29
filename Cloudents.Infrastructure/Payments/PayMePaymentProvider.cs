@@ -70,12 +70,12 @@ namespace Cloudents.Infrastructure.Payments
             return GenerateSaleAsync(token, generateSale);
         }
 
-        //public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
-        //{
-        //    var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
+        public Task<GenerateSaleResponse> BuyCourseAsync(Money  price,string courseName,  string successRedirect, string sellerId , CancellationToken token)
+        {
+            var generateSale = GenerateSale.BuyCourse(price, courseName,successRedirect,sellerId);
 
-        //    return GenerateSaleAsync(token, generateSale);
-        //}
+            return GenerateSaleAsync(token, generateSale);
+        }
 
         private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
         {
@@ -108,16 +108,7 @@ namespace Cloudents.Infrastructure.Payments
 
         private class GenerateSale
         {
-            public static GenerateSale TransferMoney(string sellerId, string buyerId, double price)
-            {
-                return new GenerateSale()
-                {
-                    SellerPaymeId = sellerId,
-                    SalePrice = (int)(price * 100),
-                    BuyerKey = buyerId,
-                    ProductName = "עבור שיעורים פרטיים בספיטבול"
-                };
-            }
+            
 
             private GenerateSale()
             {
@@ -148,6 +139,30 @@ namespace Cloudents.Infrastructure.Payments
                     SaleCallbackUrl = saleCallbackUrl,
                     ProductName = "עבור שיעורים פרטיים בספיטבול"
 
+                };
+            }
+
+            public static GenerateSale BuyCourse(Money price, string courseName,   string saleReturnUrl, string sellerId)
+            {
+                return new GenerateSale()
+                {
+                    CaptureBuyer = 0,
+                    SellerPaymeId = sellerId,
+                    SalePrice =price.Cents,
+                    SaleReturnUrl = saleReturnUrl,
+                    //SaleCallbackUrl = saleCallbackUrl,
+                    ProductName = courseName
+
+                };
+            }
+            public static GenerateSale TransferMoney(string sellerId, string buyerId, double price)
+            {
+                return new GenerateSale()
+                {
+                    SellerPaymeId = sellerId,
+                    SalePrice = (int)(price * 100),
+                    BuyerKey = buyerId,
+                    ProductName = "עבור שיעורים פרטיים בספיטבול"
                 };
             }
 
