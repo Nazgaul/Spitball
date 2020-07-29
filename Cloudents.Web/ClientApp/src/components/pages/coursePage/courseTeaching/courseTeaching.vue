@@ -10,9 +10,9 @@
         </div>
 
         <div>
+                <!-- :rules="[rules.required]" -->
             <v-text-field 
                 v-model="lectureTopic"
-                :rules="[rules.required]"
                 :label="$t('lecture_topic')"
                 height="50"
                 color="#304FFE"
@@ -27,12 +27,12 @@
             <v-col cols="6" sm="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
+                <!-- :rules="[rules.required]" -->
                         <v-text-field 
                             v-on="on"
                             v-model="date"
                             type="text"
                             class="dateInput"
-                            :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
                             height="50"
                             prepend-inner-icon="sbf-dateIcon"

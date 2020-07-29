@@ -7,6 +7,7 @@ const state = {
     subscribePrice: 0,
     description: '',
     courseVisible: true,
+    courseCoverImage: null,
     teachingDates: [] // courseTeaching.vue
 }
 
@@ -62,14 +63,17 @@ const mutations = {
     },
     setShowCourse(state, val) {
         state.courseVisible = val
+    },
+    setCourseCoverImage(state, image) {
+        state.courseCoverImage = image
     }
 }
 
 const actions = {
     updateCourseInfo({commit, state, getters}) {
         // validate if tutor enter documents or studyroom
-        if(!getters.getFileData.length || !state.teachingDates.length) {
-            return Promise.reject()
+        if(!getters.getFileData.length && !state.teachingDates.length) {
+            return Promise.reject('Error, must include documents or studyroom')
         }
 
         let params = {
@@ -79,6 +83,7 @@ const actions = {
             description: state.description,
             courseVisible: state.courseVisible,
             teachingDates: state.teachingDates,
+            image: state.courseCoverImage,
             files: getters.getFileData.filter(file => !file.error)
         }
         
