@@ -1,21 +1,25 @@
 <template>
-    <div class="courseTeaching pa-5 mb-6">
+    <div class="courseTeaching mx-5 pt-5" :class="{'pb-5': numberOfLecture === index}">
         <div class="d-flex align-center justify-space-between mb-11">
             <div class="courseTeachingTitle" v-t="'set_Teaching'"></div>
             <v-switch
+                v-if="index === 1"
                 v-model="scheduleSwitch"
                 class="pa-0 ma-0"
                 :label="$t('schedule_course')"
                 hide-details
             ></v-switch>
+            <v-icon v-else @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
         </div>
+
+        <div class="lectureTitle mb-6">{{$t('live_lecture', [index])}}</div>
 
         <div>
             <v-text-field 
                 v-model="lectureTopic"
                 :rules="[rules.required]"
                 :label="$t('lecture_topic')"
-                :disabled="!scheduleSwitch"
+                :disabled="!scheduleSwitch && index === 1"
                 height="50"
                 color="#304FFE"
                 autocomplete="off"
@@ -36,7 +40,7 @@
                             class="dateInput"
                             :rules="[rules.required]"
                             :label="$t('dashboardPage_label_date')"
-                            :disabled="!scheduleSwitch"
+                            :disabled="!scheduleSwitch && index === 1"
                             height="50"
                             prepend-inner-icon="sbf-dateIcon"
                             color="#304FFE"
@@ -65,9 +69,9 @@
             <v-col cols="6" sm="4" >
                 <v-select
                     v-model="hour"
-                    class="roomHour ps-sm-3 ps-2"
+                    class="roomHour ps-sm-5"
                     :items="timeHoursList"
-                    :disabled="!scheduleSwitch"
+                    :disabled="!scheduleSwitch && index === 1"
                     :menu-props="{
                         maxHeight: 200
                     }"
@@ -82,6 +86,10 @@
                 ></v-select>
             </v-col>
         </v-row>
+        <div class="addLecture" v-if="numberOfLecture === index">
+            <v-icon size="14" color="#4c59ff">sbf-plus-regular</v-icon>
+            <button v-t="'another_lecture'" @click="addLecture" :disabled="!scheduleSwitch && index === 1"></button>
+        </div>
     </div>
 </template>
 
@@ -150,6 +158,9 @@ export default {
             }
             return timesArr
         },
+        numberOfLecture() {
+            return this.$store.getters.getNumberOfLecture
+        },
     },
     methods: {
         allowedDates(date) {
@@ -160,6 +171,12 @@ export default {
             let today = new Date().FormatDateToString()
             return date >= today && date >= this.date
         },
+        addLecture() {
+            this.$store.commit('setNumberOfLecture', this.numberOfLecture + 1)
+        },
+        removeLecture() {
+            this.$store.commit('removeLecture', this.index)
+        }
     }
 }
 </script>
@@ -169,15 +186,28 @@ export default {
 @import '../../../../styles/colors.less';
 
 .courseTeaching {
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     max-width: 760px;
 
+    &:not(:last-child) {
+        border-bottom: 1px solid #dddddd;
+    }
     .courseTeachingTitle {
         font-size: 20px;
         font-weight: 600;
         color: @global-purple;
+    }
+    .lectureTitle {
+        font-size: 18px;
+        font-weight: 600;
+        color: @global-purple;
+    }
+    .addLecture {
+        font-size: 16px;
+        color: #4c59ff;
+
+        button {
+            outline: none;
+        }
     }
 }
 </style>

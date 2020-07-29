@@ -1,13 +1,12 @@
 <template>
     <div class="uploadFiles" v-if="!item.error">
-        <div class="uploadFilesTitle" v-t="'upload_files'"></div>
-
         <div class="uploadFilesWrap d-flex align-center justify-space-between">
             <div class="d-flex align-center">
                 <v-text-field
                     v-model="item.name"
                     :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
                     :label="$t('upload_file_title_label')"
+                    class="uploadFileInput"
                     placeholder=" "
                     color="#4c59ff"
                     height="44"
@@ -22,6 +21,7 @@
 
             <v-switch
                 v-model="fileSwitch"
+                @change="visibleFile"
                 :label="$t('visible')"
             ></v-switch>
 
@@ -55,6 +55,12 @@ export default {
     methods: {
         removeFile() {
             this.$store.commit('deleteFileByIndex', this.singleFileIndex)
+        },
+        visibleFile(val) {
+            this.$store.commit('setVisibleFile', {
+                val,
+                item: this.item
+            });
         }
     }
 }
@@ -62,6 +68,8 @@ export default {
 
 <style lang="less">
 .uploadFiles {
-
+    .uploadFileInput {
+        min-width: 440px;
+    }
 }
 </style>

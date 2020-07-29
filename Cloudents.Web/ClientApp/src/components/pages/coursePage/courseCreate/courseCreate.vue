@@ -51,7 +51,7 @@ export default {
     max-width: 1077px; // eidan request
     position: sticky;
     z-index: 2;
-    top: 80px;
+    top: 70px;
     .createTitle {
         font-size: 20px;
         font-weight: 600;

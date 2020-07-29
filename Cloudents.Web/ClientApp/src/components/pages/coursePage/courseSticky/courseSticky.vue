@@ -1,7 +1,7 @@
 <template>
     <div class="courseSticky ms-6">
         <div class="visibleSection d-flex align-center justify-space-between pa-3 mb-4">
-            <div v-t="'visible'"></div>
+            <div class="courseStickyTitle" v-t="'visible'"></div>
             <v-switch
                 v-model="visible"
                 class="ma-0 pa-0"
@@ -60,12 +60,18 @@ export default {
     min-width: 296px;
     height: max-content;
     position: sticky;
-    top: 180px;
+    top: 170px;
     .visibleSection, .promoteSection{
         background: #fff;
         height: max-content;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         border-radius: 6px;
+    }
+    .visibleSection {
+        .courseStickyTitle {
+            font-size: 16px;
+            color: @global-purple;
+        }
     }
     .promoteSection {
         .promoteTitle {

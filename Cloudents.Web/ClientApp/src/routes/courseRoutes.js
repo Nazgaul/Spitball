@@ -14,7 +14,7 @@ export const courseRoutes = [
    {
       path: '/course',
       components: {
-         default: () => import(`../components/pages/coursePage/course.vue`),
+         default: () => import(`../components/pages/coursePage/coursePage.vue`),
          ...staticComponents(['banner', 'header', 'sideMenu']),
       },
       children: [

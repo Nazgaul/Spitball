@@ -43,9 +43,9 @@
             v-model="subscriberPrice"
             v-if="subscribeSwitch"
             type="number"
-            class="priceFollower mb-11"
+            class="priceSubscriber mb-11"
             :rules="[rules.required,rules.minimum]"
-            :label="$t('follower_price')"
+            :label="$t('subscriber_price')"
             :prefix="getSymbol"
             placeholder=" "
             dense
@@ -212,7 +212,7 @@ export default {
     .courseName {
         width: 500px;
     }
-    .priceFollower {
+    .priceFollower, .priceSubscriber {
         width: 140px;
     }
     .addImage {

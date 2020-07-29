@@ -34,6 +34,10 @@ const mutations = {
     setNumberOfLecture(state, num) {
         state.numberOfLecture = num;
     },
+    removeLecture(state, index) {
+        state.numberOfLecture -= 1;
+        state.teachingDates.splice(index-1, 1)
+    },
     setCourseName(state, name) {
         state.courseName = name
     },
@@ -52,21 +56,25 @@ const mutations = {
             hour: teachObj.hour ||  state.teachingDates[teachObj.index]?.hour,
             date: teachObj.date ||  state.teachingDates[teachObj.index]?.date
         })
+    },
+    setVisibleFile(state, {val, item}) {
+        item.visible = val
     }
 }
 
 const actions = {
-    updateCourseInfo({commit, state}) {
+    updateCourseInfo({commit, state, getters}) {
         let params = {
             courseName: state.courseName,
             followerPrice: state.followerPrice,
             subscribePrice: state.subscribePrice,
             description: state.description,
-            teachingDates: state.teachingDates
+            teachingDates: state.teachingDates,
+            files: getters.getFileData.filter(file => !file.error)
         }
         console.log(params);
         // axios.post(`api/`, params).then(() => {
-
+        //     commit()
         // })
     }
 }

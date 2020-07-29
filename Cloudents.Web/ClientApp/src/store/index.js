@@ -24,7 +24,6 @@ import dashboard_Store from './dashboard_Store.js'
 import tutorDashboard from './tutorDashboard.js'
 import profile from './profile.js';
 import document from "./document.js";
-import course from './createCourse.js';
 import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
 import componentPlugin from '../plugins/componentPlugin';
@@ -77,7 +76,6 @@ const store = new Vuex.Store({
         Toaster,
         uploadFiles,
         document,
-        course,
         mobileFooter,
         chatStore,
         leaveReview,
