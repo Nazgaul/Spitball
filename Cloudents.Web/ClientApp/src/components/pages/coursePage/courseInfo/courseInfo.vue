@@ -45,7 +45,7 @@
                 v-if="subscribeSwitch"
                 type="number"
                 class="priceSubscriber mb-6"
-                :rules="[rules.requiredNum, rules.minimum]"
+                :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
                 :label="$t('subscriber_price')"
                 :prefix="getSymbol"
                 placeholder=" "
@@ -53,7 +53,6 @@
                 color="#304FFE"
                 autocomplete="off"
                 height="50"
-                hide-details
                 outlined
             >
             </v-text-field>
