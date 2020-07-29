@@ -105,6 +105,7 @@ namespace Cloudents.Query.Courses
                     return null;
                 }
 
+                result.BroadcastTime = result.StudyRooms.Min(m => m.DateTime);
                 result.Full = fullFuture.Value == 48;
                 result.Enrolled = enrollmentsFuture.Value;
                 result.SessionStarted = sessionStartedFuture.Value;
