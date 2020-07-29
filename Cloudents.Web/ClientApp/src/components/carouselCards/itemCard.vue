@@ -1,19 +1,12 @@
 <template>
     <div class="itemCarouselCard cursor-pointer mb-5 mb-sm-0" @click="openItemDialog">
-        <div class="imageWrapper"> <!-- :class="{'subscribed': !isMyProfile && isSubscribed}" -->
-
+        <div class="imageWrapper">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="srcImg" alt="preview image">
             </intersection>
             <div v-show="isVideo" class="videoSign">
                 <img src="./videoSign.png" alt="">
             </div>
-            <!-- <div class="overlay text-center px-8" v-if="!isMyProfile && isSubscribed">
-                <div class="unlockText white--text mb-3">{{subscribeText}}</div>
-                <v-btn class="btn" color="#fff" rounded block @click.stop.prevent="goSubscription">
-                    <span>{{subscribeBtnText}}</span>
-                </v-btn>
-            </div> -->
         </div>
         <div class="item-cont flex-grow-1 d-flex flex-column justify-space-between pa-4 pa-sm-3">
             <div class="item-title">{{item.title}}</div>
@@ -44,26 +37,10 @@ export default {
                 return this.$proccessImageUrl(this.item.preview,248,150)
             }
         }
-        // isSubscribed() {
-        //     return this.item.priceType === 'Subscriber'
-        // },
-        // subscribeText() {
-        //     return this.isMobile ? this.$t('resultNote_subscribe_mobile_text') : this.$t('resultNote_subscribe_desktop_text')
-        // },
-        // subscribeBtnText() {
-        //     let price = this.$price(this.item.price, 'USD')
-        //     return this.isMobile ? this.$t('resultNote_subscribe_mobile_btn', [price]) : this.$t('resultNote_subscribe_desktop_btn', [price])
-        // },
-        // isMyProfile() {
-        //     return this.$store.getters.getIsMyProfile
-        // }
     },
     methods: {
         openItemDialog(){
             this.$store.dispatch('updateCurrentItem',this.item.id);
-        },
-        goSubscription() {
-            this.$vuetify.goTo('#subscription')
         }
     },  
 }
@@ -104,35 +81,6 @@ export default {
             top: calc(~"50% - 19px");
             right: calc(~"50% - 26px");
         }
-
-        // &.subscribed {
-            // &:before {
-            //     content: '';
-            //     position: absolute;
-            //     background: rgba(0, 0, 0, .7);
-            //     height: 100%;
-            //     width: 100%;
-            //     border-radius: 6px 6px 0 0;
-            // }
-            // .overlay {
-            //     position: absolute;
-            //     top: 50%;
-            //     right: 0;
-            //     left: 0;
-            //     transform: translate(0,-50%);
-            //     .unlockText {
-            //         white-space: pre;
-            //         font-size: 15px;
-            //         font-weight: 600;
-            //         line-height: 1.47;
-            //     }
-            //     .btn {
-            //         color: @global-purple; // old
-            //         width: 100%;
-            //         font-weight: 600;
-            //     }
-            // }
-        // }
         .itemCarouselImg {
             border-bottom:  solid 1px #c1c3d2;
             border-top-left-radius: 6px;
