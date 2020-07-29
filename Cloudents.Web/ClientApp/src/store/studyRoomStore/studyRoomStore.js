@@ -2,7 +2,6 @@ import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import {twilio_SETTERS} from '../constants/twilioConstants.js';
 import Vue from 'vue';
-import Moment from 'moment'
 
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 function _getRoomParticipantsWithoutTutor(roomParticipants,roomTutor){

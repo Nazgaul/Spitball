@@ -36,13 +36,17 @@ export default {
    },
    computed: {
       courseItemsList(){
-         this.pagination.length = Math.ceil(this.$store.getters.getCourseItems.length / this.pagination.pageSize)
          return this.$store.getters.getCourseItems;
       },
       itemToPreview(){
          let startIdx = (this.pagination.current * this.pagination.pageSize) - this.pagination.pageSize;
          let endIdx = this.pagination.current * this.pagination.pageSize;
          return this.courseItemsList.slice(startIdx,endIdx)
+      },
+   },
+   watch: {
+      courseItemsList(){
+         this.pagination.length = Math.ceil(this.$store.getters.getCourseItems.length / this.pagination.pageSize)
       }
    },
 }
