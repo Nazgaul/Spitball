@@ -38,9 +38,9 @@
                                 <span v-t="'regular'"></span>
                                 <span class="number text-left ms-2 ms-sm-1">{{$price(session.price.amount, session.price.currency, true)}}</span>
                             </div>
-                            <div class="subscription ms-0 ms-sm-9" v-if="!isTutorSubscription">
+                            <div class="subscription ms-0 ms-sm-9" v-if="isTutorSubscription">
                                 <span v-t="'subscriber'"></span>
-                                <span class="number text-left ms-2 ms-sm-1">{{$price(0, session.price.currency, true)}}</span>
+                                <span class="number text-left ms-2 ms-sm-1">{{$price(session.subscriptionPrice.amount, session.subscriptionPrice.currency, true)}}</span>
                             </div>
                         </div>
 

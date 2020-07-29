@@ -141,8 +141,6 @@ const mutations = {
          this.startTime = objInit.startTime;
          
          this.description = objInit.description;
-         this.subscriptionPrice = objInit.subscriptionPrice;
-
          this.subscriptionPrice = {
             amount: objInit.subscriptionPrice?.amount,
             currency: objInit.subscriptionPrice?.currency
