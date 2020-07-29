@@ -549,7 +549,7 @@
   "session": "אין שידורים חיים | {n} שידור חי | {n} שידורים חיים",
   "session details": "הוספת פרטים אודות השידור החי",
   "session price": "מחיר עבור השידור החי",
-  "sessionCount": "{0} הרצאות חיות",
+  "sessionCount": "ללא הרצאות | הרצאה אחת | {0} הרצאות",
   "shareContent_copy": "העתק",
   "shareContent_copy_tool": "הקישור הועתק",
   "shareContent_share_profile_email_body": "הי,\r\nמשתף איתך מורה פרטי. תסתכל על האתר שלו\r\n{1}",

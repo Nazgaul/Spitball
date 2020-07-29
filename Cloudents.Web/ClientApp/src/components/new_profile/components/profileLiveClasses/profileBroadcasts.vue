@@ -22,7 +22,7 @@
                                         </div>
                                         <div class="d-flex align-center">
                                             <div class="orangeDot"></div>
-                                            <div class="startTime">{{$t('sessionCount',[session.studyRoomCount])}}</div>
+                                            <div class="startTime">{{$tc('sessionCount', session.studyRoomCount)}}</div>
                                         </div>
                                     </div>
                                 </div>
