@@ -1,7 +1,7 @@
 <template>
     <div id="coursePage" class="coursePage ma-sm-8">
-        <template v-if="!isMobile">
-            <courseCreate />
+        <v-form ref="createCourse" @submit="saveCourseInfo" v-if="!isMobile">
+            <courseCreate @saveCourseInfo="saveCourseInfo" />
             <div class="d-flex">
                 <div class="courseLeftSide">
                     <courseInfo />
@@ -12,7 +12,7 @@
                 </div>
                 <courseSticky />
             </div>
-        </template>
+        </v-form>
         <unSupportedFeature v-else />
     </div>
 </template>
@@ -45,6 +45,13 @@ export default {
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
+        }
+    },
+    methods: {
+        saveCourseInfo() {
+            if(this.$refs.createCourse.validate()) {
+                this.$store.dispatch('updateCourseInfo')
+            }
         }
     },
     beforeDestroy(){

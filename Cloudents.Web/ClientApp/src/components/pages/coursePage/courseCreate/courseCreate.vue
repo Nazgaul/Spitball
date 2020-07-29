@@ -15,7 +15,7 @@
             >
             </v-btn>
             <v-btn
-                @click="saveCourseInfo"
+                @click="$emit('saveCourseInfo')"
                 class="createCourseBtn white--text"
                 color="#4452fc"
                 width="132"
@@ -32,11 +32,6 @@
 <script>
 export default {
     name: 'createCourse',
-    methods: {
-        saveCourseInfo() {
-            this.$store.dispatch('updateCourseInfo')
-        }
-    }
 }
 </script>
 
