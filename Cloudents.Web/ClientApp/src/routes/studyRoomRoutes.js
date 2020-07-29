@@ -62,14 +62,12 @@ export const studyRoomRoutes = [
                 next('/');
 
             }else{
-                store.dispatch('updateRoomDetails',to.params.id)
+                store.dispatch('updateCourseDetails',to.params.id)
                      .then(()=>{
                         next();
-
                     })
                     .catch(()=>{
                         next('/');
-
                     })
             }
         }

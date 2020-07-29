@@ -65,7 +65,7 @@ const state = {
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
    roomNetworkQuality: null,
-   roomDetails:null,
+   roomEnrolled:null,
 }
 
 const mutations = {
@@ -161,36 +161,8 @@ const mutations = {
    setStudyRoomFooterState(state,val){
       state.studyRoomFooterState = val;
    },
-   setRoomEnrolled(state,val){
-      state.roomDetails.enrolled = val;
-   },
    [studyRoom_SETTERS.BROWSER_NOT_SUPPORT]: (state, val) => state.isBrowserNotSupport = val,
    [studyRoom_SETTERS.ROOM_NETWORK_QUALITY]: (state, val) => state.roomNetworkQuality = val,
-   [studyRoom_SETTERS.ROOM_DETAILS]: (state, roomDetails) => {
-      function RoomDetails(objInit){
-         this.id = objInit.id; 
-         this.name = objInit.name;
-         this.description = objInit.description; 
-         this.date = objInit.broadcastTime; 
-         this.price = objInit.price;
-         this.enrolled = objInit.enrolled;
-         this.full = objInit.full;
-         this.image = objInit.image;
-         this.tutorCountry = objInit.tutorCountry;
-         this.tutorId = objInit.tutorId; 
-         this.tutorName = objInit.tutorName; 
-         this.tutorImage = objInit.tutorImage; 
-         this.tutorBio = objInit.tutorBio; 
-         this.nextEvents = objInit?.nextEvents?.length? objInit.nextEvents : null;
-         this.sessionStarted = objInit.sessionStarted || null;
-      }
-      if(roomDetails?.id){
-         state.roomDetails = new RoomDetails(roomDetails)
-      }else{
-         state.roomDetails = null
-      }
-   },
-
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -241,7 +213,6 @@ const getters = {
          })
       ).filter(e=>e.audio)
    },
-   getRoomDetails:state => state.roomDetails,
    getStudyroomEnrolled:state => state.roomEnrolled,
    getSessionRecurring: () => (nextEvents) => {
       if(!nextEvents) return null;
@@ -282,21 +253,6 @@ const actions = {
             context.dispatch('updateActiveNavEditor',ROOM_MODE.SCREEN_MODE)
          }
       }
-      // let className = 'fullscreenMode';
-      // if(elId){
-      //    let interval = setInterval(() => {
-      //       let vidEl = document.querySelector(`#${elId}`);
-      //       if(vidEl){
-      //          vidEl.classList.add(className);
-      //          clearInterval(interval)
-      //       }
-      //    }, 50);
-      // }else{
-      //    let x = document.querySelector(`.${className}`);
-      //    if (x) {
-      //       x.classList.remove(className);
-      //    }
-      // }
    },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);
@@ -421,15 +377,6 @@ const actions = {
          dispatch('updateJwtToken',getters.getJwtToken);
       }else{
          dispatch('updateJwtToken',null);
-      }
-   },
-   updateRoomDetails({commit}, roomId) {
-      if(roomId){
-         return studyRoomService.roomDetails(roomId).then(roomDetails=>{
-            commit(studyRoom_SETTERS.ROOM_DETAILS,roomDetails)
-         })
-      }else{
-         commit(studyRoom_SETTERS.ROOM_DETAILS,null)
       }
    },
 }

@@ -24,20 +24,20 @@
 <script>
 export default {
    computed: {
-      roomDetails(){
-         return this.$store.getters.getRoomDetails;
+      courseDetails(){
+         return this.$store.getters.getCourseDetails;
       },
       tutorName(){
-         return this.roomDetails?.tutorName;
+         return this.courseDetails?.tutorName;
       },
       tutorId(){
-         return this.roomDetails?.tutorId;
+         return this.courseDetails?.tutorId;
       },
       tutorImage(){
-         return this.roomDetails?.tutorImage;
+         return this.courseDetails?.tutorImage;
       },
       tutorBio(){
-         return this.roomDetails?.tutorBio;
+         return this.courseDetails?.tutorBio;
       }
    },
 
