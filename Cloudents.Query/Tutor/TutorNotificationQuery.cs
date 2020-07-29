@@ -30,11 +30,10 @@ namespace Cloudents.Query.Tutor
             }
             public async Task<TutorNotificationDto> GetAsync(TutorNotificationQuery query, CancellationToken token)
             {
-                var newPendingSessionPayment = _session.Query<StudyRoomSessionUser>()
-                      .Fetch(f => f.StudyRoomPayment)
-                      .Where(w => w.StudyRoomPayment.Tutor.Id == query.TutorId
-                                  && w.Duration > StudyRoomSession.BillableStudyRoomSession
-                                  && w.StudyRoomPayment.TutorApproveTime == null)
+                var newPendingSessionPayment = _session.Query<StudyRoomPayment>()
+                      .Where(w => w.Tutor.Id == query.TutorId
+                                 // && w.Duration > StudyRoomSession.BillableStudyRoomSession
+                                  && w.TutorApproveTime == null)
                       .ToFutureValue(f=>f.Count());
 
                 var unreadMessages = _session.Query<ChatUser>().Where(w => w.User.Id == query.TutorId)
