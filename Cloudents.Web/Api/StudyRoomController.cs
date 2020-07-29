@@ -364,19 +364,14 @@ namespace Cloudents.Web.Api
             {
                 uri = await blobProvider.UploadImageAsync(file.FileName, file.OpenReadStream(), file.ContentType, token);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                //_telemetryClient.TrackException(e, new Dictionary<string, string>()
-                //{
-                //    ["fileName"] = file.FileName,
-                //    ["contentType"] = file.ContentType
-                //});
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            //var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
             return Ok(new
             {
                 fileName

@@ -183,6 +183,18 @@ namespace Cloudents.Core.Entities
             return course;
         }
 
+        public virtual Course AddCourse(Course course)
+        {
+            var course2 = Courses.SingleOrDefault(s => s.Name == course.Name);
+            if (course2 == null)
+            {
+                Courses.Add(course);
+                AddEvent(new NewCourseEvent(course));
+            }
+
+            return course;
+        }
+
 
         public virtual void UpdateCalendar(IEnumerable<GoogleCalendar> calendars)
         {
