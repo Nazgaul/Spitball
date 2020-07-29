@@ -55,7 +55,7 @@ namespace Cloudents.Web.Controllers
         }
 
 
-        [Route("Enroll", Name = EnrollStudyRoom)]
+        [Route("IL-Enroll", Name = EnrollStudyRoom)]
         public async Task<IActionResult> PaymeCallbackEnrollAsync(
             PaymeSuccessCallback model,
             [FromQuery] long courseId, 

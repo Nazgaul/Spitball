@@ -55,15 +55,6 @@ namespace Cloudents.Core.Entities
             var currency = User.SbCountry.RegionInfo.ISOCurrencySymbol;
             var money = new Money(price, currency);
             SubscriptionPrice = money;
-
-            //foreach (var document in User.Documents)
-            //{
-            //    if (document.DocumentPrice.Price > 0)
-            //    {
-            //        document.ChangeToSubscribeMode(this);
-            //    }
-            //}
-
             AddEvent(new TutorSubscriptionEvent(Id));
         }
 
@@ -116,7 +107,17 @@ namespace Cloudents.Core.Entities
         protected internal virtual ICollection<StudyRoom> StudyRooms { get; set; }
 
         protected internal virtual ICollection<Lead> Leads { get; set; }
-        public virtual string? SellerKey { get; set; }
+        public virtual string? SellerKey { get;protected set; }
+
+        public virtual void SetSellerKey(string key)
+        {
+            SellerKey = key ?? throw new ArgumentNullException(nameof(key));
+            foreach (var course in Courses.Where(w=>w.State == ItemState.Pending))
+            {
+                course.State = ItemState.Ok;
+            }
+        }
+
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }
 
@@ -177,6 +178,18 @@ namespace Cloudents.Core.Entities
                 course = new Course(name, this);
                 Courses.Add(course);
 
+                AddEvent(new NewCourseEvent(course));
+            }
+
+            return course;
+        }
+
+        public virtual Course AddCourse(Course course)
+        {
+            var course2 = Courses.SingleOrDefault(s => s.Name == course.Name);
+            if (course2 == null)
+            {
+                Courses.Add(course);
                 AddEvent(new NewCourseEvent(course));
             }
 

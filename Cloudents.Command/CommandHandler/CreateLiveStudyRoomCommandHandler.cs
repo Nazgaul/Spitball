@@ -82,9 +82,9 @@ namespace Cloudents.Command.CommandHandler
                 Description = message.Description,
                 Price = new Money(message.Price, tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol)
             };
-
+            tutor.AddCourse(course);
             //To persist the course if needed
-            await _tutorRepository.UpdateAsync(tutor, default);
+            //await _tutorRepository.UpdateAsync(tutor, default);
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
                 course, message.Price,
                 message.BroadcastTime, message.Description, schedule);

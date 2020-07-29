@@ -25,11 +25,7 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new NullReferenceException($"{message.UserEmail} does not exists");
             }
-            //if (user.Tutor.SellerKey != null)
-            //{
-            //    throw new ArgumentException();
-            //}
-            user.Tutor.SellerKey = message.Token;
+            user.Tutor.SetSellerKey(message.Token);
         }
     }
 }
