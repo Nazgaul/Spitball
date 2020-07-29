@@ -26,9 +26,8 @@
             <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
          </div>
       </div>
-      <div v-if="isCourseTutor && courseSessions.length" class="roomInfoBottom d-flex flex-wrap justify-center">
+      <div v-if="!isCourseTutor || isCourseTutor && courseSessions.length" class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
-
             <div v-if="isMobile && coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
              </div>
@@ -44,6 +43,7 @@
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
          </div>
       </div>
+
       <div v-if="isMobile" class="mobileImg">
          <v-skeleton-loader v-if="!imgLoaded" height="100%" width="100%"  type="image" class="skelLoader">
          </v-skeleton-loader>
