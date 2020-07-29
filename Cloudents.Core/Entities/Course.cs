@@ -14,6 +14,12 @@ namespace Cloudents.Core.Entities
             Name = name;
             Tutor = tutor;
             State = ItemState.Ok;
+            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null)
+            {
+                State = ItemState.Pending;
+            }
+            Create =DateTime.UtcNow;
+            
             Price = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
         }
 
@@ -64,6 +70,10 @@ namespace Cloudents.Core.Entities
                 }
             }
 
+            if (Create == default)
+            {
+                Create = DateTime.UtcNow;
+            }
             if (Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
             {
                 Price = new Money(5d, "ILS");
@@ -82,6 +92,7 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<BroadCastStudyRoom> StudyRooms => _studyRooms;
 
+        public virtual DateTime Create { get; protected set; }
 
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
 
