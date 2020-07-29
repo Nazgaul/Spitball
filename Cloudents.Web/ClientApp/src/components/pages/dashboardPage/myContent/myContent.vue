@@ -133,6 +133,7 @@ import { mapGetters } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
 import {UPLOAD_DIALOG} from '../../global/toasterInjection/componentConsts.js';
+import * as routeNames from '../../../../routes/routeNames.js';
 
 export default {
    name:'myContent',
@@ -196,7 +197,12 @@ export default {
          // }
       },
       itemUrl(item){
-         return item.url || `/document/${item.id}/`
+         return item.url || {
+            name: routeNames.Document,
+            params: {
+               id:item.id
+            }
+         }
       }
    },
    created() {

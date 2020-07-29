@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System.Net;
+using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -33,6 +34,10 @@ namespace Cloudents.Infrastructure.Mail
             if (!response.IsSuccessStatusCode)
             {
                 var str = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    return true;
+                }
                 throw new HttpRequestException($"statusCode: {response.StatusCode} reason: {response.ReasonPhrase}, body: {str}");
             }
 
