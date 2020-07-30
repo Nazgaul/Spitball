@@ -10,8 +10,9 @@
                   </div>
                   <roomInfo class="content"/>
                </div>
-               <courseItems  class="content"/>
                <sessionInfo  class="content"/>
+
+               <courseItems  class="content"/>
                <hostInfo  class="content"/>
             </v-window-item>
             <v-window-item>
