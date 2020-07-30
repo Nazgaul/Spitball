@@ -10,7 +10,7 @@
 export default {
    computed: {
       sessionDescription(){
-         return this.$store.getters.getRoomDetails?.description;
+         return this.$store.getters.getCourseDetails?.description;
       }
    },
 }

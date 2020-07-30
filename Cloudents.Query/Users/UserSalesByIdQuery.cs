@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
@@ -43,7 +44,7 @@ namespace Cloudents.Query.Users
                     {
                         Id = s.Document.Id,
                         Name = s.Document.Name,
-                        Course = s.Document.OldCourse.Id,
+                        Course = s.Document.Course.Name,
                         Type =  (ContentType) s.Document.DocumentType,
                         Date = s.Created,
                         _price = s.Price
@@ -79,23 +80,24 @@ namespace Cloudents.Query.Users
                     }).ToFuture<SaleDto>();
 
 
-                var sessionFuture2 = _session.Query<StudyRoomSessionUser>()
-                    .Fetch(f=>f.StudyRoomPayment)
-                    .Fetch(f => f.StudyRoomSession)
-                    .ThenFetch(f => f.StudyRoom)
-                    .Where(w=>w.StudyRoomPayment.Tutor.Id == query.Id && w.Duration > StudyRoomSession.BillableStudyRoomSession)
+               
+                var sessionFuture2 = _session.Query<StudyRoomPayment>()
+                    .Fetch(f=>f.StudyRoomSessionUser)
+                    // .Fetch(f => f.StudyRoomSession)
+                    // .ThenFetch(f => f.StudyRoom)
+                    .Where(w=>w.Tutor.Id == query.Id )
                     .Select(s => new SessionSaleDto()
                     {
                         SessionId = s.Id,
-                        PaymentStatus = s.StudyRoomPayment.Receipt != null ? PaymentStatus.Approved :
-                            s.StudyRoomPayment.TutorApproveTime != null ? PaymentStatus.PendingSystem :
+                        PaymentStatus = s.Receipt != null ? PaymentStatus.Approved :
+                            s.TutorApproveTime != null ? PaymentStatus.PendingSystem :
                             PaymentStatus.PendingTutor,
-                        Date = s.StudyRoomSession.Created,
-                        _price = s.StudyRoomPayment.TotalPrice,
+                        Date = s.Created,
+                        _price = s.TotalPrice,
                         StudentName = s.User.Name,
-                        Duration = s.StudyRoomPayment.TutorApproveTime ?? s.Duration!.Value,
+                        Duration = s.TutorApproveTime ?? s.StudyRoomSessionUser.Duration.Value,
                         StudentImage = s.User.ImageName,
-                        StudyRoomName =  ((BroadCastStudyRoom)s.StudyRoomSession.StudyRoom).Course.Name ?? ((PrivateStudyRoom)s.StudyRoomSession.StudyRoom).Name,
+                        StudyRoomName = ((BroadCastStudyRoom)s.StudyRoom).Course.Name ?? ((PrivateStudyRoom)s.StudyRoom).Name,
                         StudentId = s.User.Id
                     }).ToFuture<SaleDto>();
 

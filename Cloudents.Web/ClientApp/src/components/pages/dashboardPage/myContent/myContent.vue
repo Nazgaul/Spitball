@@ -100,8 +100,6 @@
             <template v-slot:item.likes="{item}">{{item.likes}}</template>
             <template v-slot:item.views="{item}">{{item.views}}</template>
             <template v-slot:item.downloads="{item}">{{item.downloads}}</template>
-            <template v-slot:item.purchased="{item}">{{item.purchased}}</template>
-            <template v-slot:item.price="{item}">{{formatPrice(item.price,item.type)}}</template>
             <template v-slot:item.date="{item}">{{ $d(item.date) }}</template>
 
             <template v-slot:item.action="{item}">
@@ -161,8 +159,6 @@ export default {
             this.dictionary.headers['likes'],
             this.dictionary.headers['views'],
             this.dictionary.headers['downloads'],
-            this.dictionary.headers['purchased'],
-            this.dictionary.headers['price'],
             this.dictionary.headers['date'],
             this.dictionary.headers['action'],
          ]

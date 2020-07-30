@@ -23,7 +23,7 @@ export default {
             this.getNow();
         },
         getNow() {
-            let countDownDate = new Date(this.$store.getters.getRoomDate || this.$store.getters.getRoomDetails?.date).getTime();
+            let countDownDate = new Date(this.$store.getters.getRoomDate || this.$store.getters.getCourseDetails?.startTime).getTime();
             let now = new Date();
             let distance = countDownDate - now;
             
@@ -49,7 +49,7 @@ export default {
         this.isLoading = false;
     },
     created() {
-        if(this.$store.getters.getRoomIsBroadcast || this.$store.getters.getRoomDetails?.date) {
+        if(this.$store.getters.getRoomIsBroadcast || this.$store.getters.getCourseDetails?.startTime) {
             this.setParamsInterval();
         } else{
             this.$emit('updateCounterMinsLeft', true)

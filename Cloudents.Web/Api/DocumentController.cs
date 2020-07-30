@@ -2,7 +2,6 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Documents.Delete;
-using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -166,34 +165,34 @@ namespace Cloudents.Web.Api
         //}
 
 
-        [HttpPost("purchase"), Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> PurchaseAsync([FromBody] PurchaseDocumentRequest model, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new PurchaseDocumentCommand(model.Id, userId);
-                await _commandBus.DispatchAsync(command, token);
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest();
-            }
-            catch (InsufficientFundException)
-            {
-                ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
-                return BadRequest(ModelState);
-            }
-            catch (DuplicateRowException)
-            {
-                return BadRequest();
-            }
+        //[HttpPost("purchase"), Authorize]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> PurchaseAsync([FromBody] PurchaseDocumentRequest model, CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    try
+        //    {
+        //        var command = new PurchaseDocumentCommand(model.Id, userId);
+        //        await _commandBus.DispatchAsync(command, token);
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    catch (InsufficientFundException)
+        //    {
+        //        ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
+        //        return BadRequest(ModelState);
+        //    }
+        //    catch (DuplicateRowException)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         //[HttpPost("price"), Authorize]
         //[ProducesResponseType(StatusCodes.Status200OK)]

@@ -11,8 +11,8 @@
          <div class="thankBox">
             <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image">
             </v-skeleton-loader>
-            <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="roomImage">
-            <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
+            <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="courseImage">
+            <div class="pt-3">{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
             <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
             <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
@@ -38,11 +38,11 @@ export default {
       }
    },
    computed: {
-      roomDate(){
-         return this.$store.getters.getRoomDetails?.date;
+      courseDate(){
+         return this.$store.getters.getCourseDetails?.startTime;
       },
-      roomImage(){
-         return this.$proccessImageUrl(this.$store.getters.getRoomDetails?.image, 402, 268)
+      courseImage(){
+         return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, 402, 268)
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
@@ -54,7 +54,7 @@ export default {
          return this.$vuetify.breakpoint.smAndDown? 74 : 82;
       },
       isButtonDisabled(){
-         if(this.$store.getters.getJwtToken || this.$store.getters.getRoomDetails?.sessionStarted) return false;
+         if(this.$store.getters.getJwtToken || this.$store.getters.getCourseDetails?.sessionStarted) return false;
          else return !this.isRoomReady
       }
    },
@@ -85,7 +85,7 @@ export default {
       margin-bottom: 38px;
       padding-bottom: 64px;
       background: white;
-      margin-top: 38px;
+     // margin-top: 38px;
       position: relative;
       color: #ffffff;
       &::before{
@@ -96,7 +96,7 @@ export default {
          top: 0;
          left: 0;
          right: 0;
-         height: 50%;
+         height: 75%;
          bottom: 0;
          @media(max-width: @screen-xs) {
             height: 524px;

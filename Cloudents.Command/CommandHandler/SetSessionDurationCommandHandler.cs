@@ -10,8 +10,8 @@ namespace Cloudents.Command.CommandHandler
     public class SetSessionDurationCommandHandler : ICommandHandler<SetSessionDurationCommand>
     {
         private readonly IRepository<StudyRoomSession> _repository;
-        private readonly IRepository<StudyRoomSessionUser> _studyRoomSessionUseRepository;
-        public SetSessionDurationCommandHandler(IRepository<StudyRoomSession> repository, IRepository<StudyRoomSessionUser> studyRoomSessionUseRepository)
+        private readonly IRepository<StudyRoomPayment> _studyRoomSessionUseRepository;
+        public SetSessionDurationCommandHandler(IRepository<StudyRoomSession> repository, IRepository<StudyRoomPayment> studyRoomSessionUseRepository)
         {
             _repository = repository;
             _studyRoomSessionUseRepository = studyRoomSessionUseRepository;
@@ -19,17 +19,17 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(SetSessionDurationCommand message, CancellationToken token)
         {
-            var studyRoomSessionUser = await _studyRoomSessionUseRepository.GetAsync(message.SessionId, token);
+            var studyRoomPayment = await _studyRoomSessionUseRepository.GetAsync(message.SessionId, token);
 
 
-            if (studyRoomSessionUser != null)
+            if (studyRoomPayment != null)
             {
 
-                if (studyRoomSessionUser.StudyRoomPayment.Tutor.Id != message.TutorId)
+                if (studyRoomPayment.Tutor.Id != message.TutorId)
                 {
                     throw new ArgumentException();
                 }
-                studyRoomSessionUser.StudyRoomPayment.ApproveSession(message.RealDuration, message.Price);
+                studyRoomPayment.ApproveSession(message.RealDuration, message.Price);
                 return;
             }
 

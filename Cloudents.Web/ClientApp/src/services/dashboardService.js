@@ -34,7 +34,6 @@ const Item = {
       this.views = objInit.views;
       this.likes = objInit.likes;
       this.downloads = objInit.downloads;
-      this.purchased = objInit.purchased;
       this.preview = objInit.preview;
       this.url = objInit.url;
    },

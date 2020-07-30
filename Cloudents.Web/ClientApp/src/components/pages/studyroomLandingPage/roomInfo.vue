@@ -6,49 +6,49 @@
       <div class="roomInfoTop d-flex">
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
             <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
-            <div class="classSubject" v-text="roomName"/>
-            <div v-if="recurringDetails">
-               <div class="pb-2">
-                  {{$tc('live_times',recurringDetails.times)}} - {{$t('live_every',[recurringDetails.days])}}
-               </div>
-               <div>{{$t('starts_on',[$moment(recurringDetails.start).format('MMMM Do, h:mm a')])}}</div>
+            <div class="classSubject" v-text="courseName"/>
+            <div v-if="courseSessions.length">
+               <div class="pb-2">{{$tc('live_times',courseSessions.length)}}</div>
+
+               <div>{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
             </div>
             <div v-else class="pb-2">
-               {{$moment(roomDate).format('MMMM Do, h:mm a')}}
+               {{$moment(courseDate).format('MMMM Do, h:mm a')}}
             </div>
-            <div v-if="!isMobile && roomPrice.amount">
-               {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
+            <div v-if="!isMobile && coursePrice && coursePrice.amount">
+               {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
             </div>
-
             <img class="triangle" src="./images/triangle.png">
          </div>
          <div v-if="!isMobile" class="leftSide">
             <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image" class="skelLoader">
             </v-skeleton-loader>
-            <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="roomImage">
+            <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
          </div>
       </div>
-      <div class="roomInfoBottom d-flex flex-wrap justify-center">
+      <div v-if="!isCourseTutor || isCourseTutor " class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
-            <div v-if="isMobile && roomPrice.amount" class="pt-7 sessionPrice">
-               {{$t("room_price",[$price(roomPrice.amount, roomPrice.currency, true)])}}
+            <div v-if="isMobile && coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
+               {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
              </div>
-            <v-btn v-if="isRoomTutor" @click="enterStudyRoom" :class="{'mt-7': isMobile && !roomPrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
+            :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
-            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && !roomPrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{isRoomFull? $t('room_full') : $t('save_spot') }}
             </v-btn>
-            <v-btn v-if="roomPrice.amount" block :disabled="isRoomTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
          </div>
-         <div class="bottomLeft">
+         <div class="bottomLeft" v-if="courseDetails">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
          </div>
       </div>
+
       <div v-if="isMobile" class="mobileImg">
          <v-skeleton-loader v-if="!imgLoaded" height="100%" width="100%"  type="image" class="skelLoader">
          </v-skeleton-loader>
-         <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="roomImage">
+         <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
       </div>
         <stripe ref="stripe"></stripe>
    </div>
@@ -91,12 +91,21 @@ export default {
       },
       async goStripe() {
          let session = {
-            userId: this.$store.getters.accountUser?.id,
+          //  userId: this.$store.getters.accountUser?.id,
             studyRoomId: this.$route.params?.id
          };
          let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
          this.$refs.stripe.redirectToStripe(x);
       },
+      async goPayme() {
+         let session = {
+          //  userId: this.$store.getters.accountUser?.id,
+            studyRoomId: this.$route.params?.id
+         };
+         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
+         location.href = x;
+      },
+
       async enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
@@ -111,14 +120,19 @@ export default {
             userId,
             studyRoomId
          }
-         if (this.roomPrice.amount && this.tutorCountry !== 'IL') {
-            this.goStripe()
+         if (this.coursePrice.amount) {
+            
+            if (this.tutorCountry !== 'IL'){
+               this.goStripe()
+               return;
+            }
+            this.goPayme();
             return;
          }
          let self = this
          this.$store.dispatch('updateStudyroomLiveSessions', session)
             .then(() => {
-               self.$store.commit('setRoomEnrolled',true);
+               self.$store.commit('setCourseEnrolled',true);
             }).catch(ex => {
                self.$store.commit('setComponent',componentConsts.ENROLLED_ERROR);
                self.$appInsights.trackException(ex);
@@ -128,39 +142,30 @@ export default {
       }
    },
    computed: {
-      roomDetails(){
-         return this.$store.getters.getRoomDetails;
+      courseDetails(){
+         return this.$store.getters.getCourseDetails;
       },
-      roomName(){
-         return this.roomDetails?.name;
+      courseSessions(){
+         return this.$store.getters.getCourseSessions
       },
-      roomDate(){
-         return this.roomDetails?.date;
+      courseImage(){
+         return this.$proccessImageUrl(this.courseDetails?.image, 528, 357)
       },
-      isRoomFull(){
-         return this.roomDetails?.full;
+      courseName(){
+         return this.courseDetails?.name;
       },
-      isRoomTutor(){
-         return this.roomDetails?.tutorId == this.$store.getters.accountUser?.id;
+      isCourseTutor(){
+         return this.$store.getters.getIsCourseTutor
       },
-      roomImage(){
-         return this.$proccessImageUrl(this.roomDetails?.image, 528, 357)
-      },
-      recurringDetails(){
-         return this.$store.getters.getSessionRecurring(this.roomDetails.nextEvents)
+      coursePrice(){
+         return this.$store.getters.getCoursePrice;
       },
       tutorName(){
-         return this.roomDetails?.tutorName;
+         return this.courseDetails?.tutorName;
       },
       tutorCountry(){
-         return this.roomDetails?.tutorCountry
+         return this.courseDetails?.tutorCountry
       },
-      roomPrice(){
-         return this.roomDetails?.price;
-      },
-      // isRoomNeedPayment(){
-      //    return this.$store.getters.getRoomIsNeedPayment;
-      // },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
@@ -173,10 +178,16 @@ export default {
       isLogged() {
          return this.$store.getters.getUserLoggedInStatus
       },
+      courseDate(){
+         return this.courseDetails?.startTime;
+      },
+      isRoomFull(){
+         return this.courseDetails?.full;
+      },
    },
    mounted() {
       EventBus.$on('applyCouponDone',()=>{
-         if (this.roomPrice?.amount && this.tutorCountry !== 'IL') {
+         if (this.coursePrice?.amount && this.tutorCountry !== 'IL') {
             this.goStripe()
          }else{
             this.enrollSession()
@@ -186,16 +197,6 @@ export default {
    beforeDestroy() {
       EventBus.$off('applyCouponDone', ()=>{})
    },
-   // watch: {
-   //    isRoomNeedPayment:{
-   //       immediate:true,
-   //       handler(newVal,oldVal){
-   //          if(newVal === false && oldVal === true){
-   //             this.enrollSession()
-   //          }
-   //       }
-   //    },
-   // },
 }
 </script>
 

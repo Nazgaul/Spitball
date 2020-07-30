@@ -24,7 +24,6 @@ export default {
     // async paypalStudyRoom(model){
     //     return await walletInstance.post('PayPal/StudyRoom',model)
     // },
-
     async getStripeSecret() {
         return await walletInstance.post('/stripe/StudyRoom');
     },

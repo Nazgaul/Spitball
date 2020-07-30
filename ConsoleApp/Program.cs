@@ -24,7 +24,6 @@ using Azure.Storage.Queues;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
@@ -152,7 +151,7 @@ namespace ConsoleApp
 
         }
 
-       
+
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
@@ -164,44 +163,102 @@ namespace ConsoleApp
         }
 
 
-      
 
-     
+
+
 
         private static async Task Dbi()
         {
-            //var session = Container.Resolve<ISession>();
+            var session = Container.Resolve<ISession>();
+            int amount2 = 0;
+            do
+            {
+
+               var ids2 = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
+                    .Where(w => w.Course == null)
+                    .Take(100).Select(s => s.Id).ToListAsync();
+
+               amount2 = await session.Query<Document>()
+                   .Where(w => ids2.Contains(w.Id))
+                   .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
+                   .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
+                   .Set(x => x.Status.FlagReason, "Document not of tutor")
+                   .UpdateAsync(default);
+            } while (amount2 > 0);
+
             //long i = 0;
 
-            //List<Document> documents;
-            //do
-            //{
-            //    documents = await session.Query<Document>()
-            //        .Where(w => ((User) w.User).Tutor.Created != null 
-            //                    && w.Status.State == ItemState.Ok && w.Course == null)
-            //        .Take(100)
-            //        .ToListAsync();
+            //us update
+            //var ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.UnitedStates)
+            //    .Select(s => s.Id).ToListAsync();
 
-            //    foreach (var document in documents)
-            //    {
-            //        Console.WriteLine($"Processing documentid {document.Id}");
-            //        using var uow = Container.Resolve<IUnitOfWork>();
-            //        var courseRepository = Container.Resolve<ICourseRepository>();
-                   
-            //        var course = await courseRepository.GetCourseByNameAsync(document.User.Id,  document.OldCourse.Id, default);
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Ok)
+            //    .UpdateAsync(default);
 
-            //        if (course == null)
-            //        {
-            //            var tutor = await session.LoadAsync<Tutor>(document.User.Id);
-            //            tutor.AddCourse(document.OldCourse.Id);
-            //            //course = new Course(document.OldCourse.Id,tutor);
-            //            //await courseRepository.AddAsync(course, default);
-            //        }
-            //        document.Course = course;
-            //        await uow.CommitAsync();
-            //        Console.WriteLine("no");
-            //    }
-            //} while (documents.Count > 0);
+
+            ////il update
+            //ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.Israel)
+            //    .Where(w=>w.Tutor.SellerKey != null)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Ok)
+            //    .UpdateAsync(default);
+
+            //ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.Israel)
+            //    .Where(w=>w.Tutor.SellerKey == null)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Pending)
+            //    .UpdateAsync(default);
+
+            ////in update
+            //ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.India)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Pending)
+            //    .UpdateAsync(default);
+
+            List<Course> courses;
+            var i = 0;
+            do
+            {
+                courses = await session.Query<Course>()
+
+                  //  .Where(w => w.Price == null)
+                    .Take(100).Skip(i*100)
+                    .OrderBy(o => o.Id)
+                    .ToListAsync();
+                i++;
+
+                foreach (var course in courses)
+                {
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    course.SetInitPrice();
+
+                    await uow.CommitAsync();
+                }
+            } while (courses.Count > 0);
+
+
+           
+
+         
 
 
             //List<BroadCastStudyRoom> broadCastStudyRooms;

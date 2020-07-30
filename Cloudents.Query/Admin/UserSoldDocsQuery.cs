@@ -66,7 +66,7 @@ namespace Cloudents.Query.Admin
                         .Select(x => x.Document.Id).WithAlias(() => userSoldDto.ItemId)
                         .Select(x => documentAlias.Name).WithAlias(() => userSoldDto.ItemName)
                         .Select(x => documentAlias.TimeStamp.CreationTime).WithAlias(() => userSoldDto.ItemCreated)
-                        .Select(x => documentAlias.OldCourse.Id).WithAlias(() => userSoldDto.ItemCourse)
+                        .Select(x => documentAlias.Course.Name).WithAlias(() => userSoldDto.ItemCourse)
                         .Select(x => documentAlias.Status.State).WithAlias(() => userSoldDto.ItemState)
                         .Select(x => documentAlias.DocumentType).WithAlias(() => userSoldDto.ItemType)
                         .Select(x => userAlias.Name).WithAlias(() => userSoldDto.PurchasedUserName)

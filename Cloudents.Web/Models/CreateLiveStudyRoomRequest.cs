@@ -47,7 +47,8 @@ namespace Cloudents.Web.Models
             }
         }
 
-        public string? Description { get; set; }
+        [Required]
+        public string Description { get; set; }
 
         public StudyRoomRepeat? Repeat { get; set; }
 

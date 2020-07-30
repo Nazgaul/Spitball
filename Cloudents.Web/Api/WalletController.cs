@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Query.Payment;
+using Cloudents.Query.Courses;
 using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
@@ -35,7 +36,7 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class WalletController : ControllerBase
     {
-        public const string StudyroomidMetaData = "StudyRoomId";
+        public const string StudyroomIdMetaData = "StudyRoomId";
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
@@ -138,7 +139,7 @@ namespace Cloudents.Web.Api
                 }, "https");
 
 
-                var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName, new
+                var urlReturn = Url.RouteUrl(PaymeController.PaymeCallbackRouteName, new
                 {
                     userId = user.Id
                 }, "https");
@@ -161,7 +162,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
+        public async Task<IActionResult> PayMeCallbackAsync([FromQuery] long userId,
             [FromForm] PayMeBuyerCallbackRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
@@ -209,27 +210,56 @@ namespace Cloudents.Web.Api
 
 
 
+        [HttpPost("Payme/Course/{id:long}")]
+        public async Task<IActionResult> PaymeAsync(long id,
+            [FromServices] IPaymeProvider paymeProvider,
+            [FromHeader(Name = "referer")] string referer,
+            CancellationToken token)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            var query = new CourseByIdQuery(id, user.Id);
+            var courseDetail = await _queryBus.QueryAsync(query, token);
+
+            var urlReturn = Url.RouteUrl(PaymeController.EnrollStudyRoom, new
+            {
+                userId = user.Id,
+                courseId = id,
+                redirectUrl = referer
+            }, "https");
+            var result = await paymeProvider.BuyCourseAsync(courseDetail.Price, courseDetail.Name, urlReturn,
+                courseDetail.TutorSellerKey, token);
+            
+            return Ok(new
+            {
+                sessionId = result.SaleUrl
+            });
+
+
+        }
+
+
         #endregion
 
-       
+
 
         #region Stripe
-        [HttpPost("Stripe/StudyRoom/{id}")]
-        public async Task<IActionResult> StripeAsync(Guid id,
+        [HttpPost("Stripe/Course/{id:long}")]
+        public async Task<IActionResult> StripeAsync(long id,
             [FromHeader(Name = "referer")] string referer,
             [FromServices] IStripeService service,
             CancellationToken token)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var userId = _userManager.GetLongUserId(User);
-            var query = new StudyRoomQuery(id,userId);
+            var query = new CourseByIdQuery(id, userId);
             var studyRoomResult = await _queryBus.QueryAsync(query, token);
 
             var uriBuilder = new UriBuilder(referer)
             {
                 Query = string.Empty
             };
-            
+
             var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom, new
             {
                 redirectUrl = uriBuilder.ToString()
@@ -238,14 +268,14 @@ namespace Cloudents.Web.Api
             var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
 
             var stripePaymentRequest = new StripePaymentRequest(studyRoomResult.Name,
-                studyRoomResult.TutorPrice,
+                studyRoomResult.Price,
                 email,
                 successCallback,
                 referer)
             {
                 Metadata = new Dictionary<string, string>()
                 {
-                    [StudyroomidMetaData] = id.ToString(),
+                    [StudyroomIdMetaData] = id.ToString(),
                     ["UserId"] = userId.ToString()
                 }
             };
@@ -255,61 +285,8 @@ namespace Cloudents.Web.Api
             {
                 sessionId = result
             });
-
-
-            //var command = new AddStripeCustomerCommand(userId);
-            //await _commandBus.DispatchAsync(command, token);
-            //return Ok(new
-            //{
-            //    secret = command.ClientSecretId
-            //});
         }
 
-
-        
-
-      
-        //[HttpPost("Stripe")]
-        //public async Task<IActionResult> GetStripe(
-        //    BuyPointsRequest model,
-        //    [FromHeader(Name = "referer")] string referer,
-        //    [FromServices] IStripeService service,
-        //    CancellationToken token)
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    var uriBuilder = new UriBuilder(referer)
-        //    {
-        //        Query = string.Empty
-        //    };
-        //    var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
-        //    {
-        //        redirectUrl = uriBuilder.ToString()
-        //    }, "https"));
-        //    var bundle = Enumeration.FromValue<PointBundle>(model.Points);
-        //    var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
-
-        //    var stripePaymentRequest = new StripePaymentRequest("Buy Points on Spitball",
-        //        new Money(bundle!.PriceInUsd, "usd"),
-        //        user.Email,
-        //        successCallback,
-        //        referer)
-        //    {
-        //        Metadata = new Dictionary<string, string>()
-        //        {
-        //            ["Points"] = bundle.Points.ToString()
-        //        }
-        //    };
-
-        //    var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
-        //    return Ok(new
-        //    {
-        //        sessionId = result
-        //    });
-        //}
-
-        
-
-        
         #endregion
 
     }

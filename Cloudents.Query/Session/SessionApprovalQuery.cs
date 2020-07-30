@@ -48,14 +48,14 @@ namespace Cloudents.Query.Session
                      .ToFutureValue();
 
 
-                var studyRoomUserFuture =  _stateless.Query<StudyRoomSessionUser>()
-                    .Fetch(f=>f.StudyRoomPayment)
-                    .Fetch(f => f.StudyRoomSession)
+                var studyRoomUserFuture =  _stateless.Query<StudyRoomPayment>()
+                    //.Fetch(f=>f.StudyRoomPayment)
+                    //.Fetch(f => f.StudyRoomSession)
                     //.Where(w => w.User.Id == query.UserId)
                     .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {
-                        TutorPricePerHour = s.StudyRoomPayment.PricePerHour
+                        TutorPricePerHour = s.PricePerHour
                     }).ToFutureValue();
 
 

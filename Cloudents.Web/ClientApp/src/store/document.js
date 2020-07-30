@@ -41,10 +41,6 @@ const getters = {
     },
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
-    getDocumentPriceTypeFree: state => state.document?.priceType === 'Free',
-    getDocumentPriceTypeSubscriber: state => state.document?.priceType === 'Subscriber',
-    getDocumentPriceTypeHasPrice: state => state.document?.priceType === 'HasPrice',
-    getDocumentUserName: state => state.document?.userName,
     getCurrentItemId: state => state.currentItemId,
     getCurrentPage: state => state.currentPage,
 };

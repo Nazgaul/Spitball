@@ -46,6 +46,7 @@ namespace Cloudents.Persistence.Maps
                 });
 
             HasMany(x => x.UserCoupons)
+                .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse();
 
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();

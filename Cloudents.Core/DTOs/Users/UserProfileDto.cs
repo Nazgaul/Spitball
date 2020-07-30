@@ -45,7 +45,7 @@ namespace Cloudents.Core.DTOs.Users
         [NonSerialized] public long? SessionTaughtTicks;
 
         public long HoursTaught => SessionTaughtTicks.GetValueOrDefault() / TimeSpan.TicksPerHour;
-        public IEnumerable<string>? DocumentCourses { get; set; }
+        
         //public IEnumerable<string>? Courses { get; set; }
 
         //If the user is a tutor and then delete then the first name and the last name stays

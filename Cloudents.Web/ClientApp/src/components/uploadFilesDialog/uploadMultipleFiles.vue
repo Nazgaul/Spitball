@@ -66,6 +66,7 @@ import uploadStep_2 from "./components/filesDetails.vue";
 import fileCardError from './components/fileCardError.vue';
 
 import satelliteServie from "../../services/satelliteService";
+import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
 
 export default {
     name: "uploadMultipleFiles",
@@ -73,6 +74,10 @@ export default {
         uploadFilesStart,
         uploadStep_2,
         fileCardError
+    },
+    props:{
+        params:{
+        }
     },
     data() {
         return {
@@ -130,6 +135,7 @@ export default {
                     }
 
                     fileObj.error = true;
+                    return Promise.reject();
                 })
         },
         async sendDocumentData() {
@@ -148,20 +154,23 @@ export default {
                         isError = true
                     }
                 }
-                self.updateToasterParams({
-                    toasterText: self.$t("upload_CreateOk"),
-                    showToaster: true
-                });
+
                 self.loading = false;
                 self.lock = false;
-                if(!isError){
-                    self.closeUpload()
+                if(isError){
+                    self.$store.commit('addComponent',componentConsts.UPLOAD_ERROR)
+                }else{
+                    self.updateToasterParams({
+                        toasterText: self.$t("upload_CreateOk"),
+                        showToaster: true
+                    });
                 }
+                self.closeUpload()
             }
         },
         closeUpload() {
             this.resetUploadData();
-            this.$store.commit('setComponent', '')
+            this.$store.commit('removeComponent',this.params.name);
         },
         nextStep() {
             if (this.currentStep === this.steps) {
