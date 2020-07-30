@@ -126,9 +126,9 @@ export default {
         height: 100%;
     }    
     .courseLeftSide {
-        min-width: 760px;
         max-width: 760px;
-
+        min-width: 0;
+        width: 100%;
         .courseTeachingWrapper {
             background: #fff;
             border-radius: 6px;

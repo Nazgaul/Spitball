@@ -67,7 +67,8 @@ export default {
 @import '../../../../styles/colors.less';
 
 .courseSticky {
-    min-width: 296px;
+    max-width: 296px;
+    width: 100%;
     height: max-content;
     position: sticky;
     top: 170px;
