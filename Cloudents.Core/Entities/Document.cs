@@ -58,7 +58,7 @@ namespace Cloudents.Core.Entities
 
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
 
-        public virtual BaseUser User { get; protected set; }
+        public virtual User User { get; protected set; }
 
 
 

@@ -22,7 +22,7 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument_NullUser_Error()
         {
             Mock<Course> courseMock = new Mock<Course>();
-            Assert.Throws<ArgumentNullException>(() => new Document("some name", courseMock.Object,  
+            Assert.Throws<NullReferenceException>(() => new Document("some name", courseMock.Object,  
                 DocumentType.Document, false));
         }
 
@@ -42,6 +42,7 @@ namespace Cloudents.Core.Test.Entities
             Mock<Course> courseMock = new Mock<Course>();
             var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
+            courseMock.Setup(s => s.Tutor).Returns(mockTutor.Object);
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
 
             var date = DateTime.UtcNow;
@@ -58,6 +59,7 @@ namespace Cloudents.Core.Test.Entities
             var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
+            courseMock.Setup(s => s.Tutor).Returns(mockTutor.Object);
             var date = DateTime.UtcNow;
             var document = new Document("some name", 
                 courseMock.Object, 

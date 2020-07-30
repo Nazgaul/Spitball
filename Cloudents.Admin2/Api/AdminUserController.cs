@@ -318,14 +318,14 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-        [HttpGet("usersFlags")]
-        public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
-        {
-            var country = User.GetCountryClaim();
-            var query = new UserFlagsOthersQuery(minFlags, page, country);
-            var res = await _queryBus.QueryAsync(query, token);
-            return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
-        }
+        //[HttpGet("usersFlags")]
+        //public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
+        //{
+        //    var country = User.GetCountryClaim();
+        //    var query = new UserFlagsOthersQuery(minFlags, page, country);
+        //    var res = await _queryBus.QueryAsync(query, token);
+        //    return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
+        //}
 
         [HttpPut("phone")]
         public async Task<IActionResult> UpdatePhoneAsync(

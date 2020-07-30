@@ -48,8 +48,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.State)
                 .CustomType<GenericEnumStringType<ItemState>>().Not.Nullable();
             Map(m => m.DeletedOn).Nullable();
-            Map(m => m.FlagReason).Nullable();
-            References(x => x.FlaggedUser).Column("FlaggedUserId");
+           // Map(m => m.FlagReason).Nullable();
+           // References(x => x.FlaggedUser).Column("FlaggedUserId");
         }
     }
 }
