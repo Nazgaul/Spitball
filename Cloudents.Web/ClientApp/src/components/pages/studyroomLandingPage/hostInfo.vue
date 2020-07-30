@@ -57,8 +57,8 @@ export default {
       }
 
       background-color: #f5f5f5;
-      margin-top: 54px;
-      margin-bottom: 80px;
+      margin-top: 54px !important; //for now
+      margin-bottom: 80px !important; //for now
       color: #43425d;
       .hostTitle{
          text-align: center;

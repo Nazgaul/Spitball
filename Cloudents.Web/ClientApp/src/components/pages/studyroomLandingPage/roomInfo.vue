@@ -26,12 +26,13 @@
             <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
          </div>
       </div>
-      <div v-if="!isCourseTutor || isCourseTutor && courseSessions.length" class="roomInfoBottom d-flex flex-wrap justify-center">
+      <div v-if="!isCourseTutor || isCourseTutor " class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
             <div v-if="isMobile && coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
              </div>
-            <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
+            :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
             <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
