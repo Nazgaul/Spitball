@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
 
         protected bool Equals(CourseEnrollment other)
         {
-            return base.Equals(other) && User.Id.Equals(other.User.Id) && Course.Id.Equals(other.Course.Id);
+            return User.Id.Equals(other.User.Id) && Course.Id.Equals(other.Course.Id);
         }
 
         public override bool Equals(object? obj)
@@ -35,7 +35,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(base.GetHashCode(), User.Id, Course.Id);
+            return HashCode.Combine(23, User.Id, Course.Id);
         }
 
         public static bool operator ==(CourseEnrollment? left, CourseEnrollment? right)

@@ -44,7 +44,7 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.CourseEnrollments).Access.CamelCaseField(Prefix.Underscore)
-                .Inverse().Cascade.AllDeleteOrphan();
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             References(x => x.Tutor).Not.Nullable();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
