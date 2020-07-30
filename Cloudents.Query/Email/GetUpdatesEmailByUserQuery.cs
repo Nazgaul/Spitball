@@ -33,6 +33,7 @@ namespace Cloudents.Query.Email
             public async Task<IEnumerable<UpdateEmailDto>> GetAsync(GetUpdatesEmailByUserQuery query, CancellationToken token)
             {
                 User userAlias = null!;
+                Course courseAlias = null!;
 
                 var followCourse = QueryOver.Of<Follow>().Where(w => w.Follower.Id == query.UserId)
                     .Select(s => s.User.Id);
@@ -43,6 +44,7 @@ namespace Cloudents.Query.Email
 
                 var documentFuture = _session.QueryOver<Document>()
                     .JoinAlias(x => x.User, () => userAlias)
+                    .JoinAlias(x=>x.Course,()=>courseAlias)
                     .Where(x => x.TimeStamp.CreationTime > query.Since)
                     .And(x => x.Status.State == ItemState.Ok)
                     .WithSubquery.WhereProperty(x => x.User.Id).In(followCourse)
@@ -55,7 +57,7 @@ namespace Cloudents.Query.Email
                         sl.Select(x => x.Name).WithAlias(() => documentEmailDtoAlias.Name);
                         sl.Select(() => userAlias.Name).WithAlias(() => documentEmailDtoAlias.UserName);
                         sl.Select(() => userAlias.Id).WithAlias(() => documentEmailDtoAlias.UserId);
-                        sl.Select(x => x.Course.Name).WithAlias(() => documentEmailDtoAlias.Course);
+                        sl.Select(() => courseAlias.Name).WithAlias(() => documentEmailDtoAlias.Course);
                         sl.Select(() => userAlias.ImageName).WithAlias(() => documentEmailDtoAlias.UserImage);
                         sl.Select(x => x.DocumentType).WithAlias(() => documentEmailDtoAlias.DocumentType);
                         return sl;
