@@ -25,7 +25,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
             Map(x => x.PageCount).Nullable();
-            Map(x => x.Description).Nullable();
+            //Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Md5).Nullable();
            //Map(x => x.PurchaseCount).Column("Purchased");
@@ -45,12 +45,12 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
             Component(x => x.Status);
 
-            Component(x => x.DocumentPrice, y =>
-            {
-                y.Map(z => z!.Price).CustomSqlType("smallMoney");
-                y.Map(z => z!.Type).Column("PriceType");
+            //Component(x => x.DocumentPrice, y =>
+            //{
+            //    y.Map(z => z!.Price).CustomSqlType("smallMoney");
+            //    y.Map(z => z!.Type).Column("PriceType");
 
-            });
+            //});
         }
     }
 

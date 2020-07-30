@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Courses;
@@ -11,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Tutor;
@@ -58,6 +60,16 @@ namespace Cloudents.Web.Api
         [HttpPost]
         public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest model, CancellationToken token)
         {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new CreateCourseCommand(userId, model.Name, model.Price,
+                model.SubscriptionPrice, model.Description, model.Image,
+                model.StudyRooms.Select(s => new CreateCourseCommand.CreateLiveStudyRoomCommand(s.Name, s.Date)),
+                model.Documents.Select(
+                    s => new CreateCourseCommand.CreateDocumentCommand(s.BlobName, s.Name, s.Visible)),
+                model.IsPublish);
+
+            await _commandBus.DispatchAsync(command, token);
+
             return Ok();
         }
 

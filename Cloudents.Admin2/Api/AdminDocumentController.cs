@@ -163,12 +163,12 @@ namespace Cloudents.Admin2.Api
         }
 
 
-        [HttpPost("unFlag")]
-        public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
-        {
-            var command = new UnFlagDocumentCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("unFlag")]
+        //public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
+        //{
+        //    var command = new UnFlagDocumentCommand(model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
     }
 }
