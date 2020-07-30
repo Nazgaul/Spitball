@@ -1,44 +1,7 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
-      <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
-         <v-flex sm12 md6>
-            <v-data-table
-               :headers="balancesHeaders"
-               :items="balancesItems"
-               sort-by
-               hide-default-footer
-               hide-default-header
-               class="elevation-1 mySales_table">
-               <template v-slot:header="{props}">
-                  <thead>
-                     <tr>
-                        <th class="text-center"
-                           v-for="header in props.headers"
-                           :key="header.value">
-                           {{header.text}}
-                        </th>
-                     </tr>
-                  </thead>
-               </template>
-               <template v-slot:item="props">
-                  <tr class="mySales_table_tr">
-                     <td class="text-start">
-                        <span>{{wallet[props.item.type]}}</span>
-                     </td>
-                     <td class="text-center">
-                        <span>{{formatBalancePts(props.item.points)}}</span>
-                     </td> 
-                     <td class="text-center">
-                        <span class="font-weight-bold">
-                           <!-- TODO: Currency Change -->
-                           {{$n(props.item.value, {'style':'currency','currency': accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}}
-                        </span>
-                     </td> 
-                  </tr>
-               </template>
-            </v-data-table>
-         </v-flex>
+      <v-layout wrap class="mySales_wallet justify-end mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
             <div class="mySales_actions ms-md-6">
                <redeemPointsLayout class="my-2 my-md-0 mx-lg-2 "/>
@@ -147,26 +110,13 @@ export default {
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
             this.dictionary.headers['action'],
-         ],
-         balancesHeaders:[
-            this.dictionary.headers['preview'],
-            this.dictionary.headers['points'],
-            this.dictionary.headers['value'],
-         ],
-         wallet:{
-            'Earned': this.$t(`wallet_earned`),
-            'Spent': this.$t(`wallet_spent`),
-            'Total': this.$t(`wallet_total`),
-         }
+         ]
       }
    },
    computed: {
-      ...mapGetters(['getSalesItems','accountUser','getBalancesItems']),
+      ...mapGetters(['getSalesItems','accountUser']),
       salesItems(){
          return this.getSalesItems;
-      },
-      balancesItems(){
-         return this.getBalancesItems;
       },
       // pendingPayments() {
       //    return this.$store.getters.getPendingPayment
@@ -187,10 +137,6 @@ export default {
             // TODO: Currency Change
             return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
          }
-      },
-      formatBalancePts(pts){
-         pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
-         return `${pts} ${this.$t('dashboardPage_pts')}`
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Approved'){
@@ -247,9 +193,9 @@ export default {
          }
          color: #43425d !important;
       } 
-   .mySales_table{
-      max-width: 1334px; 
-   }
+   // .mySales_table{
+   //    max-width: 1334px; 
+   // }
    .mySales_table-full{
    tr{
       height:54px;

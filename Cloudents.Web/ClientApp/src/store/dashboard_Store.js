@@ -1,12 +1,10 @@
 import dashboardService from '../services/dashboardService.js';
-import walletService from '../services/walletService.js';
 import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
    // contentItems: [],
    purchasesItems: [],
-   balancesItems: [],
    studyRoomItems: [],
    followersItems: [],
 };
@@ -20,9 +18,6 @@ const mutations = {
    // },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
-   },
-   setBalancesItems(state,val) {
-      state.balancesItems = val;
    },
    setStudyRoomItems(state,val) {
       state.studyRoomItems = val;
@@ -48,7 +43,6 @@ const getters = {
    getSalesItems: state => state.salesItems,
    // getContentItems: state => state.contentItems,
    getPurchasesItems: state => state.purchasesItems,
-   getBalancesItems: state => state.balancesItems,
    getStudyRoomItems: state => state.studyRoomItems,
    getFollowersItems: state => state.followersItems,
 };
@@ -67,11 +61,6 @@ const actions = {
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);
-      });
-   },
-   updateBalancesItems({commit}){
-      walletService.getBalances().then(items=>{
-         commit('setBalancesItems', items);
       });
    },
    updateStudyRoomItems({commit}, type){
