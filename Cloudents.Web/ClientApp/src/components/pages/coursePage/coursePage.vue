@@ -105,7 +105,7 @@ export default {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
                     if(!isValidDateToday) {
                         this.showServerError = true
-                        return
+                        return false
                     }
                 }
                 return {
