@@ -107,7 +107,7 @@ export default {
             previewImage: null,
             newLiveImage: null,
             rules: {
-                requiredNum: (val) => val && !isNaN(val) || this.$t("formErrors_required"),
+                requiredNum: (val) => (val.toString() && !isNaN(val)) || this.$t("formErrors_required"),
                 required: (val) => validationRules.required(val),
                 minimum: (val) => validationRules.minVal(val,0),
                 integer: (val) => validationRules.integer(val),
