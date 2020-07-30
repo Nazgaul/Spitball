@@ -55,6 +55,12 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest model, CancellationToken token)
+        {
+            return Ok();
+        }
+
 
         [HttpPost("{id:long}/enroll")]
         public async Task EnrollUpcomingEventAsync([FromRoute] long id, CancellationToken token)
