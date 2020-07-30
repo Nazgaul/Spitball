@@ -1,26 +1,30 @@
 ﻿using System;
+using System.IO;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Command.Courses
 {
     public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand>
     {
-        private readonly IRepository<Course> _courseRepository;
         private readonly IRepository<Tutor> _tutorRepository;
         //private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
         private readonly IStudyRoomBlobProvider _blobProvider;
         private readonly IGoogleDocument _googleDocument;
+        private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
+        private readonly IDocumentRepository _documentRepository;
 
-        public CreateCourseCommandHandler(IRepository<Course> courseRepository, IRepository<Tutor> tutorRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument)
+        public CreateCourseCommandHandler(IRepository<Tutor> tutorRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument, IDocumentDirectoryBlobProvider documentBlobProvider, IDocumentRepository documentRepository)
         {
-            _courseRepository = courseRepository;
             _tutorRepository = tutorRepository;
             _blobProvider = blobProvider;
             _googleDocument = googleDocument;
+            _documentBlobProvider = documentBlobProvider;
+            _documentRepository = documentRepository;
         }
 
         public async Task ExecuteAsync(CreateCourseCommand message, CancellationToken token)
@@ -40,6 +44,18 @@ namespace Cloudents.Command.Courses
                 var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
                 var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl, course, createLiveStudyRoomCommand.Date, createLiveStudyRoomCommand.Name);
                 course.AddStudyRoom(studyRoom);
+            }
+
+            foreach (var documentMessage in message.Documents)
+            {
+                var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(documentMessage.BlobName)];
+                var document = new Document(documentMessage.Name, course, extension.DocumentType, documentMessage.Visible);
+
+                await _documentRepository.AddAsync(document, token);
+                var id = document.Id;
+                await _documentBlobProvider.MoveAsync(documentMessage.BlobName, id.ToString(), token);
+                course.AddDocument(document);
+
             }
             //await _courseRepository.AddAsync(course, token);
 

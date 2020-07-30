@@ -52,6 +52,11 @@ namespace Cloudents.Core.Entities
             _studyRooms.Add(studyRoom);
         }
 
+        public virtual void AddDocument(Document document)
+        {
+            _documents.Add(document);
+        }
+
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<Document> _documents = new List<Document>();

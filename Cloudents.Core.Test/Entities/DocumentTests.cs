@@ -15,15 +15,15 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument__NullCourse_Error()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                new Document("some name", null!, null!,  DocumentType.Document, null));
+                new Document("some name", null!,   DocumentType.Document, false));
         }
 
         [Fact]
         public void InitDocument_NullUser_Error()
         {
             Mock<Course> courseMock = new Mock<Course>();
-            Assert.Throws<ArgumentNullException>(() => new Document("some name", courseMock.Object, null!, 
-                DocumentType.Document, null));
+            Assert.Throws<ArgumentNullException>(() => new Document("some name", courseMock.Object,  
+                DocumentType.Document, false));
         }
 
 
@@ -31,7 +31,7 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument_NullName_Error()
         {
             Mock<Course> courseMock = new Mock<Course>();
-            Assert.Throws<ArgumentNullException>(() => new Document(null!, courseMock.Object, null!,  DocumentType.Document, null
+            Assert.Throws<ArgumentNullException>(() => new Document(null!, courseMock.Object,   DocumentType.Document, true
                 ));
         }
 
@@ -45,7 +45,7 @@ namespace Cloudents.Core.Test.Entities
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
 
             var date = DateTime.UtcNow;
-            var document = new Document("some name", courseMock.Object, mockTutor.Object,  DocumentType.Document, null);
+            var document = new Document("some name", courseMock.Object,  DocumentType.Document, true);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
@@ -60,8 +60,8 @@ namespace Cloudents.Core.Test.Entities
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
             var date = DateTime.UtcNow;
             var document = new Document("some name", 
-                courseMock.Object, mockTutor.Object,
-                DocumentType.Document, null);
+                courseMock.Object, 
+                DocumentType.Document, true);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
