@@ -49,6 +49,7 @@ export default {
     },
     data() {
         return {
+            showServerError: false,
             statusErrorCode: {
                 empty: this.$t('empty_file_or_studyroom'),
                 409: this.$t('duplicate'),
@@ -62,7 +63,7 @@ export default {
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
 
-                // validate if tutor enter documents or studyroom
+                // validate if tutor not enter documents and studyroom
                 if(!files.length && !studyRoom.length) {
                     this.showServerError = true
                     return
@@ -71,6 +72,12 @@ export default {
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
                 
+                // validate if there was error in one of studyroom or a file
+                if(!documents || !studyRooms) {
+                    this.showServerError = true
+                    return
+                }
+
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);
                 }).catch(ex => {
@@ -81,7 +88,7 @@ export default {
         },
         documentValidate(files) {
             return files.map(file => {
-                if(file.error) return Promise.reject('Error, file')
+                if(file.error) return false
 
                 return {
                     blobName: file.blobName,
@@ -96,7 +103,10 @@ export default {
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
-                    if(!isValidDateToday) return Promise.reject('Error, date')
+                    if(!isValidDateToday) {
+                        this.showServerError = true
+                        return
+                    }
                 }
                 return {
                     name: studyRoom.text,
