@@ -107,11 +107,16 @@ export default {
             previewImage: null,
             newLiveImage: null,
             rules: {
-                requiredNum: (val) => !isNaN(val) || this.$t("formErrors_required"),
+                requiredNum: (val) => val && !isNaN(val) || this.$t("formErrors_required"),
                 required: (val) => validationRules.required(val),
                 minimum: (val) => validationRules.minVal(val,0),
                 integer: (val) => validationRules.integer(val),
-                subscriptionPrice: val => (val >= 5 || val <= 0) || this.$t('minimum_price')
+                subscriptionPrice: val => {
+                    if(global.country === 'IL') {
+                        return val >= 5 || val <= 0 || this.$t('minimum_price')
+                    }
+                    return true
+                }
             }
         }
     },

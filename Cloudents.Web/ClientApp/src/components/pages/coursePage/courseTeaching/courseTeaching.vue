@@ -158,10 +158,6 @@ export default {
             let today = new Date().FormatDateToString()
             return date >= today
         },
-        allowedDatesEnd(date) {
-            let today = new Date().FormatDateToString()
-            return date >= today && date >= this.date
-        },
         addLecture() {
             this.$store.commit('setNumberOfLecture', this.numberOfLecture + 1)
         },
