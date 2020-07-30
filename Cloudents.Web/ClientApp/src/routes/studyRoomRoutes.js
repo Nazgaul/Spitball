@@ -56,7 +56,8 @@ export const studyRoomRoutes = [
         redirect: { name: routeName.StudyRoomLanding }
     },
     {
-        path: '/course/:id?',
+        // (\\d+) prevent from duplicate route
+        path: '/course/:id(\\d+)?',
         name: routeName.StudyRoomLanding,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
