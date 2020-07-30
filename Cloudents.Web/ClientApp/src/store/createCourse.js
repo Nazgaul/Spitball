@@ -58,8 +58,8 @@ const mutations = {
     setTeachLecture(state, teachObj) {
         this._vm.$set(state.teachingDates, teachObj.index, {
             text: teachObj.text || state.teachingDates[teachObj.index]?.text,
-            hour: teachObj.hour ||  state.teachingDates[teachObj.index]?.hour,
-            date: teachObj.date ||  state.teachingDates[teachObj.index]?.date
+            hour: teachObj.hour || state.teachingDates[teachObj.index]?.hour,
+            date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
     },
     setVisibleFile(state, {val, item}) {
