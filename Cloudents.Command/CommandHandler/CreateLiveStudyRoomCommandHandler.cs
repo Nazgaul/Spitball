@@ -89,6 +89,7 @@
 //                course, message.Price,
 //                message.BroadcastTime, message.Description, schedule);
 //            await _studyRoomRepository.AddAsync(studyRoom, token);
+//            await _courseRepository.AddAsync(course, token);
 
 //            if (message.Image != null)
 //            {

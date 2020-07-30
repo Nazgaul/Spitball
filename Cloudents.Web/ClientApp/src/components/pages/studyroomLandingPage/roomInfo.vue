@@ -82,7 +82,8 @@ export default {
          this.$store.commit('setComponent', 'applyCoupon');
       },
       enterStudyRoom(){
-         let id = this.$route.params?.id;
+         let id = this.courseSessions[0].id;
+         //let id = this.$route.params?.id;
          let routeData = this.$router.resolve({
             name: routeNames.StudyRoom,
             params: { id }
