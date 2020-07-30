@@ -50,12 +50,46 @@ export default {
     methods: {
         saveCourseInfo() {
             if(this.$refs.createCourse.validate()) {
-                this.$store.dispatch('updateCourseInfo').then(res => {
+                let files = this.$store.getters.getFileData
+                let studyRoom = this.$store.getters.getTeachLecture
+
+                // validate if tutor enter documents or studyroom
+                if(!files.length && !studyRoom.length) return
+                
+                let documents = this.documentValidate(files)
+                let studyRooms = this.documentValidate(studyRoom)
+                
+                this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);
                 }).catch(ex => {
                     console.error(ex);
                 })
             }
+        },
+        documentValidate(files) {
+            return files.map(file => {
+                if(file.error) return Promise.reject('Error, file')
+
+                return {
+                    blobName: file.blobName,
+                    name: file.name,
+                    visible: file.visible || false
+                }
+            })
+        },
+        studyroomValidate(studyRoomList) {
+            return studyRoomList.map(studyRoom => {
+                let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);         
+                let isToday = userChooseDate.isSame(this.$moment(), 'day');
+                if(isToday) {
+                    let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
+                    if(!isValidDateToday) return Promise.reject('Error, date')
+                }
+                return {
+                    name: studyRoom.text,
+                    date: userChooseDate
+                }
+            })
         }
     },
     beforeDestroy(){
