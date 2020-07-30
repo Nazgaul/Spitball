@@ -15,19 +15,21 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly ITutorRepository _tutorRepository;
         private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IGoogleDocument _googleDocument;
         private readonly ICronService _cronService;
         private readonly IStudyRoomBlobProvider _blobProvider;
 
         public CreateLiveStudyRoomCommandHandler(
             IRepository<BroadCastStudyRoom> studyRoomRepository, IGoogleDocument googleDocument,
-            ITutorRepository tutorRepository, ICronService cronService, IStudyRoomBlobProvider blobProvider)
+            ITutorRepository tutorRepository, ICronService cronService, IStudyRoomBlobProvider blobProvider, ICourseRepository courseRepository)
         {
             _studyRoomRepository = studyRoomRepository;
             _googleDocument = googleDocument;
             _tutorRepository = tutorRepository;
             _cronService = cronService;
             _blobProvider = blobProvider;
+            _courseRepository = courseRepository;
         }
 
         public async Task ExecuteAsync(CreateLiveStudyRoomCommand message,
@@ -84,11 +86,12 @@ namespace Cloudents.Command.CommandHandler
             };
             tutor.AddCourse(course);
             //To persist the course if needed
-            //await _tutorRepository.UpdateAsync(tutor, default);
+            
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
                 course, message.Price,
                 message.BroadcastTime, message.Description, schedule);
             await _studyRoomRepository.AddAsync(studyRoom, token);
+            await _courseRepository.AddAsync(course, token);
 
             if (message.Image != null)
             {
