@@ -71,15 +71,6 @@ import FileUpload from 'vue-upload-component';
 export default {
     name: "upload-step-1",
     components: {FileUpload},
-    props: {
-        // callBackmethods: {
-        //     type: Object,
-        //     default() {
-        //         return {}
-        //     },
-        //     required: false
-        // },
-    },
     data() {
         return {
             isDraggin: false,
@@ -88,7 +79,6 @@ export default {
             files: [],
             showErrorUpload: '',
             errorText: '',
-            nextStepCalled: false,
             uploadStarted: false,
             progress: 0,
         }
@@ -101,9 +91,9 @@ export default {
         isError(){
             return this.getFileData.every(item => item.error)
         },
-        errorFile(){
-            return !!(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError);
-        }
+        // errorFile(){
+        //     return !!(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError);
+        // }
     },
     watch:{
         isError(hasError){

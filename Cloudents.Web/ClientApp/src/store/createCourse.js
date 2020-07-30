@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+const courseInstance = axios.create({
+    baseURL: '/api/course'
+ })
+
 const state = {
     numberOfLecture: 1,
     courseName: '',
@@ -76,21 +80,49 @@ const actions = {
             return Promise.reject('Error, must include documents or studyroom')
         }
 
+        let studyRooms = state.teachingDates.filter(studyRoom => {
+            let userChooseDate =  this._vm.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);         
+            let isToday = userChooseDate.isSame(this._vm.$moment(), 'day');
+            if(isToday) {
+               let isValidDateToday = userChooseDate.isAfter(this._vm.$moment().format())
+                if(!isValidDateToday) {
+                    return Promise.reject('Error, date created')
+                } 
+            }
+            return {
+                name: studyRoom.text,
+                date: userChooseDate
+            }
+        })
+
+        let documents = getters.getFileData.filter(file => {
+            if(!file.error) {
+                return {
+                    blobName: file.blobName,
+                    name: file.name,
+                    visible: file.visible || false
+                }
+            }
+        })
+
         let params = {
-            courseName: state.courseName,
-            followerPrice: state.followerPrice,
-            subscribePrice: state.subscribePrice,
+            name: state.courseName,
+            price: state.followerPrice,
+            subscriptionPrice: state.subscribePrice,
             description: state.description,
-            courseVisible: state.courseVisible,
-            teachingDates: state.teachingDates,
             image: state.courseCoverImage,
-            files: getters.getFileData.filter(file => !file.error)
+            isPublish: state.courseVisible,
+            studyRooms: studyRooms,
+            documents: documents
         }
         
         console.log(params);
-        // axios.post(`api/`, params).then(() => {
-        //     commit()
-        // })
+        
+        return courseInstance.post('', params).then(res => {
+            console.log(res);
+        }).catch(ex => {
+            console.error(ex);
+        })
     }
 }
 
