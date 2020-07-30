@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
 {
     public class Course : Entity<long>
     {
-        public Course(string name, Tutor tutor)
+        public Course(string name, Tutor tutor, double price,double? subscriptionPrice, string description)
         {
             Name = name;
             Tutor = tutor;
@@ -22,11 +22,11 @@ namespace Cloudents.Core.Entities
 
             if (tutor.HasSubscription())
             {
-                SubscriptionPrice = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+                SubscriptionPrice = new Money(subscriptionPrice.GetValueOrDefault(), Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             }
             Create = DateTime.UtcNow;
-
-            Price = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            Description = description;
+            Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
         }
 
         protected Course()

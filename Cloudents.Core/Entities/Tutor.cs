@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -17,8 +18,6 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
             AddEvent(new TutorCreatedEvent(this));
             Courses = new List<Course>();
-            ;
-
         }
 
 
@@ -170,30 +169,31 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual Course AddCourse(string name)
-        {
-            var course = Courses.SingleOrDefault(s => s.Name == name);
-            if (course == null)
-            {
-                course = new Course(name, this);
-                Courses.Add(course);
+        //public virtual Course AddCourse(string name)
+        //{
+        //    var course = Courses.SingleOrDefault(s => s.Name == name);
+        //    if (course != null)
+        //    {
+        //        course = new Course(name, this);
+        //        Courses.Add(course);
 
-                AddEvent(new NewCourseEvent(course));
-            }
+        //        AddEvent(new NewCourseEvent(course));
+        //    }
 
-            return course;
-        }
+        //    return course;
+        //}
 
         public virtual Course AddCourse(Course course)
         {
             var course2 = Courses.SingleOrDefault(s => s.Name == course.Name);
-            if (course2 == null)
+            if (course2 != null)
             {
-                Courses.Add(course);
-                AddEvent(new NewCourseEvent(course));
+                throw new DuplicateRowException();
+               
             }
-
-            return course;
+            Courses.Add(course);
+            AddEvent(new NewCourseEvent(course));
+            //return course;
         }
 
 
