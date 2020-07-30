@@ -1,6 +1,6 @@
 <template>
     <div id="coursePage" class="coursePage ma-sm-8">
-        <v-form ref="createCourse" @submit="saveCourseInfo" v-if="!isMobile">
+        <v-form ref="createCourse" v-if="!isMobile">
             <courseCreate @saveCourseInfo="saveCourseInfo" />
             <div class="d-flex">
                 <div class="courseLeftSide">
@@ -62,16 +62,9 @@ export default {
             if(this.$refs.createCourse.validate()) {
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
-
-                // validate if tutor not enter documents and studyroom
-                if(!files.length && !studyRoom.length) {
-                    this.showServerError = true
-                    return
-                }
-                
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
-                
+
                 // validate if there was error in one of studyroom or a file
                 if(!documents || !studyRooms) {
                     this.showServerError = true
@@ -87,6 +80,8 @@ export default {
             }
         },
         documentValidate(files) {
+            if(!files.length) return false
+
             return files.map(file => {
                 if(file.error) return false
 
@@ -98,15 +93,14 @@ export default {
             })
         },
         studyroomValidate(studyRoomList) {
+            if(!studyRoomList.length) return false
+
             return studyRoomList.map(studyRoom => {
                 let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);         
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
-                    if(!isValidDateToday) {
-                        this.showServerError = true
-                        return false
-                    }
+                    if(!isValidDateToday) return false
                 }
                 return {
                     name: studyRoom.text,
