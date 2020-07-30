@@ -53,7 +53,7 @@ export default {
             statusErrorCode: {
                 empty: this.$t('empty_file_or_studyroom'),
                 409: this.$t('duplicate'),
-                401: this.$t('410')
+                401: this.$t('401')
             }
         }
     },
