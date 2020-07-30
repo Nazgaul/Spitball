@@ -1,8 +1,8 @@
 <template>
    <div class="studyroomLandingPage d-flex" :class="[{'window2':isRoomEnrolled}]">
       <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
-         <!-- isRoomEnrolled? 1 : 0 -->
-         <v-window :value="0"> 
+         <!--  -->
+         <v-window :value="isRoomEnrolled? 1 : 0"> 
             <v-window-item>
                <div class="roominfoHeader">
                   <div class="cursor-pointer content" v-if="!isMobile" @click="$router.push('/')">
@@ -15,7 +15,7 @@
                <hostInfo  class="content"/>
             </v-window-item>
             <v-window-item>
-               <roomThankYou  class="content"/>
+               <roomThankYou />
                <courseItems  class="content"/>
             </v-window-item>
          </v-window>

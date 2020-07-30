@@ -85,7 +85,7 @@ export default {
       margin-bottom: 38px;
       padding-bottom: 64px;
       background: white;
-      margin-top: 38px;
+     // margin-top: 38px;
       position: relative;
       color: #ffffff;
       &::before{
@@ -96,7 +96,7 @@ export default {
          top: 0;
          left: 0;
          right: 0;
-         height: 50%;
+         height: 75%;
          bottom: 0;
          @media(max-width: @screen-xs) {
             height: 524px;
