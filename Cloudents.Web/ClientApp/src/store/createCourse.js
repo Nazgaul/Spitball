@@ -12,7 +12,7 @@ const state = {
     description: '',
     courseVisible: true,
     courseCoverImage: null,
-    teachingDates: [] // courseTeaching.vue
+    teachingDates: []
 }
 
 const getters = {
@@ -44,7 +44,7 @@ const mutations = {
         state.teachingDates.splice(index-1, 1)
     },
     setCourseName(state, name) {
-        state.courseName = name.text || name
+        state.courseName = name?.text || name
     },
     setFollowerPrice(state, price) {
         state.followerPrice = price
