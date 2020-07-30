@@ -44,7 +44,7 @@ const mutations = {
         state.teachingDates.splice(index-1, 1)
     },
     setCourseName(state, name) {
-        state.courseName = name
+        state.courseName = name.text || name
     },
     setFollowerPrice(state, price) {
         state.followerPrice = price
@@ -74,37 +74,7 @@ const mutations = {
 }
 
 const actions = {
-    updateCourseInfo({commit, state, getters}) {
-        // validate if tutor enter documents or studyroom
-        if(!getters.getFileData.length && !state.teachingDates.length) {
-            return Promise.reject('Error, must include documents or studyroom')
-        }
-
-        let studyRooms = state.teachingDates.filter(studyRoom => {
-            let userChooseDate =  this._vm.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);         
-            let isToday = userChooseDate.isSame(this._vm.$moment(), 'day');
-            if(isToday) {
-               let isValidDateToday = userChooseDate.isAfter(this._vm.$moment().format())
-                if(!isValidDateToday) {
-                    return Promise.reject('Error, date created')
-                } 
-            }
-            return {
-                name: studyRoom.text,
-                date: userChooseDate
-            }
-        })
-
-        let documents = getters.getFileData.filter(file => {
-            if(!file.error) {
-                return {
-                    blobName: file.blobName,
-                    name: file.name,
-                    visible: file.visible || false
-                }
-            }
-        })
-
+    updateCourseInfo({state}, {documents, studyRooms}) {
         let params = {
             name: state.courseName,
             price: state.followerPrice,
@@ -112,8 +82,8 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage,
             isPublish: state.courseVisible,
-            studyRooms: studyRooms,
-            documents: documents
+            studyRooms,
+            documents
         }
         
         console.log(params);
