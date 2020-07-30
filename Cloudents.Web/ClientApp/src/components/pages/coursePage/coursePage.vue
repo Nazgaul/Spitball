@@ -69,7 +69,7 @@ export default {
                 }
                 
                 let documents = this.documentValidate(files)
-                let studyRooms = this.documentValidate(studyRoom)
+                let studyRooms = this.studyroomValidate(studyRoom)
                 
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);

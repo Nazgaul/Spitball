@@ -56,7 +56,7 @@ export const studyRoomRoutes = [
         redirect: { name: routeName.StudyRoomLanding }
     },
     {
-        // (\\d+) prevent from duplicate route
+        // (\\d+) prevent from duplicate route with new coursePage
         path: '/course/:id(\\d+)?',
         name: routeName.StudyRoomLanding,
         components: {

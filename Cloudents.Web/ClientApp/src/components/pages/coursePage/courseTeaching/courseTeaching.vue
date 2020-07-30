@@ -105,6 +105,26 @@ export default {
             }
         }
     },
+    watch: {
+        date: {
+            immediate: true,
+            handler(date) {
+                this.$store.commit('setTeachLecture', {
+                    index: this.index-1,
+                    date
+                })
+            }
+        },
+        hour: {
+            immediate: true,
+            handler(hour) {
+                this.$store.commit('setTeachLecture', {
+                    index: this.index-1,
+                    hour
+                })
+            }
+        },
+    },
     computed: {
         lectureTopic: {
             get() {
