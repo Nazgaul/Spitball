@@ -28,6 +28,10 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
         return '';
     }
 };
+
+Vue.directive('visible', function(el, binding) {
+	el.style.visibility = !!binding.value ? 'visible' : 'hidden';
+});
 // Vue.prototype.$chatMessage = function (message) {
 //     let userName = this.$store.getters.accountUser.id == message.userId ? '' : `<span style="font-weight: 600;display: block;margin-bottom: 6px;">${message.name}:</span>`
 //     if(message.type === 'text'){
