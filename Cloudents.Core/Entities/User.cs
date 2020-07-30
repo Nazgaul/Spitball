@@ -428,7 +428,7 @@ namespace Cloudents.Core.Entities
         }
 
         // public override int Score { get; protected set; }  //=> Transactions.Score;
-        public override decimal Balance => Transactions.Balance;
+        //public override decimal Balance => Transactions.Balance;
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }

@@ -61,13 +61,13 @@ namespace Cloudents.Persistence.Maps
     }
 
 
-    public class FictiveUserMap : SubclassMap<SystemUser>
-    {
-        public FictiveUserMap()
-        {
+    //public class FictiveUserMap : SubclassMap<SystemUser>
+    //{
+    //    public FictiveUserMap()
+    //    {
 
-            DiscriminatorValue(true);
-        }
-    }
+    //        DiscriminatorValue(true);
+    //    }
+    //}
 
 }

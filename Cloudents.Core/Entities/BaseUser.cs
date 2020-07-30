@@ -70,7 +70,7 @@ namespace Cloudents.Core.Entities
         // ReSharper disable once UnusedAutoPropertyAccessor.Global Nhibernate
         public virtual bool Fictive { get; protected set; }
 
-        public abstract decimal Balance { get; }
+        //public abstract decimal Balance { get; }
 
         //public abstract int Score { get; protected set; }
 
