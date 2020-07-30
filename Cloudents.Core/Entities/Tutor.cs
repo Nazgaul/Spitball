@@ -193,7 +193,7 @@ namespace Cloudents.Core.Entities
             }
             Courses.Add(course);
             AddEvent(new NewCourseEvent(course));
-            //return course;
+            return course;
         }
 
 

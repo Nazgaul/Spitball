@@ -10,16 +10,14 @@ namespace Cloudents.Core.Entities
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(Tutor tutor,
-             string onlineDocumentUrl,
-            Course course, decimal price, DateTime broadcastTime, string? description, StudyRoomSchedule? schedule)
-            : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, price)
+            string onlineDocumentUrl,
+            Course course, DateTime broadcastTime)
+            : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, 0)
         {
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);
             BroadcastTime = broadcastTime;
             TopologyType = StudyRoomTopologyType.GroupRoom;
-            Description = description;
-            Schedule = schedule;
             Course = course ?? throw new ArgumentNullException(nameof(course));
         }
 
@@ -27,16 +25,17 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual DateTime BroadcastTime { get;  set; }
+        public virtual DateTime BroadcastTime { get; set; }
 
 
-        public virtual string? Description { get; protected set; }
 
+
+        [Obsolete]
         public virtual StudyRoomSchedule? Schedule { get; protected set; }
 
         public virtual Course Course { get; set; }
 
-        public virtual void AddPayment(User user,string receipt)
+        public virtual void AddPayment(User user, string receipt)
         {
             var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
             _studyRoomPayments.Add(studyRoomPayment);
@@ -50,10 +49,10 @@ namespace Cloudents.Core.Entities
                 return;
             }
             var studyRoomUser = new StudyRoomUser(user, this);
-            
+
             _users.Add(studyRoomUser);
-           
-             Tutor.User.AddFollower(user);
+
+            Tutor.User.AddFollower(user);
             AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
         }
 

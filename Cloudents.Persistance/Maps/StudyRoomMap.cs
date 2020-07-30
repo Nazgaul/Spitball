@@ -70,7 +70,7 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
-            Map(x => x.Description).Length(4000).Nullable();
+            //Map(x => x.Description).Length(4000).Nullable();
             //Cannot put not nullable because no inverse on course.
             References(x => x.Course).Column("CourseId")/*.Not.Nullable()*/.ForeignKey("StudyRoom_course2");
 

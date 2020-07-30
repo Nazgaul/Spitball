@@ -34,7 +34,7 @@ namespace Cloudents.Query.Tutor
                       .Where(w => w.Id == query.Id)
                       .Select(s => new StudyRoomSeoDto
                       {
-                          Description = ((BroadCastStudyRoom)s).Description,
+                          Description = ((BroadCastStudyRoom)s).Course.Description,
                           PrivateName = ((PrivateStudyRoom)s).Name,
                           CourseName = ((BroadCastStudyRoom)s).Course.Name,
                           TutorName = s.Tutor.User.Name

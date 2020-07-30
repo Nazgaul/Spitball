@@ -46,78 +46,78 @@ namespace Cloudents.Core.Entities
 
         public virtual ItemState State { get; set; }
 
-        public virtual void SetInitPrice()
-        {
+        //public virtual void SetInitPrice()
+        //{
 
-            var amountInPoints = Documents.Where(w => w.DocumentPrice?.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
-            var fiatValue = new Money(amountInPoints * Tutor.User.SbCountry.ConversationRate, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+        //    var amountInPoints = Documents.Where(w => w.DocumentPrice?.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
+        //    var fiatValue = new Money(amountInPoints * Tutor.User.SbCountry.ConversationRate, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
 
-            var fiatStudyRoomCheck = StudyRooms.Select(s => s.Price).GroupBy(g => g.Currency).Select(s => new
-            {
-                c = s.Key,
-                v = s.DefaultIfEmpty().Aggregate((l, r) => l + r)
-            });
+        //    var fiatStudyRoomCheck = StudyRooms.Select(s => s.Price).GroupBy(g => g.Currency).Select(s => new
+        //    {
+        //        c = s.Key,
+        //        v = s.DefaultIfEmpty().Aggregate((l, r) => l + r)
+        //    });
 
-            if (fiatStudyRoomCheck.Count(c => c.v.Cents > 0) > 1)
-            {
-                throw new ArgumentException();
-            }
+        //    if (fiatStudyRoomCheck.Count(c => c.v.Cents > 0) > 1)
+        //    {
+        //        throw new ArgumentException();
+        //    }
 
-            Description = StudyRooms.FirstOrDefault(f => f.Description != null)?.Description;
-            var fiatStudyRoom = StudyRooms.Select(s => s.Price).DefaultIfEmpty().Aggregate((l, r) => l + r);
+        //    Description = StudyRooms.FirstOrDefault(f => f.Description != null)?.Description;
+        //    var fiatStudyRoom = StudyRooms.Select(s => s.Price).DefaultIfEmpty().Aggregate((l, r) => l + r);
 
-            Price = fiatValue + fiatStudyRoom;
-            if (Tutor.HasSubscription())
-            {
-                SubscriptionPrice = new Money(0d, Price.Currency);
-                if (Price.Cents == 0)
-                {
-                    Price = Price.ChangePrice(200);
-                }
-            }
+        //    Price = fiatValue + fiatStudyRoom;
+        //    if (Tutor.HasSubscription())
+        //    {
+        //        SubscriptionPrice = new Money(0d, Price.Currency);
+        //        if (Price.Cents == 0)
+        //        {
+        //            Price = Price.ChangePrice(200);
+        //        }
+        //    }
 
-            if (Create == default)
-            {
-                Create = DateTime.UtcNow;
-            }
+        //    if (Create == default)
+        //    {
+        //        Create = DateTime.UtcNow;
+        //    }
 
-            if (Price.Amount > 0 && Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
-            {
-                Price = new Money(5d, "ILS");
-            }
+        //    if (Price.Amount > 0 && Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
+        //    {
+        //        Price = new Money(5d, "ILS");
+        //    }
 
 
 
-            if (Tutor.User.SbCountry == Country.India)
-            {
-                State = ItemState.Pending;
-            }
-            if (Tutor.User.SbCountry == Country.UnitedStates)
-            {
-                State = ItemState.Ok;
-            }
-            if (Tutor.User.SbCountry == Country.Israel && Tutor.SellerKey == null && Price.Amount > 0)
-            {
-                State = ItemState.Pending;
-            }
+        //    if (Tutor.User.SbCountry == Country.India)
+        //    {
+        //        State = ItemState.Pending;
+        //    }
+        //    if (Tutor.User.SbCountry == Country.UnitedStates)
+        //    {
+        //        State = ItemState.Ok;
+        //    }
+        //    if (Tutor.User.SbCountry == Country.Israel && Tutor.SellerKey == null && Price.Amount > 0)
+        //    {
+        //        State = ItemState.Pending;
+        //    }
 
-            if (Price.Cents == 0)
-            {
-                State = ItemState.Ok;
-            }
-            var purchasedDocumentsUsers = Documents.SelectMany(s => s.Transactions).Where(w => w.Type == TransactionType.Spent).Select(s => s.User);
+        //    if (Price.Cents == 0)
+        //    {
+        //        State = ItemState.Ok;
+        //    }
+        //    var purchasedDocumentsUsers = Documents.SelectMany(s => s.Transactions).Where(w => w.Type == TransactionType.Spent).Select(s => s.User);
 
-            foreach (var purchasedDocumentsUser in purchasedDocumentsUsers.DistinctBy(x => x.Id))
-            {
-                EnrollUser(purchasedDocumentsUser, "Old Data", Price.ChangePrice(0));
-            }
+        //    foreach (var purchasedDocumentsUser in purchasedDocumentsUsers.DistinctBy(x => x.Id))
+        //    {
+        //        EnrollUser(purchasedDocumentsUser, "Old Data", Price.ChangePrice(0));
+        //    }
 
-            if (Documents.Count() == 0 && StudyRooms.All(a => a.BroadcastTime < DateTime.UtcNow && a.Schedule == null))
-            {
-                State = ItemState.Deleted;
-            }
+        //    if (Documents.Count() == 0 && StudyRooms.All(a => a.BroadcastTime < DateTime.UtcNow && a.Schedule == null))
+        //    {
+        //        State = ItemState.Deleted;
+        //    }
 
-        }
+        //}
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
