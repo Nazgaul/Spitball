@@ -47,6 +47,15 @@ export default {
             return this.$vuetify.breakpoint.xsOnly
         }
     },
+    data() {
+        return {
+            statusErrorCode: {
+                empty: this.$t('empty_file_or_studyroom'),
+                409: this.$t('duplicate'),
+                401: this.$t('410')
+            }
+        }
+    },
     methods: {
         saveCourseInfo() {
             if(this.$refs.createCourse.validate()) {
@@ -54,7 +63,10 @@ export default {
                 let studyRoom = this.$store.getters.getTeachLecture
 
                 // validate if tutor enter documents or studyroom
-                if(!files.length && !studyRoom.length) return
+                if(!files.length && !studyRoom.length) {
+                    this.showServerError = true
+                    return
+                }
                 
                 let documents = this.documentValidate(files)
                 let studyRooms = this.documentValidate(studyRoom)
@@ -62,6 +74,7 @@ export default {
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);
                 }).catch(ex => {
+                    this.showServerError = true
                     console.error(ex);
                 })
             }
