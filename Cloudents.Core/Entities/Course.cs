@@ -18,6 +18,11 @@ namespace Cloudents.Core.Entities
             {
                 State = ItemState.Pending;
             }
+
+            if (tutor.HasSubscription())
+            {
+                SubscriptionPrice = new Money(0d,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            }
             Create =DateTime.UtcNow;
             
             Price = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
@@ -69,15 +74,39 @@ namespace Cloudents.Core.Entities
                     Price = Price.ChangePrice(200);
                 }
             }
-
             if (Create == default)
             {
                 Create = DateTime.UtcNow;
             }
-            if (Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
+
+            if (Price.Amount > 0  && Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
             {
                 Price = new Money(5d, "ILS");
             }
+
+            
+
+            if (Tutor.User.SbCountry == Country.India)
+            {
+                State = ItemState.Pending;
+            }
+            if (Tutor.User.SbCountry == Country.UnitedStates)
+            {
+                State = ItemState.Ok;
+            }
+            if (Tutor.User.SbCountry == Country.Israel && Tutor.SellerKey == null && Price.Amount > 0 )
+            {
+                State = ItemState.Pending;
+            }
+
+
+            if (Price.Cents == 0)
+            {
+                State = ItemState.Ok;
+            }
+
+           
+           
         }
 
 
