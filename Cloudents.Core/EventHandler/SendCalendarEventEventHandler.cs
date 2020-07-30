@@ -30,7 +30,7 @@ namespace Cloudents.Core.EventHandler
                 studyRoom.BroadcastTime,
                 studyRoom.BroadcastTime.AddHours(1),
                 eventName,
-                $"{studyRoom.Course.Description} {url}",
+                $"{studyRoom.Description} {url}",
                 token
             );
         }
