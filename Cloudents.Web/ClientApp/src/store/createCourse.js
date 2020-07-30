@@ -12,7 +12,7 @@ const state = {
     description: '',
     courseVisible: true,
     courseCoverImage: null,
-    teachingDates: [] // courseTeaching.vue
+    teachingDates: []
 }
 
 const getters = {
@@ -44,7 +44,7 @@ const mutations = {
         state.teachingDates.splice(index-1, 1)
     },
     setCourseName(state, name) {
-        state.courseName = name.text || name
+        state.courseName = name?.text || name
     },
     setFollowerPrice(state, price) {
         state.followerPrice = price
@@ -58,8 +58,8 @@ const mutations = {
     setTeachLecture(state, teachObj) {
         this._vm.$set(state.teachingDates, teachObj.index, {
             text: teachObj.text || state.teachingDates[teachObj.index]?.text,
-            hour: teachObj.hour ||  state.teachingDates[teachObj.index]?.hour,
-            date: teachObj.date ||  state.teachingDates[teachObj.index]?.date
+            hour: teachObj.hour || state.teachingDates[teachObj.index]?.hour,
+            date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
     },
     setVisibleFile(state, {val, item}) {
