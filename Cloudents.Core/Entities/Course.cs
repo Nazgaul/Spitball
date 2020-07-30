@@ -141,7 +141,7 @@ namespace Cloudents.Core.Entities
         {
             var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
 
-            _courseEnrollments.Add(courseEnrollment);
+            var z = _courseEnrollments.Add(courseEnrollment);
         }
 
     }
