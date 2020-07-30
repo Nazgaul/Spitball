@@ -84,38 +84,38 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("live")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateStudyRoomResponse>> CreateLiveStudyRoomAsync(CreateLiveStudyRoomRequest model,
-            [FromServices] TelemetryClient client,
-            CancellationToken token)
-        {
-            var tutorId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new CreateLiveStudyRoomCommand(tutorId,
-                     model.Name, model.Price,
-                     model.Date, model.Description, model.Repeat, model.EndDate,
-                     model.EndAfterOccurrences, model.RepeatOn, model.Image);
-                await _commandBus.DispatchAsync(command, token);
-                return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
-            }
-            catch (DuplicateRowException)
-            {
-                return Conflict("Already active study room");
-            }
-            catch (InvalidOperationException e)
-            {
-                client.TrackException(e, new Dictionary<string, string>()
-                {
-                    //["UserId"] = model.UserId.ToString(),
-                    ["tutorId"] = tutorId.ToString()
-                });
-                return BadRequest("user is not a tutor");
-            }
-        }
+        //[HttpPost("live")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<ActionResult<CreateStudyRoomResponse>> CreateLiveStudyRoomAsync(CreateLiveStudyRoomRequest model,
+        //    [FromServices] TelemetryClient client,
+        //    CancellationToken token)
+        //{
+        //    var tutorId = _userManager.GetLongUserId(User);
+        //    try
+        //    {
+        //        var command = new CreateLiveStudyRoomCommand(tutorId,
+        //             model.Name, model.Price,
+        //             model.Date, model.Description, model.Repeat, model.EndDate,
+        //             model.EndAfterOccurrences, model.RepeatOn, model.Image);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
+        //    }
+        //    catch (DuplicateRowException)
+        //    {
+        //        return Conflict("Already active study room");
+        //    }
+        //    catch (InvalidOperationException e)
+        //    {
+        //        client.TrackException(e, new Dictionary<string, string>()
+        //        {
+        //            //["UserId"] = model.UserId.ToString(),
+        //            ["tutorId"] = tutorId.ToString()
+        //        });
+        //        return BadRequest("user is not a tutor");
+        //    }
+        //}
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteStudyRoomAsync(Guid id, CancellationToken token)
