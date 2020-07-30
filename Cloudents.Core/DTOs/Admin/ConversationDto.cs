@@ -13,13 +13,13 @@ namespace Cloudents.Core.DTOs.Admin
 
         public DateTime LastMessage { get; set; }
 
-        [EntityBind(nameof(BaseUser.Name))]
+        [EntityBind(nameof(User.Name))]
         public string UserName { get; set; }
         [EntityBind(nameof(User.PhoneNumber))]
         public string UserPhoneNumber { get; set; }
         [EntityBind(nameof(User.Email))]
         public string UserEmail { get; set; }
-        [EntityBind(nameof(BaseUser.Name))]
+        [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
 
         [EntityBind(nameof(User.PhoneNumber))]

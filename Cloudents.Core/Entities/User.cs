@@ -4,12 +4,13 @@ using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class User : BaseUser
+    public class User  : Entity<long>, IAggregateRoot
     {
         /// <summary>
         /// Create a new user
@@ -96,6 +97,50 @@ namespace Cloudents.Core.Entities
         //    }
 
         //}
+
+      
+
+
+
+        public virtual string Name { get; protected set; }
+        public virtual string? SecurityStamp { get; set; }
+
+      
+        public virtual string? ImageName { get; protected set; }
+
+        public virtual string AuthenticatorKey { get; set; }
+
+        private readonly ICollection<Document> _documents = new List<Document>();
+        public virtual IEnumerable<Document> Documents => _documents;
+
+
+        public virtual DateTime Created { get; protected set; }
+
+        public virtual string Email { get; set; }
+        public virtual bool EmailConfirmed { get; set; }
+
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global Nhibernate
+        //public virtual bool Fictive { get; protected set; }
+
+
+       // public abstract void MakeTransaction(Transaction transaction);
+
+        public virtual CultureInfo Language { get; protected set; }
+
+        public virtual void ChangeLanguage(Language lang)
+        {
+            Language = lang;
+        }
+
+        public virtual string Country { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
+
+        public virtual byte[] Version { get; protected set; }
+
+       
+
+
+        //public abstract void AddFollower(User follower);
 
         public virtual void BecomeTutor()
         {
@@ -307,7 +352,7 @@ namespace Cloudents.Core.Entities
         //           $" {nameof(SbCountry)}: {SbCountry}";
         //}
 
-        public override void MakeTransaction(Transaction transaction)
+        public virtual void MakeTransaction(Transaction transaction)
         {
             Transactions.Add(transaction, this);
             AddEvent(new TransactionEvent(transaction, this));
@@ -324,7 +369,7 @@ namespace Cloudents.Core.Entities
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
 
-        public override void AddFollower(User follower)
+        public virtual void AddFollower(User follower)
         {
             if (this.Id == follower.Id)
             {
