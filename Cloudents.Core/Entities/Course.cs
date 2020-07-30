@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Entities
 {
@@ -21,10 +22,10 @@ namespace Cloudents.Core.Entities
 
             if (tutor.HasSubscription())
             {
-                SubscriptionPrice = new Money(0d,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+                SubscriptionPrice = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             }
-            Create =DateTime.UtcNow;
-            
+            Create = DateTime.UtcNow;
+
             Price = new Money(0d, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
         }
 
@@ -48,7 +49,7 @@ namespace Cloudents.Core.Entities
         public virtual void SetInitPrice()
         {
 
-            var amountInPoints = Documents.Where(w => w.DocumentPrice.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
+            var amountInPoints = Documents.Where(w => w.DocumentPrice?.Type == PriceType.HasPrice).Sum(d => d.DocumentPrice.Price);
             var fiatValue = new Money(amountInPoints * Tutor.User.SbCountry.ConversationRate, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
 
             var fiatStudyRoomCheck = StudyRooms.Select(s => s.Price).GroupBy(g => g.Currency).Select(s => new
@@ -57,7 +58,7 @@ namespace Cloudents.Core.Entities
                 v = s.DefaultIfEmpty().Aggregate((l, r) => l + r)
             });
 
-            if (fiatStudyRoomCheck.Count(c=>c.v.Cents> 0) > 1)
+            if (fiatStudyRoomCheck.Count(c => c.v.Cents > 0) > 1)
             {
                 throw new ArgumentException();
             }
@@ -74,17 +75,18 @@ namespace Cloudents.Core.Entities
                     Price = Price.ChangePrice(200);
                 }
             }
+
             if (Create == default)
             {
                 Create = DateTime.UtcNow;
             }
 
-            if (Price.Amount > 0  && Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
+            if (Price.Amount > 0 && Price.Amount < 5 && Tutor.User.SbCountry == Country.Israel)
             {
                 Price = new Money(5d, "ILS");
             }
 
-            
+
 
             if (Tutor.User.SbCountry == Country.India)
             {
@@ -94,19 +96,27 @@ namespace Cloudents.Core.Entities
             {
                 State = ItemState.Ok;
             }
-            if (Tutor.User.SbCountry == Country.Israel && Tutor.SellerKey == null && Price.Amount > 0 )
+            if (Tutor.User.SbCountry == Country.Israel && Tutor.SellerKey == null && Price.Amount > 0)
             {
                 State = ItemState.Pending;
             }
-
 
             if (Price.Cents == 0)
             {
                 State = ItemState.Ok;
             }
+            var purchasedDocumentsUsers = Documents.SelectMany(s => s.Transactions).Where(w => w.Type == TransactionType.Spent).Select(s => s.User);
 
-           
-           
+            foreach (var purchasedDocumentsUser in purchasedDocumentsUsers.DistinctBy(x => x.Id))
+            {
+                EnrollUser(purchasedDocumentsUser, "Old Data", Price.ChangePrice(0));
+            }
+
+            if (Documents.Count() == 0 && StudyRooms.All(a => a.BroadcastTime < DateTime.UtcNow && a.Schedule == null))
+            {
+                State = ItemState.Deleted;
+            }
+
         }
 
 
