@@ -4,7 +4,7 @@ import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
-   contentItems: [],
+   // contentItems: [],
    purchasesItems: [],
    balancesItems: [],
    studyRoomItems: [],
@@ -15,9 +15,9 @@ const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   setContentItems(state,val) {
-      state.contentItems = val;
-   },
+   // setContentItems(state,val) {
+   //    state.contentItems = val;
+   // },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
    },
@@ -30,13 +30,13 @@ const mutations = {
    setFollowersItems(state,val) {
       state.followersItems = val;
    },
-   dashboard_setName(state,{newName,itemId}){
-      state.contentItems.forEach(item =>{
-         if(item.id === itemId){
-            item.name = newName;
-         }
-      });
-   },
+   // dashboard_setName(state,{newName,itemId}){
+   //    state.contentItems.forEach(item =>{
+   //       if(item.id === itemId){
+   //          item.name = newName;
+   //       }
+   //    });
+   // },
    setSaleItem(state, sessionId) {
       //update on the fly in my-sales approve button
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
@@ -46,7 +46,7 @@ const mutations = {
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   getContentItems: state => state.contentItems,
+   // getContentItems: state => state.contentItems,
    getPurchasesItems: state => state.purchasesItems,
    getBalancesItems: state => state.balancesItems,
    getStudyRoomItems: state => state.studyRoomItems,
@@ -59,11 +59,11 @@ const actions = {
          commit('setSalesItems', items);
       });
    },
-   updateContentItems({commit}){
-      dashboardService.getContentItems().then(items=>{
-         commit('setContentItems', items);
-      });
-   },
+   // updateContentItems({commit}){
+   //    dashboardService.getContentItems().then(items=>{
+   //       commit('setContentItems', items);
+   //    });
+   // },
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);
@@ -84,9 +84,9 @@ const actions = {
          commit('setFollowersItems', items);
       });
    },
-   dashboard_updateName({commit},paramObj){
-      commit('dashboard_setName',paramObj);
-   },
+   // dashboard_updateName({commit},paramObj){
+   //    commit('dashboard_setName',paramObj);
+   // },
    dashboard_sort({state},{listName,sortBy,sortedBy}){
       if(sortBy == 'date' || sortBy == 'lastSession'){
          if(sortedBy === sortBy){

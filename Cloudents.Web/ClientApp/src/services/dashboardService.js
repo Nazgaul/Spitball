@@ -93,12 +93,12 @@ const Item = {
 //    return new Item.StudyRoom(objInit);
    
 // }
-function ContentItem(objInit){
-   return Object.assign(
-      new Item.Default(objInit),
-      new Item[itemTypeChecker(objInit.type)](objInit)
-   );
-}
+// function ContentItem(objInit){
+//    return Object.assign(
+//       new Item.Default(objInit),
+//       new Item[itemTypeChecker(objInit.type)](objInit)
+//    );
+// }
 function SalesItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
@@ -128,11 +128,11 @@ function createSalesItems({data}) {
 function createSalesSession({data}) {
    return new Item.SaleSession(data);
 }
-function createContentItems({data}) {
-   let contentItems = [];
-   data.map(item => contentItems.push(new ContentItem(item)));
-   return contentItems;
-}
+// function createContentItems({data}) {
+//    let contentItems = [];
+//    data.map(item => contentItems.push(new ContentItem(item)));
+//    return contentItems;
+// }
 function createPurchasesItems({data}) {
    return data.map(item=> new PurchasesItem(item));
 }
@@ -174,9 +174,9 @@ function updateSessionDuration(session){
    delete session.SessionId;
    return connectivityModule.http.post(`/Sales/session/${sessionId}`, session)
 }
-function getContentItems(){
-   return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
-}
+// function getContentItems(){
+//    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
+// }
 function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
@@ -205,7 +205,7 @@ export default {
    getSalesItems,
    getSalesSessions,
    updateSessionDuration,
-   getContentItems,
+   // getContentItems,
    getPurchasesItems,
    getStudyRoomItems,
    getFollowersItems,

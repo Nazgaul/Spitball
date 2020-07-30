@@ -178,7 +178,7 @@ export default {
                     color: colors.yellow,
                     text: this.$t('dashboardTeacher_link_text_upload'),
                     btnText: this.$t('dashboardTeacher_btn_text_upload'),
-                    routeName: { name: routeName.MyContent }
+                    routeName: { name: routeName.MyCourses }
                 },
             }
         }

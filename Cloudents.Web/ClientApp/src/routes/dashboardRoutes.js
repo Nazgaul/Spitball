@@ -37,9 +37,9 @@ export const dashboardRoutes = [
        },
    },
    {
-       path: "/my-content",
+       path: "/my-courses",
        components: dashboardPages,
-       name: "myContent",
+       name: "myCourses",
        props: {
            default: (route) => ({
                component: route.name,
@@ -50,6 +50,12 @@ export const dashboardRoutes = [
            requiresAuth: true,
            showMobileFooter: true,
        },
+   },
+   // this is route protect for reference to my-content
+   {
+       path: '/my-content',
+       name: 'myContent',
+       redirect: 'my-courses'
    },
    {
        path: "/my-purchases",
