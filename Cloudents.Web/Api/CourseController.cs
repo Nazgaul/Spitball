@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
             _commandBus = commandBus;
         }
 
-        [HttpGet("{id:long}")]
+        [HttpGet("{id:long}"),AllowAnonymous]
         public async Task<ActionResult<CourseDetailDto?>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
@@ -56,7 +56,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("{id:long}/enroll"), Authorize]
+        [HttpPost("{id:long}/enroll")]
         public async Task EnrollUpcomingEventAsync([FromRoute] long id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

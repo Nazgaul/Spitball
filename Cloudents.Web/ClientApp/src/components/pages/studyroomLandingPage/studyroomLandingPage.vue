@@ -28,7 +28,7 @@ import roomInfo from './roomInfo.vue';
 import sessionInfo from './sessionInfo.vue';
 import hostInfo from './hostInfo.vue';
 import logo from '../../app/logo/logo.vue';
-import roomThankYou from './roomThankYou.vue';
+const roomThankYou = () => import('./roomThankYou.vue');
 import courseItems from './courseItems.vue';
 
 export default {
