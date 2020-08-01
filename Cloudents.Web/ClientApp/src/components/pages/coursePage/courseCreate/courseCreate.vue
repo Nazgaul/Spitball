@@ -1,4 +1,4 @@
-<template>
+<template functional>
     <div class="createCourse mb-6 pa-5 d-flex align-center justify-space-between">
         <div class="createTitle" v-t="'create_course'"></div>
         <div>
@@ -15,7 +15,7 @@
             >
             </v-btn>
             <v-btn
-                @click="$emit('saveCourseInfo')"
+                @click="parent.saveCourseInfo()"
                 class="createCourseBtn white--text"
                 color="#4452fc"
                 width="132"
@@ -29,12 +29,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'createCourse',
-}
-</script>
-
 <style lang="less">
 @import '../../../../styles/mixin.less';
 @import '../../../../styles/colors.less';
@@ -45,7 +39,7 @@ export default {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     max-width: 1077px; // eidan request
     position: sticky;
-    z-index: 2;
+    z-index: 9;
     top: 70px;
     .createTitle {
         font-size: 20px;

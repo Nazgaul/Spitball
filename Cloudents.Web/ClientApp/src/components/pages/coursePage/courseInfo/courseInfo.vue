@@ -66,7 +66,6 @@
             :placeholder="$t('description_placeholder')"
             :rows="7"
             color="#304FFE"
-            dense
             outlined
             no-resize
         ></v-textarea>
@@ -137,7 +136,6 @@ export default {
         },
         followerPrice: {
             get() {
-                //TODO: need price
                 return this.$store.getters.getFollowerPrice
             },
             set(price) {
@@ -146,7 +144,6 @@ export default {
         },
         subscriberPrice: {
             get() {
-                //TODO: need price
                 return this.$store.getters.getSubscriberPrice
             },
             set(price) {
@@ -243,6 +240,7 @@ export default {
                 background-color: rgba(0,0,0,.6);
                 z-index: 1;
                 left: 0;
+
             }
             .liveImage {
                 border: solid 1px #c6cdda;

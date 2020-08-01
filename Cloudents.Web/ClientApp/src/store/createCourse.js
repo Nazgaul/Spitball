@@ -39,10 +39,6 @@ const mutations = {
     setNumberOfLecture(state, num) {
         state.numberOfLecture = num;
     },
-    removeLecture(state, index) {
-        state.numberOfLecture -= 1;
-        state.teachingDates.splice(index-1, 1)
-    },
     setCourseName(state, name) {
         state.courseName = name?.text || name
     },
@@ -61,6 +57,10 @@ const mutations = {
             hour: teachObj.hour || state.teachingDates[teachObj.index]?.hour,
             date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
+    },
+    removeLecture(state, index) {
+        state.numberOfLecture -= 1
+        state.teachingDates.splice(index-1, 1)
     },
     setVisibleFile(state, {val, item}) {
         item.visible = val
@@ -88,11 +88,7 @@ const actions = {
         
         console.log(params);
         
-        return courseInstance.post('', params).then(res => {
-            console.log(res);
-        }).catch(ex => {
-            console.error(ex);
-        })
+        return courseInstance.post('', params)
     }
 }
 

@@ -1,3 +1,4 @@
+import store from '../store'
 import { staticComponents } from './routesUtils'
 import { CourseCreate } from './routeNames'
 export const courseRoutes = [
@@ -34,5 +35,12 @@ export const courseRoutes = [
       meta: {
          requiresAuth: true,
       },
+      beforeEnter: (to, from, next) => {
+         if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
+             next()
+             return
+         }
+         next('/')
+     }
    }
 ]

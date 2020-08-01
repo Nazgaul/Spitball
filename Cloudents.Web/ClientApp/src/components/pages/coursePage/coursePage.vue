@@ -10,10 +10,21 @@
                     </div>
                     <courseUpload />
                 </div>
-                <courseSticky />
+                <div class="courseRightSide ms-6">
+                    <coursePublish />
+                    <coursePromote />
+                </div>
             </div>
         </v-form>
         <unSupportedFeature v-else />
+        <v-snackbar
+            v-model="showSnackbar"
+            :timeout="6000"
+            :color="snackObj.color"
+            top
+        >
+            <div>{{snackObj.text}}</div>
+        </v-snackbar>
     </div>
 </template>
 
@@ -25,19 +36,21 @@ import courseCreate from './courseCreate/courseCreate.vue';
 import courseInfo from './courseInfo/courseInfo.vue';
 import courseTeaching from './courseTeaching/courseTeaching.vue';
 import courseUpload from './courseUpload/courseUpload.vue';
-import courseSticky from './courseSticky/courseSticky.vue';
+import coursePublish from './coursePublish/coursePublish.vue';
+import coursePromote from './coursePromote/coursePromote.vue';
 
 import unSupportedFeature from './unSupportedFeature.vue';
 
 export default {
     components: {
-      courseCreate,
-      courseInfo,
-      courseTeaching,
-      courseUpload,
-      courseSticky,
+        courseCreate,
+        courseInfo,
+        courseTeaching,
+        courseUpload,
+        coursePublish,
+        coursePromote,
 
-      unSupportedFeature
+        unSupportedFeature
     },
     computed: {
         numberOfLecture() {
@@ -49,11 +62,16 @@ export default {
     },
     data() {
         return {
-            showServerError: false,
+            showSnackbar: false,
+            snackObj: {
+                color: '',
+                text: ''
+            },
             statusErrorCode: {
-                empty: this.$t('empty_file_or_studyroom'),
-                409: this.$t('duplicate'),
-                401: this.$t('401')
+                date: this.$t('invalid_date'),
+                studyRoomtext: this.$t('invalid_studyroom_text'),
+                file: this.$t('invalid_file'),
+                409: this.$t('invalid_409'),
             }
         }
     },
@@ -65,48 +83,73 @@ export default {
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
 
-                // validate if there was error in one of studyroom or a file
-                if(!documents || !studyRooms) {
-                    this.showServerError = true
+                // validate for error or both empty
+                if(documents === false && studyRooms === false) {
+                    this.showSnackbar = true
+                    this.snackObj.color = 'error'
                     return
                 }
 
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);
+                    this.snackObj.text = this.$t('success_create_course')
+                    this.snackObj.color = 'success'
                 }).catch(ex => {
-                    this.showServerError = true
                     console.error(ex);
+                    this.snackObj.text = this.statusErrorCode[ex.code]
+                    this.snackObj.color = 'error'
+                }).finally(() => {
+                    this.showSnackbar = true
                 })
             }
         },
         documentValidate(files) {
             if(!files.length) return false
 
-            return files.map(file => {
-                if(file.error) return false
+            let i, filesArr = []
+            for (i = 0; i < files.length; i++) {
+                const file = files[i];
 
-                return {
+                if(file.error) {
+                    this.snackObj.text = this.statusErrorCode['file']
+                    return false
+                }
+
+                filesArr.push({
                     blobName: file.blobName,
                     name: file.name,
                     visible: file.visible || false
-                }
-            })
+                })
+            }
+            return filesArr
         },
         studyroomValidate(studyRoomList) {
             if(!studyRoomList.length) return false
 
-            return studyRoomList.map(studyRoom => {
+            let i, studyRoomArr = []
+            for (i = 0; i < studyRoomList.length; i++) {
+                const studyRoom = studyRoomList[i];
                 let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);         
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
-                    if(!isValidDateToday) return false
+                    if(!isValidDateToday) {
+                        this.snackObj.text = this.statusErrorCode['date']
+                        return false
+                    }
                 }
-                return {
+
+                if(!studyRoom.text) {
+                    this.snackObj.text = this.statusErrorCode['studyRoomtext']
+                    return false
+                } 
+
+                studyRoomArr.push({
                     name: studyRoom.text,
                     date: userChooseDate
-                }
-            })
+                })
+            }
+            return studyRoomArr
         }
     },
     beforeDestroy(){
@@ -135,20 +178,12 @@ export default {
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         }
     }
-    // .v-textarea, .v-input {
-    //     .v-input__slot {
-    //         fieldset {
-    //             border: 1px solid #b8c0d1;
-    //         }
-    //         .v-label {
-    //             color: @global-purple;
-    //         }
-    //     }
-    //     &.error--text {
-    //         fieldset {
-    //             border: 2px solid #ff5252;
-    //         }
-    //     }
-    // }
+    .courseRightSide {
+        max-width: 296px;
+        width: 100%;
+        height: max-content;
+        position: sticky;
+        top: 170px;
+    }
 }
 </style>

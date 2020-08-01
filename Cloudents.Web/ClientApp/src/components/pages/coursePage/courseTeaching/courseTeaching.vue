@@ -14,6 +14,7 @@
             <v-text-field 
                 v-model="lectureTopic"
                 :label="$t('lecture_topic')"
+                :placeholder="$t('lecture_topic')"
                 height="50"
                 color="#304FFE"
                 autocomplete="off"
@@ -60,13 +61,14 @@
                 </v-menu>
             </v-col>
             <v-col cols="6" sm="4" >
+                <!-- {
+                        maxHeight: 200
+                    } -->
                 <v-select
                     v-model="hour"
                     class="roomHour ps-sm-5"
                     :items="timeHoursList"
-                    :menu-props="{
-                        maxHeight: 200
-                    }"
+                    menu-props="auto"
                     :label="$t('dashboardPage_labe_hours')"
                     height="50"
                     prepend-inner-icon="sbf-clockIcon"
@@ -128,7 +130,7 @@ export default {
     computed: {
         lectureTopic: {
             get() {
-                return this.$store.getters.getTeachLecture[this.index-1]?.text
+                return this.$store.getters.getTeachLecture[this.index-1]?.text || ''
             },
             set(text) {
                 this.$store.commit('setTeachLecture', {
