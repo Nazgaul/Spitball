@@ -5,12 +5,12 @@
             <div class="uf-uploading-text">
                 <span class="uf-bold" v-t="'upload_uf-uploading'"></span>
                 <span v-t="'upload_uf-take-time'"></span>
-                <span>{{files[0].progress}}&#37;</span>
+                <span>{{files[files.length-1].progress}}&#37;</span>
             </div>
-            <v-progress-linear color="success" v-model="files[0].progress"></v-progress-linear>
+            <v-progress-linear color="success" v-model="files[files.length-1].progress"></v-progress-linear>
         </div>
+
         <div class="uf-upload-screen-container" :class="{'dragActive': isDraggin}" v-show="!uploadStarted">
-            
             <template v-if="!isDraggin && !isMobile">
                 <span class="uf-sDrop-title" v-t="'upload_uf_sDrop_title'"></span>
                 <span class="uf-sDrop-or" v-t="'upload_uf_sDrop_or'"></span>
@@ -27,7 +27,7 @@
                         depressed
                         rounded
                     >
-                        <v-icon v-html="'sbf-upload-dropbox'"></v-icon>
+                        <v-icon>sbf-upload-dropbox</v-icon>
                         <span v-t="'upload_uf_sDrop_btn_dropbox'"></span>
                     </v-btn>
                 </template>
@@ -39,12 +39,10 @@
                     id="upload-input"
                     class="file-upload-cmp"
                     :drop="true"
-                    :post-action="uploadUrl"
                     style="top: unset;"
                     :multiple="true"
                     :timeout="600 * 10000"
                     :chunk-enabled="true"
-                    
                     :chunk="{
                         action: uploadUrl,
                         minSize: 1,
@@ -52,7 +50,7 @@
                     }">
                 </file-upload>
                 <v-btn v-if="!isDraggin" class="uf-sDrop-btn" color="white" depressed rounded sel="my_computer">
-                    <v-icon v-html="isMobile ? 'sbf-phone' : 'sbf-pc'"></v-icon>
+                    <v-icon>{{isMobile ? 'sbf-phone' : 'sbf-pc'}}</v-icon>
                     <span> {{isMobile? $t('upload_uf_sDrop_btn_local_mobile') : $t('upload_uf_sDrop_btn_local')}} </span>
                 </v-btn>
             </div>
@@ -61,49 +59,45 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
-import uploadService from "../../../services/uploadService";
-import analyticsService from '../../../services/analytics.service';
-
 import FileUpload from 'vue-upload-component';
 
 export default {
     name: "upload-step-1",
-    components: {FileUpload},
+    components: { FileUpload },
     data() {
         return {
             isDraggin: false,
             uploadUrl: '/api/Document/upload',
             dbReady: false,
             files: [],
-            showErrorUpload: '',
             errorText: '',
             uploadStarted: false,
-            progress: 0,
         }
     },
     computed: {
-        ...mapGetters(['getFileData']),
+        filesList() {
+            return this.$store.getters.getFileData
+        },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
         isError(){
-            return this.getFileData.every(item => item.error)
-        },
-        // errorFile(){
-        //     return !!(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError);
-        // }
+            return this.filesList.every(item => item.error)
+        }
     },
     watch:{
         isError(hasError){
-            if(this.getFileData && this.getFileData.length && this.getFileData[0].error && hasError) {
+            if(this.filesList && this.filesList.length && this.filesList[0].error && hasError) {
                 this.uploadStarted = false;
+            }
+        },
+        filesList(files) {
+            if(!files.length) {
+                this.$emit('handleLoadFiles', false)
             }
         }
     },
     methods: {
-        ...mapActions(['updateFile', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById']),
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
@@ -124,25 +118,13 @@ export default {
         },
         DbFilesList() {
             const self = this;
-            let singleFile;
             let options = {
                 success: (files) => {
                     files.forEach((item) => {
-                        //create obj for server and send
-                        let serverFile = uploadService.createServerFileData(item);
-                        uploadService.uploadDropbox(serverFile)
-                            .then((response) => {
-                                    //get blob name in resp and create client side formatted obj
-                                    item.blobName = response.data.fileName ? response.data.fileName : '';
-                                    singleFile = uploadService.createFileData(item);
-                                    self.updateFile(singleFile);
-                                    this.uploadStarted = false
-                                },
-                                error => {
-                                    console.log('error drop box api call', error)
-                            })
+                        this.$store.dispatch('uploadDropbox', item).then(() => {
+                            self.uploadStarted = false
+                        })
                     });
-
                 },
                 cancel: function (error) {
                     console.log('canceled!!!', error)
@@ -157,27 +139,30 @@ export default {
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
             if(newFile) {
-                // Upload progress
-                if (newFile.progress === 100) {
-                    this.stopUploadProgress(newFile)
-                    this.uploadStarted = false
-                }
                 // happens once file is added and upload starts
                 if (!oldFile) {
-                    this.addFile(newFile, oldFile)
+                    this.addFile(newFile)
                 } else {
+                    // Upload progress
+                    if (newFile.progress !== oldFile.progress) {
+                        this.$store.commit('setUploadProgress', newFile)
+                    }
                     // Upload error
                     if (newFile.error !== oldFile.error) {
-                        this.uploadingError(newFile, oldFile)
+                        this.uploadingError(newFile)
                         this.uploadStarted = false
                     }
                     // Get response data
                     if (!newFile.active && oldFile.active) {
-                        this.getResponse(newFile, oldFile)
+                        this.getResponse(newFile)
                     }
                     if (newFile.success !== oldFile.success) {
-                        if (this.$refs.upload.active) {
-                            //TODO
+                        this.uploadStarted = false
+                        this.$store.commit('setUploadProgress', newFile)
+                        let filesEnd = this.filesList.every(file => file.progress === 100 || !file.error)
+                        if(filesEnd) {
+                            this.$emit('handleLoadFiles', true)
+
                         }
                     }
                 }
@@ -193,8 +178,7 @@ export default {
             newFile.blob = '';
             let URL = window.URL || window.webkitURL;
             if (URL && URL.createObjectURL) {
-                let singleFile = uploadService.createFileData(newFile);
-                this.updateFile(singleFile);
+                this.$store.commit('addFile', newFile)
             }
         },
         uploadingError(newFile) {
@@ -205,33 +189,23 @@ export default {
                 id: newFile.id,
                 error: true
             };
-            this.showErrorUpload = newFile.response.model[0];
-            this.updateFileErrorById(fileErrorObj);
-            // add this file is not bla bla bla
-            if(this.getFileData.length === 1){
-                // this.deleteFileByIndex(index);
-            }
+            this.$store.commit('updateErrorByID', fileErrorObj)
         },
         getResponse(newFile) {
             // Get response data
-            if (newFile.status && newFile.status.toLowerCase() === 'success') {
-                //  Get the response status code
-                console.log('status', newFile.status)
-            }
             if (newFile && newFile.response && newFile.response.status === 'success') {
-                //generated blob name from server after successful upload
-                let name = newFile.response.fileName;
+                // generated blob name from server after successful upload
                 let fileData = {
                     id: newFile.id,
-                    blobName: name
+                    blobName: newFile.response.fileName
                 };
-                this.setFileBlobNameById(fileData);
+                this.$store.commit('updateBlobName', fileData)
             }
         }
     },
     created() {
         this.loadDropBoxSrc(); // load Drop box script
-        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_START');
+        this.$ga.event('STUDY_DOCS', 'DOC_UPLOAD_START');
     },
     mounted() {
         let uploadArea = document.querySelector('.uf-sDrop-container')
@@ -253,18 +227,14 @@ export default {
 </script>
 
 <style lang="less">
-    @import "../../../styles/mixin.less";
+@import "../../../styles/mixin.less";
+@import "../../../styles/colors.less";
+
 .uf-sDrop-container {
     padding: 12px;
     border-radius: 6px;
     border: dashed 2px #d8d8df;
     height: 194px;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    // color: @global-blue;
-    // position: relative;
     @media (max-width: @screen-xs) {
         height: unset;
         border: none;
@@ -272,33 +242,23 @@ export default {
     &.uf-sDrop-container-active{
         border: dashed 2px @global-blue;
     }
-    .uf-uploading-container{
-        .uf-uploading-text{
+    .uf-uploading-container {
+        .uf-uploading-text {
             color: #000;
             display: flex;
             flex-direction: column;
             align-items: center;
-            .uf-bold{
+            .uf-bold {
                 font-weight: bold;
                 font-size:18px;
             }
         }
-        .v-progress-linear{
+        .v-progress-linear {
             margin: 10px 0;
             border-radius: 4px;
-            // width: 350px;
-            // @media (max-width: @screen-xs) {
-            //     width: 250px;
-            // }
         }
     }
-    
-    .file-upload-cmp-area{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-    .uf-sDrop-drop{
+    .uf-sDrop-drop {
         font-size: 24px;
         font-weight: 600;
         height: 100%;
@@ -307,7 +267,6 @@ export default {
     }
     .uf-upload-screen-container {
         padding: 10px;
-        // padding-bottom: 30px;
         background: #f0f4f8;
         border-radius: 6px;
         display: flex;
@@ -318,86 +277,85 @@ export default {
         &.dragActive {
             display: none;
         }
-    .uf-sDrop-title{
-        font-size: 18px;
-        margin-top: 16px;
-        color: rgba(67, 66, 93, 0.56);
-    }
-    .uf-sDrop-or{
-        padding-top: 18px;
-        padding-right: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.75;
-        letter-spacing: -0.3px;
-        color: @global-purple;
-    }
-    .uf-sDrop-btns{
-        position: relative;
-        @media (max-width: @screen-xs) {
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: center;
-            margin-top: 30px;
+        .uf-sDrop-title {
+            font-size: 18px;
+            margin-top: 16px;
+            color: rgba(67, 66, 93, 0.56);
         }
-        .v-btn{
-            &:before {
-            background-color: transparent !important;
-            transition: none !important;
-            }
-            min-width: 150px;
+        .uf-sDrop-or {
+            padding-top: 18px;
+            padding-right: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.75;
+            letter-spacing: -0.3px;
+            color: @global-purple;
+        }
+        .uf-sDrop-btns {
+            position: relative;
             @media (max-width: @screen-xs) {
-              min-width: 244px;
-              height: 54px !important;
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: center;
+                margin-top: 30px;
             }
-            height: 40px !important;
-            text-transform: capitalize !important;
-            margin-left: 0;
-            margin-right: 0;
-            .v-btn__content{
-                align-items: normal;
+            .v-btn {
+                min-width: 150px;
+                height: 40px !important;
+                text-transform: capitalize !important;
+                margin-left: 0;
+                margin-right: 0;
                 @media (max-width: @screen-xs) {
-                    align-items: center;
+                    min-width: 244px;
+                    height: 54px !important;
                 }
-                .v-icon{
-                    margin-right: 10px !important;
-                    font-size: 20px;
+                &:before {
+                    background-color: transparent !important;
+                    transition: none !important;
+                }
+                .v-btn__content {
+                    align-items: normal;
                     @media (max-width: @screen-xs) {
-                        margin-right: 14px !important;
-                        font-size: 30px;
+                        align-items: center;
+                    }
+                    .v-icon {
+                        margin-right: 10px !important;
+                        font-size: 20px;
+                        @media (max-width: @screen-xs) {
+                            margin-right: 14px !important;
+                            font-size: 30px;
+                        }
                     }
                 }
             }
-        }
-        .file-upload-cmp {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            right: 0;
-            bottom: 0!important;
-            label {
-                cursor: pointer;
+            .file-upload-cmp {
+                position: absolute;
+                width: 50%;
+                height: 100%;
+                right: 0;
+                bottom: 0!important;
+                label {
+                    cursor: pointer;
+                }
+                @media (max-width: @screen-xs) {
+                    width: 100%;
+                    height: 50%;
+                    top: 0 !important;
+                }
             }
-            @media (max-width: @screen-xs) {
-                width: 100%;
-                height: 50%;
-                top: 0 !important;
+            .uf-sDrop-btn {
+                color: @global-blue;
+                // border: 1px solid @global-blue !important;
+                @media (max-width: @screen-xs) {
+                    font-size: 16px;
+                }
+                font-size: 14px;
+                font-weight: 600;
+                letter-spacing: -0.26px;
             }
         }
-        .uf-sDrop-btn{
-            color: @global-blue;
-            // border: 1px solid @global-blue !important;
-            @media (max-width: @screen-xs) {
-                font-size: 16px;
-            }
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: -0.26px;
-        }
-    }
-    
     }
 }
 </style>

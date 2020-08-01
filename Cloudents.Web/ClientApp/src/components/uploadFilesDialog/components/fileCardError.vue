@@ -15,42 +15,27 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 export default {
-    name: "fileCard",
+    name: "fileCardError",
     props: {
         singleFileIndex: {
             type: Number,
             required: true
         }
     },
-    watch: {
-        item: {
-            deep: true,
-            handler(newVal) {
-                let fileObj = {
-                    index: this.singleFileIndex,
-                    data: newVal
-                };
-                this.changeFileByIndex(fileObj);
-            }
-        }
-    },
     computed: {
-        ...mapGetters(['getFileData']),
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
         item() {
-            return this.getFileData[this.singleFileIndex]
+            return this.$store.getters.getFileData[this.singleFileIndex]
         }
     },
     methods: {
-        ...mapActions(['changeFileByIndex', 'deleteFileByIndex']),
         deleteFile() {
-            this.deleteFileByIndex(this.singleFileIndex)
+            this.$store.commit('deleteFileByIndex', this.singleFileIndex)
         }
-    },
+    }
 }
 </script>
 
