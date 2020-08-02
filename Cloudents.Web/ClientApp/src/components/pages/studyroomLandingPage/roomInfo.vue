@@ -50,12 +50,10 @@
          </v-skeleton-loader>
          <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
       </div>
-        <stripe ref="stripe"></stripe>
    </div>
 </template>
 
 <script>
-import stripe from "../global/stripe.vue";
 
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
@@ -63,7 +61,7 @@ import * as routeNames from '../../../routes/routeNames';
 import EventBus from '../../../eventBus.js';
 
 export default {
-   components:{logo,sessionStartCounter,stripe},
+   components:{logo,sessionStartCounter},
    data() {
       return {
          isSessionNow:false,
@@ -89,23 +87,6 @@ export default {
          });
          global.open(routeData.href, "_self");
       },
-      async goStripe() {
-         let session = {
-          //  userId: this.$store.getters.accountUser?.id,
-            studyRoomId: this.$route.params?.id
-         };
-         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
-         this.$refs.stripe.redirectToStripe(x);
-      },
-      async goPayme() {
-         let session = {
-          //  userId: this.$store.getters.accountUser?.id,
-            studyRoomId: this.$route.params?.id
-         };
-         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
-         location.href = x;
-      },
-
       async enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
@@ -113,19 +94,8 @@ export default {
          }
          if(this.loadingBtn) return;
          this.loadingBtn = true;
-
          let courseId = this.$route.params?.id;
-         if (this.coursePrice.amount) {
-            
-            if (this.tutorCountry !== 'IL'){
-               this.goStripe()
-               return;
-            }
-            this.goPayme();
-            return;
-         }
          let self = this
-
          this.$store.dispatch('updateEnrollCourse', courseId)
             .finally(()=>{
                self.loadingBtn = false;
@@ -178,11 +148,7 @@ export default {
    },
    mounted() {
       EventBus.$on('applyCouponDone',()=>{
-         if (this.coursePrice?.amount && this.tutorCountry !== 'IL') {
-            this.goStripe()
-         }else{
-            this.enrollSession()
-         }
+         this.enrollSession()
       });
    },
    beforeDestroy() {
