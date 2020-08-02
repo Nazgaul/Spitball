@@ -12,9 +12,6 @@
 
                <div>{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
             </div>
-            <div v-else class="pb-2">
-               {{$moment(courseDate).format('MMMM Do, h:mm a')}}
-            </div>
             <div v-if="!isMobile && coursePrice && coursePrice.amount">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
             </div>
@@ -31,14 +28,16 @@
             <div v-if="isMobile && coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
              </div>
+
             <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
             :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
             <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{isRoomFull? $t('room_full') : $t('save_spot') }}
+               {{enrollBtnText}}
             </v-btn>
             <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+        
          </div>
          <div class="bottomLeft" v-if="courseDetails">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
@@ -120,6 +119,13 @@ export default {
       },
       coursePrice(){
          return this.$store.getters.getCoursePrice;
+      },
+      enrollBtnText(){
+         if(this.isRoomFull){
+            return this.$t('room_full')
+         }else{
+            return this.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+         }
       },
       tutorName(){
          return this.courseDetails?.tutorName;

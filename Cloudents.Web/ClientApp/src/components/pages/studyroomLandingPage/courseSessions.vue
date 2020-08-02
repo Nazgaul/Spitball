@@ -1,5 +1,5 @@
 <template>
-    <div class="courseSession my-7" v-if="true">
+    <div class="courseSession my-7" v-if="sessions.length">
         <div class="courseSessionTitle mb-3" v-t="'live_lecture'"></div>
         <div class="courseSessionWrapper">
             <div class="courseSessionRow mb-5 d-flex" v-for="(session, index) in sessions" :key="index">

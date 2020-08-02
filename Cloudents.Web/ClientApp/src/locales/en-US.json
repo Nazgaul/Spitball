@@ -223,6 +223,7 @@
   "formErrors_positive_only": "Minimum value is",
   "formErrors_required": "This field is required",
   "free": "Free",
+  "free_enroll": "\"free\" txt here",
   "got_it": "Got it",
   "headerSlots_phoneNumberSlot_text": "",
   "header_balance": "Balance: {0} Pts",

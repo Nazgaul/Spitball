@@ -1,5 +1,5 @@
 <template>
-   <div class="courseItems mt-7 py-5">
+   <div class="courseItems mt-7 py-5" v-if="courseItemsList.length">
       <div class="courseTitle">{{$t('courseItemsTitle')}}</div>
       <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
       <div class="courseSubtitle pt-4 pb-11 pe-12">{{$t('courseItemsAccsess')}}</div>
