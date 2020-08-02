@@ -99,6 +99,12 @@ export default {
    //    }
       .roominfoHeader {
         // background: red;
+         @media(max-width: @screen-xs) {
+            padding: 0;
+            background-image: none;
+
+         }
+
           background-image: url('./images/Landing-page_small.jpg');
           padding:16px;
           padding-bottom: 60px;
