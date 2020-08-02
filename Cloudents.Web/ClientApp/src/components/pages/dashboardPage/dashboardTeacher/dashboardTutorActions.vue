@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <img src="./images/video-banner@3x.png" v-if="!isMobile" @click="startVideo" width="250" height="150" alt="Spitball How It Works">
-                <video class="dashboardVideo"  v-else @click="startVideo" :controls="controls" :autoplay="autoplay" playsinline :src="onBoardingVideo" width="250" height="150" poster="./images/video-banner@3x.png"></video>
+                <img src="./images/video-banner@3x.png" v-if="!isMobile" @click="startVideo" width="300" height="180" alt="Spitball How It Works">
+                <video class="dashboardVideo"  v-else @click="startVideo" :controls="controls" :autoplay="autoplay" playsinline :src="onBoardingVideo" width="300" height="180" poster="./images/video-banner@3x.png"></video>
             </div>
         </div>
 
