@@ -64,6 +64,15 @@ const actions = {
     // getStripeSecret() {
     //     return walletService.getStripeSecret()
     // }
+    goStripe({getters},x){
+        this._vm.$loadScript("https://js.stripe.com/v3/?advancedFraudSignals=false").then(async() => {
+            const stripePromise = window.Stripe(getters.getStripeToken);
+            const stripe = await stripePromise;
+            await stripe.redirectToCheckout({
+                sessionId: x,
+            });
+        })
+    }
 };
 
 export default {

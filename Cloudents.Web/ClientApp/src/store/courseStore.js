@@ -58,7 +58,6 @@ const getters = {
 }
 const actions = {
   updateCourseDetails({ commit }, courseId) {
-    console.log(ENROLLED_ERROR)
     if (courseId) {
       courseInstance.get(`${courseId}`).then(({ data }) => {
         commit('setCourseDetails', data)
@@ -67,7 +66,21 @@ const actions = {
       commit('setCourseDetails', null)
     }
   },
-  updateEnrollCourse({commit}, courseId) {
+  async updateEnrollCourse({commit,getters,dispatch}, courseId) {
+    if(getters.getCoursePrice?.amount){
+      let session = {
+        studyRoomId: courseId
+      };
+      if(getters.getCourseDetails?.tutorCountry !== 'IL' ){
+        let x = await dispatch('updateStudyroomLiveSessionsWithPrice', session);
+        dispatch('goStripe',x)
+        return;
+      }else{
+        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
+        location.href = x;
+        return;
+      }
+    }
     return courseInstance.post(`${courseId}/enroll`)
       .then(() => {
         commit('setCourseEnrolled',true);
