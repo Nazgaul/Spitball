@@ -2,9 +2,9 @@
    <div class="courseItems mt-7 py-5" v-if="courseItemsList.length">
       <div class="courseTitle">{{$t('courseItemsTitle')}}</div>
       <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
-      <div class="courseSubtitle pt-4 pb-11 pe-12">{{$t('courseItemsAccsess')}}</div>
+      <div class="courseSubtitle pt-4 pb-8 pe-12">{{$t('courseItemsAccsess')}}</div>
       <v-row class="itemsWrapper">
-         <v-col v-for="(item) in itemToPreview" :key="item.id" cols="12" md="3">
+         <v-col v-for="(item) in itemToPreview" :key="item.id" cols="12" sm="6" md="3">
             <itemCard :item="item"/>
          </v-col>
       </v-row>
