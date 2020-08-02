@@ -59,7 +59,6 @@ import stripe from "../global/stripe.vue";
 
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
-import * as componentConsts from '../global/toasterInjection/componentConsts.js';
 import * as routeNames from '../../../routes/routeNames';
 import EventBus from '../../../eventBus.js';
 
@@ -115,12 +114,7 @@ export default {
          if(this.loadingBtn) return;
          this.loadingBtn = true;
 
-         let userId = this.$store.getters.accountUser?.id;
-         let studyRoomId = this.$route.params?.id;
-         let session = {
-            userId,
-            studyRoomId
-         }
+         let courseId = this.$route.params?.id;
          if (this.coursePrice.amount) {
             
             if (this.tutorCountry !== 'IL'){
@@ -131,13 +125,9 @@ export default {
             return;
          }
          let self = this
-         this.$store.dispatch('updateStudyroomLiveSessions', session)
-            .then(() => {
-               self.$store.commit('setCourseEnrolled',true);
-            }).catch(ex => {
-               self.$store.commit('setComponent',componentConsts.ENROLLED_ERROR);
-               self.$appInsights.trackException(ex);
-            }).finally(()=>{
+
+         this.$store.dispatch('updateEnrollCourse', courseId)
+            .finally(()=>{
                self.loadingBtn = false;
             })
       }

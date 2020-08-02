@@ -35,6 +35,9 @@ export default () => {
           sessionStorage.clear()
         }
       }
+      if(mutation.type === 'trackException') {
+        store._vm.$appInsights.trackException(mutation.payload);
+      }
     })
   }
 }
