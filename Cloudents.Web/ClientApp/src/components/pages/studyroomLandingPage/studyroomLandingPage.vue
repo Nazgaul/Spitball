@@ -11,7 +11,7 @@
                   <roomInfo class="content"/>
                </div>
                <sessionInfo  class="content"/>
-
+               <courseSessions class="content" />
                <courseItems  class="content"/>
                <hostInfo  class="content"/>
             </v-window-item>
@@ -31,6 +31,7 @@ import hostInfo from './hostInfo.vue';
 import logo from '../../app/logo/logo.vue';
 const roomThankYou = () => import('./roomThankYou.vue');
 import courseItems from './courseItems.vue';
+import courseSessions from './courseSessions.vue';
 
 export default {
    components:{
@@ -40,6 +41,7 @@ export default {
       logo,
       roomThankYou,
       courseItems,
+      courseSessions
    },
    computed: {
       isMobile(){
