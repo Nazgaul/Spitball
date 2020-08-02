@@ -37,7 +37,7 @@ function DocumentObject(objInit){
         amount: objInit.details.subscriptionPrice?.amount,
         currency: objInit.details.subscriptionPrice?.currency
     }
-    this.courseId = objInit.courseId;
+    this.courseId = objInit.details.courseId;
 
     this.userId = objInit.details.userId;
     this.userName = objInit.details.userName;
@@ -53,9 +53,6 @@ export default {
     // },
     async sendDocumentData(data){ 
         return await documentInstance.post('',data)
-    },
-    async purchaseDocument(id){ 
-        return await documentInstance.post('purchase',{id})
     },
     async getDocument(id){ 
         let {data} = await documentInstance.get(`${id}`)

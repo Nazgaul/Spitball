@@ -5,7 +5,6 @@
         <mainItem :document="getDocumentDetails"></mainItem>
       </div>
     </div>
-    <unlockDialog :document="getDocumentDetails"></unlockDialog>
   </div>
 </template>
 
@@ -14,13 +13,11 @@ import { mapActions, mapGetters } from "vuex";
 
 // components
 import mainItem from "./components/mainItem/mainItem.vue";
-import unlockDialog from "./components/dialog/unlockDialog.vue";
 
 export default {
   name: "itemPage",
   components: {
     mainItem,
-    unlockDialog,
   },
   props: {
     id: {}
