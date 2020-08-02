@@ -23,7 +23,7 @@
             :color="snackObj.color"
             top
         >
-            <div>{{snackObj.text}}</div>
+            <div class="white--text">{{snackObj.text}}</div>
         </v-snackbar>
     </div>
 </template>
@@ -89,7 +89,6 @@ export default {
                     this.snackObj.color = 'error'
                     return
                 }
-
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);
                     this.snackObj.text = this.$t('success_create_course')
