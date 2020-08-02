@@ -80,8 +80,7 @@ export default {
 .dashboardPage{
    padding: 30px;
 	@media (max-width: @screen-xs) {
-      padding-left: 6px;
-      padding-right: 6px;
+      padding: 8px 0;
       width: 100%;
       height: 100%;
    }
