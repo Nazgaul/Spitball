@@ -2,14 +2,14 @@
     <div class="courseSession my-7" v-if="true">
         <div class="courseSessionTitle mb-3" v-t="'live_lecture'"></div>
         <div class="courseSessionWrapper">
-            <div class="courseSessionRow d-flex" v-for="(session, index) in sessions" :key="index">
+            <div class="courseSessionRow mb-5 d-flex" v-for="(session, index) in sessions" :key="index">
                 <div class="courseSessionLeft text-center white--text d-sm-block d-flex flex-column justify-center">
                     <div class="courseSessionDay">{{$moment(session.dateTime).format('D')}}</div>
                     <div class="courseSessionMonth">{{$moment(session.dateTime).format('MMM')}}</div>
                 </div>
                 <div class="courseSessionRight mx-4 my-auto py-2">
                     <div class="d-sm-flex mb-2">
-                        <div class="courseSessionLecture flex-shrink-0">Live Lecture 1:</div>
+                        <div class="courseSessionLecture flex-shrink-0">{{$t('live_le',[index+1])}}</div>
                         <div class="courseSessionDescription ms-sm-2">Learn how to effectively search for a quality online</div>
                     </div>
                     <div class="d-flex">

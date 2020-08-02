@@ -266,6 +266,8 @@
   "leaveReview_title_step1": "Rate and Review",
   "leaveReview_title_step2": "Thank you, your score was recorded",
   "live payment": "Live Class Payment",
+  "live_le": "Live Lecture {0} :",
+  "live_lecture": "Live lectures",
   "live_times": "{n} live session | {n} live sessions",
   "live_with": "Join a Course with {0}",
   "localAudioSend": "local Audio Send: {0}",

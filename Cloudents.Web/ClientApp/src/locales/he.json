@@ -266,6 +266,8 @@
   "leaveReview_title_step1": "ציון כללי וחוות דעת",
   "leaveReview_title_step2": "נפלא, הענקתם ציון!",
   "live payment": "",
+  "live_le": "הרצאה חיה {0}:",
+  "live_lecture": "הרצאות חיות",
   "live_times": "{n} שידור חי | {n} שידורים חיים",
   "live_with": "הצטרף לקורס עם {0}",
   "localAudioSend": "שמע מקומי: {0}",
