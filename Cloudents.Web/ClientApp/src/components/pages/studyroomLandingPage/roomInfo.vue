@@ -278,6 +278,8 @@ export default {
                }
             }
             .couponText{
+               min-width: fit-content !important;
+               margin: 0 auto;
                font-size: 20px;
                color: #1b2441;
                text-decoration: underline;
