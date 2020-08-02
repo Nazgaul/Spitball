@@ -82,8 +82,8 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage,
             isPublish: state.courseVisible,
-            studyRooms,
-            documents
+            studyRooms: studyRooms === false ? undefined : studyRooms,
+            documents: documents === false ? undefined : documents
         }
         
         console.log(params);
