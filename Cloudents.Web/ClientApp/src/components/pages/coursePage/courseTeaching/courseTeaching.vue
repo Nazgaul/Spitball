@@ -24,8 +24,8 @@
             </v-text-field>
         </div>
 
-        <v-row class="sessionDetails ma-0 pa-0 mb-3" no-gutters>
-            <v-col cols="6" sm="4" >
+        <v-row class="sessionDetails ma-0 pa-0 mb-3 flex-wrap" no-gutters>
+            <v-col cols="6" md="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
                 <!-- :rules="[rules.required]" -->
@@ -60,7 +60,7 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-            <v-col cols="6" sm="4" >
+            <v-col cols="6" md="4" >
                 <!-- {
                         maxHeight: 200
                     } -->
