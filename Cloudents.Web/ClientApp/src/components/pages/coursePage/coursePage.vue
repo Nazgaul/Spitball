@@ -23,7 +23,7 @@
             :color="snackObj.color"
             top
         >
-            <div class="white--text">{{snackObj.text}}</div>
+            <div class="white--text text-center">{{snackObj.text}}</div>
         </v-snackbar>
     </div>
 </template>
