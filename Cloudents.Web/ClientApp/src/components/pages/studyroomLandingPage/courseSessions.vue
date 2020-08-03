@@ -14,7 +14,7 @@
                     </div>
                     <div class="d-flex">
                         <v-icon size="18">sbf-clockIcon</v-icon>
-                        <div class="courseSessionTime ms-2">{{$moment(session.dateTime).format('h:mm a')}}</div>
+                        <div class="courseSessionTime ms-2">{{$moment(session.dateTime).format('HH:mm')}}</div>
                     </div>
                 </div>
             </div>

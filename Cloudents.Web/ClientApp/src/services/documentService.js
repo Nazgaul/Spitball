@@ -51,7 +51,6 @@ export default {
     // async deleteDoc(id){ 
     //    return await documentInstance.delete(`${id}`)
     // },
-    },
     async getDocument(id){ 
         let {data} = await documentInstance.get(`${id}`)
 
