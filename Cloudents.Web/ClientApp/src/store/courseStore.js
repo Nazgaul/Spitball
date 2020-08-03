@@ -8,11 +8,13 @@ const courseInstance = axios.create({
 courseInstance.interceptors.response.use(
   response => response,
   error => {
-    if (error.response.status === 404) {
+    if(error.response.status === 401){
+      global.location = '/?authDialog=register';
+    } else if(error.response.status === 404) {
       global.location = '/error/notfound';
-      return;
+    } else{
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
  }
 );
 
