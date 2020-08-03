@@ -92,5 +92,16 @@ namespace Cloudents.Core.Entities
             }
         }
 
+        public virtual void SubscribeToAllStudyRooms()
+        {
+            foreach (var courseEnrollment in _courseEnrollments)
+            {
+                foreach (var broadCastStudyRoom in _studyRooms)
+                {
+                    broadCastStudyRoom.AddUserToStudyRoom(courseEnrollment.User);
+                }
+            }
+        }
+
     }
 }

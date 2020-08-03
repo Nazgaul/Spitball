@@ -13,7 +13,6 @@ namespace Cloudents.Command.Courses
     public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand>
     {
         private readonly IRepository<Tutor> _tutorRepository;
-        //private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
         private readonly IStudyRoomBlobProvider _blobProvider;
         private readonly IGoogleDocument _googleDocument;
         private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
