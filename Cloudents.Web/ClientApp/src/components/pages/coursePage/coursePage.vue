@@ -198,20 +198,27 @@ export default {
         position: sticky;
         top: 170px;
     }
-    // .v-textarea, .v-input {
-    //     .v-input__slot {
-    //         fieldset {
-    //             border: 1px solid #b8c0d1;
-    //         }
-    //         .v-label {
-    //             color: @global-purple;
-    //         }
-    //     }
-    //     &.error--text {
-    //         fieldset {
-    //             border: 2px solid #ff5252;
-    //         }
-    //     }
-    // }
+
+    // Shiran design colors for border input's
+    .v-textarea, .v-input {
+        .v-input__slot {
+            fieldset {
+                border: 1px solid #b8c0d1;
+            }
+            .v-label {
+                color: @global-purple;
+            }
+        }
+        &.error--text {
+            fieldset {
+                border: 2px solid #ff5252;
+            }
+        }
+    }
+    .v-input--is-focused:not(.error--text) {
+        fieldset {
+            border: 2px solid #304FFE !important;
+        }
+    }
 }
 </style>
