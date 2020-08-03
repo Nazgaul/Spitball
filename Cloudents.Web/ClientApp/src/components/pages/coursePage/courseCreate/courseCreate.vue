@@ -4,7 +4,7 @@
         <div>
             <v-btn
                 class="createCourseBtn cancelBtn me-3"
-                to="/"
+                :to="{name: parent.courseRoute}"
                 color="#fff"
                 width="132"
                 height="40"
