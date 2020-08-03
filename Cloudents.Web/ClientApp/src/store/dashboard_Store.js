@@ -1,9 +1,11 @@
+import axios from 'axios'
+
 import dashboardService from '../services/dashboardService.js';
 import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
-   // contentItems: [],
+   contentItems: [],
    purchasesItems: [],
    studyRoomItems: [],
    followersItems: [],
@@ -13,9 +15,24 @@ const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   // setContentItems(state,val) {
-   //    state.contentItems = val;
-   // },
+   setContentItems(state, data) {
+      function ContentItem(objInit) {
+         this.documents = objInit.documents
+         this.id = objInit.id
+         this.image = objInit.image
+         this.isPublish = objInit.isPublish
+         this.lessons = objInit.lessons
+         this.name = objInit.name
+         this.price = objInit.price
+         this.users = objInit.users
+         this.type = objInit.type;
+         this.startOn = objInit.start ? new Date(objInit.start) : '';
+      }
+      for (let i = 0; i < data.length; i++) {
+         state.contentItems.push(new ContentItem(data[i]));
+      }
+      
+   },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
    },
@@ -41,7 +58,7 @@ const mutations = {
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   // getContentItems: state => state.contentItems,
+   getContentItems: state => state.contentItems,
    getPurchasesItems: state => state.purchasesItems,
    getStudyRoomItems: state => state.studyRoomItems,
    getFollowersItems: state => state.followersItems,
@@ -53,11 +70,16 @@ const actions = {
          commit('setSalesItems', items);
       });
    },
-   // updateContentItems({commit}){
-   //    dashboardService.getContentItems().then(items=>{
-   //       commit('setContentItems', items);
-   //    });
-   // },
+   updateContentItems({commit}){
+      axios.get('course').then(({data})=>{
+         commit('setContentItems', data);
+      }).catch(ex => {
+         console.log(ex);
+      })
+      // dashboardService.getContentItems().then(items=>{
+      //    commit('setContentItems', items);
+      // });
+   },
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);

@@ -80,8 +80,8 @@ export default {
     },
     methods: {
         saveCourseInfo() {
-            this.loading = true
             if(this.$refs.createCourse.validate()) {
+                this.loading = true
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
                 let documents = this.documentValidate(files)

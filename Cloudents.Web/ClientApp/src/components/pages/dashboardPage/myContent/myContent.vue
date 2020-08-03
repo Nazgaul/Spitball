@@ -7,7 +7,7 @@
             :mobile-breakpoint="0"
             :item-key="'itemId'"
             sort-by
-            class="elevation-1 myContent_table"
+            class="myContent_table"
             :footer-props="{
                showFirstLastPage: false,
                firstIcon: '',
@@ -16,35 +16,54 @@
             }">
 
             <template v-slot:top>
-               <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
+               <div class="tableTop">
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
-                  <div>
+                  <div class="text-end ">
                      <v-btn
-
                         :to="{name: createCourseRoute}"
                         class="white--text"
                         depressed
+                        width="180"
                         rounded
                         :block="$vuetify.breakpoint.xsOnly"
                         color="#5360FC"
-                        v-t="'dashboardPage_my_content_upload'"
-                     ></v-btn>
+                     >
+                        <v-icon size="22" left>sbf-plus-circle</v-icon>
+                        <span v-t="'dashboardPage_my_content_upload'"></span>
+                     </v-btn>
                   </div>
                </div>
             </template>
 
-            <!-- <template v-slot:item.preview="{item}">
+            <template v-slot:item.preview="{item}">
                   <img v-if="item.type === 'BuyPoints'" :src="item.image" class="tablePreview_img buyPointsLayoutPreview">
    
                   <router-link v-else :to="itemUrl(item)" class="tablePreview">
                      <span v-if="item.online" class="tablePreview_online"></span>
-                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
+                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="127" height="80" />
                      
                      <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
                      </v-avatar>
                   </router-link>
-            </template> -->
+            </template>
+
+            <template v-slot:item.name="{item}">
+               <div style="max-width: 200px">
+                  {{item.name}}
+               </div>
+            </template>
+
+            <template v-slot:item.users="{item}">
+               <div class="d-flex">
+                  <v-icon size="14">sbf-groupPersons</v-icon>
+                  <div class="ms-2">{{item.users}}</div>
+               </div>
+            </template>
+
+            <template v-slot:item.isPublish="{item}">
+               <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
+            </template>
 
             <!-- <template v-slot:item.info="{item}">
                <div class="tableInfo text-xs-left text-truncate py-2">
@@ -72,18 +91,18 @@
                         <div class="text-truncate">
                            <span>{{item.name}}</span>
                         </div>
-                     </template> -->
-<!--                     <template v-if="checkIsQuestion(item.type)">-->
-<!--                        <div class="text-truncate">-->
-<!--                           <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>-->
-<!--                           <span class="text-truncate">{{item.text}}</span>-->
-<!--                        </div>-->
-<!--                        <div class="text-truncate" v-if="item.answerText">-->
-<!--                           <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>-->
-<!--                           <span>{{item.answerText}}</span>-->
-<!--                        </div>-->
-<!--                     </template>-->
-                     <!-- <template v-if="item.conversationId">
+                     </template>
+                    <template v-if="checkIsQuestion(item.type)">
+                       <div class="text-truncate">
+                          <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>
+                          <span class="text-truncate">{{item.text}}</span>
+                       </div>
+                       <div class="text-truncate" v-if="item.answerText">
+                          <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>
+                          <span>{{item.answerText}}</span>
+                       </div>
+                    </template>
+                     <template v-if="item.conversationId">
                         <div class="text-truncate">
                            <span>{{item.name}}</span>
                         </div>
@@ -94,14 +113,14 @@
                      </div>
                   </router-link>
                </div>
-            </template>
-
+            </template> -->
+<!-- 
             <template v-slot:item.type="{item}">{{dictionary.types[item.type]}}</template>
             <template v-slot:item.likes="{item}">{{item.likes}}</template>
             <template v-slot:item.views="{item}">{{item.views}}</template>
             <template v-slot:item.downloads="{item}">{{item.downloads}}</template>
-            <template v-slot:item.date="{item}">{{ $d(item.date) }}</template>
-
+            <template v-slot:item.date="{item}">{{ $d(item.date) }}</template> -->
+<!-- 
             <template v-slot:item.action="{item}">
                <v-menu bottom left v-model="showMenu">
                   <template v-slot:activator="{ on }">
@@ -130,7 +149,7 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import { CourseCreate } from '../../../../routes/routeNames'
 
 // import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
@@ -148,99 +167,92 @@ export default {
    data() {
       return {
          createCourseRoute: CourseCreate,
-         // currentItem: '',
-         // isChangeNameDialog: false,
-         // currentItemIndex: '',
-         // showMenu: false,
+         currentItem: '',
+         isChangeNameDialog: false,
+         currentItemIndex: '',
+         showMenu: false,
          headers: [
-            this.dictionary.headers['preview'],
-            this.dictionary.headers['info'],
-            this.dictionary.headers['type'],
-            this.dictionary.headers['likes'],
-            this.dictionary.headers['views'],
-            this.dictionary.headers['downloads'],
-            this.dictionary.headers['date'],
-            this.dictionary.headers['action'],
+            {text: '', align:'', sortable: false, value:'preview'},
+            {text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name'},
+            {text: this.$t('dashboardPage_startOn'), align:'', sortable: false, value:'startOn'},
+            {text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lessons'},
+            {text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'documents'},
+            {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users'},
+            {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price.amount'},
+            {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish'},
          ]
       }
    },
    computed: {
-      // ...mapGetters(['getContentItems','accountUser']),
+      ...mapGetters(['getContentItems','accountUser']),
       contentItems(){
-         return []
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
-         // return this.getContentItems && this.getContentItems.map((item, index) => {
-         //    return {
-         //       itemId: index,
-         //       ...item
-         //    }
-         // })
+         return this.getContentItems && this.getContentItems.map((item, index) => {
+            return {
+               itemId: index,
+               ...item
+            }
+         })
       }
    },
-   // methods: {
-      // formatPrice(price,type){
-      //    if(isNaN(price)) return;
-      //    if(price < 0){
-      //       price = Math.abs(price)
-      //    }
-      //    price = Math.round(+price).toLocaleString();
-      //    let currency;
-      //    if(type === 'Document' || type === 'Video' ){
-      //       currency = this.$t('dashboardPage_pts');
-      //       return `${price} ${currency}`
-      //    }
-      //    if(type === 'TutoringSession' || type === 'BuyPoints'){
-      //       currency = this.accountUser.currencySymbol
-      //       return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
-      //    }
-      //    return `${price} ${currency}`
-      // },
-      // openChangeNameDialog(item){
-      //    this.currentItem = item;
-      //    this.isChangeNameDialog = true;
-      // },
-      // closeDialog(){
-      //    this.isChangeNameDialog = false;
-      //    this.currentItem = '';
-      // },
-      // checkIsQuestion(type){
-      //    return type === 'Question' || type === 'Answer';
-      // },
-      // formatImg(item){
-        // if(item.preview || item.image){
-            // return this.$proccessImageUrl(item.preview,80,80)
-         //}
+   methods: {
+      formatPrice(price,type){
+         if(isNaN(price)) return;
+         if(price < 0){
+            price = Math.abs(price)
+         }
+         price = Math.round(+price).toLocaleString();
+         let currency;
+         if(type === 'Document' || type === 'Video' ){
+            currency = this.$t('dashboardPage_pts');
+            return `${price} ${currency}`
+         }
+         if(type === 'TutoringSession' || type === 'BuyPoints'){
+            currency = this.accountUser.currencySymbol
+            return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
+         }
+         return `${price} ${currency}`
+      },
+      openChangeNameDialog(item){
+         this.currentItem = item;
+         this.isChangeNameDialog = true;
+      },
+      closeDialog(){
+         this.isChangeNameDialog = false;
+         this.currentItem = '';
+      },
+      checkIsQuestion(type){
+         return type === 'Question' || type === 'Answer';
+      },
+      formatImg(item){
+         //   if(item.preview || item.image){
+            return this.$proccessImageUrl(item.image,127,80)
+         // }
          // if(this.checkIsQuestion(item.type)){
          //    return require('../global/images/qs.png')
          // }
-      // },
-      // itemUrl(item){
-      //    return item.url || `/document/${item.id}/`
-      // }
-   // },
-   // created() {
-      // this.$store.dispatch('updateContentItems')
-   // },
+      },
+      itemUrl(item){
+         return item.url || `/course/${item.id}`
+      }
+   },
+   created() {
+      this.$store.dispatch('updateContentItems')
+   },
 }
 </script>
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
 @import "../../../../styles/colors.less";
-.pop-dashboard-container {
-   background: #fff;
-}
+// .pop-dashboard-container {
+//    background: #fff;
+// }
 .myContent{
    max-width: 1366px;
-   .myContent_title{
-      font-size: 22px;
-      color: @global-purple;
-      font-weight: 600;
-      padding: 30px;
-      line-height: 1.3px;
-   }
    .myContent_table{
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
       thead {
          tr {
             height: auto;
@@ -254,42 +266,42 @@ export default {
          }
          color: @global-purple !important;
       }
-      // .tablePreview{
-      //    line-height: 0;
-      //    padding-right: 0 !important;
-      //    width: 104px;
-      //    position: relative;
-      //    .tablePreview_online{
-      //       position: absolute;
-      //       border-radius: 50%;
-      //       width: 10px;
-      //       height: 10px;
-      //       background-color: #00ff14;
-      //       top: 16px;
-      //       left: 28px;
-      //    }
-      //    .tablePreview_img{
-      //       margin: 10px 0;
-      //       border: 1px solid #d8d8d8;
-      //       &.buyPointsLayoutPreview{
-      //          width: 100%;
-      //          object-fit: cover;
-      //          height: 80px;      
-      //       }
-      //    }
-      //    .tablePreview_no_image {
-      //       position: unset;
-      //       border-radius: 4px;
-      //       font-size: 24px;
-      //    }
-      // }
+      .tablePreview{
+         line-height: 0;
+         padding-right: 0 !important;
+         width: 104px;
+         position: relative;
+         .tablePreview_online{
+            position: absolute;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #00ff14;
+            top: 16px;
+            left: 28px;
+         }
+         .tablePreview_img{
+            margin: 10px 0;
+            border: 1px solid #d8d8d8;
+            &.buyPointsLayoutPreview{
+               width: 100%;
+               object-fit: cover;
+               height: 80px;      
+            }
+         }
+         .tablePreview_no_image {
+            position: unset;
+            border-radius: 4px;
+            font-size: 24px;
+         }
+      }
       .tableTop {
-         padding: 30px;
+         padding: 20px;
          color: @global-purple !important;
          .myStudyRooms_title {
             font-size: 22px;
             font-weight: 600;
-            line-height: 1.3px;
+            // line-height: 1.3px;
             @media (max-width: @screen-xs) {
             line-height: initial;
             }
@@ -303,22 +315,32 @@ export default {
             color: #5360FC;
             }
          }
+         a {
+            text-transform: initial;
+         }
       }
 
       tbody tr {
+         td {
+            border-bottom: none !important;
+         }
          td:nth-child(2) {
             padding-left: 0;
+            
          }
       }
-      // .tableInfo{
-      //    width: 400px;
-      //    max-width: 400px;
-      //    min-width: 300px;
-      //    .tableInfo_router{
-      //       color: @global-purple !important;
-      //       line-height: 1.6;
-      //    }
-      // }
+      tr:nth-child(even) {
+         background-color: #f5f5f5;
+      }
+      .tableInfo{
+         width: 400px;
+         max-width: 400px;
+         min-width: 300px;
+         .tableInfo_router{
+            color: @global-purple !important;
+            line-height: 1.6;
+         }
+      }
 
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          color: @global-purple !important;

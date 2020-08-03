@@ -79,12 +79,10 @@ export default {
         }
     },
     watch: {
-        isExpand(val) {
-            if(!val) {
-                this.$nextTick(() => {
-                    this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
-                })
-            }
+        isExpand() {
+            this.$nextTick(() => {
+                this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
+            })
         }
     },
     computed: {

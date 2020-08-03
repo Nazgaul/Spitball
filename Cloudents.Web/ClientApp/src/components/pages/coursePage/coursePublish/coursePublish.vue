@@ -9,7 +9,7 @@
             ></v-switch>
         </div>
 
-        <div class="courseStickyTitle" v-t="'course_visible'"></div>
+        <div class="courseStickySubTitle" v-t="'course_visible'"></div>
     </div>
 </template>
 
@@ -38,9 +38,12 @@ export default {
     height: max-content;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     border-radius: 6px;
-    .courseStickyTitle {
-        font-size: 16px;
-        color: @global-purple;
-    }
+        .courseStickyTitle {
+            font-size: 16px;
+            color: @global-purple;
+        }
+        .courseStickySubTitle {
+            color: @global-purple;
+        }
     }
 </style>
