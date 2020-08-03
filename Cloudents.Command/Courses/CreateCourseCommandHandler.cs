@@ -32,6 +32,7 @@ namespace Cloudents.Command.Courses
             var tutor = await _tutorRepository.LoadAsync(message.UserId, token);
 
 
+
             var studyRooms = (message.StudyRooms ?? Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>()).ToList();
 
             var course = new Course(message.Name, tutor, message.Price,
