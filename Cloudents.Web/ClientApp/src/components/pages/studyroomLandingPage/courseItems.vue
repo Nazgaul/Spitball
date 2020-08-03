@@ -1,6 +1,6 @@
 <template>
    <div class="courseItems mt-7 pb-0 py-5 px-4 px-sm-4 px-lg-0" v-if="courseItemsList.length">
-      <div class="courseTitle">{{$t('courseItemsTitle')}}</div>
+      <div class="courseTitle">{{isCourseEnrolled? $t('courseItemsTitle_enrolled') : $t('courseItemsTitle')}}</div>
       <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
       <div class="courseSubtitle pt-4 pb-8 pe-12">{{$t('courseItemsAccsess')}}</div>
       <v-row class="itemsWrapper">
@@ -34,6 +34,9 @@ export default {
       }
    },
    computed: {
+      isCourseEnrolled(){
+         return this.$store.getters.getIsCourseEnrolled;
+      },
       pageSize(){
          if(this.$vuetify.breakpoint.xsOnly){
             return 9

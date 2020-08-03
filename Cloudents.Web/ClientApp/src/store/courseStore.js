@@ -55,6 +55,7 @@ const getters = {
   getIsCourseTutor: (state, getters) => state.courseDetails?.tutorId == getters.getAccountId,
   getCoursePrice: state => state.courseDetails?.price || null,
   getCourseItems: state => state.courseDetails?.items || [],
+  getIsCourseEnrolled: state => state.courseDetails?.enrolled,
 }
 const actions = {
   updateCourseDetails({ commit }, courseId) {
