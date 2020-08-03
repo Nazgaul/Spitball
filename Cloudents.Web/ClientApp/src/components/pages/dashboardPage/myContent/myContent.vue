@@ -18,7 +18,7 @@
             <template v-slot:top>
                <div class="tableTop">
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
-                  <div class="text-end ">
+                  <div class="text-end" v-if="canCreateCourse">
                      <v-btn
                         :to="{name: createCourseRoute}"
                         class="white--text"
@@ -59,6 +59,10 @@
                   <v-icon size="14">sbf-groupPersons</v-icon>
                   <div class="ms-2">{{item.users}}</div>
                </div>
+            </template>
+
+            <template v-slot:item.price="{item}">
+               <div>{{$price(item.price.amount, item.price.currency, true)}}</div>
             </template>
 
             <template v-slot:item.isPublish="{item}">
@@ -178,13 +182,16 @@ export default {
             {text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lessons'},
             {text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'documents'},
             {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users'},
-            {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price.amount'},
+            {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
             {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish'},
          ]
       }
    },
    computed: {
       ...mapGetters(['getContentItems','accountUser']),
+      canCreateCourse() {
+         return this.$store.getters.getIsTutorCanCreateCourse
+      },
       contentItems(){
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
