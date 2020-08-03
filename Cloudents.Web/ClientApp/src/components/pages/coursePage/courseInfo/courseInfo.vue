@@ -30,17 +30,17 @@
         >
         </v-text-field>
 
-        <template v-if="isSubscription">
-            <v-switch
+        <!-- <template v-if="isSubscription"> -->
+            <!-- <v-switch
                 v-model="subscribeSwitch"
                 class="mb-7 mt-0 pa-0"
                 :label="$t('set_subscriber_price')"
                 hide-details
-            ></v-switch>
+            ></v-switch> -->
 
             <v-text-field
                 v-model="subscriberPrice"
-                v-if="subscribeSwitch"
+                v-if="isSubscription"
                 type="number"
                 class="priceSubscriber mb-6"
                 :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
@@ -54,7 +54,7 @@
                 outlined
             >
             </v-text-field>
-        </template>
+        <!-- </template> -->
 
         <v-textarea
             v-model="courseDescription"
@@ -96,7 +96,7 @@ export default {
     },
     data() {
         return {
-            subscribeSwitch: false,
+            // subscribeSwitch: false,
             previewImage: null,
             newLiveImage: null,
             rules: {
