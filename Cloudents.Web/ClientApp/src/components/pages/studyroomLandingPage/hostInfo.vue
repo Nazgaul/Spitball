@@ -106,7 +106,7 @@ export default {
                padding-bottom: 8px;
             }
             .hostBio{
-               word-break:break-all;
+               word-break: break-word;
                font-size: 18px;
                line-height: 1.67;
                color: #43425d;

@@ -15,9 +15,12 @@
 
                <div>{{$t('starts_on',[$moment(courseDate).format('MMMM Do, HH:mm')])}}</div>
             </div>
-            <div v-if="!isMobile && coursePrice && coursePrice.amount">
-               {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
-            </div>
+            <template v-if="!isMobile">
+               <div v-if="coursePrice && coursePrice.amount">
+                  {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
+               </div>
+               <div v-else>{{$t('course_free')}}</div>
+            </template>
             <img class="triangle" src="./images/triangle.png">
          </div>
          <div v-if="!isMobile" class="leftSide">
@@ -28,9 +31,12 @@
       </div>
       <div v-if="!isCourseTutor || isCourseTutor " class="roomInfoBottom d-flex flex-wrap justify-center">
          <div class="bottomRight text-center px-6 px-sm-4">
-            <div v-if="isMobile && coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
-               {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
-             </div>
+            <template v-if="isMobile">
+               <div v-if="coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
+                  {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
+               </div>
+               <div v-else>{{$t('course_free')}}</div>
+            </template>
 
             <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
             :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
