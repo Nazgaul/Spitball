@@ -5,6 +5,17 @@ const courseInstance = axios.create({
   baseURL: '/api/course'
 })
 
+courseInstance.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 404) {
+      global.location = '/error/notfound';
+      return;
+    }
+    return Promise.reject(error);
+ }
+);
+
 const state = {
   courseDetails: null,
 }
