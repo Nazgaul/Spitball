@@ -1,6 +1,6 @@
 <template>
    <div class="studyroomLandingPage d-flex" :class="[{'window2':isRoomEnrolled}]">
-      <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
+      <div class="pageWrapper px-0 px-sm-0 px-md-0 px-lg-0">
          <v-window :value="isRoomEnrolled? 1 : 0"> 
             <v-window-item>
                <div class="roominfoHeader">
@@ -10,16 +10,14 @@
                   <roomInfo class="content"/>
                </div>
                <sessionInfo  class="content"/>
-               <courseSessions class="content" />
-               <courseItems  class="content"/>
-               <hostInfo  class="content"/>
             </v-window-item>
             <v-window-item>
                <roomThankYou />
-               <courseSessions class="content" />
-               <courseItems  class="content"/>
             </v-window-item>
          </v-window>
+         <courseSessions class="content" />
+         <courseItems  class="content"/>
+         <hostInfo v-if="!isRoomEnrolled"  class="content"/>
       </div>
    </div>
 </template>

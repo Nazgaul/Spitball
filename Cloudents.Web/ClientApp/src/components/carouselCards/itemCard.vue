@@ -1,5 +1,5 @@
 <template>
-    <div class="itemCarouselCard cursor-pointer mb-5 mb-sm-0" @click="openItemDialog">
+    <div class="itemCarouselCard cursor-pointer mb-0 mb-sm-0" @click="openItemDialog">
         <div class="imageWrapper">
             <intersection>
                 <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="srcImg" alt="preview image">
@@ -58,7 +58,7 @@ export default {
         max-width: 344px;
     }
     width: 248px;
-    height: 214px;
+    height: 216px;
     background: white;
     border-radius: 6px;
     border: solid 1px #c1c3d2;
@@ -106,7 +106,7 @@ export default {
             font-size: 14px;
             font-weight: 600;
             line-height: 1.43;
-            .giveMeEllipsis(2,18);
+            .giveMeEllipsis(2,20);
         }
 
     }
