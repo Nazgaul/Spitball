@@ -154,6 +154,7 @@ export default {
         }
     },
     beforeDestroy(){
+        this.$store.commit('resetCreateCourse')
         storeService.unregisterModule(this.$store, 'createCourse');
     },
     created() {

@@ -39,7 +39,7 @@ export default {
     },
     data() {
         return {
-            fileSwitch: false,
+            fileSwitch: true,
             rules: {
                 required: (value) => validationRules.required(value),
                 minimumChars: value => validationRules.minimumChars(value, 4),

@@ -70,6 +70,16 @@ const mutations = {
     },
     setCourseCoverImage(state, image) {
         state.courseCoverImage = image
+    },
+    resetCreateCourse(state) {
+        state.numberOfLecture = 1,
+        state.courseName = '',
+        state.followerPrice = 0,
+        state.subscribePrice = 0,
+        state.description = '',
+        state.courseVisible = true,
+        state.courseCoverImage = null,
+        state.teachingDates = []
     }
 }
 
