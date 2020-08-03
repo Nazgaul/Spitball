@@ -64,6 +64,7 @@ export default {
     },
     data() {
         return {
+            courseRoute: MyCourses,
             loading: false,
             showSnackbar: false,
             snackObj: {
