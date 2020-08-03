@@ -169,7 +169,25 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-          
+            var session = Container.Resolve<ISession>();
+            var cron = Container.Resolve<ICronService>();
+
+            var recurringStudyRoom = await session.Query<BroadCastStudyRoom>()
+                .Where(w => w.Schedule.End > DateTime.UtcNow)
+                .Select(s=>new 
+                { 
+                    s.Course,
+                    s.Schedule
+                }).ToListAsync();
+
+
+            foreach (var broadCastStudyRoom in recurringStudyRoom)
+            {
+                var upcomingStudyRooms = cron.GetNextOccurrences(broadCastStudyRoom.Schedule.CronString, DateTime.UtcNow,
+                    broadCastStudyRoom.Schedule.End);
+            }
+
+
         }
 
         private static async Task UpdateTwilioParticipants()

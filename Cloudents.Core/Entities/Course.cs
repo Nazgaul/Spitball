@@ -45,6 +45,8 @@ namespace Cloudents.Core.Entities
 
         public virtual string? Description { get; set; }
 
+        
+
         public virtual ItemState State { get; set; }
 
         public virtual void AddStudyRoom(BroadCastStudyRoom studyRoom)

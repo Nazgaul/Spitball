@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
@@ -14,8 +15,11 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Tutor;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Api
 {
@@ -81,6 +85,25 @@ namespace Cloudents.Web.Api
             var command = new CourseEnrollCommand(userId, id);
             await _commandBus.DispatchAsync(command, token);
 
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "Tutor")]
+        public async Task<IEnumerable<UserCoursesDto>> GetMyCoursesAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCoursesByIdQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+
+            return result.Select(s =>
+            {
+                if (s is UserDocumentsDto d)
+                {
+                    d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+                }
+                return s;
+            });
         }
 
         /// <summary>
