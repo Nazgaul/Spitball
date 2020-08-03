@@ -18,7 +18,7 @@
             <template v-slot:top>
                <div class="tableTop">
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
-                  <div class="text-end" v-if="canCreateCourse">
+                  <div class="text-end">
                      <v-btn
                         :to="{name: createCourseRoute}"
                         class="white--text"
@@ -189,9 +189,9 @@ export default {
    },
    computed: {
       ...mapGetters(['getContentItems','accountUser']),
-      canCreateCourse() {
-         return this.$store.getters.getIsTutorCanCreateCourse
-      },
+      // canCreateCourse() {
+      //    return this.$store.getters.getIsTutorCanCreateCourse
+      // },
       contentItems(){
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
