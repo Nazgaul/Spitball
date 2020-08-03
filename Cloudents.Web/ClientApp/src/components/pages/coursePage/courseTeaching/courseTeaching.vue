@@ -15,6 +15,7 @@
                 :label="$t('lecture_topic')"
                 :placeholder="$t('lecture_topic')"
                 :rules="[checkStudyroom]"
+                class="lectureText"
                 height="50"
                 color="#304FFE"
                 autocomplete="off"
@@ -215,6 +216,9 @@ export default {
         font-size: 18px;
         font-weight: 600;
         color: @global-purple;
+    }
+    .lectureText {
+        max-width: 560px;
     }
     .addLecture {
         font-size: 16px;
