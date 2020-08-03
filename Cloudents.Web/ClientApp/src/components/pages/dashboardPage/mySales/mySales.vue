@@ -5,7 +5,7 @@
          <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
             <div class="mySales_actions">
                <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
-               <buyPointsLayout class="my-2 my-md-0 mx-lg-2"/>
+               <billOfflineLayout class="my-2 my-md-0 mx-lg-2"/>
             </div>
          </v-flex>
       </v-layout>
@@ -85,12 +85,12 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
-import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
+import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
 import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
 export default {
    name:'mySales',
-   components:{tableInfoTd,buyPointsLayout,redeemPointsLayout},
+   components:{tableInfoTd,billOfflineLayout,redeemPointsLayout},
    props:{
       dictionary:{
          type: Object,

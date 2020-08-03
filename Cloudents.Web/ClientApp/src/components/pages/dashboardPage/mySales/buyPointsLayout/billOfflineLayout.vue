@@ -1,12 +1,12 @@
 <template>
    <div class="elevation-1">
-      <v-layout wrap class="buyPointsLayout">
-         <v-flex class="buyPointsLayout_img_container" >
-            <img class="buyPointsLayout_img" src="./image/cardBuyPoints.jpg" alt="">
+      <v-layout wrap class="billOfflineLayout">
+         <v-flex class="billOfflineLayout_img_container" >
+            <img class="billOfflineLayout_img" src="./image/cardBuyPoints.jpg" alt="">
          </v-flex>
-         <v-flex class="buyPointsLayout_action" text-center>
-            <p class="buyPointsLayout_title">{{$t('dashboardPage_my_sales_action_need_tutor')}}</p>
-            <v-btn @click="openBillStudents()" class="buyPointsLayout_btn white--text" depressed color="#4c59ff">
+         <v-flex class="billOfflineLayout_action" text-center>
+            <p class="billOfflineLayout_title">{{$t('dashboardPage_my_sales_action_need_tutor')}}</p>
+            <v-btn @click="openBillStudents()" class="billOfflineLayout_btn white--text" depressed color="#4c59ff">
                <span>{{$t('dashboardPage_my_sales_action_need_btn_tutor')}}</span>
             </v-btn>
          </v-flex>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-   name:"buyPointsLayout",
+   name:"billOfflineLayout",
    methods: {
       openBillStudents(){
          this.$store.commit('setComponent', 'teacherBillOfflineDialog')
@@ -27,7 +27,7 @@ export default {
 
 <style lang="less">
 @import '../../../../../styles/mixin.less';
-.buyPointsLayout{
+.billOfflineLayout{
    max-width: 234px;
    background-color: #ffffff;
    padding: 10px; 
@@ -41,9 +41,9 @@ export default {
    @media (max-width: @screen-xs) {
       max-height: 76px;
    }
-   .buyPointsLayout_img_container{
+   .billOfflineLayout_img_container{
       .flexSameSize();
-      .buyPointsLayout_img{
+      .billOfflineLayout_img{
          width: 100%;
          object-fit: cover;
          height: 90px;
@@ -58,7 +58,7 @@ export default {
          }
       }
    }
-   .buyPointsLayout_action{
+   .billOfflineLayout_action{
       .flexSameSize();
       width: 100%;
       @media (max-width: @screen-md-plus) {
@@ -67,7 +67,7 @@ export default {
 
       }
 
-      .buyPointsLayout_title{
+      .billOfflineLayout_title{
          font-size: 16px;
          font-weight: 600;
          color: #43425d;
@@ -80,7 +80,7 @@ export default {
             padding: 0;
          }
       }
-      .buyPointsLayout_btn{
+      .billOfflineLayout_btn{
          border-radius: 8px;
          margin-top: 10px;
          font-size: 14px;
