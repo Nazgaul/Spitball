@@ -13,7 +13,7 @@
             <div v-if="courseSessions.length">
                <div class="pb-2">{{$tc('live_times',courseSessions.length)}}</div>
 
-               <div>{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
+               <div>{{$t('starts_on',[$moment(courseDate).format('MMMM Do, HH:mm')])}}</div>
             </div>
             <div v-if="!isMobile && coursePrice && coursePrice.amount">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}

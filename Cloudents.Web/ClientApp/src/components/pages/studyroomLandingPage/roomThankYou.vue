@@ -13,7 +13,7 @@
             </v-skeleton-loader>
             <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="courseImage">
             <template v-if="isSessions">
-               <div class="pt-3">{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
+               <div class="pt-3">{{$t('starts_on',[$moment(courseDate).format('MMMM Do, HH:mm')])}}</div>
                <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
                <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                   {{$t('enter_room')}}
