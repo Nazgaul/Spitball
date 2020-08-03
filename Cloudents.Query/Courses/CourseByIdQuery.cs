@@ -144,10 +144,12 @@ namespace Cloudents.Query.Courses
                 }
 
                 var coupon = futureCoupon.Value;
-
-                var newPrice = Coupon.CalculatePrice(coupon.CouponType,
-                    result.Price.Amount, coupon.Value);
-                result.Price = result.Price.ChangePrice(newPrice);
+                if (coupon != null)
+                {
+                    var newPrice = Coupon.CalculatePrice(coupon.CouponType,
+                        result.Price.Amount, coupon.Value);
+                    result.Price = result.Price.ChangePrice(newPrice);
+                }
 
                 return result;
             }
