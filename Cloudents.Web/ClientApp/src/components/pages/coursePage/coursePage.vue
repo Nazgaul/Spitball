@@ -115,11 +115,10 @@ export default {
                     this.snackObj.text = this.statusErrorCode['file']
                     return false
                 }
-
                 filesArr.push({
                     blobName: file.blobName,
                     name: file.name,
-                    visible: file.visible || false
+                    visible: file.visible === undefined ? true : file.visible
                 })
             }
             return filesArr
@@ -187,5 +186,20 @@ export default {
         position: sticky;
         top: 170px;
     }
+    // .v-textarea, .v-input {
+    //     .v-input__slot {
+    //         fieldset {
+    //             border: 1px solid #b8c0d1;
+    //         }
+    //         .v-label {
+    //             color: @global-purple;
+    //         }
+    //     }
+    //     &.error--text {
+    //         fieldset {
+    //             border: 2px solid #ff5252;
+    //         }
+    //     }
+    // }
 }
 </style>
