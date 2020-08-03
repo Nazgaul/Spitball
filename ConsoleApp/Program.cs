@@ -187,7 +187,7 @@ namespace ConsoleApp
             }
 
             var recurringStudyRoom = await session.Query<BroadCastStudyRoom>()
-                .Where(w => w.Schedule.End > DateTime.UtcNow)
+                .Where(w => w.Schedule.End > DateTime.UtcNow && w.Course.State == ItemState.Ok)
                 .Select(s => new
                 {
                     s.Course,
@@ -225,6 +225,7 @@ namespace ConsoleApp
 
             }
             var courses = await session.Query<Course>()
+                .Where(w => w.State == ItemState.Ok)
                 .ToListAsync(); 
 
             foreach (var course in courses)
