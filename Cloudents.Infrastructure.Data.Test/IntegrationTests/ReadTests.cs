@@ -252,17 +252,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    var _ = await fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Theory]
-        [InlineData(638)]
-        [InlineData(1696)]
-        public async Task UserBalanceQuery_Ok(long id)
-        {
+        //[Theory]
+        //[InlineData(638)]
+        //[InlineData(1696)]
+        //public async Task UserBalanceQuery_Ok(long id)
+        //{
 
-            var query = new UserBalanceQuery(id);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //    var query = new UserBalanceQuery(id);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
 
 
-        }
+        //}
 
         [Fact]
         public async Task GetUpdatesEmailUsersQuery_Ok()
