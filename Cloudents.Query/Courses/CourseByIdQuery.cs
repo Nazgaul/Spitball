@@ -7,6 +7,7 @@ using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Query.Tutor;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -81,6 +82,18 @@ namespace Cloudents.Query.Courses
                         //SessionStarted =  _statelessSession.Query<StudyRoomSession>().Any(w=>w.StudyRoom.Id== query.Id && w.Ended ==null)
                     }).ToFutureValue();
 
+                var futureCoupon  = _statelessSession.Query<UserCoupon>()
+                    .Where(w => w.User.Id == query.UserId)
+                    .Where(w => w.Tutor.Id == _statelessSession.Query<Course>().Where(w2 => w2.Id == query.Id)
+                        .Select(s => s.Tutor.Id).First())
+                    .Where(w => w.UsedAmount < 1)
+                    .Select(s => new StudyRoomQuery.CouponTemp()
+                    {
+                        CouponType = s.Coupon.CouponType,
+                        Value = s.Coupon.Value
+                    })
+                    .ToFutureValue();
+
                 var futureSubscription = _statelessSession.Query<Follow>()
                     .Where(w => w.User.Id == _statelessSession.Query<Course>()
                         .Where(w2 => w2.Id == query.Id)
@@ -128,6 +141,14 @@ namespace Cloudents.Query.Courses
                 if (futureSubscription.Value.GetValueOrDefault())
                 {
                     result.Price = result.SubscriptionPrice.GetValueOrDefault(result.Price.ChangePrice(0));
+                }
+
+                var coupon = futureCoupon.Value;
+                if (coupon != null)
+                {
+                    var newPrice = Coupon.CalculatePrice(coupon.CouponType,
+                        result.Price.Amount, coupon.Value);
+                    result.Price = result.Price.ChangePrice(newPrice);
                 }
 
                 return result;
