@@ -82,14 +82,14 @@ namespace Cloudents.Core.Entities
 
     public class BuyPointsTransaction : Transaction
     {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public BuyPointsTransaction(decimal price, string transactionId)
-        {
-            TransactionId = transactionId;
-            Price = Math.Abs(price);
-            Action = TransactionActionType.Buy;
-            Type = TransactionType.Earned;
-        }
+        //[SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        //public BuyPointsTransaction(decimal price, string transactionId)
+        //{
+        //    TransactionId = transactionId;
+        //    Price = Math.Abs(price);
+        //    Action = TransactionActionType.Buy;
+        //    Type = TransactionType.Earned;
+        //}
 
         public virtual string TransactionId { get; protected set; }
 
@@ -189,26 +189,26 @@ namespace Cloudents.Core.Entities
 
         public virtual Document Document { get; protected set; }
 
-        public static Transaction Buyer(Document document)
-        {
-            return new DocumentTransaction(document)
-            {
-                Action = TransactionActionType.PurchaseDocument,
-                Price = -document.DocumentPrice.Price,
-                Type = TransactionType.Spent
-            };
-        }
+        //public static Transaction Buyer(Document document)
+        //{
+        //    return new DocumentTransaction(document)
+        //    {
+        //        Action = TransactionActionType.PurchaseDocument,
+        //        Price = -document.DocumentPrice.Price,
+        //        Type = TransactionType.Spent
+        //    };
+        //}
 
-        public static Transaction Seller(Document document)
-        {
-            return new DocumentTransaction(document)
-            {
-                Action = TransactionActionType.SoldDocument,
-                Price = document.DocumentPrice.Price,
-                Type = TransactionType.Earned,
+        //public static Transaction Seller(Document document)
+        //{
+        //    return new DocumentTransaction(document)
+        //    {
+        //        Action = TransactionActionType.SoldDocument,
+        //        Price = document.DocumentPrice.Price,
+        //        Type = TransactionType.Earned,
 
-            };
-        }
+        //    };
+        //}
 
     }
 

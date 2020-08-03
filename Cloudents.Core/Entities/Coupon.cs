@@ -40,11 +40,8 @@ namespace Cloudents.Core.Entities
             CouponType = couponType;
             Tutor = tutor;
             Value = value;
-           // AmountOfUsers = amountOfUsers;
-           // AmountOfUsePerUser = amountOfUsePerUser;
             Expiration = expiration;
             Description = description;
-           // Owner = owner;
             CreateTime = DateTime.UtcNow;
             UserCoupon = new HashSet<UserCoupon>();
 
@@ -66,15 +63,11 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal Value { get; protected set; }
 
-       // public virtual int? AmountOfUsers { get; protected set; }
-       // public virtual int AmountOfUsePerUser { get; protected set; }
 
         public virtual DateTime? Expiration { get; protected set; }
         public virtual DateTime? CreateTime { get; protected set; }
 
         public virtual string? Description { get; protected set; }
-
-      //  public virtual string Owner { get; protected set; }
 
         protected internal virtual ISet<UserCoupon> UserCoupon { get;protected set; }
     

@@ -26,12 +26,12 @@ namespace Cloudents.Core.EventHandler
                     new RedeemTransactionMessage(redeemEventMessage.Transaction.Id), token);
             }
 
-            if (redeemEventMessage.Transaction.Action == TransactionActionType.SoldDocument)
-            {
-                var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
+            //if (redeemEventMessage.Transaction.Action == TransactionActionType.SoldDocument)
+            //{
+            //    var message = new DocumentPurchasedMessage(redeemEventMessage.Transaction.Id);
 
-                return _queueProvider.InsertMessageAsync(message, token);
-            }
+            //    return _queueProvider.InsertMessageAsync(message, token);
+            //}
             return Task.CompletedTask;
         }
     }

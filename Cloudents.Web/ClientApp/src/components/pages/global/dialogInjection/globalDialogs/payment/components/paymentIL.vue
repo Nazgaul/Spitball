@@ -1,7 +1,7 @@
 <template>
     <v-layout column class="payme-popup">
         <v-icon class="exit-btn cursor-pointer" @click="closeDialog">sbf-close</v-icon>
-        <div class="payme-popup-top pt-4" v-if="!getIsBuyPoints">
+        <div class="payme-popup-top pt-4">
             <div class="payme-top-title" v-t="'payme_top_title'"/>
             <v-layout wrap :class="['payme-content',isMobile? 'pt-4 pb-2':'pt-5 pb-4']">
                 <v-flex xs12 sm3 :class="['payme-content-div']">
@@ -18,7 +18,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <iframe :class="['payment-iframe',{'mt-4':getIsBuyPoints}]" width="100%" height="475" :src="paymentUrl"></iframe>
+        <iframe :class="['payment-iframe']" width="100%" height="475" :src="paymentUrl"></iframe>
         <div class="payme-popup-bottom">
             <p v-t="'payme_bottom'"/>
             <img src="./images/card.png" alt="">
@@ -34,7 +34,7 @@ import * as routeNames from '../../../../../../../routes/routeNames';
 export default {
    name:'paymentIL',
     computed: {
-        ...mapGetters(['getPaymentURL','getIsBuyPoints']),
+        ...mapGetters(['getPaymentURL']),
         paymentUrl(){
             return this.getPaymentURL
         },

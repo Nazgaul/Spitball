@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 
@@ -13,19 +15,21 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly ITutorRepository _tutorRepository;
         private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IGoogleDocument _googleDocument;
         private readonly ICronService _cronService;
         private readonly IStudyRoomBlobProvider _blobProvider;
 
         public CreateLiveStudyRoomCommandHandler(
             IRepository<BroadCastStudyRoom> studyRoomRepository, IGoogleDocument googleDocument,
-            ITutorRepository tutorRepository, ICronService cronService, IStudyRoomBlobProvider blobProvider)
+            ITutorRepository tutorRepository, ICronService cronService, IStudyRoomBlobProvider blobProvider, ICourseRepository courseRepository)
         {
             _studyRoomRepository = studyRoomRepository;
             _googleDocument = googleDocument;
             _tutorRepository = tutorRepository;
             _cronService = cronService;
             _blobProvider = blobProvider;
+            _courseRepository = courseRepository;
         }
 
         public async Task ExecuteAsync(CreateLiveStudyRoomCommand message,
@@ -70,17 +74,28 @@ namespace Cloudents.Command.CommandHandler
                 schedule = new StudyRoomSchedule(z, endDate.Value, message.BroadcastTime);
             }
 
-            var course = tutor.AddCourse(message.Name); 
+            var course = tutor.Courses.FirstOrDefault(f => f.Name == message.Name);
+            if (course != null)
+            {
+                throw new DuplicateRowException();
+            }
+            course = new Course(message.Name, tutor)
+            {
+                Description = message.Description,
+                Price = new Money(message.Price, tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol)
+            };
+            tutor.AddCourse(course);
             //To persist the course if needed
-            await _tutorRepository.UpdateAsync(tutor, default);
+            
             var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl,
                 course, message.Price,
                 message.BroadcastTime, message.Description, schedule);
             await _studyRoomRepository.AddAsync(studyRoom, token);
+            await _courseRepository.AddAsync(course, token);
 
             if (message.Image != null)
             {
-                await _blobProvider.MoveAsync(message.Image, studyRoom.Id.ToString(), "0.jpg", token);
+                await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
             }
 
             message.StudyRoomId = studyRoom.Id;

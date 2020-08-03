@@ -83,7 +83,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getDocumentLoaded', 'getDocumentPriceType']),
+        ...mapGetters(['getDocumentLoaded']),
         docPage:{
             get(){
                 return this.$store.getters.getCurrentPage;

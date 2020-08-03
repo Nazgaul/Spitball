@@ -217,9 +217,33 @@ namespace Cloudents.Core.Entities
             return !left.Equals(right);
         }
 
+        public static Money operator +(Money left, Money right)
+        {
+            if (right.Cents == 0)
+            {
+                return left;
+            }
+
+            if (left.Cents == 0)
+            {
+                return right;
+            }
+            if (left.Currency != right.Currency)
+            {
+                throw new ArgumentException();
+            }
+            return new Money(left.Amount + right.Amount,left.Currency);
+           // return !left.Equals(right);
+        }
+
         public Money ChangePrice(double newMoney)
         {
             return new Money(newMoney,this.Currency);
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(Amount)}: {Amount}, {nameof(Currency)}: {Currency}";
         }
         //public Money Add(Money other)
 

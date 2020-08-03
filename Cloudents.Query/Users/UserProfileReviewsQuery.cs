@@ -11,9 +11,9 @@ using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Query.Users
 {
-    public class UserProfileAboutQuery : IQuery<UserProfileAboutDto>
+    public class UserProfileReviewsQuery : IQuery<UserProfileReviewsDto>
     {
-        public UserProfileAboutQuery(long userId)
+        public UserProfileReviewsQuery(long userId)
         {
             UserId = userId;
         }
@@ -22,7 +22,7 @@ namespace Cloudents.Query.Users
 
 
 
-        internal sealed class UserProfileAboutQueryHandler : IQueryHandler<UserProfileAboutQuery, UserProfileAboutDto>
+        internal sealed class UserProfileAboutQueryHandler : IQueryHandler<UserProfileReviewsQuery, UserProfileReviewsDto>
         {
             private readonly IStatelessSession _statelessSession;
             private readonly IUrlBuilder _urlBuilder;
@@ -33,13 +33,11 @@ namespace Cloudents.Query.Users
                 _statelessSession = querySession;
             }
 
-            public async Task<UserProfileAboutDto> GetAsync(UserProfileAboutQuery query, CancellationToken token)
+            public async Task<UserProfileReviewsDto> GetAsync(UserProfileReviewsQuery query, CancellationToken token)
             {
                 var result = _statelessSession.Query<TutorReview>()
                     .WithOptions(w => w.SetComment(nameof(TutorReview)))
-                       .Fetch(f => f.User)
                        .Where(w => w.Tutor.Id == query.UserId)
-                       .Where(w => w.Review != null && w.Review != string.Empty)
                        .OrderByDescending(x => x.DateTime)
                        .Select(s => new TutorReviewDto()
                        {
@@ -63,7 +61,7 @@ namespace Cloudents.Query.Users
 
                 var reviews = await result.GetEnumerableAsync(token);
 
-                return new UserProfileAboutDto()
+                return new UserProfileReviewsDto()
                 {
                     Reviews = reviews.Select(s =>
                     {

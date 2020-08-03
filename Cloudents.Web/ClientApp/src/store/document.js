@@ -6,9 +6,7 @@ import {ITEM_DIALOG} from '../components/pages/global/toasterInjection/component
 const state = {
     document: {},
     btnLoading: false,
-    showPurchaseConfirmation: false,
     documentLoaded: false,
-    toaster: false,
     currentItemId: null,
     currentPage: 0
 };
@@ -18,7 +16,6 @@ const getters = {
         let x = state.document?.id ? state.document : '';
         return typeof (x) !== "string";
     },
-    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
     getDocumentName: (state,_getter)=>  {
         if (_getter._getDocumentLoaded) {
@@ -41,12 +38,7 @@ const getters = {
         }
         return false
     },
-    getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
-    getDocumentPriceTypeFree: state => state.document?.priceType === 'Free',
-    getDocumentPriceTypeSubscriber: state => state.document?.priceType === 'Subscriber',
-    getDocumentPriceTypeHasPrice: state => state.document?.priceType === 'HasPrice',
-    getDocumentUserName: state => state.document?.userName,
     getCurrentItemId: state => state.currentItemId,
     getCurrentPage: state => state.currentPage,
 };
@@ -55,12 +47,7 @@ const mutations = {
     resetState(state){
         state.document = {};
         state.btnLoading = false;    
-        state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
-        state.toaster = false;
-    },
-    setPurchaseConfirmation(state,val){
-        state.showPurchaseConfirmation = val;
     },
     setDocument(state, payload) {
         state.document = payload;    
@@ -68,9 +55,6 @@ const mutations = {
     },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
-    },
-    setShowItemToaster(state, val) {
-        state.toaster = val
     },
     setCurrentItemId(state,itemId){
         state.currentItemId = itemId
@@ -81,9 +65,6 @@ const mutations = {
 };
 
 const actions = {
-    updatePurchaseConfirmation({commit},val){
-        commit('setPurchaseConfirmation',val);
-    },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
             commit('setDocument', DocumentObj);
@@ -98,34 +79,8 @@ const actions = {
 
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}`);
     },
-    purchaseDocument({commit, dispatch, state, getters}, item) {
-        let cantBuyItem = getters.accountUser.balance < item.price;
-
-        if(cantBuyItem) {
-            dispatch('updateItemToaster', true);
-            return
-        }
-
-        commit('setBtnLoading', true);
-            return documentService.purchaseDocument(item.id).then((resp) => {
-                state.document.isPurchased = true;
-                console.log('purchased success', resp);
-                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
-                dispatch('documentRequest', item.id);
-                },
-                () => {
-                    return Promise.reject()
-            }).finally(() => {
-                setTimeout(() => {
-                    commit('setBtnLoading', false);
-                }, 500);
-            });
-    },
     clearDocument({commit}){
         commit('resetState');
-    },
-    updateItemToaster({commit}, val){
-        commit('setShowItemToaster', val);
     },
 
 

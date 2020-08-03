@@ -1,107 +1,46 @@
 <template>
-    <div class="itemCarouselCard cursor-pointer" @click="openItemDialog">
-        <div class="imageWrapper" :class="{'subscribed': !isMyProfile && isSubscribed && !isLearnRoute}">
+    <div class="itemCarouselCard cursor-pointer mb-0 mb-sm-0" @click="openItemDialog">
+        <div class="imageWrapper">
             <intersection>
-                <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="preview image">
+                <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="srcImg" alt="preview image">
             </intersection>
-            <div class="overlay text-center px-8" v-if="!isMyProfile && isSubscribed && !isLearnRoute">
-                <div class="unlockText white--text mb-3">{{subscribeText}}</div>
-                <v-btn class="btn" color="#fff" rounded block @click.stop.prevent="goSubscription">
-                    <span>{{subscribeBtnText}}</span>
-                </v-btn>
+            <div v-show="isVideo" class="videoSign">
+                <img src="./videoSign.png" alt="">
             </div>
         </div>
-
-        <div class="item-cont flex-grow-1 d-flex flex-column justify-space-between pa-2">
-            <div class="itemCarouselCard_videoType d-flex align-center justify-space-between mb-1">
-                <div class="itemDate" >{{$d(item.dateTime, 'short')}}</div>
-                <div class="d-flex align-center" v-if="showVideoDuration">
-                    <span class="vidTime pe-1">{{item.itemDuration}}</span>
-                    <vidSVG class="vidSvg" width="17" />
-                </div>
-            </div>
-            <div class="item-title text-truncate mb-1">{{item.title}}</div>
-            <div class="item-course text-truncate">
-                <span class="font-weight-bold" v-t="'itemCardCarousel_course'"></span>
-                <span>{{item.course}}</span>
-            </div>
-            <div class="item-user d-flex align-center" v-if="!isProfilePage">
-                <UserAvatarNew :fontSize="11" :width="34" :height="34" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
-                <div class="ms-2 user-info">
-                    <div class="text-truncate" >{{item.user.name}}</div>
-                </div>
-            </div>
-            <div class="itemCard-bottom">
-                <documentPrice :price="item.price" :isSubscribed="isSubscribed" />
-            </div>
+        <div class="item-cont flex-grow-1 d-flex flex-column justify-space-between pa-4 pa-sm-3">
+            <div class="item-title">{{item.title}}</div>
         </div>
     </div>
 </template>
 
 <script>
-import * as routeNames from '../../routes/routeNames';
-
-import documentPrice from '../pages/global/documentPrice/documentPrice.vue'
 import intersection from '../pages/global/intersection/intersection.vue';
-import vidSVG from '../../components/results/svg/vid.svg'
 
 export default {
-    components:{vidSVG, intersection, documentPrice},
+    components:{intersection},
     props:{
         item:{
             type:Object,
             required: true
-        },
-        fromCarousel:{
-            type:Boolean,
-            required: false,
-            default: false
         }
     },
     computed: {
-        showVideoDuration() {
-            return (this.item && this.item.documentType === "Video" && this.item.itemDuration);
+        isVideo() {
+            return this.item?.documentType === "Video";
         },
-        isLearnRoute() {
-            return this.$route.name === routeNames.Learning
-        },
-        isProfilePage() {
-            return this.$route.name === routeNames.Profile
-        },
-        isSubscribed() {
-            return this.item.priceType === 'Subscriber'
-        },
-        subscribeText() {
-            return this.isMobile ? this.$t('resultNote_subscribe_mobile_text') : this.$t('resultNote_subscribe_desktop_text')
-        },
-        subscribeBtnText() {
-            let price = this.$price(this.item.price, 'USD')
-            return this.isMobile ? this.$t('resultNote_subscribe_mobile_btn', [price]) : this.$t('resultNote_subscribe_desktop_btn', [price])
-        },
-        isMyProfile() {
-            return this.$store.getters.getIsMyProfile
+        srcImg(){
+            let isMobile = this.$vuetify.breakpoint.xsOnly;
+            if(isMobile){
+                return this.$proccessImageUrl(this.item.preview,344,196)
+            }else{
+                return this.$proccessImageUrl(this.item.preview,248,150)
+            }
         }
-        // subscribedPrice() {
-        //     return this.item.price
-        // },
     },
     methods: {
         openItemDialog(){
             this.$store.dispatch('updateCurrentItem',this.item.id);
-        },
-        goSubscription() {
-            if(!this.isProfilePage) {
-                this.$router.push({
-                    name: routeNames.Profile,
-                    params: {
-                        id: this.item.user.id,
-                        name: this.item.user.name
-                    },
-                    hash: '#subscription'
-                })
-            } else {
-                this.$vuetify.goTo('#subscription')
-            }
         }
     },  
 }
@@ -112,12 +51,14 @@ export default {
 @import '../../styles/colors.less';
 
 .itemCarouselCard{
-    // OLD
-    width: 242px;
-    height: 320px;
-    // New
-    // width: 219px;
-    // height: 263px;
+    @media (max-width: @screen-xs) {
+        height: 270px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 344px;
+    }
+    width: 248px;
+    height: 216px;
     background: white;
     border-radius: 6px;
     border: solid 1px #c1c3d2;
@@ -135,36 +76,10 @@ export default {
             display: flex;
             height: 100%; // extra div added for overlay subscription box, image issue
         }
-
-        &.subscribed {
-            &:before {
-                content: '';
-                position: absolute;
-                background: rgba(0, 0, 0, .7);
-                height: 100%;
-                width: 100%;
-                border-radius: 6px 6px 0 0;
-            }
-            .overlay {
-                position: absolute;
-                top: 50%;
-                right: 0;
-                left: 0;
-                transform: translate(0,-50%);
-                .unlockText {
-                    white-space: pre;
-                    font-size: 15px;
-                    font-weight: 600;
-                    line-height: 1.47;
-                }
-                .btn {
-                    color: @global-purple; // old
-                    width: 100%;
-                    // min-width: 153px;
-                    // color: @global-purple;
-                    font-weight: 600;
-                }
-            }
+        .videoSign{
+            position: absolute;
+            top: calc(~"50% - 19px");
+            right: calc(~"50% - 26px");
         }
         .itemCarouselImg {
             border-bottom:  solid 1px #c1c3d2;
@@ -172,69 +87,28 @@ export default {
             border-top-right-radius: 6px;
             width: 100%;
             height: 100%;
-
             img {
                 width: 100%;
             }
         }
     }
-    .itemCarouselCard_videoType {
-        /*rtl:ignore*/
-        .vidTime{
-            font-size: 13px;
-            vertical-align: top;
-        }
-        .vidSvg {
-            height: 100%;
-            path {
-                fill: #69687d;
+    .item-cont {
+
+
+
+        .item-title{
+            @media (max-width: @screen-xs) {
+                font-size: 16px;
+                line-height: 1.3;
+                .giveMeEllipsis(2,24);
             }
+            color: #363637;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.43;
+            .giveMeEllipsis(2,20);
         }
 
-        .itemDate {
-            color: #989bac;
-            font-size: 13px;
-        }
-        /*rtl:ignore*/
-    }
-    .item-cont {
-        .item-title {
-            overflow: hidden !important;
-            // .giveMeEllipsis(2, 22px);
-            font-size: 15px;
-            font-weight: 600;
-            line-height: 1.5;
-            color: @global-purple;
-        }
-        .item-course{
-            font-size: 12px;
-        }
-        .item-user {
-            margin-top: 22px;
-            .userImg-item{
-                margin-right: 10px;
-            }
-        }
-        .user-info {
-            font-size: 13px;
-            color: @global-purple;
-            min-width: 0;
-            .text-truncate {
-                display: table-cell;
-                vertical-align: middle;
-            }
-        }
-        .itemCard-bottom{
-            display: flex;
-            justify-content: flex-end;
-            .documentPrice {
-                .docFree {
-                font-size: 13px;
-                color: @global-purple;
-                font-weight: 600;
-                }
-            }
-        }
     }
 }
 </style>

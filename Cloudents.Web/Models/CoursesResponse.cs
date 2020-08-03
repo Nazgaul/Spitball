@@ -5,11 +5,11 @@ namespace Cloudents.Web.Models
 {
     public class CoursesResponse
     {
-        public CoursesResponse(IEnumerable<CourseDto> courses)
+        public CoursesResponse(IEnumerable<CourseNameDto> courses)
         {
             Courses = courses;
         }
 
-        public IEnumerable<CourseDto> Courses { get; set; }
+        public IEnumerable<CourseNameDto> Courses { get; set; }
     }
 }

@@ -46,6 +46,12 @@ namespace Cloudents.Core.Entities
             }
             var _ = Users.AsQueryable().Single(s => s.User.Id == user.Id);
         }
+
+        public virtual void AddPayment(User user,string receipt)
+        {
+            var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
+            _studyRoomPayments.Add(studyRoomPayment);
+        }
         //public virtual string Name { get; set; }
 
         public override StudyRoomType Type => StudyRoomType.Private;

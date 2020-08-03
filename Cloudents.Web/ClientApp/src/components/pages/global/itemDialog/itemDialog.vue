@@ -8,7 +8,7 @@
         <template v-if="$store.getters.getDocumentLoaded">
           <template v-if="!getIsPurchased">
             <v-btn :loading="getBtnLoading" @click="openPurchaseDialog" rounded outlined class="font-weight-bold me-0 me-sm-8 mb-3 mb-sm-0" color="#4c59ff">
-              <span>{{unlockBtnText}}</span>
+              <span>{{$t('documentPage_unlock_video_btn')}}</span>
             </v-btn>
           </template>
           <template v-if="!isVideo && getIsPurchased">
@@ -46,7 +46,6 @@
 <script>
 import itemForDialog from '../../itemPage/itemForDialog.vue';
 import { mapGetters, mapActions } from 'vuex';
-import * as routeNames from "../../../../routes/routeNames";
 
 export default {
   components:{
@@ -57,21 +56,11 @@ export default {
       'getDocumentName',
       'getIsPurchased',
       'getBtnLoading',
-      'getDocumentPriceTypeSubscriber',
       'getDocumentDetails',
       'getUserLoggedInStatus',
-      'getDocumentPriceTypeHasPrice',
-      'getDocumentPriceTypeFree',
-      'getDocumentPrice'
       ]),
     id(){
       return this.$store.getters.getCurrentItemId;
-    },
-    unlockBtnText() {
-      if(this.getDocumentPriceTypeFree || this.getDocumentPriceTypeHasPrice) {
-        return this.$t('documentPage_unlock_video_btn')
-      }
-      return this.$t('documentPage_unlock_video_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
     },
     isVideo() {
       return this.getDocumentDetails?.documentType === "Video";
@@ -93,32 +82,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['downloadDocument',
-      'updatePurchaseConfirmation',
-    ]),
+    ...mapActions(['downloadDocument']),
     closeItem(){
       this.$store.dispatch('updateCurrentItem')
     },
     openPurchaseDialog() {
-      if (this.getDocumentPriceTypeSubscriber) {
-        if(this.$route.name == routeNames.Profile){
-          this.$vuetify.goTo('#subscription');
-          this.$store.dispatch('updateCurrentItem');
-          return
-        }else{
-          this.$router.push({
-            name: routeNames.Profile,
-            params: {
-              id: this.getDocumentDetails?.userId,
-              name: this.getDocumentDetails?.userName
-            },
-            hash: "#subscription"
-          });
-          return;
-        }
-      }
       if (this.getUserLoggedInStatus) {
-        this.updatePurchaseConfirmation(true);
+        let courseId = this.getDocumentDetails.courseId;
+        this.$store.dispatch('updateEnrollCourse',courseId)
       } else {
         this.$store.commit("setComponent", "register");
       }
