@@ -223,7 +223,7 @@
   "enter_room": "הכנס",
   "faq": "",
   "faq subtitle": "",
-  "follower_price": "",
+  "follower_price": "@:dashboardPage_visitor_price",
   "formErrors_email": "כתובת הדואר האלקטרוני אינה חוקית",
   "formErrors_integer": "מספרים שלמים בלבד",
   "formErrors_max_chars": "תווים מקסימום",
