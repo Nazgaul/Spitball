@@ -20,10 +20,10 @@
         <v-snackbar
             v-model="showSnackbar"
             :timeout="6000"
-            :color="snackObj.color"
+            color="error"
             top
         >
-            <div class="white--text text-center">{{snackObj.text}}</div>
+            <div class="white--text text-center">{{errorText}}</div>
         </v-snackbar>
     </div>
 </template>
@@ -67,13 +67,10 @@ export default {
             courseRoute: MyCourses,
             loading: false,
             showSnackbar: false,
-            snackObj: {
-                color: '',
-                text: ''
-            },
+            errorText: '',
             statusErrorCode: {
                 date: this.$t('invalid_date'),
-                studyRoomtext: this.$t('invalid_studyroom_text'),
+                studyRoomText: this.$t('invalid_studyroom_text'),
                 file: this.$t('invalid_file'),
                 409: this.$t('invalid_409'),
             }
@@ -87,43 +84,36 @@ export default {
                 let studyRoom = this.$store.getters.getTeachLecture
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
+                
+                if(documents === false || studyRooms === false) {
+                    this.showSnackbar = true
+                    this.loading = false
+                    return
+                }
 
-                if(!this.$store.getters.getFileData.length && !studyRooms) {
-                    this.snackObj.color = 'error'
-                    this.snackObj.text = this.$t('required_files_or_studyroom')
+                if(!documents.length && !studyRooms.length) {
+                    this.errorText = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
                     this.loading = false
                     return 
                 }
-
-                // validate for error or both empty
-                if(documents === false && studyRooms === false) {
-                    this.showSnackbar = true
-                    this.snackObj.color = 'error'
-                    this.loading = true
-                    return
-                }
-
+                
+                let self = this
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
-                    this.$router.push({name: MyCourses})
+                    self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    this.snackObj.text = this.statusErrorCode[ex.response.status]
-                    this.snackObj.color = 'error'
-                }).finally(() => {
-                    this.showSnackbar = true
-                    this.loading = false
+                    self.errorText = this.statusErrorCode[ex.response.status]
                 })
             }
         },
         documentValidate(files) {
-            if(!files.length) return false
+            if(!files.length) return []
 
             let i, filesArr = []
             for (i = 0; i < files.length; i++) {
                 const file = files[i];
-
                 if(file.error) {
-                    this.snackObj.text = this.statusErrorCode['file']
+                    this.errorText = this.statusErrorCode['file']
                     return false
                 }
                 filesArr.push({
@@ -135,7 +125,9 @@ export default {
             return filesArr
         },
         studyroomValidate(studyRoomList) {
-            if(!studyRoomList.length) return false
+            if(studyRoomList.length === 1 && !studyRoomList[0].text) {
+                return []
+            }
 
             let i, studyRoomArr = []
             for (i = 0; i < studyRoomList.length; i++) {
@@ -145,13 +137,13 @@ export default {
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
                     if(!isValidDateToday) {
-                        this.snackObj.text = this.statusErrorCode['date']
+                        this.errorText = this.statusErrorCode['date']
                         return false
                     }
                 }
 
                 if(!studyRoom.text) {
-                    this.snackObj.text = this.statusErrorCode['studyRoomtext']
+                    this.errorText = this.statusErrorCode['studyRoomText']
                     return false
                 } 
 
