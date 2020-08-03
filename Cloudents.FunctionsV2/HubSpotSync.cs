@@ -39,24 +39,24 @@ namespace Cloudents.FunctionsV2
                 await context.CallActivityAsync("HubSpotSync_DoSync", i);
             }
 
-            await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
+            //await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
         }
 
 
-        [FunctionName("HubSpotSync_FinishProcess")]
-        public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
-            CancellationToken token)
-        {
-            var message = new SendGridMessage()
-            {
+        //[FunctionName("HubSpotSync_FinishProcess")]
+        //public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+        //    CancellationToken token)
+        //{
+        //    var message = new SendGridMessage()
+        //    {
 
-                Subject = "Finish Sync Hubspot",
-                PlainTextContent = $"Finish process {amountOfTutors}"
-            };
-            message.AddTo("ram@cloudents.com");
-            await emailProvider.AddAsync(message, token);
-        }
+        //        Subject = "Finish Sync Hubspot",
+        //        PlainTextContent = $"Finish process {amountOfTutors}"
+        //    };
+        //    message.AddTo("ram@cloudents.com");
+        //    await emailProvider.AddAsync(message, token);
+        //}
 
         [FunctionName("HubSpotSync_GetCount")]
         public static async Task<int> GetCountAsync([ActivityTrigger] string x,
