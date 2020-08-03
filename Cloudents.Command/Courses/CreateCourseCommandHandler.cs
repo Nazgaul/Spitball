@@ -6,6 +6,7 @@ using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.EventHandler;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Command.Courses
@@ -35,7 +36,7 @@ namespace Cloudents.Command.Courses
 
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
-                message.Description, studyRooms.DefaultIfEmpty().Min(m=>m?.Date));
+                message.Description, studyRooms.DefaultIfEmpty().Min(m=>m?.Date), message.IsPublish);
             tutor.AddCourse(course);
 
 
