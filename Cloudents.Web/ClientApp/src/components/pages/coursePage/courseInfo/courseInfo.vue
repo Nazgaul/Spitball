@@ -8,7 +8,7 @@
             :rules="[rules.required]"
             @keyup="searchCourses"
             :label="$t('dashboardPage_label_live_title')"
-            :placeholder="$t('course_placeholder')"
+            placeholder=" "
             height="50"
             color="#304FFE"
             autocomplete="off"
