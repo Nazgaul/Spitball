@@ -38,11 +38,11 @@
 
             <template v-slot:item.preview="{item}">
                   <div class="tablePreview">
-                     <img v-if="item.image" :src="formatImg(item)" class="tablePreview_img" width="127" height="80" />
-                     
-                     <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
+                     <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
+                     <v-skeleton-loader v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
+                     <!-- <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
-                     </v-avatar>
+                     </v-avatar> -->
                   </div>
             </template>
 
@@ -160,19 +160,20 @@ import { CourseCreate, Learning } from '../../../../routes/routeNames'
 export default {
    name:'myContent',
    // components:{sbDialog,changeNameDialog},
-   props:{
-      dictionary:{
-         type: Object,
-         required: true
-      }
-   },
+   // props:{
+   //    dictionary:{
+   //       type: Object,
+   //       required: true
+   //    }
+   // },
    data() {
       return {
+         isLoaded: false,
          createCourseRoute: CourseCreate,
-         currentItem: '',
-         isChangeNameDialog: false,
-         currentItemIndex: '',
-         showMenu: false,
+         // currentItem: '',
+         // isChangeNameDialog: false,
+         // currentItemIndex: '',
+         // showMenu: false,
          headers: [
             {text: '', align:'', sortable: false, value:'preview'},
             {text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name'},
@@ -202,51 +203,54 @@ export default {
       }
    },
    methods: {
+      loaded() {
+         this.isLoaded = true;
+      },
       handleRowClick(item) {
          if(!item.isPublish) {
             return
          }
-         this.$router.push({name: Learning, params: {id: item.id}})
+         this.$router.push({name: Learning, params: { id: item.id }})
       },
-      formatPrice(price,type){
-         if(isNaN(price)) return;
-         if(price < 0){
-            price = Math.abs(price)
-         }
-         price = Math.round(+price).toLocaleString();
-         let currency;
-         if(type === 'Document' || type === 'Video' ){
-            currency = this.$t('dashboardPage_pts');
-            return `${price} ${currency}`
-         }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
-            currency = this.accountUser.currencySymbol
-            return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
-         }
-         return `${price} ${currency}`
-      },
-      openChangeNameDialog(item){
-         this.currentItem = item;
-         this.isChangeNameDialog = true;
-      },
-      closeDialog(){
-         this.isChangeNameDialog = false;
-         this.currentItem = '';
-      },
-      checkIsQuestion(type){
-         return type === 'Question' || type === 'Answer';
-      },
-      formatImg(item){
+      // formatPrice(price,type){
+      //    if(isNaN(price)) return;
+      //    if(price < 0){
+      //       price = Math.abs(price)
+      //    }
+      //    price = Math.round(+price).toLocaleString();
+      //    let currency;
+      //    if(type === 'Document' || type === 'Video' ){
+      //       currency = this.$t('dashboardPage_pts');
+      //       return `${price} ${currency}`
+      //    }
+      //    if(type === 'TutoringSession' || type === 'BuyPoints'){
+      //       currency = this.accountUser.currencySymbol
+      //       return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
+      //    }
+      //    return `${price} ${currency}`
+      // },
+      // openChangeNameDialog(item){
+      //    this.currentItem = item;
+      //    this.isChangeNameDialog = true;
+      // },
+      // closeDialog(){
+      //    this.isChangeNameDialog = false;
+      //    this.currentItem = '';
+      // },
+      // checkIsQuestion(type){
+      //    return type === 'Question' || type === 'Answer';
+      // },
+      // formatImg(item){
          //   if(item.preview || item.image){
-            return this.$proccessImageUrl(item.image,127,80)
+            // return this.$proccessImageUrl(item.image,127,80)
          // }
          // if(this.checkIsQuestion(item.type)){
          //    return require('../global/images/qs.png')
          // }
-      },
-      itemUrl(item){
-         return item.url || `/course/${item.id}`
-      }
+      // },
+      // itemUrl(item){
+      //    return item.url || `/course/${item.id}`
+      // }
    },
    created() {
       this.$store.dispatch('updateContentItems')
@@ -262,7 +266,7 @@ export default {
 // }
 .myContent{
    max-width: 1366px;
-   .myContent_table{
+   .myContent_table {
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
       thead {
          tr {
@@ -282,29 +286,29 @@ export default {
          padding-right: 0 !important;
          width: 104px;
          position: relative;
-         .tablePreview_online{
-            position: absolute;
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            background-color: #00ff14;
-            top: 16px;
-            left: 28px;
-         }
+         // .tablePreview_online{
+         //    position: absolute;
+         //    border-radius: 50%;
+         //    width: 10px;
+         //    height: 10px;
+         //    background-color: #00ff14;
+         //    top: 16px;
+         //    left: 28px;
+         // }
          .tablePreview_img{
             margin: 10px 0;
             border: 1px solid #d8d8d8;
-            &.buyPointsLayoutPreview{
-               width: 100%;
-               object-fit: cover;
-               height: 80px;      
-            }
+            // &.buyPointsLayoutPreview{
+            //    width: 100%;
+            //    object-fit: cover;
+            //    height: 80px;      
+            // }
          }
-         .tablePreview_no_image {
-            position: unset;
-            border-radius: 4px;
-            font-size: 24px;
-         }
+         // .tablePreview_no_image {
+         //    position: unset;
+         //    border-radius: 4px;
+         //    font-size: 24px;
+         // }
       }
       .tableTop {
          padding: 20px;

@@ -73,12 +73,13 @@
 
             <div class="liveImageWrap d-flex flex-column">
                 <uploadImage
-                    v-show="true"
+                    v-show="isLoaded"
                     :fromLiveSession="true"
                     @setLiveImage="handleLiveImage"
                     class="editLiveImage"
                 />
-                <img class="liveImage" :src="previewImage || liveImage" width="250" height="140" alt="">
+                <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
+                <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(liveImage, 250, 140)" width="250" height="140" alt="">
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </div>
         </div>
@@ -96,7 +97,7 @@ export default {
     },
     data() {
         return {
-            // subscribeSwitch: false,
+            isLoaded: false,
             previewImage: null,
             newLiveImage: null,
             rules: {
@@ -161,15 +162,20 @@ export default {
     methods: {
         handleLiveImage(previewImage) {
             if(previewImage) {
+                this.isLoaded = false
                 let formData = new FormData();
                 formData.append("file", previewImage[0]);
                 let self = this
                 this.$store.dispatch('updateLiveImage', formData).then(({data}) => {
+                    self.isLoaded = false
                     self.previewImage = window.URL.createObjectURL(previewImage[0])
                     self.newLiveImage = data.fileName
                     self.$store.commit('setCourseCoverImage', self.newLiveImage)
                 })
             }
+        },
+        loaded() {
+            this.isLoaded = true
         }
     }
 }
@@ -211,7 +217,8 @@ export default {
                 border-radius: 3px;
                 background-color: rgba(0,0,0,.6);
                 z-index: 1;
-                left: 0;
+                top: 1px;
+                left: 1px;
                 padding: 6px;
             }
             .liveImage {
