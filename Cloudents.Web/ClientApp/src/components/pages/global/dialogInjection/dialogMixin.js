@@ -4,7 +4,6 @@ import { mapGetters } from 'vuex';
 // const login = () => import('./globalDialogs/login/login.vue');
 // const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
-// const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
 
 
 export default {
@@ -13,7 +12,6 @@ export default {
     //     createCoupon,
     //     login,
     //     teacherApproval,
-    //     createStudyRoom
     // },
     data() {
         return {
