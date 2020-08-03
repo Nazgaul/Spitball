@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,6 @@ using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using NHibernate.Linq;
-using SendGrid.Helpers.Mail;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -22,6 +22,7 @@ namespace Cloudents.FunctionsV2
     public static class HubSpotSync
     {
         private static readonly HubSpotClient Client = new HubSpotClient();
+      
 
         [FunctionName("HubSpotSync")]
         public static async Task RunOrchestratorAsync(
@@ -39,25 +40,26 @@ namespace Cloudents.FunctionsV2
                 await context.CallActivityAsync("HubSpotSync_DoSync", i);
             }
 
-            await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
+            //await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
         }
 
 
-        [FunctionName("HubSpotSync_FinishProcess")]
-        public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
-            CancellationToken token)
-        {
-            var message = new SendGridMessage()
-            {
+        //[FunctionName("HubSpotSync_FinishProcess")]
+        //public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+        //    CancellationToken token)
+        //{
+        //    var message = new SendGridMessage()
+        //    {
 
-                Subject = "Finish Sync Hubspot",
-                PlainTextContent = $"Finish process {amountOfTutors}"
-            };
-            message.AddTo("ram@cloudents.com");
-            await emailProvider.AddAsync(message, token);
-        }
+        //        Subject = "Finish Sync Hubspot",
+        //        PlainTextContent = $"Finish process {amountOfTutors}"
+        //    };
+        //    message.AddTo("ram@cloudents.com");
+        //    await emailProvider.AddAsync(message, token);
+        //}
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         [FunctionName("HubSpotSync_GetCount")]
         public static async Task<int> GetCountAsync([ActivityTrigger] string x,
             [Inject] IStatelessSession statelessSession,
@@ -70,7 +72,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         [FunctionName("HubSpotSync_DoSync")]
         public static async Task DoSyncAsync([ActivityTrigger] int index,
             [Inject] IStatelessSession statelessSession,
@@ -149,7 +151,7 @@ namespace Cloudents.FunctionsV2
                 IEnumerable<string>? courses;
                 if (coursesFuture != null)
                 {
-                    courses = await coursesFuture?.GetEnumerableAsync();
+                    courses = await coursesFuture.GetEnumerableAsync();
                 }
                 else
                 {
@@ -159,7 +161,7 @@ namespace Cloudents.FunctionsV2
                 List<StudyRoomDto> studyRoomData;
                 if (studyRoomFuture != null)
                 {
-                    studyRoomData = (await studyRoomFuture?.GetEnumerableAsync()).ToList();
+                    studyRoomData = (await studyRoomFuture.GetEnumerableAsync()).ToList();
                 }
                 else
                 {
@@ -230,6 +232,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         [FunctionName("HubSpotSync_TimerStart")]
         public static async Task TimerStartAsync(
             [TimerTrigger("0 0 */12 * * *")] TimerInfo time,

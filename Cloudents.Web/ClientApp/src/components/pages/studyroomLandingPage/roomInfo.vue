@@ -3,10 +3,13 @@
       <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
          <logo :menuList="true" class="logoRoom"></logo>
       </div>
+
       <div class="roomInfoTop d-flex">
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
-            <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
-            <div class="classSubject" v-text="courseName"/>
+            <div>
+               <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
+               <div class="classSubject pt-4" v-text="courseName"/>
+            </div>
             <div v-if="courseSessions.length">
                <div class="pb-2">{{$tc('live_times',courseSessions.length)}}</div>
 
@@ -288,7 +291,6 @@ export default {
                margin: 0 auto;
                font-size: 20px;
                color: #1b2441;
-               text-decoration: underline;
                text-transform:initial;
                padding-top: 12px;
                @media(max-width: @screen-sm) {

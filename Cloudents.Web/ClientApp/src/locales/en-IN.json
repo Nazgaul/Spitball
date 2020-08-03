@@ -87,6 +87,7 @@
   "coupon_type_percentage": "Percentage",
   "courseItemsAccsess": "You will have instant access to the online resources provided by your instructor.",
   "courseItemsTitle": "What You will receive",
+  "courseItemsTitle_enrolled": "put text here",
   "create_broadcast_error": "Error creating new live session. Try again later",
   "custom": "Custom",
   "daily": "Daily",

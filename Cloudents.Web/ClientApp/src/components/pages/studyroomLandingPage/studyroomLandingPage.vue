@@ -1,7 +1,7 @@
 <template>
-   <div class="studyroomLandingPage d-flex" :class="[{'window2':isRoomEnrolled}]">
-      <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
-         <v-window :value="isRoomEnrolled? 1 : 0"> 
+   <div class="studyroomLandingPage d-flex" :class="[{'window2':isCourseEnrolled}]">
+      <div class="pageWrapper px-0 px-sm-0 px-md-0 px-lg-0">
+         <v-window :value="isCourseEnrolled? 1 : 0"> 
             <v-window-item>
                <div class="roominfoHeader">
                   <div class="cursor-pointer content" v-if="!isMobile" @click="$router.push('/')">
@@ -10,16 +10,14 @@
                   <roomInfo class="content"/>
                </div>
                <sessionInfo  class="content"/>
-               <courseSessions class="content" />
-               <courseItems  class="content"/>
-               <hostInfo  class="content"/>
             </v-window-item>
             <v-window-item>
                <roomThankYou />
-               <courseSessions class="content" />
-               <courseItems  class="content"/>
             </v-window-item>
          </v-window>
+         <courseSessions class="content" />
+         <courseItems  class="content"/>
+         <hostInfo v-if="!isCourseEnrolled"  class="content"/>
       </div>
    </div>
 </template>
@@ -47,11 +45,11 @@ export default {
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
-      isRoomEnrolled(){
-         let isRoomTutor = this.$store.getters.accountUser?.id == this.$store.getters.getCourseDetails?.tutorId;
-         if(isRoomTutor) return false;
-         else{
-            return this.$store.getters.getCourseDetails?.enrolled;
+      isCourseEnrolled(){
+         if(this.$store.getters.getIsCourseTutor){
+            return false;
+         }else{
+            return this.$store.getters.getIsCourseEnrolled;
          }
       },
    },
