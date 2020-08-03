@@ -58,6 +58,7 @@ namespace Cloudents.Query.Courses
                             {
                                 Id = s2.Id,
                                 DateTime = s2.BroadcastTime,
+                                Name = s2.Description
                                 // Description = s2.Description,
                                 //IsFull = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == s2.Id) >= 48,
                                 //Enrolled = _statelessSession.Query<StudyRoomUser>()
