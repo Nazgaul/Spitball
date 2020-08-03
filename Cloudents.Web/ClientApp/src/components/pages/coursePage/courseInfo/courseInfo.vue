@@ -4,9 +4,7 @@
         <v-combobox
             v-model="courseName"
             class="courseName mb-2"
-            :items="suggestsCourses"
             :rules="[rules.required]"
-            @keyup="searchCourses"
             :label="$t('dashboardPage_label_live_title')"
             placeholder=" "
             height="50"
@@ -91,9 +89,6 @@
 import { validationRules } from '../../../../services/utilities/formValidationRules.js'
 import uploadImage from '../../../new_profile/profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
-import debounce from "lodash/debounce";
-import courseService from '../../../../services/courseService.js';
-
 export default {
     name: 'courseInfo',
     components: {
@@ -102,7 +97,6 @@ export default {
     data() {
         return {
             subscribeSwitch: false,
-            suggestsCourses: [],
             previewImage: null,
             newLiveImage: null,
             rules: {
@@ -176,29 +170,7 @@ export default {
                     self.$store.commit('setCourseCoverImage', self.newLiveImage)
                 })
             }
-        },
-        searchCourses(ev){
-            let term = ev.target.value.trim()
-            if(!term) {
-                this.courseName = ''
-                this.suggestsCourses = []
-                return 
-            }
-            this.courseName = term;
-            this.searchDebounce(term)
-        },
-        searchDebounce: debounce(function(term){
-            courseService.getCourse({term}).then(data=>{
-                this.suggestsCourses = data;
-                if(this.suggestsCourses.length) {
-                    this.suggestsCourses.forEach(course => {
-                        if(course.text === this.courseName){
-                            this.courseName = course
-                        }
-                    }) 
-                }
-            })
-        }, 200)
+        }
     }
 }
 </script>
