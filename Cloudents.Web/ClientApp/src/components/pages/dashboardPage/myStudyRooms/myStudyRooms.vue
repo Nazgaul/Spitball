@@ -29,7 +29,7 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0">{{myStudyroomTitle}}</div>
-          <div v-if="isTutor">
+          <div v-if="isTutor && !isStudyroomLive">
             <v-btn
               @click="isStudyroomLive ? openLiveSession() : openPrivateSession()"
               class="link white--text"
