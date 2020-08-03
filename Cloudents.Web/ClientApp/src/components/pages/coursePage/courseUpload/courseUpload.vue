@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import uploadMultipleFileStart from '../../../uploadFilesDialog/components/uploadMultipleFileStart.vue';
-import fileCardError from '../../../uploadFilesDialog/components/fileCardError.vue';
+import uploadMultipleFileStart from './uploadMultipleFileStart.vue';
+import fileCardError from './fileCardError.vue';
 import uploadFiles from '../uploadFiles/uploadFiles.vue';
 
 export default {
@@ -32,11 +32,6 @@ export default {
         fileErrorList() {
             return this.files.filter(f => f.error)
         },
-        // fileSupport() {
-        //     return this.files.filter(f => {
-        //         return !f.error && f.progress === 100
-        //     })
-        // },
         files() {
             return this.$store.getters.getFileData
         }

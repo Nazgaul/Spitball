@@ -227,8 +227,8 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
-@import "../../../styles/colors.less";
+@import "../../../../styles/mixin.less";
+@import "../../../../styles/colors.less";
 
 .uf-sDrop-container {
     padding: 12px;

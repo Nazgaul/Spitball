@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../../../styles/mixin.less";
 .ufItem-error{
     background-color: #d16061;
     @media (max-width: @screen-xs) {

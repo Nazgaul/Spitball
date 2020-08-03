@@ -100,16 +100,6 @@ export default {
                         name: componentConsts.ENROLLED_ERROR
                     }
                 },
-                [componentConsts.UPLOAD_ERROR]:{
-                    name:'simpleErrorToaster',
-                    params:{
-                        text: this.$t('upload_err'),
-                        name: componentConsts.UPLOAD_ERROR
-                    }
-                },
-
-
-                
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },

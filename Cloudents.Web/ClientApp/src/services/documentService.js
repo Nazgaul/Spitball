@@ -51,9 +51,6 @@ export default {
     // async deleteDoc(id){ 
     //    return await documentInstance.delete(`${id}`)
     // },
-    async sendDocumentData(data){ 
-        return await documentInstance.post('',data)
-    },
     async purchaseDocument(id){ 
         return await documentInstance.post('purchase',{id})
     },
