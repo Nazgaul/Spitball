@@ -49,10 +49,12 @@ namespace Cloudents.Core.Entities
             }
             var studyRoomUser = new StudyRoomUser(user, this);
 
-            _users.Add(studyRoomUser);
-
-            Tutor.User.AddFollower(user);
-            AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
+            var x = _users.Add(studyRoomUser);
+            if (x)
+            {
+                Tutor.User.AddFollower(user);
+                AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
+            }
         }
 
 

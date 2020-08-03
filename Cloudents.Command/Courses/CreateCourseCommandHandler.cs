@@ -13,7 +13,6 @@ namespace Cloudents.Command.Courses
     public class CreateCourseCommandHandler : ICommandHandler<CreateCourseCommand>
     {
         private readonly IRepository<Tutor> _tutorRepository;
-        //private readonly IRepository<BroadCastStudyRoom> _studyRoomRepository;
         private readonly IStudyRoomBlobProvider _blobProvider;
         private readonly IGoogleDocument _googleDocument;
         private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
@@ -33,7 +32,8 @@ namespace Cloudents.Command.Courses
             var tutor = await _tutorRepository.LoadAsync(message.UserId, token);
 
 
-            var studyRooms = (message.StudyRooms ?? Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>()).ToList();
+
+            var studyRooms = message.StudyRooms.ToList();
 
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
@@ -50,7 +50,7 @@ namespace Cloudents.Command.Courses
                 course.AddStudyRoom(studyRoom);
             }
 
-            foreach (var documentMessage in message.Documents ?? Enumerable.Empty<CreateCourseCommand.CreateDocumentCommand>())
+            foreach (var documentMessage in message.Documents)
             {
                 var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(documentMessage.BlobName)];
                 var document = new Document(documentMessage.Name, course, extension.DocumentType, documentMessage.Visible);

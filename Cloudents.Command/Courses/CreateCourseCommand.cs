@@ -33,8 +33,8 @@ namespace Cloudents.Command.Courses
 
         public string? Image { get;}
 
-        public IEnumerable<CreateLiveStudyRoomCommand>? StudyRooms { get;  }
-        public IEnumerable<CreateDocumentCommand>? Documents { get;  }
+        public IEnumerable<CreateLiveStudyRoomCommand> StudyRooms { get;  }
+        public IEnumerable<CreateDocumentCommand> Documents { get;  }
         public bool IsPublish { get;  }
 
 

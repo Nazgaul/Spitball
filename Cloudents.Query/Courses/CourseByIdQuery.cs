@@ -28,14 +28,13 @@ namespace Cloudents.Query.Courses
         internal sealed class CourseByIdQueryHandler : IQueryHandler<CourseByIdQuery, CourseDetailDto?>
         {
             private readonly IStatelessSession _statelessSession;
-            private readonly ICronService _cronService;
+           // private readonly ICronService _cronService;
             private readonly IUrlBuilder _urlBuilder;
 
-            public CourseByIdQueryHandler(IStatelessSession repository, ICronService cronService,
+            public CourseByIdQueryHandler(IStatelessSession repository,
                 IUrlBuilder urlBuilder)
             {
                 _statelessSession = repository;
-                _cronService = cronService;
                 _urlBuilder = urlBuilder;
             }
 
@@ -59,11 +58,12 @@ namespace Cloudents.Query.Courses
                             {
                                 Id = s2.Id,
                                 DateTime = s2.BroadcastTime,
+                                Name = s2.Description
                                 // Description = s2.Description,
                                 //IsFull = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == s2.Id) >= 48,
                                 //Enrolled = _statelessSession.Query<StudyRoomUser>()
                                 //    .Any(w => w.Room.Id == s2.Id && w.User.Id == query.UserId),
-                                Schedule = s2.Schedule
+                                //Schedule = s2.Schedule
                             }),
                         //Enrolled = _statelessSession.Query<CourseEnrollment>().Any(a => a.User.Id == query.UserId),
                         TutorId = s.Tutor.Id,
@@ -124,16 +124,7 @@ namespace Cloudents.Query.Courses
                 result.Enrolled = enrollmentsFuture.Value;
                 result.SessionStarted = sessionStartedFuture.Value;
 
-                result.StudyRooms = result.StudyRooms.Select(s =>
-                {
-                    if (s.Schedule != null)
-                    {
-                        s.NextEvents = _cronService.GetNextOccurrences(s.Schedule.CronString,
-                            s.Schedule.Start, s.Schedule.End);
-                    }
-
-                    return s;
-                });
+                result.StudyRooms = result.StudyRooms;
 
 
 
