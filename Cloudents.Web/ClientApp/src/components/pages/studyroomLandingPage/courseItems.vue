@@ -1,10 +1,10 @@
 <template>
-   <div class="courseItems mt-7 py-5" v-if="courseItemsList.length">
+   <div class="courseItems mt-7 pb-0 py-5 px-4 px-sm-4 px-lg-0" v-if="courseItemsList.length">
       <div class="courseTitle">{{$t('courseItemsTitle')}}</div>
       <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
       <div class="courseSubtitle pt-4 pb-8 pe-12">{{$t('courseItemsAccsess')}}</div>
       <v-row class="itemsWrapper">
-         <v-col v-for="(item) in itemToPreview" :key="item.id" cols="12" sm="6" md="3">
+         <v-col class="px-0 px-sm-3 py-2 py-sm-3" v-for="(item) in itemToPreview" :key="item.id" cols="12" md="3" sm="6" >
             <itemCard :item="item"/>
          </v-col>
       </v-row>
@@ -30,23 +30,29 @@ export default {
          pagination:{
             length:0,
             current:1,
-            pageSize:12,
          },
       }
    },
    computed: {
+      pageSize(){
+         if(this.$vuetify.breakpoint.xsOnly){
+            return 9
+         }else{
+            return 12
+         }
+      },
       courseItemsList(){
          return this.$store.getters.getCourseItems;
       },
       itemToPreview(){
-         let startIdx = (this.pagination.current * this.pagination.pageSize) - this.pagination.pageSize;
-         let endIdx = this.pagination.current * this.pagination.pageSize;
+         let startIdx = (this.pagination.current * this.pageSize) - this.pageSize;
+         let endIdx = this.pagination.current * this.pageSize;
          return this.courseItemsList.slice(startIdx,endIdx)
       },
    },
    watch: {
       courseItemsList(){
-         this.pagination.length = Math.ceil(this.$store.getters.getCourseItems.length / this.pagination.pageSize)
+         this.pagination.length = Math.ceil(this.$store.getters.getCourseItems.length / this.pageSize)
       }
    },
 }
@@ -63,7 +69,7 @@ export default {
          font-weight: 600;
       }
       .courseSubtitle{
-         font-size: 18px;
+         font-size: 20px;
          line-height: 1.56;
       }
       .itemsWrapper{
@@ -73,7 +79,7 @@ export default {
       }
    }
    .itemPagination{
-    padding: 20px 0;
+         padding: 12px 0 20px;
         text-align: center;
         button{
             outline: none;
