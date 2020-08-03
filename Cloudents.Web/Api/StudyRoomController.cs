@@ -244,7 +244,7 @@ namespace Cloudents.Web.Api
              CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserStudyRoomQuery(userId);
+            var query = new UserStudyRoomQuery(userId ,type);
             var result = await _queryBus.QueryAsync(query, token);
             return result.Where(w => w.Type == type);
 
