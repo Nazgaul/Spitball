@@ -92,12 +92,10 @@ export default {
                     this.snackObj.color = 'error'
                     return
                 }
-                this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
-                    console.log(res);
+                this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
                     this.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    console.error(ex);
-                    this.snackObj.text = this.statusErrorCode[ex.code]
+                    this.snackObj.text = this.statusErrorCode[ex.response.status]
                     this.snackObj.color = 'error'
                 }).finally(() => {
                     this.showSnackbar = true
