@@ -240,7 +240,7 @@ export default {
                 background-color: rgba(0,0,0,.6);
                 z-index: 1;
                 left: 0;
-
+                padding: 6px;
             }
             .liveImage {
                 border: solid 1px #c6cdda;
