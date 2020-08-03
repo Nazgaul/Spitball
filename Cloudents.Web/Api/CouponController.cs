@@ -89,11 +89,11 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest("Invalid Coupon");
             }
-            catch (DuplicateRowException)
-            {
-                return BadRequest("This coupon already in use");
+            //catch (DuplicateRowException)
+            //{
+            //    return BadRequest("This coupon already in use");
 
-            }
+            //}
         }
 
         [HttpGet]

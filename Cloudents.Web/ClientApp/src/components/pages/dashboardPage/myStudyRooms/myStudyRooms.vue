@@ -324,7 +324,7 @@ export default {
     },
     copyLink(item) {
       let localRoute = this.$router.resolve({
-        name: routeNames.StudyRoomLanding,
+        name: "studyroomSettings2",
         params:{id:item.id}
       })
       let link = `${window.origin}${localRoute.href}`

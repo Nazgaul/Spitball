@@ -81,7 +81,9 @@ export default {
     watch: {
         isExpand(val) {
             if(!val) {
-                this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
+                this.$nextTick(() => {
+                    this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
+                })
             }
         }
     },

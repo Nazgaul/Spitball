@@ -36,7 +36,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; protected set; }
 
-        public virtual string? Description { get; protected set; }
+     
 
         public override void AddUserToStudyRoom(User user)
         {

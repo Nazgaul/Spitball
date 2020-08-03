@@ -3,17 +3,17 @@
       <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
          <logo :menuList="true" class="logoRoom"></logo>
       </div>
+
       <div class="roomInfoTop d-flex">
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
-            <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
-            <div class="classSubject" v-text="courseName"/>
+            <div>
+               <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
+               <div class="classSubject pt-4" v-text="courseName"/>
+            </div>
             <div v-if="courseSessions.length">
                <div class="pb-2">{{$tc('live_times',courseSessions.length)}}</div>
 
                <div>{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
-            </div>
-            <div v-else class="pb-2">
-               {{$moment(courseDate).format('MMMM Do, h:mm a')}}
             </div>
             <div v-if="!isMobile && coursePrice && coursePrice.amount">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
@@ -31,14 +31,16 @@
             <div v-if="isMobile && coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
                {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
              </div>
+
             <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
             :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
             <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{isRoomFull? $t('room_full') : $t('save_spot') }}
+               {{enrollBtnText}}
             </v-btn>
             <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+        
          </div>
          <div class="bottomLeft" v-if="courseDetails">
             <sessionStartCounter v-show="!isSessionNow" class="pageCounter" @updateCounterFinish="isSessionNow = true"/>
@@ -50,21 +52,18 @@
          </v-skeleton-loader>
          <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
       </div>
-        <stripe ref="stripe"></stripe>
    </div>
 </template>
 
 <script>
-import stripe from "../global/stripe.vue";
 
 import logo from '../../app/logo/logo.vue';
 import sessionStartCounter from '../../studyroom/tutorHelpers/sessionStartCounter/sessionStartCounter.vue'
-import * as componentConsts from '../global/toasterInjection/componentConsts.js';
 import * as routeNames from '../../../routes/routeNames';
 import EventBus from '../../../eventBus.js';
 
 export default {
-   components:{logo,sessionStartCounter,stripe},
+   components:{logo,sessionStartCounter},
    data() {
       return {
          isSessionNow:false,
@@ -90,23 +89,6 @@ export default {
          });
          global.open(routeData.href, "_self");
       },
-      async goStripe() {
-         let session = {
-          //  userId: this.$store.getters.accountUser?.id,
-            studyRoomId: this.$route.params?.id
-         };
-         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPrice', session);
-         this.$refs.stripe.redirectToStripe(x);
-      },
-      async goPayme() {
-         let session = {
-          //  userId: this.$store.getters.accountUser?.id,
-            studyRoomId: this.$route.params?.id
-         };
-         let x = await this.$store.dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
-         location.href = x;
-      },
-
       async enrollSession(){
          if(!this.isLogged) {
             this.$store.commit('setComponent', 'register')
@@ -114,30 +96,10 @@ export default {
          }
          if(this.loadingBtn) return;
          this.loadingBtn = true;
-
-         let userId = this.$store.getters.accountUser?.id;
-         let studyRoomId = this.$route.params?.id;
-         let session = {
-            userId,
-            studyRoomId
-         }
-         if (this.coursePrice.amount) {
-            
-            if (this.tutorCountry !== 'IL'){
-               this.goStripe()
-               return;
-            }
-            this.goPayme();
-            return;
-         }
+         let courseId = this.$route.params?.id;
          let self = this
-         this.$store.dispatch('updateStudyroomLiveSessions', session)
-            .then(() => {
-               self.$store.commit('setCourseEnrolled',true);
-            }).catch(ex => {
-               self.$store.commit('setComponent',componentConsts.ENROLLED_ERROR);
-               self.$appInsights.trackException(ex);
-            }).finally(()=>{
+         this.$store.dispatch('updateEnrollCourse', courseId)
+            .finally(()=>{
                self.loadingBtn = false;
             })
       }
@@ -160,6 +122,13 @@ export default {
       },
       coursePrice(){
          return this.$store.getters.getCoursePrice;
+      },
+      enrollBtnText(){
+         if(this.isRoomFull){
+            return this.$t('room_full')
+         }else{
+            return this.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+         }
       },
       tutorName(){
          return this.courseDetails?.tutorName;
@@ -188,11 +157,7 @@ export default {
    },
    mounted() {
       EventBus.$on('applyCouponDone',()=>{
-         if (this.coursePrice?.amount && this.tutorCountry !== 'IL') {
-            this.goStripe()
-         }else{
-            this.enrollSession()
-         }
+         this.enrollSession()
       });
    },
    beforeDestroy() {
@@ -322,9 +287,10 @@ export default {
                }
             }
             .couponText{
+               min-width: fit-content !important;
+               margin: 0 auto;
                font-size: 20px;
                color: #1b2441;
-               text-decoration: underline;
                text-transform:initial;
                padding-top: 12px;
                @media(max-width: @screen-sm) {
