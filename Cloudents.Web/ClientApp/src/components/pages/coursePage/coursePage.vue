@@ -88,7 +88,7 @@ export default {
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
 
-                if(!this.$store.getters.getFileData.length && !this.lectureTopic) {
+                if(!this.$store.getters.getFileData.length && !studyRooms) {
                     this.snackObj.color = 'error'
                     this.snackObj.text = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
@@ -100,6 +100,7 @@ export default {
                 if(documents === false && studyRooms === false) {
                     this.showSnackbar = true
                     this.snackObj.color = 'error'
+                    this.loading = true
                     return
                 }
 
