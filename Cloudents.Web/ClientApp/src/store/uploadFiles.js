@@ -57,9 +57,10 @@ const mutations = {
         state.fileData[objIndex].errorText = fileInfo.errorText;
         // Update progress to enable Upload button
         state.fileData[objIndex].progress = 100;
-
+    },
+    resetUploadFiles(state) {
+        state.fileData = []
     }
-
 };
 
 const actions = {
