@@ -8,7 +8,7 @@
             :rules="[rules.required]"
             @keyup="searchCourses"
             :label="$t('dashboardPage_label_live_title')"
-            :placeholder="$t('course_placeholder')"
+            placeholder=" "
             height="50"
             color="#304FFE"
             autocomplete="off"
@@ -221,7 +221,7 @@ export default {
         width: 500px;
     }
     .priceFollower, .priceSubscriber {
-        width: 140px;
+        width: 160px;
     }
     .addImage {
         .addImageTitle {
@@ -240,7 +240,7 @@ export default {
                 background-color: rgba(0,0,0,.6);
                 z-index: 1;
                 left: 0;
-
+                padding: 6px;
             }
             .liveImage {
                 border: solid 1px #c6cdda;

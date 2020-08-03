@@ -5,7 +5,7 @@
         <fileCardError v-for="(file, index) in fileErrorList" :singleFileIndex="index" :item="file" :key="file.id" />
 
         <template v-if="showFiles">
-            <div class="uploadFilesTitle mb-6" v-t="'upload_files'" v-show="files.length"></div>
+            <div class="uploadFilesTitle mb-6 mt-8" v-t="'upload_files'" v-show="files.length"></div>
             <uploadFiles v-for="(file, index) in files" :singleFileIndex="index" :item="file" :key="index" />
         </template>
     </div>

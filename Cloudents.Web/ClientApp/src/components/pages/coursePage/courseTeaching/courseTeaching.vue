@@ -9,7 +9,7 @@
             <v-icon v-if="index > 1" @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
         </div>
 
-        <div>
+        <div class="mb-2">
             <v-text-field 
                 v-model="lectureTopic"
                 :label="$t('lecture_topic')"
