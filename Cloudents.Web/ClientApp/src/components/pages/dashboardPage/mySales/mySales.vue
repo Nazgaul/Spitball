@@ -1,10 +1,10 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
-      <v-layout wrap class="mySales_wallet justify-end mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
+      <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
-            <div class="mySales_actions ms-md-6">
-               <redeemPointsLayout class="my-2 my-md-0 mx-lg-2 "/>
+            <div class="mySales_actions">
+               <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
                <buyPointsLayout class="my-2 my-md-0 mx-lg-2"/>
             </div>
          </v-flex>
