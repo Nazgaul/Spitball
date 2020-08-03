@@ -6,7 +6,7 @@ namespace Cloudents.Web.Models
 {
     public class CreateLiveStudyRoomRequest 
     {
-        [Required , JsonProperty("text")]
+        [Required]
         public string Name { get; set; }
 
        

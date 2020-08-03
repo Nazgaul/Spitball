@@ -3,7 +3,7 @@
         <div class="courseInfoTitle mb-9" v-t="'basic_info'"></div>
         <v-combobox
             v-model="courseName"
-            class="courseName"
+            class="courseName mb-2"
             :items="suggestsCourses"
             :rules="[rules.required]"
             @keyup="searchCourses"
