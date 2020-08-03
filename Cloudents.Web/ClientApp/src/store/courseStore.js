@@ -65,6 +65,10 @@ const mutations = {
 const getters = {
   getCourseDetails: state => state.courseDetails,
   getCourseSessions: state => state.courseDetails?.studyRooms || [],
+  getNextCourseSession: (state,getters) => {
+    // TODO: get the nearest date;
+    return getters.getCourseSessions[0]
+  },
   getIsCourseTutor: (state, getters) => state.courseDetails?.tutorId == getters.getAccountId,
   getCoursePrice: state => state.courseDetails?.price || null,
   getCourseItems: state => state.courseDetails?.items || [],

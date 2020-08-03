@@ -67,7 +67,7 @@ export default {
    },
    methods: {
       enterStudyRoom(){
-         let id = this.$route.params?.id;
+         let id = this.$store.getters.getNextCourseSession?.id;
          let routeData = this.$router.resolve({
             name: routeNames.StudyRoom,
             params: { id }
