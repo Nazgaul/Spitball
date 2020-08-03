@@ -31,11 +31,6 @@ namespace Cloudents.Command.Courses
         {
             var tutor = await _tutorRepository.LoadAsync(message.UserId, token);
 
-            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null)
-            {
-                throw new UnauthorizedAccessException("You need to have a seller in payme");
-            }
-
             var studyRooms = message.StudyRooms.ToList();
 
             var course = new Course(message.Name, tutor, message.Price,
