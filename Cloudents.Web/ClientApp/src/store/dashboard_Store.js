@@ -3,7 +3,7 @@ import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
-   // contentItems: [],
+   contentItems: [],
    purchasesItems: [],
    studyRoomItems: [],
    followersItems: [],
@@ -13,9 +13,9 @@ const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   // setContentItems(state,val) {
-   //    state.contentItems = val;
-   // },
+   setContentItems(state,val) {
+      state.contentItems = val;
+   },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
    },
@@ -41,7 +41,7 @@ const mutations = {
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   // getContentItems: state => state.contentItems,
+   getContentItems: state => state.contentItems,
    getPurchasesItems: state => state.purchasesItems,
    getStudyRoomItems: state => state.studyRoomItems,
    getFollowersItems: state => state.followersItems,
@@ -53,11 +53,11 @@ const actions = {
          commit('setSalesItems', items);
       });
    },
-   // updateContentItems({commit}){
-   //    dashboardService.getContentItems().then(items=>{
-   //       commit('setContentItems', items);
-   //    });
-   // },
+   updateContentItems({commit}){
+      dashboardService.getContentItems().then(items=>{
+         commit('setContentItems', items);
+      });
+   },
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);
