@@ -44,7 +44,9 @@ namespace Cloudents.Query.Users
                         Email = s.Email,
                         Country = s.SbCountry,
                         IsTutor =  s.Tutor!.State,
+                        SellerKey = s.Tutor!.SellerKey,
                         TutorSubscription = s.Tutor.SubscriptionPrice != null,
+                        
                         _needPayment = s.PaymentExists.GetValueOrDefault(PaymentStatus.None) == PaymentStatus.None
                     }).ToFutureValue();
                 
@@ -52,48 +54,7 @@ namespace Cloudents.Query.Users
                 var unreadMessages = _session.Query<ChatUser>().Where(w => w.User.Id == query.Id)
                     .ToFutureValue(f => f.Sum(s => (int?)s.Unread));
 
-                //var haveDocsFuture = _session.Query<Document>()
-                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
-
-                //var haveQuestionsFuture = _session.Query<Question>()
-                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
-
-                //var haveDocsWithPriceFuture = _session.Query<Document>()
-                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.DocumentPrice.Price > 0)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
-
-                //var purchasedDocsFuture = _session.Query<DocumentTransaction>()
-                //    .Fetch(f => f.User)
-                //    .Fetch(f => f.Document)
-                //    .Where(w => w.User.Id == query.Id)
-                //    .Where(w => w.Document.Status.State == ItemState.Ok)
-                //    .Where(w => w.Type == TransactionType.Spent)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
-
-                //var buyPointsFuture = _session.Query<BuyPointsTransaction>()
-                //    .Where(w => w.User.Id == query.Id)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
-
-                //var purchasedSessionsFuture = _session.Query<StudyRoomSession>()
-                //    .Fetch(f => f.StudyRoom)
-                //    .ThenFetch(f => f.Users)
-                //    .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id) && query.Id != w.StudyRoom.Tutor.Id)
-                //    .Where(w => w.Ended != null)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
+               
 
 
 
@@ -115,11 +76,6 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
-                //var haveFollowersFuture = _session.Query<Follow>()
-                //    .Where(w => w.User.Id == query.Id)
-                //    .Select(s => s.Id)
-                //    .Take(1)
-                //    .ToFuture();
 
                 var result = await userFuture.GetValueAsync(token);
                 if (result is null)
