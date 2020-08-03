@@ -40,7 +40,7 @@ namespace Cloudents.Command.Courses
 
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
-                message.Description, studyRooms.Min(m=>m.Date));
+                message.Description, studyRooms.DefaultIfEmpty().Min(m=>m?.Date));
             tutor.AddCourse(course);
 
 

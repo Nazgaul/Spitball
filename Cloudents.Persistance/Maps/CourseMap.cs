@@ -32,6 +32,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
 
             Map(x => x.Create);
+
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("SubscriptionPrice","SubscriptionCurrency");
@@ -39,7 +40,7 @@ namespace Cloudents.Persistence.Maps
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("Price","PriceCurrency");
 
-            Map(x => x.StartTime).Nullable();
+            Map(x => x.StartTime).Access.CamelCaseField(Prefix.Underscore).Nullable();
 
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();

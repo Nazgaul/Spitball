@@ -29,7 +29,7 @@ namespace Cloudents.Core.Entities
             Description = description;
             StartTime = startTime;
             Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
-            
+
         }
 
         protected Course()
@@ -47,9 +47,26 @@ namespace Cloudents.Core.Entities
 
         public virtual string? Description { get; set; }
 
-        public virtual DateTime? StartTime  { get; set; }
+        public virtual DateTime? StartTime
+        {
+            get => _startTime;
+            set
+            {
+                if (value == null)
+                {
+                    _startTime = DateTime.UtcNow;
+                    return;
+                }
+                if (value < DateTime.UtcNow)
+                {
+                    _startTime = DateTime.UtcNow;
+                    return;
+                }
 
-        
+                _startTime = value.Value;
+            }
+        }
+
 
         public virtual ItemState State { get; set; }
 
@@ -78,6 +95,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Create { get; protected set; }
 
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
+        private DateTime _startTime;
 
         public virtual IEnumerable<CourseEnrollment> CourseEnrollments => _courseEnrollments;
 
