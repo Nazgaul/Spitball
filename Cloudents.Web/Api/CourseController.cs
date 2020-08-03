@@ -15,10 +15,8 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Interfaces;
-using Cloudents.Query.Tutor;
 using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Api
@@ -46,7 +44,7 @@ namespace Cloudents.Web.Api
             _commandBus = commandBus;
         }
 
-        [HttpGet("{id:long}"),AllowAnonymous]
+        [HttpGet("{id:long}"), AllowAnonymous]
         public async Task<ActionResult<CourseDetailDto?>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
@@ -97,11 +95,7 @@ namespace Cloudents.Web.Api
 
             return result.Select(s =>
             {
-                if (s is UserDocumentsDto d)
-                {
-                    d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
-                }
+                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id);
                 return s;
             });
         }

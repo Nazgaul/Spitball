@@ -5,7 +5,10 @@ namespace Cloudents.Command.Courses
 {
     public class CreateCourseCommand : ICommand
     {
-        public CreateCourseCommand(long userId, string name, int price, int? subscriptionPrice, string description, string? image, IEnumerable<CreateLiveStudyRoomCommand> studyRooms, IEnumerable<CreateDocumentCommand> documents, bool isPublish)
+        public CreateCourseCommand(long userId, string name, int price, int? subscriptionPrice,
+            string description, string? image,
+            IEnumerable<CreateLiveStudyRoomCommand>? studyRooms,
+            IEnumerable<CreateDocumentCommand>? documents, bool isPublish)
         {
             UserId = userId;
             Name = name;
@@ -30,8 +33,8 @@ namespace Cloudents.Command.Courses
 
         public string? Image { get;}
 
-        public IEnumerable<CreateLiveStudyRoomCommand> StudyRooms { get;  }
-        public IEnumerable<CreateDocumentCommand> Documents { get;  }
+        public IEnumerable<CreateLiveStudyRoomCommand>? StudyRooms { get;  }
+        public IEnumerable<CreateDocumentCommand>? Documents { get;  }
         public bool IsPublish { get;  }
 
 

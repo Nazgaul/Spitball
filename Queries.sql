@@ -49,3 +49,10 @@ Need to upload dbi
 update sb.Course2
 set [Description] = 'This course consists only of prepared content. You will be able to begin the course whenever you want, and proceed at your own pace. There are no deadlines for completing the work.'
 where [Description] is null
+
+
+--v5
+
+ALTER TABLE [sb].[Course2]
+    ADD [StartTime] /*new_column_name*/ DATETIME2(7) /*new_column_datatype*/ NULL /*new_column_nullability*/
+GO

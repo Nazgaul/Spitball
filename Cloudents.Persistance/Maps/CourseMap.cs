@@ -39,6 +39,8 @@ namespace Cloudents.Persistence.Maps
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("Price","PriceCurrency");
 
+            Map(x => x.StartTime).Nullable();
+
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 

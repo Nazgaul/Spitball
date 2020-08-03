@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(Tutor tutor,
             string onlineDocumentUrl,
-            Course course, DateTime broadcastTime, string? description)
+            Course course, DateTime broadcastTime, string description)
             : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, 0)
         {
             Identifier = Guid.NewGuid().ToString();
@@ -21,6 +21,8 @@ namespace Cloudents.Core.Entities
             Course = course ?? throw new ArgumentNullException(nameof(course));
             Description = description;
         }
+
+        public virtual string Description { get; set; }
 
         protected BroadCastStudyRoom() : base()
         {

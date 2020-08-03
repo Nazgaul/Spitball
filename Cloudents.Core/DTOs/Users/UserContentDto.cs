@@ -8,7 +8,7 @@ namespace Cloudents.Core.DTOs.Users
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public DateTime StartOn { get; set; }
+        public DateTime? StartOn { get; set; }
 
         public int Lessons { get; set; }
 
@@ -18,6 +18,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public Money Price { get; set; }
         public bool IsPublish { get; set; }
+        public string Image { get; set; }
     }
 
     //public class UserDocumentsDto : UserContentDto

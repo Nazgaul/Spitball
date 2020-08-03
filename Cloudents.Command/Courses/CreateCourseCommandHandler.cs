@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
@@ -32,21 +33,24 @@ namespace Cloudents.Command.Courses
             var tutor = await _tutorRepository.LoadAsync(message.UserId, token);
 
 
+            var studyRooms = (message.StudyRooms ?? Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>()).ToList();
+
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
-                message.Description);
+                message.Description, studyRooms.Min(m=>m.Date));
             tutor.AddCourse(course);
 
 
-            foreach (var createLiveStudyRoomCommand in message.StudyRooms)
+            foreach (var createLiveStudyRoomCommand in studyRooms)
             {
                 var documentName = $"{message.Name}-{Guid.NewGuid()}";
                 var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
-                var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl, course, createLiveStudyRoomCommand.Date, createLiveStudyRoomCommand.Name);
+                var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl, course, 
+                    createLiveStudyRoomCommand.Date, createLiveStudyRoomCommand.Name);
                 course.AddStudyRoom(studyRoom);
             }
 
-            foreach (var documentMessage in message.Documents)
+            foreach (var documentMessage in message.Documents ?? Enumerable.Empty<CreateCourseCommand.CreateDocumentCommand>())
             {
                 var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(documentMessage.BlobName)];
                 var document = new Document(documentMessage.Name, course, extension.DocumentType, documentMessage.Visible);
