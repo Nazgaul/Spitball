@@ -1,6 +1,7 @@
 <template>
    <div class="myContent">
       <v-data-table 
+            @click:row="handleRowClick"
             :headers="headers"
             :items="contentItems"
             :items-per-page="5"
@@ -36,16 +37,13 @@
             </template>
 
             <template v-slot:item.preview="{item}">
-                  <img v-if="item.type === 'BuyPoints'" :src="item.image" class="tablePreview_img buyPointsLayoutPreview">
-   
-                  <router-link v-else :to="itemUrl(item)" class="tablePreview">
-                     <span v-if="item.online" class="tablePreview_online"></span>
-                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="127" height="80" />
+                  <div class="tablePreview">
+                     <img v-if="item.image" :src="formatImg(item)" class="tablePreview_img" width="127" height="80" />
                      
                      <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
                      </v-avatar>
-                  </router-link>
+                  </div>
             </template>
 
             <template v-slot:item.name="{item}">
@@ -154,7 +152,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { CourseCreate } from '../../../../routes/routeNames'
+import { CourseCreate, Learning } from '../../../../routes/routeNames'
 
 // import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 // import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
@@ -204,6 +202,12 @@ export default {
       }
    },
    methods: {
+      handleRowClick(item) {
+         if(!item.isPublish) {
+            return
+         }
+         this.$router.push({name: Learning, params: {id: item.id}})
+      },
       formatPrice(price,type){
          if(isNaN(price)) return;
          if(price < 0){
