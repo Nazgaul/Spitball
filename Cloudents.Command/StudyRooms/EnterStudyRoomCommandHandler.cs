@@ -45,6 +45,11 @@ namespace Cloudents.Command.StudyRooms
                 }
             }
 
+            if (message.Receipt != null && studyRoom is PrivateStudyRoom p)
+            {
+                p.AddPayment(user,message.Receipt);
+
+            }
             studyRoom.AddUserToStudyRoom(user);
            
 

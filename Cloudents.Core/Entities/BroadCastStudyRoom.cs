@@ -36,11 +36,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; set; }
 
-        public virtual void AddPayment(User user,string receipt)
-        {
-            var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
-            _studyRoomPayments.Add(studyRoomPayment);
-        }
+     
 
         public override void AddUserToStudyRoom(User user)
         {
