@@ -1,6 +1,7 @@
 ﻿
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from 'axios';
 
 import User from "./User";
 import Account from "./account";
@@ -104,4 +105,24 @@ const store = new Vuex.Store({
     },
     plugins,
 });
+
+store.$axios = axios.create({
+        baseURL: '/api'
+    })
+
+store.$axios.interceptors.response.use(
+    response => response,
+    error => {
+        if(error.response.status === 401){
+            global.location = '/?authDialog=register';
+        } else if(error.response.status === 404){
+            let type = error.response.config.method;
+            let url = error.response.config.url;
+            global.location = `/error/notfound?client=true&type=${encodeURIComponent(type)}&url=${encodeURIComponent(url)}`;
+        } else{
+            return Promise.reject(error);
+        }
+    }
+);
+
 export default store;
