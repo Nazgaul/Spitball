@@ -10,7 +10,8 @@ namespace Cloudents.Core.Entities
 {
     public class Course : Entity<long>
     {
-        public Course(string name, Tutor tutor, double price,double? subscriptionPrice, string description)
+        public Course(string name, Tutor tutor, double price,
+            double? subscriptionPrice, string description, DateTime? startTime)
         {
             Name = name;
             Tutor = tutor;
@@ -26,6 +27,7 @@ namespace Cloudents.Core.Entities
             }
             Create = DateTime.UtcNow;
             Description = description;
+            StartTime = startTime;
             Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             
         }
@@ -44,6 +46,10 @@ namespace Cloudents.Core.Entities
         public virtual Money? SubscriptionPrice { get; protected set; }
 
         public virtual string? Description { get; set; }
+
+        public virtual DateTime? StartTime  { get; set; }
+
+        
 
         public virtual ItemState State { get; set; }
 
@@ -80,6 +86,10 @@ namespace Cloudents.Core.Entities
             var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
 
             var z = _courseEnrollments.Add(courseEnrollment);
+            foreach (var broadCastStudyRoom in _studyRooms)
+            {
+                broadCastStudyRoom.AddUserToStudyRoom(user);
+            }
         }
 
     }

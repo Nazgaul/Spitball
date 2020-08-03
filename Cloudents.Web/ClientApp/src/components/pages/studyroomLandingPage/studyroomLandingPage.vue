@@ -1,8 +1,7 @@
 <template>
-   <div class="studyroomLandingPage d-flex" :class="[{'window2':isRoomEnrolled}]">
-      <div class="pageWrapper px-0 px-sm-5 px-md-5 px-lg-0">
-         <!--  -->
-         <v-window :value="isRoomEnrolled? 1 : 0"> 
+   <div class="studyroomLandingPage d-flex" :class="[{'window2':isCourseEnrolled}]">
+      <div class="pageWrapper px-0 px-sm-0 px-md-0 px-lg-0">
+         <v-window :value="isCourseEnrolled? 1 : 0"> 
             <v-window-item>
                <div class="roominfoHeader">
                   <div class="cursor-pointer content" v-if="!isMobile" @click="$router.push('/')">
@@ -11,15 +10,14 @@
                   <roomInfo class="content"/>
                </div>
                <sessionInfo  class="content"/>
-
-               <courseItems  class="content"/>
-               <hostInfo  class="content"/>
             </v-window-item>
             <v-window-item>
                <roomThankYou />
-               <courseItems  class="content"/>
             </v-window-item>
          </v-window>
+         <courseSessions class="content" />
+         <courseItems  class="content"/>
+         <hostInfo v-if="!isCourseEnrolled"  class="content"/>
       </div>
    </div>
 </template>
@@ -31,6 +29,7 @@ import hostInfo from './hostInfo.vue';
 import logo from '../../app/logo/logo.vue';
 const roomThankYou = () => import('./roomThankYou.vue');
 import courseItems from './courseItems.vue';
+import courseSessions from './courseSessions.vue';
 
 export default {
    components:{
@@ -40,16 +39,17 @@ export default {
       logo,
       roomThankYou,
       courseItems,
+      courseSessions
    },
    computed: {
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
       },
-      isRoomEnrolled(){
-         let isRoomTutor = this.$store.getters.accountUser?.id == this.$store.getters.getCourseDetails?.tutorId;
-         if(isRoomTutor) return false;
-         else{
-            return this.$store.getters.getCourseDetails?.enrolled;
+      isCourseEnrolled(){
+         if(this.$store.getters.getIsCourseTutor){
+            return false;
+         }else{
+            return this.$store.getters.getIsCourseEnrolled;
          }
       },
    },
@@ -97,6 +97,12 @@ export default {
    //    }
       .roominfoHeader {
         // background: red;
+         @media(max-width: @screen-xs) {
+            padding: 0;
+            background-image: none;
+
+         }
+
           background-image: url('./images/Landing-page_small.jpg');
           padding:16px;
           padding-bottom: 60px;

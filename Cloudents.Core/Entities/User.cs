@@ -157,7 +157,7 @@ namespace Cloudents.Core.Entities
                 var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
                 if (userCoupon != null)
                 {
-                    throw new DuplicateRowException();
+                   return;
                 }
                 var p = new UserCoupon(this, coupon, tutor);
                 if (!_userCoupon.Add(p))

@@ -23,13 +23,9 @@ namespace Cloudents.Query.Users
         internal sealed class UserCoursesQueryHandler : IQueryHandler<UserCoursesQuery, IEnumerable<CourseDto>>
         {
             private readonly IStatelessSession _statelessSession;
-            private readonly IUrlBuilder _urlBuilder;
-            private readonly ICronService _cronService;
 
-            public UserCoursesQueryHandler(IStatelessSession statelessSession, IUrlBuilder urlBuilder, ICronService cronService)
+            public UserCoursesQueryHandler(IStatelessSession statelessSession)
             {
-                _urlBuilder = urlBuilder;
-                _cronService = cronService;
                 _statelessSession = statelessSession;
             }
 
@@ -45,25 +41,7 @@ namespace Cloudents.Query.Users
                         Description = s.Description,
                         Id = s.Id,
                         StudyRoomCount = s.StudyRooms.Count(),
-                        StartTime = s.StudyRooms.Select(s2=>s2.BroadcastTime).Min()
-                        //Documents = s.Documents.Where(w=>w.Status.State == ItemState.Ok).Select(s2 => new DocumentFeedDto()
-                        //{
-                        //    Title = s2.Name,
-                        //    DocumentType = s2.DocumentType,
-                        //    Id = s2.Id,
-                        //    Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
-                        //}),
-                        //Id = s.Id,
-                        //StudyRooms = s.StudyRooms.Where(w=> w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(s2 => new FutureBroadcastStudyRoomDto()
-                        //{
-                        //    Id = s2.Id,
-                        //    DateTime = s2.BroadcastTime,
-                        //    Description = s2.Description,
-                        //    //IsFull = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == s2.Id) >= 48,
-                        //    //Enrolled = _statelessSession.Query<StudyRoomUser>()
-                        //    //    .Any(w => w.Room.Id == s2.Id && w.User.Id == query.UserId),
-                        //    Schedule = s2.Schedule
-                        //})
+                        StartTime = s.StartTime
                     }).ToListAsync(token);
 
                 return result;

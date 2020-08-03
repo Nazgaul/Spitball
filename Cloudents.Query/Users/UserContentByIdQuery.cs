@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Users
 {
-    public class UserContentByIdQuery : IQuery<IEnumerable<UserContentDto>>
+    public class UserCoursesByIdQuery : IQuery<IEnumerable<UserCoursesDto>>
     {
-        public UserContentByIdQuery(long id)
+        public UserCoursesByIdQuery(long id)
         {
             Id = id;
         }
 
         private long Id { get; }
 
-        internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserContentByIdQuery, IEnumerable<UserContentDto>>
+        internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserCoursesByIdQuery, IEnumerable<UserCoursesDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -28,29 +28,28 @@ namespace Cloudents.Query.Users
                 _session = session;
             }
 
-            public async Task<IEnumerable<UserContentDto>> GetAsync(UserContentByIdQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserCoursesDto>> GetAsync(UserCoursesByIdQuery query, CancellationToken token)
             {
-                var documentFuture = _session.Query<Document>()
-                    .WithOptions(w => w.SetComment(nameof(UserContentByIdQuery)))
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => new UserDocumentsDto()
+                var documentFuture = await _session.Query<Course>()
+                    .WithOptions(w => w.SetComment(nameof(UserCoursesByIdQuery)))
+                    .Where(w => w.Tutor.Id == query.Id)
+                    .Select(s => new UserCoursesDto()
                     {
                         Id = s.Id,
                         Name = s.Name,
-                        Course = s.Course.Name,
-                        Type = s.DocumentType.ToString(),
-                       // Likes = s.VoteCount,
-                        //Price = s.DocumentPrice.Price,
-                        //State = s.Status.State,
-                        Date = s.TimeStamp.CreationTime,
-                        Views = s.Views,
-                        Downloads = s.Downloads,
+                        Price = s.Price,
+                        Users = s.CourseEnrollments.Count(),
+                        Documents = s.Documents.Count(c=>c.Status.State == ItemState.Ok),
+                        Lessons = s.StudyRooms.Count(),
+                        IsPublish = s.State == ItemState.Ok,
+                        StartOn = s.StartTime
+                       
                        // Purchased = s.PurchaseCount ?? 0
-                    }).ToFuture<UserContentDto>();
+                    }).ToListAsync(token);
 
-                var documentResult = await documentFuture.GetEnumerableAsync(token);
+             
 
-                return documentResult.OrderByDescending(o => o.Date);
+                return documentFuture;
             }
         }
     }

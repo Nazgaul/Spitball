@@ -357,7 +357,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(159039)]
         public async Task UserContentByIdQuery_Ok(long id)
         {
-            var query = new UserContentByIdQuery(id);
+            var query = new UserCoursesByIdQuery(id);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

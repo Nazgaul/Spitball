@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
    name:'unlockItem',
@@ -69,10 +69,10 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updatePurchaseConfirmation']),
       openPurchaseDialog(){
          if(!!this.accountUser) {
-               this.updatePurchaseConfirmation(true)
+            let courseId = this.getDocumentDetails.courseId;
+            this.$store.dispatch('updateEnrollCourse',courseId)
          } else {
             this.$store.commit('setComponent', 'register')
          }

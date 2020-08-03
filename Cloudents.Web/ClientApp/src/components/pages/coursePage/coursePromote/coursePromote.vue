@@ -1,6 +1,6 @@
 <template>
     <div class="promoteSection pt-3 pb-4 px-5">
-        <div class="promoteTitle mb-5" v-t="'promote'"></div>
+        <div class="promoteTitle text--disabled mb-5" v-t="'promote'"></div>
         <div class="promoteWrap mb-5">
             <couponSvg width="20" />
             <div class="promoteText ps-5" v-t="'create_coupon'"></div>
@@ -53,10 +53,11 @@ export default {
     .promoteWrap {
         display: flex;
         align-items: center;
-    }
-    .promoteText {
-        font-size: 16px;
-        color: @global-purple;
+        opacity: 0.38;
+        .promoteText {
+            font-size: 16px;
+            color: @global-purple;
+        }
     }
 }
 </style>

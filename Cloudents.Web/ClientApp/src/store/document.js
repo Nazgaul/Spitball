@@ -6,7 +6,6 @@ import {ITEM_DIALOG} from '../components/pages/global/toasterInjection/component
 const state = {
     document: {},
     btnLoading: false,
-    showPurchaseConfirmation: false,
     documentLoaded: false,
     currentItemId: null,
     currentPage: 0
@@ -39,7 +38,6 @@ const getters = {
         }
         return false
     },
-    getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getCurrentItemId: state => state.currentItemId,
     getCurrentPage: state => state.currentPage,
@@ -49,11 +47,7 @@ const mutations = {
     resetState(state){
         state.document = {};
         state.btnLoading = false;    
-        state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
-    },
-    setPurchaseConfirmation(state,val){
-        state.showPurchaseConfirmation = val;
     },
     setDocument(state, payload) {
         state.document = payload;    
@@ -71,9 +65,6 @@ const mutations = {
 };
 
 const actions = {
-    updatePurchaseConfirmation({commit},val){
-        commit('setPurchaseConfirmation',val);
-    },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
             commit('setDocument', DocumentObj);
@@ -87,28 +78,6 @@ const actions = {
         let {id} = item;     
 
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}`);
-    },
-    purchaseDocument({commit, dispatch, state, getters}, item) {
-        let cantBuyItem = getters.accountUser.balance < item.price;
-
-        if(cantBuyItem) {
-            return
-        }
-
-        commit('setBtnLoading', true);
-            return documentService.purchaseDocument(item.id).then((resp) => {
-                state.document.isPurchased = true;
-                console.log('purchased success', resp);
-                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
-                dispatch('documentRequest', item.id);
-                },
-                () => {
-                    return Promise.reject()
-            }).finally(() => {
-                setTimeout(() => {
-                    commit('setBtnLoading', false);
-                }, 500);
-            });
     },
     clearDocument({commit}){
         commit('resetState');

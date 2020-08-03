@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class WalletController : ControllerBase
     {
-        public const string StudyroomIdMetaData = "StudyRoomId";
+        public const string StudyRoomIdMetaData = "StudyRoomId";
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
@@ -275,7 +275,51 @@ namespace Cloudents.Web.Api
             {
                 Metadata = new Dictionary<string, string>()
                 {
-                    [StudyroomIdMetaData] = id.ToString(),
+                    [StudyRoomIdMetaData] = id.ToString(),
+                    ["UserId"] = userId.ToString()
+                }
+            };
+
+            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
+            return Ok(new
+            {
+                sessionId = result
+            });
+        }
+
+
+        [HttpPost("Stripe/Course/{id:guid}")]
+        public async Task<IActionResult> StripeAsync(Guid id,
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] IStripeService service,
+            CancellationToken token)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new StudyRoomQuery(id,userId);
+            var studyRoomResult = await _queryBus.QueryAsync(query, token);
+
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
+            };
+            
+            var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom2, new
+            {
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+
+            var stripePaymentRequest = new StripePaymentRequest(studyRoomResult.Name,
+                studyRoomResult.TutorPrice,
+                email,
+                successCallback,
+                referer)
+            {
+                Metadata = new Dictionary<string, string>()
+                {
+                    [StudyRoomIdMetaData] = id.ToString(),
                     ["UserId"] = userId.ToString()
                 }
             };

@@ -178,14 +178,6 @@ const actions = {
       let {data} = await axios.post(`wallet/Payme/Course/${studyRoomId}`);
       return data.sessionId;
    },
-   async updateStudyroomLiveSessions(context, session) {
-       //let id = session.userId
-       let studyRoomId = session.studyRoomId
-    
-      return axios.post(`course/${studyRoomId}/enroll`); // profileInstance.post(`${id}/studyRoom`, { studyRoomId })
-   },
-
-
    updateProfileFaq({commit}) {
       // profileInstance.get(``).then(({data}) => {
          let data = [

@@ -82,13 +82,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['downloadDocument','updatePurchaseConfirmation']),
+    ...mapActions(['downloadDocument']),
     closeItem(){
       this.$store.dispatch('updateCurrentItem')
     },
     openPurchaseDialog() {
       if (this.getUserLoggedInStatus) {
-        this.updatePurchaseConfirmation(true);
+        let courseId = this.getDocumentDetails.courseId;
+        this.$store.dispatch('updateEnrollCourse',courseId)
       } else {
         this.$store.commit("setComponent", "register");
       }
