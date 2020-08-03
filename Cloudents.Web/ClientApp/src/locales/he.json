@@ -224,7 +224,7 @@
   "formErrors_positive_only": "המחיר המינימלי הוא",
   "formErrors_required": "שדה חובה",
   "free": "חינם",
-  "free_enroll": "הרשמה לקורס",
+  "free_enroll": "הרשמה",
   "got_it": "הבנתי",
   "headerSlots_phoneNumberSlot_text": "תוכל לעזור לי למצוא מורה ל",
   "header_balance": "יתרה: {0} נק'",
@@ -516,7 +516,7 @@
   "send-email": "שלח אימייל",
   "session details": "הוספת פרטים אודות השידור החי",
   "session price": "מחיר עבור השידור החי",
-  "sessionCount": "ללא שיעורים | שיעור אחד | {0} שיעורים",
+  "sessionCount": "ללא הרצאות | הרצאה אחת | {0} הרצאות",
   "shareContent_copy": "העתק",
   "shareContent_copy_tool": "הקישור הועתק",
   "shareContent_share_profile_email_body": "הי,\r\nמשתף איתך מורה פרטי. תסתכל על האתר שלו\r\n{1}",
@@ -723,5 +723,5 @@
   "wallet_total": "סך הכל",
   "we_will_email": "אנו נשלח לך דוא\"ל עם שאר ההוראות שלך לסמינר האינטרנט. אנו מצפים לראותך שם.",
   "weekly": "שבועי",
-  "what_learn": "הנושאים שאותם נלמד בקורס"
+  "what_learn": "מה תלמדו"
 }
