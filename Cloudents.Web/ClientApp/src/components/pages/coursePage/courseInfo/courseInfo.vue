@@ -1,7 +1,7 @@
 <template>
     <div class="courseInfo pa-5 mb-6">
         <div class="courseInfoTitle mb-9" v-t="'basic_info'"></div>
-        <v-combobox
+        <v-text-field 
             v-model="courseName"
             class="courseName mb-2"
             :rules="[rules.required]"
