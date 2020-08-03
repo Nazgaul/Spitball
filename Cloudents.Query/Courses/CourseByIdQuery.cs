@@ -42,7 +42,7 @@ namespace Cloudents.Query.Courses
             public async Task<CourseDetailDto?> GetAsync(CourseByIdQuery query, CancellationToken token)
             {
                 var futureStudyRoom = _statelessSession.Query<Course>()
-                    .Where(w => w.Id == query.Id)
+                    .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
                     .Select(s => new CourseDetailDto
                     {
                         Documents = s.Documents.Where(w => w.Status.State == ItemState.Ok).Select(s2 =>

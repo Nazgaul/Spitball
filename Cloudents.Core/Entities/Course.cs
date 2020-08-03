@@ -142,6 +142,10 @@ namespace Cloudents.Core.Entities
             var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
 
             var z = _courseEnrollments.Add(courseEnrollment);
+            foreach (var broadCastStudyRoom in _studyRooms)
+            {
+                broadCastStudyRoom.AddUserToStudyRoom(user);
+            }
         }
 
     }
