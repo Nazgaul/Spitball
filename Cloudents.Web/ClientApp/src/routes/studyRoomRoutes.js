@@ -52,7 +52,7 @@ export const studyRoomRoutes = [
     },
     {
         path: `/live/:id?`,
-        name: 'studyroomSettings',
+        name: 'studyroomSettings2',
         redirect: { name: routeName.StudyRoomLanding }
     },
     {
