@@ -7,7 +7,7 @@
             :mobile-breakpoint="0"
             :item-key="'itemId'"
             sort-by
-            class="elevation-1 myContent_table"
+            class="myContent_table"
             :footer-props="{
                showFirstLastPage: false,
                firstIcon: '',
@@ -18,11 +18,12 @@
             <template v-slot:top>
                <div class="tableTop">
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
-                  <div class="text-end">
+                  <div class="text-end ">
                      <v-btn
                         :to="{name: createCourseRoute}"
                         class="white--text"
                         depressed
+                        width="180"
                         rounded
                         :block="$vuetify.breakpoint.xsOnly"
                         color="#5360FC"
@@ -39,7 +40,7 @@
    
                   <router-link v-else :to="itemUrl(item)" class="tablePreview">
                      <span v-if="item.online" class="tablePreview_online"></span>
-                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
+                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="127" height="80" />
                      
                      <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
@@ -47,7 +48,24 @@
                   </router-link>
             </template>
 
-            <template v-slot:item.info="{item}">
+            <template v-slot:item.name="{item}">
+               <div style="max-width: 200px">
+                  {{item.name}}
+               </div>
+            </template>
+
+            <template v-slot:item.users="{item}">
+               <div class="d-flex">
+                  <v-icon size="14">sbf-groupPersons</v-icon>
+                  <div class="ms-2">{{item.users}}</div>
+               </div>
+            </template>
+
+            <template v-slot:item.isPublish="{item}">
+               <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
+            </template>
+
+            <!-- <template v-slot:item.info="{item}">
                <div class="tableInfo text-xs-left text-truncate py-2">
                   <template v-if="item.type === 'BuyPoints'">
                      <div class="text-truncate">
@@ -95,14 +113,14 @@
                      </div>
                   </router-link>
                </div>
-            </template>
-
+            </template> -->
+<!-- 
             <template v-slot:item.type="{item}">{{dictionary.types[item.type]}}</template>
             <template v-slot:item.likes="{item}">{{item.likes}}</template>
             <template v-slot:item.views="{item}">{{item.views}}</template>
             <template v-slot:item.downloads="{item}">{{item.downloads}}</template>
-            <template v-slot:item.date="{item}">{{ $d(item.date) }}</template>
-
+            <template v-slot:item.date="{item}">{{ $d(item.date) }}</template> -->
+<!-- 
             <template v-slot:item.action="{item}">
                <v-menu bottom left v-model="showMenu">
                   <template v-slot:activator="{ on }">
@@ -113,7 +131,7 @@
                      <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)" v-t="'dashboardPage_rename'"></v-list-item>
                   </v-list>
                </v-menu>
-            </template>
+            </template> -->
             <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
 
@@ -155,13 +173,13 @@ export default {
          showMenu: false,
          headers: [
             {text: '', align:'', sortable: false, value:'preview'},
-            {text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'courseName'},
-            {text: this.$t('dashboardPage_startOn'), align:'', sortable: false, value:'start'},
-            {text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lecture'},
-            {text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'resource'},
-            {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'enrolled'},
-            {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
-            {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'paymentStatus'},
+            {text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name'},
+            {text: this.$t('dashboardPage_startOn'), align:'', sortable: false, value:'startOn'},
+            {text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lessons'},
+            {text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'documents'},
+            {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users'},
+            {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price.amount'},
+            {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish'},
          ]
       }
    },
@@ -208,15 +226,15 @@ export default {
          return type === 'Question' || type === 'Answer';
       },
       formatImg(item){
-        if(item.preview || item.image){
-            return this.$proccessImageUrl(item.preview,80,80)
-         }
+         //   if(item.preview || item.image){
+            return this.$proccessImageUrl(item.image,127,80)
+         // }
          // if(this.checkIsQuestion(item.type)){
          //    return require('../global/images/qs.png')
          // }
       },
       itemUrl(item){
-         return item.url || `/document/${item.id}/`
+         return item.url || `/course/${item.id}`
       }
    },
    created() {
@@ -228,12 +246,13 @@ export default {
 <style lang="less">
 @import "../../../../styles/mixin.less";
 @import "../../../../styles/colors.less";
-.pop-dashboard-container {
-   background: #fff;
-}
+// .pop-dashboard-container {
+//    background: #fff;
+// }
 .myContent{
    max-width: 1366px;
    .myContent_table{
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
       thead {
          tr {
             height: auto;
@@ -296,9 +315,15 @@ export default {
             color: #5360FC;
             }
          }
+         a {
+            text-transform: initial;
+         }
       }
 
       tbody tr {
+         td {
+            border-bottom: none !important;
+         }
          td:nth-child(2) {
             padding-left: 0;
             
