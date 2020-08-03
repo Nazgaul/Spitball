@@ -33,7 +33,7 @@ namespace Cloudents.Command.Courses
 
 
 
-            var studyRooms = (message.StudyRooms ?? Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>()).ToList();
+            var studyRooms = message.StudyRooms.ToList();
 
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
@@ -50,7 +50,7 @@ namespace Cloudents.Command.Courses
                 course.AddStudyRoom(studyRoom);
             }
 
-            foreach (var documentMessage in message.Documents ?? Enumerable.Empty<CreateCourseCommand.CreateDocumentCommand>())
+            foreach (var documentMessage in message.Documents)
             {
                 var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(documentMessage.BlobName)];
                 var document = new Document(documentMessage.Name, course, extension.DocumentType, documentMessage.Visible);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Web.Identity;
@@ -10,6 +11,9 @@ namespace Cloudents.Web.Models
 {
     public class CreateCourseRequest : IValidatableObject
     {
+        private IEnumerable<CreateLiveStudyRoomRequest> _studyRooms;
+        private IEnumerable<CreateDocumentRequest>? _documents;
+
         [Required]
         public string Name { get; set; }
 
@@ -23,8 +27,34 @@ namespace Cloudents.Web.Models
 
         public string? Image { get; set; }
 
-        public IEnumerable<CreateLiveStudyRoomRequest> StudyRooms { get; set; }
-        public IEnumerable<CreateDocumentRequest> Documents { get; set; }
+        public IEnumerable<CreateLiveStudyRoomRequest> StudyRooms
+        {
+            get => _studyRooms;
+            set
+            {
+                if (value == null)
+                {
+                    _studyRooms = Enumerable.Empty<CreateLiveStudyRoomRequest>();
+                }
+
+                _studyRooms = value;
+            }
+        }
+
+        public IEnumerable<CreateDocumentRequest> Documents
+        {
+            get => _documents;
+            set
+            {
+                if (value == null)
+                {
+                    _documents = Enumerable.Empty<CreateDocumentRequest>();
+                }
+
+                _documents = value;
+            }
+        }
+
         public bool IsPublish { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -35,6 +65,12 @@ namespace Cloudents.Web.Models
             if (country == Country.Israel && Price > 0 && Price < 5)
             {
                 yield return new ValidationResult("Price should be greater then 5");
+
+            }
+
+            if (!StudyRooms.Any() && !Documents.Any())
+            {
+                yield return new ValidationResult("Need documents or live sessions");
 
             }
         }
