@@ -87,12 +87,22 @@ export default {
                 let studyRoom = this.$store.getters.getTeachLecture
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
+
+                if(!this.$store.getters.getFileData.length && !this.lectureTopic) {
+                    this.snackObj.color = 'error'
+                    this.snackObj.text = this.$t('required_files_or_studyroom')
+                    this.showSnackbar = true
+                    this.loading = false
+                    return 
+                }
+
                 // validate for error or both empty
                 if(documents === false && studyRooms === false) {
                     this.showSnackbar = true
                     this.snackObj.color = 'error'
                     return
                 }
+
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
                     this.$router.push({name: MyCourses})
                 }).catch(ex => {
