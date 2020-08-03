@@ -73,20 +73,18 @@
             {{ $d(new Date(item.date)) }}
          </template>
          <template v-slot:item.action="{item}">
-            <div class="d-flex align-center justify-space-around">
-               <div class="d-flex align-center flex-column">
+            <div class="itemsAction d-flex align-center justify-center">
+               <div class="d-flex align-center flex-column me-9">
                   <v-btn style="margin-top: 2px;" icon @click="openChatById(item)" depressed rounded  color="#69687d" x-small >
                      <chatSvg />
-                     <!-- <v-icon size="">sbf-btm-msg</v-icon> -->
                   </v-btn>
-                  <div>message me</div>
+                  <div class="iconTitle" v-t="'message_me'"></div>
                </div>
                <div class="d-flex align-center flex-column">
                   <v-btn link icon :href="`mailto:${item.email}`" depressed rounded  color="#69687d" x-small>
                      <emailSvg />
-                     <!-- <v-icon>sbf-email</v-icon> -->
                   </v-btn>
-                  <div>email me</div>
+                  <div class="iconTitle" v-t="'email_me'"></div>
                </div>
             </div>
          </template>
@@ -269,6 +267,13 @@ export default {
          .v-lazy {
             display: flex;
          }
+      }
+   }
+   .itemsAction {
+      line-height: 2;
+      .iconTitle {
+         font-size: 12px;
+         color: #69687d;
       }
    }
 }
