@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { MyCourses } from '../../../routes/routeNames'
+
 import createCourse from '../../../store/createCourse';
 import storeService from '../../../services/store/storeService';
 
@@ -62,6 +64,7 @@ export default {
     },
     data() {
         return {
+            loading: false,
             showSnackbar: false,
             snackObj: {
                 color: '',
@@ -77,12 +80,12 @@ export default {
     },
     methods: {
         saveCourseInfo() {
+            this.loading = true
             if(this.$refs.createCourse.validate()) {
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
-
                 // validate for error or both empty
                 if(documents === false && studyRooms === false) {
                     this.showSnackbar = true
@@ -91,14 +94,14 @@ export default {
                 }
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(res => {
                     console.log(res);
-                    this.snackObj.text = this.$t('success_create_course')
-                    this.snackObj.color = 'success'
+                    this.$router.push({name: MyCourses})
                 }).catch(ex => {
                     console.error(ex);
                     this.snackObj.text = this.statusErrorCode[ex.code]
                     this.snackObj.color = 'error'
                 }).finally(() => {
                     this.showSnackbar = true
+                    this.loading = false
                 })
             }
         },
@@ -128,7 +131,7 @@ export default {
             let i, studyRoomArr = []
             for (i = 0; i < studyRoomList.length; i++) {
                 const studyRoom = studyRoomList[i];
-                let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);         
+                let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())

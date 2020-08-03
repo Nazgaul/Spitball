@@ -9,13 +9,14 @@
                 width="132"
                 height="40"
                 v-t="'cancel'"
-                depressed
                 rounded
+                depressed
                 outlined
             >
             </v-btn>
             <v-btn
                 @click="parent.saveCourseInfo()"
+                :loading="parent.loading"
                 class="createCourseBtn white--text"
                 color="#4452fc"
                 width="132"

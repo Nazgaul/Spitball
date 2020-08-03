@@ -10,11 +10,11 @@
         </div>
 
         <div>
-                <!-- :rules="[rules.required]" -->
             <v-text-field 
                 v-model="lectureTopic"
                 :label="$t('lecture_topic')"
                 :placeholder="$t('lecture_topic')"
+                :rules="[checkStudyroom]"
                 height="50"
                 color="#304FFE"
                 autocomplete="off"
@@ -128,6 +128,12 @@ export default {
         },
     },
     computed: {
+        checkStudyroom() {
+            if(!this.$store.getters.getFileData.length && !this.lectureTopic) {
+                return this.$t('required_files_or_studyroom')
+            }
+            return true
+        },
         lectureTopic: {
             get() {
                 return this.$store.getters.getTeachLecture[this.index-1]?.text || ''
