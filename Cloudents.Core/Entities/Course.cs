@@ -11,11 +11,11 @@ namespace Cloudents.Core.Entities
     public class Course : Entity<long>
     {
         public Course(string name, Tutor tutor, double price,
-            double? subscriptionPrice, string description, DateTime? startTime)
+            double? subscriptionPrice, string description, DateTime? startTime, bool isPublish)
         {
             Name = name;
             Tutor = tutor;
-            State = ItemState.Ok;
+            State = isPublish ? ItemState.Ok : ItemState.Pending;
             if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null)
             {
                 State = ItemState.Pending;
