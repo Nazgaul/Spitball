@@ -27,6 +27,7 @@ namespace Cloudents.Persistence.Maps
                 $"{nameof(HiLoGenerator.TableName)}='Course'");
             Map(x => x.Name).Not.Nullable();
             Map(x => x.Description).Nullable();
+            Map(x => x.Position).ReadOnly();
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();

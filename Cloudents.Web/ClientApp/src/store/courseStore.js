@@ -51,7 +51,14 @@ const mutations = {
         }
       })
       this.sessionStarted = objInit.sessionStarted || null;
-      this.studyRooms = objInit.studyRooms;
+      this.studyRooms = objInit.studyRooms.map(session=>{
+        return {
+          id: session.id,
+          name: session.name,
+          date: session.dateTime
+        }
+      });
+
       this.documents = objInit.documents
       this.tutorName = objInit.tutorName;
       this.tutorImage = objInit.tutorImage;

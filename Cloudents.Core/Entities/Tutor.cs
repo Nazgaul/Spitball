@@ -185,12 +185,12 @@ namespace Cloudents.Core.Entities
 
         public virtual Course AddCourse(Course course)
         {
-            var course2 = Courses.SingleOrDefault(s => string.Equals(s.Name, course.Name, StringComparison.OrdinalIgnoreCase));
-            if (course2 != null)
-            {
-                throw new DuplicateRowException();
+            //var course2 = Courses.SingleOrDefault(s => string.Equals(s.Name, course.Name, StringComparison.OrdinalIgnoreCase));
+            //if (course2 != null)
+            //{
+            //    throw new DuplicateRowException();
                
-            }
+            //}
             Courses.Add(course);
             AddEvent(new NewCourseEvent(course));
             return course;
