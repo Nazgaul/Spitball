@@ -22,7 +22,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
 
         [Theory]
-        [InlineData("api/wallet/balance")]
+        //[InlineData("api/wallet/balance")]
         //[InlineData("api/wallet/transaction")]
         [InlineData("api/wallet/GetPaymentLink")]
         public async Task GetAsync_Wallet_OkAsync(string uri)
@@ -38,7 +38,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Theory]
-        [InlineData("api/wallet/balance")]
+        //[InlineData("api/wallet/balance")]
         //[InlineData("api/wallet/transaction")]
         [InlineData("api/wallet/GetPaymentLink")]
         public async Task GetAsync_Wallet_UnauthorizedAsync(string uri)
@@ -49,7 +49,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
 
-        [Fact]
+        [Fact(Skip = "To be deleted, there is no more balance api call")]
         public async Task GetAsync_BalanceAsync()
         {
             await _client.LogInAsync();
