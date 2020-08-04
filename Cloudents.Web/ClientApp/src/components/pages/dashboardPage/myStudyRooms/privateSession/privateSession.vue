@@ -31,7 +31,7 @@
                 </v-text-field>
             </v-col>
         </v-row>
-        <div class="createStudyRoomDialog-list mb-6" v-if="myFollowers">
+        <div class="createStudyRoomDialog-list mb-6" v-if="myFollowers.length">
             <div class="listTitle" v-t="'dashboardPage_invite_students'"></div>
             <v-list flat class="list-followers">
                 <v-list-item-group>
