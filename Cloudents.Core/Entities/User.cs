@@ -173,10 +173,10 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountry(string country)
         {
-            if (Entities.Country.CountriesNotSupported.Contains(country))
-            {
-                throw new NotSupportedException();
-            }
+            //if (Entities.Country.CountriesNotSupported.Contains(country))
+            //{
+            //    throw new NotSupportedException();
+            //}
             if (Country?.Equals(country) == true)
             {
                 return;
