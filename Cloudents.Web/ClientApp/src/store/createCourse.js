@@ -96,8 +96,6 @@ const actions = {
             documents
         }
         
-        console.log(params);
-        
         return courseInstance.post('', params)
     }
 }

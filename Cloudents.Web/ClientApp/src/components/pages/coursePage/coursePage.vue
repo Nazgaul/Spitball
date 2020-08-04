@@ -70,6 +70,7 @@ export default {
             errorText: '',
             statusErrorCode: {
                 date: this.$t('invalid_date'), // when there is invalid date
+                duplicateDate: this.$t('invalid_duplicate_date'),
                 studyRoomText: this.$t('invalid_studyroom_text'), // when there is no text in one of the studyroom
                 file: this.$t('invalid_file'), // when there error in 1 of file
                 409: this.$t('invalid_409'),
@@ -97,7 +98,7 @@ export default {
                     this.loading = false
                     return 
                 }
-
+                
                 let self = this
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
                     self.$router.push({name: MyCourses})
@@ -136,6 +137,13 @@ export default {
             for (i = 0; i < studyRoomList.length; i++) {
                 const studyRoom = studyRoomList[i];
                 let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);
+                let validateDuplicateSessionTime = studyRoomArr.filter((s) => {
+                    return s.date.isSame(userChooseDate)
+                })
+                if(validateDuplicateSessionTime.length) {
+                    this.errorText = this.statusErrorCode['duplicateDate']
+                    return false
+                }
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
