@@ -152,7 +152,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { CourseCreate, Learning } from '../../../../routes/routeNames'
+import { CourseCreate, StudyRoomLanding } from '../../../../routes/routeNames'
 
 // import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 // import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
@@ -210,7 +210,7 @@ export default {
          if(!item.isPublish) {
             return
          }
-         this.$router.push({name: Learning, params: { id: item.id }})
+         this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
       },
       // formatPrice(price,type){
       //    if(isNaN(price)) return;
@@ -251,6 +251,9 @@ export default {
       // itemUrl(item){
       //    return item.url || `/course/${item.id}`
       // }
+   },
+   beforeDestroy() {
+      this.$store.commit('resetCourseItems')
    },
    created() {
       this.$store.dispatch('updateCoursesItems')

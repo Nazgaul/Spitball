@@ -97,12 +97,15 @@ export default {
                     this.loading = false
                     return 
                 }
-                
+
                 let self = this
                 this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
                     self.errorText = this.statusErrorCode[ex.response.status]
+                }).finally(() => {
+                    self.showSnackbar = true
+                    self.loading = false
                 })
             }
         },

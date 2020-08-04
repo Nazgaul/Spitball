@@ -53,9 +53,9 @@ namespace Cloudents.Infrastructure
                              .ReadElementExtensions<string>("creator", "http://purl.org/dc/elements/1.1/")
                              .FirstOrDefault(),
                          Create = s.PublishDate
-                     }).OrderByDescending(o => o.Create).Take(query.Amount)).ToList();
+                     }).OrderByDescending(o => o.Create).Take(query.Amount));
 
-                result = result.Where(w => w.Image != null);
+                result = result.Where(w => w.Image != null).ToList();
 
                 _cacheProvider.Set<IEnumerable<DashboardBlogDto>>(cacheKey, "Blog", result, TimeSpan.FromHours(1),
                     false);
