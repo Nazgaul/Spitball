@@ -52,6 +52,10 @@
                </div>
             </template>
 
+            <template v-slot:item.startOn="{item}">
+               <div>{{$d(item.startOn)}}</div>
+            </template>
+
             <template v-slot:item.users="{item}">
                <div class="d-flex">
                   <v-icon size="14">sbf-groupPersons</v-icon>
