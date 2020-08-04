@@ -5,8 +5,6 @@ const state = {
     tokensDilaogState: false,
     suspendDialog: false,
     userInfo: {},
-    userQuestions: [],
-    userAnswers: [],
     userDocuments: [],
     userPurchasedDocs: [],
     userConversations: [],
@@ -24,8 +22,6 @@ const mutations = {
 
     clearUserData(state) {
         state.userInfo = {};
-        state.userQuestions = [];
-        state.userAnswers = [];
         state.userDocuments = [];
         state.userPurchasedDocs = [];
         state.userConversations = [];
@@ -84,12 +80,6 @@ const mutations = {
     // setUserType(state, data){
     //     state.userInfo.userType.value = data;
     // },
-    setUserQuestions(state, data) {
-        state.userQuestions = data;
-    },
-    setUserAnswers(state, data) {
-        state.userAnswers = data;
-    },
     setUserPurchasedDocs(state, data) {
         state.userPurchasedDocs = data;
     },
@@ -104,13 +94,6 @@ const mutations = {
     },
     setUserSessions(state, data) {
         state.userSessions = data;
-    },
-
-    removeQuestion(state, index) {
-        state.userQuestions.splice(index, 1);
-    },
-    removeAnswer(state, index) {
-        state.userAnswers.splice(index, 1);
     },
     removeDocument(state, index) {
         state.userDocuments.splice(index, 1);
@@ -132,8 +115,6 @@ const getters = {
     suspendDialogState: (state) => state.suspendDialog,
     getUserBalance: (state) => state.userBalance,
     userInfo: (state) => state.userInfo,
-    userQuestions: (state) => state.userQuestions,
-    userAnswers: (state) => state.userAnswers,
     userDocuments: (state) => state.userDocuments,
     userPurchasedDocuments: (state) => state.userPurchasedDocs,
     userConversations: (state) => state.userConversations,
@@ -224,49 +205,8 @@ const actions = {
             context.commit('updateCalenderSate');
         });
     },
-
-    deleteQuestionItem({commit}, index) {
-        commit('removeQuestion', index);
-    },
-    deleteAnswerItem({commit}, index) {
-        commit('removeAnswer', index);
-    },
     deleteDocumentItem({commit}, index) {
         commit('removeDocument', index);
-    },
-
-    getUserQuestions(context, idPageObj) {
-        context.commit("setShowLoader", true);
-        return userMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserQuestions', data);
-                }
-                if (data.length < quantityPerPage) {
-                    return true;
-                }
-
-            },
-            (error) => {
-                console.log(error, 'error');
-            }
-        ).finally(() => context.commit("setShowLoader", false));
-    },
-    getUserAnswers(context, idPageObj) {
-        context.commit("setShowLoader", true);
-        return userMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserAnswers', data);
-                }
-                if (data.length < quantityPerPage) {
-                    return true;
-                }
-
-
-            },
-            (error) => {
-                console.log(error, 'error');
-            }
-        ).finally(() => context.commit("setShowLoader", false));
     },
     getUserPurchasedDocuments(context, idPageObj) {
         context.commit("setShowLoader", true);

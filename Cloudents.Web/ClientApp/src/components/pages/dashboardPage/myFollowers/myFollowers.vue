@@ -55,7 +55,10 @@
            {{ $d(new Date(item.date)) }}
            
       </template>
-        <template v-slot:item.action="{item}">
+      <template v-slot:item.action="{item}">
+         <v-btn style="margin-top: 2px;" icon @click="openChatById(item)" depressed rounded  color="#69687d" x-small >
+            <v-icon>sbf-btm-msg</v-icon>
+         </v-btn>
          <v-btn link icon :href="`mailto:${item.email}`" depressed rounded  color="#69687d" x-small>
             <v-icon>sbf-email</v-icon>
          </v-btn>
@@ -67,6 +70,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import chatService from '../../../../services/chatService.js';
+import { MessageCenter } from '../../../../routes/routeNames.js';
 
 export default {
    name:'myFollowers',
@@ -116,6 +121,28 @@ export default {
          let emails = this.selected.map(x=>x.email);
          let myEmail = this.getAccountEmail;
          window.location.href = `mailto:?to=${myEmail}&bcc=${emails.join(';')}`;
+      },
+      openChatById(user){
+         let currentUser = this.$store.getters.accountUser;
+         let conversationObj = {
+            userId: user.userId,
+            image: user.image,
+            name: user.name,
+            conversationId: chatService.createConversationId([user.userId, currentUser?.id]),
+         }
+         let isNewConversation = !(this.$store.getters.getIsActiveConversationTutor(conversationObj.conversationId))
+         if(isNewConversation){
+            let tutorInfo = {
+               id: currentUser?.id,
+               name: `${currentUser.firstName} ${currentUser.lastName}`,
+               image: currentUser?.image,
+            }
+            this.$store.commit('ACTIVE_CONVERSATION_TUTOR', { tutorInfo, conversationId:conversationObj.conversationId })
+         }
+
+         let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+         this.$store.dispatch('setActiveConversationObj', currentConversationObj);
+         this.$router.push({name: MessageCenter, params: { id:currentConversationObj.conversationId }})
       }
    },
    created() {
@@ -163,7 +190,6 @@ export default {
       }
    }
    .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-      transform: none /*rtl:rotate(180deg)*/;
       color: #43425d !important;
       height: inherit;
       font-size: 14px !important;

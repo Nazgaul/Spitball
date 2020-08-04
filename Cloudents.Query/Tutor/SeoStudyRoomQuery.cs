@@ -30,14 +30,15 @@ namespace Cloudents.Query.Tutor
 
             public Task<StudyRoomSeoDto?> GetAsync(SeoStudyRoomQuery query, CancellationToken token)
             {
-              return _statelessSession.Query<StudyRoom>()
-                    .Where(w => w.Id == query.Id)
-                    .Select(s => new StudyRoomSeoDto
-                    {
-                        Description = ((BroadCastStudyRoom) s).Description,
-                        Name = s.Name,
-                        TutorName = s.Tutor.User.Name
-                    }).FirstOrDefaultAsync(token);
+                return _statelessSession.Query<StudyRoom>()
+                      .Where(w => w.Id == query.Id)
+                      .Select(s => new StudyRoomSeoDto
+                      {
+                          Description = ((BroadCastStudyRoom)s).Description,
+                          PrivateName = ((PrivateStudyRoom)s).Name,
+                          CourseName = ((BroadCastStudyRoom)s).Course.Name,
+                          TutorName = s.Tutor.User.Name
+                      }).FirstOrDefaultAsync(token);
             }
         }
     }

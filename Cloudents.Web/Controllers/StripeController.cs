@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.StudyRooms;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -22,6 +23,9 @@ namespace Cloudents.Web.Controllers
     public class StripeController : Controller
     {
         public const string EnrollStudyRoom = "enroll-study-room";
+
+
+        public const string EnrollStudyRoom2 = "enroll-study-room2";
         private readonly IStripeService _stripeService;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
@@ -35,18 +39,18 @@ namespace Cloudents.Web.Controllers
             _configuration = configuration;
         }
 
-        [Route("BuyPoints", Name = "stripe-buy-points")]
-        public async Task<IActionResult> StripeCallbackBuyPointsAsync(
-            string redirectUrl, string sessionId,
-            CancellationToken token)
-        {
-            var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId, token);
+        //[Route("BuyPoints", Name = "stripe-buy-points")]
+        //public async Task<IActionResult> StripeCallbackBuyPointsAsync(
+        //    string redirectUrl, string sessionId,
+        //    CancellationToken token)
+        //{
+        //    var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId, token);
 
-            var userId = _userManager.GetLongUserId(User);
-            var command = new TransferMoneyToPointsCommand(userId, points, receipt);
-            await _commandBus.DispatchAsync(command, token);
-            return Redirect(redirectUrl);
-        }
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Redirect(redirectUrl);
+        //}
 
 
         [Route("Enroll", Name = EnrollStudyRoom)]
@@ -56,10 +60,25 @@ namespace Cloudents.Web.Controllers
         {
             var metaData = await _stripeService.GetMetaDataAsync(sessionId, token);
 
-            var studyRoomId = Guid.Parse(metaData[WalletController.StudyroomidMetaData]);
+            var courseId = long.Parse(metaData[WalletController.StudyRoomIdMetaData]);
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new EnrollStudyRoomBroadCastCommand(userId, studyRoomId, sessionId);
+            var command = new CourseEnrollCommand(userId, courseId, sessionId);
+            await _commandBus.DispatchAsync(command, token);
+            return Redirect(redirectUrl);
+        }
+
+        [Route("Enroll2", Name = EnrollStudyRoom2)]
+        public async Task<IActionResult> PrivateStudyRoomStripeCallbackEnrollAsync(
+            string redirectUrl, string sessionId,
+            CancellationToken token)
+        {
+            var metaData = await _stripeService.GetMetaDataAsync(sessionId, token);
+
+            var studyRoomId = Guid.Parse(metaData[WalletController.StudyRoomIdMetaData]);
+
+            var userId = _userManager.GetLongUserId(User);
+            var command = new EnterStudyRoomCommand(studyRoomId, userId, sessionId);
             await _commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }

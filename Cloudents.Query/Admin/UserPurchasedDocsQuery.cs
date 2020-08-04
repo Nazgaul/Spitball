@@ -50,7 +50,7 @@ namespace Cloudents.Query.Admin
                     .Select(s => new UserPurchasedDocsDto()
                     {
                         Price = s.Price,
-                        Class = s.Document.Course.Id,
+                        Class = s.Document.Course.Name,
                         DocumentId = s.Document.Id,
                         Title = s.Document.Name,
 

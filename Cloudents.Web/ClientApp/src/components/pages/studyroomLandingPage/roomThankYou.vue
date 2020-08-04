@@ -5,16 +5,20 @@
          <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
             <logo :menuList="true" class="logoThankYouMobile"></logo>
          </div>
-         <img class="mt-5 mt-sm-8" src="./images/circleCheck.png" width="50px" height="50px" alt="">
+         <img class="mt-5 mt-sm-16" src="./images/circleCheck.png" width="50px" height="50px" alt="">
          <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
          <div class="thankSubTitle" v-t="'we_will_email'"/>
          <div class="thankBox">
-            <img width="100%" :src="roomImage">
-            <div class="pt-3">{{$t('starts_on',[$moment(roomDate).format('MMMM Do, h:mm a')])}}</div>
-            <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
-            <v-btn :disabled="!isRoomReady" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{$t('enter_room')}}
-            </v-btn>
+            <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image">
+            </v-skeleton-loader>
+            <img v-show="imgLoaded" @load="()=>imgLoaded = true" width="100%" :src="courseImage">
+            <template v-if="isSessions">
+               <div class="pt-3">{{$t('starts_on',[$moment(courseDate).format('MMMM Do, h:mm a')])}}</div>
+               <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
+               <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+                  {{$t('enter_room')}}
+               </v-btn>
+            </template>
          </div>
 
       </div>
@@ -32,15 +36,15 @@ export default {
       return {
          isTimmerFinished:false,
          isRoomReady: false,
+         imgLoaded:false,
       }
    },
    computed: {
-      roomDate(){
-         return this.$store.getters.getRoomDetails?.date;
+      courseDate(){
+         return this.$store.getters.getCourseDetails?.startTime;
       },
-      roomImage(){
-         let imageUrl = `https://spitball-dev-function.azureedge.net/api/image/studyroom/${this.$store.getters.getRoomDetails?.id}`
-         return this.$proccessImageUrl(imageUrl, 402, 268)
+      courseImage(){
+         return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, 402, 268)
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;
@@ -51,10 +55,19 @@ export default {
          }
          return this.$vuetify.breakpoint.smAndDown? 74 : 82;
       },
+      isButtonDisabled(){
+         if(this.$store.getters.getJwtToken || this.$store.getters.getCourseDetails?.sessionStarted) return false;
+         if(this.$store.getters.getCourseSessions?.length === 0) return true;
+         else return !this.isRoomReady
+      },
+      isSessions(){
+         return this.$store.getters.getCourseSessions?.length
+      }
+      
    },
    methods: {
       enterStudyRoom(){
-         let id = this.$route.params?.id;
+         let id = this.$store.getters.getNextCourseSession?.id;
          let routeData = this.$router.resolve({
             name: routeNames.StudyRoom,
             params: { id }
@@ -79,7 +92,7 @@ export default {
       margin-bottom: 38px;
       padding-bottom: 64px;
       background: white;
-      margin-top: 38px;
+     // margin-top: 38px;
       position: relative;
       color: #ffffff;
       &::before{
@@ -90,7 +103,8 @@ export default {
          top: 0;
          left: 0;
          right: 0;
-         height: 50%;
+         height: 450px;
+         // height: 75%;
          bottom: 0;
          @media(max-width: @screen-xs) {
             height: 524px;
@@ -135,8 +149,7 @@ export default {
             }
          }
          .logoThankYouMobile{
-            margin: 0;
-            margin-top: 10px;
+            margin: 10px 0 0;
             opacity: 0.4;
             text-align: initial;
             .logo {
@@ -160,11 +173,10 @@ export default {
             @media(max-width: @screen-xs) {
                max-width: initial;
                width: 100%;
-               padding: 0;
-               border: none;
+                border: none;
                border-radius: initial;
                height: auto;
-               padding-bottom: 50px;
+                padding: 0 0 50px;
             }
             .saveBtn{
                width: 100%;

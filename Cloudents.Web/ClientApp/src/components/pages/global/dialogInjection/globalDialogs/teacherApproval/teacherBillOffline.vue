@@ -18,7 +18,7 @@
                     <span class="white--text" v-t="'teacherApproval_error_price'"></span>
                 </div>
 
-                <table class="table text-left">
+                <table class="table text-start">
                     <tr>
                         <td>
                             <div class="pb-3" v-t="'teacherApproval_date'"></div>
@@ -147,11 +147,7 @@ export default {
             set(val) {
                 this.session.tutorPricePerHour = val
                 this.updateTotalPrice(this.newSessionDuration)
-                if(this.session.tutorPricePerHour <= 0){
-                    this.priceError = true;
-                }else{
-                    this.priceError = false;
-                }
+                this.priceError = this.session.tutorPricePerHour <= 0;
             }
         }
     },
@@ -204,7 +200,7 @@ export default {
             if (!/\d/.test(e.key)) {
                 e.preventDefault();
             }
-            var x = parseInt(this.newSessionDuration + e.key,10);
+            const x = parseInt(this.newSessionDuration + e.key, 10);
             if (x >= this.MAX_DIGITS) {
                 e.preventDefault();
                 

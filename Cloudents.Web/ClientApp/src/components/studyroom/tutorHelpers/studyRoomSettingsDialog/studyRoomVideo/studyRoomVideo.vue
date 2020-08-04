@@ -11,8 +11,8 @@
             <template v-if="isLoggedIn">
                 <div class="bottomIcons d-flex align-end justify-space-between">
                     <div class="micIconWrap d-flex align-center" v-if="microphoneOn">
-                        <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" /> 
-                        <div id="audio-input-meter" class="ms-2"></div>
+                        <microphoneImage :class="{'audioIconVisible': !microphoneOn}" width="14" />
+                        <v-progress-linear :style="`width:${audioLevel}px`" class="ms-5" absolute rounded color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
                     </div>
                     <v-icon class="settingIcon" color="#fff" @click="settingDialogState = true" size="22">sbf-settings</v-icon>
                 </div>
@@ -55,7 +55,6 @@
 
 <script>
 import insightService from '../../../../../services/insightService';
-import studyRoomAudioSettingService from '../studyRoomAudioVideoDialog/studyRoomAudioSetting/studyRoomAudioSettingService';
 
 import studyRoomAudioVideoDialog from '../studyRoomAudioVideoDialog/studyRoomAudioVideoDialog.vue'
 
@@ -64,6 +63,7 @@ import cameraBlock from '../images/cameraBlock.svg'
 import { mapGetters } from 'vuex';
 import settingMixin from '../settingMixin.js'
 import mobilePermissionDialog from './mobilePermissionDialog.vue';
+import pollAudioLevel from '../../../layouts/userPreview/pollaudiolevel.js';
 
 export default {
     components: {
@@ -85,6 +85,7 @@ export default {
             settingDialogState: false,
 
             mobilePermissionDialogState:false,
+            audioLevel:0
         }
     },
     mixins: [settingMixin],
@@ -134,7 +135,7 @@ export default {
                             videoTrack.addTrack(stream.getVideoTracks()[0])
                             self.connectVideoTrack(videoTrack)
                         }
-                        return
+
                     })
                     .catch(err=>{
                         if(err.code === 0) {
@@ -155,7 +156,7 @@ export default {
             this.MIXIN_getMediaTrack(videoParams)
                 .then(stream=>{
                     self.connectVideoTrack(stream)
-                    return
+
                 })
                 .catch(err=>{
                     if(err.code === 0) {
@@ -189,8 +190,13 @@ export default {
                     self.microphoneOn = false;
                 })
         },
-        validateMicrophone(deviceId) {
-            studyRoomAudioSettingService.createAudioContext('audio-input-meter', deviceId);
+        onAudioLevelChanged(level){
+            this.audioLevel = level * 7;
+        },
+        validateMicrophone(audioTrack){
+            let mediaStreamTrack = audioTrack.getAudioTracks()[0];
+            let deviceId = mediaStreamTrack.getSettings().deviceId;
+            pollAudioLevel({mediaStreamTrack},this.onAudioLevelChanged)
             this.$store.dispatch('updateAudioDeviceId',deviceId)
         },
         clearVideoTrack(){
@@ -219,13 +225,11 @@ export default {
             deviceId = videoTrack.getVideoTracks()[0].getSettings().deviceId
             this.$store.dispatch('updateVideoDeviceId',deviceId)
             this.$store.commit('settings_setIsVideo',true)
-            return
+
         },
         connectAudioTrack(audioTrack){
-            let self = this;
-            let deviceId = audioTrack.getAudioTracks()[0].getSettings().deviceId 
-            self.microphoneOn = true
-            self.validateMicrophone(deviceId);
+            this.microphoneOn = true
+            this.validateMicrophone(audioTrack);
         },
     },
     created(){
@@ -236,7 +240,6 @@ export default {
     beforeDestroy() {
         this.MIXIN_cleanStreams(this.streamsArray)
         this.clearVideoTrack();
-        studyRoomAudioSettingService.stopAudioContext();
     }
 }
 </script>

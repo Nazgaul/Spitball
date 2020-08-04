@@ -6,12 +6,12 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
 {
-    public class CreateDocumentRequest : IValidatableObject
+    public class CreateDocumentRequest
     {
         [Required]
         public string BlobName { get; set; }
         [Required]
-        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
+        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = 4)]
         public string Name { get; set; }
 
         [Required]
@@ -19,28 +19,28 @@ namespace Cloudents.Web.Models
         public string Course { get; set; }
 
 
-        [Range(0, int.MaxValue)]
-        public decimal? Price { get; set; }
+        //[Range(0, int.MaxValue)]
+        //public decimal? Price { get; set; }
 
         public string? Description { get; set; }
 
-        public PriceType PriceType { get; set; }
+        //public PriceType PriceType { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (string.IsNullOrEmpty(FriendlyUrlHelper.GetFriendlyTitle(Name)))
-            {
-                yield return new ValidationResult(
-                    "File Name is invalid",
-                    new[] { nameof(Name) });
-            }
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    if (string.IsNullOrEmpty(FriendlyUrlHelper.GetFriendlyTitle(Name)))
+        //    {
+        //        yield return new ValidationResult(
+        //            "File Name is invalid",
+        //            new[] { nameof(Name) });
+        //    }
 
-            if (PriceType == PriceType.HasPrice && Price == null)
-            {
-                yield return new ValidationResult(
-                    "Need to have price",
-                    new[] { nameof(Price) });
-            }
-        }
+        //    if (PriceType == PriceType.HasPrice && Price == null)
+        //    {
+        //        yield return new ValidationResult(
+        //            "Need to have price",
+        //            new[] { nameof(Price) });
+        //    }
+        //}
     }
 }

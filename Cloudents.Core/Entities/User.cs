@@ -65,8 +65,8 @@ namespace Cloudents.Core.Entities
         public virtual string? LockoutReason { get; set; }
 
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
-        protected internal virtual ICollection<Answer> Answers { get; protected set; }
+        //[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
+        //protected internal virtual ICollection<Answer> Answers { get; protected set; }
         protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
@@ -78,24 +78,24 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
 
-        private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
+        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
-        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+        //public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
 
 
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourse(Course course)
-        {
-            var p = new UserCourse(this, course);
-            if (_userCourses.Add(p))
-            {
-                course.Count++;
-                AddEvent(new CanTeachCourseEvent(p));
-            }
+        //public virtual void AssignCourse(OldCourse course)
+        //{
+        //    var p = new UserCourse(this, course);
+        //    if (_userCourses.Add(p))
+        //    {
+        //        course.Count++;
+        //        AddEvent(new CanTeachCourseEvent(p));
+        //    }
 
-        }
+        //}
 
         public virtual void BecomeTutor()
         {
@@ -112,7 +112,7 @@ namespace Cloudents.Core.Entities
                 var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
                 if (userCoupon != null)
                 {
-                    throw new DuplicateRowException();
+                   return;
                 }
                 var p = new UserCoupon(this, coupon, tutor);
                 if (!_userCoupon.Add(p))
@@ -144,14 +144,20 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountryAdmin(string country)
         {
-            if (Tutor != null)
+            var newRegion =  Entities.Country.FromCountry(country);
+            if (SbCountry != newRegion)
             {
-                if (Tutor.HasSubscription())
+                if (Tutor != null)
                 {
-                    throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                    if (Tutor.HasSubscription())
+                    {
+                        throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                    }
                 }
+
+                PaymentExists = PaymentStatus.None;
             }
-            PaymentExists = PaymentStatus.None;
+
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 

@@ -4,10 +4,9 @@
  
       <router-link v-else :to="dynamicRouter(item)">
          <span v-if="item.online" class="tablePreview_online"/>
-         <img v-if="item.image || item.preview || item.type == 'Question' || 
-         item.type == 'Answer'" width="80" height="80" :src="formatImg(item)" class="tablePreview_img">
+         <img v-if="item.image || item.preview" width="80" height="80" :src="formatImg(item)" class="tablePreview_img">
          
-         <v-avatar v-else :tile="true" tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
+         <v-avatar v-else :tile="true" tag="v-avatar" class="tablePreview_img tablePreview_no_image" :class="' userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
             <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
       </router-link>
@@ -27,9 +26,9 @@ export default {
          if(item.url){
             return item.url;
          }
-         if(item.type === 'Question' || item.type === 'Answer'){
-            return {path:'/question/'+item.id}
-         }
+         // if(item.type === 'Question' || item.type === 'Answer'){
+         //    return {path:'/question/'+item.id}
+         // }
          if(item.type === 'TutoringSession'){
             return {name: 'profile',params: {id: item.id, name: item.name}}
          }
@@ -54,9 +53,9 @@ export default {
          if(item.image){
             return this.$proccessImageUrl(item.image,80,80)
          }
-         if(item.type === 'Question' || item.type === 'Answer'){
-            return require('./images/qs.png') 
-         }
+         // if(item.type === 'Question' || item.type === 'Answer'){
+         //    return require('./images/qs.png')
+         // }
       }
    },
 }

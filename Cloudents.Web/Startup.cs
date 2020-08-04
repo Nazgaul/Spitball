@@ -123,14 +123,14 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 
 
-            containerBuilder.RegisterType<SeoDocumentBuilder>()
-                .Keyed<IBuildSeo>(SeoType.Document);
+            //containerBuilder.RegisterType<SeoDocumentBuilder>()
+            //    .Keyed<IBuildSeo>(SeoType.Document);
             containerBuilder.RegisterType<SeoTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Tutor);
             containerBuilder.RegisterType<SeoStaticBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Static);
-            containerBuilder.RegisterType<SeoQuestionBuilder>()
-                .Keyed<IBuildSeo>(SeoType.Question);
+            //containerBuilder.RegisterType<SeoQuestionBuilder>()
+            //    .Keyed<IBuildSeo>(SeoType.Question);
 
             containerBuilder.RegisterType<SeoCourseTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.TutorList);

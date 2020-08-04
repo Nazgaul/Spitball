@@ -64,7 +64,7 @@ const state = {
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
    roomNetworkQuality: null,
-   roomDetails:null,
+   roomEnrolled:null,
 }
 
 const mutations = {
@@ -160,33 +160,8 @@ const mutations = {
    setStudyRoomFooterState(state,val){
       state.studyRoomFooterState = val;
    },
-   setRoomEnrolled(state,val){
-      state.roomDetails.enrolled = val;
-   },
    [studyRoom_SETTERS.BROWSER_NOT_SUPPORT]: (state, val) => state.isBrowserNotSupport = val,
    [studyRoom_SETTERS.ROOM_NETWORK_QUALITY]: (state, val) => state.roomNetworkQuality = val,
-   [studyRoom_SETTERS.ROOM_DETAILS]: (state, roomDetails) => {
-      function RoomDetails(objInit){
-         this.id = objInit.id; 
-         this.name = objInit.name;
-         this.description = objInit.description; 
-         this.date = objInit.broadcastTime; 
-         this.price = objInit.price;
-         this.enrolled = objInit.enrolled;
-         this.full = objInit.full;
-         this.tutorId = objInit.tutorId; 
-         this.tutorName = objInit.tutorName; 
-         this.tutorImage = objInit.tutorImage; 
-         this.tutorBio = objInit.tutorBio; 
-         this.tutorCountry = objInit.tutorCountry;
-      }
-      if(roomDetails?.id){
-         state.roomDetails = new RoomDetails(roomDetails)
-      }else{
-         state.roomDetails = null
-      }
-   },
-
 }
 const getters = {
    getActiveNavEditor: state => state.activeNavEditor,
@@ -237,8 +212,28 @@ const getters = {
          })
       ).filter(e=>e.audio)
    },
-   getRoomDetails:state => state.roomDetails,
    getStudyroomEnrolled:state => state.roomEnrolled,
+   // getSessionRecurring: () => (nextEvents) => {
+   //    if(!nextEvents) return null;
+   //    let times = nextEvents.length;
+
+   //    let daysObj = nextEvents.map(day=>{
+   //       return {
+   //          text: Moment(day).format('ddd'),
+   //          digit:Moment(day).format('d')
+   //       }
+   //    }).sort((a,b)=>a.digit - b.digit)
+
+   //    let days = Array.from(new Set(daysObj.map(d=>d.text))).join(', ');
+   //    let start = nextEvents[0];
+   //    let startNext = nextEvents.filter(dateEvent=> Moment(dateEvent).isAfter())[0];
+   //    return {
+   //       times,
+   //       days,
+   //       start,
+   //       startNext
+   //    }
+   // },
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
@@ -257,21 +252,6 @@ const actions = {
             context.dispatch('updateActiveNavEditor',ROOM_MODE.SCREEN_MODE)
          }
       }
-      // let className = 'fullscreenMode';
-      // if(elId){
-      //    let interval = setInterval(() => {
-      //       let vidEl = document.querySelector(`#${elId}`);
-      //       if(vidEl){
-      //          vidEl.classList.add(className);
-      //          clearInterval(interval)
-      //       }
-      //    }, 50);
-      // }else{
-      //    let x = document.querySelector(`.${className}`);
-      //    if (x) {
-      //       x.classList.remove(className);
-      //    }
-      // }
    },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);
@@ -352,7 +332,7 @@ const actions = {
    updateCreateStudyRoomLive({dispatch}, params) {
       return studyRoomService.createLiveRoom(params).then(({data}) => {
          dispatch('updateCreateStudyRoom', {data, params})
-         return
+
       })
    },
    updateCreateStudyRoomPrivate({dispatch}, params) {
@@ -380,7 +360,7 @@ const actions = {
          studyRoomId:data.studyRoomId
       }
       commit('ADD_CONVERSATION_STUDYROOM',chatParams)
-      return
+
    },
    updateRoomDisconnected({commit,getters,dispatch}){
       commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
@@ -396,15 +376,6 @@ const actions = {
          dispatch('updateJwtToken',getters.getJwtToken);
       }else{
          dispatch('updateJwtToken',null);
-      }
-   },
-   updateRoomDetails({commit}, roomId) {
-      if(roomId){
-         return studyRoomService.roomDetails(roomId).then(roomDetails=>{
-            commit(studyRoom_SETTERS.ROOM_DETAILS,roomDetails)
-         })
-      }else{
-         commit(studyRoom_SETTERS.ROOM_DETAILS,null)
       }
    },
 }

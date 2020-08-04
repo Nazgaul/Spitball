@@ -24,20 +24,20 @@
 <script>
 export default {
    computed: {
-      roomDetails(){
-         return this.$store.getters.getRoomDetails;
+      courseDetails(){
+         return this.$store.getters.getCourseDetails;
       },
       tutorName(){
-         return this.roomDetails?.tutorName;
+         return this.courseDetails?.tutorName;
       },
       tutorId(){
-         return this.roomDetails?.tutorId;
+         return this.courseDetails?.tutorId;
       },
       tutorImage(){
-         return this.roomDetails?.tutorImage;
+         return this.courseDetails?.tutorImage;
       },
       tutorBio(){
-         return this.roomDetails?.tutorBio;
+         return this.courseDetails?.tutorBio;
       }
    },
 
@@ -57,8 +57,8 @@ export default {
       }
 
       background-color: #f5f5f5;
-      margin-top: 54px;
-      margin-bottom: 80px;
+      margin-top: 54px !important; //for now
+      margin-bottom: 80px !important; //for now
       color: #43425d;
       .hostTitle{
          text-align: center;
@@ -89,8 +89,7 @@ export default {
          .hostText{
             padding-left: 24px;
             @media(max-width: @screen-xs) {
-               padding: 0 16px;
-               padding-top: 24px;
+                padding: 24px 16px 0;
             }
             display: flex;
             flex-direction: column;
@@ -107,6 +106,7 @@ export default {
                padding-bottom: 8px;
             }
             .hostBio{
+               word-break:break-all;
                font-size: 18px;
                line-height: 1.67;
                color: #43425d;

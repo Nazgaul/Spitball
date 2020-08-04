@@ -34,19 +34,19 @@ namespace Cloudents.Core
 
         }
 
-        public string BuildWalletEndPoint(string token)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = "my-sales" };
-            builder.AddQuery(new { token });
-            return builder.ToString();
-        }
+        //public string BuildWalletEndPoint(string token)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = "my-sales" };
+        //    builder.AddQuery(new { token });
+        //    return builder.ToString();
+        //}
 
-        public string BuildShareEndPoint(string token)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint);
-            builder.AddQuery(new { token, open = "referral" });
-            return builder.ToString();
-        }
+        //public string BuildShareEndPoint(string token)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint);
+        //    builder.AddQuery(new { token, open = "referral" });
+        //    return builder.ToString();
+        //}
 
         public string BuildCourseEndPoint(string courseName)
         {
@@ -54,13 +54,7 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildQuestionEndPoint
-            (long id, object? parameters = null)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
-            builder.AddQuery(parameters);
-            return builder.ToString();
-        }
+
 
         public string BuildProfileEndPoint(long id)
         {
@@ -112,14 +106,21 @@ namespace Cloudents.Core
 
         public string BuildDocumentEndPoint(long id, object? parameters = null)
         {
-            var base62 = new Base62(id);
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{base62}" };
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"d/{id}" };
             builder.AddQuery(parameters);
             return builder.ToString();
         }
 
 
         public const string ImageFunctionDocumentRoute = "image/document/{id}";
+        public string BuildCourseThumbnailEndPoint(long id, object? parameters = null)
+        {
+            var path = $"image/studyRoom/{id}";//
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
         public string BuildDocumentThumbnailEndpoint(long id, object? parameters = null)
         {
             var path = ImageFunctionDocumentRoute.InjectSingleValue("id", id);

@@ -97,10 +97,8 @@ export default {
   border-radius: 8px;
 //   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
-  padding: 14px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: #43425d;
+    padding: 12px 14px;
+    color: #43425d;
    // @media (max-width: @screen-sm) {
    //    margin: 0 20px;
    // }
@@ -123,9 +121,8 @@ export default {
          }
       }
       .profileReviewsBox_state_container{
-         padding: 0 10px;
-         padding-bottom: 24px;
-         display: flex;
+          padding: 0 10px 24px;
+          display: flex;
          justify-content: space-between;
                @media (max-width: @screen-xs) {
                   padding-bottom: 26px;

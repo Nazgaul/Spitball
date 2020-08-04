@@ -28,7 +28,7 @@ export default ({ hubPath }) => {
             });
             
             connection.on("studyRoomToken", (jwtToken,studyRoomId) => {
-              if (store.getters.getRoomIdSession == studyRoomId) {
+              if(store.getters.getRoomIdSession == studyRoomId || store.getters.getCourseSessions[0]?.id == studyRoomId) {
                 store.dispatch('updateJwtToken', jwtToken);
               }
             });

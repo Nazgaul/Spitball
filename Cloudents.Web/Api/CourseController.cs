@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Courses;
@@ -7,9 +7,13 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -19,16 +23,46 @@ namespace Cloudents.Web.Api
     /// </summary>
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController, Authorize]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Api")]
+
     public class CourseController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
+        private readonly IUrlBuilder _urlBuilder;
+        private readonly ICommandBus _commandBus;
 
-        public CourseController(IQueryBus queryBus,  UserManager<User> userManager
-            )
+        public CourseController(IQueryBus queryBus, UserManager<User> userManager, IUrlBuilder urlBuilder, ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _userManager = userManager;
+            _urlBuilder = urlBuilder;
+            _commandBus = commandBus;
+        }
+
+        [HttpGet("{id:long}"),AllowAnonymous]
+        public async Task<ActionResult<CourseDetailDto?>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
+        {
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new CourseByIdQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result.TutorImage = _urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id);
+            return result;
+        }
+
+
+        [HttpPost("{id:long}/enroll")]
+        public async Task EnrollUpcomingEventAsync([FromRoute] long id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new CourseEnrollCommand(userId, id);
+            await _commandBus.DispatchAsync(command, token);
+
         }
 
         /// <summary>
@@ -45,86 +79,13 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            IEnumerable<CourseDto> temp;
-            if (!string.IsNullOrEmpty(request.Term))
-            {
-                var query = new CourseSearchWithTermQuery(userId, request.Term, request.Page);
-                temp = await _queryBus.QueryAsync(query, token);
-            }
-            else
-            {
-                var query = new CourseSearchQuery(userId, request.Page);
-                temp = await _queryBus.QueryAsync(query, token);
-            }
+
+
+            var query = new CourseSearchQuery(userId, request.Term);
+            var temp = await _queryBus.QueryAsync(query, token);
+
 
             return new CoursesResponse(temp);
         }
-
-
-        //[HttpPost("set")]
-        //public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new UserJoinCoursesCommand(model.Select(s => s.Name), userId);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    var user = await _userManager.GetUserAsync(User);
-        //    await _signInManager.RefreshSignInAsync(user);
-        //    return Ok(model);
-        //}
-
-
-        //[HttpPost("create")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status409Conflict)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> CreateCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
-        //{
-        //    try
-        //    {
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var command = new CreateCourseCommand(userId, model.Name);
-        //        await _commandBus.DispatchAsync(command, token);
-        //        var user = await _userManager.GetUserAsync(User);
-        //        await _signInManager.RefreshSignInAsync(user);
-        //        return Ok(model);
-        //    }
-        //    catch (DuplicateRowException)
-        //    {
-        //        return Conflict();
-        //    }
-        //}
-
-        //[HttpPost("teach")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> TeachCoursesAsync([FromBody] SetCourseRequest model, CancellationToken token)
-        //{
-        //    try
-        //    {
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var command = new TeachCourseCommand(userId, model.Name);
-        //        await _commandBus.DispatchAsync(command, token);
-        //        return Ok();
-        //    }
-        //    catch (InvalidOperationException)
-        //    {
-        //        ModelState.AddModelError("x", "Not such course");
-        //        return BadRequest();
-        //    }
-        //}
-        //[HttpDelete]
-        //public async Task<IActionResult> DeleteCoursesAsync([FromQuery, Required]string name, CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new UserRemoveCourseCommand(userId, name);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    var user = await _userManager.GetUserAsync(User);
-        //    await _signInManager.RefreshSignInAsync(user);
-        //    return Ok();
-        //}
-
-        
     }
 }

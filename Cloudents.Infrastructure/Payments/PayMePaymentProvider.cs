@@ -70,10 +70,9 @@ namespace Cloudents.Infrastructure.Payments
             return GenerateSaleAsync(token, generateSale);
         }
 
-        public Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        public Task<GenerateSaleResponse> BuyCourseAsync(Money  price,string courseName,  string successRedirect, string sellerId , CancellationToken token)
         {
-            var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
-
+            var generateSale = GenerateSale.BuyCourse(price, courseName,successRedirect,sellerId);
             return GenerateSaleAsync(token, generateSale);
         }
 
@@ -108,33 +107,24 @@ namespace Cloudents.Infrastructure.Payments
 
         private class GenerateSale
         {
-            public static GenerateSale TransferMoney(string sellerId, string buyerId, double price)
-            {
-                return new GenerateSale()
-                {
-                    SellerPaymeId = sellerId,
-                    SalePrice = (int)(price * 100),
-                    BuyerKey = buyerId,
-                    ProductName = "עבור שיעורים פרטיים בספיטבול"
-                };
-            }
+            
 
             private GenerateSale()
             {
 
             }
 
-            public static GenerateSale BuyTokens(PointBundle price, string saleReturnUrl, string sellerId)
-            {
-                return new GenerateSale()
-                {
-                    CaptureBuyer = 0,
-                    SalePrice = (price.PriceInILS * 100),
-                    SaleReturnUrl = saleReturnUrl,
-                    SellerPaymeId = sellerId,
-                    ProductName = "עבור קניית נקודות בספיטבול"
-                };
-            }
+            //public static GenerateSale BuyTokens(PointBundle price, string saleReturnUrl, string sellerId)
+            //{
+            //    return new GenerateSale()
+            //    {
+            //        CaptureBuyer = 0,
+            //        SalePrice = (price.PriceInILS * 100),
+            //        SaleReturnUrl = saleReturnUrl,
+            //        SellerPaymeId = sellerId,
+            //        ProductName = "עבור קניית נקודות בספיטבול"
+            //    };
+            //}
 
             public static GenerateSale CreateBuyer(string saleCallbackUrl, string saleReturnUrl, string sellerId)
             {
@@ -148,6 +138,30 @@ namespace Cloudents.Infrastructure.Payments
                     SaleCallbackUrl = saleCallbackUrl,
                     ProductName = "עבור שיעורים פרטיים בספיטבול"
 
+                };
+            }
+
+            public static GenerateSale BuyCourse(Money price, string courseName,   string saleReturnUrl, string sellerId)
+            {
+                return new GenerateSale()
+                {
+                    CaptureBuyer = 0,
+                    SellerPaymeId = sellerId,
+                    SalePrice =price.Cents,
+                    SaleReturnUrl = saleReturnUrl,
+                    //SaleCallbackUrl = saleCallbackUrl,
+                    ProductName = courseName
+
+                };
+            }
+            public static GenerateSale TransferMoney(string sellerId, string buyerId, double price)
+            {
+                return new GenerateSale()
+                {
+                    SellerPaymeId = sellerId,
+                    SalePrice = (int)(price * 100),
+                    BuyerKey = buyerId,
+                    ProductName = "עבור שיעורים פרטיים בספיטבול"
                 };
             }
 

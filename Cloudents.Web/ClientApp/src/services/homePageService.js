@@ -1,7 +1,6 @@
 import Api from './Api/homePage.js';
 import { Banner } from './Dto/banner.js';
 import { HomePage } from './Dto/homePage.js';
-// import { Item } from './Dto/item.js';
 // import { User } from './Dto/user.js';
 
 export default {

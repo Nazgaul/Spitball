@@ -53,7 +53,7 @@
                 </file-upload>
                 <v-btn v-if="!isDraggin" class="uf-sDrop-btn" color="white" depressed rounded sel="my_computer">
                     <v-icon v-html="isMobile ? 'sbf-phone' : 'sbf-pc'"></v-icon>
-                    <span v-t="isMobile ? 'upload_uf_sDrop_btn_local_mobile' : 'upload_uf_sDrop_btn_local'"></span>
+                    <span> {{isMobile? $t('upload_uf_sDrop_btn_local_mobile') : $t('upload_uf_sDrop_btn_local')}} </span>
                 </v-btn>
             </div>
         </div>
@@ -102,10 +102,8 @@ export default {
             return this.getFileData.every(item=>item.error)
         },
         errorFile(){
-            if(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError){
-                return true;
-            }
-            return false;
+            return !!(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError);
+
         }
     },
     watch:{
@@ -142,7 +140,7 @@ export default {
             }
         },
         DbFilesList() {
-            var self = this;
+            const self = this;
             let singleFile;
             let options = {
                 success: (files) => {

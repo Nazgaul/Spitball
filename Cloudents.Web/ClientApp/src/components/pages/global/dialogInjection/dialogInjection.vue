@@ -6,7 +6,6 @@
 const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('./globalDialogs/login/login.vue');
-const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
 const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
@@ -18,7 +17,6 @@ export default {
         exitRegister,
         createCoupon,
         login,
-        buyPoints,
         teacherApproval,
         createStudyRoom,
     },
@@ -64,10 +62,10 @@ export default {
                     }
                     if(self.component){
                         return
-                    }else{
-                        self.component = dialogNameFromRoute
-                        return
                     }
+                    self.component = dialogNameFromRoute
+                    return
+                    
                 })
             }   
         }

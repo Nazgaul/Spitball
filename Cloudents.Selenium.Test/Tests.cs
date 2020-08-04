@@ -123,11 +123,8 @@ namespace Cloudents.Selenium.Test
         {
             "",
             "learn",
-            "tutor-list",
             "register",
             "signin",
-            "feed",
-            //"tutor",
             "studyroom"
         };
 
@@ -143,7 +140,6 @@ namespace Cloudents.Selenium.Test
             "my-sales",
             "my-followers",
             "my-purchases",
-            //"my-calendar",
             "tutor-list"
         };
 
@@ -172,12 +168,12 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        private string GetQuestionUrl()
-        {
-            using var conn = _fixture.DapperRepository.OpenConnection();
-            var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'Ok'");
-            return $"question/{questionId}";
-        }
+        //private string GetQuestionUrl()
+        //{
+        //    using var conn = _fixture.DapperRepository.OpenConnection();
+        //    var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'Ok'");
+        //    return $"question/{questionId}";
+        //}
 
         private IEnumerable<string> GetItemsUrl()
         {
@@ -322,24 +318,24 @@ namespace Cloudents.Selenium.Test
 
         }
 
-        [Fact]
-        public void MissingResourceAsk()
-        {
-            foreach (var driver in _driver.Drivers)
-            {
-                foreach (var culture in Cultures)
-                {
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/{GetQuestionUrl()}?culture={culture}";
-                    driver.Navigate().GoToUrl(url);
+        //[Fact]
+        //public void MissingResourceAsk()
+        //{
+        //    foreach (var driver in _driver.Drivers)
+        //    {
+        //        foreach (var culture in Cultures)
+        //        {
+        //            var url = $"{_driver.SiteUrl.TrimEnd('/')}/{GetQuestionUrl()}?culture={culture}";
+        //            driver.Navigate().GoToUrl(url);
 
-                    var htmlAttr = driver.FindElement(By.TagName("html"));
-                    var langValue = htmlAttr.GetAttribute("lang");
-                    langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
-                    var body = driver.FindElement(By.TagName("body"));
-                    body.Text.Should().NotContain("###");
-                }
-            }
-        }
+        //            var htmlAttr = driver.FindElement(By.TagName("html"));
+        //            var langValue = htmlAttr.GetAttribute("lang");
+        //            langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
+        //            var body = driver.FindElement(By.TagName("body"));
+        //            body.Text.Should().NotContain("###");
+        //        }
+        //    }
+        //}
 
         [Fact(Skip="Need to remove")]
         public void FeedPagingTest()

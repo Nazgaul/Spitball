@@ -19,7 +19,7 @@
                </v-btn>
             </template>
             <template v-else>
-               <v-responsive class="mb-4" max-height="90px" max-width="150px" :aspect-ratio="16/9">
+               <v-responsive class="mb-4" max-height="300px" max-width="440px" :aspect-ratio="16/9">
                   <div :id="videoElId"></div>
                </v-responsive>
                <div class="text">{{$t('studyRoom_stop_present_text')}}</div>
@@ -38,6 +38,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
    data() {
       return {
@@ -115,7 +116,8 @@ export default {
       .presentCard{
          margin-top: 140px;
          width: 540px;
-         height: 264px;
+         // height: 264px;
+         height: fit-content;
          border-radius: 6px;
          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
          padding: 34px 0;
@@ -152,6 +154,7 @@ export default {
             }
             #shareScreenPreviewVideo{
                video{
+                  border: 1px solid #ddd;
                   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.55);
                   width: 100%;
                }

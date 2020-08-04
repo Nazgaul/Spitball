@@ -123,21 +123,21 @@ namespace Cloudents.FunctionsV2
                             UserImage = BuildUserImage(document.UserId, document.UserImage, document.UserName, hostUriService)
                         };
                     }),
-                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
-                    {
-                        QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId, new { token = code }),
-                        QuestionText = question.QuestionText,
-                        UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName, hostUriService),
-                        UserName = question.UserName,
-                        AnswerText = question.AnswerText
-                    })
+                    //Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
+                    //{
+                    //    QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId, new { token = code }),
+                    //    QuestionText = question.QuestionText,
+                    //    UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName, hostUriService),
+                    //    UserName = question.UserName,
+                    //    AnswerText = question.AnswerText
+                    //})
                 };
             });
 
             var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress, user.Language.TextInfo.IsRightToLeft)
             {
                 DocumentCountUpdate = result.OfType<DocumentUpdateEmailDto>().Count(),
-                QuestionCountUpdate = result.OfType<QuestionUpdateEmailDto>().Count(),
+                //QuestionCountUpdate = result.OfType<QuestionUpdateEmailDto>().Count(),
                 Courses = courses
             };
 
@@ -237,25 +237,24 @@ namespace Cloudents.FunctionsV2
     }
     public class UpdateEmail
     {
-        private int _questionCountUpdate;
         private int _documentCountUpdate;
 
         [JsonProperty("userName")]
         public string UserName { get; set; }
 
         [JsonProperty("numUpdates")]
-        public int TotalUpdates => QuestionCountUpdate.GetValueOrDefault() + DocumentCountUpdate.GetValueOrDefault();
+        public int TotalUpdates => DocumentCountUpdate.GetValueOrDefault();
 
         [JsonProperty("oneUpdate")] public bool OneUpdate => TotalUpdates == 1;
 
-        [JsonProperty("xQuestions")]
-        public int? QuestionCountUpdate
-        {
-            get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate;
-            set => _questionCountUpdate = value.GetValueOrDefault();
-        }
+        //[JsonProperty("xQuestions")]
+        //public int? QuestionCountUpdate
+        //{
+        //    get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate;
+        //    set => _questionCountUpdate = value.GetValueOrDefault();
+        //}
 
-        [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
+       // [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
 
 
         [JsonProperty("xNewItems")]
@@ -292,9 +291,9 @@ namespace Cloudents.FunctionsV2
         [JsonProperty("courseUrl")]
         public string Url { get; set; }
 
-        [JsonProperty("questions")]
+        //[JsonProperty("questions")]
 
-        public IEnumerable<Question> Questions { get; set; }
+        //public IEnumerable<Question> Questions { get; set; }
         [JsonProperty("documents")]
 
         public IEnumerable<Document> Documents { get; set; }
@@ -308,19 +307,19 @@ namespace Cloudents.FunctionsV2
 
     }
 
-    public class Question : Item
-    {
-        [JsonProperty("questionUrl")]
-        public string QuestionUrl { get; set; }
-        [JsonProperty("userPicture")]
-        public string UserImage { get; set; }
-        [JsonProperty("asker")]
-        public string UserName { get; set; }
-        [JsonProperty("questionTxt")]
-        public string QuestionText { get; set; }
-        [JsonProperty("answerText")]
-        public string AnswerText { get; set; } //NEW
-    }
+    //public class Question : Item
+    //{
+    //    [JsonProperty("questionUrl")]
+    //    public string QuestionUrl { get; set; }
+    //    [JsonProperty("userPicture")]
+    //    public string UserImage { get; set; }
+    //    [JsonProperty("asker")]
+    //    public string UserName { get; set; }
+    //    [JsonProperty("questionTxt")]
+    //    public string QuestionText { get; set; }
+    //    [JsonProperty("answerText")]
+    //    public string AnswerText { get; set; } //NEW
+    //}
 
     public class Document : Item
     {

@@ -21,7 +21,7 @@
                      <v-icon v-else size="20" color="white">sbf-mic-ignore</v-icon>
                   </v-btn>
                </template>
-               <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
+               <span v-text="(isAudioActive?$t('tutor_tooltip_mic_mute'):$t('tutor_tooltip_mic_unmute'))"/>
             </v-tooltip>
 
             <v-tooltip top>
@@ -95,7 +95,7 @@ export default {
                      let videoTag = localMediaContainer.querySelector("video");
                      if (videoTag) {localMediaContainer.removeChild(videoTag)}
                      localMediaContainer.appendChild(track.attach());
-                     return
+
                   }
                })
             }

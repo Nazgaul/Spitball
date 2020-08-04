@@ -7,7 +7,7 @@ const courseInstance = axios.create({
 
 export default {
    getCourse(val){
-      let path = val ? `search?term=${val.term}&page=${val.page}` : `search`;
+      let path = val ? `search?term=${val.term}` : `search`;
       return courseInstance.get(`${path}`).then(({data}) => {
           let result = [];
           if(!!data.courses && data.courses.length > 0) {

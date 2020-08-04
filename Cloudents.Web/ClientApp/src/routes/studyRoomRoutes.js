@@ -39,19 +39,24 @@ export const studyRoomRoutes = [
                         global.open(routeData.href, "_self"); 
                     }else{
                         next();
-                        return
+
                     }
                 })
                 .catch((err)=>{
                     if(err?.response){
                         next('/');
-                        return
+
                     }
                 })
         }
     },
     {
-        path: '/live/:id?',
+        path: `/live/:id?`,
+        name: 'studyroomSettings2',
+        redirect: { name: routeName.StudyRoomLanding }
+    },
+    {
+        path: '/course/:id?',
         name: routeName.StudyRoomLanding,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
@@ -60,16 +65,14 @@ export const studyRoomRoutes = [
         beforeEnter: (to, from, next) => {
             if(!to.params?.id){
                 next('/');
-                return
+
             }else{
-                store.dispatch('updateRoomDetails',to.params.id)
+                store.dispatch('updateCourseDetails',to.params.id)
                      .then(()=>{
                         next();
-                        return;
                     })
                     .catch(()=>{
                         next('/');
-                        return
                     })
             }
         }

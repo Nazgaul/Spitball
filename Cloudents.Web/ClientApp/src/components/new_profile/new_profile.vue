@@ -1,10 +1,11 @@
 <template>
     <div class="profilePage">
+      <div>
         <div class="coverWrapper" :key="componentRenderKey">
             <profileCover  />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
-        <profileStats />
+        <profileStats v-if="showProfileStats" />
         <profileParagraph />
         <div class="profilePage_main mx-0 mx-sm-5">
             <profileCalendarTab
@@ -15,11 +16,14 @@
             />
             <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" :key="componentRenderKey" />
-            <profileItemsBox />
-            <profileReviewsBox />
+            <profileReviewsBox v-if="showProfileReviews"/>
             <!-- <profileFAQ /> -->
         </div>
+
+      </div>
+
         <profileFooter />
+
     </div>
 </template>
 
@@ -31,7 +35,6 @@ import profileParagraph from './components/profileParagraph/profileParagraph.vue
 const profileCalendarTab = () => import('../calendar/calendarTab.vue');
 const profileSubscription = () => import('./components/profileSubscription/profileSubscription.vue');
 import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts.vue'
-const profileItemsBox = () => import('./components/profileItemsBox/profileItemsBox.vue');
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 // import profileFAQ from './components/profileFAQ/profileFAQ.vue';
 import profileFooter from './components/profileFooter/profileFooter.vue';
@@ -46,7 +49,6 @@ export default {
         profileCalendarTab,
         profileSubscription,
         profileBroadcasts,
-        profileItemsBox,
         profileReviewsBox,
         // profileFAQ,
         profileFooter,
@@ -80,10 +82,6 @@ export default {
         },
         getProfileDataItems() {
           this.$store.dispatch('updateProfileReviews', this.id)
-          // this.$store.dispatch('updateProfileItemsByType', this.id)
-          // Promise.all([items, reviews]).catch(ex => {
-          //   console.error(ex);
-          // })
         }
     },
     computed: {
@@ -95,9 +93,6 @@ export default {
         isMyProfile(){
           return this.$store.getters.getIsMyProfile
         },
-        showItems(){
-            return this.$store.getters.getProfileDocumentsLength
-        },
         showCalendarTab() {
             let isCalendar = this.$store.getters.getProfileIsCalendar
             if(this.isMyProfile) {
@@ -107,6 +102,20 @@ export default {
         },
         isCoverImageLoaded() {
           return this.$store.getters.getProfileCoverLoading
+        },
+        showProfileStats(){
+          if(this.$store.getters.getProfile){
+            let stats = [
+              this.$store.getters.getProfileStatsHours,
+              this.$store.getters.getProfileStatsReviews,
+              this.$store.getters.getProfileStatsFollowers,
+              this.$store.getters.getProfileStatsResources,
+            ]
+            return stats.reduce((a, b) => a + b, 0) > 4
+          }else return false;
+        },
+        showProfileReviews(){
+          return this.$store.getters.getProfileStatsReviews;
         }
     },
     watch: {
@@ -154,8 +163,8 @@ export default {
         next();
     },
     created() {
-      var hash =  sessionStorage.getItem('hash');
-      if (hash) {
+        const hash = sessionStorage.getItem('hash');
+        if (hash) {
          this.$router.push({hash:hash});
          sessionStorage.clear();
       }
@@ -167,6 +176,11 @@ export default {
 <style lang="less">
 @import "../../styles/mixin.less";
 .profilePage {
+    // min-height: calc(~"100vh - 52px");
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   .coverWrapper {
     position: relative;
   }

@@ -30,7 +30,7 @@ namespace Cloudents.Core.Entities
             return true;
         }
 
-        public const string TooManyVotesReason = "Too many down vote";
+       // public const string TooManyVotesReason = "Too many down vote";
 
 
         protected override IEnumerable<object> GetEqualityComponents()

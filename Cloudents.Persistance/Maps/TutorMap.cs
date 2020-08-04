@@ -37,7 +37,16 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Coupons)
                 .Cascade.AllDeleteOrphan().Inverse();
 
+            //no inverse so we can have position persist in db - i know extra update
+            HasMany(x => x.Courses)
+                .Cascade.AllDeleteOrphan().AsList(x =>
+                {
+                    x.Type<int>();
+                    x.Column("Position");
+                });
+
             HasMany(x => x.UserCoupons)
+                .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse();
 
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();

@@ -3,10 +3,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import User from "./User";
-import Question from "./question";
 import Account from "./account";
 import Toaster from "./Toaster";
-import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import mobileFooter from './mobileFooter';
 import chatStore from './chatStore';
@@ -24,9 +22,9 @@ import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
 import tutorDashboard from './tutorDashboard.js'
-//import feed from './feedStore.js'
 import profile from './profile.js';
 import document from "./document.js";
+import courseStore from './courseStore.js';
 
 import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
@@ -36,7 +34,6 @@ import twilioStore from './studyRoomStore/twilioStore.js'
 import codeEditor_store from './studyRoomStore/codeEditor_store.js'
 import tutoringCanvas from './studyRoomStore/tutoringCanvas.js'
 import roomRecording_store from './studyRoomStore/roomRecording_store.js'
-// import logger from 'vuex/dist/logger.js'
 const plugins = [
     signalRPlugin({hubPath:'/sbhub'}), 
     componentPlugin(),
@@ -77,25 +74,16 @@ const store = new Vuex.Store({
     modules: {
         User,
         Account,
-        Question,
+       // Question,
         Toaster,
-        newQuestionDialog,
         uploadFiles,
-       // feed,
         document,
-        // homeLanding,
-        // homeworkHelpStore,
-        // studyDocumentsStore,
-        //leaderBoard,
         mobileFooter,
-        //onBoardGuide,
         chatStore,
         leaveReview,
         userOnlineStatus,
         requestTutor,
         signalRStore,
-        // ...studyRoomStore,
-        // loginRegister,
         routeStore,
         calendarStore,
         gapiStore,
@@ -107,14 +95,13 @@ const store = new Vuex.Store({
         dashboard_Store,
         tutorDashboard,
         profile,
-
         studyRoomStore,
         twilioStore,
         codeEditor_store,
         tutoringCanvas,
-        roomRecording_store
+        roomRecording_store,
+        courseStore,
     },
     plugins,
-   // plugins: [onModuleAValueChange]
 });
 export default store;

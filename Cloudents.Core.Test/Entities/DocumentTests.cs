@@ -15,37 +15,37 @@ namespace Cloudents.Core.Test.Entities
         public void InitDocument__NullCourse_Error()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                new Document("some name", null!, null!, 0, DocumentType.Document, null, PriceType.Free));
+                new Document("some name", null!, null!,  DocumentType.Document, null));
         }
 
         [Fact]
         public void InitDocument_NullUser_Error()
         {
-            var course = new Course("Some name");
-            Assert.Throws<ArgumentNullException>(() => new Document("some name", course, null!, 0,
-                DocumentType.Document, null, PriceType.Free));
+            Mock<Course> courseMock = new Mock<Course>();
+            Assert.Throws<ArgumentNullException>(() => new Document("some name", courseMock.Object, null!, 
+                DocumentType.Document, null));
         }
 
 
         [Fact]
         public void InitDocument_NullName_Error()
         {
-            var course = new Course("Some name");
-            Assert.Throws<ArgumentNullException>(() => new Document(null!, course, null!, 0, DocumentType.Document, null,
-                PriceType.Free));
+            Mock<Course> courseMock = new Mock<Course>();
+            Assert.Throws<ArgumentNullException>(() => new Document(null!, courseMock.Object, null!,  DocumentType.Document, null
+                ));
         }
 
 
         [Fact]
         public void InitDocument_Ok_StateOk()
         {
-            var course = new Course("Some name");
+            Mock<Course> courseMock = new Mock<Course>();
             var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
 
             var date = DateTime.UtcNow;
-            var document = new Document("some name", course, mockTutor.Object, 0, DocumentType.Document, null, PriceType.Free);
+            var document = new Document("some name", courseMock.Object, mockTutor.Object,  DocumentType.Document, null);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }
@@ -54,14 +54,14 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitDocumentWithPrice_Ok_StateOk()
         {
-            var course = new Course("Some name");
+            Mock<Course> courseMock = new Mock<Course>();
             var mockUser = new Mock<User>();
             var mockTutor = new Mock<Tutor>();
             mockTutor.Setup(s => s.User).Returns(mockUser.Object);
             var date = DateTime.UtcNow;
             var document = new Document("some name", 
-                course, mockTutor.Object,
-                10, DocumentType.Document, null, PriceType.Free);
+                courseMock.Object, mockTutor.Object,
+                DocumentType.Document, null);
             document.Status.State.Should().Be(ItemState.Ok);
             document.TimeStamp.CreationTime.Should().BeAfter(date);
         }

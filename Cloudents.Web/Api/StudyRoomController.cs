@@ -24,8 +24,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
-using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -136,30 +134,31 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError("error", "Study room with session");
+                ModelState.AddModelError("error", "Cannot delete an active session");
                 return BadRequest(ModelState);
             }
         }
 
 
-        [HttpGet("{id:guid}/details"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDetailDto?>> GetStudyRoomDetailAsync(Guid id,
-            [FromServices] IUrlBuilder urlBuilder,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new StudyRoomByIdDetailsQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            return result;
-        }
+        //[HttpGet("{id:guid}/details"), AllowAnonymous]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesDefaultResponseType]
+        //public async Task<ActionResult<StudyRoomDetailDto?>> GetStudyRoomDetailAsync(Guid id,
+        //    [FromServices] IUrlBuilder urlBuilder,
+        //    CancellationToken token)
+        //{
+        //    _userManager.TryGetLongUserId(User, out var userId);
+        //    var query = new StudyRoomByIdDetailsQuery(id, userId);
+        //    var result = await _queryBus.QueryAsync(query, token);
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
+        //    result.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(result.Id);
+        //    return result;
+        //}
 
         /// <summary>
         /// Get Study Room data and sessionId if opened
@@ -365,19 +364,14 @@ namespace Cloudents.Web.Api
             {
                 uri = await blobProvider.UploadImageAsync(file.FileName, file.OpenReadStream(), file.ContentType, token);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                //_telemetryClient.TrackException(e, new Dictionary<string, string>()
-                //{
-                //    ["fileName"] = file.FileName,
-                //    ["contentType"] = file.ContentType
-                //});
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            //var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
             return Ok(new
             {
                 fileName

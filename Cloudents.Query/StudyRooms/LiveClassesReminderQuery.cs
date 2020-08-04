@@ -51,7 +51,7 @@ namespace Cloudents.Query.StudyRooms
                          StudentFirstName = s.u.User.FirstName,
                          StudyRoomDescription = s.s.Description,
                          TeacherName = s.s.Tutor.User.Name,
-                         StudyRoomTitle = s.s.Name,
+                         StudyRoomTitle = s.s.Course.Name,
                          UserId = s.u.User.Id
                              
                      }).ToFuture();

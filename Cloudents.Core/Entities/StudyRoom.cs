@@ -13,12 +13,14 @@ namespace Cloudents.Core.Entities
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public PrivateStudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price) : base(tutor,users,onlineDocumentUrl, name, price)
+            string name, decimal price) : base(tutor,users,onlineDocumentUrl,  price)
         {
             if (_users.Count == 0)
             {
                 throw new ArgumentException();
             }
+
+            Name = name;
             Identifier = ChatRoom.BuildChatRoomIdentifier(
                 _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
             if (_users.Count < 4 && _users.Count > 0)
@@ -34,6 +36,8 @@ namespace Cloudents.Core.Entities
         {
         }
 
+        public virtual string Name { get; set; }
+
         public override void AddUserToStudyRoom(User user)
         {
             if (Tutor.User.Id == user.Id)
@@ -43,6 +47,13 @@ namespace Cloudents.Core.Entities
             var _ = Users.AsQueryable().Single(s => s.User.Id == user.Id);
         }
 
+        public virtual void AddPayment(User user,string receipt)
+        {
+            var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
+            _studyRoomPayments.Add(studyRoomPayment);
+        }
+        //public virtual string Name { get; set; }
+
         public override StudyRoomType Type => StudyRoomType.Private;
     }
 
@@ -50,7 +61,7 @@ namespace Cloudents.Core.Entities
     public abstract class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price) : this()
+             decimal price) : this()
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
@@ -59,7 +70,7 @@ namespace Cloudents.Core.Entities
           
 
             OnlineDocumentUrl = onlineDocumentUrl;
-            Name = name;
+            //Name = name;
           
 
             DateTime = new DomainTimeStamp();
@@ -90,7 +101,7 @@ namespace Cloudents.Core.Entities
 
       //  public virtual StudyRoomType StudyRoomType { get; protected set; }
 
-        public virtual string Name { get; set; }
+        
 
         public virtual Tutor Tutor { get; protected set; }
 

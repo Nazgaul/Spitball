@@ -77,7 +77,7 @@ export default {
                     deviceId = stream.getVideoTracks()[0].getSettings().deviceId
                     self.$store.dispatch('updateVideoDeviceId',deviceId)
                     self.$store.dispatch('updateVideoTrack',deviceId)
-                    return
+
                 })
                 .catch(err=>{
                     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);

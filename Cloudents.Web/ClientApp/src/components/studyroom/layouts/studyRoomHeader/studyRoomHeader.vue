@@ -33,19 +33,6 @@
          </button>
       </template>
       <v-spacer></v-spacer>
-      <template v-if="roomNetworkQualityLevel">
-         <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-               <div v-on="on" class="net me-4 mt-3" >
-                  <div v-for="(item, index) in 5" :key="index" :class="['bar',{'barFull':roomNetworkQualityLevel <= index}]"></div>
-               </div>
-            </template>
-            <div dir="auto" v-if="roomNetworkQualityStats.localAudioSend" v-text="$t('localAudioSend',{0:roomNetworkQualityStats.localAudioSend})"/>
-            <div dir="auto" v-if="roomNetworkQualityStats.localVideoSend" v-text="$t('localVideoSend',{0:roomNetworkQualityStats.localVideoSend})"/>
-            <div dir="auto" v-if="roomNetworkQualityStats.remoteAudioReceive" v-text="$t('remoteAudioReceive',{0:roomNetworkQualityStats.remoteAudioReceive})"/>
-            <div dir="auto" v-if="roomNetworkQualityStats.remoteVideoReceive" v-text="$t('remoteVideoReceive',{0:roomNetworkQualityStats.remoteVideoReceive})"/>
-         </v-tooltip>
-      </template>
       <v-btn v-if="isRoomTutor" class="mb-2" :ripple="false" text @click="muteAll()">
          <div class="muteAllBtn">
             <v-icon size="16">sbf-microphone</v-icon>
@@ -56,6 +43,19 @@
          <div class="btnIcon"></div>
          <span>{{isRoomTutor? $t('studyRoom_end') : $t('studyRoom_end_student')}}</span>
       </button>
+      <template v-if="roomNetworkQualityLevel">
+         <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+               <div v-on="on" class="net ms-3 me-3 mt-3" >
+                  <div v-for="(item, index) in 5" :key="index" :class="['bar',{'barFull':roomNetworkQualityLevel <= index}]"></div>
+               </div>
+            </template>
+            <div dir="auto" v-if="roomNetworkQualityStats.localAudioSend" v-text="$t('localAudioSend',{0:roomNetworkQualityStats.localAudioSend})"/>
+            <div dir="auto" v-if="roomNetworkQualityStats.localVideoSend" v-text="$t('localVideoSend',{0:roomNetworkQualityStats.localVideoSend})"/>
+            <div dir="auto" v-if="roomNetworkQualityStats.remoteAudioReceive" v-text="$t('remoteAudioReceive',{0:roomNetworkQualityStats.remoteAudioReceive})"/>
+            <div dir="auto" v-if="roomNetworkQualityStats.remoteVideoReceive" v-text="$t('remoteVideoReceive',{0:roomNetworkQualityStats.remoteVideoReceive})"/>
+         </v-tooltip>
+      </template>
       <v-menu offset-y min-width="158" content-class="menuStudyRoom">
          <template v-slot:activator="{ on }">
             <v-btn icon class="mb-2">
@@ -280,42 +280,43 @@ export default {
          }
       }
       .net{
-         @barWidth : 5px;
+         @barWidth : 3px;
          width: @barWidth * 5;
          position: relative;
-         height: 10px;
+         height: 12px;
          .bar{
             position: absolute;
             bottom: 0;
             width: @barWidth;
             &:nth-child(1){
                background: white;
-               height: 10px;
+               height: 3px;
                left: @barWidth * 0 + 3px;
             }
             &:nth-child(2){
                background: white;
-               height: 15px;
+               height: 8px;
                left: @barWidth * 1 + 6px
             }
             &:nth-child(3){
                background: white;
-               height: 20px;
+               height: 13px;
                left: @barWidth * 2 + 9px
             }
             &:nth-child(4){
                background: white;
-               height: 25px;
+               height: 18px;
                left: @barWidth * 3 + 12px
             }
 
             &:nth-child(5){
                background: white;
-               height: 30px;
+               height: 23px;
                left: @barWidth * 4 + 15px
             } 
             &.barFull{
-               background: rgb(108 117 253);
+               // background: rgb(108 117 253);
+               background: #3742CF;
                z-index: 2;
             }
          }

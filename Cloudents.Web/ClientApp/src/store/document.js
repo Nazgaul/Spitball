@@ -1,40 +1,36 @@
 import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
 import { router } from '../main.js';
+import {ITEM_DIALOG} from '../components/pages/global/toasterInjection/componentConsts'
 
 const state = {
     document: {},
-    itemsList:[],
     btnLoading: false,
-    showPurchaseConfirmation: false,
     documentLoaded: false,
-    toaster: false,
+    currentItemId: null,
+    currentPage: 0
 };
 
 const getters = {
     _getDocumentLoaded: state => {
-        let x = state.document?.details || '';
-        if (typeof(x) === "string") {
-            return false;
-        }
-        return true;
+        let x = state.document?.id ? state.document : '';
+        return typeof (x) !== "string";
     },
-    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
     getDocumentName: (state,_getter)=>  {
         if (_getter._getDocumentLoaded) {
-            return  state.document.details.feedItem.title;
+            return  state.document.title;
         }
         return ''
     },
     getDocumentPrice: (state,_getter) => {
         if (_getter._getDocumentLoaded) {
-            return  state.document.details.price;
+            return  state.document.price;
         }
         return 0
     },
     getIsPurchased: (state,_getter) => {
-        return state.document?.details?.isPurchased || _getter.getDocumentPrice === 0
+        return state.document?.isPurchased || _getter.getDocumentPrice === 0
     },
     getBtnLoading: (state, _getter) => {
         if (_getter._getDocumentLoaded) {
@@ -42,108 +38,73 @@ const getters = {
         }
         return false
     },
-    getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
-    getRelatedDocuments: state => state.itemsList,
-    getDocumentPriceTypeFree: state => state.document?.details?.priceType === 'Free',
-    getDocumentPriceTypeSubscriber: state => state.document?.details?.priceType === 'Subscriber',
-    getDocumentPriceTypeHasPrice: state => state.document?.details?.priceType === 'HasPrice',
-    //getIsDocumentTutorSubscriber: state => state.document?.details?.tutor?.subscriptionPrice,
-    getDocumentUserName: state => state.document?.details?.user?.name
-
-    // getIsDocumentFree: (state, _getters) => state.document?.details?.price > 0 && _getters.getDocumentSubscriber,
+    getCurrentItemId: state => state.currentItemId,
+    getCurrentPage: state => state.currentPage,
 };
 
 const mutations = {
     resetState(state){
         state.document = {};
-        state.itemsList = [];
         state.btnLoading = false;    
-        state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
-        state.toaster = false;
-    },
-    setPurchaseConfirmation(state,val){
-        state.showPurchaseConfirmation = val;
     },
     setDocument(state, payload) {
         state.document = payload;    
         state.documentLoaded = true;    
     },
-    setRelatedDocs(state, payload) {
-        state.itemsList = payload;
-    },
-    // setNewDocumentPrice(state, price){
-    //     state.document.details.price = price;
-    // },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
-    setShowItemToaster(state, val) {
-        state.toaster = val
+    setCurrentItemId(state,itemId){
+        state.currentItemId = itemId
+    },
+    setItemPage(state,page){
+        state.currentPage = page;
     }
 };
 
 const actions = {
-    updatePurchaseConfirmation({commit},val){
-        commit('setPurchaseConfirmation',val);
-    },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
             commit('setDocument', DocumentObj);
-            return true;
-        }, (err) => {
-            return err;
+            return;
         });
     },
     downloadDocument({getters}, item) {
         let user = getters.accountUser;
-
         if(!user) return router.push({query:{...router.currentRoute.query,dialog:'login'}});
 
-        let {id, course} = item;     
+        let {id} = item;     
 
-        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
+        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}`);
     },
-    purchaseDocument({commit, dispatch, state, getters}, item) {
-        let cantBuyItem = getters.accountUser.balance < item.price;
-
-        if(cantBuyItem) {
-            dispatch('updateItemToaster', true);
-            return
-        }
-
-        commit('setBtnLoading', true);
-            return documentService.purchaseDocument(item.id).then((resp) => {
-                state.document.isPurchased = true;
-                console.log('purchased success', resp);
-                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
-                dispatch('documentRequest', item.id);
-                },
-                () => {
-                    return Promise.reject()
-            }).finally(() => {
-                setTimeout(() => {
-                    commit('setBtnLoading', false);
-                }, 500);
-            });
-    },
-    getStudyDocuments({commit}, {course,id}) {
-        documentService.getStudyDocuments({course, documentId: id}).then(items => {
-            commit('setRelatedDocs', items);
-        });
-    },
-    // setNewDocumentPrice({ commit }, price) {
-    //     if(!!state.document && !!state.document.details){
-    //         commit('setNewDocumentPrice', price);
-    //     }
-    // },
     clearDocument({commit}){
         commit('resetState');
     },
-    updateItemToaster({commit}, val){
-        commit('setShowItemToaster', val);
+
+
+    // new ITEM thing:
+    updateCurrentItem({commit},itemId){
+        if(itemId){
+            commit('setCurrentItemId',itemId);
+            commit('addComponent',ITEM_DIALOG);
+        }else{
+            commit('setCurrentItemId',null);
+            commit('removeComponent',ITEM_DIALOG);
+        }
     },
+    updateItemPaging({commit,getters},isNext){
+        let page;
+        if(isNext){
+            if(getters.getCurrentPage < getters.getDocumentDetails?.preview?.length -1){
+                page = getters.getCurrentPage +1;
+            }
+        }else{
+            page = getters.getCurrentPage -1;
+        }
+        commit('setItemPage',page)
+    }
 };
 
 export default {

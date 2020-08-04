@@ -81,30 +81,6 @@ namespace Cloudents.Query.Users
                     })
                     .ToFutureValue();
 
-                //var couponQuery = _session.Query<UserCoupon>()
-                //      .Where(w => w.User.Id == query.UserId)
-                //      .Where(w => w.Tutor.Id == query.Id)
-                //      .Where(UserCoupon.IsUsedExpression)
-                //      .Select(s => new CouponDto
-                //      {
-                //          Value = s.Coupon.Value,
-                //          TypeEnum = s.Coupon.CouponType
-                //      }).ToFutureValue();
-
-                var documentCoursesFuture = _session.Query<Document>()
-                    .Fetch(f => f.User)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => s.Course.Id).Distinct()
-                    .ToFuture();
-
-
-
-                //var userCoursesFuture = _session.Query<UserCourse>()
-                //    .Where(w => w.User.Id == query.Id)
-                //    .Take(20)
-                //    .Select(s => s.Course.Id).ToFuture();
-
-
                 var isFollowingFuture = _session.Query<Follow>()
                     .Where(w => w.User.Id == query.Id && w.Follower.Id == query.UserId).ToFutureValue();
 
@@ -118,21 +94,10 @@ namespace Cloudents.Query.Users
                 var isFollowing = isFollowingFuture.Value;
                 result.IsFollowing = isFollowing != null;
                 result.ReviewCount = rateQuery.Value.Count;
-                // if (rateQuery.Value.Count > 0)
-                // {
-                //     result.Rate = rateQuery.Value.Total.GetValueOrDefault() / rateQuery.Value.Count;
-                // }
-                //result.Tutor.Subjects = futureSubject.Value;
-                //if (couponResult != null)
-                //{
-                //    result.Tutor.CouponType = couponResult.TypeEnum;
-                //    result.Tutor.CouponValue = couponResult.Value;
 
-                //}
 
                 result.IsSubscriber = isFollowing?.Subscriber ?? false;
 
-                result.DocumentCourses = await documentCoursesFuture.GetEnumerableAsync(token);
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
                 result.Cover = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Cover ?? "default.jpg");
                 return result;

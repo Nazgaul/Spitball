@@ -38,13 +38,12 @@ namespace Cloudents.Persistence.Repositories
                     s.State
                 }).ToFutureValue();
 
-            var coursesFuture = Session.Query<UserCourse>()
-                .Fetch(f => f.Course)
+            var coursesFuture = Session.Query<Course>()
                // .ThenFetch(f => f.Subject)
-                .Where(w => w.IsTeach && w.User.Id == userId)
+                .Where(w =>w.Tutor.Id == userId)
                 .Select(s => new
                 {
-                    CourseName = s.Course.Id,
+                    CourseName = s.Name,
                    // SubjectName = s.Course.Subject!.Name
                 }).ToFuture();
 

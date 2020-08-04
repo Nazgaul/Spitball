@@ -9,7 +9,6 @@ namespace Cloudents.Core.Entities
     public class ReadTutor : Entity<long>
     {
         public ReadTutor(long id, string name, string? imageName,
-            //IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
             double? rate, int rateCount, string bio,
             int lessons, Country sbCountry,
@@ -18,15 +17,12 @@ namespace Cloudents.Core.Entities
             Id = id;
             Name = name;
             ImageName = imageName;
-           // Subjects = allSubjects?.OrderBy(o => o).Take(3);
-           // AllSubjects = allSubjects;
             Courses = allCourses?.OrderBy(o => o).Take(3);
             AllCourses = allCourses;
             Rate = rate;
             RateCount = rateCount;
             Bio = bio;
             Lessons = lessons;
-            //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
             SubscriptionPrice = subscriptionPrice;

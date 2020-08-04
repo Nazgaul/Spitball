@@ -5,7 +5,7 @@
       :class="{'higherIndex':isMediumAndUp}"
       :mini-variant.sync="isMiniSideMenu"
       :temporary="isMediumAndUp"
-      :right="isRtl"
+      :right="$vuetify.rtl"
       :permanent="!$vuetify.breakpoint.xsOnly"
       width="220"
       mini-variant-width="62"
@@ -47,7 +47,6 @@ export default {
   data() {
     return {
       isMiniSideMenuState: false,
-      isRtl: global.isRtl,
       drawer: false,
       dashboardList: {
         myDashboard:{name: this.$t('schoolBlock_dashboard'), route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},
@@ -60,6 +59,7 @@ export default {
         myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
         myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-my-coupon', sel:'sidemenu_dashboard_myCoupons'},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
+        mySearch:{name: this.$t('schoolBlock_search'), route: routeNames.Learning, icon:'sbf-searchP', sel:'sidemenu_dashboard_learn'},
       },
     };
   },

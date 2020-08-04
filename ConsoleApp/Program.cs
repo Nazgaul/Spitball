@@ -24,13 +24,13 @@ using Azure.Storage.Queues;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
+using Cloudents.Query.Users;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using Microsoft.Azure.Management.Media.Models;
 using NCrontab;
@@ -105,12 +105,14 @@ namespace ConsoleApp
 
         }
 
+        private static IQueryBus QueryBus => Container.Resolve<IQueryBus>();
+
         static async Task Main()
         {
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -149,114 +151,141 @@ namespace ConsoleApp
 
         }
 
-       
+
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
 
-            using var sr = File.OpenRead(@"C:\Users\Ram\Downloads\1594672075.png");
-
-            var image = SixLabors.ImageSharp.Image.Load(sr);
-            image.Mutate(x=>x.Quantize(new WuQuantizer()));
-
-
-            using var sw = File.OpenWrite(@"C:\Users\Ram\Downloads\1594672075-1.png");
-            //image.SaveAsJpeg(sw,new JpegEncoder()
-            //{
-            //    Quality = 80
-            //});
-            image.SaveAsPng(sw, new PngEncoder()
-            {
-                Quantizer = new WuQuantizer() ,
-                BitDepth = PngBitDepth.Bit8
-                //  CompressionLevel = PngCompressionLevel.BestCompression,
-                //                IgnoreMetadata = true,
-                //BitDepth = PngBitDepth.Bit8,
-                //IgnoreMetadata = true,
-                //Quantizer = new OctreeQuantizer()
-                //CompressionLevel = PngCompressionLevel.BestCompression,
-                //Quantizer = new WuQuantizer(),
-                //InterlaceMethod = PngInterlaceMode.Adam7
-                
-                //ChunkFilter = PngChunkFilter.ExcludeAll,
-
-            });
-
-            //var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
-            //    DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
-            //    null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
-
-            //var bus = Container.Resolve<ICommandBus>();
-            //await bus.DispatchAsync(command);
+            await Dbi();
 
         }
 
 
-        //private static async Task HubSportAsync()
-        //{
-        //    var session = Container.Resolve<IStatelessSession>();
 
-        //    var phoneNumber = await session.Query<User>().Where(w => w.Email == "jaron@spitball.co").Select(s => s.Id)
-        //        .SingleOrDefaultAsync();
 
-        //    //https://api.hubapi.com/contacts/v1/contact/email/jaron@spitball.co/profile?hapikey=57453297-0104-4d83-8a3c-e58588c15a90
-        //    var api = new HubSpotContactClient("57453297-0104-4d83-8a3c-e58588c15a90");
-            
-        //    var contact = await api.GetByEmailAsync<HubSpotExtra>("jaron@spitball.co");
-            
-        //    //contact.Phone = phoneNumber;
 
-        //    //await api.UpdateAsync(contact);
-           
-        //}
-
-     
 
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            long i = 0;
-
-            List<Tutor> users;
+            int amount2 = 0;
             do
             {
-                users = await session.Query<Tutor>()
-                    .Fetch(f => f.User)
-                    .Where(w => w.Id  > i)
-                    .Take(100).ToListAsync();
 
-                foreach (var user in users)
+               var ids2 = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
+                    .Where(w => w.Course == null)
+                    .Take(100).Select(s => s.Id).ToListAsync();
+
+               amount2 = await session.Query<Document>()
+                   .Where(w => ids2.Contains(w.Id))
+                   .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
+                   .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
+                   .Set(x => x.Status.FlagReason, "Document not of tutor")
+                   .UpdateAsync(default);
+            } while (amount2 > 0);
+
+            //long i = 0;
+
+            //us update
+            //var ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.UnitedStates)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Ok)
+            //    .UpdateAsync(default);
+
+
+            ////il update
+            //ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.Israel)
+            //    .Where(w=>w.Tutor.SellerKey != null)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Ok)
+            //    .UpdateAsync(default);
+
+            //ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.Israel)
+            //    .Where(w=>w.Tutor.SellerKey == null)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Pending)
+            //    .UpdateAsync(default);
+
+            ////in update
+            //ids = await session.Query<Course>()
+            //    .Where(w => w.Tutor.User.SbCountry == Country.India)
+            //    .Select(s => s.Id).ToListAsync();
+
+            //await session.Query<Course>()
+            //    .Where(w =>ids.Contains(w.Id))
+            //    .UpdateBuilder()
+            //    .Set(s => s.State, ItemState.Pending)
+            //    .UpdateAsync(default);
+
+            List<Course> courses;
+            var i = 0;
+            do
+            {
+                courses = await session.Query<Course>()
+
+                  //  .Where(w => w.Price == null)
+                    .Take(100).Skip(i*100)
+                    .OrderBy(o => o.Id)
+                    .ToListAsync();
+                i++;
+
+                foreach (var course in courses)
                 {
-                    i = user.Id;
                     using var uow = Container.Resolve<IUnitOfWork>();
+                    course.SetInitPrice();
 
-                    var title = user.Title;
-                    var p2 = user.Paragraph2;
-                    var p3 = user.Paragraph3;
-
-                    if (p2?.Length > 80)
-                    {
-                        p3 = p2;
-                        p2 = null;
-                    }
-
-                    if (title?.Length > 25)
-                    {
-                        p3 = p2;
-                        p2 = title;
-                        title = null;
-                    }
-
-                    user.UpdateSettings(p2, title, p3);
                     await uow.CommitAsync();
-
-                    Console.WriteLine("no");
                 }
-            } while (users.Count > 0);
+            } while (courses.Count > 0);
 
-           // await DeleteOldStuff.ResyncTutorRead();
+
+           
+
+         
+
+
+            //List<BroadCastStudyRoom> broadCastStudyRooms;
+            //do
+            //{
+            //    broadCastStudyRooms = await session.Query<BroadCastStudyRoom>()
+            //        .Where(w =>
+            //                     w.Course == null)
+            //        .Take(100)
+            //        .ToListAsync();
+
+            //    foreach (var broadCastStudyRoom in broadCastStudyRooms)
+            //    {
+            //        Console.WriteLine($"Processing broadCastStudyRoom {broadCastStudyRoom.Id}");
+            //        using var uow = Container.Resolve<IUnitOfWork>();
+            //        var courseRepository = Container.Resolve<ICourseRepository>();
+
+
+            //        var tutor = broadCastStudyRoom.Tutor;
+            //        var course = tutor.AddCourse(broadCastStudyRoom.Name);
+            //        broadCastStudyRoom.Course = course;
+            //        await uow.CommitAsync();
+            //        Console.WriteLine("no");
+            //    }
+            //} while (broadCastStudyRooms.Count > 0);
+
+            //await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()

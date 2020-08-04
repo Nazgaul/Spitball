@@ -1,10 +1,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -21,19 +21,17 @@ namespace Cloudents.FunctionsV2
 {
     public static class HubSpotSync
     {
-        private static readonly HubSpotClient _client = new HubSpotClient();
+        private static readonly HubSpotClient Client = new HubSpotClient();
+      
 
         [FunctionName("HubSpotSync")]
         public static async Task RunOrchestratorAsync(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             CancellationToken token)
         {
-            //Inject Istateless session comes when it already dispose - need to figure it out this is a work out
-            //using var child = lifetimeScope.BeginLifetimeScope();
-            //var statelessSession =  child.Resolve<IStatelessSession>();
-            var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount",null);
+            var amountOfTutors = await context.CallActivityAsync<int>("HubSpotSync_GetCount", null);
 
-            for (int i = 0; i < amountOfTutors / 100; i++)
+            for (int i = 0; i <= amountOfTutors / 100; i++)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -41,21 +39,40 @@ namespace Cloudents.FunctionsV2
                 }
                 await context.CallActivityAsync("HubSpotSync_DoSync", i);
             }
+
+            //await context.CallActivityAsync("HubSpotSync_FinishProcess",amountOfTutors);
         }
 
+
+        //[FunctionName("HubSpotSync_FinishProcess")]
+        //public static async Task SendEmailAsync([ActivityTrigger] int amountOfTutors,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+        //    CancellationToken token)
+        //{
+        //    var message = new SendGridMessage()
+        //    {
+
+        //        Subject = "Finish Sync Hubspot",
+        //        PlainTextContent = $"Finish process {amountOfTutors}"
+        //    };
+        //    message.AddTo("ram@cloudents.com");
+        //    await emailProvider.AddAsync(message, token);
+        //}
+
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         [FunctionName("HubSpotSync_GetCount")]
         public static async Task<int> GetCountAsync([ActivityTrigger] string x,
             [Inject] IStatelessSession statelessSession,
             ILogger log, CancellationToken token)
         {
             var amountOfTutors = await statelessSession.Query<Tutor>().Fetch(f => f.User)
-                .Where(w => w.User.SbCountry == Country.UnitedStates)
+                .Where(w => w.User.SbCountry == Country.UnitedStates  && w.State != ItemState.Flagged)
                 .CountAsync(cancellationToken: token);
             return amountOfTutors;
         }
-      
 
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         [FunctionName("HubSpotSync_DoSync")]
         public static async Task DoSyncAsync([ActivityTrigger] int index,
             [Inject] IStatelessSession statelessSession,
@@ -63,7 +80,7 @@ namespace Cloudents.FunctionsV2
         {
             log.LogInformation($"Processing index {index}");
             var tutors = await statelessSession.Query<Tutor>().Fetch(f => f.User)
-                    .Where(w => w.User.SbCountry == Country.UnitedStates)
+                    .Where(w => w.User.SbCountry == Country.UnitedStates && w.State != ItemState.Flagged)
                     .Select(s => new
                     {
                         s.User.Email,
@@ -79,24 +96,25 @@ namespace Cloudents.FunctionsV2
                         s.Title,
                         s.SellerKey,
                         s.SubscriptionPrice,
-                        Courses = statelessSession.Query<UserCourse>().Any(w => w.User.Id == s.Id),
+                        Courses = statelessSession.Query<Core.Entities.Course>().Any(w => w.Tutor.Id == s.Id),
                         StudyRoom = statelessSession.Query<StudyRoom>().Any(a => a.Tutor.Id == s.Id),
-                        Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 =>  w2.User.Id == s.Id),
+                        Documents = statelessSession.Query<Core.Entities.Document>().Count(w2 => w2.User.Id == s.Id),
                         Followers = statelessSession.Query<Follow>().Count(c => c.User.Id == s.Id),
                         Lessons = statelessSession.Query<StudyRoomSession>().Count(c => c.StudyRoom.Tutor.Id == s.Id),
                     }).OrderBy(o => o.Id).Take(100).Skip(100 * index)
                     .ToListAsync();
             foreach (var tutor in tutors)
             {
-                var contact = await _client.GetContactByEmailAsync(tutor.Email);
+                
+                var contact = await Client.GetContactByEmailAsync(tutor.Email);
 
-                IFutureEnumerable<string> coursesFuture = null;
+                IFutureEnumerable<string>? coursesFuture = null;
 
                 var average = 0f;
-                IFutureEnumerable<StudyRoomDto> studyRoomFuture = null;
+                IFutureEnumerable<StudyRoomDto>? studyRoomFuture = null;
                 if (tutor.Courses)
                 {
-                    coursesFuture = statelessSession.Query<UserCourse>().Where(w => w.User.Id == tutor.Id).Select(s => s.Course.Id)
+                    coursesFuture = statelessSession.Query<Core.Entities.Course>().Where(w => w.Tutor.Id == tutor.Id).Select(s => s.Name)
                         .ToFuture();
                 }
                 if (tutor.StudyRoom)
@@ -130,10 +148,10 @@ namespace Cloudents.FunctionsV2
                         average = (reviewsFutureValue.Value?.Sum ?? 0) / reviewCount;
                     }
                 }
-                IEnumerable<string> courses;
+                IEnumerable<string>? courses;
                 if (coursesFuture != null)
                 {
-                    courses = await coursesFuture?.GetEnumerableAsync();
+                    courses = await coursesFuture.GetEnumerableAsync();
                 }
                 else
                 {
@@ -143,7 +161,7 @@ namespace Cloudents.FunctionsV2
                 List<StudyRoomDto> studyRoomData;
                 if (studyRoomFuture != null)
                 {
-                    studyRoomData = (await studyRoomFuture?.GetEnumerableAsync()).ToList();
+                    studyRoomData = (await studyRoomFuture.GetEnumerableAsync()).ToList();
                 }
                 else
                 {
@@ -175,6 +193,11 @@ namespace Cloudents.FunctionsV2
                     contact.Website = $"https://www.spitball.co/p/{tutor.Id}";
                 }
 
+                if (string.IsNullOrEmpty(contact.LeadStatus))
+                {
+                    contact.LeadStatus = "NEW";
+                }
+
                 if (string.IsNullOrEmpty(contact.OwnerId))
                 {
                     contact.OwnerId = "49087036";
@@ -193,7 +216,6 @@ namespace Cloudents.FunctionsV2
                 contact.Courses = string.Join(", ", courses);
 
                 contact.Rate = average;
-                //.contact.
                 contact.LiveDone = studyRoomData.Count(w =>
                     w.Type == StudyRoomType.Broadcast && w.BroadcastTime < DateTime.UtcNow);
                 contact.LiveScheduled = studyRoomData.Count(w =>
@@ -203,12 +225,14 @@ namespace Cloudents.FunctionsV2
                 contact.PrivateDone = contact.PrivateScheduled =
                     studyRoomData.Count(w => w.Type == StudyRoomType.Private);
 
-                await _client.CreateOrUpdateAsync(contact, needInsert);
+                contact.TutorState = contact.LiveDone == 0 && contact.LiveScheduled == 0 ? "opportunity" : "customer";
+                await Client.CreateOrUpdateAsync(contact, needInsert);
             }
 
 
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         [FunctionName("HubSpotSync_TimerStart")]
         public static async Task TimerStartAsync(
             [TimerTrigger("0 0 */12 * * *")] TimerInfo time,
@@ -220,9 +244,21 @@ namespace Cloudents.FunctionsV2
             {
                 return;
             }
-            // Function input comes from the request content.
-            string instanceId = await starter.StartNewAsync("HubSpotSync", "HubSpotSync2");
-            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+
+            const string instanceId = "HubSpotSync3";
+            DurableOrchestrationStatus? status;
+            do
+            {
+                status  = await starter.GetStatusAsync(instanceId);
+                if (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running)
+                {
+                    await starter.TerminateAsync(instanceId, "new run");
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+                }
+
+            } while (status?.RuntimeStatus == OrchestrationRuntimeStatus.Running);
+            string instanceId2 = await starter.StartNewAsync("HubSpotSync", instanceId);
+            log.LogInformation($"Started orchestration with ID = '{instanceId2}'.");
         }
 
 
@@ -232,13 +268,13 @@ namespace Cloudents.FunctionsV2
             {
                 Type = type;
                 BroadcastTime = broadcastTime;
-                Count = count;
+                //  Count = count;
             }
 
-            public StudyRoomType Type { get; set; }
-            public DateTime? BroadcastTime { get; set; }
+            public StudyRoomType Type { get; }
+            public DateTime? BroadcastTime { get; }
 
-            public int Count { get; set; }
+            // private int Count { get; }
         }
     }
 }

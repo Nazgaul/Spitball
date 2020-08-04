@@ -31,8 +31,7 @@
                 </v-text-field>
             </v-col>
         </v-row>
-      
-        <div class="createStudyRoomDialog-list mb-6">
+        <div class="createStudyRoomDialog-list mb-6" v-if="myFollowers">
             <div class="listTitle" v-t="'dashboardPage_invite_students'"></div>
             <v-list flat class="list-followers">
                 <v-list-item-group>
@@ -56,6 +55,9 @@
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
+        </div>
+        <div v-else class="listTitle">
+            {{$t('no_followers')}}
         </div>
     </div>
 </template>
@@ -152,14 +154,14 @@ export default {
     .roomPrice {
         flex: 1;
     }
+    .listTitle {
+        font-size: 18px;
+        font-weight: 600;
+        color: @global-purple;
+    }
     .createStudyRoomDialog-list{
         min-height: 320px;
         width: 100%;
-        .listTitle {
-            font-size: 18px;
-            font-weight: 600;
-            color: @global-purple;
-        }
         .list-followers {
             overflow-y: scroll;
             max-height: 270px;

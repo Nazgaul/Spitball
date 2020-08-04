@@ -151,7 +151,7 @@ export default {
             }
         },
         getCode(item){
-            return global.isRtl ? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;
+            return this.$vuetify.rtl ? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;
         },
         setLocalCode() {
             let self = this

@@ -1,22 +1,20 @@
 <template>
     <div class="liveSession">
         <div class="liveSubtitle mb-7" v-t="'session details'"></div>
-
-
-        <v-text-field 
-                    v-model="liveSessionTitle"
-                    type="text"
-                    class="sessionTitleInput mb-3"
-                    :rules="[rules.required]"
-                    :label="$t('dashboardPage_label_live_title')"
-                    height="50"
-                    color="#304FFE"
-                    dense
-                    outlined
-                    placeholder=" "
-                    autocomplete="nope"
-                >
-                </v-text-field>
+        <v-combobox
+            v-model="liveSessionTitle"
+            class="sessionTitleInput mb-3"
+            :items="suggestsCourses"
+            :rules="[rules.required]"
+            @keyup="searchCourses"
+            :label="$t('dashboardPage_label_live_title')"
+            height="50"
+            color="#304FFE"
+            dense
+            outlined
+            placeholder=" "
+            autocomplete="abcd"
+        />
         <v-row class="sessionDetails  ma-0 pa-0 mb-3"  no-gutters>
             <v-col cols="6" sm="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
@@ -43,8 +41,6 @@
                         class="date-picker"
                         @input="datePickerMenu = false"
                         :allowed-dates="allowedDates"
-                        :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
-                        :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                         color="#4C59FF"
                         dense
                         no-title
@@ -117,7 +113,7 @@
                     <v-radio-group v-model="radioEnd" class="mt-0 ms-sm-3" row>
                         <v-radio class="mb-3" value="on" sel="datePicker">
                             <template v-slot:label>
-                                <span class="sessionOn">{{$t('on')}}</span>
+                                <span class="sessionOn" :class="{'ml-4': $vuetify.rtl}">{{$t('on')}}</span>
                                 <div @click.stop.prevent="">
                                     <v-menu 
                                         ref="datePickerOcurrence"
@@ -154,8 +150,6 @@
                                             class="date-picker"
                                             @input="datePickerOcurrence = false"
                                             :allowed-dates="allowedDatesEnd"
-                                            :next-icon="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"
-                                            :prev-icon="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'"
                                             color="#4C59FF"
                                             dense
                                             no-title
@@ -170,7 +164,7 @@
                         </v-radio>
                         <v-radio value="after">
                             <template v-slot:label>
-                                <span class="sessionAfter">
+                                <span class="sessionAfter" :class="{'ml-4': $vuetify.rtl}">
                                     {{$t('after')}}
                                 </span>
                                 <div @click.stop.prevent="" class="d-flex align-center">
@@ -239,6 +233,7 @@
                         :rules="[rules.required,rules.minimum]"
                         :label="$t('becomeTutor_placeholder_price', {'0' : getSymbol})"
                         dense
+                        autocomplete="off"
                         height="50"
                         hide-details
                         outlined
@@ -292,6 +287,9 @@
 import { validationRules } from '../../../../../services/utilities/formValidationRules.js'
 import uploadImage from '../../../../new_profile/profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
 
+import debounce from "lodash/debounce";
+import courseService from '../../../../../services/courseService.js';
+
 export default {
     name: 'liveSession',
     components: {
@@ -306,15 +304,14 @@ export default {
         },
     },
     data() {
-        var currentTime = new Date();
-        var currentHour = currentTime.getHours().toString().padStart(2,'0')
-        var currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
+        const currentTime = new Date();
+        let currentHour = currentTime.getHours().toString().padStart(2, '0');
+        let currentMinutes = (Math.ceil(currentTime.getMinutes() / 15) * 15);
         if (currentMinutes === 60) {
             currentHour++;
             currentMinutes = 0;
         }
         return {
-            isRtl: global.isRtl,
             currentRepeatDayOfTheWeek: new Date().getDay(),
             radioEnd: 'on',
             liveSessionTitle: '',
@@ -338,7 +335,7 @@ export default {
                 // 'Friday',
                 // 'Saturday',
             ],
-            
+            suggestsCourses: [],
             currentVisitorPriceSelect: { text: this.$t('dashboardPage_visitors_free'), value: 'free' },
             items: [
                 { text: this.$t('free'), value: 'free' },
@@ -447,7 +444,6 @@ export default {
             }
         },
         handleLiveImage(previewImage) {
-
             if(previewImage) {
                 let formData;
                 formData = new FormData();
@@ -459,17 +455,28 @@ export default {
                     this.newLiveImage = data.fileName
                 })
             }
-        }
-    },
-    created() {
-        if(this.isRtl) {
-            this.$nextTick(() => {
-                document.querySelectorAll('.roomHour .v-label').forEach(elem => {
-                    elem.style.right = '-28px'
-                })
+        },
+        searchCourses(ev){
+            let term = ev.target.value.trim()
+            if(!term) {
+                this.liveSessionTitle = ''
+                this.suggestsCourses = []
+                return 
+            }
+            this.liveSessionTitle = term;
+            this.searchDebounce(term)
+        },
+        searchDebounce: debounce(function(term){
+            courseService.getCourse({term}).then(data=>{
+                this.suggestsCourses = data;
+                if(this.suggestsCourses.length) {
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.liveSessionTitle){
+                            this.liveSessionTitle = course
+                        }}) 
+                }
             })
-        }
-        
+        },200)
     }
 }
 </script>
@@ -586,6 +593,11 @@ export default {
             font-size: 16px;
             color: #adb1b4;
         }
+    }
+}
+.date-picker {
+    .v-icon {
+        font-size: 14px !important;
     }
 }
 </style>

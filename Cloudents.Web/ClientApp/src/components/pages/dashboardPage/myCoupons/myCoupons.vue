@@ -8,8 +8,6 @@
             :mobile-breakpoint="0"
             :footer-props="{
                 showFirstLastPage: false,
-                prevIcon: 'sbf-arrow-left-carousel',
-                nextIcon: 'sbf-arrow-right-carousel',
                 itemsPerPageOptions: [5]
             }">
 
@@ -31,27 +29,27 @@
             </template>
 
             <template v-slot:header.code="{header}">
-                <span v-t="header.text"></span>
+                <span>{{header.text}}</span>
             </template>
             <template v-slot:header.couponType="{header}">
-                <span v-t="header.text"></span>
+                <span>{{header.text}}</span>
             </template>
             <template v-slot:header.value="{header}">
-                <span v-t="header.text"></span>
+                <span>{{header.text}}</span>
             </template>
             <template v-slot:header.amountOfUsers="{header}">
-                <span v-t="header.text"></span>
+                <span>{{header.text}}</span>
             </template>
             <template v-slot:header.createTime="{header}">
-                <span v-t="header.text"></span>
+                <span>{{header.text}}</span>
             </template>
             <template v-slot:header.expiration="{header}">
-                <span v-t="header.text"></span>
+                <span>{{header.text}}</span>
             </template>
 
 
             <template v-slot:item.couponType="{value}">
-                {{$t(value === 'Flat' ? 'marketing_coupon_type_flat' : 'marketing_coupon_type_percentage')}}
+                {{value === 'Flat' ? $t('marketing_coupon_type_flat') : $t('marketing_coupon_type_percentage')}}
             </template>
             <template v-slot:item.createTime="{value}">
                 {{$d(new Date(value), 'tableDate')}}
@@ -59,10 +57,6 @@
             <template v-slot:item.expiration="{value}">
                 {{value ? $d(new Date(value), 'tableDate') : ''}}
             </template>
-            <template v-slot:no-data>
-                {{$t('marketing_tableCoupon_noCoupons')}}
-            </template>
-
             <template v-slot:no-data>
                 {{$t('marketing_tableCoupon_noCoupons')}}
             </template>
@@ -76,42 +70,44 @@ import couponStore from '../../../../store/couponStore';
 
 export default {
     name: "tableCoupon",
-    data: () => ({
-        tableLoading: false,
-        coupons: [],
-        headers:[
-            {
-                text: 'marketing_tableCoupon_code',
-                align: 'left',
-                value: 'code',
-            },
-            {
-                text: 'marketing_tableCoupon_type',
-                align: 'left',
-                value: 'couponType',
-            },
-            {
-                text: 'marketing_tableCoupon_value',
-                align: 'left',
-                value: 'value',
-            },
-            {
-                text: 'marketing_tableCoupon_amount',
-                align: 'left',
-                value: 'amountOfUsers',
-            },
-            {
-                text: 'marketing_tableCoupon_created',
-                align: 'left',
-                value: 'createTime',
-            },
-            {
-                text: 'marketing_tableCoupon_expired',
-                align: 'left',
-                value: 'expiration',
-            },
-        ],
-    }),
+    data() {
+        return {
+            tableLoading: false,
+            coupons: [],
+            headers:[
+                {
+                    text: this.$t('marketing_tableCoupon_code'),
+                    align: '',
+                    value: 'code',
+                },
+                {
+                    text: this.$t('marketing_tableCoupon_type'),
+                    align: '',
+                    value: 'couponType',
+                },
+                {
+                    text: this.$t('marketing_tableCoupon_value'),
+                    align: '',
+                    value: 'value',
+                },
+                {
+                    text: this.$t('marketing_tableCoupon_amount'),
+                    align: '',
+                    value: 'amountOfUsers',
+                },
+                {
+                    text: this.$t('marketing_tableCoupon_created'),
+                    align: '',
+                    value: 'createTime',
+                },
+                {
+                    text: this.$t('marketing_tableCoupon_expired'),
+                    align: '',
+                    value: 'expiration',
+                },
+            ],
+        }
+    },
     methods: {
       getCoupons() {
         let self = this;
@@ -176,8 +172,6 @@ export default {
                 .v-data-footer__icons-before,
                 .v-data-footer__icons-after {
                     .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-                        transform: none /*rtl:rotate(180deg)*/;
-                        color: @global-purple !important; //vuetify
                         font-size: 14px;
                     }
                 }

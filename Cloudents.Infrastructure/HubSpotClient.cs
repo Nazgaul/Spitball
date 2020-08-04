@@ -23,43 +23,28 @@ namespace Cloudents.Infrastructure
                     var contact = await _api.GetByEmailAsync<HubSpotContact>(email);
                     return contact;
                 }
-               
-                catch(HubSpotException e)
+
+                catch (HubSpotException e)
                 {
-                    //502 error -  https://github.com/skarpdev/dotnetcore-hubspot-client/pull/30
-                    if (e.Message.StartsWith("<"))
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                        continue;
-                    }
-                    dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
-                    if (response.errorType == "RATE_LIMIT")
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    timeToWaitInMillisecond = await HandleExceptionAsync(null, e, timeToWaitInMillisecond);
                 }
             } while (true);
         }
 
-       
 
-        
- 
+
+
+
         public async Task CreateOrUpdateAsync(HubSpotContact contact, bool needInsert)
         {
-            var timeToWaitInMillisecond = 5;
+            var timeToWaitInMillisecond = 100;
             do
             {
                 try
                 {
                     if (needInsert)
                     {
+
                         await _api.CreateAsync<HubSpotContact>(contact);
                         return;
                     }
@@ -69,31 +54,50 @@ namespace Cloudents.Infrastructure
                 }
                 catch (HubSpotException e)
                 {
-                    if (e.Message.StartsWith("<"))
+
+                    timeToWaitInMillisecond = await HandleExceptionAsync(contact, e, timeToWaitInMillisecond);
+
+
+                }
+
+            } while (true);
+        }
+
+        private async Task<int> HandleExceptionAsync(HubSpotContact? contact, HubSpotException e, int timeToWaitInMillisecond)
+        {
+            try
+            {
+                dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
+
+                if (response.message == "Contact already exists")
+                {
+                    if (contact != null)
                     {
-                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                        continue;
-                    }
-                    dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
-                    if (response.errorType == "RATE_LIMIT")
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
-                        timeToWaitInMillisecond = timeToWaitInMillisecond * 2;
-                       
+                        await CreateOrUpdateAsync(contact, false);
                     }
                     else
                     {
-                        throw;
+                        throw new ArgumentException("contact already exists but contact is null", e);
                     }
-
                 }
-             
-            } while (true);
+                else
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                    return timeToWaitInMillisecond * 2;
+                }
+            }
+            catch (JsonReaderException x)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                return timeToWaitInMillisecond * 2;
+
+            }
+
+            return timeToWaitInMillisecond;
         }
     }
 
-     [DataContract]
+    [DataContract]
     public class HubSpotContact : ContactHubSpotEntity
     {
         public ItemState _status;
@@ -105,6 +109,8 @@ namespace Cloudents.Infrastructure
             _registrationDate = d.ToUniversalTime().Date;
 
         }
+
+        [DataMember(Name = "lifecyclestage")] public string TutorState { get; set; }
 
 
         [DataMember(Name = "teacher_id")]
@@ -140,6 +146,9 @@ namespace Cloudents.Infrastructure
             }
             set { }
         }
+
+        [DataMember(Name = "hs_lead_status")]
+        public string LeadStatus { get; set; }
 
         [DataMember(Name = "bio")]
         public string Bio { get; set; }

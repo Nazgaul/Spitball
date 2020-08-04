@@ -95,7 +95,7 @@ export default {
       this.getData();
     },
     getData() {
-      let self = this
+      let self = this;
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
         self.results = data;
       }).catch(ex => {
@@ -118,10 +118,10 @@ export default {
     },
     analyticTypeResource(key) {
       let resource = {
-        revenue: 'dashboardTeacher_revenue',
-        sales: 'dashboardTeacher_sales',
-        views: 'dashboardTeacher_views',
-        followers: 'dashboardTeacher_followers'
+        revenue: this.$t('dashboardTeacher_revenue'),
+        sales: this.$t('dashboardTeacher_sales'),
+        views: this.$t('dashboardTeacher_views'),
+        followers: this.$t('dashboardTeacher_followers')
       }
       return resource[key]
     }

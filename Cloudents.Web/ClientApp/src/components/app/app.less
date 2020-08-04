@@ -31,24 +31,24 @@ html {
 //   min-height: -webkit-fill-available !important; //safari ios - studyroom
 // }
  //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
-html[dir="rtl"] {
-  .v-text-field__slot >  label, .v-select__slot > label { 
-    /*rtl:ignore */
-    left: unset !important;
-  }
-   fieldset+.v-text-field__slot > label  {
-    /*rtl:ignore */
-    left :unset !important ;
-  }
-  .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
-     /*rtl:ignore */
-    right: -27px !important;
-  }
-  .v-time-picker-clock__item {
-    /*rtl:ignore */
-    transform: translate(-50%, -50%);
-  }
-}
+// html[dir="rtl"] {
+//   .v-text-field__slot >  label, .v-select__slot > label { 
+//     /*rtl:ignore */
+//     left: unset !important;
+//   }
+//    fieldset+.v-text-field__slot > label  {
+//     /*rtl:ignore */
+//     left :unset !important ;
+//   }
+//   .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
+//      /*rtl:ignore */
+//     right: -27px !important;
+//   }
+//   .v-time-picker-clock__item {
+//     /*rtl:ignore */
+//     transform: translate(-50%, -50%);
+//   }
+// }
 
 // issue with safari svg icons height
 svg {
@@ -66,9 +66,6 @@ svg {
     }
   }
 }
-//.voted {
-//  color: #FBB205 !important;
-//}
 
 .site-content {
   transition: none !important;
@@ -137,9 +134,7 @@ svg {
 
   .cookie-approve {
     border: 1px solid white;
-    padding: 5px;
-    padding-right: 17px;
-    padding-left: 17px;
+    padding: 5px 17px;
     border-radius: 20px;
     outline: none;
     min-width: 80px;

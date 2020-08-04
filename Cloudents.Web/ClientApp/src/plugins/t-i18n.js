@@ -179,8 +179,8 @@ export async function loadLanguageAsync() {
     return;
   }
 
-  var messages2;
-  try {
+    let messages2;
+    try {
     let xxx = await import(/* webpackChunkName: "lang-[request]" */ `../locales/${lang}.json`);
     messages2 = xxx;
     // i18n.setLocaleMessage(lang, messages);

@@ -32,9 +32,9 @@ export default {
             const retVal = isWebView(navigator.userAgent);
             return !retVal;
         },
-        isVerifyPhone() {
-            return this.component === 'verifyPhone'
-        },
+        // isVerifyPhone() {
+        //     return this.component === 'verifyPhone'
+        // },
         btnLoading() {
             return this.$store.getters.getGlobalLoading
         },
@@ -71,7 +71,7 @@ export default {
                     if(self.presetRouting()) return
 
                     window.location.reload()
-                }).catch(error => {      
+                }).catch(error => {
                     let { response: { data } } = error
 
                     self.errors.password = data["Password"] ? error.response.data["Password"][0] : ''
@@ -80,6 +80,7 @@ export default {
         },
         gmailRegister() {
             let userType = this.teacher ? 'tutor' : 'student'
+            this.$store.commit('setGlobalLoading', true);
             if(this.isFromTutorReuqest) {
                 sessionStorage.setItem('hash','#tutorRequest');
                 sessionStorage.setItem('tutorRequest', JSON.stringify({
@@ -109,11 +110,10 @@ export default {
                 this.fromTutorReuqest()
                 return true
             }
-
+            
             if(this.needRedirect()) return true
 
             this.fromStudyRoom()
-
             return false
         },
         needRedirect() {
@@ -131,18 +131,18 @@ export default {
             }
             return registrationService.smsRegistration(smsObj)
         },
-        phoneCall(){
-			let self = this
-			registrationService.voiceConfirmation()
-            	.then(() => {
-					self.$store.dispatch('updateToasterParams',{
-						toasterText: self.$t("login_call_code"),
-						showToaster: true,
-					});
-				}).catch(error => {
-                    self.$appInsights.trackException(error);
-                })
-        },
+        // phoneCall(){
+		// 	let self = this
+		// 	registrationService.voiceConfirmation()
+        //     	.then(() => {
+		// 			self.$store.dispatch('updateToasterParams',{
+		// 				toasterText: self.$t("login_call_code"),
+		// 				showToaster: true,
+		// 			});
+		// 		}).catch(error => {
+        //             self.$appInsights.trackException(error);
+        //         })
+        // },
         fromTutorReuqest() {
             this.$store.dispatch('userStatus')
             this.needRedirect()

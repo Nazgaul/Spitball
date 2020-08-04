@@ -20,7 +20,7 @@
                   <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'dashboardPage_my_content_title'"></div>
                   <div>
                      <v-btn
-                        @click="$store.commit('setComponent', 'upload')"
+                        @click="$store.commit('addComponent', UPLOAD_DIALOG)"
                         class="white--text"
                         depressed
                         rounded
@@ -35,9 +35,9 @@
             <template v-slot:item.preview="{item}">
                   <img v-if="item.type === 'BuyPoints'" :src="item.image" class="tablePreview_img buyPointsLayoutPreview">
    
-                  <router-link v-else :to="item.url" class="tablePreview">
+                  <router-link v-else :to="itemUrl(item)" class="tablePreview">
                      <span v-if="item.online" class="tablePreview_online"></span>
-                     <img v-if="item.image || item.preview || checkIsQuestion(item.type)" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
+                     <img v-if="item.image || item.preview" :src="formatImg(item)" class="tablePreview_img" width="80" height="80" />
                      
                      <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
@@ -52,7 +52,7 @@
                         <span>{{$t('dashboardPage_info_buy_points')}}</span>
                      </div>
                   </template>
-                  <router-link v-else class="tableInfo_router" :to="item.url">
+                  <router-link v-else class="tableInfo_router" :to="itemUrl(item)">
                      <template v-if="item.type === 'TutoringSession'">
                         <div class="text-truncate">
                            <div v-if="item.roomName" class="text-truncate">
@@ -72,16 +72,16 @@
                            <span>{{item.name}}</span>
                         </div>
                      </template>
-                     <template v-if="checkIsQuestion(item.type)">
-                        <div class="text-truncate">
-                           <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>
-                           <span class="text-truncate">{{item.text}}</span>
-                        </div>
-                        <div class="text-truncate" v-if="item.answerText">
-                           <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>
-                           <span>{{item.answerText}}</span>
-                        </div>
-                     </template>
+<!--                     <template v-if="checkIsQuestion(item.type)">-->
+<!--                        <div class="text-truncate">-->
+<!--                           <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>-->
+<!--                           <span class="text-truncate">{{item.text}}</span>-->
+<!--                        </div>-->
+<!--                        <div class="text-truncate" v-if="item.answerText">-->
+<!--                           <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>-->
+<!--                           <span>{{item.answerText}}</span>-->
+<!--                        </div>-->
+<!--                     </template>-->
                      <template v-if="item.conversationId">
                         <div class="text-truncate">
                            <span>{{item.name}}</span>
@@ -99,19 +99,16 @@
             <template v-slot:item.likes="{item}">{{item.likes}}</template>
             <template v-slot:item.views="{item}">{{item.views}}</template>
             <template v-slot:item.downloads="{item}">{{item.downloads}}</template>
-            <template v-slot:item.purchased="{item}">{{item.purchased}}</template>
-            <template v-slot:item.price="{item}">{{formatPrice(item.price,item.type)}}</template>
             <template v-slot:item.date="{item}">{{ $d(item.date) }}</template>
 
             <template v-slot:item.action="{item}">
-               <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(item.type)">
+               <v-menu bottom left v-model="showMenu">
                   <template v-slot:activator="{ on }">
                      <v-icon @click="currentItemIndex = item.itemId" v-on="on" slot="activator" small icon>{{$vuetify.icons.values.dotMenu}}</v-icon>
                   </template>
                
                   <v-list v-if="item.itemId == currentItemIndex">
                      <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)" v-t="'dashboardPage_rename'"></v-list-item>
-                     <v-list-item style="cursor:pointer;" @click="openChangePriceDialog(item)" v-t="'resultNote_change_price'"></v-list-item>
                   </v-list>
                </v-menu>
             </template>
@@ -128,16 +125,6 @@
          :content-class="'pop-dashboard-container'">
             <changeNameDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
       </sb-dialog>
-      <sb-dialog 
-         :showDialog="isChangePriceDialog"
-         :isPersistent="true"
-         :popUpType="'dashboardDialog'"
-         :onclosefn="closeDialog"
-         :activateOverlay="true"
-         :max-width="'fit-content'"
-         :content-class="'pop-dashboard-container'">
-            <changePriceDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
-      </sb-dialog>
    </div>
 </template>
 
@@ -145,11 +132,12 @@
 import { mapGetters } from 'vuex';
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
-import changePriceDialog from '../dashboardDialog/changePriceDialog.vue';
+import {UPLOAD_DIALOG} from '../../global/toasterInjection/componentConsts.js';
+import * as routeNames from '../../../../routes/routeNames.js';
 
 export default {
    name:'myContent',
-   components:{sbDialog,changeNameDialog,changePriceDialog},
+   components:{sbDialog,changeNameDialog},
    props:{
       dictionary:{
          type: Object,
@@ -158,9 +146,9 @@ export default {
    },
    data() {
       return {
+         UPLOAD_DIALOG:UPLOAD_DIALOG,
          currentItem: '',
          isChangeNameDialog: false,
-         isChangePriceDialog: false,
          currentItemIndex: '',
          showMenu: false,
          headers: [
@@ -170,15 +158,13 @@ export default {
             this.dictionary.headers['likes'],
             this.dictionary.headers['views'],
             this.dictionary.headers['downloads'],
-            this.dictionary.headers['purchased'],
-            this.dictionary.headers['price'],
             this.dictionary.headers['date'],
             this.dictionary.headers['action'],
          ]
       }
    },
    computed: {
-      ...mapGetters(['getContentItems','accountUser']),
+      ...mapGetters(['getContentItems']),
       contentItems(){
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
@@ -191,45 +177,31 @@ export default {
       }
    },
    methods: {
-      formatPrice(price,type){
-         if(isNaN(price)) return;
-         if(price < 0){
-            price = Math.abs(price)
-         }
-         price = Math.round(+price).toLocaleString();
-         let currency;
-         if(type === 'Document' || type === 'Video' ){
-            currency = this.$t('dashboardPage_pts');
-            return `${price} ${currency}`
-         }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
-            currency = this.accountUser.currencySymbol
-            return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
-         }
-         return `${price} ${currency}`
-      },
       openChangeNameDialog(item){
          this.currentItem = item;
          this.isChangeNameDialog = true;
       },
-      openChangePriceDialog(item){
-         this.currentItem = item;
-         this.isChangePriceDialog = true;
-      },
       closeDialog(){
          this.isChangeNameDialog = false;
-         this.isChangePriceDialog = false;
          this.currentItem = '';
       },
-      checkIsQuestion(type){
-         return type === 'Question' || type === 'Answer';
-      },
+      // checkIsQuestion(type){
+      //    return type === 'Question' || type === 'Answer';
+      // },
       formatImg(item){
-         if(item.preview || item.image){
+        // if(item.preview || item.image){
             return this.$proccessImageUrl(item.preview,80,80)
-         }
-         if(this.checkIsQuestion(item.type)){
-            return require('../global/images/qs.png') 
+         //}
+         // if(this.checkIsQuestion(item.type)){
+         //    return require('../global/images/qs.png')
+         // }
+      },
+      itemUrl(item){
+         return item.url || {
+            name: routeNames.Document,
+            params: {
+               id:item.id
+            }
          }
       }
    },
@@ -335,13 +307,6 @@ export default {
       }
 
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
-         color: @global-purple !important;
-         height: inherit;
-         font-size: 14px;
-      }
-      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
          color: @global-purple !important;
          height: inherit;
          font-size: 14px;

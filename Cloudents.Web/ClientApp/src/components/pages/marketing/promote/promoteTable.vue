@@ -48,7 +48,7 @@
                       </div>
                   </div>
                 </td>
-                <td class="insideBox"><div class="">{{$t(dataType === 'Video' ? 'promote_table_video' : 'promote_table_document')}}</div></td>
+                <td class="insideBox"><div class="">{{dataType === 'Video' ? $t('promote_table_video') : $t('promote_table_document')}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.likes}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.views}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.downloads}}</div></td>
@@ -169,7 +169,6 @@ export default {
     .v-data-footer__icons-before,
     .v-data-footer__icons-after {
         .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-            transform: none /*rtl:rotate(180deg)*/;
             // color: @global-purple !important; //vuetify
             font-size: 14px;
         }

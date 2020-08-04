@@ -19,8 +19,8 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
             Map(e => e.LockoutReason);
-            HasMany(x => x.Answers).Inverse()
-                .Cascade.AllDeleteOrphan();
+            //HasMany(x => x.Answers).Inverse()
+            //    .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
@@ -69,9 +69,9 @@ namespace Cloudents.Persistence.Maps
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
             //Map(z => z.Gender).CustomType<Gender>().Nullable();
             //Map(x => x.UserType2).Column("UserType").CustomType<GenericEnumStringType<UserType>>().Nullable();
-            HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
-                .Cascade.AllDeleteOrphan()
-                .KeyColumn("UserId").Inverse().AsSet();
+            //HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
+            //    .Cascade.AllDeleteOrphan()
+            //    .KeyColumn("UserId").Inverse().AsSet();
 
             HasMany(x => x.ChatUsers).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()

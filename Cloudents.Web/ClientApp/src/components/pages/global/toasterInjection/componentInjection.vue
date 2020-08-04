@@ -15,7 +15,7 @@ const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.
 const simpleToaster = () => import('./simpleToaster.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
-const buyPointsTransaction = () => import('./buyPointsTransaction.vue')
+const PURCHASE_TRANSACTION = () => import('./buyPointsTransaction.vue')
 
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
 
@@ -29,6 +29,8 @@ const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoom
 const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
+const ITEM_DIALOG = () => import('../itemDialog/itemDialog.vue');
+
 export default {
     components: {
         PAYMENT_DIALOG,
@@ -37,7 +39,7 @@ export default {
         simpleToaster,
         simpleErrorToaster,
         errorLinkToaster,
-        buyPointsTransaction,
+        PURCHASE_TRANSACTION,
         upload,
         createCoupon,
         verifyPhone,
@@ -45,23 +47,39 @@ export default {
         applyCoupon,
         studRoomSettings,
         createStudyRoomDialog,
-        teacherBillOfflineDialog
+        teacherBillOfflineDialog,
+        ITEM_DIALOG
     },
     data() {
         return {
             component: {},
             componentObj: {
+                // DIALOGS:
+                [componentConsts.ITEM_DIALOG]:{
+                    name:componentConsts.ITEM_DIALOG,
+                    params:{
+                        name: componentConsts.ITEM_DIALOG
+                    }
+                },
                 [componentConsts.PAYMENT_DIALOG]:{
                     name: componentConsts.PAYMENT_DIALOG,
                 },
                 [componentConsts.TUTOR_EDIT_PROFILE]: {
                     name: componentConsts.TUTOR_EDIT_PROFILE 
                 },
+                // TOASTERS:ERRORS
                 [componentConsts.BOOK_FAILED]:{
                     name:'simpleErrorToaster',
                     params:{
                         text: this.$t("calendar_error_create_event"),
                         name: componentConsts.BOOK_FAILED
+                    }
+                },
+                [componentConsts.CREATE_BROADCAST_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("create_broadcast_error"),
+                        name: componentConsts.CREATE_BROADCAST_ERROR
                     }
                 },
                 [componentConsts.WENT_WRONG]:{
@@ -85,6 +103,16 @@ export default {
                         name: componentConsts.ENROLLED_ERROR
                     }
                 },
+                [componentConsts.UPLOAD_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t('upload_err'),
+                        name: componentConsts.UPLOAD_ERROR
+                    }
+                },
+
+
+                
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -113,11 +141,12 @@ export default {
                         timeout: 30000,
                     }
                 },
-                buyPointsTransaction:{
-                    name:'buyPointsTransaction',
+                [componentConsts.PURCHASE_TRANSACTION]:{
+                    name: componentConsts.PURCHASE_TRANSACTION,
                     params: {
                         text: this.$t('buyTokens_success_transaction'),
                         timeout: 30000,
+                        name: componentConsts.PURCHASE_TRANSACTION
                     }
                 },
                 simpleToaster_userConnected:{
@@ -185,8 +214,11 @@ export default {
                         type: 'broadcast'
                     }
                 },
-                upload: {
+                [componentConsts.UPLOAD_DIALOG]: {
                     name: 'upload',
+                    params:{
+                        name: componentConsts.UPLOAD_DIALOG
+                    }
                 },
                 createCoupon: {
                     name: 'createCoupon'
