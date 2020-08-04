@@ -46,7 +46,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("live/{id:guid}")]
-        [Route("course/id:guid")]
+        [Route("course/{id:guid}")]
         public async Task<IActionResult> RedirectLive(Guid id,[FromServices] IStatelessSession session)
         {
             var course = await session.Query<BroadCastStudyRoom>().Where(w => w.Id == id)
