@@ -2,19 +2,19 @@
     <div class="courseSession my-7" v-if="sessions.length">
         <div class="courseSessionTitle mb-3" v-t="'live_lecture'"></div>
         <div class="courseSessionWrapper">
-            <div class="courseSessionRow mb-5 d-flex" v-for="(session, index) in sessions" :key="index">
+            <div class="courseSessionRow mb-5 d-flex" v-for="(session, index) in sessions" :key="session.id">
                 <div class="courseSessionLeft text-center white--text d-sm-block d-flex flex-column justify-center">
-                    <div class="courseSessionDay">{{$moment(session.dateTime).format('D')}}</div>
-                    <div class="courseSessionMonth">{{$moment(session.dateTime).format('MMM')}}</div>
+                    <div class="courseSessionDay">{{$moment(session.date).format('D')}}</div>
+                    <div class="courseSessionMonth">{{$moment(session.date).format('MMM')}}</div>
                 </div>
                 <div class="courseSessionRight mx-4 my-auto py-2">
                     <div class="d-sm-flex mb-2">
                         <div class="courseSessionLecture flex-shrink-0">{{$t('live_le',[index+1])}}</div>
-                        <div class="courseSessionDescription ms-sm-2">Learn how to effectively search for a quality online</div>
+                        <div class="courseSessionDescription ms-sm-2">{{session.name}}</div>
                     </div>
                     <div class="d-flex">
                         <v-icon size="18">sbf-clockIcon</v-icon>
-                        <div class="courseSessionTime ms-2">{{$moment(session.dateTime).format('HH:mm')}}</div>
+                        <div class="courseSessionTime ms-2">{{$moment(session.date).format('HH:mm')}}</div>
                     </div>
                 </div>
             </div>
@@ -24,12 +24,12 @@
 
 <script>
 export default {
-name: 'courseSession',
-computed: {
-    sessions() {
-        return this.$store.getters.getCourseSessions
+    name: 'courseSession',
+    computed: {
+        sessions() {
+            return this.$store.getters.getCourseSessions
+        }
     }
-}
 }
 </script>
 
