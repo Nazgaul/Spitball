@@ -90,7 +90,6 @@ import shareContent from '../../../../pages/global/shareContent/shareContent.vue
 import whiteboardSvg from '../images/whiteboard.svg'
 import presentSvg from '../images/present.svg'
 import fullviewSvg from '../images/fullview.svg'
-import * as routeNames from '../../../../../routes/routeNames.js';
 
 export default {
     components: {
@@ -156,12 +155,7 @@ export default {
             return !this.$store.getters.getJwtToken;
         },
         shareContentParams(){
-            let link = this.$router.resolve({
-                name: routeNames.StudyRoomLanding,
-                params: {id:this.$route.params.id}
-            })
-            // let urlLink = `${window.origin}/studyroom/${this.$route.params.id}?t=${Date.now()}`;
-            let urlLink = `${window.origin}${link.href}?t=${Date.now()}`;
+            let urlLink = `${window.origin}${this.$route.fullPath}?t=${Date.now()}`;
             let paramObJ = {
                 link: urlLink,
                 twitter: this.$t('shareContent_share_profile_twitter',[this.roomTutor.tutorName,urlLink]),
