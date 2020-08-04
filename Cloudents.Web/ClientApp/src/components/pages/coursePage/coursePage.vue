@@ -186,6 +186,11 @@ export default {
     },
     created() {
         storeService.registerModule(this.$store, 'createCourse', createCourse);
+        let id = this.$route.params.id
+
+        if(id) {
+            this.$store.dispatch('getCourseInfo', id)
+        }
     }
 }
 </script>
