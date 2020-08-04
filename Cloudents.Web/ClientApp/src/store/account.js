@@ -30,6 +30,7 @@ const getters = {
     getAccountEmail: state => state.user?.email,
     getAccountImage: state => state.user?.image,
     getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
+    // getIsTutorCanCreateCourse: state => state.user?.canCreateCourse,
     
 };
 
@@ -70,6 +71,7 @@ const mutations = {
             this.isSold = objInit.isSold
             this.pendingSessionsPayments = objInit.pendingSessionsPayments
             this.chatUnread = objInit.chatUnread;
+            // this.canCreateCourse = objInit.canCreateCourse
         }
         
         state.user = user

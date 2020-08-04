@@ -8,10 +8,10 @@ namespace Cloudents.Command.CommandHandler
 {
     public class DownloadDocumentCommandHandler : ICommandHandler<DownloadDocumentCommand>
     {
-        private readonly IRepository<BaseUser> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IRegularUserRepository _regularUserRepository;
         private readonly IRepository<Document> _documentRepository;
-        public DownloadDocumentCommandHandler(IRepository<BaseUser> userRepository, IRepository<Document> documentRepository, IRegularUserRepository regularUserRepository)
+        public DownloadDocumentCommandHandler(IRepository<User> userRepository, IRepository<Document> documentRepository, IRegularUserRepository regularUserRepository)
         {
             _userRepository = userRepository;
             _documentRepository = documentRepository;

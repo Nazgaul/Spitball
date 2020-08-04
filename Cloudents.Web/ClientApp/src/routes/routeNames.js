@@ -13,7 +13,7 @@ export const Marketing = 'marketing';
 export const MySales = 'mySales';
 export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
-export const MyContent = 'myContent';
+export const MyCourses = 'myCourses';
 export const MyStudyRooms = 'myStudyRooms';
 export const MyStudyRoomsBroadcast = 'myStudyRoomsBroadcast';
 export const MyCalendar = 'myCalendar';
@@ -54,3 +54,7 @@ export const Question = 'question';
 export const MessageCenter = 'messages';
 
 export const notFound = '404'
+
+// Courses
+
+export const CourseCreate = 'create'

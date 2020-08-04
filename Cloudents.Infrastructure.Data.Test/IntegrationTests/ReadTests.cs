@@ -60,7 +60,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-       
+
 
 
         //[Theory]
@@ -79,14 +79,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         //}
 
-       
+
 
         [Theory]
         [InlineData(50084, 638)]
         [InlineData(45209, 638)]
         [InlineData(29106, 638)]
         [InlineData(29106, 0)]
-        [InlineData(53262,638)]
+        [InlineData(53262, 638)]
         public async Task DocumentById_Ok(long documentId, long? userId)
         {
             var query = new DocumentById(documentId, userId);
@@ -134,12 +134,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
 
-       
 
-        [Fact]
-        public async Task UserStudyRoomQuery_Ok()
+
+        [Theory]
+        [InlineData(StudyRoomType.Broadcast)]
+        [InlineData(StudyRoomType.Private)]
+        public async Task UserStudyRoomQuery_Ok(StudyRoomType type)
         {
-            var query = new UserStudyRoomQuery(638);
+            var query = new UserStudyRoomQuery(638, type);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -156,7 +158,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var x = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-       
+
 
         [Theory]
         [InlineData(0)]
@@ -166,7 +168,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserProfileTutorQuery_Ok(long userId)
         {
             var id = await fixture.StatelessSession.Query<Tutor>()
-               .Select(s=>s.Id).Take(1).SingleAsync();
+               .Select(s => s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -182,9 +184,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserProfileNotTutorQuery_Ok(long userId)
         {
             var id = await fixture.StatelessSession.Query<User>()
-                .Fetch(f=>f.Tutor)
+                .Fetch(f => f.Tutor)
                 .Where(w => w.Tutor.State == null)
-                .Select(s=>s.Id).Take(1).SingleAsync();
+                .Select(s => s.Id).Take(1).SingleAsync();
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -213,7 +215,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task CourseByIdQuery_Ok()
         {
-            var query = new CourseByIdQuery(1,0);
+            var query = new CourseByIdQuery(1, 0);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -252,17 +254,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    var _ = await fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Theory]
-        [InlineData(638)]
-        [InlineData(1696)]
-        public async Task UserBalanceQuery_Ok(long id)
-        {
+        //[Theory]
+        //[InlineData(638)]
+        //[InlineData(1696)]
+        //public async Task UserBalanceQuery_Ok(long id)
+        //{
 
-            var query = new UserBalanceQuery(id);
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //    var query = new UserBalanceQuery(id);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
 
 
-        }
+        //}
 
         [Fact]
         public async Task GetUpdatesEmailUsersQuery_Ok()
@@ -316,13 +318,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new RequestTutorEmailQuery(new Guid("DB8A3DB9-94B5-41AB-9377-AB0B00D81BCD"));
             var res = await fixture.QueryBus.QueryAsync(query, default);
-           // res.Should().NotBeEmpty();
+            // res.Should().NotBeEmpty();
         }
 
-       
 
 
-       
+
+
 
         [Theory]
         [InlineData(638)]
@@ -357,7 +359,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(159039)]
         public async Task UserContentByIdQuery_Ok(long id)
         {
-            var query = new UserContentByIdQuery(id);
+            var query = new UserCoursesByIdQuery(id);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -597,14 +599,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        
+
 
 
         [Fact]
         public async Task ChatConversationDetailQuery_Ok()
         {
             var identifier = await fixture.StatelessSession.Query<ChatUser>().Where(w => w.User.Id == 638).Select(s => s.ChatRoom.Identifier).FirstAsync();
-            var query = new ChatConversationDetailQuery(identifier,638);
+            var query = new ChatConversationDetailQuery(identifier, 638);
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
         }

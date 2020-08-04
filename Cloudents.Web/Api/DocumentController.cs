@@ -81,30 +81,30 @@ namespace Cloudents.Web.Api
             return new DocumentPreviewResponse(model, files);
         }
 
-        [HttpPost, Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateDocumentAsync([FromBody] CreateDocumentRequest model,
-            CancellationToken token)
-        {
-            //if (model.Price.HasValue)
-            //{
-            //    model.PriceType = PriceType.HasPrice;
-            //}
-            var userId = _userManager.GetLongUserId(User);
-            if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
-            {
-                ModelState.AddModelError(nameof(model.Name), "Invalid file name");
-                return BadRequest(ModelState);
-            }
-            var command = new CreateDocumentCommand(model.BlobName, model.Name,
-                model.Course, userId,  model.Description);
-            await _commandBus.DispatchAsync(command, token);
+        //[HttpPost, Authorize]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> CreateDocumentAsync([FromBody] CreateDocumentRequest model,
+        //    CancellationToken token)
+        //{
+        //    //if (model.Price.HasValue)
+        //    //{
+        //    //    model.PriceType = PriceType.HasPrice;
+        //    //}
+        //    var userId = _userManager.GetLongUserId(User);
+        //    if (!model.BlobName.StartsWith("file-", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        ModelState.AddModelError(nameof(model.Name), "Invalid file name");
+        //        return BadRequest(ModelState);
+        //    }
+        //    var command = new CreateDocumentCommand(model.BlobName, model.Name,
+        //        model.Course, userId,  model.Description);
+        //    await _commandBus.DispatchAsync(command, token);
 
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
 

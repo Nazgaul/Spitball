@@ -51,9 +51,6 @@ export default {
     // async deleteDoc(id){ 
     //    return await documentInstance.delete(`${id}`)
     // },
-    async sendDocumentData(data){ 
-        return await documentInstance.post('',data)
-    },
     async getDocument(id){ 
         let {data} = await documentInstance.get(`${id}`)
 

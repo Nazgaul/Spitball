@@ -172,14 +172,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Theory]
-        [InlineData(3, 0, "IL")]
-        [InlineData(2, 2, "IL")]
-        public async Task AdminUserFlagsOthersQuery_Ok(int minFlags, int page, string country)
-        {
-            var q1 = new UserFlagsOthersQuery(minFlags, page, country);
-            var x = await _fixture.QueryBus.QueryAsync(q1, default);
-        }
+        //[Theory]
+        //[InlineData(3, 0, "IL")]
+        //[InlineData(2, 2, "IL")]
+        //public async Task AdminUserFlagsOthersQuery_Ok(int minFlags, int page, string country)
+        //{
+        //    var q1 = new UserFlagsOthersQuery(minFlags, page, country);
+        //    var x = await _fixture.QueryBus.QueryAsync(q1, default);
+        //}
 
         [Theory]
         [InlineData(null)]
@@ -219,15 +219,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    await _fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Theory]
-        [InlineData("IL")]
-        [InlineData(null)]
-        public async Task FlaggedDocumentEmptyQuery_Ok(string countryStr)
-        {
-            var country = FromCountry(countryStr);
-            var query = new FlaggedDocumentQuery(country);
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData("IL")]
+        //[InlineData(null)]
+        //public async Task FlaggedDocumentEmptyQuery_Ok(string countryStr)
+        //{
+        //    var country = FromCountry(countryStr);
+        //    var query = new FlaggedDocumentQuery(country);
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         //[Theory]
         //[InlineData("IL")]

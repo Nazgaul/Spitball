@@ -120,55 +120,55 @@ namespace Cloudents.Admin2.Api
             return Ok();
         }
 
-        [HttpGet("flagged")]
-        public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
-            ([FromServices] IBlobProvider blobProvider, CancellationToken token)
-        {
+        //[HttpGet("flagged")]
+        //public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
+        //    ([FromServices] IBlobProvider blobProvider, CancellationToken token)
+        //{
 
-            var query = new FlaggedDocumentQuery(User.GetSbCountryClaim());
-            var retVal = await _queryBus.QueryAsync(query, token);
-            var tasks = new Lazy<List<Task>>();
+        //    var query = new FlaggedDocumentQuery(User.GetSbCountryClaim());
+        //    var retVal = await _queryBus.QueryAsync(query, token);
+        //    var tasks = new Lazy<List<Task>>();
 
-            foreach (var document in retVal)
-            {
+        //    foreach (var document in retVal)
+        //    {
 
-                var file = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token).FirstOrDefaultAsync(token);
+        //        var file = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token).FirstOrDefaultAsync(token);
 
-                if (file != null)
-                {
-                    document.Preview =
-                     await blobProvider.GeneratePreviewLinkAsync(file,
-                            TimeSpan.FromMinutes(20));
+        //        if (file != null)
+        //        {
+        //            document.Preview =
+        //             await blobProvider.GeneratePreviewLinkAsync(file,
+        //                    TimeSpan.FromMinutes(20));
 
-                    document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
-                }
-                else
-                {
+        //            document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
+        //        }
+        //        else
+        //        {
 
-                    var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
-                    tasks.Value.Add(t);
-                }
-
-
-            }
-
-            if (tasks.IsValueCreated)
-            {
-                await Task.WhenAll(tasks.Value);
-            }
-
-            //return retVal.Where(w => w.Preview != null);
-            return retVal;
-
-        }
+        //            var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
+        //            tasks.Value.Add(t);
+        //        }
 
 
-        [HttpPost("unFlag")]
-        public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
-        {
-            var command = new UnFlagDocumentCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //    }
+
+        //    if (tasks.IsValueCreated)
+        //    {
+        //        await Task.WhenAll(tasks.Value);
+        //    }
+
+        //    //return retVal.Where(w => w.Preview != null);
+        //    return retVal;
+
+        //}
+
+
+        //[HttpPost("unFlag")]
+        //public async Task<ActionResult> UnFlagAnswerAsync([FromBody] UnFlagDocumentRequest model, CancellationToken token)
+        //{
+        //    var command = new UnFlagDocumentCommand(model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
     }
 }

@@ -17,8 +17,6 @@ const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
 const PURCHASE_TRANSACTION = () => import('./buyPointsTransaction.vue')
 
-const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
-
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const applyCoupon = () => import('./applyCoupon.vue')
 
@@ -40,7 +38,6 @@ export default {
         simpleErrorToaster,
         errorLinkToaster,
         PURCHASE_TRANSACTION,
-        upload,
         createCoupon,
         verifyPhone,
         editStudentInfo,
@@ -103,16 +100,6 @@ export default {
                         name: componentConsts.ENROLLED_ERROR
                     }
                 },
-                [componentConsts.UPLOAD_ERROR]:{
-                    name:'simpleErrorToaster',
-                    params:{
-                        text: this.$t('upload_err'),
-                        name: componentConsts.UPLOAD_ERROR
-                    }
-                },
-
-
-                
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -212,12 +199,6 @@ export default {
                     name: 'createStudyRoomDialog',
                     params: {
                         type: 'broadcast'
-                    }
-                },
-                [componentConsts.UPLOAD_DIALOG]: {
-                    name: 'upload',
-                    params:{
-                        name: componentConsts.UPLOAD_DIALOG
                     }
                 },
                 createCoupon: {

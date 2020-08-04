@@ -49,7 +49,7 @@ namespace Cloudents.Query.StudyRooms
                          BroadCastTime = s.s.BroadcastTime,
                          StudentEmail = s.u.User.Email,
                          StudentFirstName = s.u.User.FirstName,
-                         StudyRoomDescription = s.s.Description,
+                         StudyRoomDescription = s.s.Course.Description,
                          TeacherName = s.s.Tutor.User.Name,
                          StudyRoomTitle = s.s.Course.Name,
                          UserId = s.u.User.Id

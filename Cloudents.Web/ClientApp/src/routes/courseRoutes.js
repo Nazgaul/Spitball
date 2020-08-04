@@ -1,3 +1,6 @@
+import store from '../store'
+import { staticComponents } from './routesUtils'
+import { CourseCreate } from './routeNames'
 export const courseRoutes = [
    {
       path: "/courses",
@@ -6,8 +9,38 @@ export const courseRoutes = [
          {
             path: '*',
             redirect: '/',
-
          }
       ]
+   },
+   {
+      path: '/course',
+      components: {
+         default: () => import(`../components/pages/coursePage/coursePage.vue`),
+         ...staticComponents(['banner', 'header', 'sideMenu']),
+      },
+      children: [
+         {
+            path: '/',
+            redirect: 'create'
+         },
+         {
+            path: 'create',
+            name: CourseCreate,
+         },
+         {
+            path: '*',
+            redirect: 'create',
+         }
+      ],
+      meta: {
+         requiresAuth: true,
+      },
+      beforeEnter: (to, from, next) => {
+         if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
+             next()
+             return
+         }
+         next('/')
+     }
    }
 ]

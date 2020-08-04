@@ -24,6 +24,7 @@ using Azure.Storage.Queues;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Command.Courses;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
@@ -157,8 +158,13 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
+            var l = new List<int>();
+           var t =  l.DefaultIfEmpty().Min();
+            var x = new CreateCourseCommand(638,"x",0,0,"x",null,Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>(),Enumerable.Empty<CreateCourseCommand.CreateDocumentCommand>(),false);
 
-            await Dbi();
+            var bus = Container.Resolve<ICommandBus>();
+            await bus.DispatchAsync(x);
+           // await Dbi();
 
         }
 
@@ -170,122 +176,70 @@ namespace ConsoleApp
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            int amount2 = 0;
-            do
+            //var cron = Container.Resolve<ICronService>();
+            var _googleDocument = Container.Resolve<IGoogleDocument>();
+
+
+            var coursesWithNoStartTime = await session.Query<Course>()
+                .Where(w => w.StartTime == null && w.StudyRooms.Any())
+                .ToListAsync();
+
+            foreach (var course in coursesWithNoStartTime)
             {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                course.StartTime = course.StudyRooms.Min(x => x.BroadcastTime);
+                await uow.CommitAsync();
 
-               var ids2 = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.Course == null)
-                    .Take(100).Select(s => s.Id).ToListAsync();
+            }
 
-               amount2 = await session.Query<Document>()
-                   .Where(w => ids2.Contains(w.Id))
-                   .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
-                   .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
-                   .Set(x => x.Status.FlagReason, "Document not of tutor")
-                   .UpdateAsync(default);
-            } while (amount2 > 0);
-
-            //long i = 0;
-
-            //us update
-            //var ids = await session.Query<Course>()
-            //    .Where(w => w.Tutor.User.SbCountry == Country.UnitedStates)
-            //    .Select(s => s.Id).ToListAsync();
-
-            //await session.Query<Course>()
-            //    .Where(w =>ids.Contains(w.Id))
-            //    .UpdateBuilder()
-            //    .Set(s => s.State, ItemState.Ok)
-            //    .UpdateAsync(default);
-
-
-            ////il update
-            //ids = await session.Query<Course>()
-            //    .Where(w => w.Tutor.User.SbCountry == Country.Israel)
-            //    .Where(w=>w.Tutor.SellerKey != null)
-            //    .Select(s => s.Id).ToListAsync();
-
-            //await session.Query<Course>()
-            //    .Where(w =>ids.Contains(w.Id))
-            //    .UpdateBuilder()
-            //    .Set(s => s.State, ItemState.Ok)
-            //    .UpdateAsync(default);
-
-            //ids = await session.Query<Course>()
-            //    .Where(w => w.Tutor.User.SbCountry == Country.Israel)
-            //    .Where(w=>w.Tutor.SellerKey == null)
-            //    .Select(s => s.Id).ToListAsync();
-
-            //await session.Query<Course>()
-            //    .Where(w =>ids.Contains(w.Id))
-            //    .UpdateBuilder()
-            //    .Set(s => s.State, ItemState.Pending)
-            //    .UpdateAsync(default);
-
-            ////in update
-            //ids = await session.Query<Course>()
-            //    .Where(w => w.Tutor.User.SbCountry == Country.India)
-            //    .Select(s => s.Id).ToListAsync();
-
-            //await session.Query<Course>()
-            //    .Where(w =>ids.Contains(w.Id))
-            //    .UpdateBuilder()
-            //    .Set(s => s.State, ItemState.Pending)
-            //    .UpdateAsync(default);
-
-            List<Course> courses;
-            var i = 0;
-            do
-            {
-                courses = await session.Query<Course>()
-
-                  //  .Where(w => w.Price == null)
-                    .Take(100).Skip(i*100)
-                    .OrderBy(o => o.Id)
-                    .ToListAsync();
-                i++;
-
-                foreach (var course in courses)
+            var recurringStudyRoom = await session.Query<BroadCastStudyRoom>()
+                .Where(w => w.Schedule.End > DateTime.UtcNow && w.Course.State == ItemState.Ok)
+                .Select(s => new
                 {
-                    using var uow = Container.Resolve<IUnitOfWork>();
-                    course.SetInitPrice();
+                    s.Course,
+                    s.Schedule,
+                    s.Description
+                }).ToListAsync();
 
+
+            foreach (var broadCastStudyRoom in recurringStudyRoom)
+            {
+                var schedule = CrontabSchedule.Parse(broadCastStudyRoom.Schedule.CronString);
+                var upcomingStudyRooms =  schedule.GetNextOccurrences(DateTime.UtcNow, broadCastStudyRoom.Schedule.End);
+               
+                if (broadCastStudyRoom.Course.StudyRooms.Count() == upcomingStudyRooms.Count())
+                {
+                    continue;
+                }
+                
+                foreach (var upcomingStudyRoom in upcomingStudyRooms)
+                {
+                    
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    if (broadCastStudyRoom.Course.StudyRooms.Any(a => a.BroadcastTime == upcomingStudyRoom))
+                    {
+                        continue;
+                    }
+
+                    var documentName = $"{broadCastStudyRoom.Course.Name}-{Guid.NewGuid()}";
+                    var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, default);
+                    var studyRoom = new BroadCastStudyRoom(broadCastStudyRoom.Course.Tutor, googleDocUrl, broadCastStudyRoom.Course,
+                        upcomingStudyRoom.Date, broadCastStudyRoom.Description);
+                    broadCastStudyRoom.Course.AddStudyRoom(studyRoom);
                     await uow.CommitAsync();
                 }
-            } while (courses.Count > 0);
 
+            }
+            var courses = await session.Query<Course>()
+                .Where(w => w.State == ItemState.Ok)
+                .ToListAsync(); 
 
-           
-
-         
-
-
-            //List<BroadCastStudyRoom> broadCastStudyRooms;
-            //do
-            //{
-            //    broadCastStudyRooms = await session.Query<BroadCastStudyRoom>()
-            //        .Where(w =>
-            //                     w.Course == null)
-            //        .Take(100)
-            //        .ToListAsync();
-
-            //    foreach (var broadCastStudyRoom in broadCastStudyRooms)
-            //    {
-            //        Console.WriteLine($"Processing broadCastStudyRoom {broadCastStudyRoom.Id}");
-            //        using var uow = Container.Resolve<IUnitOfWork>();
-            //        var courseRepository = Container.Resolve<ICourseRepository>();
-
-
-            //        var tutor = broadCastStudyRoom.Tutor;
-            //        var course = tutor.AddCourse(broadCastStudyRoom.Name);
-            //        broadCastStudyRoom.Course = course;
-            //        await uow.CommitAsync();
-            //        Console.WriteLine("no");
-            //    }
-            //} while (broadCastStudyRooms.Count > 0);
-
-            //await DeleteOldStuff.ResyncTutorReadAsync();
+            foreach (var course in courses)
+            {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                course.SubscribeToAllStudyRooms();
+                await uow.CommitAsync();
+            }
         }
 
         private static async Task UpdateTwilioParticipants()
