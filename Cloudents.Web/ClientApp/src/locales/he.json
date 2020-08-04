@@ -269,6 +269,7 @@
   "image resolution": "540x360 (גודל מומלץ)",
   "invalid_409": "יצרה בעבר קורס עם שם זהה",
   "invalid_date": "הזמן שנבחר צריך להיות בעתיד",
+  "invalid_duplicate_date": "יש שיעורים שנקבעו לאותו המועד",
   "invalid_file": "לא ניתן להעלות קבצים אילו",
   "invalid_studyroom_text": "חסר נושא שיעור",
   "invite_course": "הזמנה לקורס",
