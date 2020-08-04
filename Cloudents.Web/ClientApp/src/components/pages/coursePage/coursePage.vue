@@ -69,9 +69,9 @@ export default {
             showSnackbar: false,
             errorText: '',
             statusErrorCode: {
-                date: this.$t('invalid_date'),
-                studyRoomText: this.$t('invalid_studyroom_text'),
-                file: this.$t('invalid_file'),
+                date: this.$t('invalid_date'), // when there is invalid date
+                studyRoomText: this.$t('invalid_studyroom_text'), // when there is no text in one of the studyroom
+                file: this.$t('invalid_file'), // when there error in 1 of file
                 409: this.$t('invalid_409'),
             }
         }
