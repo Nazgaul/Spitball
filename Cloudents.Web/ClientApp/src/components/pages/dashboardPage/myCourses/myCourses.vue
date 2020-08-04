@@ -1,14 +1,14 @@
 <template>
-   <div class="myContent">
+   <div class="myCourses">
       <v-data-table 
             @click:row="handleRowClick"
             :headers="headers"
-            :items="contentItems"
+            :items="coursesItems"
             :items-per-page="5"
             :mobile-breakpoint="0"
             :item-key="'itemId'"
             sort-by
-            class="myContent_table"
+            class="myCourses_table"
             :footer-props="{
                showFirstLastPage: false,
                firstIcon: '',
@@ -158,7 +158,7 @@ import { CourseCreate, Learning } from '../../../../routes/routeNames'
 // import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
 
 export default {
-   name:'myContent',
+   name:'myCourses',
    // components:{sbDialog,changeNameDialog},
    // props:{
    //    dictionary:{
@@ -187,14 +187,14 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getContentItems','accountUser']),
+      ...mapGetters(['getCoursesItems','accountUser']),
       // canCreateCourse() {
       //    return this.$store.getters.getIsTutorCanCreateCourse
       // },
-      contentItems(){
+      coursesItems(){
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
-         return this.getContentItems && this.getContentItems.map((item, index) => {
+         return this.getCoursesItems && this.getCoursesItems.map((item, index) => {
             return {
                itemId: index,
                ...item
@@ -253,7 +253,7 @@ export default {
       // }
    },
    created() {
-      this.$store.dispatch('updateContentItems')
+      this.$store.dispatch('updateCoursesItems')
    },
 }
 </script>
@@ -264,9 +264,9 @@ export default {
 // .pop-dashboard-container {
 //    background: #fff;
 // }
-.myContent{
+.myCourses{
    max-width: 1366px;
-   .myContent_table {
+   .myCourses_table {
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
       thead {
          tr {

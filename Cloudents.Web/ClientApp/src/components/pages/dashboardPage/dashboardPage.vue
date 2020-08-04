@@ -12,7 +12,7 @@
 import { mapGetters } from 'vuex';
 
 const mySales = () => import('./mySales/mySales.vue');
-const myCourses = () => import('./myContent/myContent.vue');
+const myCourses = () => import('./myCourses/myCourses.vue');
 const myPurchases = () => import('./myPurchases/myPurchases.vue');
 const myStudyRooms = () => import('./myStudyRooms/myStudyRooms.vue');
 const myStudyRoomsBroadcast = () => import('./myStudyRooms/myStudyRooms.vue');

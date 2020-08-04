@@ -5,7 +5,7 @@ import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
-   contentItems: [],
+   coursesItems: [],
    purchasesItems: [],
    studyRoomItems: [],
    followersItems: [],
@@ -15,8 +15,8 @@ const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   setContentItems(state, data) {
-      function ContentItem(objInit) {
+   setCoursesItems(state, data) {
+      function CourseItem(objInit) {
          this.documents = objInit.documents
          this.id = objInit.id
          this.image = objInit.image
@@ -29,7 +29,7 @@ const mutations = {
          this.startOn = objInit.start ? new Date(objInit.start) : '';
       }
       for (let i = 0; i < data.length; i++) {
-         state.contentItems.push(new ContentItem(data[i]));
+         state.coursesItems.push(new CourseItem(data[i]));
       }
       
    },
@@ -58,7 +58,7 @@ const mutations = {
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   getContentItems: state => state.contentItems,
+   getCoursesItems: state => state.coursesItems,
    getPurchasesItems: state => state.purchasesItems,
    getStudyRoomItems: state => state.studyRoomItems,
    getFollowersItems: state => state.followersItems,
@@ -70,15 +70,12 @@ const actions = {
          commit('setSalesItems', items);
       });
    },
-   updateContentItems({commit}){
+   updateCoursesItems({commit}){
       axios.get('course').then(({data})=>{
-         commit('setContentItems', data);
+         commit('setCoursesItems', data);
       }).catch(ex => {
          console.log(ex);
       })
-      // dashboardService.getContentItems().then(items=>{
-      //    commit('setContentItems', items);
-      // });
    },
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
