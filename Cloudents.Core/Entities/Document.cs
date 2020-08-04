@@ -76,7 +76,7 @@ namespace Cloudents.Core.Entities
         [Obsolete]
         public virtual IEnumerable<Transaction> Transactions => _transactions;
 
-        public virtual ItemStatus Status { get; protected set; }
+        public virtual ItemStatus Status { get;  set; }
 
 
 

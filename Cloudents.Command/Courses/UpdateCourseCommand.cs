@@ -57,17 +57,20 @@ namespace Cloudents.Command.Courses
 
         public class UpdateDocumentCommand
         {
-            public UpdateDocumentCommand(string blobName, string name, bool visible)
+            public UpdateDocumentCommand(long? id, string? blobName, string name, bool visible)
             {
                 BlobName = blobName;
                 Name = name;
                 Visible = visible;
+                Id = id;
             }
 
-            public string BlobName { get;  }
+            public string? BlobName { get;  }
             public string Name { get;  }
 
             public bool Visible { get;  }
+
+            public long? Id { get; set; }
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -16,12 +18,16 @@ namespace Cloudents.Command.Courses
         private readonly IRepository<Course> _courseRepository;
         private readonly IStudyRoomBlobProvider _blobProvider;
         private readonly IGoogleDocument _googleDocument;
+        private readonly IDocumentRepository _documentRepository;
+        private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
 
-        public UpdateCourseCommandHandler(IRepository<Course> courseRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument)
+        public UpdateCourseCommandHandler(IRepository<Course> courseRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument, IDocumentRepository documentRepository, IDocumentDirectoryBlobProvider documentBlobProvider)
         {
             _courseRepository = courseRepository;
             _blobProvider = blobProvider;
             _googleDocument = googleDocument;
+            _documentRepository = documentRepository;
+            _documentBlobProvider = documentBlobProvider;
         }
 
         public async Task ExecuteAsync(UpdateCourseCommand message, CancellationToken token)
@@ -62,16 +68,32 @@ namespace Cloudents.Command.Courses
                 }
             }
 
+            var documentsToUpdate =  message.Documents.Where(w=>w.Id.HasValue).ToDictionary(x => x.Id, x => x);
 
-           
+            foreach (var document in course.Documents)
+            {
+                if (documentsToUpdate.TryGetValue(document.Id, out var updateStuff))
+                {
+                    document.Status = updateStuff.Visible ? ItemStatus.Public : ItemStatus.Pending;
+                    document.Rename( updateStuff.Name);
+                }
+                else
+                {
+                    course.RemoveDocument(document);
+                }
+            }
+            foreach (var newDocuments in message.Documents.Where(w=>!w.Id.HasValue))
+            {
+                var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(newDocuments.BlobName)];
+                var document = new Document(newDocuments.Name, course, extension.DocumentType, newDocuments.Visible);
 
-            //message.StudyRooms.Select(s => new BroadCastStudyRoom(course.Tutor, null, course, s.Date, s.Name));
-
-            //foreach (var updateLiveStudyRoomCommand in message.StudyRooms)
-            //{
-            //    if (updateLiveStudyRoomCommand.Date == c)
-            //    course.
-            //}
+                await _documentRepository.AddAsync(document, token);
+                var id = document.Id;
+                await _documentBlobProvider.MoveAsync(newDocuments.BlobName, id.ToString(), token);
+                course.AddDocument(document);
+            }
+            
+          
 
         }
     }
