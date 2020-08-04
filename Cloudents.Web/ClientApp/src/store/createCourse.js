@@ -51,9 +51,16 @@ const mutations = {
     setCourseDescription(state, description) {
         state.description = description
     },
-    setTeachLecture(state, teachObj) {
+    setTextLecture(state, teachObj) {
         this._vm.$set(state.teachingDates, teachObj.index, {
             text: teachObj.text,
+            hour: state.teachingDates[teachObj.index]?.hour,
+            date: state.teachingDates[teachObj.index]?.date
+        })
+    },
+    setTeachLecture(state, teachObj) {
+        this._vm.$set(state.teachingDates, teachObj.index, {
+            text: state.teachingDates[teachObj.index]?.text,
             hour: teachObj.hour || state.teachingDates[teachObj.index]?.hour,
             date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
@@ -84,6 +91,29 @@ const mutations = {
 }
 
 const actions = {
+    getCourseInfo({commit}, id) {
+        return courseInstance.get(`${id}/edit`).then(({data}) => {
+            commit('setNumberOfLecture', data.studyRooms.length)
+            commit('setCourseName', data.name)
+            commit('setFollowerPrice', data.price.amount)
+            commit('setSubscriberPrice', data.subscriptionPrice.amount)
+            commit('setCourseDescription', data.description)
+            commit('setCourseCoverImage', data.image)
+            data.studyRooms.map((s, i) => {
+                commit('setTeachLecture', {
+                    index: i,
+                    date: this._vm.$moment(s.dateTime).format('YYYY-MM-DD'),
+                    hour: this._vm.$moment(s.dateTime).format('HH:mm'),
+                })
+                commit('setTextLecture', {
+                    index: i,
+                    text: s.name
+                })
+            })
+            // data.documents.map(s => commit('setTeachLecture', s))
+            commit('setShowCourse', data.visible)
+        })
+    },
     updateCourseInfo({state}, {documents, studyRooms}) {
         let params = {
             name: state.courseName,
