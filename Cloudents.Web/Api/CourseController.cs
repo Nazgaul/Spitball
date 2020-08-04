@@ -84,8 +84,9 @@ namespace Cloudents.Web.Api
                 model.SubscriptionPrice, model.Description, model.Image,
                 model.StudyRooms.Select(s => new UpdateCourseCommand.UpdateLiveStudyRoomCommand(s.Name, s.Date)),
                 model.Documents.Select(
-                    s => new UpdateCourseCommand.UpdateDocumentCommand(s.BlobName, s.Name, s.Visible)),
-                model.IsPublish,id);
+                    s => new UpdateCourseCommand.UpdateDocumentCommand(
+                        s.Id, s.BlobName, s.Name, s.Visible)),
+                model.IsPublish, id);
 
             await _commandBus.DispatchAsync(command, token);
 

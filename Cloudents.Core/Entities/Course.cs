@@ -174,6 +174,11 @@ namespace Cloudents.Core.Entities
 
         }
 
+        public virtual void RemoveDocument(Document document)
+        {
+            _documents.Remove(document);
+        }
+
 
         //public virtual void SubscribeToAllStudyRooms()
         //{
