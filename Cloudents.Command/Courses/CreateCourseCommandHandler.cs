@@ -18,14 +18,16 @@ namespace Cloudents.Command.Courses
         private readonly IGoogleDocument _googleDocument;
         private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
         private readonly IDocumentRepository _documentRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public CreateCourseCommandHandler(IRepository<Tutor> tutorRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument, IDocumentDirectoryBlobProvider documentBlobProvider, IDocumentRepository documentRepository)
+        public CreateCourseCommandHandler(IRepository<Tutor> tutorRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument, IDocumentDirectoryBlobProvider documentBlobProvider, IDocumentRepository documentRepository, ICourseRepository courseRepository)
         {
             _tutorRepository = tutorRepository;
             _blobProvider = blobProvider;
             _googleDocument = googleDocument;
             _documentBlobProvider = documentBlobProvider;
             _documentRepository = documentRepository;
+            _courseRepository = courseRepository;
         }
 
         public async Task ExecuteAsync(CreateCourseCommand message, CancellationToken token)
@@ -60,7 +62,8 @@ namespace Cloudents.Command.Courses
                 course.AddDocument(document);
 
             }
-            //await _courseRepository.AddAsync(course, token);
+            //need to have this for id generation
+            await _courseRepository.AddAsync(course, token);
 
             if (message.Image != null)
             {

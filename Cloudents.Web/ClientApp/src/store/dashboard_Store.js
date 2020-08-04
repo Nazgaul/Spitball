@@ -53,6 +53,9 @@ const mutations = {
       //update on the fly in my-sales approve button
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
       state.salesItems[index].paymentStatus = "Pending";
+   },
+   resetCourseItems(state) {
+      state.coursesItems = []
    }
 };
 
