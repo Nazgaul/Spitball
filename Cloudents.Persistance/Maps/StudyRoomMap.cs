@@ -74,12 +74,12 @@ namespace Cloudents.Persistence.Maps
             //Cannot put not nullable because no inverse on course.
             References(x => x.Course).Column("CourseId")/*.Not.Nullable()*/.ForeignKey("StudyRoom_course2");
 
-            Component(x => x.Schedule, z =>
-            {
-                z.Map(x => x!.End).Column("ScheduleEnd");
-                z.Map(x => x!.CronString).Column("ScheduleCron");
-                z.Map(x => x!.Start).Column("ScheduleStart");
-            });
+            //Component(x => x.Schedule, z =>
+            //{
+            //    z.Map(x => x!.End).Column("ScheduleEnd");
+            //    z.Map(x => x!.CronString).Column("ScheduleCron");
+            //    z.Map(x => x!.Start).Column("ScheduleStart");
+            //});
         }
     }
 
