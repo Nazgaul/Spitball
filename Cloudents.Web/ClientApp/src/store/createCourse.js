@@ -23,6 +23,7 @@ const getters = {
     getDescription: state => state.description,
     getCourseVisible: state => state.courseVisible,
     getTeachLecture: state => state.teachingDates,
+    getCourseCoverImage: state => state.courseCoverImage,
     getTeachTime: () => {
         const currentTime = new Date();
         let currentHour = currentTime.getHours().toString().padStart(2, '0');

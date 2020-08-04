@@ -79,7 +79,7 @@
                     class="editLiveImage"
                 />
                 <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
-                <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(liveImage, 250, 140)" width="250" height="140" alt="">
+                <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </label>
         </div>
@@ -152,6 +152,9 @@ export default {
             set(description) {
                 this.$store.commit('setCourseDescription', description)
             }
+        },
+        image() {
+            return this.$store.getters.getCourseCoverImage
         },
         getSymbol() {
             let currencySymbol = this.$store.getters.accountUser?.currencySymbol
