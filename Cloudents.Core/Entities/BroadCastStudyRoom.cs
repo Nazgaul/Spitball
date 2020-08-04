@@ -31,11 +31,6 @@ namespace Cloudents.Core.Entities
         public virtual DateTime BroadcastTime { get; set; }
 
 
-
-
-        [Obsolete]
-        public virtual StudyRoomSchedule? Schedule { get; protected set; }
-
         public virtual Course Course { get; protected set; }
 
      
