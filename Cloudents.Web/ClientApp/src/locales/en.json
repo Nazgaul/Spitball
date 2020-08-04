@@ -551,7 +551,7 @@
   "session": "No sessions | {n} session | {n} sessions",
   "session details": "Add details about the session",
   "session price": "Session Price",
-  "sessionCount": "No live classes | One live class | {0} Live classes",
+  "sessionCount": "No live classes | One live class | {n} Live classes",
   "set_Teaching": "Set Teaching Dates and Times",
   "set_subscriber_price": "Set up a price for Subscribers",
   "shareContent_copy": "Copy",

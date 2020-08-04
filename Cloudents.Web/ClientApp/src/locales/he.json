@@ -551,7 +551,7 @@
   "session": "אין שידורים חיים | {n} שידור חי | {n} שידורים חיים",
   "session details": "הוספת פרטים אודות השידור החי",
   "session price": "מחיר עבור השידור החי",
-  "sessionCount": "ללא הרצאות | הרצאה אחת | {0} הרצאות",
+  "sessionCount": "ללא הרצאות | הרצאה אחת | {n} הרצאות",
   "set_Teaching": "קביעת זמני השיעורים",
   "set_subscriber_price": "",
   "shareContent_copy": "העתק",
