@@ -1,9 +1,6 @@
-﻿using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs

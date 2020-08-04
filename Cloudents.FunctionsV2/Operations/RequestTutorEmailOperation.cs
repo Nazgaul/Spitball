@@ -13,6 +13,7 @@ using Cloudents.Query.Email;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using shortid;
+using shortid.Configuration;
 
 namespace Cloudents.FunctionsV2.Operations
 {
@@ -42,7 +43,10 @@ namespace Cloudents.FunctionsV2.Operations
 
 
                 var code = _dataProtectionService.ProtectData(obj.TutorId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-                var identifierChat = ShortId.Generate(true, false);
+                var identifierChat = ShortId.Generate(new GenerationOptions() {
+                    UseNumbers = true,
+                    UseSpecialCharacters = false}
+                );
 
                 var url = _urlBuilder.BuildChatEndpoint(code, obj.ChatIdentifier, new { utm_source = "request-tutor-email" });
                 var commandChat = new CreateShortUrlCommand(identifierChat, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
@@ -63,7 +67,10 @@ namespace Cloudents.FunctionsV2.Operations
                         text = ResourceWrapper.GetString("unread_message_request_email_body_whatsapp_text").InjectSingleValue("CourseName", obj.CourseName),
                     });
 
-                var identifierWhatsApp = ShortId.Generate(true, false);
+                var identifierWhatsApp = ShortId.Generate(new GenerationOptions() {
+                    UseNumbers = true,
+                    UseSpecialCharacters = false}
+                );
                 var commandWhatsApp = new CreateShortUrlCommand(identifierWhatsApp, whatsAppLink.ToString(), DateTime.UtcNow.AddDays(30));
                 await _commandBus.DispatchAsync(commandWhatsApp, token);
                 var urlShortWhatsApp = _urlBuilder.BuildShortUrlEndpoint(identifierWhatsApp, new

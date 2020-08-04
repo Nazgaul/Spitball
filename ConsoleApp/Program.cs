@@ -113,7 +113,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -158,13 +158,7 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            var l = new List<int>();
-           var t =  l.DefaultIfEmpty().Min();
-            var x = new CreateCourseCommand(638,"x",0,0,"x",null,Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>(),Enumerable.Empty<CreateCourseCommand.CreateDocumentCommand>(),false);
-
-            var bus = Container.Resolve<ICommandBus>();
-            await bus.DispatchAsync(x);
-           // await Dbi();
+            await Dbi();
 
         }
 
@@ -176,9 +170,7 @@ namespace ConsoleApp
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            //var cron = Container.Resolve<ICronService>();
             var _googleDocument = Container.Resolve<IGoogleDocument>();
-
 
             var coursesWithNoStartTime = await session.Query<Course>()
                 .Where(w => w.StartTime == null && w.StudyRooms.Any())

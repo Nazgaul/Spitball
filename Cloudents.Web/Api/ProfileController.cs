@@ -1,9 +1,7 @@
 ﻿using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -12,7 +10,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Interfaces;
