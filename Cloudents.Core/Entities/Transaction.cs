@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities

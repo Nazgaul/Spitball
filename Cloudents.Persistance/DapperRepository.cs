@@ -58,14 +58,14 @@ namespace Cloudents.Persistence
         }
 
 
-        private class DapperCultureInfoTypeHandler : SqlMapper.TypeHandler<CultureInfo>
+        private class DapperCultureInfoTypeHandler : SqlMapper.TypeHandler<CultureInfo?>
         {
-            public override void SetValue(IDbDataParameter parameter, CultureInfo value)
+            public override void SetValue(IDbDataParameter parameter, CultureInfo? value)
             {
                 throw new NotImplementedException();
             }
 
-            public override CultureInfo Parse(object value)
+            public override CultureInfo? Parse(object value)
             {
                 if (value == DBNull.Value)
                 {

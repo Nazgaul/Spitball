@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure
         {
             var cacheKey = $"{query.GetType().Name}_{query.AsDictionary(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToContentString()}";
 
-            IEnumerable<DashboardBlogDto>? result = _cacheProvider.Get<IEnumerable<DashboardBlogDto>>(cacheKey, "Blog");
+            var result = _cacheProvider.Get<IEnumerable<DashboardBlogDto>>(cacheKey, "Blog");
             if (result == null)
             {
                 using var reader = XmlReader.Create("https://www.blog.spitball.co/blog-feed.xml");
@@ -57,9 +57,9 @@ namespace Cloudents.Infrastructure
 
                 result = result.Where(w => w.Image != null).ToList();
 
-                _cacheProvider.Set<IEnumerable<DashboardBlogDto>>(cacheKey, "Blog", result, TimeSpan.FromHours(1),
+                _cacheProvider.Set(cacheKey, "Blog", result, TimeSpan.FromHours(1),
                     false);
-                return Task.FromResult<IEnumerable<DashboardBlogDto>?>(result);
+                return Task.FromResult(result);
             }
 
             return Task.FromResult(result);

@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.FunctionsV2.Operations;
 using SendGrid.Helpers.Mail;
+using shortid.Configuration;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -64,7 +65,10 @@ namespace Cloudents.FunctionsV2
                     CultureInfo.DefaultThreadCurrentCulture = unreadMessageDto.CultureInfo.ChangeCultureBaseOnCountry(unreadMessageDto.Country);
 
                     var code = dataProtector.Protect(unreadMessageDto.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-                    var identifier = ShortId.Generate(true, false);
+                    var identifier = ShortId.Generate(new GenerationOptions() {
+                        UseNumbers = true,
+                        UseSpecialCharacters = false}
+                    );
                     var url = urlBuilder.BuildChatEndpoint(code, unreadMessageDto.Identifier, new { utm_source = "SMS-auto" });
                     var command = new CreateShortUrlCommand(identifier, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                     await commandBus.DispatchAsync(command, token);

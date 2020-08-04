@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.IO.Compression;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.Storage
@@ -38,7 +37,7 @@ namespace Cloudents.Core.Storage
         public static async Task<Stream> DecompressFromGzipAsync(Stream stream)
         {
             var output = new MemoryStream();
-            await using (Stream cs = new GZipStream(stream, CompressionMode.Decompress))
+            await using Stream cs = new GZipStream(stream, CompressionMode.Decompress);
             await cs.CopyToAsync(output);
 
             return output;

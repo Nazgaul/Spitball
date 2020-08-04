@@ -5,11 +5,9 @@ using NHibernate.Hql.Ast;
 using NHibernate.Linq.Functions;
 using NHibernate.Linq.Visitors;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using Cloudents.Query.Stuff;
-using NHibernate.Linq;
 
 namespace Cloudents.Persistence
 {
