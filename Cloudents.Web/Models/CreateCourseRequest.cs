@@ -17,8 +17,8 @@ namespace Cloudents.Web.Models
         [Required]
         public string Name { get; set; }
 
-        [Range(0,int.MaxValue)]
-        public int Price { get; set; }
+        [Range(0,double.MaxValue)]
+        public double Price { get; set; }
 
         public int? SubscriptionPrice { get; set; }
 

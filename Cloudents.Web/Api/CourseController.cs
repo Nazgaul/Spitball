@@ -64,7 +64,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var command = new CreateCourseCommand(userId, model.Name, model.Price,
+            var command = new CreateCourseCommand(userId, model.Name, (int)model.Price,
                 model.SubscriptionPrice, model.Description, model.Image,
                 model.StudyRooms.Select(s => new CreateCourseCommand.CreateLiveStudyRoomCommand(s.Name, s.Date)),
                 model.Documents.Select(
