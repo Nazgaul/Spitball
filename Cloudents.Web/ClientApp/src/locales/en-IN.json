@@ -269,6 +269,7 @@
   "image resolution": "Recommended size (540x360)",
   "invalid_409": "Course with the same name already exists",
   "invalid_date": "Schedule a future date",
+  "invalid_duplicate_date": "You set up lectures with same date and time",
   "invalid_file": "Some files cannot be uploaded",
   "invalid_studyroom_text": "Missing a lecture topic",
   "invite_course": "Invite to this course",
