@@ -55,7 +55,7 @@ namespace Cloudents.Query.Users
 
                         SessionTaughtTicks = _session.Query<StudyRoomSession>()
                             .Where(w=>w.StudyRoom.Tutor.Id == query.Id)
-                            .Sum(s=>s.DurationTicks!.Value),
+                            .Sum(s2=>s2.DurationTicks!.Value),
                         ContentCount = _session.Query<Document>()
                                            .Count(w => w.Status.State == ItemState.Ok && w.User.Id == query.Id),
                                      

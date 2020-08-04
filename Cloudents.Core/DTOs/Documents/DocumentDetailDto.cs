@@ -1,9 +1,5 @@
-﻿using System;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs.Tutors;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs.Documents
 {

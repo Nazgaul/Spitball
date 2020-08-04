@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cloudents.Command.Command
+﻿namespace Cloudents.Command.Command
 {
     public class ApplyCouponCommand : ICommand
     {

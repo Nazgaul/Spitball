@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using System;
 
 namespace Cloudents.Core.DTOs.Admin
