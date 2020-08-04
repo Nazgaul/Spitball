@@ -33,6 +33,7 @@ namespace Cloudents.Query.Users
                 var documentFuture = await _session.Query<Course>()
                     .WithOptions(w => w.SetComment(nameof(UserCoursesByIdQuery)))
                     .Where(w => w.Tutor.Id == query.Id && w.State != ItemState.Deleted)
+                    .OrderByDescending(o=>o.Position)
                     .Select(s => new UserCoursesDto()
                     {
                         Id = s.Id,
