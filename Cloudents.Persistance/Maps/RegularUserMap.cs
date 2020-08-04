@@ -132,9 +132,9 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Language).Column("Language").CustomType<CultureInfo>().Nullable();
 
-            //HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
-            //    .Inverse()
-            //    .Cascade.AllDeleteOrphan();
+            HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
 
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")

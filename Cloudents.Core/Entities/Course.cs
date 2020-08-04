@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
             Name = name;
             Tutor = tutor;
             State = isPublish ? ItemState.Ok : ItemState.Pending;
-            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null)
+            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null && price > 0)
             {
                 State = ItemState.Pending;
             }
@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
             }
             Create = DateTime.UtcNow;
             Description = description;
-            StartTime = startTime;
+            StartTime = startTime ?? DateTime.UtcNow;
             Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
 
         }
@@ -47,21 +47,18 @@ namespace Cloudents.Core.Entities
         public virtual DateTime? StartTime
         {
             get => _startTime;
-            set
-            {
-                if (value == null)
-                {
-                    _startTime = DateTime.UtcNow;
-                    return;
-                }
-                if (value < DateTime.UtcNow)
-                {
-                    _startTime = DateTime.UtcNow;
-                    return;
-                }
-
-                _startTime = value.Value;
-            }
+            set =>
+                //if (value == null)
+                //{
+                //   // _startTime = DateTime.UtcNow;
+                //    return;
+                //}
+                //if (value < DateTime.UtcNow)
+                //{
+                //    _startTime = DateTime.UtcNow;
+                //    return;
+                //}
+                _startTime = value;
         }
 
 
@@ -92,7 +89,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Create { get; protected set; }
 
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
-        private DateTime _startTime;
+        private DateTime? _startTime;
 
         public virtual IEnumerable<CourseEnrollment> CourseEnrollments => _courseEnrollments;
 

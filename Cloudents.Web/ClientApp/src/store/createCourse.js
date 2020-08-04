@@ -53,7 +53,7 @@ const mutations = {
     },
     setTeachLecture(state, teachObj) {
         this._vm.$set(state.teachingDates, teachObj.index, {
-            text: teachObj.text || state.teachingDates[teachObj.index]?.text,
+            text: teachObj.text,
             hour: teachObj.hour || state.teachingDates[teachObj.index]?.hour,
             date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
@@ -95,8 +95,6 @@ const actions = {
             studyRooms,
             documents
         }
-        
-        console.log(params);
         
         return courseInstance.post('', params)
     }
