@@ -1,13 +1,13 @@
 <template>
     <div class="courseUpload pa-5">
         <div class="courseUploadTitle mb-6" v-t="'add_content'"></div>
-        <uploadMultipleFileStart @handleLoadFiles="handleLoadFiles" />
         <fileCardError v-for="(file, index) in fileErrorList" :singleFileIndex="index" :item="file" :key="file.id" />
 
         <template v-if="showFiles">
-            <div class="uploadFilesTitle mb-6 mt-8" v-t="'upload_files'" v-show="files.length"></div>
+            <div class="uploadFilesTitle mb-6 mt-4" v-t="'upload_files'" v-show="files.length"></div>
             <uploadFiles v-for="(file, index) in files" :singleFileIndex="index" :item="file" :key="index" />
         </template>
+        <uploadMultipleFileStart @handleLoadFiles="handleLoadFiles" class="mt-4" />
     </div>
 </template>
 

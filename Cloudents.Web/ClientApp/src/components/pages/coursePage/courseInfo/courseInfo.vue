@@ -199,7 +199,7 @@ export default {
         width: 500px;
     }
     .priceFollower, .priceSubscriber {
-        width: 160px;
+        width: 180px;
     }
     .addImage {
         .addImageTitle {
