@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
             Name = name;
             Tutor = tutor;
             State = isPublish ? ItemState.Ok : ItemState.Pending;
-            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null)
+            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null && price > 0)
             {
                 State = ItemState.Pending;
             }
