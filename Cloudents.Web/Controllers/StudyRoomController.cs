@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Web.Controllers
 {
@@ -40,5 +44,22 @@ namespace Cloudents.Web.Controllers
             ViewBag.ogImage = "https://" + _httpContextAccessor.HttpContext.Request.Host + "/images/3rdParty/fb-share-Spitball-live.png";
             return View("Index");
         }
+
+        [Route("live/{id:guid}")]
+        [Route("course/{id:guid}")]
+        public async Task<IActionResult> RedirectLive(Guid id,[FromServices] IStatelessSession session)
+        {
+            var course = await session.Query<BroadCastStudyRoom>().Where(w => w.Id == id)
+                .Select(s => new {s.Course.Id, s.Course.Name}).SingleOrDefaultAsync();
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            ///{course.Name}
+            return Redirect($"/course/{course.Id}");
+
+        }
+        //https://www.spitball.co/course/9fe69dc0-f8c6-4ccc-a1aa-ac0c0134485a?t=1596480572534
     }
 }

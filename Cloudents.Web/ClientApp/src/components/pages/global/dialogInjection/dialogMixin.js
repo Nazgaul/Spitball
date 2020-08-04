@@ -1,12 +1,9 @@
 import { mapGetters } from 'vuex';
-//import * as dialogNames from './dialogNames.js'
 // const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 // const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 // const login = () => import('./globalDialogs/login/login.vue');
-// const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 // const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
-// const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
 
 
 export default {
@@ -14,9 +11,7 @@ export default {
     //     exitRegister,
     //     createCoupon,
     //     login,
-    //     buyPoints,
     //     teacherApproval,
-    //     createStudyRoom
     // },
     data() {
         return {
@@ -24,7 +19,6 @@ export default {
                 login: ["notAuth"],
                 exitRegister: [],
                 createCoupon: ["auth","tutor"],
-                buyPoints:["auth"],
                 teacherApproval:["auth", "tutor", "params"],
                 createStudyRoom:["auth","tutor"],
             }

@@ -1,61 +1,122 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Runtime.InteropServices;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 
-[assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-    public class OldCourse : Entity<string>
+    public class Course : Entity<long>
     {
-        //public const int MinLength = 4;
-        //public const int MaxLength = 150;
+        public Course(string name, Tutor tutor, double price,
+            double? subscriptionPrice, string description, DateTime? startTime, bool isPublish)
+        {
+            Name = name;
+            Tutor = tutor;
+            State = isPublish ? ItemState.Ok : ItemState.Pending;
+            if (tutor.User.SbCountry == Country.Israel && tutor.SellerKey == null && price > 0)
+            {
+                State = ItemState.Pending;
+            }
 
+            if (tutor.HasSubscription())
+            {
+                SubscriptionPrice = new Money(subscriptionPrice.GetValueOrDefault(), Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            }
+            Create = DateTime.UtcNow;
+            Description = description;
+            StartTime = startTime ?? DateTime.UtcNow;
+            Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
 
-        [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]
-        protected OldCourse()
+        }
+
+        protected Course()
         {
         }
 
-        //public OldCourse(string name)
-        //{
-        //    Id = name.Trim();//.Replace("+", string.Empty);
-        //    if (Id.Length > MaxLength || Id.Length < MinLength)
-        //    {
-        //        throw new ArgumentException($"Name is {Id}", nameof(Id));
-        //    }
-        //    // State = ItemState.Pending;
-        //    Created = DateTime.UtcNow;
-        //    Users = new HashSet<UserCourse>();
-        //}
+        public virtual string Name { get; set; }
 
-        protected bool Equals(OldCourse? other)
+        public virtual Tutor Tutor { get; set; }
+
+        public virtual int Position { get; }
+
+        public virtual Money Price { get; set; }
+        public virtual Money? SubscriptionPrice { get; protected set; }
+
+        public virtual string? Description { get; set; }
+
+        public virtual DateTime? StartTime
         {
-            return string.Equals(Id, other?.Id, StringComparison.OrdinalIgnoreCase);
+            get => _startTime;
+            set =>
+                //if (value == null)
+                //{
+                //   // _startTime = DateTime.UtcNow;
+                //    return;
+                //}
+                //if (value < DateTime.UtcNow)
+                //{
+                //    _startTime = DateTime.UtcNow;
+                //    return;
+                //}
+                _startTime = value;
         }
 
-        public override bool Equals(object? obj)
+
+        public virtual ItemState State { get; set; }
+
+        public virtual void AddStudyRoom(BroadCastStudyRoom studyRoom)
         {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((OldCourse)obj);
+            _studyRooms.Add(studyRoom);
         }
 
-        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
-        public override int GetHashCode()
+        public virtual void AddDocument(Document document)
         {
-            return Id != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Id) : 0;
+            _documents.Add(document);
         }
 
-        public virtual int Count { get; protected internal set; }
 
-        public virtual DateTime Created { get; protected set; }
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
+        private readonly ICollection<Document> _documents = new List<Document>();
 
-       // protected internal virtual ISet<UserCourse> Users { get; set; }
+        public virtual IEnumerable<Document> Documents => _documents;
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
-        public virtual byte[] Version { get; protected set; }
+
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
+        private readonly ICollection<BroadCastStudyRoom> _studyRooms = new List<BroadCastStudyRoom>();
+
+        public virtual IEnumerable<BroadCastStudyRoom> StudyRooms => _studyRooms;
+
+        public virtual DateTime Create { get; protected set; }
+
+        private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
+        private DateTime? _startTime;
+
+        public virtual IEnumerable<CourseEnrollment> CourseEnrollments => _courseEnrollments;
+
+        public virtual void EnrollUser(User user, string? receipt, Money price)
+        {
+            var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
+
+            var z = _courseEnrollments.Add(courseEnrollment);
+            foreach (var broadCastStudyRoom in _studyRooms)
+            {
+                broadCastStudyRoom.AddUserToStudyRoom(user);
+            }
+        }
+
+        public virtual void SubscribeToAllStudyRooms()
+        {
+            foreach (var courseEnrollment in _courseEnrollments)
+            {
+                foreach (var broadCastStudyRoom in _studyRooms)
+                {
+                    broadCastStudyRoom.AddUserToStudyRoom(courseEnrollment.User);
+                }
+            }
+        }
+
     }
 }

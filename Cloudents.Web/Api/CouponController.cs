@@ -78,7 +78,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId, model.RoomId);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId, model.CourseId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {
@@ -89,11 +89,11 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest("Invalid Coupon");
             }
-            catch (DuplicateRowException)
-            {
-                return BadRequest("This coupon already in use");
+            //catch (DuplicateRowException)
+            //{
+            //    return BadRequest("This coupon already in use");
 
-            }
+            //}
         }
 
         [HttpGet]

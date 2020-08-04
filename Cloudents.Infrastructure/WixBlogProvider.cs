@@ -44,16 +44,18 @@ namespace Cloudents.Infrastructure
                                  && w.Categories.Any(a => a.Name == query.BlogName))
                      .Select(s => new DashboardBlogDto
                      {
-                         Image = s.Links.Where(w => w.RelationshipType == "enclosure").Select(s2 => s2.Uri).First()
-                             .ChangeToHttps(),
-                         Url = s.Links.Where(w => w.RelationshipType == "alternate").Select(s2 => s2.Uri).First(),
+                         Image = s.Links.Where(w => w.RelationshipType == "enclosure")
+                             .Select(s2 => s2.Uri).FirstOrDefault()?.ChangeToHttps(),
+                         Url = s.Links.Where(w => w.RelationshipType == "alternate")
+                             .Select(s2 => s2.Uri).FirstOrDefault(),
                          Title = s.Title.Text,
                          Uploader = s.ElementExtensions
                              .ReadElementExtensions<string>("creator", "http://purl.org/dc/elements/1.1/")
                              .FirstOrDefault(),
                          Create = s.PublishDate
-                     }).OrderByDescending(o => o.Create).Take(query.Amount)).ToList();
+                     }).OrderByDescending(o => o.Create).Take(query.Amount));
 
+                result = result.Where(w => w.Image != null).ToList();
 
                 _cacheProvider.Set<IEnumerable<DashboardBlogDto>>(cacheKey, "Blog", result, TimeSpan.FromHours(1),
                     false);

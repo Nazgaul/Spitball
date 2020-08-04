@@ -70,7 +70,7 @@ export default {
     navigation: {
       revenue: 'mySales',
       sales: 'mySales',
-      views: 'myContent',
+      views: 'myCourses',
       followers: 'myFollowers'
     },
     items: [

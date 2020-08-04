@@ -51,7 +51,13 @@ export const studyRoomRoutes = [
         }
     },
     {
-        path: '/live/:id?',
+        path: `/live/:id?`,
+        name: 'studyroomSettings2',
+        redirect: { name: routeName.StudyRoomLanding }
+    },
+    {
+        // (\\d+) prevent from duplicate route with new coursePage
+        path: '/course/:id(\\d+)?',
         name: routeName.StudyRoomLanding,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
@@ -62,14 +68,12 @@ export const studyRoomRoutes = [
                 next('/');
 
             }else{
-                store.dispatch('updateRoomDetails',to.params.id)
+                store.dispatch('updateCourseDetails',to.params.id)
                      .then(()=>{
                         next();
-
                     })
                     .catch(()=>{
                         next('/');
-
                     })
             }
         }

@@ -29,7 +29,7 @@
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
           <div class="myStudyRooms_title pb-3 pb-sm-0">{{myStudyroomTitle}}</div>
-          <div v-if="isTutor">
+          <div v-if="isTutor && !isStudyroomLive">
             <v-btn
               @click="isStudyroomLive ? openLiveSession() : openPrivateSession()"
               class="link white--text"
@@ -324,7 +324,7 @@ export default {
     },
     copyLink(item) {
       let localRoute = this.$router.resolve({
-        name: routeNames.StudyRoomLanding,
+        name: "studyroomSettings2",
         params:{id:item.id}
       })
       let link = `${window.origin}${localRoute.href}`

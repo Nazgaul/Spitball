@@ -46,7 +46,7 @@ namespace Cloudents.Query.Users
                     {
                         Id = s.Document.Id,
                         Name = s.Document.Name,
-                        Course = s.Document.OldCourse.Id,
+                        Course = s.Document.Course.Name,
                         Type = (ContentType)s.Document.DocumentType,
                         Date = s.Created,
                         Price = s.Price

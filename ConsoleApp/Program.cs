@@ -24,7 +24,7 @@ using Azure.Storage.Queues;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Command.Documents.PurchaseDocument;
+using Cloudents.Command.Courses;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
@@ -158,8 +158,13 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
+            var l = new List<int>();
+           var t =  l.DefaultIfEmpty().Min();
+            var x = new CreateCourseCommand(638,"x",0,0,"x",null,Enumerable.Empty<CreateCourseCommand.CreateLiveStudyRoomCommand>(),Enumerable.Empty<CreateCourseCommand.CreateDocumentCommand>(),false);
 
-            await Dbi();
+            var bus = Container.Resolve<ICommandBus>();
+            await bus.DispatchAsync(x);
+           // await Dbi();
 
         }
 
@@ -171,80 +176,70 @@ namespace ConsoleApp
         private static async Task Dbi()
         {
             var session = Container.Resolve<ISession>();
-            int amount = 0;
-            do
+            //var cron = Container.Resolve<ICronService>();
+            var _googleDocument = Container.Resolve<IGoogleDocument>();
+
+
+            var coursesWithNoStartTime = await session.Query<Course>()
+                .Where(w => w.StartTime == null && w.StudyRooms.Any())
+                .ToListAsync();
+
+            foreach (var course in coursesWithNoStartTime)
             {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                course.StartTime = course.StudyRooms.Min(x => x.BroadcastTime);
+                await uow.CommitAsync();
 
-               var ids = await  session.Query<Document>().Where(w => w.Status.State == ItemState.Ok)
-                    .Where(w => w.Course == null)
-                    .Take(100).Select(s => s.Id).ToListAsync();
+            }
 
-                amount = await session.Query<Document>()
-                   .Where(w => ids.Contains(w.Id))
-                   .UpdateBuilder().Set(x => x.Status.State, ItemState.Deleted)
-                   .Set(x => x.Status.DeletedOn, DateTime.UtcNow)
-                   .Set(x => x.Status.FlagReason, "Document not of tutor")
-                   .UpdateAsync(default);
-            } while (amount > 0);
-
-            //long i = 0;
-
-            List<Document> documents;
-            do
-            {
-                documents = await session.Query<Document>()
-                    .Where(w => ((User)w.User).Tutor.Created != null
-                                && w.Status.State == ItemState.Ok && w.Course == null)
-                    .Take(100)
-                    .ToListAsync();
-
-                foreach (var document in documents)
+            var recurringStudyRoom = await session.Query<BroadCastStudyRoom>()
+                .Where(w => w.Schedule.End > DateTime.UtcNow && w.Course.State == ItemState.Ok)
+                .Select(s => new
                 {
-                    Console.WriteLine($"Processing documentid {document.Id}");
-                    using var uow = Container.Resolve<IUnitOfWork>();
-                    var courseRepository = Container.Resolve<ICourseRepository>();
+                    s.Course,
+                    s.Schedule,
+                    s.Description
+                }).ToListAsync();
 
-                    var course = await courseRepository.GetCourseByNameAsync(document.User.Id, document.OldCourse.Id, default);
 
-                    if (course == null)
-                    {
-                        var tutor = await session.LoadAsync<Tutor>(document.User.Id);
-                        tutor.AddCourse(document.OldCourse.Id);
-                        //course = new Course(document.OldCourse.Id,tutor);
-                        //await courseRepository.AddAsync(course, default);
-                    }
-                    document.Course = course;
-                    await uow.CommitAsync();
-                    Console.WriteLine("no");
+            foreach (var broadCastStudyRoom in recurringStudyRoom)
+            {
+                var schedule = CrontabSchedule.Parse(broadCastStudyRoom.Schedule.CronString);
+                var upcomingStudyRooms =  schedule.GetNextOccurrences(DateTime.UtcNow, broadCastStudyRoom.Schedule.End);
+               
+                if (broadCastStudyRoom.Course.StudyRooms.Count() == upcomingStudyRooms.Count())
+                {
+                    continue;
                 }
-            } while (documents.Count > 0);
+                
+                foreach (var upcomingStudyRoom in upcomingStudyRooms)
+                {
+                    
+                    using var uow = Container.Resolve<IUnitOfWork>();
+                    if (broadCastStudyRoom.Course.StudyRooms.Any(a => a.BroadcastTime == upcomingStudyRoom))
+                    {
+                        continue;
+                    }
 
+                    var documentName = $"{broadCastStudyRoom.Course.Name}-{Guid.NewGuid()}";
+                    var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, default);
+                    var studyRoom = new BroadCastStudyRoom(broadCastStudyRoom.Course.Tutor, googleDocUrl, broadCastStudyRoom.Course,
+                        upcomingStudyRoom.Date, broadCastStudyRoom.Description);
+                    broadCastStudyRoom.Course.AddStudyRoom(studyRoom);
+                    await uow.CommitAsync();
+                }
 
-            //List<BroadCastStudyRoom> broadCastStudyRooms;
-            //do
-            //{
-            //    broadCastStudyRooms = await session.Query<BroadCastStudyRoom>()
-            //        .Where(w =>
-            //                     w.Course == null)
-            //        .Take(100)
-            //        .ToListAsync();
+            }
+            var courses = await session.Query<Course>()
+                .Where(w => w.State == ItemState.Ok)
+                .ToListAsync(); 
 
-            //    foreach (var broadCastStudyRoom in broadCastStudyRooms)
-            //    {
-            //        Console.WriteLine($"Processing broadCastStudyRoom {broadCastStudyRoom.Id}");
-            //        using var uow = Container.Resolve<IUnitOfWork>();
-            //        var courseRepository = Container.Resolve<ICourseRepository>();
-
-
-            //        var tutor = broadCastStudyRoom.Tutor;
-            //        var course = tutor.AddCourse(broadCastStudyRoom.Name);
-            //        broadCastStudyRoom.Course = course;
-            //        await uow.CommitAsync();
-            //        Console.WriteLine("no");
-            //    }
-            //} while (broadCastStudyRooms.Count > 0);
-
-            //await DeleteOldStuff.ResyncTutorReadAsync();
+            foreach (var course in courses)
+            {
+                using var uow = Container.Resolve<IUnitOfWork>();
+                course.SubscribeToAllStudyRooms();
+                await uow.CommitAsync();
+            }
         }
 
         private static async Task UpdateTwilioParticipants()

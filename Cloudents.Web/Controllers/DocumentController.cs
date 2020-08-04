@@ -50,51 +50,15 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            if (model.UserId.HasValue)
+
+            return RedirectToRoute(SeoTypeString.Tutor, new
             {
-                return RedirectToRoute(SeoTypeString.Tutor, new
-                {
-                    id = model.UserId.Value,
-                    name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
-                    d = id
-                });
-            }
-
-            return NotFound();
+                id = model.UserId,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
+                d = id
+            });
         }
-
-
-        //[Route("document/{base62}", Name = "ShortDocumentLink")]
-        //public async Task<IActionResult> ShortUrlAsync(string base62,
-        //    CancellationToken token)
-        //{
-        //    if (string.IsNullOrEmpty(base62))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    //if (!long.TryParse(base62, out var id))
-        //    //{
-        //    if (!Base62.TryParse(base62, out var id))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _userManager.TryGetLongUserId(User, out var userId);
-        //    var query = new DocumentById(id, userId);
-        //    var model = await _queryBus.QueryAsync(query, token);
-        //    if (model == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var t = RedirectToRoutePermanent(SeoTypeString.Document, new
-        //    {
-        //        courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
-        //        id = id.Value,
-        //        name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
-        //    });
-        //    return t;
-        //}
+        
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}")]
         public async Task<IActionResult> OldDocumentLinkRedirect2Async(long id, CancellationToken token)
@@ -107,17 +71,15 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            if (model.UserId.HasValue)
-            {
-                return RedirectToRoute(SeoTypeString.Tutor, new
-                {
-                    id = model.UserId.Value,
-                    name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
-                    d = id
-                });
-            }
 
-            return NotFound();
+            return RedirectToRoute(SeoTypeString.Tutor, new
+            {
+                id = model.UserId,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
+                d = id
+            });
+
+
         }
 
 
@@ -135,60 +97,17 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            if (model.UserId.HasValue)
+
+            return RedirectToRoute(SeoTypeString.Tutor, new
             {
-                return RedirectToRoute(SeoTypeString.Tutor, new
-                {
-                    id = model.UserId.Value,
-                    name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
-                    d = id
-                });
-            }
+                id = model.UserId,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
+                d = id
+            });
 
-            return NotFound();
 
-            //ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
-            //ViewBag.metaDescription = _localizer["Description", model.Document.Course];
-            //Country country = model.Document.User.Country ?? Country.UnitedStates;
 
-            //if (model.Document.DocumentType == DocumentType.Video && !string.IsNullOrEmpty(model.Document.Snippet))
-            //{
-            //    var jsonLd = new VideoObject()
-            //    {
-            //        Description = model.Document.Snippet,
-            //        Name = model.Document.Title,
-            //        ThumbnailUrl = new Uri(_urlBuilder.BuildDocumentImageShareEndpoint(model.Document.Id, new
-            //        {
-            //            width = 703,
-            //            height = 395,
-            //            mode = "crop",
-            //            theme,
-            //            rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
-            //        })),
-            //        UploadDate = model.Document.DateTime,
-            //        Duration = model.Document.Duration,
 
-            //    };
-            //    ViewBag.jsonLd = jsonLd;
-            //}
-            //ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentImageShareEndpoint(model.Document.Id, new
-            //{
-            //    width = 1200,
-            //    height = 630,
-            //    mode = "crop",
-            //    theme,
-            //    rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
-            //}));
-            //ViewBag.ogTitle = model.Document.Title;
-
-            //ViewBag.ogDescription =
-            //    _localizer.WithCulture(country.MainLanguage.Info)
-            //    ["OgDescription", model.Document.Course];
-
-            //ViewBag.ogImageWidth = 1200;
-            //ViewBag.ogImageHeight = 630;
-
-            //return View();
         }
 
         [Route("document/{id:long}/download", Name = "ItemDownload")]

@@ -14,7 +14,7 @@ namespace Cloudents.Core.DTOs.Users
         public string? Image { get; set; }
     }
 
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global" , Justification = "Dto json serialize")]
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto json serialize")]
     public class UserAccountDto
     {
         [NonSerialized]
@@ -22,15 +22,17 @@ namespace Cloudents.Core.DTOs.Users
 
         [NonSerialized]
         public Country? Country;
+
+      
+
         private ItemState? _isTutor;
 
 
         public decimal Balance { get; set; }
 
         public string Email { get; set; }
-        //public string PhoneNumber { get; set; }
         public long Id { get; set; }
-      
+
         public string FirstName { get; set; }
         public string? LastName { get; set; }
 
@@ -44,7 +46,7 @@ namespace Cloudents.Core.DTOs.Users
                 {
                     return null;
                 }
-                
+
                 return ItemState.Ok;
             }
             set => _isTutor = value;
@@ -62,11 +64,10 @@ namespace Cloudents.Core.DTOs.Users
                 }
 
                 return _needPayment;
-            } 
+            }
         }
 
         public bool IsSold { get; set; }
-       
 
 
         public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;

@@ -100,7 +100,7 @@ export default {
       'question',
       'myFollowers',
       'mySales',
-      'myContent',
+      'myCourses',
       'myPurchases',
       'myStudyRooms',
       'myCalendar'].some(route => this.$route.name === route)

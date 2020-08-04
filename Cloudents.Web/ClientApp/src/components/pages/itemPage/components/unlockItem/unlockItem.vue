@@ -13,7 +13,7 @@
                rounded
                color="#4c59ff"
             >
-               <span>{{unlockDocumentBtnText}}</span>
+               <span>{{$t('documentPage_unlock_document_btn')}}</span>
             </v-btn>
             <img class="unlockItem_document_img" src="./lockdoc.png" alt="">
          </div>
@@ -21,11 +21,7 @@
       <div v-else class="unlockItem_video">
          <div class="unlockItem_video_container">
             <div class="unlockItem_video_title" v-t="'documentPage_unlock_title'"></div>
-            
-            <div v-if="getDocumentPriceTypeSubscriber" class="unlockItem_video_subtitle">
-               {{$t('documentPage_unlock_video_subtitle_subscriber', [tutorName])}}
-            </div>
-            <div v-else class="unlockItem_video_subtitle" v-t="'documentPage_unlock_video_subtitle'"></div>
+            <div class="unlockItem_video_subtitle" v-t="'documentPage_unlock_video_subtitle'"></div>
 
             <v-btn
                class="unlockItem_video_btn white--text"
@@ -36,7 +32,7 @@
                rounded
                color="#4c59ff"
             >
-               <span>{{unlockVideoBtnText}}</span>
+               <span>{{$t('documentPage_unlock_video_btn')}}</span>
             </v-btn>
             <img class="unlockItem_video_img" src="./lockvid.png" alt="">
          </div>
@@ -45,8 +41,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import * as routeNames from '../../../../../routes/routeNames';
+import { mapGetters } from 'vuex';
 
 export default {
    name:'unlockItem',
@@ -64,61 +59,23 @@ export default {
       ...mapGetters([
          'accountUser',
          'getBtnLoading',
-         'getDocumentPriceTypeFree',
-         'getDocumentPriceTypeSubscriber',
-         'getDocumentUserName',
-         'getDocumentPrice',
          'getDocumentDetails',
-         'getDocumentPriceTypeHasPrice',
       ]),
-      isFree() {
-         return this.getDocumentPriceTypeFree
-      },
-      tutorName() {
-         return this.getDocumentUserName;
-      },
-      unlockDocumentBtnText() {
-         if(this.isFree || this.getDocumentPriceTypeHasPrice) {
-            return this.$t('documentPage_unlock_document_btn')
-         }
-         return this.$t('documentPage_unlock_document_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
-         // return {path: '', args: {0: this.$n(this.getDocumentPrice,{'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}
-      },
-      unlockVideoBtnText() {
-         if(this.isFree || this.getDocumentPriceTypeHasPrice) {
-            return this.$t('documentPage_unlock_video_btn')
-         }
-         return this.$t('documentPage_unlock_video_btn_subscribe', [this.$price(this.getDocumentPrice, 'USD')])
-         // return {path: 'documentPage_unlock_video_btn_subscribe', args: {0: this.$n(this.getDocumentPrice,{'style':'currency', 'currency': 'USD', minimumFractionDigits: 0})}}
-      },
       isDocument(){
          return this.type === 'Document';
       },
       isLoading() {
          return !(this.type && !this.getBtnLoading);
-
       },
    },
    methods: {
-      ...mapActions(['updatePurchaseConfirmation']),
       openPurchaseDialog(){
-            if(this.getDocumentPriceTypeSubscriber) {
-               this.$router.push({
-                  name: routeNames.Profile,
-                  params: {
-                  id: this.getDocumentDetails.userId,
-                  name: this.getDocumentDetails.userName
-                  },
-                  hash: '#subscription'
-               })
-               return
-            }
-            if(!!this.accountUser) {
-                this.updatePurchaseConfirmation(true)
-            } else {
-               // this.$openDialog('login')
-               this.$store.commit('setComponent', 'register')
-            }
+         if(!!this.accountUser) {
+            let courseId = this.getDocumentDetails.courseId;
+            this.$store.dispatch('updateEnrollCourse',courseId)
+         } else {
+            this.$store.commit('setComponent', 'register')
+         }
       }
    },
 

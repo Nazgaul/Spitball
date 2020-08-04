@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Users
 {
-    public class UserContentByIdQuery : IQuery<IEnumerable<UserContentDto>>
+    public class UserCoursesByIdQuery : IQuery<IEnumerable<UserCoursesDto>>
     {
-        public UserContentByIdQuery(long id)
+        public UserCoursesByIdQuery(long id)
         {
             Id = id;
         }
 
         private long Id { get; }
 
-        internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserContentByIdQuery, IEnumerable<UserContentDto>>
+        internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserCoursesByIdQuery, IEnumerable<UserCoursesDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -28,60 +28,29 @@ namespace Cloudents.Query.Users
                 _session = session;
             }
 
-            public async Task<IEnumerable<UserContentDto>> GetAsync(UserContentByIdQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserCoursesDto>> GetAsync(UserCoursesByIdQuery query, CancellationToken token)
             {
-                var documentFuture = _session.Query<Document>()
-                    .WithOptions(w => w.SetComment(nameof(UserContentByIdQuery)))
-                    .Fetch(f => f.User).FetchMany(f => f.Transactions)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => new UserDocumentsDto()
+                var documentFuture = await _session.Query<Course>()
+                    .WithOptions(w => w.SetComment(nameof(UserCoursesByIdQuery)))
+                    .Where(w => w.Tutor.Id == query.Id && w.State != ItemState.Deleted)
+                    .OrderByDescending(o=>o.Position)
+                    .Select(s => new UserCoursesDto()
                     {
                         Id = s.Id,
                         Name = s.Name,
-                        Course = s.OldCourse.Id,
-                        Type = s.DocumentType.ToString(),
-                       // Likes = s.VoteCount,
-                        Price = s.DocumentPrice.Price,
-                        //State = s.Status.State,
-                        Date = s.TimeStamp.CreationTime,
-                        Views = s.Views,
-                        Downloads = s.Downloads,
-                        Purchased = s.PurchaseCount ?? 0
-                    }).ToFuture<UserContentDto>();
+                        Price = s.Price,
+                        Users = s.CourseEnrollments.Count(),
+                        Documents = s.Documents.Count(c=>c.Status.State == ItemState.Ok),
+                        Lessons = s.StudyRooms.Count(),
+                        IsPublish = s.State == ItemState.Ok,
+                        StartOn = s.StartTime
+                       
+                       // Purchased = s.PurchaseCount ?? 0
+                    }).ToListAsync(token);
 
+             
 
-                //var questionFuture = _session.Query<Question>()
-                //    .FetchMany(f => f.Answers)
-                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                //    .Select(s => new UserQuestionsDto()
-                //    {
-                //        Id = s.Id,
-                //        //State = s.Status.State,
-                //        Date = s.Created,
-                //        Course = s.Course.Id,
-                //        Text = s.Text,
-                //        AnswerText = s.Answers.Select(si => si.Text).FirstOrDefault()
-                //    }).ToFuture<UserContentDto>();
-
-                //var answerFuture = _session.Query<Answer>()
-                //    .Fetch(f => f.User).Fetch(f => f.Question)
-                //    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
-                //    .Select(s => new UserAnswersDto()
-                //    { 
-                //        QuestionId = s.Question.Id,
-                //        //State = s.Status.State,
-                //        Date = s.Created,
-                //        Course = s.Question.Course.Id,
-                //        QuestionText = s.Question.Text,
-                //        AnswerText = s.Text
-
-                //    }).ToFuture<UserContentDto>();
-
-                var documentResult = await documentFuture.GetEnumerableAsync(token);
-               // var questionResult = await questionFuture.GetEnumerableAsync(token);
-                //var answerResult = await answerFuture.GetEnumerableAsync(token);
-
-                return documentResult.OrderByDescending(o => o.Date);
+                return documentFuture;
             }
         }
     }
