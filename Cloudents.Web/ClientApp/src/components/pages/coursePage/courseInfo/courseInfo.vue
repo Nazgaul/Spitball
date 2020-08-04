@@ -71,7 +71,7 @@
         <div class="addImage">
             <div class="addImageTitle mb-4" v-t="'add image'"></div>
 
-            <div class="liveImageWrap d-flex flex-column">
+            <label class="liveImageWrap d-flex flex-column">
                 <uploadImage
                     v-show="isLoaded"
                     :fromLiveSession="true"
@@ -81,7 +81,7 @@
                 <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
                 <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(liveImage, 250, 140)" width="250" height="140" alt="">
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
-            </div>
+            </label>
         </div>
     </div>
 </template>
@@ -208,6 +208,7 @@ export default {
             color: @global-purple;
         }
         .liveImageWrap {
+            cursor: pointer;
             max-width: fit-content;
             text-align: center;
             position: relative;
