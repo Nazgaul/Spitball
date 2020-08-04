@@ -59,7 +59,24 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpGet("{id:long}/edit")]
+        [Authorize(Policy = "Tutor")]
+        public async Task<ActionResult<CourseDetailEditDto>> GetCourseDetailForUpdateAsync([FromRoute] long id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CourseByIdEditQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id);
+            return result;
+        }
+
+
         [HttpPost]
+        [Authorize(Policy = "Tutor")]
         public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

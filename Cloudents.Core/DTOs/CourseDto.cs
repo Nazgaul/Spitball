@@ -30,8 +30,6 @@ namespace Cloudents.Core.DTOs
         public int StudyRoomCount { get; set; }
 
         public string Image { get; set; }
-       // public IEnumerable<DocumentFeedDto> Documents { get; set; }
-        //public IEnumerable<FutureBroadcastStudyRoomDto> StudyRooms { get; set; }
 
     }
 
@@ -59,6 +57,24 @@ namespace Cloudents.Core.DTOs
 
         [NonSerialized]
         public string? TutorSellerKey;
+    }
+
+
+    public class CourseDetailEditDto
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public Money Price { get; set; }
+        public Money? SubscriptionPrice { get; set; }
+        public string? Description { get; set; }
+        public string Image { get; set; }
+
+        public bool Visible { get; set; }
+
+        public IEnumerable<CourseEditDocumentDto> Documents { get; set; }
+
+        public IEnumerable<CourseEditStudyRoomDto> StudyRooms { get; set; }
+
     }
 
 

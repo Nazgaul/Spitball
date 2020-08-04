@@ -29,10 +29,6 @@ namespace Cloudents.Core.Entities
             DocumentDownloads = new HashSet<UserDownloadDocument>();
             Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
             Views = 0;
-            //if (!string.IsNullOrEmpty(description))
-            //{
-            //    Description = description;
-            //}
             Status = visible ? Public : Pending;
             DocumentType = documentType;
             AddEvent(new DocumentCreatedEvent(this));

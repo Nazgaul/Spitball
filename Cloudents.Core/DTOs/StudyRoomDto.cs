@@ -71,18 +71,12 @@ namespace Cloudents.Core.DTOs
         public DateTime DateTime { get; set; }
         public string Name { get; set; }
         public Guid Id { get; set; }
-
-       // public Money Price { get; set; }
-
-       // public bool Enrolled { get; set; }
-
-        //public string? Description { get; set; }
-
-        //public bool IsFull { get; set; }
-
-        //public string Image { get; set; }
-
       
-       // public IEnumerable<DateTime>? NextEvents { get; set; }
+    }
+
+    public class CourseEditStudyRoomDto
+    {
+        public string Name { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
