@@ -28,6 +28,10 @@ export const courseRoutes = [
             name: CourseCreate,
          },
          {
+            path: ':id/edit',
+            name: CourseCreate,
+         },
+         {
             path: '*',
             redirect: 'create',
          }
