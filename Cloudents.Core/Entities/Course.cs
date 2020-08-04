@@ -37,7 +37,6 @@ namespace Cloudents.Core.Entities
                 }
 
             }
-            
 
             if (tutor.HasSubscription())
             {
@@ -54,7 +53,19 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual string Name { get; set; }
+        public virtual string Name
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+
+                _name = value;
+            }
+        }
 
         public virtual Tutor Tutor { get; set; }
 
@@ -63,7 +74,26 @@ namespace Cloudents.Core.Entities
         public virtual Money Price { get; set; }
         public virtual Money? SubscriptionPrice { get; protected set; }
 
-        public virtual string? Description { get; set; }
+        public virtual void ChangeSubscriptionPrice(double? subscriptionPrice)
+        {
+            if (Tutor.HasSubscription())
+            {
+                SubscriptionPrice = new Money(subscriptionPrice.GetValueOrDefault(), Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            }
+        }
+
+        public virtual string Description
+        {
+            get => _description;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+                _description = value;
+            }
+        }
 
         public virtual DateTime? StartTime
         {
@@ -115,6 +145,8 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
         private DateTime? _startTime;
+        private string _name;
+        private string _description;
 
         public virtual IEnumerable<CourseEnrollment> CourseEnrollments => _courseEnrollments;
 

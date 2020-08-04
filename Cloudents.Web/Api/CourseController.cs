@@ -74,6 +74,25 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpPut("{id:long}")]
+        [Authorize(Policy = "Tutor")]
+        public async Task<IActionResult> UpdateCourseAsync([FromRoute] long id, [FromBody] CreateCourseRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+
+            var command = new UpdateCourseCommand(userId, model.Name, model.Price,
+                model.SubscriptionPrice, model.Description, model.Image,
+                model.StudyRooms.Select(s => new UpdateCourseCommand.UpdateLiveStudyRoomCommand(s.Name, s.Date)),
+                model.Documents.Select(
+                    s => new UpdateCourseCommand.UpdateDocumentCommand(s.BlobName, s.Name, s.Visible)),
+                model.IsPublish,id);
+
+            await _commandBus.DispatchAsync(command, token);
+
+
+            return Ok();
+        }
+
 
         [HttpPost]
         [Authorize(Policy = "Tutor")]

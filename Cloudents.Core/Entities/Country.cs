@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -11,11 +10,6 @@ namespace Cloudents.Core.Entities
         public RegionInfo RegionInfo { get; }
         public decimal ConversationRate { get; }
         public Language MainLanguage { get; }
-
-        /// <summary>
-        /// Taken from https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
-        /// </summary>
-        //public string TwilioMediaRegion { get; }
 
         public override string ToString()
         {
@@ -85,19 +79,19 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public static readonly HashSet<string> CountriesNotSupported = new HashSet<string>()
-        {
-            //"DZ", "AO", "BJ", "BW", "BF", "BI", "CM",
-            //"CV", "CF", "KM", "CD", "DJ", "EG", "GQ", "ER", "ET", "GA", "GM", "GH", "GN", "GW", "CI", "KE",
-            //"LS", "LR", "LY",
-            //"MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "CG", "RE", "RW", "SH", "ST", "SN",
-            //"SC", "SL", "SO",
-            //"SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW", "AF", "AM", "AZ", "BH", "BD", "BT",
-            //"BN", "KH",
-            //"ID", "IR", "IQ", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP",
-            //"KP", "OM", "PK",
-            //"PH", "QA", "SA", "LK", "SY", "TW", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"
-        };
+        //public static readonly HashSet<string> CountriesNotSupported = new HashSet<string>()
+        //{
+        //    //"DZ", "AO", "BJ", "BW", "BF", "BI", "CM",
+        //    //"CV", "CF", "KM", "CD", "DJ", "EG", "GQ", "ER", "ET", "GA", "GM", "GH", "GN", "GW", "CI", "KE",
+        //    //"LS", "LR", "LY",
+        //    //"MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "CG", "RE", "RW", "SH", "ST", "SN",
+        //    //"SC", "SL", "SO",
+        //    //"SS", "SD", "SZ", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW", "AF", "AM", "AZ", "BH", "BD", "BT",
+        //    //"BN", "KH",
+        //    //"ID", "IR", "IQ", "JO", "KZ", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP",
+        //    //"KP", "OM", "PK",
+        //    //"PH", "QA", "SA", "LK", "SY", "TW", "TJ", "TH", "TR", "TM", "AE", "UZ", "VN", "YE"
+        //};
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 
         //    public static Country Afghanistan = new Country("AF", CountryGroup.Tier3);
@@ -159,14 +153,18 @@ namespace Cloudents.Core.Entities
     public struct Money
 
     {
-        public Money(decimal amount, string currency) : this((double) amount, currency)
+        public Money(decimal amount, string currency) : this((double)amount, currency)
         {
 
         }
-       
+
 
         public Money(double amount, string currency)
         {
+            if (amount < 0)
+            {
+                throw new ArgumentException("Value cannot be negative");
+            }
             Amount = RoundToNearestPenny(amount);
             Cents = ToPennies(Amount);
             Currency = currency;
@@ -232,13 +230,13 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException();
             }
-            return new Money(left.Amount + right.Amount,left.Currency);
-           // return !left.Equals(right);
+            return new Money(left.Amount + right.Amount, left.Currency);
+            // return !left.Equals(right);
         }
 
         public Money ChangePrice(double newMoney)
         {
-            return new Money(newMoney,this.Currency);
+            return new Money(newMoney, Currency);
         }
 
         public override string ToString()

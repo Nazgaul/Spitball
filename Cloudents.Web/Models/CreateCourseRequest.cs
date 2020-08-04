@@ -12,7 +12,7 @@ namespace Cloudents.Web.Models
     public class CreateCourseRequest : IValidatableObject
     {
         private IEnumerable<CreateLiveStudyRoomRequest> _studyRooms;
-        private IEnumerable<CreateDocumentRequest>? _documents;
+        private IEnumerable<CreateDocumentRequest> _documents;
 
         [Required]
         public string Name { get; set; }

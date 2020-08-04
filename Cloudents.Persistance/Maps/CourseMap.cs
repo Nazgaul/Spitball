@@ -25,8 +25,8 @@ namespace Cloudents.Persistence.Maps
         {
             Id(x=>x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "5",
                 $"{nameof(HiLoGenerator.TableName)}='Course'");
-            Map(x => x.Name).Not.Nullable();
-            Map(x => x.Description).Nullable();
+            Map(x => x.Name).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
+            Map(x => x.Description).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
             Map(x => x.Position).ReadOnly();
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
