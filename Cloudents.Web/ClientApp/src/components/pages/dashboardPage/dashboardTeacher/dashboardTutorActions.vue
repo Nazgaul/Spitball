@@ -137,7 +137,7 @@ export default {
                     color: colors.blue,
                     text: this.$t('dashboardTeacher_link_text_session'),
                     btnText: this.$t('dashboardTeacher_btn_text_session'),
-                    routeName: { name: routeName.MyStudyRoomsBroadcast }
+                    routeName: { name: routeName.CourseCreate }
                 },
                 // [constants.TEST]: {
                 //     color: colors.orange,
