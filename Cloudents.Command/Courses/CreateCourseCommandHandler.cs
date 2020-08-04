@@ -36,6 +36,11 @@ namespace Cloudents.Command.Courses
 
             var studyRooms = message.StudyRooms.ToList();
 
+            if (!studyRooms.Any() && !message.Documents.Any())
+            {
+                throw new ArgumentException("Cant have empty course");
+            }
+
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
                 message.Description, studyRooms.DefaultIfEmpty().Min(m=>m?.Date), message.IsPublish);

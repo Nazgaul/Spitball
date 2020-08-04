@@ -73,6 +73,11 @@ namespace Cloudents.Web.Models
                 yield return new ValidationResult("Need documents or live sessions");
 
             }
+
+            if (StudyRooms.GroupBy(g => g.Date).Any(w => w.Count() > 1))
+            {
+                yield return new ValidationResult("Can't have the same date time for study room");
+            }
         }
     }
 }
