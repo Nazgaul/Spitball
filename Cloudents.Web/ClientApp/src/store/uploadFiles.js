@@ -64,7 +64,7 @@ const mutations = {
 };
 
 const actions = {
-    uploadDropbox(context, file) {
+    uploadDropbox({commit}, file) {
         let serverFormatFileData = {
             blobName: file.blobName,
             name: file.name,
@@ -74,7 +74,7 @@ const actions = {
         return axios.post("/Document/dropbox", serverFormatFileData)
             .then(res => {
                 file.blobName = res.data.fileName ? res.data.fileName : '';
-                self.$store.commit('addFile', file)
+                commit('addFile', file)
                 return
             }).catch(ex => {
                 console.error('error drop box api call', ex);
