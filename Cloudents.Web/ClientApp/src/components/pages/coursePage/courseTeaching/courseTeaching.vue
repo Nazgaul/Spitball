@@ -28,7 +28,6 @@
             <v-col cols="6" md="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
-                <!-- :rules="[rules.required]" -->
                         <v-text-field 
                             v-on="on"
                             v-model="date"
@@ -61,9 +60,6 @@
                 </v-menu>
             </v-col>
             <v-col cols="6" md="4" >
-                <!-- {
-                        maxHeight: 200
-                    } -->
                 <v-select
                     v-model="hour"
                     class="roomHour ps-sm-5"
@@ -133,7 +129,7 @@ export default {
                 return this.$store.getters.getTeachLecture[this.index-1]?.text || ''
             },
             set(text) {
-                this.$store.commit('setTeachLecture', {
+                this.$store.commit('setTextLecture', {
                     index: this.index-1,
                     text
                 })
