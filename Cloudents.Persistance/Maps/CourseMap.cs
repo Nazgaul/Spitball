@@ -44,7 +44,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.StartTime).Access.CamelCaseField(Prefix.Underscore).Nullable();
 
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
-                .Inverse().Cascade.AllDeleteOrphan();
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
 
             HasMany(x => x.CourseEnrollments).Access.CamelCaseField(Prefix.Underscore)

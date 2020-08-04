@@ -51,8 +51,11 @@ namespace Cloudents.Command.Courses
             {
                 var documentName = $"{message.Name}-{Guid.NewGuid()}";
                 var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
-                var studyRoom = new BroadCastStudyRoom(tutor, googleDocUrl, course, 
-                    createLiveStudyRoomCommand.Date, createLiveStudyRoomCommand.Name);
+                var studyRoom = new BroadCastStudyRoom(course, 
+                    createLiveStudyRoomCommand.Date, createLiveStudyRoomCommand.Name)
+                {
+                    OnlineDocumentUrl = googleDocUrl
+                };
                 course.AddStudyRoom(studyRoom);
             }
 

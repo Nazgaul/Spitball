@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -12,11 +15,13 @@ namespace Cloudents.Command.Courses
     {
         private readonly IRepository<Course> _courseRepository;
         private readonly IStudyRoomBlobProvider _blobProvider;
+        private readonly IGoogleDocument _googleDocument;
 
-        public UpdateCourseCommandHandler(IRepository<Course> courseRepository, IStudyRoomBlobProvider blobProvider)
+        public UpdateCourseCommandHandler(IRepository<Course> courseRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument)
         {
             _courseRepository = courseRepository;
             _blobProvider = blobProvider;
+            _googleDocument = googleDocument;
         }
 
         public async Task ExecuteAsync(UpdateCourseCommand message, CancellationToken token)
@@ -36,10 +41,37 @@ namespace Cloudents.Command.Courses
             course.Price = course.Price.ChangePrice(message.Price);
             course.Description = message.Description;
             course.ChangeSubscriptionPrice(message.SubscriptionPrice);
+            //TODO continue need to check IL users;
+            course.State = message.IsPublish ? ItemState.Ok : ItemState.Pending;
             if (message.Image != null)
             {
                 await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
             }
+
+
+
+            course.UpdateStudyRoom(message.StudyRooms.Select(s=>new BroadCastStudyRoom(course,s.Date,s.Name)));
+
+            foreach (var broadCastStudyRoom in course.StudyRooms)
+            {
+                if (broadCastStudyRoom.OnlineDocumentUrl == null)
+                {
+                    var documentName = $"{message.Name}-{Guid.NewGuid()}";
+                    var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
+                    broadCastStudyRoom.OnlineDocumentUrl = googleDocUrl;
+                }
+            }
+
+
+           
+
+            //message.StudyRooms.Select(s => new BroadCastStudyRoom(course.Tutor, null, course, s.Date, s.Name));
+
+            //foreach (var updateLiveStudyRoomCommand in message.StudyRooms)
+            //{
+            //    if (updateLiveStudyRoomCommand.Date == c)
+            //    course.
+            //}
 
         }
     }

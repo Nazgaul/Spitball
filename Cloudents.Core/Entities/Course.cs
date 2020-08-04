@@ -137,7 +137,7 @@ namespace Cloudents.Core.Entities
 
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
-        private readonly ICollection<BroadCastStudyRoom> _studyRooms = new List<BroadCastStudyRoom>();
+        private readonly ISet<BroadCastStudyRoom> _studyRooms = new HashSet<BroadCastStudyRoom>();
 
         public virtual IEnumerable<BroadCastStudyRoom> StudyRooms => _studyRooms;
 
@@ -161,16 +161,30 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void SubscribeToAllStudyRooms()
+
+        public virtual void UpdateStudyRoom(IEnumerable<BroadCastStudyRoom> broadCastStudyRooms)
         {
-            foreach (var courseEnrollment in _courseEnrollments)
+            var newSet = new HashSet<BroadCastStudyRoom>(broadCastStudyRooms);
+            _studyRooms.IntersectWith(newSet);
+
+            foreach (var hours in newSet)
             {
-                foreach (var broadCastStudyRoom in _studyRooms)
-                {
-                    broadCastStudyRoom.AddUserToStudyRoom(courseEnrollment.User);
-                }
+                _studyRooms.Add(hours);
             }
+
         }
+
+
+        //public virtual void SubscribeToAllStudyRooms()
+        //{
+        //    foreach (var courseEnrollment in _courseEnrollments)
+        //    {
+        //        foreach (var broadCastStudyRoom in _studyRooms)
+        //        {
+        //            broadCastStudyRoom.AddUserToStudyRoom(courseEnrollment.User);
+        //        }
+        //    }
+        //}
 
     }
 }
