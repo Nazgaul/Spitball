@@ -4,11 +4,11 @@
             <courseCreate @saveCourseInfo="saveCourseInfo" />
             <div class="d-flex">
                 <div class="courseLeftSide">
-                    <courseInfo />
+                    <courseInfo ref="courseInfo" />
                     <div class="courseTeachingWrapper mb-6">
                         <courseTeaching v-for="n in numberOfLecture" :key="n" :index="n" />
                     </div>
-                    <courseUpload />
+                    <courseUpload ref="courseUpload" />
                 </div>
                 <div class="courseRightSide ms-6">
                     <coursePublish />
@@ -54,6 +54,13 @@ export default {
 
         unSupportedFeature
     },
+    // watch: {
+    //     showSnackbar(val) {
+    //         if(val) {
+    //             this.$vuetify.goTo(this.$refs.courseUpload)
+    //         }
+    //     }
+    // },
     computed: {
         numberOfLecture() {
             return this.$store.getters.getNumberOfLecture
@@ -96,6 +103,7 @@ export default {
                     this.errorText = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
                     this.loading = false
+                    this.goTo('courseUpload')
                     return 
                 }
                 
@@ -108,6 +116,8 @@ export default {
                     self.showSnackbar = true
                     self.loading = false
                 })
+            } else {
+                this.goTo('courseInfo')
             }
         },
         documentValidate(files) {
@@ -164,6 +174,9 @@ export default {
                 })
             }
             return studyRoomArr
+        },
+        goTo(ref) {
+            this.$vuetify.goTo(this.$refs[ref])
         }
     },
     beforeDestroy(){
