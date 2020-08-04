@@ -5,11 +5,11 @@ namespace Cloudents.Core.DTOs.Users
 {
     public class ChatUserDto
     {
-        [EntityBind(nameof(BaseUser.Id))]
+        [EntityBind(nameof(User.Id))]
         public long UserId { get; set; }
-        [EntityBind(nameof(BaseUser.Name))]
+        [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(BaseUser.ImageName))]
+        [EntityBind(nameof(User.ImageName))]
         public string? Image { get; set; }
 
       

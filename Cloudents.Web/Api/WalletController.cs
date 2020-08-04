@@ -1,11 +1,9 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Users;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -23,7 +21,6 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Query.Payment;
 using Cloudents.Query.Courses;
@@ -53,14 +50,14 @@ namespace Cloudents.Web.Api
         }
 
         // GET
-        [HttpGet("balance")]
-        public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId), token);
+        //[HttpGet("balance")]
+        //public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId), token);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
 
 

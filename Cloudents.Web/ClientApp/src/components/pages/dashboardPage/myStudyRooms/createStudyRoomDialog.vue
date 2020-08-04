@@ -91,8 +91,6 @@ export default {
             this.isLoading = true
             if(this.isPrivate) {
                this.createPrivateSession()
-            } else {
-               this.createLiveSession()
             }
          }
       },
@@ -116,65 +114,8 @@ export default {
          this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj).catch((error) => {
                self.handleCreateError(error)
             }).finally(() => {
-               self.loisLoading = false;
-               self.$store.commit('setComponent')               
-            })
-      },
-      createLiveSession() {
-         let childComponent = this.$refs.childComponent;
-         let userChooseDate =  this.$moment(`${childComponent.date}T${childComponent.hour}:00`);         
-         let isToday = userChooseDate.isSame(this.$moment(), 'day');
-         if(isToday) {
-            //let endAfterDate = this.$moment(childComponent.dateOcurrence)
-            let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
-            if(!isValidDateToday) { // || endAfterDate < userChooseDate) {
-               this.errors.showErrorWrongTime = true
-               this.currentError = 'showErrorWrongTime'
-               this.isLoading = false
-               return
-            } 
-         }
-
-         if(childComponent.radioEnd === 'after') {
-            if(isNaN(childComponent.endAfterOccurrences)) {
-               this.errors.showErrorWrongNumber = true
-               this.currentError = 'showErrorWrongNumber'
-               this.isLoading = false
-               return
-            }
-         }
-         if(childComponent.currentRepeatItem.value !== 'none' && childComponent.radioEnd === 'on') {
-            let endAfterDate = this.$moment(childComponent.dateOcurrence)
-            let isToday = endAfterDate.isSame(this.$moment(), 'day');
-            if( isToday) {
-               this.errors.showErrorWrongTime = true
-               this.currentError = 'showErrorWrongTime'
-               this.isLoading = false
-               return
-            } 
-           
-         }
-         let liveObj = {
-            name: childComponent.liveSessionTitle.text || childComponent.liveSessionTitle,
-            price: childComponent.currentVisitorPriceSelect.value === 'free' ? 0 : childComponent.price,
-            date: userChooseDate,
-            description: childComponent.sessionAboutText,
-            repeat: childComponent.currentRepeatItem.value !== 'none' ? childComponent.currentRepeatItem.value : undefined,
-            endDate: childComponent.radioEnd === 'on' ? this.$moment(childComponent.dateOcurrence) : undefined,
-            endAfterOccurrences: childComponent.radioEnd === 'after' ? childComponent.endAfterOccurrences : undefined,
-            repeatOn: childComponent.currentRepeatItem.value === 'custom' ? childComponent.repeatCheckbox : undefined,
-            image: childComponent.newLiveImage,
-            currency: this.$store.getters.accountUser.currencySymbol,
-         }
-         
-         let self = this
-         this.$store.dispatch('updateCreateStudyRoomLive', liveObj)
-            .then(() => {
-               self.$store.commit('setComponent')
-            }).catch((error) => {
-               self.handleCreateError(error)
-            }).finally(() => {
                self.isLoading = false;
+               self.$store.commit('setComponent')               
             })
       },
       handleCreateError(error) {

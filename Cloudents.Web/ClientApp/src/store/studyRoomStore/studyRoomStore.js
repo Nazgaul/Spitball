@@ -329,12 +329,6 @@ const actions = {
    updateLiveImage(context, formData) {
       return studyRoomService.updateImage(formData)
    },
-   updateCreateStudyRoomLive({dispatch}, params) {
-      return studyRoomService.createLiveRoom(params).then(({data}) => {
-         dispatch('updateCreateStudyRoom', {data, params})
-
-      })
-   },
    updateCreateStudyRoomPrivate({dispatch}, params) {
       return studyRoomService.createPrivateRoom(params).then(({data}) => {
          dispatch('updateCreateStudyRoom', {data, params})

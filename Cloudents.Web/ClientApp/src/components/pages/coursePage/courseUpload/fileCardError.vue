@@ -1,6 +1,5 @@
 <template>
-    <v-layout align-center justify-space-between wrap 
-    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'ps-4':isMobile}]">
+    <v-layout align-center justify-space-between wrap :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'ps-4':isMobile}]" v-if="item.error">
         <v-flex xs12 sm7 class="ufItem-error-content">
                 <div class="ufItem-error-txt">
                     <span>{{item.name}}</span>
@@ -16,53 +15,32 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 export default {
-    name: "fileCard",
+    name: "fileCardError",
     props: {
-        fileItem: {
-            type: Object,
-            default(){
-                return {}
-            }
-        },
         singleFileIndex: {
             type: Number,
             required: true
         }
     },
-    watch: {
-        item: {
-            deep: true,
-            handler(newVal) {
-                let fileObj = {
-                    index: this.singleFileIndex,
-                    data: newVal
-                };
-                this.changeFileByIndex(fileObj);
-            }
-        }
-    },
     computed: {
-        ...mapGetters(['getFileData']),
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
         item() {
-            return this.getFileData[this.singleFileIndex]
+            return this.$store.getters.getFileData[this.singleFileIndex]
         }
     },
     methods: {
-        ...mapActions(['changeFileByIndex', 'deleteFileByIndex']),
         deleteFile() {
-            this.deleteFileByIndex(this.singleFileIndex)
+            this.$store.commit('deleteFileByIndex', this.singleFileIndex)
         }
-    },
+    }
 }
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+@import "../../../../styles/mixin.less";
 .ufItem-error{
     background-color: #d16061;
     @media (max-width: @screen-xs) {

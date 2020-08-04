@@ -1,12 +1,12 @@
+import axios from 'axios'
+
 import dashboardService from '../services/dashboardService.js';
-import walletService from '../services/walletService.js';
 import salesService from '../services/salesService.js';
 
 const state = {
    salesItems: [],
-   contentItems: [],
+   coursesItems: [],
    purchasesItems: [],
-   balancesItems: [],
    studyRoomItems: [],
    followersItems: [],
 };
@@ -15,14 +15,26 @@ const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   setContentItems(state,val) {
-      state.contentItems = val;
+   setCoursesItems(state, data) {
+      function CourseItem(objInit) {
+         this.documents = objInit.documents
+         this.id = objInit.id
+         this.image = objInit.image
+         this.isPublish = objInit.isPublish
+         this.lessons = objInit.lessons
+         this.name = objInit.name
+         this.price = objInit.price
+         this.users = objInit.users
+         this.type = objInit.type;
+         this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
+      }
+      for (let i = 0; i < data.length; i++) {
+         state.coursesItems.push(new CourseItem(data[i]));
+      }
+      
    },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
-   },
-   setBalancesItems(state,val) {
-      state.balancesItems = val;
    },
    setStudyRoomItems(state,val) {
       state.studyRoomItems = val;
@@ -30,25 +42,27 @@ const mutations = {
    setFollowersItems(state,val) {
       state.followersItems = val;
    },
-   dashboard_setName(state,{newName,itemId}){
-      state.contentItems.forEach(item =>{
-         if(item.id === itemId){
-            item.name = newName;
-         }
-      });
-   },
+   // dashboard_setName(state,{newName,itemId}){
+   //    state.contentItems.forEach(item =>{
+   //       if(item.id === itemId){
+   //          item.name = newName;
+   //       }
+   //    });
+   // },
    setSaleItem(state, sessionId) {
       //update on the fly in my-sales approve button
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
       state.salesItems[index].paymentStatus = "Pending";
+   },
+   resetCourseItems(state) {
+      state.coursesItems = []
    }
 };
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   getContentItems: state => state.contentItems,
+   getCoursesItems: state => state.coursesItems,
    getPurchasesItems: state => state.purchasesItems,
-   getBalancesItems: state => state.balancesItems,
    getStudyRoomItems: state => state.studyRoomItems,
    getFollowersItems: state => state.followersItems,
 };
@@ -59,19 +73,16 @@ const actions = {
          commit('setSalesItems', items);
       });
    },
-   updateContentItems({commit}){
-      dashboardService.getContentItems().then(items=>{
-         commit('setContentItems', items);
-      });
+   updateCoursesItems({commit}){
+      axios.get('course').then(({data})=>{
+         commit('setCoursesItems', data);
+      }).catch(ex => {
+         console.log(ex);
+      })
    },
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);
-      });
-   },
-   updateBalancesItems({commit}){
-      walletService.getBalances().then(items=>{
-         commit('setBalancesItems', items);
       });
    },
    updateStudyRoomItems({commit}, type){
@@ -84,9 +95,9 @@ const actions = {
          commit('setFollowersItems', items);
       });
    },
-   dashboard_updateName({commit},paramObj){
-      commit('dashboard_setName',paramObj);
-   },
+   // dashboard_updateName({commit},paramObj){
+   //    commit('dashboard_setName',paramObj);
+   // },
    dashboard_sort({state},{listName,sortBy,sortedBy}){
       if(sortBy == 'date' || sortBy == 'lastSession'){
          if(sortedBy === sortBy){

@@ -25,26 +25,22 @@ namespace Cloudents.Core.DTOs
 
         }
 
-        public UserStudyRoomDto()
-        {
-        }
+        public string Name { get;  }
+        public Guid Id { get;  }
+        public DateTime DateTime { get;  }
 
-        public string Name { get; set; }
-        public Guid Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public string ConversationId { get;  }
+        public DateTime? LastSession { get;  }
 
-        public string ConversationId { get; set; }
-        public DateTime? LastSession { get; set; }
+        public StudyRoomType Type { get;  }
 
-        public StudyRoomType Type { get; set; }
+        public DateTime? Scheduled { get;  }
 
-        public DateTime? Scheduled { get; set; }
-
-        public IEnumerable<string> UserNames { get; set; }
+        public IEnumerable<string> UserNames { get;  }
         public Money Price { get; }
 
-        public long TutorId { get; set; }
-        public string TutorName { get; set; }
+        public long TutorId { get;  }
+        public string TutorName { get;  }
 
     }
 }

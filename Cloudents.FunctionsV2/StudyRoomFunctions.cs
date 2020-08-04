@@ -109,42 +109,42 @@ Looking forward to see you at the Live Class";
 
 
 
-         [FunctionName("UpdateBroadcastTime")]
-        public static async Task UpdateBroadcastTimeAsync([TimerTrigger("0 0 * * * *")] TimerInfo myTimer,
-            [Inject] IStatelessSession session,
-            [Inject] ICronService cronService,
-            ILogger log, CancellationToken token)
-        {
+        //[FunctionName("UpdateBroadcastTime")]
+        //public static async Task UpdateBroadcastTimeAsync([TimerTrigger("0 0 * * * *")] TimerInfo myTimer,
+        //    [Inject] IStatelessSession session,
+        //    [Inject] ICronService cronService,
+        //    ILogger log, CancellationToken token)
+        //{
 
-            var recurringSessions = await session.Query<BroadCastStudyRoom>()
-                .Where(w => w.Schedule!.CronString != null)
-                .Where(w => w.BroadcastTime < DateTime.UtcNow)
-                .Where(w => w.Schedule!.End > DateTime.UtcNow)
-                .Select(s => new
-                {
-                    s.Schedule,
-                    s.Id,
-                }).ToListAsync(cancellationToken: token);
-            foreach (var recurringSession in recurringSessions)
-            {
-                var dateTime = cronService.GetNextOccurrence(recurringSession.Schedule!.CronString);
-                if (dateTime < recurringSession.Schedule.End)
-                {
-                    log.LogInformation($"update study room {recurringSession.Id} to broadcast {dateTime}");
-                    await session.Query<BroadCastStudyRoom>()
-                        .Where(w => w.Id == recurringSession.Id)
-                        .UpdateBuilder()
-                        .Set(c => c.BroadcastTime, c => dateTime)
-                        .UpdateAsync(token);
+        //    var recurringSessions = await session.Query<BroadCastStudyRoom>()
+        //        .Where(w => w.Schedule!.CronString != null)
+        //        .Where(w => w.BroadcastTime < DateTime.UtcNow)
+        //        .Where(w => w.Schedule!.End > DateTime.UtcNow)
+        //        .Select(s => new
+        //        {
+        //            s.Schedule,
+        //            s.Id,
+        //        }).ToListAsync(cancellationToken: token);
+        //    foreach (var recurringSession in recurringSessions)
+        //    {
+        //        var dateTime = cronService.GetNextOccurrence(recurringSession.Schedule!.CronString);
+        //        if (dateTime < recurringSession.Schedule.End)
+        //        {
+        //            log.LogInformation($"update study room {recurringSession.Id} to broadcast {dateTime}");
+        //            await session.Query<BroadCastStudyRoom>()
+        //                .Where(w => w.Id == recurringSession.Id)
+        //                .UpdateBuilder()
+        //                .Set(c => c.BroadcastTime, c => dateTime)
+        //                .UpdateAsync(token);
 
-                }
-                else
-                {
-                    log.LogInformation($"reaching the end of study room {recurringSession.Id}");
-                }
+        //        }
+        //        else
+        //        {
+        //            log.LogInformation($"reaching the end of study room {recurringSession.Id}");
+        //        }
 
-            }
-            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-        }
+        //    }
+        //    log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+        //}
     }
 }

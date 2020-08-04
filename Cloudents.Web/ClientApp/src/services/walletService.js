@@ -5,13 +5,8 @@ const walletInstance = axios.create({
 })
 
 import Api from './Api/wallet';
-import { Wallet } from './Dto/wallet.js';
 
 export default {
-    async getBalances() {
-        let { data } = await Api.get.balance()
-        return data.map(item=> new Wallet.Balance(item))
-    },
     getPaymeLink() {
         return Api.get.paymentLink();
     },

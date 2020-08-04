@@ -27,17 +27,21 @@ namespace Cloudents.Persistence.Maps
                 $"{nameof(HiLoGenerator.TableName)}='Course'");
             Map(x => x.Name).Not.Nullable();
             Map(x => x.Description).Nullable();
+            Map(x => x.Position).ReadOnly();
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
             Map(x => x.Create);
+
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("SubscriptionPrice","SubscriptionCurrency");
             Map(x => x.Price)//.Not.Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("Price","PriceCurrency");
+
+            Map(x => x.StartTime).Access.CamelCaseField(Prefix.Underscore).Nullable();
 
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();

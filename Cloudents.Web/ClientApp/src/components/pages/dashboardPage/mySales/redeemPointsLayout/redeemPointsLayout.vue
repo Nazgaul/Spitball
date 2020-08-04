@@ -40,7 +40,7 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateToasterParams','updateBalancesItems']),
+      ...mapActions(['updateToasterParams']),
       redeem(amount){
          this.isLoading = true;
          walletService.redeem(amount)
@@ -49,7 +49,6 @@ export default {
                      toasterText: this.$t('cashoutcard_Cashed'),
                      showToaster: true,
                });
-               this.updateBalancesItems();
                this.isLoading = false;
             },
                error => {
@@ -57,10 +56,7 @@ export default {
                });
 
       }
-   },
-   created(){
-      this.updateBalancesItems()
-   },
+   }
 }
 </script>
 
