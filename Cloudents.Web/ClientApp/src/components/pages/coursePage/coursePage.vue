@@ -103,6 +103,8 @@ export default {
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
                     self.errorText = this.statusErrorCode[ex.response.status]
+                }).finally(() => {
+                    self.loading = false
                 })
             }
         },

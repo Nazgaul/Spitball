@@ -252,6 +252,9 @@ export default {
       //    return item.url || `/course/${item.id}`
       // }
    },
+   beforeDestroy() {
+      this.$store.commit('resetCourseItems')
+   },
    created() {
       this.$store.dispatch('updateCoursesItems')
    },
