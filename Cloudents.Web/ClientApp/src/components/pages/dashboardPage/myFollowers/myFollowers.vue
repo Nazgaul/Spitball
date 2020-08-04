@@ -21,13 +21,14 @@
       }">
          <template v-slot:top >
             <div class="pa-2">
-            <div class="myFollowers_title">{{$t('dashboardPage_my_followers_title')}}</div>
+         <div class="myFollowers_title">{{$t('dashboardPage_my_followers_title')}}</div>
                <div class="d-flex">
                   <v-spacer></v-spacer>
                   <v-text-field
                      v-model="search"
                      :label="$t('search_search_btn')"
                      outlined 
+                     class="searchTextField"
                      dense
                      rounded
                   ></v-text-field>
@@ -70,7 +71,7 @@
            
          </template>
          <template v-slot:item.date="{item}">
-            {{ $d(new Date(item.date)) }}
+            {{$moment(item.date).format('MMM D')}}
          </template>
          <template v-slot:item.action="{item}">
             <div class="itemsAction d-flex align-center justify-center">
@@ -200,7 +201,7 @@ export default {
 <style lang="less">
 @import "../../../../styles/mixin.less";
 .myFollowers{
-   max-width: 1334px;
+   // max-width: 1334px;
    .myFollowersTable {
       @media (max-width: @screen-xs) {
          border-radius: 0;
@@ -212,6 +213,9 @@ export default {
       font-weight: 600;
       padding: 30px;
       line-height: 1.3px;
+   }
+   .searchTextField {
+      max-width: 410px;
    }
    td:first-child {
       width:1%;
@@ -232,7 +236,6 @@ export default {
    }
    tbody {
       tr {
-         height: 98px;
          &:nth-of-type(2n) {
             td {
                background-color: #f5f6fa;

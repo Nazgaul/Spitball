@@ -18,7 +18,7 @@
 
             <template v-slot:top>
                <div class="tableTop">
-                  <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
+                  <div class="myCourses_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
                   <div class="text-end">
                      <v-btn
                         :to="{name: createCourseRoute}"
@@ -53,7 +53,7 @@
             </template>
 
             <template v-slot:item.startOn="{item}">
-               <div>{{$d(item.startOn)}}</div>
+               <div>{{$moment(item.date).format('MMM D')}}</div>
             </template>
 
             <template v-slot:item.users="{item}">
@@ -272,7 +272,7 @@ export default {
 //    background: #fff;
 // }
 .myCourses{
-   max-width: 1366px;
+   // max-width: 1366px;
    .myCourses_table {
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
       thead {
@@ -284,6 +284,7 @@ export default {
                padding-top: 14px;
                padding-bottom: 14px;
                font-weight: normal;
+               border-top: thin solid rgba(0, 0, 0, 0.12);
             }
          }
          color: @global-purple !important;
@@ -320,7 +321,7 @@ export default {
       .tableTop {
          padding: 20px;
          color: @global-purple !important;
-         .myStudyRooms_title {
+         .myCourses_title {
             font-size: 22px;
             font-weight: 600;
             // line-height: 1.3px;
