@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
             double? subscriptionPrice, string description, DateTime? startTime, bool isPublish)
         {
             Name = name;
-            Tutor = tutor;
+            Tutor = tutor ?? throw new ArgumentNullException(nameof(tutor));
             if (price < 0)
             {
                 throw new ArgumentException("Price cannot be negative");
