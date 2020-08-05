@@ -19,7 +19,7 @@ export default {
             // IL:{
             //    previewNumber:'052-507-5638',
             //    fullNumber:'972525075638',
-            //    text: this.$t(`headerSlots_phoneNumberSlot_text`),
+            //    text: this.$(`headerSlots_phoneNumberSlot_text`),
             // },
             IN:{
                previewNumber:'+91 8618134279',
