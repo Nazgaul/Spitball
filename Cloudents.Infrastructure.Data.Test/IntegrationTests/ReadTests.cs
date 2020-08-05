@@ -219,6 +219,20 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Fact]
+        public async Task CourseByIdEditQuery_Ok()
+        {
+           var data = await  fixture.StatelessSession.Query<Course>()
+                .Select(s => new
+                {
+                    TutorId= s.Tutor.Id,
+                    s.Id
+                }).FirstAsync();
+            var query = new CourseByIdEditQuery(data.Id, data.TutorId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
 
 
         [Fact]

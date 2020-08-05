@@ -158,6 +158,7 @@ export default {
         font-size: 18px;
         font-weight: 600;
         color: @global-purple;
+        white-space: pre-line;
     }
     .createStudyRoomDialog-list{
         min-height: 320px;

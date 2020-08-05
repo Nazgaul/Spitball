@@ -74,7 +74,7 @@ export const landingRoutes = [
         },
         meta: {
             showMobileFooter: true, 
-            headerSlot: (global.country == 'US')? '':'phoneNumberSlot',
+            headerSlot: (global.country == 'IN')? 'phoneNumberSlot' : '',
         }
     }
 ]

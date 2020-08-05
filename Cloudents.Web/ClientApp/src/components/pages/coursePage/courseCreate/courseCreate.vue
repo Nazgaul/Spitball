@@ -1,6 +1,8 @@
 <template functional>
     <div class="createCourse mb-6 pa-5 d-flex align-center justify-space-between">
-        <div class="createTitle" v-t="'create_course'"></div>
+        <div class="createTitle">
+            {{parent.$route.params.id ? parent.$t('update_course') : parent.$t('create_course')}}
+        </div>
         <div>
             <v-btn
                 class="createCourseBtn cancelBtn me-3"
