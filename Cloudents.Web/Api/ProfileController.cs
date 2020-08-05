@@ -1,5 +1,4 @@
-﻿using Cloudents.Command;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
@@ -23,15 +22,13 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
-        private readonly ICommandBus _commandBus;
         private readonly IUrlBuilder _urlBuilder;
 
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
-              ICommandBus commandBus, IUrlBuilder urlBuilder)
+               IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
-            _commandBus = commandBus;
             _urlBuilder = urlBuilder;
         }
 
@@ -72,10 +69,6 @@ namespace Cloudents.Web.Api
                 return s;
             });
         }
-
-
-
-
 
     }
 }
