@@ -26,6 +26,21 @@ namespace Cloudents.Core.DTOs.Tutors
         public int FollowerNoCommunication { get; set; }
     }
 
+    public class UpcomingStudyRoomDto
+    {
+        public long CourseId { get; set; }
+
+        public string CourseName { get; set; }
+
+        public int StudentEnroll { get; set; }
+
+        public Guid StudyRoomId { get; set; }
+
+        public string StudyRoomName { get; set; }
+
+        public DateTime BroadcastTime { get; set; }
+    }
+
     public class BookedSession
     {
         [NonSerialized] public long? _TutorId;
