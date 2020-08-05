@@ -176,12 +176,14 @@ export default {
             for (i = 0; i < studyRoomList.length; i++) {
                 const studyRoom = studyRoomList[i];
                 let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);
-                let validateDuplicateSessionTime = studyRoomArr.filter((s) => {
-                    return s.date.isSame(userChooseDate)
-                })
-                if(validateDuplicateSessionTime.length) {
-                    this.errorText = this.statusErrorCode['duplicateDate']
-                    return 1 //return false
+                if(!this.$route.params.id) {
+                    let validateDuplicateSessionTime = studyRoomArr.filter((s) => {
+                        return s.date.isSame(userChooseDate)
+                    })
+                    if(validateDuplicateSessionTime.length) {
+                        this.errorText = this.statusErrorCode['duplicateDate']
+                        return 1 //return false
+                    }
                 }
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
