@@ -298,15 +298,13 @@ export default {
                font-size: 20px;
                color: #1b2441;
                text-transform:initial;
-               padding-top: 12px;
+               margin-top: 4px;
                @media(max-width: @screen-sm) {
                   font-size: 18px;
                }
                @media(max-width: @screen-xs) {
                   font-size: 16px;
                   font-weight: 600;
-                  padding-top: 14px;
-
                }
             }
             .sessionPrice{
