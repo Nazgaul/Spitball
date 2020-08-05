@@ -186,6 +186,12 @@ namespace Cloudents.Core.Entities
             var newSet = new HashSet<BroadCastStudyRoom>(broadCastStudyRooms);
             _studyRooms.IntersectWith(newSet);
 
+            foreach (var studyRoom in _studyRooms)
+            {
+                var updateData = newSet.Single(w => w.BroadcastTime == studyRoom.BroadcastTime);
+                studyRoom.Description = updateData.Description;
+            }
+
             foreach (var hours in newSet)
             {
                 _studyRooms.Add(hours);

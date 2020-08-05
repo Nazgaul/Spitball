@@ -120,15 +120,16 @@ export default {
                 let methodName = id ? 'update' : 'create'
                 let self = this
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(() => {
-                    self.$router.push({name: MyCourses})
+                   // self.$router.push({name: MyCourses})
                 }).catch(ex => {
                     console.error(ex);
                     self.errorText = ex
                     if(ex.response.status) {
                         self.errorText = this.statusErrorCode[ex.response.status]
                     }
-                }).finally(() => {
                     self.showSnackbar = true
+                }).finally(() => {
+                    
                     self.loading = false
                 })
             } else {

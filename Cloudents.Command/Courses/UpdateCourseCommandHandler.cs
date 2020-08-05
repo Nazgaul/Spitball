@@ -66,7 +66,7 @@ namespace Cloudents.Command.Courses
 
             var documentsToUpdate =  message.Documents.Where(w=>w.Id.HasValue).ToDictionary(x => x.Id, x => x);
 
-            foreach (var document in course.Documents)
+            foreach (var document in course.Documents.ToList())
             {
                 if (documentsToUpdate.TryGetValue(document.Id, out var updateStuff))
                 {
