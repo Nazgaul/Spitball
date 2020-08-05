@@ -173,7 +173,7 @@ export default {
       .tablePreview{
          line-height: 0;
          padding-right: 0 !important;
-         width: 104px;
+         // width: 104px;
          position: relative;
          .tablePreview_img{
             margin: 10px 0;
