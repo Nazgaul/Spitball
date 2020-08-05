@@ -141,7 +141,8 @@ export default {
                 filesArr.push({
                     blobName: file.blobName,
                     name: file.name,
-                    visible: file.visible === undefined ? true : file.visible
+                    visible: file.visible === undefined ? true : file.visible,
+                    id: isNaN(file.id) ? undefined : file.id 
                 })
             }
             return filesArr
