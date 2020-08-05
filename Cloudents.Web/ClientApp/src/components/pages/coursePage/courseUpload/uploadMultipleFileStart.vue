@@ -93,7 +93,7 @@ export default {
         },
         filesList(files) {
             if(!files.length) {
-                this.$emit('handleLoadFiles', false)
+                this.$store.commit('setShowFiles', false)
             }
         }
     },
@@ -161,7 +161,7 @@ export default {
                         this.$store.commit('setUploadProgress', newFile)
                         let filesEnd = this.filesList.every(file => file.progress === 100 || !file.error)
                         if(filesEnd) {
-                            this.$emit('handleLoadFiles', true)
+                            this.$store.commit('setShowFiles', true)
 
                         }
                     }

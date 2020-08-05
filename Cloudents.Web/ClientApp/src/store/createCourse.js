@@ -11,6 +11,7 @@ const state = {
     subscribePrice: 0,
     description: '',
     courseVisible: true,
+    showFiles: false,
     courseCoverImage: null,
     teachingDates: []
 }
@@ -23,6 +24,8 @@ const getters = {
     getDescription: state => state.description,
     getCourseVisible: state => state.courseVisible,
     getTeachLecture: state => state.teachingDates,
+    getCourseCoverImage: state => state.courseCoverImage,
+    getShowFiles: state => state.showFiles,
     getTeachTime: () => {
         const currentTime = new Date();
         let currentHour = currentTime.getHours().toString().padStart(2, '0');
@@ -78,6 +81,9 @@ const mutations = {
     setCourseCoverImage(state, image) {
         state.courseCoverImage = image
     },
+    setShowFiles(state, val) {
+        state.showFiles = val
+    },
     resetCreateCourse(state) {
         state.numberOfLecture = 1,
         state.courseName = '',
@@ -92,29 +98,47 @@ const mutations = {
 
 const actions = {
     getCourseInfo({commit}, id) {
-        return courseInstance.get(`${id}/edit`).then(({data}) => {
+        courseInstance.get(`${id}/edit`).then(({data}) => {
             commit('setNumberOfLecture', data.studyRooms.length)
             commit('setCourseName', data.name)
             commit('setFollowerPrice', data.price.amount)
             commit('setSubscriberPrice', data.subscriptionPrice.amount)
             commit('setCourseDescription', data.description)
             commit('setCourseCoverImage', data.image)
-            data.studyRooms.map((s, i) => {
+            commit('setShowCourse', data.visible)
+            
+            let i = 0, studyRooms = data.studyRooms
+            for (i = 0; i < studyRooms.length; i++) {
+                const elem = studyRooms[i]
                 commit('setTeachLecture', {
                     index: i,
-                    date: this._vm.$moment(s.dateTime).format('YYYY-MM-DD'),
-                    hour: this._vm.$moment(s.dateTime).format('HH:mm'),
+                    date: this._vm.$moment(elem.dateTime).format('YYYY-MM-DD'),
+                    hour: this._vm.$moment(elem.dateTime).format('HH:mm'),
                 })
                 commit('setTextLecture', {
                     index: i,
-                    text: s.name
+                    text: elem.name
                 })
-            })
+            }
+
+            let j = 0, documents = data.documents
+            for (j = 0; j < documents.length; j++) {
+                const elem = documents[j]
+                commit('addFile', {
+                    id: elem.id,
+                    name: elem.title,
+                    visible: elem.visible,
+                })
+            }
+            if(documents.length > 0) {
+                commit('setShowFiles', true)
+            }
             // data.documents.map(s => commit('setTeachLecture', s))
-            commit('setShowCourse', data.visible)
+        }).catch(ex => {
+            console.error(ex);
         })
     },
-    updateCourseInfo({state}, {documents, studyRooms}) {
+    createCourseInfo({state}, {documents, studyRooms}) {
         let params = {
             name: state.courseName,
             price: state.followerPrice,
@@ -125,8 +149,20 @@ const actions = {
             studyRooms,
             documents
         }
-        
         return courseInstance.post('', params)
+    },
+    updateCourseInfo({state}, {documents, studyRooms, id}) {
+        let params = {
+            name: state.courseName,
+            price: state.followerPrice,
+            subscriptionPrice: state.subscribePrice,
+            description: state.description,
+            image: state.courseCoverImage,
+            isPublish: state.courseVisible,
+            studyRooms,
+            documents
+        }
+        return courseInstance.put(`${id}`, params)
     }
 }
 

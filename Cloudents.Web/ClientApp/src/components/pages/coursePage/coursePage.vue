@@ -71,6 +71,10 @@ export default {
     },
     data() {
         return {
+            saveMethodsName: {
+                create: 'createCourseInfo',
+                update: 'updateCourseInfo'
+            },
             courseRoute: MyCourses,
             loading: false,
             showSnackbar: false,
@@ -93,22 +97,26 @@ export default {
                 let documents = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
                 
-                if(documents === false || studyRooms === false) {
+                //if(documents === false || studyRooms === false) {
+                if(documents === 1 || studyRooms === 1) {
                     this.showSnackbar = true
                     this.loading = false
                     return
                 }
 
-                if(!documents.length && !studyRooms.length) {
+                // if(!documents.length && !studyRooms.length) {
+                if(documents === 0 && studyRooms === 0) {
                     this.errorText = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
                     this.loading = false
                     this.goTo('courseUpload')
                     return 
                 }
-                
+
+                let id = this.$route.params.id ? this.$route.params.id : undefined
+                let methodName = id ? 'update' : 'create'
                 let self = this
-                this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
+                this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(() => {
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
                     self.errorText = this.statusErrorCode[ex.response.status]
@@ -121,14 +129,14 @@ export default {
             }
         },
         documentValidate(files) {
-            if(!files.length) return []
+            if(!files.length) return 0 // return []
 
             let i, filesArr = []
             for (i = 0; i < files.length; i++) {
                 const file = files[i];
                 if(file.error) {
                     this.errorText = this.statusErrorCode['file']
-                    return false
+                    return 1 //return false
                 }
                 filesArr.push({
                     blobName: file.blobName,
@@ -140,7 +148,7 @@ export default {
         },
         studyroomValidate(studyRoomList) {
             if(studyRoomList.length === 1 && !studyRoomList[0].text) {
-                return []
+                return 0 // return []
             }
 
             let i, studyRoomArr = []
@@ -152,20 +160,20 @@ export default {
                 })
                 if(validateDuplicateSessionTime.length) {
                     this.errorText = this.statusErrorCode['duplicateDate']
-                    return false
+                    return 1 //return false
                 }
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
                     if(!isValidDateToday) {
                         this.errorText = this.statusErrorCode['date']
-                        return false
+                        return 1 //return false
                     }
                 }
 
                 if(!studyRoom.text) {
                     this.errorText = this.statusErrorCode['studyRoomText']
-                    return false
+                    return 1 //return false
                 } 
 
                 studyRoomArr.push({
