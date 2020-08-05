@@ -48,6 +48,7 @@ namespace Cloudents.Query.Courses
 
                 var futureStudyRoom = _statelessSession.Query<BroadCastStudyRoom>()
                     .Where(w => w.Course.Id == query.Id)
+                    .OrderBy(o=> o.BroadcastTime)
                     .Select(
                         s2 => new CourseEditStudyRoomDto()
                         {

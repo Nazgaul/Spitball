@@ -102,7 +102,7 @@ const actions = {
             commit('setNumberOfLecture', data.studyRooms.length)
             commit('setCourseName', data.name)
             commit('setFollowerPrice', data.price.amount)
-            commit('setSubscriberPrice', data.subscriptionPrice.amount)
+            commit('setSubscriberPrice', data.subscriptionPrice?.amount)
             commit('setCourseDescription', data.description)
             commit('setCourseCoverImage', data.image)
             commit('setShowCourse', data.visible)
