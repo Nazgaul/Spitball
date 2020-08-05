@@ -76,7 +76,9 @@
             <template v-slot:item.action="{item}">
                <v-menu offset-y>
                   <template v-slot:activator="{ on }">
-                     <v-icon size="18" v-on="on">sbf-3-dot</v-icon>
+                     <v-btn icon>
+                        <v-icon size="18" v-on="on">sbf-3-dot</v-icon>
+                     </v-btn>
                   </template>
                   <v-list>
                   <v-list-item
