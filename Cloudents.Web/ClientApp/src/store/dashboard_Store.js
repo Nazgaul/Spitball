@@ -55,13 +55,7 @@ const mutations = {
    setFollowersItems(state,val) {
       state.followersItems = val;
    },
-   // dashboard_setName(state,{newName,itemId}){
-   //    state.contentItems.forEach(item =>{
-   //       if(item.id === itemId){
-   //          item.name = newName;
-   //       }
-   //    });
-   // },
+
    setSaleItem(state, sessionId) {
       //update on the fly in my-sales approve button
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
@@ -126,9 +120,6 @@ const actions = {
          commit('setFollowersItems', items);
       });
    },
-   // dashboard_updateName({commit},paramObj){
-   //    commit('dashboard_setName',paramObj);
-   // },
    dashboard_sort({state},{listName,sortBy,sortedBy}){
       if(sortBy == 'date' || sortBy == 'lastSession'){
          if(sortedBy === sortBy){
