@@ -450,7 +450,11 @@ namespace Cloudents.Core.Entities
         public virtual void ReferUser(User user)
         {
             const int maxRefer = 5;
-
+            if (Id == user.Id)
+            {
+                return;
+                
+            }
             //Country country = user.Country;
 
             var referCount = Transactions.TransactionsReadOnly.AsQueryable().Count(w => w is ReferUserTransaction);
