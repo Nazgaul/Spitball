@@ -12,7 +12,7 @@ namespace Cloudents.Web.Models
     public class CreateCourseRequest : IValidatableObject
     {
         private IEnumerable<CreateLiveStudyRoomRequest> _studyRooms;
-        private IEnumerable<CreateDocumentRequest>? _documents;
+        private IEnumerable<CreateDocumentRequest> _documents;
 
         [Required]
         public string Name { get; set; }
@@ -72,6 +72,11 @@ namespace Cloudents.Web.Models
             {
                 yield return new ValidationResult("Need documents or live sessions");
 
+            }
+
+            if (StudyRooms.GroupBy(g => g.Date).Any(w => w.Count() > 1))
+            {
+                yield return new ValidationResult("Can't have the same date time for study room");
             }
         }
     }

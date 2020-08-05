@@ -112,6 +112,7 @@ namespace Cloudents.Core.Entities
             SellerKey = key ?? throw new ArgumentNullException(nameof(key));
             foreach (var course in Courses.Where(w=>w.State == ItemState.Pending))
             {
+                
                 course.State = ItemState.Ok;
             }
         }

@@ -1,12 +1,8 @@
 <template>
     <div class="courseTeaching mx-5 pt-5" :class="{'pb-5': numberOfLecture === index}">
-        <div class="mb-11" v-if="index === 1">
-            <div class="courseTeachingTitle" v-t="'set_Teaching'"></div>
-        </div>
-
         <div class="lectureTitle d-flex align-center justify-space-between mb-6">
             <div>{{$t('live_lecture', [index])}}</div>
-            <v-icon v-if="index > 1" @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
+            <v-icon @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
         </div>
 
         <div class="mb-2">
@@ -28,7 +24,6 @@
             <v-col cols="6" md="4" >
                 <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290" min-width="290px">
                     <template v-slot:activator="{ on }">
-                <!-- :rules="[rules.required]" -->
                         <v-text-field 
                             v-on="on"
                             v-model="date"
@@ -61,9 +56,6 @@
                 </v-menu>
             </v-col>
             <v-col cols="6" md="4" >
-                <!-- {
-                        maxHeight: 200
-                    } -->
                 <v-select
                     v-model="hour"
                     class="roomHour ps-sm-5"
@@ -80,10 +72,6 @@
                 ></v-select>
             </v-col>
         </v-row>
-        <div class="addLecture d-flex" v-if="numberOfLecture === index">
-            <v-icon size="14" color="#4c59ff">sbf-plus-regular</v-icon>
-            <button class="ms-1" v-t="'another_lecture'" @click="addLecture"></button>
-        </div>
     </div>
 </template>
 
@@ -133,7 +121,7 @@ export default {
                 return this.$store.getters.getTeachLecture[this.index-1]?.text || ''
             },
             set(text) {
-                this.$store.commit('setTeachLecture', {
+                this.$store.commit('setTextLecture', {
                     index: this.index-1,
                     text
                 })
@@ -180,9 +168,9 @@ export default {
             let today = new Date().FormatDateToString()
             return date >= today
         },
-        addLecture() {
-            this.$store.commit('setNumberOfLecture', this.numberOfLecture + 1)
-        },
+        // addLecture() {
+        //     this.$store.commit('setNumberOfLecture', this.numberOfLecture + 1)
+        // },
         removeLecture() {
             this.$store.commit('removeLecture', this.index)
         }
@@ -197,13 +185,8 @@ export default {
 .courseTeaching {
     max-width: 760px;
 
-    &:not(:last-child) {
+    &:not(:nth-last-child(2)) {
         border-bottom: 1px solid #dddddd;
-    }
-    .courseTeachingTitle {
-        font-size: 20px;
-        font-weight: 600;
-        color: @global-purple;
     }
     .lectureTitle {
         font-size: 18px;
@@ -212,14 +195,6 @@ export default {
     }
     .lectureText {
         max-width: 560px;
-    }
-    .addLecture {
-        font-size: 16px;
-        color: #4c59ff;
-
-        button {
-            outline: none;
-        }
     }
     .v-input__prepend-inner, .v-input__append-inner {
         margin-top: 14px !important;

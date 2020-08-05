@@ -9,10 +9,9 @@ namespace Cloudents.Core.Entities
     public class BroadCastStudyRoom : StudyRoom
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public BroadCastStudyRoom(Tutor tutor,
-            string onlineDocumentUrl,
-            Course course, DateTime broadcastTime, string description)
-            : base(tutor, Enumerable.Empty<User>(), onlineDocumentUrl, 0)
+        public BroadCastStudyRoom(
+             Course course, DateTime broadcastTime, string description)
+            : base(course.Tutor, Enumerable.Empty<User>(),  0)
         {
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);
@@ -22,6 +21,9 @@ namespace Cloudents.Core.Entities
             Description = description;
         }
 
+
+        
+
         public virtual string Description { get; set; }
 
         protected BroadCastStudyRoom() : base()
@@ -30,11 +32,6 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime BroadcastTime { get; set; }
 
-
-
-
-        [Obsolete]
-        public virtual StudyRoomSchedule? Schedule { get; protected set; }
 
         public virtual Course Course { get; protected set; }
 
@@ -61,5 +58,24 @@ namespace Cloudents.Core.Entities
 
 
         public override StudyRoomType Type => StudyRoomType.Broadcast;
+
+
+        protected bool Equals(BroadCastStudyRoom other)
+        {
+            return BroadcastTime.Equals(other.BroadcastTime) && Course.Id.Equals(other.Course.Id);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BroadCastStudyRoom) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(37, Course.Id, BroadcastTime);
+        }
     }
 }
