@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Entities;
@@ -45,7 +46,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id:long}"), AllowAnonymous]
-        public async Task<ActionResult<CourseDetailDto?>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
+        public async Task<ActionResult<CourseDetailDto>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new CourseByIdQuery(id, userId);
@@ -55,7 +56,7 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
             result.TutorImage = _urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id);
+            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id, result.Version);
             return result;
         }
 
@@ -70,7 +71,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id);
+            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id, result.Version);
             return result;
         }
 
@@ -105,7 +106,7 @@ namespace Cloudents.Web.Api
                 (int?)model.SubscriptionPrice, model.Description, model.Image,
                 model.StudyRooms.Select(s => new CreateCourseCommand.CreateLiveStudyRoomCommand(s.Name, s.Date)),
                 model.Documents.Select(
-                    s => new CreateCourseCommand.CreateDocumentCommand(s.BlobName, s.Name, s.Visible)),
+                    s => new CreateCourseCommand.CreateDocumentCommand(s.BlobName ?? throw new InvalidOperationException(), s.Name, s.Visible)),
                 model.IsPublish);
 
             await _commandBus.DispatchAsync(command, token);
@@ -134,7 +135,7 @@ namespace Cloudents.Web.Api
 
             return result.Select(s =>
             {
-                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id);
+                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id, s.Version);
                 return s;
             });
         }

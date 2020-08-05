@@ -62,20 +62,20 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id:long}/courses")]
-        public async Task<IEnumerable<CourseDto>> GetCourses([FromRoute]long id, CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> GetCourses([FromRoute] long id, CancellationToken token)
         {
             var query = new UserCoursesQuery(id);
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(s =>
             {
-                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id);
+                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id, s.Version);
                 return s;
             });
         }
 
 
 
-       
+
 
     }
 }
