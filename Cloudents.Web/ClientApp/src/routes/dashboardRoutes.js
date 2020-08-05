@@ -85,6 +85,19 @@ export const dashboardRoutes = [
         },
     },
     {
+        path: "/scheduled",
+        name: "scheduledClasses",
+        components: {
+            default: () => import(`../components/pages/dashboardPage/scheduledClasses/scheduledClasses.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        meta: {
+            requiresTutor: true,
+            requiresAuth: true,
+            showMobileFooter: true,
+        }
+    },
+    {
         path: "/study-rooms-broadcast",
         name: "myStudyRoomsBroadcast",
         components: {
