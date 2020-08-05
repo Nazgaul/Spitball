@@ -91,6 +91,7 @@ export default {
                 duplicateDate: this.$t('invalid_duplicate_date'),
                 studyRoomText: this.$t('invalid_studyroom_text'), // when there is no text in one of the studyroom
                 file: this.$t('invalid_file'), // when there error in 1 of file
+                uploadFileNotFinished: this.$t('invalid_file_upload'), // when big file not finished upload chunks
                 409: this.$t('invalid_409'),
             }
         }
@@ -149,6 +150,10 @@ export default {
                 if(file.error) {
                     this.errorText = this.statusErrorCode['file']
                     return 1 //return false
+                }
+                if(file.progress < 100) {
+                    this.errorText = this.statusErrorCode['uploadFileNotFinished']
+                    return 1
                 }
                
             }
