@@ -204,6 +204,8 @@ namespace Cloudents.Core.Entities
             _documents.Remove(document);
         }
 
+        public virtual int Version { get;protected set; }
+
 
         //public virtual void SubscribeToAllStudyRooms()
         //{

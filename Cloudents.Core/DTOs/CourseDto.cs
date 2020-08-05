@@ -74,7 +74,7 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<CourseEditDocumentDto> Documents { get; set; }
 
         public IEnumerable<CourseEditStudyRoomDto> StudyRooms { get; set; }
-
+        public int Version { get; set; }
     }
 
 
