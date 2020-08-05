@@ -345,14 +345,17 @@ export default {
       tbody tr {
          td {
             border-bottom: none !important;
+            cursor:pointer;
          }
          td:nth-child(2) {
             padding-left: 0;
+            cursor:pointer;
             
          }
       }
       tr:nth-child(even) {
          background-color: #f5f5f5;
+         cursor:pointer;
       }
       .tableInfo{
          width: 400px;

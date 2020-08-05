@@ -6,9 +6,8 @@ export default {
     BOOK: "BOOK",
     STRIPE: "STRIPE",
     CALENDAR: "CALENDAR",
-    TEACH: "TEACH",
     SESSIONS: "SESSIONS",
-    UPLOAD: "UPLOAD",
+    TEST: "TEST",
 
     // tutorNotificationsState
     CHAT: "CHAT",

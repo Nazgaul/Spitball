@@ -56,7 +56,7 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            ///{course.Name}
+            //{course.Name}
             return Redirect($"/course/{course.Id}");
 
         }

@@ -6,7 +6,6 @@ using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.EventHandler;
 using Cloudents.Core.Storage;
 
 namespace Cloudents.Command.Courses

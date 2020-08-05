@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Attributes;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using System;
 
 namespace Cloudents.Core.DTOs

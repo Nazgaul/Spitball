@@ -29,7 +29,7 @@ namespace Cloudents.Infrastructure.Video
         public MediaServices(bool isDevelop)
         {
 
-            _context = new AsyncLazy<AzureMediaServicesClient>(async () => await Init(isDevelop));
+            _context = new AsyncLazy<AzureMediaServicesClient>(async () => await InitAsync(isDevelop));
         }
 
 
@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Video
         private const string StreamingTransformer = "StreamingTransformer";
         private const string FullHdTransformer = "FullHdTransformer";
 
-        private async Task<AzureMediaServicesClient> Init(bool isDevelop)
+        private async Task<AzureMediaServicesClient> InitAsync(bool isDevelop)
         {
             var jsonFile = "appsettings.json";
 
@@ -403,7 +403,7 @@ namespace Cloudents.Infrastructure.Video
             return await GetStreamingUrlAsync(locatorName, token);
         }
 
-        public async Task CreateShortStreamingLocator(long videoId, CancellationToken token)
+        public async Task CreateShortStreamingLocatorAsync(long videoId, CancellationToken token)
         {
             var client = await _context;
             try

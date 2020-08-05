@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Users
