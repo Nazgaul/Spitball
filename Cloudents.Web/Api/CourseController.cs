@@ -80,8 +80,8 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var command = new UpdateCourseCommand(userId, model.Name, model.Price,
-                model.SubscriptionPrice, model.Description, model.Image,
+            var command = new UpdateCourseCommand(userId, model.Name, (int)model.Price,
+                (int?)model.SubscriptionPrice, model.Description, model.Image,
                 model.StudyRooms.Select(s => new UpdateCourseCommand.UpdateLiveStudyRoomCommand(s.Name, s.Date)),
                 model.Documents.Select(
                     s => new UpdateCourseCommand.UpdateDocumentCommand(
