@@ -18,7 +18,7 @@
             </div>
             <div class="classInfo d-flex align-center pb-5">
                <v-icon class="pe-4" size="13" color="#69687d" v-text="'sbf-groupPersons'"/>
-               <div class="infoText">{{$tc('students_count',selectedClass.studentsCount)}}</div>
+               <div class="infoText">{{$tc('students_count',selectedClass.studentEnroll)}}</div>
             </div>
             <div class="classInfo d-flex align-baseline pb-2">
                <v-icon class="pe-4" size="10" color="#69687d" v-text="'sbf-link'"/>
