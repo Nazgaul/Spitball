@@ -13,7 +13,6 @@ namespace Cloudents.Core.Entities
         {
             Name = name;
             Tutor = tutor;
-            State = isPublish ? ItemState.Ok : ItemState.Pending;
             if (price < 0)
             {
                 throw new ArgumentException("Price cannot be negative");
@@ -23,6 +22,8 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("Subscription price cannot be negative");
             }
+            State = isPublish ? ItemState.Ok : ItemState.Pending;
+
             if (tutor.User.SbCountry == Country.Israel)
             {
                 if (price > 0 && price < 5)
@@ -69,7 +70,7 @@ namespace Cloudents.Core.Entities
 
         public virtual int Position { get; }
 
-        public virtual Money Price { get; set; }
+        public virtual Money Price { get; protected set; }
         public virtual Money? SubscriptionPrice { get; protected set; }
 
         public virtual void ChangeSubscriptionPrice(double? subscriptionPrice)
@@ -111,7 +112,27 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual ItemState State { get; set; }
+        public virtual ItemState State { get; protected internal set; }
+
+        public virtual void UpdateCourse(bool isPublish, double price)
+        {
+            State = isPublish ? ItemState.Ok : ItemState.Pending;
+
+            if (Tutor.User.SbCountry == Country.Israel)
+            {
+                if (price > 0 && price < 5)
+                {
+                    throw new ArgumentException("Cant have course which costs less then 5 shekel");
+                }
+                if (Tutor.SellerKey == null && price > 0)
+                {
+                    State = ItemState.Pending;
+                }
+
+            }
+
+            Price = Price.ChangePrice(price);
+        }
 
         public virtual void AddStudyRoom(BroadCastStudyRoom studyRoom)
         {

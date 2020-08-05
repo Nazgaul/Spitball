@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -44,11 +42,9 @@ namespace Cloudents.Command.Courses
             }
 
             course.Name = message.Name;
-            course.Price = course.Price.ChangePrice(message.Price);
             course.Description = message.Description;
             course.ChangeSubscriptionPrice(message.SubscriptionPrice);
-            //TODO continue need to check IL users;
-            course.State = message.IsPublish ? ItemState.Ok : ItemState.Pending;
+            course.UpdateCourse(message.IsPublish,message.Price);
             if (message.Image != null)
             {
                 await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
@@ -89,7 +85,7 @@ namespace Cloudents.Command.Courses
 
                 await _documentRepository.AddAsync(document, token);
                 var id = document.Id;
-                await _documentBlobProvider.MoveAsync(newDocuments.BlobName, id.ToString(), token);
+                await _documentBlobProvider.MoveAsync(newDocuments.BlobName ?? throw new InvalidOperationException(), id.ToString(), token);
                 course.AddDocument(document);
             }
             

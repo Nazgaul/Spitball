@@ -236,7 +236,7 @@ namespace Cloudents.Core.Entities
 
         public Money ChangePrice(double newMoney)
         {
-            return new Money(newMoney, Currency);
+            return new Money(RoundToNearestPenny(newMoney), Currency);
         }
 
         public override string ToString()
