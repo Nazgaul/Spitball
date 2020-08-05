@@ -58,3 +58,4 @@ export const notFound = '404'
 // Courses
 
 export const CourseCreate = 'create'
+export const CourseUpdate = 'edit'
