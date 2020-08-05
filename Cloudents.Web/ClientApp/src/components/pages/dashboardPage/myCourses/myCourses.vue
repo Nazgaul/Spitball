@@ -180,7 +180,6 @@ import { CourseCreate, CourseUpdate, StudyRoomLanding } from '../../../../routes
 
 // import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 // import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
-import draggable from 'vuedraggable'
 import Sortable from 'sortablejs'
 export default {
    name:'myCourses',
@@ -222,6 +221,7 @@ export default {
             this.$nextTick(() => {
                let tbodyElem = this.$refs.dataTable.$el.querySelector('tbody')
                let trElem = this.$refs.dataTable.$el.querySelectorAll('tbody > tr')
+               // tbodyElem.setAttribute('draggable', false)
                tbodyElem.id = 'dragTable'
                for (let i = 0; i < trElem.length; i++) {
                   const element = trElem[i];
@@ -267,9 +267,12 @@ export default {
          this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
       },
       dragReorder ({oldIndex, newIndex}) {
-         debugger
          const movedItem = this.coursesItems.splice(oldIndex, 1)[0]
-         this.desserts.splice(newIndex, 0, movedItem)
+         this.coursesItems.splice(newIndex, 0, movedItem)
+         this.$store.dispatch('updateCoursePosition', {
+            oldIndex,
+            newIndex
+         })
       },
       // formatPrice(price,type){
       //    if(isNaN(price)) return;

@@ -5,7 +5,16 @@
 
         <template v-if="showFiles">
             <div class="uploadFilesTitle mb-6 mt-4" v-t="'upload_files'" v-show="files.length"></div>
-            <uploadFiles v-for="(file, index) in files" :singleFileIndex="index" :item="file" :key="index" />
+                <draggable
+                    :list="files"
+                    class="list-group"
+                    ghost-class="ghost"
+                    :move="checkMove"
+                    @start="dragging = true"
+                    @end="dragging = false"
+                >
+                    <uploadFiles v-for="(file, index) in files" :singleFileIndex="index" :item="file" :key="index" />
+                </draggable>
         </template>
         <uploadMultipleFileStart class="mt-4" />
     </div>
@@ -15,6 +24,7 @@
 import uploadMultipleFileStart from './uploadMultipleFileStart.vue';
 import fileCardError from './fileCardError.vue';
 import uploadFiles from '../uploadFiles/uploadFiles.vue';
+import draggable from "vuedraggable";
 
 export default {
     name: 'courseUpload',
@@ -22,6 +32,12 @@ export default {
         uploadMultipleFileStart,
         fileCardError,
         uploadFiles,
+        draggable
+    },
+    date() {
+        return {
+            dragging: false
+        }
     },
     computed: {
         showFiles: {
@@ -37,6 +53,19 @@ export default {
         },
         files() {
             return this.$store.getters.getFileData
+        }
+    },
+    methods: {
+        checkMove: function(e) {
+            let {futureIndex, index} = e.draggedContext
+            const movedItem = this.files.splice(index, 1)[0]
+            this.files.splice(futureIndex, 0, movedItem)
+
+            // var item = list[oldIndex]; list.RemoveAt(oldIndex); if (newIndex > oldIndex) newIndex--; // the actual index could have shifted due to the removal list.Insert(newIndex, item);
+
+            // console.log(this.files.splice());
+            // this.files.splice(futureIndex, 0, index)
+            // window.console.log("Future index: " + e.draggedContext.futureIndex);
         }
     }
 }

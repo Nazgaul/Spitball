@@ -141,7 +141,15 @@ const actions = {
    },
    updateBillOffline(context,params){
       return salesService.updateBillOffline(params);
-   }
+   },
+   updateCoursePosition({commit}, {oldIndex, newIndex}) {
+      debugger
+      let params = {
+          oldPosition: oldIndex,
+          newPosition: newIndex
+      }
+      axios.post(`course/move`, params)
+  }
 };
 
 export default {
