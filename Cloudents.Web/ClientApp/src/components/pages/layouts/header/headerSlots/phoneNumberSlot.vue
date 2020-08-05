@@ -16,11 +16,11 @@ export default {
    data() {
       return {
          country:{
-            IL:{
-               previewNumber:'052-507-5638',
-               fullNumber:'972525075638',
-               text: this.$t(`headerSlots_phoneNumberSlot_text`),
-            },
+            // IL:{
+            //    previewNumber:'052-507-5638',
+            //    fullNumber:'972525075638',
+            //    text: this.$t(`headerSlots_phoneNumberSlot_text`),
+            // },
             IN:{
                previewNumber:'+91 8618134279',
                fullNumber:'918618134279',
@@ -30,21 +30,22 @@ export default {
       }
    },
    computed: {
-      currentCountry(){
-         if(global.siteName === 'frymo'){
-            return 'IN';
-         }else{
-            return 'IL'
-         }
-      },
+      // currentCountry(){
+      //    if(global.siteName === 'frymo'){
+      //       return 'IN';
+      //    }
+      //    else{
+      //       return 'IN'
+      //    }
+      // },
       previewNumber(){
-         return this.country[this.currentCountry].previewNumber;
+         return this.country['IN'].previewNumber;
       },
       fullNumber(){
-         return this.country[this.currentCountry].fullNumber;
+         return this.country['IN'].fullNumber;
       },
       text(){
-         return this.country[this.currentCountry].text;
+         return this.country['IN'].text;
       }
    },
 }
