@@ -120,8 +120,8 @@ export default {
                     return 
                 }
 
+                studyRooms = studyRooms === 0 ? [] : studyRooms
                 let documents = this.documentMap(files);
-
 
                 let id = this.$route.params.id ? this.$route.params.id : undefined
                 let methodName = id ? 'update' : 'create'
