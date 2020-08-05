@@ -62,6 +62,9 @@ export default {
                 item: this.item
             });
         }
+    },
+    created() {
+        this.fileSwitch = this.item.visible
     }
 }
 </script>

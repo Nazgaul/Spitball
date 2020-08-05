@@ -32,6 +32,7 @@ const mutations = {
             this.error = objInit.error || false;
             this.errorText = objInit.errorText || '';
             this.description = objInit.description || '';
+            this.visible = objInit.visible === undefined ? true : objInit.visible
         }
         state.fileData.push(new FileData(file));
     },
