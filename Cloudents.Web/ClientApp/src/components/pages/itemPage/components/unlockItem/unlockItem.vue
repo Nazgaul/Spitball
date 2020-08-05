@@ -109,7 +109,6 @@ export default {
       .unlockItem_document_container{
          width: 100%;
          height: 100%;
-         border: solid 1px #e2e2e2;
          text-align: center;
          color: #4d4b69;
          display: flex;
@@ -174,7 +173,6 @@ export default {
       .unlockItem_video_container{
          width: 100%;
          height: 100%;
-         border: solid 1px #e2e2e2;
          text-align: center;
          color: #4d4b69;
          display: flex;
