@@ -75,7 +75,7 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
     },
     watch: {
       scheduledClassesList(val){
-        this.events = this.scheduledClassesList
+        this.events = val;
         this.$refs.scheduledCalendar.checkChange();
       }
     },
@@ -120,7 +120,7 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
 
         nativeEvent.stopPropagation()
       },
-      updateRange ({ start, end }) {
+      updateRange () {
         this.events = this.scheduledClassesList
       },
     },
