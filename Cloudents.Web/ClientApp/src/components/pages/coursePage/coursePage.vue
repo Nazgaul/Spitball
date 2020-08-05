@@ -94,24 +94,27 @@ export default {
                 this.loading = true
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
-                let documents = this.documentValidate(files)
+                let documentsValidation = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
                 
                 //if(documents === false || studyRooms === false) {
-                if(documents === 1 || studyRooms === 1) {
+                if(documentsValidation === 1 || studyRooms === 1) {
                     this.showSnackbar = true
                     this.loading = false
                     return
                 }
 
                 // if(!documents.length && !studyRooms.length) {
-                if(documents === 0 && studyRooms === 0) {
+                if(documentsValidation === 0 && studyRooms === 0) {
                     this.errorText = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
                     this.loading = false
                     this.goTo('courseUpload')
                     return 
                 }
+
+                let documents = this.documentMap(files);
+
 
                 let id = this.$route.params.id ? this.$route.params.id : undefined
                 let methodName = id ? 'update' : 'create'
@@ -135,13 +138,20 @@ export default {
         documentValidate(files) {
             if(!files.length) return 0 // return []
 
-            let i, filesArr = []
-            for (i = 0; i < files.length; i++) {
+            for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if(file.error) {
                     this.errorText = this.statusErrorCode['file']
                     return 1 //return false
                 }
+               
+            }
+            return 2;
+        },
+        documentMap(files) {
+           let filesArr = []
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
                 filesArr.push({
                     blobName: file.blobName,
                     name: file.name,
