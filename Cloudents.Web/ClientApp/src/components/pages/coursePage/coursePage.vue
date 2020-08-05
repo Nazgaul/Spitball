@@ -139,6 +139,14 @@ export default {
                     self.loading = false
                 })
             } else {
+                // debugger
+                // let elemRef = this.$refs.createCourse
+                // for (let i = 0; i < elemRef.inputs.length; i++) {
+                //     const element = elemRef.inputs[i];
+                //     if(element.errorBucket.length > 0) {
+                //        this.$vuetify.goTo(element) 
+                //     }
+                // }
                 this.goTo('courseInfo')
             }
         },
@@ -212,7 +220,10 @@ export default {
             return studyRoomArr
         },
         goTo(ref) {
-            this.$vuetify.goTo(this.$refs[ref])
+            let options = {
+                offset: ref === 'courseInfo' ? '0': null,
+            }
+            this.$vuetify.goTo(this.$refs[ref], options)
         }
     },
     beforeDestroy(){
