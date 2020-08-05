@@ -40,7 +40,7 @@
             <template v-slot:item.preview="{item}">
                   <div class="tablePreview">
                      <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
-                     <v-skeleton-loader v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
+                     <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
                      <!-- <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
                         <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
                      </v-avatar> -->
