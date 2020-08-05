@@ -157,7 +157,7 @@ const actions = {
             price: state.followerPrice,
             subscriptionPrice: state.subscribePrice,
             description: state.description,
-            image: state.courseCoverImage,
+            image: state.courseCoverImage.startsWith("https://") ? undefined : state.courseCoverImage,
             isPublish: state.courseVisible,
             studyRooms,
             documents
