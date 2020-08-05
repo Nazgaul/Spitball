@@ -40,13 +40,14 @@ namespace Cloudents.Command.Courses
             {
                 throw new UnauthorizedAccessException();
             }
-
+            course.DomainTime.UpdateTime = DateTime.UtcNow;
             course.Name = message.Name;
             course.Description = message.Description;
             course.ChangeSubscriptionPrice(message.SubscriptionPrice);
             course.UpdateCourse(message.IsPublish,message.Price);
             if (message.Image != null)
             {
+               
                 await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
             }
 

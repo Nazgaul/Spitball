@@ -4,20 +4,6 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
-    //public sealed class OldCourseMap : ClassMap<OldCourse>
-    //{
-    //    public OldCourseMap()
-    //    {
-    //        Id(e => e.Id).Column("Name").GeneratedBy.Assigned().Length(150);
-    //        Map(x => x.Count).Not.Nullable();
-    //        Map(x => x.Created).Insert().Not.Update();
-    //        DynamicUpdate();
-    //        OptimisticLock.Version();
-    //        Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
-    //        Table("Course");
-    //    }
-    //}
 
     public sealed class CourseMap : ClassMap<Course>
     {
@@ -33,7 +19,11 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
-            Map(x => x.Create);
+            Component(x => x.DomainTime, z =>
+            {
+                z.Map(c => c.CreationTime).Column("Create").Insert().Not.Update();
+                z.Map(c => c.UpdateTime);
+            });
 
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()

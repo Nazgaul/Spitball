@@ -41,7 +41,7 @@ namespace Cloudents.Core.Entities
             {
                 SubscriptionPrice = new Money(subscriptionPrice.GetValueOrDefault(), Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
             }
-            Create = DateTime.UtcNow;
+            DomainTime = new DomainTimeStamp();
             Description = description;
             StartTime = startTime ?? DateTime.UtcNow;
             Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
@@ -160,7 +160,7 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<BroadCastStudyRoom> StudyRooms => _studyRooms;
 
-        public virtual DateTime Create { get; protected set; }
+        public virtual DomainTimeStamp DomainTime { get; protected set; }
 
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
         private DateTime? _startTime;
