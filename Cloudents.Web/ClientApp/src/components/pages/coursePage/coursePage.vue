@@ -129,14 +129,12 @@ export default {
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(() => {
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    console.error(ex);
-                    self.errorText = ex
-                    if(ex.response.status) {
+                    self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                    if(ex.response.status === 409) {
                         self.errorText = this.statusErrorCode[ex.response.status]
                     }
                     self.showSnackbar = true
                 }).finally(() => {
-                    
                     self.loading = false
                 })
             } else {
