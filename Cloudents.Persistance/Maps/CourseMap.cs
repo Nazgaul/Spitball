@@ -23,6 +23,7 @@ namespace Cloudents.Persistence.Maps
     {
         public CourseMap()
         {
+            DynamicUpdate();
             Id(x=>x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "5",
                 $"{nameof(HiLoGenerator.TableName)}='Course'");
             Map(x => x.Name).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
@@ -52,6 +53,7 @@ namespace Cloudents.Persistence.Maps
 
             References(x => x.Tutor).Not.Nullable();
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            Version(x => x.Version).Nullable();
             Table("Course2");
         }
     }

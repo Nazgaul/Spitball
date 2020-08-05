@@ -40,7 +40,8 @@ namespace Cloudents.Query.Users
                         Description = s.Description,
                         Id = s.Id,
                         StudyRoomCount = s.StudyRooms.Count(),
-                        StartTime = s.StartTime
+                        StartTime = s.StartTime,
+                        Version = s.Version
                     }).ToListAsync(token);
 
                 return result;

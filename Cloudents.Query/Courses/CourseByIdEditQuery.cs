@@ -42,7 +42,8 @@ namespace Cloudents.Query.Courses
                         Price = s.Price,
                         SubscriptionPrice = s.SubscriptionPrice,
                         Description = s.Description,
-                        Visible = s.State == ItemState.Ok 
+                        Visible = s.State == ItemState.Ok ,
+                        Version = s.Version
                     }).ToFutureValue();
 
 

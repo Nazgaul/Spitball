@@ -17,6 +17,8 @@ namespace Cloudents.Core.DTOs
 
     public class CourseDto
     {
+        [NonSerialized]
+        public int Version;
         public long Id { get; set; }
         public string Name { get; set; }
 
@@ -53,6 +55,9 @@ namespace Cloudents.Core.DTOs
         public DateTime? BroadcastTime { get; set; }
 
         [NonSerialized]
+        public int Version;
+
+        [NonSerialized]
         public Money? SubscriptionPrice;
 
         [NonSerialized]
@@ -75,6 +80,7 @@ namespace Cloudents.Core.DTOs
 
         public IEnumerable<CourseEditStudyRoomDto> StudyRooms { get; set; }
 
+        [NonSerialized] public int Version;
     }
 
 

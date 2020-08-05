@@ -44,22 +44,7 @@ namespace Cloudents.Query.Courses
                     .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
                     .Select(s => new CourseDetailDto
                     {
-                        //Documents = s.Documents.Where(w => w.Status.State == ItemState.Ok).Select(s2 =>
-                        //    new DocumentFeedDto()
-                        //    {
-                        //        Title = s2.Name,
-                        //        DocumentType = s2.DocumentType,
-                        //        Id = s2.Id,
-                        //        Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
-                        //    }),
                         Id = s.Id,
-                        //StudyRooms = s.StudyRooms.Where(w => w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(
-                        //    s2 => new FutureBroadcastStudyRoomDto()
-                        //    {
-                        //        Id = s2.Id,
-                        //        DateTime = s2.BroadcastTime,
-                        //        Name = s2.Description
-                        //    }),
                         TutorId = s.Tutor.Id,
                         Name = s.Name,
                         Price = s.Price,
@@ -70,6 +55,7 @@ namespace Cloudents.Query.Courses
                         TutorSellerKey = s.Tutor.SellerKey,
                         Description = s.Description,
                         TutorBio = s.Tutor.Paragraph2,
+                        Version = s.Version
                     }).ToFutureValue();
 
 
