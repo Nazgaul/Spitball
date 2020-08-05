@@ -21,6 +21,7 @@
             :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
             :label="$t('follower_price')"
             :prefix="getSymbol"
+            onkeypress="return !(event.charCode == 46)"
             placeholder=" "
             dense
             color="#304FFE"
@@ -46,6 +47,7 @@
                 :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
                 :label="$t('subscriber_price')"
                 :prefix="getSymbol"
+                onkeypress="return !(event.charCode == 46)"
                 placeholder=" "
                 dense
                 color="#304FFE"

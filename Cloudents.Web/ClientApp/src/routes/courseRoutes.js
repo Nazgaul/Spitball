@@ -1,6 +1,6 @@
 import store from '../store'
 import { staticComponents } from './routesUtils'
-import { CourseCreate } from './routeNames'
+import { CourseCreate, CourseUpdate } from './routeNames'
 export const courseRoutes = [
    {
       path: "/courses",
@@ -29,7 +29,7 @@ export const courseRoutes = [
          },
          {
             path: ':id/edit',
-            name: CourseCreate,
+            name: CourseUpdate,
          },
          {
             path: '*',

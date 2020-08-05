@@ -6,7 +6,14 @@
                 <div class="courseLeftSide">
                     <courseInfo ref="courseInfo" />
                     <div class="courseTeachingWrapper mb-6">
+                        <div class="pa-5">
+                            <div class="courseTeachingTitle" v-t="'set_Teaching'"></div>
+                        </div>
                         <courseTeaching v-for="n in numberOfLecture" :key="n" :index="n" />
+                        <div class="addLecture d-flex pa-5 pt-0">
+                            <v-icon size="14" color="#4c59ff">sbf-plus-regular</v-icon>
+                            <button class="ms-1" v-t="'another_lecture'" @click.prevent="$store.commit('setNumberOfLecture', numberOfLecture + 1)"></button>
+                        </div>
                     </div>
                     <courseUpload ref="courseUpload" />
                 </div>
@@ -234,6 +241,20 @@ export default {
             background: #fff;
             border-radius: 6px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+
+            .courseTeachingTitle {
+                font-size: 20px;
+                font-weight: 600;
+                color: @global-purple;
+            }
+            .addLecture {
+                font-size: 16px;
+                color: #4c59ff;
+
+                button {
+                    outline: none;
+                }
+            }
         }
     }
     .courseRightSide {

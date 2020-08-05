@@ -68,7 +68,24 @@
             </template>
 
             <template v-slot:item.isPublish="{item}">
-               <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
+               <div class="d-flex">
+                  <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
+               </div>
+            </template>
+
+            <template v-slot:item.action="{item}">
+               <v-menu offset-y>
+                  <template v-slot:activator="{ on }">
+                     <v-icon size="18" v-on="on">sbf-3-dot</v-icon>
+                  </template>
+                  <v-list>
+                  <v-list-item
+                     :to="{name: uppdateCourseRoute, params: { id: item.id }}"
+                  >
+                     <v-list-item-title v-t="'go_edit'"></v-list-item-title>
+                  </v-list-item>
+                  </v-list>
+               </v-menu>
             </template>
 
             <!-- <template v-slot:item.info="{item}">
@@ -156,7 +173,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { CourseCreate, StudyRoomLanding } from '../../../../routes/routeNames'
+import { CourseCreate, CourseUpdate, StudyRoomLanding } from '../../../../routes/routeNames'
 
 // import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 // import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
@@ -173,6 +190,7 @@ export default {
    data() {
       return {
          isLoaded: false,
+         uppdateCourseRoute: CourseUpdate,
          createCourseRoute: CourseCreate,
          // currentItem: '',
          // isChangeNameDialog: false,
@@ -187,6 +205,7 @@ export default {
             {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users'},
             {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
             {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish'},
+            {text: '', align:'', sortable: false, value:'action'},
          ]
       }
    },

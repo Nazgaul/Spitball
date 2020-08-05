@@ -237,6 +237,7 @@
   "formErrors_required": "This field is required",
   "free": "Free",
   "free_enroll": "Enroll",
+  "go_edit": "@:profile_edit_image_text",
   "got_it": "Got it",
   "header_balance": "Balance: {0} Pts",
   "header_greets": "{0}",
