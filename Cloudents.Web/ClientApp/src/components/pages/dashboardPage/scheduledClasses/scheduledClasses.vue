@@ -7,8 +7,8 @@
           <v-sheet height="64">
             <v-toolbar flat color="white">
               <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">{{$moment().calendar().split(' ')[0]}}</v-btn>
-              <v-btn fab text small color="grey darken-2" @click="prev"><v-icon small v-text="'sbf-arrow-left-carousel'"/></v-btn>
-              <v-btn fab text small color="grey darken-2" @click="next"><v-icon small v-text="'sbf-arrow-right-carousel'"/></v-btn>
+              <v-btn fab text small color="grey darken-2" @click="prev"><v-icon small v-text="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'"/></v-btn>
+              <v-btn fab text small color="grey darken-2" @click="next"><v-icon small v-text="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'"/></v-btn>
               <v-toolbar-title v-if="$refs.scheduledCalendar">{{ $refs.scheduledCalendar.title }}</v-toolbar-title>
               <v-spacer></v-spacer>
 
@@ -59,6 +59,7 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
     components:{classCard,unSupportedFeature},
     data() {
       return {
+        isRtl:global.isRtl,
         focus: '',
         type: 'month',
         typeToLabel: {
