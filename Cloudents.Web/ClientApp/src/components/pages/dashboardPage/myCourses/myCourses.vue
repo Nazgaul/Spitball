@@ -7,6 +7,7 @@
             :items-per-page="5"
             :mobile-breakpoint="0"
             :item-key="'itemId'"
+            ref="dataTable"
             sort-by
             class="myCourses_table"
             :footer-props="{
@@ -179,9 +180,13 @@ import { CourseCreate, CourseUpdate, StudyRoomLanding } from '../../../../routes
 
 // import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 // import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
-
+import draggable from 'vuedraggable'
+import Sortable from 'sortablejs'
 export default {
    name:'myCourses',
+   components: {
+      // draggable,
+   },
    // components:{sbDialog,changeNameDialog},
    // props:{
    //    dictionary:{
@@ -211,6 +216,30 @@ export default {
          ]
       }
    },
+   watch: {
+      coursesItems(items) {
+         if(items.length) {
+            this.$nextTick(() => {
+               let tbodyElem = this.$refs.dataTable.$el.querySelector('tbody')
+               let trElem = this.$refs.dataTable.$el.querySelectorAll('tbody > tr')
+               tbodyElem.id = 'dragTable'
+               for (let i = 0; i < trElem.length; i++) {
+                  const element = trElem[i];
+                  element.classList.add('sortableRow', 'sortHandle')
+               }
+               new Sortable(
+                  document.querySelector('#dragTable'),
+                  {
+                     draggable: '.sortableRow',
+                     handle: '.sortHandle',
+                     onEnd: this.dragReorder
+                  }
+               ) 
+
+            })
+         }
+      }
+   },
    computed: {
       ...mapGetters(['getCoursesItems','accountUser']),
       // canCreateCourse() {
@@ -236,6 +265,11 @@ export default {
             return
          }
          this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
+      },
+      dragReorder ({oldIndex, newIndex}) {
+         debugger
+         const movedItem = this.coursesItems.splice(oldIndex, 1)[0]
+         this.desserts.splice(newIndex, 0, movedItem)
       },
       // formatPrice(price,type){
       //    if(isNaN(price)) return;
@@ -283,6 +317,23 @@ export default {
    created() {
       this.$store.dispatch('updateCoursesItems')
    },
+   // mounted() {
+   //    this.$nextTick(() => {
+   //       let tbodyElem = this.$refs.dataTable.$el.querySelector('tbody')
+   //       let trElem = this.$refs.dataTable.$el.querySelector('tbody > tr')
+   //       debugger
+   //       tbodyElem.id = 'dragTable'
+   //       trElem.classList.add('sortableRow sortHandle')
+   //       new Sortable(
+   //          document.querySelector('#dragTable'),
+   //          {
+   //             draggable: '.sortableRow',
+   //             handle: '.sortHandle',
+   //             onEnd: this.dragReorder
+   //          }
+   //       ) 
+   //    })
+   // }
 }
 </script>
 
