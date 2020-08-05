@@ -73,17 +73,18 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
         events: [],
       }
     },
+    watch: {
+      scheduledClassesList(val){
+        this.events = this.scheduledClassesList
+        this.$refs.scheduledCalendar.checkChange();
+      }
+    },
     computed: {
       scheduledClassesList(){
         return this.$store.getters.getScheduledClasses;
       },
       isMobile() {
         return this.$vuetify.breakpoint.xsOnly
-      }
-    },
-    mounted () {
-      if(!this.isMobile){
-        this.$refs.scheduledCalendar.checkChange()
       }
     },
     methods: {
