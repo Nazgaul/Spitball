@@ -17,6 +17,7 @@
          calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
+         :mobile-breakpoint="0"
          :items="salesItems"
          :items-per-page="20"
          sort-by
@@ -71,7 +72,7 @@
                <v-btn 
                   color="#02C8BF"
                   class="white--text"
-                  width="120"
+                  width="100"
                   depressed
                   rounded
                   v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
