@@ -93,7 +93,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { CourseCreate, CourseUpdate, StudyRoomLanding } from '../../../../routes/routeNames'
+import { CourseCreate, CourseUpdate, CoursePage } from '../../../../routes/routeNames'
 
 export default {
    name:'myCourses',
@@ -137,7 +137,7 @@ export default {
          if(!item.isPublish) {
             return
          }
-         this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
+         this.$router.push({name: CoursePage, params: { id: item.id }})
       },
    },
    beforeDestroy() {

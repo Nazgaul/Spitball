@@ -42,9 +42,6 @@ export const Dashboard = 'dashboardTeacher';
 // Study Room:
 export const StudyRoom = 'tutoring';
 
-// StudyRoom Landing Page:
-export const StudyRoomLanding = 'live';
-
 // Question:
 export const Question = 'question';
 
@@ -59,3 +56,4 @@ export const notFound = '404'
 
 export const CourseCreate = 'create'
 export const CourseUpdate = 'edit'
+export const CoursePage = 'course'
