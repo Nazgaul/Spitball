@@ -149,6 +149,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as routeNames from "../../../../routes/routeNames";
+import * as componentConsts from '../../global/toasterInjection/componentConsts.js';
 
 import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoomGreen.svg";
@@ -274,10 +275,9 @@ export default {
       "deleteStudyRoomSession"
     ]),
     openPrivateSession() {
-      this.$store.commit("setComponent", "createPrivateSession");
+      this.$store.commit("addComponent", componentConsts.SESSION_CREATE_DIALOG);
     },
     openLiveSession() {
-      this.$store.commit("setComponent", "createLiveSession");
     },
     deleteSession(id) {
       let self = this;
