@@ -45,9 +45,9 @@ function DocumentObject(objInit){
 }
 
 export default {
-    async changeDocumentName(data){ 
-        return await documentInstance.post('rename',data)
-    },
+    // async changeDocumentName(data){ 
+    //     return await documentInstance.post('rename',data)
+    // },
     // async deleteDoc(id){ 
     //    return await documentInstance.delete(`${id}`)
     // },

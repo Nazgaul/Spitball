@@ -29,12 +29,11 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Md5).Nullable();
            //Map(x => x.PurchaseCount).Column("Purchased");
-            //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
-            HasMany(x => x.Transactions)
-                .KeyColumn("DocumentId")
-                //.Cascade.()
-                .Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
-                .Inverse();
+            //HasMany(x => x.Transactions)
+            //    .KeyColumn("DocumentId")
+            //    //.Cascade.()
+            //    .Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
+            //    .Inverse();
            
 
             HasMany(x => x.DocumentDownloads)

@@ -70,11 +70,11 @@ namespace Cloudents.Core.Entities
 
         //public virtual 
 
-       [Obsolete]
-        // ReSharper disable once CollectionNeverUpdated.Local 
-        private readonly IList<Transaction> _transactions = new List<Transaction>();
-        [Obsolete]
-        public virtual IEnumerable<Transaction> Transactions => _transactions;
+        //[Obsolete]
+        //// ReSharper disable once CollectionNeverUpdated.Local 
+        //private readonly IList<Transaction> _transactions = new List<Transaction>();
+        //[Obsolete]
+        //public virtual IEnumerable<Transaction> Transactions => _transactions;
 
         public virtual ItemStatus Status { get;  set; }
 
@@ -83,9 +83,6 @@ namespace Cloudents.Core.Entities
        // public virtual int? PurchaseCount { get; protected set; }
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
-
-        //[Obsolete]
-        //public virtual DocumentPrice DocumentPrice { get; protected set; }
 
         public virtual void AddDownload(User user)
         {
