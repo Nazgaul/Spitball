@@ -54,6 +54,10 @@ const mutations = {
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
       state.salesItems[index].paymentStatus = "Pending";
    },
+   setUpdateItemPosition(state, pos) {
+      const movedItem = state.coursesItems.slice(pos.oldPosition, 1)[0]
+      state.coursesItems.slice(pos.newPosition, 0, movedItem)
+   },
    resetCourseItems(state) {
       state.coursesItems = []
    }
@@ -142,13 +146,15 @@ const actions = {
    updateBillOffline(context,params){
       return salesService.updateBillOffline(params);
    },
-   updateCoursePosition(context, {oldIndex, newIndex}) {
+   updateCoursePosition({commit}, {oldIndex, newIndex}) {
       if(oldIndex !== newIndex) {
          let params = {
             oldPosition: oldIndex,
             newPosition: newIndex
          }
-         axios.post(`course/move`, params)
+         axios.post(`course/move`, params).then(() => {
+            commit('setUpdateItemPosition', params)
+         })
       }
    }
 };

@@ -38,7 +38,8 @@
             </template>
 
             <template v-slot:item.preview="{item}">
-                  <div class="tablePreview">
+                  <div class="tablePreview d-flex align-center">
+                     <!-- <div class="tableIndex me-2">{{item.itemId + 1}}</div> -->
                      <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
                      <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
                      <!-- <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
@@ -267,8 +268,6 @@ export default {
          this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
       },
       dragReorder ({oldIndex, newIndex}) {
-         const movedItem = this.coursesItems.splice(oldIndex, 1)[0]
-         this.coursesItems.splice(newIndex, 0, movedItem)
          this.$store.dispatch('updateCoursePosition', {
             oldIndex,
             newIndex
@@ -319,24 +318,7 @@ export default {
    },
    created() {
       this.$store.dispatch('updateCoursesItems')
-   },
-   // mounted() {
-   //    this.$nextTick(() => {
-   //       let tbodyElem = this.$refs.dataTable.$el.querySelector('tbody')
-   //       let trElem = this.$refs.dataTable.$el.querySelector('tbody > tr')
-   //       debugger
-   //       tbodyElem.id = 'dragTable'
-   //       trElem.classList.add('sortableRow sortHandle')
-   //       new Sortable(
-   //          document.querySelector('#dragTable'),
-   //          {
-   //             draggable: '.sortableRow',
-   //             handle: '.sortHandle',
-   //             onEnd: this.dragReorder
-   //          }
-   //       ) 
-   //    })
-   // }
+   }
 }
 </script>
 
@@ -366,7 +348,6 @@ export default {
       .tablePreview{
          line-height: 0;
          padding-right: 0 !important;
-         width: 104px;
          position: relative;
          // .tablePreview_online{
          //    position: absolute;
@@ -376,6 +357,10 @@ export default {
          //    background-color: #00ff14;
          //    top: 16px;
          //    left: 28px;
+         // }
+         // .tableIndex {
+         //    color: @global-purple;
+         //    font-weight: 600;
          // }
          .tablePreview_img{
             margin: 10px 0;
@@ -452,6 +437,14 @@ export default {
          .v-data-footer__pagination {
             font-size: 14px;
             color: @global-purple;
+         }
+      }
+      .sortableRow {
+         &.sortable-chosen {
+            background: #E2E8EE !important;
+         }
+         &.sortable-ghost {
+            background: #E2E8EE !important;
          }
       }
    }
