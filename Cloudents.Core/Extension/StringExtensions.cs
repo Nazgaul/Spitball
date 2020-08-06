@@ -3,6 +3,39 @@ using System.Collections.Generic;
 
 namespace Cloudents.Core.Extension
 {
+    public static class ListExtensions
+    {
+        public static void Move<T>(this IList<T> list, int oldIndex, int newIndex)
+        {
+            if (oldIndex == newIndex)
+            {
+                return;
+            }
+            var item =list[oldIndex];
+            list.RemoveAt(oldIndex);
+            if (newIndex > oldIndex) newIndex--; 
+            list.Insert(newIndex, item);
+        }
+
+        public static int FindIndex<T>(
+            this IEnumerable<T> collection, Func<T, bool> predicate, out T val)
+        {
+            int i = 0;
+            foreach (var item in collection)
+            {
+                if (predicate(item))
+                {
+                    val = item;
+                    return i;
+                }
+
+                i++;
+            }
+
+            val = default;
+            return -1;
+        }
+    }
     public static class StringExtensions
     {
         public static bool Contains(this string source, string toCheck, StringComparison comp)

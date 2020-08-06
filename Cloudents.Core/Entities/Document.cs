@@ -124,5 +124,6 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? Duration { get; set; }
 
         public virtual string? Md5 { get; set; }
+        public virtual int? Position { get; set; }
     }
 }
