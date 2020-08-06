@@ -21,7 +21,7 @@
         </div>
 
       </div>
-
+        <profileFloatingBtn/>
         <profileFooter />
 
     </div>
@@ -38,6 +38,7 @@ import profileBroadcasts from './components/profileLiveClasses/profileBroadcasts
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 // import profileFAQ from './components/profileFAQ/profileFAQ.vue';
 import profileFooter from './components/profileFooter/profileFooter.vue';
+import profileFloatingBtn from './components/profileFloatingBtn.vue';
 
 export default {
     name: "new_profile",
@@ -52,6 +53,7 @@ export default {
         profileReviewsBox,
         // profileFAQ,
         profileFooter,
+        profileFloatingBtn,
     },
     props: {
         id: {
@@ -181,6 +183,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
   .coverWrapper {
     position: relative;
   }
