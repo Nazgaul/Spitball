@@ -158,9 +158,9 @@ const actions = {
    updateSessionDuration(context, session) {
       return dashboardService.updateSessionDuration(session)
    },
-   deleteStudyRoomSession(context, id) {
-      return dashboardService.removeStudyRoomSession(id)
-   },
+   // deleteStudyRoomSession(context, id) {
+   //    return dashboardService.removeStudyRoomSession(id)
+   // },
    updateBillOffline(context,params){
       return salesService.updateBillOffline(params);
    },

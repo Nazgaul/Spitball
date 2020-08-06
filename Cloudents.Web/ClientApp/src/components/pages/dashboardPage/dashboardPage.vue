@@ -52,7 +52,6 @@ export default {
                'joined': {text: this.$t('dashboardPage_joined'), align:'', sortable: true, value:'date'},
                'name': {text: this.$t('dashboardPage_name'), align:'', sortable: true, value:'name'},
                'students': {text: this.$t('dashboardPage_students'), align:'', sortable: true, value:'students'},
-               'scheduled': {text: this.$t('dashboardPage_scheduled'), align:'', sortable: true, value:'scheduled'},
             }
          },
       }
