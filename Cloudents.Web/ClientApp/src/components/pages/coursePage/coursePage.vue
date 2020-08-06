@@ -91,6 +91,7 @@ export default {
                 duplicateDate: this.$t('invalid_duplicate_date'),
                 studyRoomText: this.$t('invalid_studyroom_text'), // when there is no text in one of the studyroom
                 file: this.$t('invalid_file'), // when there error in 1 of file
+                uploadFileNotFinished: this.$t('invalid_file_upload'), // when big file not finished upload chunks
                 409: this.$t('invalid_409'),
             }
         }
@@ -138,6 +139,14 @@ export default {
                     self.loading = false
                 })
             } else {
+                // debugger
+                // let elemRef = this.$refs.createCourse
+                // for (let i = 0; i < elemRef.inputs.length; i++) {
+                //     const element = elemRef.inputs[i];
+                //     if(element.errorBucket.length > 0) {
+                //        this.$vuetify.goTo(element) 
+                //     }
+                // }
                 this.goTo('courseInfo')
             }
         },
@@ -149,6 +158,10 @@ export default {
                 if(file.error) {
                     this.errorText = this.statusErrorCode['file']
                     return 1 //return false
+                }
+                if(file.progress < 100) {
+                    this.errorText = this.statusErrorCode['uploadFileNotFinished']
+                    return 1
                 }
                
             }
@@ -207,7 +220,10 @@ export default {
             return studyRoomArr
         },
         goTo(ref) {
-            this.$vuetify.goTo(this.$refs[ref])
+            let options = {
+                offset: ref === 'courseInfo' ? '0': null,
+            }
+            this.$vuetify.goTo(this.$refs[ref], options)
         }
     },
     beforeDestroy(){
