@@ -222,11 +222,16 @@
   "documentPage_unlock_video_btn": "פתח",
   "documentPage_unlock_video_subtitle": "רוצים לראות את הסרטון המלא?",
   "edit": "עריכת פרופיל",
+  "email_me": "שלח אימייל",
   "ends": "נגמר",
   "enter_room": "הכנס",
   "faq": "",
   "faq subtitle": "",
+<<<<<<< HEAD
   "follow_me": "",
+=======
+  "financial_status": "",
+>>>>>>> origin/develop
   "follower_price": "מחיר ללא מנויים",
   "formErrors_email": "כתובת הדואר האלקטרוני אינה חוקית",
   "formErrors_integer": "מספרים שלמים בלבד",
