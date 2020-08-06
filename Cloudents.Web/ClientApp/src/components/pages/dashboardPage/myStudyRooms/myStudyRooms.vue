@@ -441,6 +441,10 @@ export default {
         padding-bottom: 14px;
         font-weight: normal;
         border-top: thin solid rgba(0, 0, 0, 0.12);
+
+        &:nth-child(2) {
+          width: 120px;
+        }
       }
     }
     color: #43425d !important;
