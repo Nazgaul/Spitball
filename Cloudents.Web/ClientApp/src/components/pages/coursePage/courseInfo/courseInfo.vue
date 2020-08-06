@@ -19,7 +19,7 @@
             type="number"
             class="priceFollower"
             :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
-            :label="$t('follower_price')"
+            :label="isSubscription ? $t('follower_price') : $t('price')"
             :prefix="getSymbol"
             onkeypress="return !(event.charCode == 46)"
             placeholder=" "
@@ -31,32 +31,23 @@
         >
         </v-text-field>
 
-        <!-- <template v-if="isSubscription"> -->
-            <!-- <v-switch
-                v-model="subscribeSwitch"
-                class="mb-7 mt-0 pa-0"
-                :label="$t('set_subscriber_price')"
-                hide-details
-            ></v-switch> -->
-
-            <v-text-field
-                v-model="subscriberPrice"
-                v-if="isSubscription"
-                type="number"
-                class="priceSubscriber mb-6"
-                :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
-                :label="$t('subscriber_price')"
-                :prefix="getSymbol"
-                onkeypress="return !(event.charCode == 46)"
-                placeholder=" "
-                dense
-                color="#304FFE"
-                autocomplete="off"
-                height="50"
-                outlined
-            >
-            </v-text-field>
-        <!-- </template> -->
+        <v-text-field
+            v-model="subscriberPrice"
+            v-if="isSubscription"
+            type="number"
+            class="priceSubscriber mb-6"
+            :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
+            :label="$t('subscriber_price')"
+            :prefix="getSymbol"
+            onkeypress="return !(event.charCode == 46)"
+            placeholder=" "
+            dense
+            color="#304FFE"
+            autocomplete="off"
+            height="50"
+            outlined
+        >
+        </v-text-field>
 
         <v-textarea
             v-model="courseDescription"
