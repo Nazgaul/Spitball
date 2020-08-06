@@ -198,7 +198,7 @@ export default {
                 .center {
                     color: #363637;
                     .description {
-                        font-size: 14px;
+                        font-size: 15px;
                         line-height: 1.6;
                         color: #363637;
                         white-space: pre-line;
@@ -212,7 +212,7 @@ export default {
                     color: #363637;
                     .number {
                         font-size: 18px;
-                        font-weight: bold;
+                        font-weight: 600;
                         @media(max-width: @screen-xs) {
                             font-size: 16px;
                         }
