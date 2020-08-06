@@ -440,7 +440,6 @@ export default {
         padding-top: 14px;
         padding-bottom: 14px;
         font-weight: normal;
-        min-width: 100px;
         border-top: thin solid rgba(0, 0, 0, 0.12);
       }
     }
