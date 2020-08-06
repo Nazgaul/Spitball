@@ -60,6 +60,10 @@ export default {
             let {futureIndex, index} = e.draggedContext
             const movedItem = this.files.slice(index, 1)[0]
             this.files.slice(futureIndex, 0, movedItem)
+            this.$store.commit('updateDocumentPosition', {
+                oldIndex: index,
+                newIndex: futureIndex
+            })
         }
     }
 }
