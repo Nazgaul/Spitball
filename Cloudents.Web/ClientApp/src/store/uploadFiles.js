@@ -80,16 +80,7 @@ const actions = {
             }).catch(ex => {
                 console.error('error drop box api call', ex);
             })
-    },
-    updateDocumentPosition(context, {oldIndex, newIndex}) {
-        if(oldIndex !== newIndex) {
-           let params = {
-              oldPosition: oldIndex,
-              newPosition: newIndex
-           }
-           axios.post(`document/move`, params)
-        }
-     }
+    }
     // deleteFileByIndex({commit}, index){
     //     commit('deleteFileByIndex', index);
     // },
