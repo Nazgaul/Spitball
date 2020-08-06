@@ -41,7 +41,16 @@
               @click:more="viewDay"
               @click:date="viewDay"
               @change="updateRange"
-              :locale="locale"/>
+              :locale="locale">
+
+                <template #event="{ event }">
+                  <div class="text-truncate px-1">
+                    <span class="font-weight-bold">{{$moment(event.date).format('HH:mm')}}</span>
+                    <span>{{event.name}}</span>
+                  </div>
+                </template>
+                
+              </v-calendar>
 
           <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x max-width="360px">
             <classCard :selectedClass="selectedClass" @closeClassCard="selectedOpen = false"></classCard>
