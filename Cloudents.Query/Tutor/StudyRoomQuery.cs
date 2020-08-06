@@ -51,6 +51,7 @@ namespace Cloudents.Query.Tutor
                          TutorPrice = s.Price,
                          TutorName = s.Tutor.User.Name,
                          TutorImage = s.Tutor.User.ImageName,
+                         
                          _UserPaymentExists =
                              _statelessSession.Query<User>().Where(w => w.Id == query.UserId)
                                  .Select(s2 => s2.PaymentExists).First() == PaymentStatus.Done,
@@ -58,6 +59,7 @@ namespace Cloudents.Query.Tutor
                      }).ToFutureValue();
 
                 IFutureValue<CouponTemp>? futureCoupon = null;
+                IFutureValue<CourseEnrollment>? futureCourseEnrollment = null;
                 if (query.UserId > 0)
                 {
                     futureCoupon  = _statelessSession.Query<UserCoupon>()
@@ -71,6 +73,12 @@ namespace Cloudents.Query.Tutor
                            Value = s.Coupon.Value
                         })
                         .ToFutureValue();
+
+                    futureCourseEnrollment = _statelessSession.Query<CourseEnrollment>()
+                        .Where(w => w.User.Id == query.UserId)
+                        .Where(w => w.Course.Id == _statelessSession.Query<BroadCastStudyRoom>()
+                            .Where(w2 => w2.Id == query.Id)
+                            .Select(s => s.Course.Id).First()).ToFutureValue();
                 }
 
                 var futurePayment = _statelessSession.Query<StudyRoomPayment>()
@@ -114,6 +122,13 @@ namespace Cloudents.Query.Tutor
                 if (futureSubscription.Value.GetValueOrDefault())
                 {
                     result.TutorPrice = result.TutorPrice.ChangePrice(0);
+                }
+
+                if (futureCourseEnrollment?.Value?.Receipt != null)
+                {
+                    result._UserPaymentExists = true;
+
+                    return result;
                 }
 
 

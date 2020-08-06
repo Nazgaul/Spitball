@@ -35,14 +35,15 @@
                <div v-if="coursePrice && coursePrice.amount" class="pt-7 sessionPrice">
                   {{$t("room_price",[$price(coursePrice.amount, coursePrice.currency, true)])}}
                </div>
-               <div v-else>{{$t('course_free')}}</div>
+               <div v-else class="pt-7 sessionPrice">{{$t('course_free')}}</div>
             </template>
 
             <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
-            :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+             class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{$t('enter_room')}}
             </v-btn>
-            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" :class="{'mt-7': isMobile && coursePrice && !coursePrice.amount}" @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" 
+            @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
                {{enrollBtnText}}
             </v-btn>
             <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>

@@ -33,7 +33,7 @@ export const studyRoomRoutes = [
                 .then(()=>{
                     if(store.getters.getRoomIsBroadcast && (!store.getters.getStudyroomEnrolled && !store.getters.getRoomIsTutor)){
                         let routeData = router.resolve({
-                            name: routeName.StudyRoomLanding,
+                            name: 'studyroomSettings2',
                             params:{...to.params }
                         });
                         global.open(routeData.href, "_self"); 
@@ -53,12 +53,12 @@ export const studyRoomRoutes = [
     {
         path: `/live/:id?`,
         name: 'studyroomSettings2',
-        redirect: { name: routeName.StudyRoomLanding }
+        redirect: { name: routeName.CoursePage }
     },
     {
         // (\\d+) prevent from duplicate route with new coursePage
         path: '/course/:id(\\d+)?',
-        name: routeName.StudyRoomLanding,
+        name: routeName.CoursePage,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
             ...staticComponents([ 'footer']),
