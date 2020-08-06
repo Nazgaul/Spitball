@@ -8,12 +8,14 @@
                 <draggable
                     :list="files"
                     class="list-group"
-                    ghost-class="ghost"
+                    v-bind="dragOptions"
                     :move="checkMove"
                     @start="dragging = true"
                     @end="dragging = false"
                 >
-                    <uploadFiles v-for="(file, index) in files" :singleFileIndex="index" :item="file" :key="index" />
+                    <transition-group type="transition" name="flip-list">
+                        <uploadFiles v-for="(file, index) in files" :singleFileIndex="index" :item="file" :key="index" />
+                    </transition-group>
                 </draggable>
         </template>
         <uploadMultipleFileStart class="mt-4" />
@@ -40,6 +42,14 @@ export default {
         }
     },
     computed: {
+        dragOptions() {
+            return {
+                animation: 200,
+                group: "description",
+                disabled: false,
+                ghostClass: "ghost"
+            }
+        },
         showFiles: {
             get() {
                 return this.$store.getters.getShowFiles

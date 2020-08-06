@@ -1,6 +1,7 @@
 <template>
-    <div class="uploadFiles" v-if="!file.error">
-        <div class="uploadFilesWrap d-flex align-center justify-space-between">
+    <div class="uploadFiles d-flex align-center" v-if="!file.error">
+        <div class="fileIndexNumber me-2">{{singleFileIndex + 1}}.</div>
+        <div class="uploadFilesWrap d-flex align-center justify-space-between flex-grow-1">
             <div class="d-flex align-center">
                 <v-text-field
                     v-model="file.name"
@@ -76,9 +77,22 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/colors.less';
 .uploadFiles {
     .uploadFileInput {
         min-width: 440px;
+    }
+    .uploadFilesWrap {
+        padding: 0 6px;
+        margin: 2px;
+        &:hover {
+            border: 2px dashed #d8d8df !important;
+            margin: 0;
+        }
+    }
+    .fileIndexNumber {
+        font-weight: 600;
+        color: @global-purple;
     }
 }
 </style>
