@@ -16,8 +16,16 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Description).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
             Map(x => x.Position).ReadOnly();
 
+            //HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
+            //    .Inverse().Cascade.AllDeleteOrphan();
+
+
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
-                .Inverse().Cascade.AllDeleteOrphan();
+                .Cascade.AllDeleteOrphan().AsList(x =>
+                {
+                    x.Type<int?>();
+                    x.Column("Position");
+                });
 
             Component(x => x.DomainTime, z =>
             {

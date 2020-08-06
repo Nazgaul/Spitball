@@ -20,6 +20,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Courses;
 
 namespace Cloudents.Web.Api
 {
@@ -76,7 +77,7 @@ namespace Cloudents.Web.Api
             return new DocumentPreviewResponse(model, files);
         }
 
-       
+
 
         //[HttpDelete("{id}"), Authorize]
         //[ProducesResponseType(400)]
@@ -115,7 +116,7 @@ namespace Cloudents.Web.Api
 
             return new UploadStartResponse(blobName);
         }
-       
+
 
         //[HttpPost("rename"), Authorize]
         //[ProducesResponseType(StatusCodes.Status200OK)]
@@ -136,6 +137,20 @@ namespace Cloudents.Web.Api
         //    }
         //    return Ok();
         //}
+        //[HttpPost("{courseId:long}/move")]
+        //[Authorize(Policy = "Tutor")]
+        //public async Task<IActionResult> UpdatePositionAsync
+        //(
+        //    [FromRoute] long courseId,
+        //    [FromBody] MoveElementRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new UpdateDocumentPositionCommand(userId, courseId, model.OldPosition, model.NewPosition);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
+
 
         [NonAction]
         public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Entities
 {
@@ -149,8 +150,10 @@ namespace Cloudents.Core.Entities
         }
 
 
+
+
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
-        private readonly ICollection<Document> _documents = new List<Document>();
+        private readonly IList<Document> _documents = new List<Document>();
 
         public virtual IEnumerable<Document> Documents => _documents;
 
@@ -204,7 +207,7 @@ namespace Cloudents.Core.Entities
             _documents.Remove(document);
         }
 
-        public virtual int Version { get;protected set; }
+        public virtual int Version { get; protected set; }
 
 
         //public virtual void SubscribeToAllStudyRooms()
@@ -218,5 +221,14 @@ namespace Cloudents.Core.Entities
         //    }
         //}
 
+        public virtual void UpdateDocument(long? id, string name, bool visible, int index)
+        {
+            var oldIndex = _documents.FindIndex(f => f.Id == id, out var d);
+
+            d.Status = visible ? ItemStatus.Public : ItemStatus.Pending;
+            d.Rename(name);
+            _documents.Move(oldIndex, index);
+            //throw new NotImplementedException();
+        }
     }
 }

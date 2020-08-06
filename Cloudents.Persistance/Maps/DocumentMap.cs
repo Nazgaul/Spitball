@@ -39,7 +39,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);
             Component(x => x.Status);
-          
+            Map(x => x.Position).ReadOnly();
         }
     }
 

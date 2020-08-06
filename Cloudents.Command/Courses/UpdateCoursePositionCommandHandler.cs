@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.Courses
@@ -21,14 +22,48 @@ namespace Cloudents.Command.Courses
             {
                 throw new ArgumentException();
             }
-            var oldIndex = message.OldPosition;
             var list = tutor.Courses;
-            var newIndex = message.NewPosition;
+            list.Move(message.OldPosition, message.NewPosition);
+            //var newIndex = message.NewPosition;
 
-            var item = tutor.Courses[oldIndex];
-            list.RemoveAt(oldIndex);
-            if (newIndex > oldIndex) newIndex--; 
-            list.Insert(newIndex, item);
+            //var item = tutor.Courses[oldIndex];
+            //list.RemoveAt(oldIndex);
+            //if (newIndex > oldIndex) newIndex--; 
+            //list.Insert(newIndex, item);
         }
     }
+
+
+    //public class UpdateDocumentPositionCommandHandler : ICommandHandler<UpdateDocumentPositionCommand>
+    //{
+    //    private readonly ICourseRepository _courseRepository;
+
+
+    //    public UpdateDocumentPositionCommandHandler(ICourseRepository courseRepository)
+    //    {
+    //        _courseRepository = courseRepository;
+    //    }
+
+    //    public async Task ExecuteAsync(UpdateDocumentPositionCommand message, CancellationToken token)
+    //    {
+    //        var course = await _courseRepository.GetAsync(message.CourseId, token);
+    //        if (course is null)
+    //        {
+    //            throw new ArgumentException();
+    //        }
+
+    //        if (course.Tutor.Id != message.TutorId)
+    //        {
+    //            throw new UnauthorizedAccessException();
+    //        }
+    //        var oldIndex = message.OldPosition;
+    //        var list = course.Documents;
+    //        var newIndex = message.NewPosition;
+
+    //        var item = tutor.Courses[oldIndex];
+    //        list.RemoveAt(oldIndex);
+    //        if (newIndex > oldIndex) newIndex--; 
+    //        list.Insert(newIndex, item);
+    //    }
+    //}
 }
