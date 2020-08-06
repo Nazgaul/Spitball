@@ -8,10 +8,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -23,13 +28,15 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly IUrlBuilder _urlBuilder;
+        private readonly ICommandBus _commandBus;
 
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
-               IUrlBuilder urlBuilder)
+               IUrlBuilder urlBuilder, ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _urlBuilder = urlBuilder;
+            _commandBus = commandBus;
         }
 
         // GET
@@ -68,6 +75,32 @@ namespace Cloudents.Web.Api
                 s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id, s.Version);
                 return s;
             });
+        }
+
+
+        [HttpPost("follow"), Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model, CancellationToken token)
+        {
+            var user = _userManager.GetLongUserId(User);
+            if (model.Id == user)
+            {
+                return BadRequest();
+            }
+            var command = new FollowUserCommand(model.Id, user);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpDelete("unFollow/{id}"), Authorize]
+        public async Task<IActionResult> UnFollowAsync([FromRoute] UnFollowRequest model, CancellationToken token)
+        {
+            var user = _userManager.GetLongUserId(User);
+            var command = new UnFollowUserCommand(model.Id, user);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
 
     }

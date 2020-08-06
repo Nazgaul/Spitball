@@ -35,6 +35,7 @@ const getters = {
    getProfileCoverLoading: state => state.profileCoverLoading,
    //getProfileCountry: state => state.profile?.user?.tutorCountry,
    getProfileCourses: state => state.courses,
+   getIsProfileFollowing: state => state.profile?.user?.isFollowing,
 }
 
 const mutations = {
@@ -50,6 +51,7 @@ const mutations = {
             image: objInit.image || '',
             cover: objInit.cover || '',
             calendarShared: objInit.calendarShared || false,
+            isFollowing: objInit.isFollowing,
             followers: objInit.followers || 0,
             contentCount: objInit.contentCount,
             hoursTaught: objInit.hoursTaught,
@@ -106,6 +108,16 @@ const mutations = {
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
+   },
+   setProfileFollower(state, val) {
+      if(state.profile?.user) {
+         state.profile.user.isFollowing = val;
+         if (val) {
+            state.profile.user.followers += 1;
+         } else {
+            state.profile.user.followers -= 1;
+         }
+      }
    },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
@@ -187,7 +199,21 @@ const actions = {
          ]
          commit('setProfileFaq', data)
       // })
-   }
+   },
+   toggleProfileFollower({ state, commit }, val) {
+      let id = state.profile?.user?.id
+      if (val) {
+         return profileInstance.post('follow',{ id }).then(() => {
+            commit('setProfileFollower', true)
+            return Promise.resolve()
+         })
+      } else {
+         return profileInstance.delete(`unfollow/${id}`).then(() => {
+            commit('setProfileFollower', false)
+            return Promise.resolve()
+         })
+      }
+   },
 }
 
 export default {
