@@ -71,8 +71,13 @@
                     @setLiveImage="handleLiveImage"
                     class="editLiveImage"
                 />
-                <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
-                <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
+                <div class="noDefaultImage" v-if="!$route.params.id && !previewImage && !image">
+                    <v-icon size="40" color="#bdc0d1">sbf-plus-sign</v-icon>
+                </div>
+                <template v-else>
+                    <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
+                    <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
+                </template>
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </label>
         </div>
@@ -226,6 +231,14 @@ export default {
             .recommendedImage {
                 font-size: 16px;
                 color: #adb1b4;
+            }
+            .noDefaultImage {
+                display: flex;
+                justify-content: center;
+                width: 250px;
+                height: 140px;
+                border-radius: 6px;
+                background-color: #f0f4f8
             }
         }
     }
