@@ -200,7 +200,7 @@ const actions = {
          commit('setProfileFaq', data)
       // })
    },
-   toggleProfileFollower({ state, commit, getters }, val) {
+   toggleProfileFollower({ state, commit }, val) {
       let id = state.profile?.user?.id
       if (val) {
          return profileInstance.post('follow',{ id }).then(() => {
