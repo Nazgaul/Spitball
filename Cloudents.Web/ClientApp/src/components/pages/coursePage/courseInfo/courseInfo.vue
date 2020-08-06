@@ -18,7 +18,7 @@
             v-model="followerPrice"
             type="number"
             class="priceFollower"
-            :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
+            :rules="[rules.requiredNum, rules.minimum, rules.maximum, rules.subscriptionPrice]"
             :label="isSubscription ? $t('follower_price') : $t('price')"
             :prefix="getSymbol"
             onkeypress="return !(event.charCode == 46)"
@@ -36,7 +36,7 @@
             v-if="isSubscription"
             type="number"
             class="priceSubscriber mb-6"
-            :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
+            :rules="[rules.requiredNum, rules.minimum, rules.maximum, rules.subscriptionPrice]"
             :label="$t('subscriber_price')"
             :prefix="getSymbol"
             onkeypress="return !(event.charCode == 46)"
@@ -97,6 +97,7 @@ export default {
                 requiredNum: (val) => (val.toString() && !isNaN(val)) || this.$t("formErrors_required"),
                 required: (val) => validationRules.required(val),
                 minimum: (val) => validationRules.minVal(val,0),
+                maximum: (val) => validationRules.maxVal(val, 10000),
                 integer: (val) => validationRules.integer(val),
                 subscriptionPrice: val => {
                     if(global.country === 'IL') {
