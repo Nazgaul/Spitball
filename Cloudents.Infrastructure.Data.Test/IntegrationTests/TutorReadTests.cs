@@ -101,6 +101,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query);
         }
 
+
+        [Theory]
+        [InlineData(638)]
+        public async Task UpcomingLessonsQuery_Ok(long userId)
+        {
+          
+
+            var query = new UpcomingLessonsQuery(userId);
+            var result = await _fixture.QueryBus.QueryAsync(query);
+        }
+
         [Fact]
         public async Task UserCouponsQuery_Ok()
         {

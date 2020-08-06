@@ -40,9 +40,6 @@
                   <div class="tablePreview">
                      <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
                      <v-skeleton-loader v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
-                     <!-- <v-avatar v-else tile tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + strToACII(item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
-                        <span class="white--text">{{item.name.slice(0,2).toUpperCase()}}</span>
-                     </v-avatar> -->
                   </div>
             </template>
 
@@ -68,116 +65,44 @@
             </template>
 
             <template v-slot:item.isPublish="{item}">
-               <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
+               <div class="d-flex">
+                  <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
+               </div>
             </template>
 
-            <!-- <template v-slot:item.info="{item}">
-               <div class="tableInfo text-xs-left text-truncate py-2">
-                  <template v-if="item.type === 'BuyPoints'">
-                     <div class="text-truncate">
-                        <span>{{$t('dashboardPage_info_buy_points')}}</span>
-                     </div>
-                  </template>
-                  <router-link v-else class="tableInfo_router" :to="itemUrl(item)">
-                     <template v-if="item.type === 'TutoringSession'">
-                        <div class="text-truncate">
-                           <div v-if="item.roomName" class="text-truncate">
-                              <span class="font-weight-bold">{{$t('dashboardPage_room_name')}}</span> 
-                              <span>{{item.roomName}}</span>
-                           </div>
-                           <span>{{$t('dashboardPage_session',[item.name])}}</span>
-                           <div class="text-truncate">
-                              <span class="font-weight-bold" v-t="'dashboardPage_duration'"></span>
-                              <span v-if="item.duration">{{item.duration}}</span>
-                              <span v-else v-t="'dashboardPage_session_on'"></span>
-                           </div>
-                        </div>
-                     </template>
-                     <template v-if="item.type === 'Document' || item.type === 'Video'">
-                        <div class="text-truncate">
-                           <span>{{item.name}}</span>
-                        </div>
-                     </template>
-                    <template v-if="checkIsQuestion(item.type)">
-                       <div class="text-truncate">
-                          <span class="font-weight-bold" v-t="'dashboardPage_question'"></span>
-                          <span class="text-truncate">{{item.text}}</span>
-                       </div>
-                       <div class="text-truncate" v-if="item.answerText">
-                          <span class="font-weight-bold" v-t="'dashboardPage_answer'"></span>
-                          <span>{{item.answerText}}</span>
-                       </div>
-                    </template>
-                     <template v-if="item.conversationId">
-                        <div class="text-truncate">
-                           <span>{{item.name}}</span>
-                        </div>
-                     </template>
-                     <div class="text-truncate" v-if="item.course">
-                        <span class="font-weight-bold" v-t="'dashboardPage_course'"></span>
-                        <span>{{item.course}}</span>
-                     </div>
-                  </router-link>
-               </div>
-            </template> -->
-<!-- 
-            <template v-slot:item.type="{item}">{{dictionary.types[item.type]}}</template>
-            <template v-slot:item.likes="{item}">{{item.likes}}</template>
-            <template v-slot:item.views="{item}">{{item.views}}</template>
-            <template v-slot:item.downloads="{item}">{{item.downloads}}</template>
-            <template v-slot:item.date="{item}">{{ $d(item.date) }}</template> -->
-<!-- 
             <template v-slot:item.action="{item}">
-               <v-menu bottom left v-model="showMenu">
+               <v-menu offset-y>
                   <template v-slot:activator="{ on }">
-                     <v-icon @click="currentItemIndex = item.itemId" v-on="on" slot="activator" small icon>{{$vuetify.icons.values.dotMenu}}</v-icon>
+                     <v-btn icon>
+                        <v-icon size="18" v-on="on">sbf-3-dot</v-icon>
+                     </v-btn>
                   </template>
-               
-                  <v-list v-if="item.itemId == currentItemIndex">
-                     <v-list-item style="cursor:pointer;" @click="openChangeNameDialog(item)" v-t="'dashboardPage_rename'"></v-list-item>
+                  <v-list>
+                  <v-list-item
+                     :to="{name: uppdateCourseRoute, params: { id: item.id }}"
+                  >
+                     <v-list-item-title v-t="'go_edit'"></v-list-item-title>
+                  </v-list-item>
                   </v-list>
                </v-menu>
-            </template> -->
+            </template>
             <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
-
-      <!-- <sb-dialog 
-         :showDialog="isChangeNameDialog"
-         :isPersistent="true"
-         :popUpType="'dashboardDialog'"
-         :onclosefn="closeDialog"
-         :activateOverlay="true"
-         :max-width="'fit-content'"
-         :content-class="'pop-dashboard-container'">
-            <changeNameDialog :dialogData="currentItem" @closeDialog="closeDialog"/>
-      </sb-dialog> -->
    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { CourseCreate, StudyRoomLanding } from '../../../../routes/routeNames'
-
-// import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
-// import changeNameDialog from '../dashboardDialog/changeNameDialog.vue';
+import { CourseCreate, CourseUpdate, CoursePage } from '../../../../routes/routeNames'
 
 export default {
    name:'myCourses',
-   // components:{sbDialog,changeNameDialog},
-   // props:{
-   //    dictionary:{
-   //       type: Object,
-   //       required: true
-   //    }
-   // },
    data() {
       return {
+
          isLoaded: false,
+         uppdateCourseRoute: CourseUpdate,
          createCourseRoute: CourseCreate,
-         // currentItem: '',
-         // isChangeNameDialog: false,
-         // currentItemIndex: '',
-         // showMenu: false,
          headers: [
             {text: '', align:'', sortable: false, value:'preview'},
             {text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name'},
@@ -187,14 +112,12 @@ export default {
             {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users'},
             {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
             {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish'},
+            {text: '', align:'', sortable: false, value:'action'},
          ]
       }
    },
    computed: {
-      ...mapGetters(['getCoursesItems','accountUser']),
-      // canCreateCourse() {
-      //    return this.$store.getters.getIsTutorCanCreateCourse
-      // },
+      ...mapGetters(['getCoursesItems']),
       coursesItems(){
          // avoiding duplicate key becuase we have id that are the same,
          // vuetify default key is "id", making new key "itemId" for unique index table items
@@ -214,47 +137,8 @@ export default {
          if(!item.isPublish) {
             return
          }
-         this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
+         this.$router.push({name: CoursePage, params: { id: item.id }})
       },
-      // formatPrice(price,type){
-      //    if(isNaN(price)) return;
-      //    if(price < 0){
-      //       price = Math.abs(price)
-      //    }
-      //    price = Math.round(+price).toLocaleString();
-      //    let currency;
-      //    if(type === 'Document' || type === 'Video' ){
-      //       currency = this.$t('dashboardPage_pts');
-      //       return `${price} ${currency}`
-      //    }
-      //    if(type === 'TutoringSession' || type === 'BuyPoints'){
-      //       currency = this.accountUser.currencySymbol
-      //       return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
-      //    }
-      //    return `${price} ${currency}`
-      // },
-      // openChangeNameDialog(item){
-      //    this.currentItem = item;
-      //    this.isChangeNameDialog = true;
-      // },
-      // closeDialog(){
-      //    this.isChangeNameDialog = false;
-      //    this.currentItem = '';
-      // },
-      // checkIsQuestion(type){
-      //    return type === 'Question' || type === 'Answer';
-      // },
-      // formatImg(item){
-         //   if(item.preview || item.image){
-            // return this.$proccessImageUrl(item.image,127,80)
-         // }
-         // if(this.checkIsQuestion(item.type)){
-         //    return require('../global/images/qs.png')
-         // }
-      // },
-      // itemUrl(item){
-      //    return item.url || `/course/${item.id}`
-      // }
    },
    beforeDestroy() {
       this.$store.commit('resetCourseItems')
@@ -268,9 +152,7 @@ export default {
 <style lang="less">
 @import "../../../../styles/mixin.less";
 @import "../../../../styles/colors.less";
-// .pop-dashboard-container {
-//    background: #fff;
-// }
+
 .myCourses{
    // max-width: 1366px;
    .myCourses_table {
@@ -292,31 +174,12 @@ export default {
       .tablePreview{
          line-height: 0;
          padding-right: 0 !important;
-         width: 104px;
+         // width: 104px;
          position: relative;
-         // .tablePreview_online{
-         //    position: absolute;
-         //    border-radius: 50%;
-         //    width: 10px;
-         //    height: 10px;
-         //    background-color: #00ff14;
-         //    top: 16px;
-         //    left: 28px;
-         // }
          .tablePreview_img{
             margin: 10px 0;
             border: 1px solid #d8d8d8;
-            // &.buyPointsLayoutPreview{
-            //    width: 100%;
-            //    object-fit: cover;
-            //    height: 80px;      
-            // }
          }
-         // .tablePreview_no_image {
-         //    position: unset;
-         //    border-radius: 4px;
-         //    font-size: 24px;
-         // }
       }
       .tableTop {
          padding: 20px;
@@ -346,14 +209,17 @@ export default {
       tbody tr {
          td {
             border-bottom: none !important;
+            cursor:pointer;
          }
          td:nth-child(2) {
             padding-left: 0;
+            cursor:pointer;
             
          }
       }
       tr:nth-child(even) {
          background-color: #f5f5f5;
+         cursor:pointer;
       }
       .tableInfo{
          width: 400px;

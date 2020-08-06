@@ -17,12 +17,12 @@ namespace Cloudents.Command.CommandHandler
             _repository = repository;
         }
 
-        public async Task ExecuteAsync(AddUserLoginCommand message, CancellationToken token)
+        public Task ExecuteAsync(AddUserLoginCommand message, CancellationToken token)
         {
             var login = new UserLogin(message.LoginProvider, message.ProviderKey, message.ProviderDisplayName,
                 message.User);
 
-            await _repository.AddAsync(login, token);
+            return _repository.AddAsync(login, token);
         }
     }
 }

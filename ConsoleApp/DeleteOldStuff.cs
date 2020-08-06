@@ -199,34 +199,34 @@ COMMIT;  ";
         //    }
         //}
 
-        private static async Task DeleteDocumentFromNotSupportCountriesAsync()
-        {
-            var statelessSession = Container.Resolve<IStatelessSession>();
-            int count;
-            do
-            {
+        //private static async Task DeleteDocumentFromNotSupportCountriesAsync()
+        //{
+        //    var statelessSession = Container.Resolve<IStatelessSession>();
+        //    int count;
+        //    do
+        //    {
 
 
-                var v = await statelessSession.Query<Document>().Fetch(f => f.User)
+        //        var v = await statelessSession.Query<Document>().Fetch(f => f.User)
 
-                    .Where(w => Country.CountriesNotSupported.Contains(w.User.Country))
-                    .Where(w => w.Status.State == ItemState.Ok)
-                    .OrderBy(o => o.Id)
-                    .Take(100)
+        //            .Where(w => Country.CountriesNotSupported.Contains(w.User.Country))
+        //            .Where(w => w.Status.State == ItemState.Ok)
+        //            .OrderBy(o => o.Id)
+        //            .Take(100)
 
-                    .Select(s => s.Id).ToListAsync();
-                count = v.Count;
-                if (count > 0)
-                {
-                    await statelessSession.Query<Document>()
-                        .Where(w => v.Contains(w.Id))
-                        .UpdateBuilder().Set(s => s.Status.State, ItemState.Deleted)
-                        .Set(s => s.Status.DeletedOn, DateTime.UtcNow.AddDays(-90))
-                        .UpdateAsync(default);
-                }
-            } while (count > 0);
+        //            .Select(s => s.Id).ToListAsync();
+        //        count = v.Count;
+        //        if (count > 0)
+        //        {
+        //            await statelessSession.Query<Document>()
+        //                .Where(w => v.Contains(w.Id))
+        //                .UpdateBuilder().Set(s => s.Status.State, ItemState.Deleted)
+        //                .Set(s => s.Status.DeletedOn, DateTime.UtcNow.AddDays(-90))
+        //                .UpdateAsync(default);
+        //        }
+        //    } while (count > 0);
 
-        }
+        //}
 
         private static async Task DeleteOldDocumentsAsync()
         {

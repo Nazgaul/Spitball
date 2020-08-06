@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Microsoft.ApplicationInsights;
@@ -37,23 +36,22 @@ namespace Cloudents.Web.Controllers
         public ActionResult Index(int? code,
             [FromHeader(Name = "referer")] string referer)
         {
-            var allHeaders = Request.Headers.ToDictionary(x => x.Key, y => y.Value.ToString());
+            var allHeaders = Request.Headers.ToDictionary(x2 => x2.Key, y => y.Value.ToString());
             allHeaders.Add("s-referer",referer);
 
-            _telemetryClient.TrackTrace($"Reaching error page {code}", allHeaders);
             var statusCode = (HttpStatusCode)Response.StatusCode;
             var x = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
             if (x == null)
             {
+                _telemetryClient.TrackTrace($"Reaching error page {code}", allHeaders);
                 Response.StatusCode = 404;
                 return View("NotFound");
                 //return RedirectToAction("NotFound");
             }
-            _telemetryClient.TrackTrace("Reaching error page", new Dictionary<string, string>()
-            {
-                ["path"] = x.OriginalPath,
-                ["query"] = x.OriginalQueryString
-            });
+
+            allHeaders.Add("s-path", x.OriginalPath);
+            allHeaders.Add("s-query", x.OriginalQueryString);
+            _telemetryClient.TrackTrace($"Reaching error page {code}", allHeaders);
          
             // For API errors, responds with just the status code (no page).
             if (x.OriginalPath.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))

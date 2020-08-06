@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command.Admin;
+﻿using System;
+using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
@@ -18,6 +19,10 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(ChangeConversationStatusCommand message, CancellationToken token)
         {
             var chatRoom = await _repository.GetChatRoomAsync(message.Identifier, token);
+            if (chatRoom == null)
+            {
+                throw new ArgumentException();
+            }
             if (chatRoom.Extra == null)
             {
                 chatRoom.Extra = new ChatRoomAdmin(chatRoom);

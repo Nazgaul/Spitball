@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
 
@@ -41,7 +40,8 @@ namespace Cloudents.Query.Users
                         Description = s.Description,
                         Id = s.Id,
                         StudyRoomCount = s.StudyRooms.Count(),
-                        StartTime = s.StartTime
+                        StartTime = s.StartTime,
+                        Version = s.Version
                     }).ToListAsync(token);
 
                 return result;

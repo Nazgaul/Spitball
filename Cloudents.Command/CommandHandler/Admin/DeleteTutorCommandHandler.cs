@@ -27,7 +27,6 @@ namespace Cloudents.Command.CommandHandler.Admin
             {
                 await _googleTokenRepository.DeleteAsync(googleToken, token);
             }
-            //tutorToRemove.User.DeleteFirstAndLastName();
             await _tutorRepository.DeleteAsync(tutorToRemove, token);
 
         }

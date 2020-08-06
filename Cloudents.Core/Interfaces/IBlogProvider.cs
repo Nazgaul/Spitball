@@ -8,6 +8,6 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IBlogProvider
     {
-        Task<IEnumerable<DashboardBlogDto>?> GetBlogAsync(BlogQuery query, CancellationToken token);
+        Task<IEnumerable<DashboardBlogDto>> GetBlogAsync(BlogQuery query, CancellationToken token);
     }
 }

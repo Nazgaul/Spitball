@@ -38,7 +38,6 @@ using System.Threading.Tasks;
 using Cloudents.Infrastructure;
 using Cloudents.Web.Seo;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Newtonsoft.Json.Serialization;
