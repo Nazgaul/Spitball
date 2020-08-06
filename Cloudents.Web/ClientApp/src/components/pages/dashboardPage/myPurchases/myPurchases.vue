@@ -40,7 +40,7 @@
                   </td>
                   <td class="text-start" v-text="dictionary.types[props.item.type]"/>
                   <td class="text-start" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-start">{{ $d(new Date(props.item.date)) }}</td> 
+                  <td class="text-start">{{$moment(props.item.date).format('MMM D')}}</td> 
                   
                   
                   <td class="text-center">
@@ -140,7 +140,7 @@ export default {
 
 <style lang="less">
 .myPurchases{
-   max-width: 1334px;
+   // max-width: 1334px;
    .myPurchases_title{
       font-size: 22px;
       color: #43425d;
@@ -148,7 +148,7 @@ export default {
       padding: 30px;
       line-height: 1.3px;
       background: #fff;
-      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
+      // box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    thead{
       tr{
@@ -167,7 +167,7 @@ export default {
    }
    .myPurchases_table_tr {
       td {
-         font-size: 13px !important;
+         // font-size: 13px !important;
          &:first-child {
             padding-right: 0;   
          }
