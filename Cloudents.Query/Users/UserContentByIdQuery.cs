@@ -45,7 +45,6 @@ namespace Cloudents.Query.Users
                         IsPublish = s.State == ItemState.Ok,
                         StartOn = s.StartTime,
                         Version = s.Version
-                       // Purchased = s.PurchaseCount ?? 0
                     }).ToListAsync(token);
 
              
