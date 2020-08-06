@@ -40,7 +40,8 @@
               @click:event="showEvent"
               @click:more="viewDay"
               @click:date="viewDay"
-              @change="updateRange"/>
+              @change="updateRange"
+              :locale="locale"/>
 
           <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x max-width="360px">
             <classCard :selectedClass="selectedClass" @closeClassCard="selectedOpen = false"></classCard>
@@ -59,6 +60,7 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
     components:{classCard,unSupportedFeature},
     data() {
       return {
+        locale: `${global.lang}-${global.country}`,
         isRtl:global.isRtl,
         focus: '',
         type: 'month',
