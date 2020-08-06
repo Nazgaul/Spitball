@@ -14,21 +14,17 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Name).Length(150).Not.Nullable();
             
             Component(x => x.TimeStamp);
-
-
+            
             //Cannot put not nullable because no inverse on course.
             References(x => x.Course).Column("CourseId").ForeignKey("Document_course2");
-
 
 
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
             Map(x => x.PageCount).Nullable();
-            //Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Md5).Nullable();
-           //Map(x => x.PurchaseCount).Column("Purchased");
             //HasMany(x => x.Transactions)
             //    .KeyColumn("DocumentId")
             //    //.Cascade.()
@@ -41,15 +37,9 @@ namespace Cloudents.Persistence.Maps
              .KeyColumn("DocumentId").Inverse().AsSet();
 
             Map(x => x.DocumentType).Column("DocumentType");
-            Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
+            Map(x => x.Duration);
             Component(x => x.Status);
-
-            //Component(x => x.DocumentPrice, y =>
-            //{
-            //    y.Map(z => z!.Price).CustomSqlType("smallMoney");
-            //    y.Map(z => z!.Type).Column("PriceType");
-
-            //});
+          
         }
     }
 

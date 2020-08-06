@@ -112,13 +112,13 @@ namespace Cloudents.Admin2.Api
 
         
 
-        [HttpPost]
-        public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
-        {
-            var command = new ApproveDocumentCommand(model.Id);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> ApproveAsync([FromBody] ApproveDocumentRequest model, CancellationToken token)
+        //{
+        //    var command = new ApproveDocumentCommand(model.Id);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         //[HttpGet("flagged")]
         //public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
