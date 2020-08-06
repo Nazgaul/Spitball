@@ -116,7 +116,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
         public Task CreateLocatorAsync(long id, CancellationToken token)
         {
-            return _videoService.CreateShortStreamingLocator(id, token);
+            return _videoService.CreateShortStreamingLocatorAsync(id, token);
         }
 
        

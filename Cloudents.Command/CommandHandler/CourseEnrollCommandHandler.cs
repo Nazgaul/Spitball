@@ -76,7 +76,7 @@ namespace Cloudents.Command.CommandHandler
 
             if (message.Receipt == null)
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException($"price is {price}");
             }
 
             //Need to continue

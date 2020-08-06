@@ -4,11 +4,18 @@
             <courseCreate @saveCourseInfo="saveCourseInfo" />
             <div class="d-flex">
                 <div class="courseLeftSide">
-                    <courseInfo />
+                    <courseInfo ref="courseInfo" />
                     <div class="courseTeachingWrapper mb-6">
+                        <div class="pa-5">
+                            <div class="courseTeachingTitle" v-t="'set_Teaching'"></div>
+                        </div>
                         <courseTeaching v-for="n in numberOfLecture" :key="n" :index="n" />
+                        <div class="addLecture d-flex pa-5 pt-0">
+                            <v-icon size="14" color="#4c59ff">sbf-plus-regular</v-icon>
+                            <button class="ms-1" v-t="'another_lecture'" @click.prevent="$store.commit('setNumberOfLecture', numberOfLecture + 1)"></button>
+                        </div>
                     </div>
-                    <courseUpload />
+                    <courseUpload ref="courseUpload" />
                 </div>
                 <div class="courseRightSide ms-6">
                     <coursePublish />
@@ -54,6 +61,13 @@ export default {
 
         unSupportedFeature
     },
+    // watch: {
+    //     showSnackbar(val) {
+    //         if(val) {
+    //             this.$vuetify.goTo(this.$refs.courseUpload)
+    //         }
+    //     }
+    // },
     computed: {
         numberOfLecture() {
             return this.$store.getters.getNumberOfLecture
@@ -64,6 +78,10 @@ export default {
     },
     data() {
         return {
+            saveMethodsName: {
+                create: 'createCourseInfo',
+                update: 'updateCourseInfo'
+            },
             courseRoute: MyCourses,
             loading: false,
             showSnackbar: false,
@@ -73,6 +91,7 @@ export default {
                 duplicateDate: this.$t('invalid_duplicate_date'),
                 studyRoomText: this.$t('invalid_studyroom_text'), // when there is no text in one of the studyroom
                 file: this.$t('invalid_file'), // when there error in 1 of file
+                uploadFileNotFinished: this.$t('invalid_file_upload'), // when big file not finished upload chunks
                 409: this.$t('invalid_409'),
             }
         }
@@ -83,79 +102,114 @@ export default {
                 this.loading = true
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
-                let documents = this.documentValidate(files)
+                let documentsValidation = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
                 
-                if(documents === false || studyRooms === false) {
+                //if(documents === false || studyRooms === false) {
+                if(documentsValidation === 1 || studyRooms === 1) {
                     this.showSnackbar = true
                     this.loading = false
                     return
                 }
 
-                if(!documents.length && !studyRooms.length) {
+                // if(!documents.length && !studyRooms.length) {
+                if(documentsValidation === 0 && studyRooms === 0) {
                     this.errorText = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
                     this.loading = false
+                    this.goTo('courseUpload')
                     return 
                 }
-                
+
+                studyRooms = studyRooms === 0 ? [] : studyRooms
+                let documents = this.documentMap(files);
+
+                let id = this.$route.params.id ? this.$route.params.id : undefined
+                let methodName = id ? 'update' : 'create'
                 let self = this
-                this.$store.dispatch('updateCourseInfo', {documents, studyRooms}).then(() => {
+                this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(() => {
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    self.errorText = this.statusErrorCode[ex.response.status]
-                }).finally(() => {
+                    self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                    if(ex.response.status === 409) {
+                        self.errorText = this.statusErrorCode[ex.response.status]
+                    }
                     self.showSnackbar = true
+                }).finally(() => {
                     self.loading = false
                 })
+            } else {
+                // debugger
+                // let elemRef = this.$refs.createCourse
+                // for (let i = 0; i < elemRef.inputs.length; i++) {
+                //     const element = elemRef.inputs[i];
+                //     if(element.errorBucket.length > 0) {
+                //        this.$vuetify.goTo(element) 
+                //     }
+                // }
+                this.goTo('courseInfo')
             }
         },
         documentValidate(files) {
-            if(!files.length) return []
+            if(!files.length) return 0 // return []
 
-            let i, filesArr = []
-            for (i = 0; i < files.length; i++) {
+            for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if(file.error) {
                     this.errorText = this.statusErrorCode['file']
-                    return false
+                    return 1 //return false
                 }
+                if(file.progress < 100) {
+                    this.errorText = this.statusErrorCode['uploadFileNotFinished']
+                    return 1
+                }
+               
+            }
+            return 2;
+        },
+        documentMap(files) {
+           let filesArr = []
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
                 filesArr.push({
                     blobName: file.blobName,
                     name: file.name,
-                    visible: file.visible === undefined ? true : file.visible
+                    visible: file.visible === undefined ? true : file.visible,
+                    id: isNaN(file.id) ? undefined : file.id 
                 })
             }
             return filesArr
         },
         studyroomValidate(studyRoomList) {
             if(studyRoomList.length === 1 && !studyRoomList[0].text) {
-                return []
+                return 0 // return []
             }
 
             let i, studyRoomArr = []
             for (i = 0; i < studyRoomList.length; i++) {
                 const studyRoom = studyRoomList[i];
                 let userChooseDate =  this.$moment(`${studyRoom.date}T${studyRoom.hour}:00`);
-                let validateDuplicateSessionTime = studyRoomArr.filter((s) => {
-                    return s.date.isSame(userChooseDate)
-                })
-                if(validateDuplicateSessionTime.length) {
-                    this.errorText = this.statusErrorCode['duplicateDate']
-                    return false
+                if(!this.$route.params.id) {
+                    let validateDuplicateSessionTime = studyRoomArr.filter((s) => {
+                        return s.date.isSame(userChooseDate)
+                    })
+                    if(validateDuplicateSessionTime.length) {
+                        this.errorText = this.statusErrorCode['duplicateDate']
+                        return 1 //return false
+                    }
                 }
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
                 if(isToday) {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
                     if(!isValidDateToday) {
                         this.errorText = this.statusErrorCode['date']
-                        return false
+                        return 1 //return false
                     }
                 }
 
                 if(!studyRoom.text) {
                     this.errorText = this.statusErrorCode['studyRoomText']
-                    return false
+                    return 1 //return false
                 } 
 
                 studyRoomArr.push({
@@ -164,6 +218,12 @@ export default {
                 })
             }
             return studyRoomArr
+        },
+        goTo(ref) {
+            let options = {
+                offset: ref === 'courseInfo' ? '0': null,
+            }
+            this.$vuetify.goTo(this.$refs[ref], options)
         }
     },
     beforeDestroy(){
@@ -173,6 +233,11 @@ export default {
     },
     created() {
         storeService.registerModule(this.$store, 'createCourse', createCourse);
+        let id = this.$route.params.id
+
+        if(id) {
+            this.$store.dispatch('getCourseInfo', id)
+        }
     }
 }
 </script>
@@ -192,6 +257,20 @@ export default {
             background: #fff;
             border-radius: 6px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+
+            .courseTeachingTitle {
+                font-size: 20px;
+                font-weight: 600;
+                color: @global-purple;
+            }
+            .addLecture {
+                font-size: 16px;
+                color: #4c59ff;
+
+                button {
+                    outline: none;
+                }
+            }
         }
     }
     .courseRightSide {

@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public PrivateStudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price) : base(tutor,users,onlineDocumentUrl,  price)
+            string name, decimal price) : base(tutor,users,  price)
         {
             if (_users.Count == 0)
             {
@@ -23,6 +23,7 @@ namespace Cloudents.Core.Entities
             Name = name;
             Identifier = ChatRoom.BuildChatRoomIdentifier(
                 _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
+            OnlineDocumentUrl = onlineDocumentUrl;
             if (_users.Count < 4 && _users.Count > 0)
             {
                 TopologyType = StudyRoomTopologyType.SmallGroup;
@@ -60,16 +61,14 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public abstract class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
+        public StudyRoom(Tutor tutor, IEnumerable<User> users, 
              decimal price) : this()
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
             _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
             Tutor = tutor;
-          
-
-            OnlineDocumentUrl = onlineDocumentUrl;
+            //OnlineDocumentUrl = onlineDocumentUrl;
             //Name = name;
           
 
@@ -115,7 +114,7 @@ namespace Cloudents.Core.Entities
         public virtual string Identifier { get; protected set; }
         public virtual DomainTimeStamp DateTime { get; protected set; }
 
-        public virtual string OnlineDocumentUrl { get; protected set; }
+        public virtual string OnlineDocumentUrl { get; set; }
 
         private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
 

@@ -4,7 +4,7 @@
             <div class="d-flex align-center">
                 <v-text-field
                     v-model="item.name"
-                    :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
+                    :rules="[rules.required, rules.maximumChars]"
                     :label="$t('upload_file_title_label')"
                     class="uploadFileInput"
                     placeholder=" "
@@ -62,6 +62,9 @@ export default {
                 item: this.item
             });
         }
+    },
+    created() {
+        this.fileSwitch = this.item.visible
     }
 }
 </script>

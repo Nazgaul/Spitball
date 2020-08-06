@@ -28,11 +28,8 @@
 <!--         <template v-if="item.type === 'Question' || item.type === 'Answer'">-->
 <!--            <div class="text-truncate">-->
 <!--               <span class="font-weight-bold" v-t="'dashboardPage_question'"/>-->
-<!--               <span class="text-truncate">{{item.text}}</span>-->
 <!--            </div>-->
-<!--            <div class="text-truncate" v-if="item.answerText">-->
 <!--               <span class="font-weight-bold" v-t="'dashboardPage_answer'"/>-->
-<!--               <span>{{item.answerText}}</span>-->
 <!--            </div>-->
 <!--         </template>-->
          <template v-if="item.conversationId">

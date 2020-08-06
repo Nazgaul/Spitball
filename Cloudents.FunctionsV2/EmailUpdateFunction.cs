@@ -247,16 +247,6 @@ namespace Cloudents.FunctionsV2
 
         [JsonProperty("oneUpdate")] public bool OneUpdate => TotalUpdates == 1;
 
-        //[JsonProperty("xQuestions")]
-        //public int? QuestionCountUpdate
-        //{
-        //    get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate;
-        //    set => _questionCountUpdate = value.GetValueOrDefault();
-        //}
-
-       // [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
-
-
         [JsonProperty("xNewItems")]
         public int? DocumentCountUpdate
         {

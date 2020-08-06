@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -43,6 +42,9 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
 
         protected internal virtual ICollection<Coupon> Coupons { get; set; }
+        protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
+
+
 
 
         public virtual void ChangeSubscriptionPrice(double price)
@@ -113,6 +115,7 @@ namespace Cloudents.Core.Entities
             SellerKey = key ?? throw new ArgumentNullException(nameof(key));
             foreach (var course in Courses.Where(w=>w.State == ItemState.Pending))
             {
+                
                 course.State = ItemState.Ok;
             }
         }

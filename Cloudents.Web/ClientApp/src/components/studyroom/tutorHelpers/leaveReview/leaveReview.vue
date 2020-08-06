@@ -1,7 +1,6 @@
 <template>
     <div class="leave_review_wrap">
         <closeIcon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog"></closeIcon>
-        <!-- <v-icon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog">sbf-close</v-icon> -->
         <div class="d-flex">
             <div class="review_title text-center font-weight-bold mx-auto">{{reviewsTitle}}</div>
         </div>
@@ -55,7 +54,6 @@
                     :rules="[rules.required]"
                 ></v-textarea>
             </v-form>
-                <!-- hide-details -->
         </div>
         
         <div class="text-center mt-4">
@@ -203,7 +201,8 @@
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
-                this.$router.push('/')
+                global.onbeforeunload = function() { };
+                window.location = '/'
             }
         },
         mounted(){

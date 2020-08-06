@@ -113,11 +113,12 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionDocumentRoute = "image/document/{id}";
-        public string BuildCourseThumbnailEndPoint(long id, object? parameters = null)
+        public string BuildCourseThumbnailEndPoint(long id,int version, object? parameters = null)
         {
             var path = $"image/studyRoom/{id}";//
             var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
             builder.AddQuery(parameters);
+            builder.AddQuery(("version", version.ToString()));
             return builder.ToString();
         }
 
@@ -130,13 +131,13 @@ namespace Cloudents.Core
         }
 
 
-        public string BuildStudyRoomThumbnailEndPoint(Guid id, object? parameters = null)
-        {
-            var path = $"image/studyRoom/{id}";//
-            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
-            builder.AddQuery(parameters);
-            return builder.ToString();
-        }
+        //public string BuildStudyRoomThumbnailEndPoint(Guid id, object? parameters = null)
+        //{
+        //    var path = $"image/studyRoom/{id}";//
+        //    var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+        //    builder.AddQuery(parameters);
+        //    return builder.ToString();
+        //}
 
 
 

@@ -24,7 +24,7 @@ const editStudentInfo = () => import('../../../new_profile/profileHelpers/userIn
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
-const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
+const SESSION_CREATE_DIALOG = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 const ITEM_DIALOG = () => import('../itemDialog/itemDialog.vue');
@@ -43,7 +43,7 @@ export default {
         editStudentInfo,
         applyCoupon,
         studRoomSettings,
-        createStudyRoomDialog,
+        SESSION_CREATE_DIALOG,
         teacherBillOfflineDialog,
         ITEM_DIALOG
     },
@@ -189,16 +189,12 @@ export default {
                 studyRoomSettings: {
                     name: 'studRoomSettings',
                 },
-                createPrivateSession: {
-                    name: 'createStudyRoomDialog',
-                    params: {
-                        type: 'private'
-                    }
-                },
-                createLiveSession: {
-                    name: 'createStudyRoomDialog',
-                    params: {
-                        type: 'broadcast'
+
+                [componentConsts.SESSION_CREATE_DIALOG]:{
+                    name: componentConsts.SESSION_CREATE_DIALOG,
+                    params:{
+                        type: 'private',
+                        name: componentConsts.SESSION_CREATE_DIALOG
                     }
                 },
                 createCoupon: {

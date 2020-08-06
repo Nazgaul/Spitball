@@ -27,10 +27,11 @@ namespace Cloudents.FunctionsV2
     public static class DocumentFunction
     {
         [FunctionName("DocumentProcessFunction")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public static async Task DocumentProcessFunctionAsync(
             [QueueTrigger("generate-search-preview")] string id,
-            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory dir,
-            [Blob("spitball-files/files/{QueueTrigger}/text.txt")]CloudBlockBlob blob,
+            [Blob("spitball-files/files/{QueueTrigger}")] CloudBlobDirectory dir,
+            [Blob("spitball-files/files/{QueueTrigger}/text.txt")] CloudBlockBlob blob,
             //[AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] ICommandBus commandBus,
             ILogger log,
@@ -104,8 +105,10 @@ namespace Cloudents.FunctionsV2
         /// <param name="token"></param>
         /// <returns></returns>
         [FunctionName("DocumentDeleteOld")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+
         public static async Task DeleteOldDocumentAsync([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
-            [Blob("spitball-files/files")]CloudBlobDirectory directory,
+            [Blob("spitball-files/files")] CloudBlobDirectory directory,
             ILogger log,
             CancellationToken token)
         {
@@ -141,9 +144,11 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("BlobPreviewGenerator")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+
         public static async Task GeneratePreviewAsync(
             [QueueTrigger("generate-blob-preview-v2")] string id, int dequeueCount,
-            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
+            [Blob("spitball-files/files/{QueueTrigger}")] CloudBlobDirectory directory,
             [Inject] IFileProcessorFactory factory,
             [Inject] IStatelessSession session,
             IBinder binder,
@@ -208,6 +213,8 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("RemoveOldLocatorsVideo")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Entry point")]
         public static async Task RemoveOldLocatorsVideoAsync(
             [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
@@ -219,6 +226,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
 
         [FunctionName("DocumentCalculateMd5")]
         public static async Task CalculateMd5Async(
@@ -268,7 +276,14 @@ namespace Cloudents.FunctionsV2
                             await using var sr = await blob.OpenReadAsync();
                             md5 = CalculateMd5(sr);
                             log.LogInformation($"md5 is {md5}");
+
                             blob.Properties.ContentMD5 = md5;
+                            foreach (var (key, _) in blob.Metadata.Where(w => string.IsNullOrEmpty(w.Value)))
+                            {
+                                blob.Metadata.Remove(key);
+                            }
+
+                            await blob.SetMetadataAsync();
                             await blob.SetPropertiesAsync();
                         }
 

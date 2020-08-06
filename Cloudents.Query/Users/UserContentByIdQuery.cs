@@ -43,9 +43,8 @@ namespace Cloudents.Query.Users
                         Documents = s.Documents.Count(c=>c.Status.State == ItemState.Ok),
                         Lessons = s.StudyRooms.Count(),
                         IsPublish = s.State == ItemState.Ok,
-                        StartOn = s.StartTime
-                       
-                       // Purchased = s.PurchaseCount ?? 0
+                        StartOn = s.StartTime,
+                        Version = s.Version
                     }).ToListAsync(token);
 
              
