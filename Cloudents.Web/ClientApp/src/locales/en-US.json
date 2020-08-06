@@ -205,7 +205,7 @@
   "dashboardTeacher_notify_broadcast": "No new students registered | {n} student registered to your live class | {n} students registered to your live class",
   "dashboardTeacher_notify_chat": "No new unread chat messages | {n} New unread chat message | {n} New unread chat messages",
   "dashboardTeacher_notify_follower": "No new students | {n} new student which do not have a chat | {n} new students which do not have a chat",
-  "dashboardTeacher_notify_payments": "No new pending payments | {n} Pending payment for your approval | {n} Pending payments for your approval",
+  "dashboardTeacher_notify_payments": "No new pending payments | {n} pending payment for your approval | {n} pending payments for your approval",
   "dashboardTeacher_revenue": "Revenue",
   "dashboardTeacher_sales": "Sales",
   "dashboardTeacher_see_all": "See all",
