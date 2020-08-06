@@ -2,8 +2,6 @@
 using Cloudents.Core.Enum;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
 
 namespace Cloudents.Core.DTOs.Users
 {
@@ -23,7 +21,7 @@ namespace Cloudents.Core.DTOs.Users
         [NonSerialized]
         public Country? Country;
 
-        [NonSerialized] public string SellerKey;
+      
 
         private ItemState? _isTutor;
 
@@ -68,25 +66,6 @@ namespace Cloudents.Core.DTOs.Users
         }
 
         public bool IsSold { get; set; }
-
-        public bool CanCreateCourse
-        {
-            get
-            {
-                if (_isTutor == null)
-                {
-                    return false;
-                }
-                if (Country == Country.Israel && SellerKey == null)
-                {
-                    return false;
-                }
-
-                return true;
-
-            }
-        }
-
 
 
         public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;

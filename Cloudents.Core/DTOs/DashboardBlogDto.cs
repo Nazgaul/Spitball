@@ -4,7 +4,7 @@ namespace Cloudents.Core.DTOs
 {
     public class DashboardBlogDto
     {
-        public Uri Image { get; set; }
+        public Uri? Image { get; set; }
 
         public Uri Url { get; set; }
         public string Title { get; set; }

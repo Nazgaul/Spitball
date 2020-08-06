@@ -15,13 +15,10 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
-using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Users;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Users;
-using Cloudents.Web.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -49,7 +46,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id:long}"), AllowAnonymous]
-        public async Task<ActionResult<CourseDetailDto?>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
+        public async Task<ActionResult<CourseDetailDto>> GetCourseByIdAsync([FromRoute] long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new CourseByIdQuery(id, userId);
@@ -59,31 +56,62 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
             result.TutorImage = _urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id);
+            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id, result.Version);
             return result;
         }
 
+        [HttpGet("{id:long}/edit")]
+        [Authorize(Policy = "Tutor")]
+        public async Task<ActionResult<CourseDetailEditDto>> GetCourseDetailForUpdateAsync([FromRoute] long id, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CourseByIdEditQuery(id, userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            result.Image = _urlBuilder.BuildCourseThumbnailEndPoint(result.Id, result.Version);
+            return result;
+        }
+
+        [HttpPut("{id:long}")]
+        [Authorize(Policy = "Tutor")]
+        public async Task<IActionResult> UpdateCourseAsync([FromRoute] long id, [FromBody] CreateCourseRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+
+            var command = new UpdateCourseCommand(userId, model.Name, (int)model.Price,
+                (int?)model.SubscriptionPrice, model.Description, model.Image,
+                model.StudyRooms.Select(s => new UpdateCourseCommand.UpdateLiveStudyRoomCommand(s.Name, s.Date)),
+                model.Documents.Select(
+                    s => new UpdateCourseCommand.UpdateDocumentCommand(
+                        s.Id, s.BlobName, s.Name, s.Visible)),
+                model.IsPublish, id);
+
+            await _commandBus.DispatchAsync(command, token);
+
+
+            return Ok();
+        }
+
+
         [HttpPost]
+        [Authorize(Policy = "Tutor")]
         public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
 
-            try
-            {
-                var command = new CreateCourseCommand(userId, model.Name, model.Price,
-                    model.SubscriptionPrice, model.Description, model.Image,
-                    model.StudyRooms.Select(s => new CreateCourseCommand.CreateLiveStudyRoomCommand(s.Name, s.Date)),
-                    model.Documents.Select(
-                        s => new CreateCourseCommand.CreateDocumentCommand(s.BlobName, s.Name, s.Visible)),
-                    model.IsPublish);
+            var command = new CreateCourseCommand(userId, model.Name, (int)model.Price,
+                (int?)model.SubscriptionPrice, model.Description, model.Image,
+                model.StudyRooms.Select(s => new CreateCourseCommand.CreateLiveStudyRoomCommand(s.Name, s.Date)),
+                model.Documents.Select(
+                    s => new CreateCourseCommand.CreateDocumentCommand(s.BlobName ?? throw new InvalidOperationException(), s.Name, s.Visible)),
+                model.IsPublish);
 
-                await _commandBus.DispatchAsync(command, token);
+            await _commandBus.DispatchAsync(command, token);
 
-            }
-            catch (DuplicateRowException)
-            {
-                return Conflict();
-            }
+
             return Ok();
         }
 
@@ -107,7 +135,7 @@ namespace Cloudents.Web.Api
 
             return result.Select(s =>
             {
-                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id);
+                s.Image = _urlBuilder.BuildCourseThumbnailEndPoint(s.Id, s.Version);
                 return s;
             });
         }

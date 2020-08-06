@@ -54,7 +54,7 @@ export const dashboardRoutes = [
    // this is route protect for reference to my-content
    {
        path: '/my-content',
-       name: 'myContent',
+       name: 'myCourses',
        redirect: 'my-courses'
    },
    {
@@ -88,7 +88,7 @@ export const dashboardRoutes = [
         path: "/study-rooms-broadcast",
         name: "myStudyRoomsBroadcast",
         components: {
-            default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
+            default: () => import(`../components/pages/dashboardPage/scheduledClasses/scheduledClasses.vue`),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         props: {

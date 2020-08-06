@@ -92,6 +92,7 @@ const actions = {
         }else{
             commit('setCurrentItemId',null);
             commit('removeComponent',ITEM_DIALOG);
+            commit('setItemPage',0)
         }
     },
     updateItemPaging({commit,getters},isNext){

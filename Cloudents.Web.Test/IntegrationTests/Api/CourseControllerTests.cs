@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
@@ -44,56 +45,24 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
-      
 
-        [Fact(Skip ="Need to delete it, not relevant any more")]
-        public async Task Teach_CourseAsync()
+        [Theory]
+        [InlineData("api/course/")]
+        [InlineData("api/course/1")]
+        public async Task CourseApiTestGet_LogIn_OkAsync(string api)
         {
-            await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));
-            await _client.PostAsync("api/course/set", HttpClientExtensions.CreateJsonString(_course));
-            var response = await _client.PostAsync("api/course/teach", HttpClientExtensions.CreateJsonString(_course));
+            await _client.LogInAsync();
+            var response = await _client.GetAsync(api);
             response.EnsureSuccessStatusCode();
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                var str = await response.Content.ReadAsStringAsync();
+                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+            }
+
+            //response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
-        //[Fact(Skip = "this is not a good unit test - need to think about it")]
-        //public async Task PostAsync_CreateAndDelete_CourseAsync()
-        //{
-        //    _uri.Path = "api/course";
-
-        //    _uri.AddQuery(new NameValueCollection
-        //    {
-        //        ["name"] = "NewCourse1"
-        //    });
-
-        //    await _client.LogInAsync();
-
-        //    await _client.DeleteAsync(_uri.Uri);
-
-        //    var response = await _client.PostAsync(_uri.Path + "/create", HttpClientExtensions.CreateJsonString(_newCourse));
-
-        //    response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
-
-        //    response = await _client.DeleteAsync(_uri.Uri);
-
-        //    response.StatusCode.Should().Be(HttpStatusCode.OK, "Delete Course Failed");
-        //}
-
-        //[Fact(Skip = "this is not a good unit test - need to think about it")]
-        //public async Task PostAsync_Delete_CourseAsync()
-        //{
-        //    await _client.LogInAsync();
-
-        //    _uri.Path = "api/course";
-
-        //    _uri.AddQuery(new NameValueCollection()
-        //    {
-        //        ["name"] = "NewCourse1"
-        //    });
-
-        //    var response = await _client.DeleteAsync(_uri.Uri);
-
-        //    response.EnsureSuccessStatusCode();
-        //}
 
         [Fact]
         public async Task GetAsync_Get_CoursesAsync()

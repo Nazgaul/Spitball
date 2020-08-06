@@ -1,7 +1,7 @@
 <template>
     <div class="courseInfo pa-5 mb-6">
         <div class="courseInfoTitle mb-9" v-t="'basic_info'"></div>
-        <v-combobox
+        <v-text-field 
             v-model="courseName"
             class="courseName mb-2"
             :rules="[rules.required]"
@@ -21,6 +21,7 @@
             :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
             :label="$t('follower_price')"
             :prefix="getSymbol"
+            onkeypress="return !(event.charCode == 46)"
             placeholder=" "
             dense
             color="#304FFE"
@@ -30,22 +31,23 @@
         >
         </v-text-field>
 
-        <template v-if="isSubscription">
-            <v-switch
+        <!-- <template v-if="isSubscription"> -->
+            <!-- <v-switch
                 v-model="subscribeSwitch"
                 class="mb-7 mt-0 pa-0"
                 :label="$t('set_subscriber_price')"
                 hide-details
-            ></v-switch>
+            ></v-switch> -->
 
             <v-text-field
                 v-model="subscriberPrice"
-                v-if="subscribeSwitch"
+                v-if="isSubscription"
                 type="number"
                 class="priceSubscriber mb-6"
                 :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
                 :label="$t('subscriber_price')"
                 :prefix="getSymbol"
+                onkeypress="return !(event.charCode == 46)"
                 placeholder=" "
                 dense
                 color="#304FFE"
@@ -54,7 +56,7 @@
                 outlined
             >
             </v-text-field>
-        </template>
+        <!-- </template> -->
 
         <v-textarea
             v-model="courseDescription"
@@ -71,16 +73,17 @@
         <div class="addImage">
             <div class="addImageTitle mb-4" v-t="'add image'"></div>
 
-            <div class="liveImageWrap d-flex flex-column">
+            <label class="liveImageWrap d-flex flex-column">
                 <uploadImage
-                    v-show="true"
+                    v-show="isLoaded"
                     :fromLiveSession="true"
                     @setLiveImage="handleLiveImage"
                     class="editLiveImage"
                 />
-                <img class="liveImage" :src="previewImage || liveImage" width="250" height="140" alt="">
+                <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
+                <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
-            </div>
+            </label>
         </div>
     </div>
 </template>
@@ -96,7 +99,7 @@ export default {
     },
     data() {
         return {
-            subscribeSwitch: false,
+            isLoaded: false,
             previewImage: null,
             newLiveImage: null,
             rules: {
@@ -152,6 +155,9 @@ export default {
                 this.$store.commit('setCourseDescription', description)
             }
         },
+        image() {
+            return this.$store.getters.getCourseCoverImage
+        },
         getSymbol() {
             let currencySymbol = this.$store.getters.accountUser?.currencySymbol
             let v = this.$n(1, {'style':'currency','currency': currencySymbol});
@@ -161,15 +167,20 @@ export default {
     methods: {
         handleLiveImage(previewImage) {
             if(previewImage) {
+                this.isLoaded = false
                 let formData = new FormData();
                 formData.append("file", previewImage[0]);
                 let self = this
                 this.$store.dispatch('updateLiveImage', formData).then(({data}) => {
+                    self.isLoaded = false
                     self.previewImage = window.URL.createObjectURL(previewImage[0])
                     self.newLiveImage = data.fileName
                     self.$store.commit('setCourseCoverImage', self.newLiveImage)
                 })
             }
+        },
+        loaded() {
+            this.isLoaded = true
         }
     }
 }
@@ -193,7 +204,7 @@ export default {
         width: 500px;
     }
     .priceFollower, .priceSubscriber {
-        width: 160px;
+        width: 180px;
     }
     .addImage {
         .addImageTitle {
@@ -202,6 +213,7 @@ export default {
             color: @global-purple;
         }
         .liveImageWrap {
+            cursor: pointer;
             max-width: fit-content;
             text-align: center;
             position: relative;
@@ -211,7 +223,8 @@ export default {
                 border-radius: 3px;
                 background-color: rgba(0,0,0,.6);
                 z-index: 1;
-                left: 0;
+                top: 1px;
+                left: 1px;
                 padding: 6px;
             }
             .liveImage {

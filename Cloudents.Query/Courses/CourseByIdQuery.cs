@@ -40,34 +40,12 @@ namespace Cloudents.Query.Courses
 
             public async Task<CourseDetailDto?> GetAsync(CourseByIdQuery query, CancellationToken token)
             {
-                var futureStudyRoom = _statelessSession.Query<Course>()
+                var futureCourse = _statelessSession.Query<Course>()
                     .Where(w => w.Id == query.Id && w.State == ItemState.Ok)
                     .Select(s => new CourseDetailDto
                     {
-                        Documents = s.Documents.Where(w => w.Status.State == ItemState.Ok).Select(s2 =>
-                            new DocumentFeedDto()
-                            {
-                                Title = s2.Name,
-                                DocumentType = s2.DocumentType,
-                                Id = s2.Id,
-                                Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
-                            }),
                         Id = s.Id,
-                        StudyRooms = s.StudyRooms.Where(w => w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(
-                            s2 => new FutureBroadcastStudyRoomDto()
-                            {
-                                Id = s2.Id,
-                                DateTime = s2.BroadcastTime,
-                                Name = s2.Description
-                                // Description = s2.Description,
-                                //IsFull = _statelessSession.Query<StudyRoomUser>().Count(w => w.Room.Id == s2.Id) >= 48,
-                                //Enrolled = _statelessSession.Query<StudyRoomUser>()
-                                //    .Any(w => w.Room.Id == s2.Id && w.User.Id == query.UserId),
-                                //Schedule = s2.Schedule
-                            }),
-                        //Enrolled = _statelessSession.Query<CourseEnrollment>().Any(a => a.User.Id == query.UserId),
                         TutorId = s.Tutor.Id,
-                        //BroadcastTime = s.BroadcastTime,
                         Name = s.Name,
                         Price = s.Price,
                         SubscriptionPrice = s.SubscriptionPrice,
@@ -76,11 +54,33 @@ namespace Cloudents.Query.Courses
                         TutorCountry = s.Tutor.User.SbCountry,
                         TutorSellerKey = s.Tutor.SellerKey,
                         Description = s.Description,
-                       // Full = _statelessSession.Query<CourseEnrollment>().Count(w=>w.Course.Id == s.Id )  == 48,
                         TutorBio = s.Tutor.Paragraph2,
-
-                        //SessionStarted =  _statelessSession.Query<StudyRoomSession>().Any(w=>w.StudyRoom.Id== query.Id && w.Ended ==null)
+                        Version = s.Version
                     }).ToFutureValue();
+
+
+                var futureStudyRoom = _statelessSession.Query<BroadCastStudyRoom>()
+                    .Where(w => w.Course.Id == query.Id)
+                    .Where(w => w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(
+                        s2 => new FutureBroadcastStudyRoomDto()
+                        {
+                            Id = s2.Id,
+                            DateTime = s2.BroadcastTime,
+                            Name = s2.Description
+                        }).ToFuture();
+
+
+                var futureDocuments = _statelessSession.Query<Document>()
+                    .Where(w => w.Course.Id == query.Id)
+                    .Where(w => w.Status.State == ItemState.Ok).Select(s2 =>
+                    new DocumentFeedDto()
+                    {
+                        Title = s2.Name,
+                        DocumentType = s2.DocumentType,
+                        Id = s2.Id,
+                        Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
+                    }).ToFuture();
+
 
                 var futureCoupon  = _statelessSession.Query<UserCoupon>()
                     .Where(w => w.User.Id == query.UserId)
@@ -112,19 +112,21 @@ namespace Cloudents.Query.Courses
                     .Where(w => ((BroadCastStudyRoom) w.StudyRoom).Course.Id == query.Id && w.Ended != null)
                     .ToFutureValue(f => f.Any());
 
-                var result = await futureStudyRoom.GetValueAsync(token);
+                var result = await futureCourse.GetValueAsync(token);
 
                 if (result is null)
                 {
                     return null;
                 }
 
+                result.StudyRooms = await futureStudyRoom.GetEnumerableAsync(token);
+                result.Documents = await futureDocuments.GetEnumerableAsync(token);
                 result.BroadcastTime = result.StudyRooms.DefaultIfEmpty().Min(m => m?.DateTime);
                 result.Full = fullFuture.Value == 48;
                 result.Enrolled = enrollmentsFuture.Value;
                 result.SessionStarted = sessionStartedFuture.Value;
 
-                result.StudyRooms = result.StudyRooms;
+                
 
 
 

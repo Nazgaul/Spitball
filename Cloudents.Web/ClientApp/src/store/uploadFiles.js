@@ -32,6 +32,7 @@ const mutations = {
             this.error = objInit.error || false;
             this.errorText = objInit.errorText || '';
             this.description = objInit.description || '';
+            this.visible = objInit.visible === undefined ? true : objInit.visible
         }
         state.fileData.push(new FileData(file));
     },
@@ -57,13 +58,14 @@ const mutations = {
         state.fileData[objIndex].errorText = fileInfo.errorText;
         // Update progress to enable Upload button
         state.fileData[objIndex].progress = 100;
-
+    },
+    resetUploadFiles(state) {
+        state.fileData = []
     }
-
 };
 
 const actions = {
-    uploadDropbox(context, file) {
+    uploadDropbox({commit}, file) {
         let serverFormatFileData = {
             blobName: file.blobName,
             name: file.name,
@@ -73,7 +75,7 @@ const actions = {
         return axios.post("/Document/dropbox", serverFormatFileData)
             .then(res => {
                 file.blobName = res.data.fileName ? res.data.fileName : '';
-                self.$store.commit('addFile', file)
+                commit('addFile', file)
                 return
             }).catch(ex => {
                 console.error('error drop box api call', ex);

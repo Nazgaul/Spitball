@@ -46,6 +46,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("live/{id:guid}")]
+        [Route("course/{id:guid}")]
         public async Task<IActionResult> RedirectLive(Guid id,[FromServices] IStatelessSession session)
         {
             var course = await session.Query<BroadCastStudyRoom>().Where(w => w.Id == id)
@@ -55,9 +56,10 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            ///{course.Name}
+            //{course.Name}
             return Redirect($"/course/{course.Id}");
 
         }
+        //https://www.spitball.co/course/9fe69dc0-f8c6-4ccc-a1aa-ac0c0134485a?t=1596480572534
     }
 }

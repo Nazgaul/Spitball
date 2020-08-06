@@ -4,34 +4,27 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Fluent nhibernate")]
-    //public sealed class OldCourseMap : ClassMap<OldCourse>
-    //{
-    //    public OldCourseMap()
-    //    {
-    //        Id(e => e.Id).Column("Name").GeneratedBy.Assigned().Length(150);
-    //        Map(x => x.Count).Not.Nullable();
-    //        Map(x => x.Created).Insert().Not.Update();
-    //        DynamicUpdate();
-    //        OptimisticLock.Version();
-    //        Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
-    //        Table("Course");
-    //    }
-    //}
 
     public sealed class CourseMap : ClassMap<Course>
     {
         public CourseMap()
         {
+            DynamicUpdate();
             Id(x=>x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "5",
                 $"{nameof(HiLoGenerator.TableName)}='Course'");
-            Map(x => x.Name).Not.Nullable();
-            Map(x => x.Description).Nullable();
+            Map(x => x.Name).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
+            Map(x => x.Description).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
+            Map(x => x.Position).ReadOnly();
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
-            Map(x => x.Create);
+            Component(x => x.DomainTime, z =>
+            {
+                z.Map(c => c.CreationTime).Column("Create").Insert().Not.Update();
+                z.Map(c => c.UpdateTime);
+            });
+
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("SubscriptionPrice","SubscriptionCurrency");
@@ -39,17 +32,18 @@ namespace Cloudents.Persistence.Maps
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
                 .Columns.Add("Price","PriceCurrency");
 
-            Map(x => x.StartTime).Nullable();
+            Map(x => x.StartTime).Access.CamelCaseField(Prefix.Underscore).Nullable();
 
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
-                .Inverse().Cascade.AllDeleteOrphan();
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
 
             HasMany(x => x.CourseEnrollments).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
-            References(x => x.Tutor).Not.Nullable();
+            References(x => x.Tutor).Nullable(); //need for delete
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            Version(x => x.Version).Nullable();
             Table("Course2");
         }
     }

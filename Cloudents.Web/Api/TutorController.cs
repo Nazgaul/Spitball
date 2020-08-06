@@ -24,7 +24,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;

@@ -7,8 +7,8 @@ namespace Cloudents.Command.Courses
     {
         public CreateCourseCommand(long userId, string name, int price, int? subscriptionPrice,
             string description, string? image,
-            IEnumerable<CreateLiveStudyRoomCommand>? studyRooms,
-            IEnumerable<CreateDocumentCommand>? documents, bool isPublish)
+            IEnumerable<CreateLiveStudyRoomCommand> studyRooms,
+            IEnumerable<CreateDocumentCommand> documents, bool isPublish)
         {
             UserId = userId;
             Name = name;
@@ -16,8 +16,8 @@ namespace Cloudents.Command.Courses
             SubscriptionPrice = subscriptionPrice;
             Description = description;
             Image = image;
-            StudyRooms = studyRooms;
-            Documents = documents;
+            StudyRooms = studyRooms ?? throw new ArgumentNullException(nameof(studyRooms));
+            Documents = documents ?? throw new ArgumentNullException(nameof(documents));
             IsPublish = isPublish;
         }
 

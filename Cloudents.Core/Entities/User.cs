@@ -78,10 +78,10 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
+        
+        private readonly ISet<CourseEnrollment> _userCourses = new HashSet<CourseEnrollment>();
 
-        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
-
-        //public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+        public virtual IEnumerable<CourseEnrollment> UserCourses => _userCourses.ToList();
 
 
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
@@ -173,10 +173,10 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountry(string country)
         {
-            if (Entities.Country.CountriesNotSupported.Contains(country))
-            {
-                throw new NotSupportedException();
-            }
+            //if (Entities.Country.CountriesNotSupported.Contains(country))
+            //{
+            //    throw new NotSupportedException();
+            //}
             if (Country?.Equals(country) == true)
             {
                 return;
@@ -450,7 +450,11 @@ namespace Cloudents.Core.Entities
         public virtual void ReferUser(User user)
         {
             const int maxRefer = 5;
-
+            if (Id == user.Id)
+            {
+                return;
+                
+            }
             //Country country = user.Country;
 
             var referCount = Transactions.TransactionsReadOnly.AsQueryable().Count(w => w is ReferUserTransaction);

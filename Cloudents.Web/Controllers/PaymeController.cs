@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
-using Cloudents.Web.Api;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.ApplicationInsights;

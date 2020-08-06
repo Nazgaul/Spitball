@@ -1,17 +1,12 @@
-﻿using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
-using Cloudents.Web.Models;
-using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

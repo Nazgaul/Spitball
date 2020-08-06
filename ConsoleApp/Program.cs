@@ -24,6 +24,7 @@ using Azure.Storage.Queues;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Command.Courses;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Storage;
@@ -157,7 +158,6 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-
             await Dbi();
 
         }
@@ -169,71 +169,7 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<ISession>();
-            //var cron = Container.Resolve<ICronService>();
-            var _googleDocument = Container.Resolve<IGoogleDocument>();
-
-
-            var coursesWithNoStartTime = await session.Query<Course>()
-                .Where(w => w.StartTime == null && w.StudyRooms.Any())
-                .ToListAsync();
-
-            foreach (var course in coursesWithNoStartTime)
-            {
-                using var uow = Container.Resolve<IUnitOfWork>();
-                course.StartTime = course.StudyRooms.Min(x => x.BroadcastTime);
-                await uow.CommitAsync();
-
-            }
-
-            var recurringStudyRoom = await session.Query<BroadCastStudyRoom>()
-                .Where(w => w.Schedule.End > DateTime.UtcNow && w.Course.State == ItemState.Ok)
-                .Select(s => new
-                {
-                    s.Course,
-                    s.Schedule,
-                    s.Description
-                }).ToListAsync();
-
-
-            foreach (var broadCastStudyRoom in recurringStudyRoom)
-            {
-                var schedule = CrontabSchedule.Parse(broadCastStudyRoom.Schedule.CronString);
-                var upcomingStudyRooms =  schedule.GetNextOccurrences(DateTime.UtcNow, broadCastStudyRoom.Schedule.End);
-               
-                if (broadCastStudyRoom.Course.StudyRooms.Count() == upcomingStudyRooms.Count())
-                {
-                    continue;
-                }
-                
-                foreach (var upcomingStudyRoom in upcomingStudyRooms)
-                {
-                    
-                    using var uow = Container.Resolve<IUnitOfWork>();
-                    if (broadCastStudyRoom.Course.StudyRooms.Any(a => a.BroadcastTime == upcomingStudyRoom))
-                    {
-                        continue;
-                    }
-
-                    var documentName = $"{broadCastStudyRoom.Course.Name}-{Guid.NewGuid()}";
-                    var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, default);
-                    var studyRoom = new BroadCastStudyRoom(broadCastStudyRoom.Course.Tutor, googleDocUrl, broadCastStudyRoom.Course,
-                        upcomingStudyRoom.Date, broadCastStudyRoom.Description);
-                    broadCastStudyRoom.Course.AddStudyRoom(studyRoom);
-                    await uow.CommitAsync();
-                }
-
-            }
-            var courses = await session.Query<Course>()
-                .Where(w => w.State == ItemState.Ok)
-                .ToListAsync(); 
-
-            foreach (var course in courses)
-            {
-                using var uow = Container.Resolve<IUnitOfWork>();
-                course.SubscribeToAllStudyRooms();
-                await uow.CommitAsync();
-            }
+           
         }
 
         private static async Task UpdateTwilioParticipants()
