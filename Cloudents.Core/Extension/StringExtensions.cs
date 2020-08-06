@@ -11,10 +11,13 @@ namespace Cloudents.Core.Extension
             {
                 return;
             }
-            var item =list[oldIndex];
+            T item = list[oldIndex];
             list.RemoveAt(oldIndex);
-            if (newIndex > oldIndex) newIndex--; 
             list.Insert(newIndex, item);
+            //var item =list[oldIndex];
+            //list.RemoveAt(oldIndex);
+            //if (newIndex > oldIndex) newIndex--; 
+            //list.Insert(newIndex, item);
         }
 
         public static int FindIndex<T>(
