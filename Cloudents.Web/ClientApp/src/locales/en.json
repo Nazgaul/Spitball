@@ -737,7 +737,7 @@
   "upload_file_course_label": "Course",
   "upload_file_description_label": "Description",
   "upload_file_title_label": "Title",
-  "upload_files": "Uploaded Files",
+  "upload_files": "Drag to reorder the files display in the course",
   "upload_label_course_name": "Course",
   "upload_multiple_error_extension_title": "This file type is not supported",
   "upload_multiple_error_upload_something_wrong": "File is not supported",

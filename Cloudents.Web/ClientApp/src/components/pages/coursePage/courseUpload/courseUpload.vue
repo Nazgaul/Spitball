@@ -81,7 +81,7 @@ export default {
         color: @global-purple;
     }
     .uploadFilesTitle {
-        font-size: 20px;
+        font-size: 14px;
         font-weight: 600;
         color: @global-purple;
     }
