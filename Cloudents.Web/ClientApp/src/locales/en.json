@@ -227,11 +227,8 @@
   "enter_room": "ENTER",
   "faq": "FAQ",
   "faq subtitle": "Answers to all of your top questions",
-<<<<<<< HEAD
   "follow_me": "Follow me",
-=======
   "financial_status": "Financial status",
->>>>>>> origin/develop
   "follower_price": "Price for non-subscribers",
   "formErrors_email": "E-mail must be valid",
   "formErrors_integer": "Whole numbers only",
