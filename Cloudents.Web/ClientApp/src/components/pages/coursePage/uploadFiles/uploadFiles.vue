@@ -1,9 +1,9 @@
 <template>
-    <div class="uploadFiles" v-if="!item.error">
+    <div class="uploadFiles" v-if="!file.error">
         <div class="uploadFilesWrap d-flex align-center justify-space-between">
             <div class="d-flex align-center">
                 <v-text-field
-                    v-model="item.name"
+                    v-model="file.name"
                     :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
                     :label="$t('upload_file_title_label')"
                     class="uploadFileInput"
@@ -35,7 +35,8 @@ import { validationRules } from '../../../../services/utilities/formValidationRu
 export default {
     name: 'uploadFiles',
     props: {
-        singleFileIndex: {}
+        singleFileIndex: {},
+        item: {}
     },
     data() {
         return {
@@ -47,10 +48,15 @@ export default {
             }
         }
     },
+    watch: {
+        file(item) {
+            this.fileSwitch = item.visible
+        }
+    },
     computed: {
-        item() {
-            return this.$store.getters.getFileData[this.singleFileIndex]
-        },
+        file() {
+            return this.item
+        }
     },
     methods: {
         removeFile() {
@@ -64,7 +70,7 @@ export default {
         }
     },
     created() {
-        this.fileSwitch = this.item.visible
+        this.fileSwitch = this.file.visible
     }
 }
 </script>

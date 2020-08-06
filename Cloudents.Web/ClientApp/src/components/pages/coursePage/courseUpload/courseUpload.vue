@@ -58,14 +58,8 @@ export default {
     methods: {
         checkMove: function(e) {
             let {futureIndex, index} = e.draggedContext
-            const movedItem = this.files.splice(index, 1)[0]
-            this.files.splice(futureIndex, 0, movedItem)
-
-            // var item = list[oldIndex]; list.RemoveAt(oldIndex); if (newIndex > oldIndex) newIndex--; // the actual index could have shifted due to the removal list.Insert(newIndex, item);
-
-            // console.log(this.files.splice());
-            // this.files.splice(futureIndex, 0, index)
-            // window.console.log("Future index: " + e.draggedContext.futureIndex);
+            const movedItem = this.files.slice(index, 1)[0]
+            this.files.slice(futureIndex, 0, movedItem)
         }
     }
 }
@@ -90,6 +84,9 @@ export default {
         font-size: 20px;
         font-weight: 600;
         color: @global-purple;
+    }
+    .list-group {
+        cursor: move;
     }
 }
 </style>
