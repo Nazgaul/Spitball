@@ -267,6 +267,7 @@
   "invalid_date": "Schedule a future date",
   "invalid_duplicate_date": "You set up classes with same date and time",
   "invalid_file": "Some files cannot be uploaded",
+  "invalid_file_upload": "Wait until all files finished uploading",
   "invalid_studyroom_text": "Missing a class topic",
   "invite_course": "Invite to this course",
   "itemCardCarousel_course": "Course:",

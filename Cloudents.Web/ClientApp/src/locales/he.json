@@ -267,6 +267,7 @@
   "invalid_date": "הזמן שנבחר צריך להיות בעתיד",
   "invalid_duplicate_date": "יש שיעורים שנקבעו לאותו המועד",
   "invalid_file": "לא ניתן להעלות קבצים אילו",
+  "invalid_file_upload": "המתן עד סיום העלאת כל הקבצים",
   "invalid_studyroom_text": "חסר נושא שיעור",
   "invite_course": "הזמנה לקורס",
   "itemCardCarousel_course": "",
