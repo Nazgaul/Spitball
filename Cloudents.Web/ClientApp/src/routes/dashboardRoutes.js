@@ -52,7 +52,6 @@ export const dashboardRoutes = [
    // this is route protect for reference to my-content
    {
        path: '/my-content',
-       name: 'myCourses',
        redirect: 'my-courses'
    },
    {
