@@ -55,8 +55,8 @@ const mutations = {
       state.salesItems[index].paymentStatus = "Pending";
    },
    setUpdateItemPosition(state, pos) {
-      const movedItem = state.coursesItems.slice(pos.oldPosition, 1)[0]
-      state.coursesItems.slice(pos.newPosition, 0, movedItem)
+      const movedItem = state.coursesItems.splice(pos.oldPosition, 1)[0]
+      state.coursesItems.splice(pos.newPosition, 0, movedItem)
    },
    resetCourseItems(state) {
       state.coursesItems = []
@@ -78,10 +78,10 @@ const actions = {
       });
    },
    updateCoursesItems({commit}){
-      axios.get('course').then(({data})=>{
+      return axios.get('course').then(({data})=>{
          commit('setCoursesItems', data);
       }).catch(ex => {
-         console.log(ex);
+         console.error(ex);
       })
    },
    updatePurchasesItems({commit}){
@@ -147,15 +147,12 @@ const actions = {
       return salesService.updateBillOffline(params);
    },
    updateCoursePosition({commit}, {oldIndex, newIndex}) {
-      if(oldIndex !== newIndex) {
-         let params = {
-            oldPosition: oldIndex,
-            newPosition: newIndex
-         }
-         axios.post(`course/move`, params).then(() => {
-            commit('setUpdateItemPosition', params)
-         })
+      let params = {
+         oldPosition: oldIndex,
+         newPosition: newIndex
       }
+      commit('setUpdateItemPosition', params)
+      axios.post(`course/move`, params)
    }
 };
 
