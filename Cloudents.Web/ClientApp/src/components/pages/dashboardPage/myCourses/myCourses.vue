@@ -52,7 +52,7 @@
                      <div style="max-width: 200px">{{item.name}}</div>
                   </td>
                   <td class="text-start">
-                     <div v-if="item.startOn">{{$d(item.startOn)}}</div>
+                     <div v-if="item.startOn">{{$moment(item.startOn).format('MMM D')}}</div>
                   </td>
                   <td class="text-start">{{item.lessons}}</td>
                   <td class="text-start">{{item.documents}}</td>
@@ -75,7 +75,7 @@
                               <v-icon size="18" color="#43425d">sbf-edit-icon</v-icon>
                            </v-btn>
                         </template>
-                        <div v-t="'edit_course'"></div>          
+                        <div v-t="'go_edit'"></div>          
                      </v-tooltip>
    
                      <!-- <v-menu offset-y>
@@ -187,7 +187,7 @@ export default {
 @import "../../../../styles/colors.less";
 .myCourses {
    margin: 30px;
-   max-width: 1366px;
+   max-width: 1080px;
    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
    @media (max-width: @screen-xs) {
       margin: 8px 0;
