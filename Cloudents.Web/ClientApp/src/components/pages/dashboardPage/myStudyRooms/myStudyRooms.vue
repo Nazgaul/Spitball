@@ -45,7 +45,7 @@
         </div>
       </template>
 
-      <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
+      <template v-slot:item.date="{item}">{{$moment(item.date).format('MMM D')}}</template>
       <template v-slot:item.name="{item}">{{item.name}}</template>
 
       <template v-slot:item.type>
@@ -75,7 +75,7 @@
       </template>
 
       <template v-slot:item.lastSession="{item}">
-        <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
+        <template v-if="item.lastSession">{{$moment(item.lastSession).format('MMM D')}}</template>
       </template>
 
       <template v-slot:item.price="{item}">{{$price(item.price,item.currency,true)}}</template>
@@ -149,6 +149,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as routeNames from "../../../../routes/routeNames";
+import * as componentConsts from '../../global/toasterInjection/componentConsts.js';
 
 import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoomGreen.svg";
@@ -274,10 +275,9 @@ export default {
       "deleteStudyRoomSession"
     ]),
     openPrivateSession() {
-      this.$store.commit("setComponent", "createPrivateSession");
+      this.$store.commit("addComponent", componentConsts.SESSION_CREATE_DIALOG);
     },
     openLiveSession() {
-      this.$store.commit("setComponent", "createLiveSession");
     },
     deleteSession(id) {
       let self = this;
@@ -356,7 +356,7 @@ export default {
 
 .myStudyRooms {
   padding: 30px;
-  max-width: 1334px;
+  max-width: 1080px;
   @media (max-width: @screen-xs) {
     padding: 30px 0;
     width: 100%;
@@ -409,31 +409,15 @@ export default {
     padding: 4px 10px;
   }
   .copyLink {
-    width: 100px;
-
-    @media (max-width: @screen-xs) {
-      width: 86px;
-    }
+    // width: 100px;
+    // @media (max-width: @screen-xs) {
+    //   width: 86px;
+    // }
   }
   tr {
-    height: 70px;
-
     .actionsWrapper {
-      transition: opacity 0.5s ease-out;
-      opacity: 0;
-      display: none;
-
-      @media (max-width: @screen-xs) {
-        display: flex;
-        opacity: 1;
-      }
-    }
-    &:hover {
-      .actionsWrapper {
-        display: flex;
-        opacity: 1;
-        transition: opacity 0.5s ease-in;
-      }
+      font-size: 12px;
+      color: #69687d;
     }
   }
   td {
@@ -456,7 +440,11 @@ export default {
         padding-top: 14px;
         padding-bottom: 14px;
         font-weight: normal;
-        min-width: 100px;
+        border-top: thin solid rgba(0, 0, 0, 0.12);
+
+        &:nth-child(2) {
+          width: 120px;
+        }
       }
     }
     color: #43425d !important;

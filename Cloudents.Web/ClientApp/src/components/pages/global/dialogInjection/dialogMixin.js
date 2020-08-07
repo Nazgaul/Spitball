@@ -1,6 +1,5 @@
 import { mapGetters } from 'vuex';
 // const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
-// const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 // const login = () => import('./globalDialogs/login/login.vue');
 // const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
@@ -9,7 +8,6 @@ import { mapGetters } from 'vuex';
 export default {
     // components: {
     //     exitRegister,
-    //     createCoupon,
     //     login,
     //     teacherApproval,
     // },

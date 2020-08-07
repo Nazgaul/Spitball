@@ -4,20 +4,14 @@
         <div class="dialog-wrapp flex-grow-1 referral-container">
             <v-icon class="close-btn-referral body-1 pe-3 pt-3" @click.prevent="requestDialogClose()">sbf-close</v-icon>
             <v-layout column v-show="!isUploadReferral">
-                <v-flex xs12   class="mb-4">
-                    <!-- <div v-show="getSchoolName">
-                        <span class="ref-title" v-html="text.dialog.title">
-                        </span>
-                        <span class="ref-title" v-if="getSchoolName">{{getSchoolName}}</span>
-                    </div> -->
+                <v-flex xs12 class="mb-4">
                     <div>
                         <span class="ref-title" v-html="text.dialog.titleSpread"></span>
                     </div>
                 </v-flex>
-                <v-flex xs12   class="mb-4">
+                <v-flex xs12 class="mb-4">
                     <div>
-                        <span class="text-center ref-subtitle"
-                              v-html="text.dialog.subTitle"></span>
+                        <span class="text-center ref-subtitle" v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>
             </v-layout>

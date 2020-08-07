@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component v-if="!!accountUser" :dictionary="dictionary" :is="component">
+      <component v-if="!!accountUser" :dictionary="dictionary" :is="component" class="globalTable">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -14,7 +14,6 @@ import { mapGetters } from 'vuex';
 const mySales = () => import('./mySales/mySales.vue');
 const myPurchases = () => import('./myPurchases/myPurchases.vue');
 const myStudyRooms = () => import('./myStudyRooms/myStudyRooms.vue');
-const myStudyRoomsBroadcast = () => import('./myStudyRooms/myStudyRooms.vue');
 const myCalendar = () => import('./myCalendar/myCalendar.vue');
 const myFollowers = () => import('./myFollowers/myFollowers.vue');
 const tableEmptyState = () => import('./global/tableEmptyState.vue');
@@ -61,7 +60,6 @@ export default {
       mySales,
       myPurchases,
       myStudyRooms,
-      myStudyRoomsBroadcast,
       myCalendar,
       myFollowers,
       tableEmptyState,
@@ -77,10 +75,12 @@ export default {
 .dashboardPage{
    padding: 30px;
 	@media (max-width: @screen-xs) {
-      padding-left: 6px;
-      padding-right: 6px;
+      padding: 8px 0;
       width: 100%;
       height: 100%;
+   }
+   .globalTable {
+      max-width: 1080px;
    }
    .v-snack__content{
       justify-content: center;

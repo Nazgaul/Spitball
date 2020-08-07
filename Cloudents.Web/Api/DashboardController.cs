@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Tutors;
@@ -48,6 +49,15 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var query = new TutorNotificationQuery(userId);
             return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("upcoming")]
+        public async Task<IEnumerable<UpcomingStudyRoomDto>> FutureScheduleAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UpcomingLessonsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+
         }
     }
 }

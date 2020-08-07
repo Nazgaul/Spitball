@@ -3,7 +3,7 @@
       <div class="createRoomWrapper px-sm-7 px-4 py-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
-            <v-icon class="close-dialog" v-text="'sbf-close'" @click="$store.commit('setComponent')" />
+            <v-icon class="close-dialog" v-text="'sbf-close'" @click="closeDialog()" />
             <div class="createStudyRoomDialog-title text-center mb-7 pb-3">{{createSessionTitle}}</div>
 
             <component
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { CREATE_BROADCAST_ERROR } from '../../global/toasterInjection/componentConsts'
+import { CREATE_BROADCAST_ERROR ,SESSION_CREATE_DIALOG } from '../../global/toasterInjection/componentConsts'
 const Broadcast = () => import('./liveSession/liveSession.vue');
 const Private = () => import('./privateSession/privateSession.vue');
 
@@ -83,6 +83,9 @@ export default {
       }
    },
    methods: {
+      closeDialog(){
+         this.$store.commit('removeComponent',SESSION_CREATE_DIALOG);  
+      },
       createStudyRoom(){
          let form = this.$refs.createRoomValidation
          if(!form.validate()) return
@@ -111,11 +114,15 @@ export default {
          }
 
          let self = this
-         this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj).catch((error) => {
-               self.handleCreateError(error)
-            }).finally(() => {
+         this.$store.dispatch('updateCreateStudyRoomPrivate', privateObj)
+            .then(()=>{
+               self.closeDialog();           
+            })
+            .catch((error) => {
+               self.handleCreateError(error);
+            })
+            .finally(() => {
                self.isLoading = false;
-               self.$store.commit('setComponent')               
             })
       },
       handleCreateError(error) {

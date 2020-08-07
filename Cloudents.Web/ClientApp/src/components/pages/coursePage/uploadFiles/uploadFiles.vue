@@ -4,8 +4,8 @@
         <div class="uploadFilesWrap d-flex align-center justify-space-between flex-grow-1">
             <div class="d-flex align-center">
                 <v-text-field
-                    v-model="file.name"
-                    :rules="[rules.required, rules.minimumChars, rules.maximumChars]"
+                    v-model="item.name"
+                    :rules="[rules.required, rules.maximumChars]"
                     :label="$t('upload_file_title_label')"
                     class="uploadFileInput"
                     placeholder=" "
@@ -44,7 +44,6 @@ export default {
             fileSwitch: true,
             rules: {
                 required: (value) => validationRules.required(value),
-                minimumChars: value => validationRules.minimumChars(value, 4),
                 maximumChars: value => validationRules.maximumChars(value, 150)
             }
         }

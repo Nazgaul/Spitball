@@ -38,13 +38,6 @@ namespace Cloudents.Query.Tutor
                     .Select(s => s.Id)
                     .ToFutureValue(f => f.Any());
 
-                var hoursFuture = _session.Query<TutorHours>()
-                    .Where(w => w.Tutor.Id == query.UserId)
-                    .Select(s => s.Id)
-                    .ToFutureValue(f => f.Any());
-
-
-
                 var bookedSessionFuture = _session.Query<StudyRoomUser>()
                     .Fetch(f => f.Room)
                     .Where(w => w.User.Id == query.UserId)
@@ -74,20 +67,11 @@ namespace Cloudents.Query.Tutor
                         s.User.SbCountry
                     }).ToFutureValue();
 
-                //var coursesFuture = _session.Query<UserCourse>()
-                //    .Where(w => w.User.Id == query.UserId)
-                //    .Select(s => s.IsTeach)
-                //    .ToFutureValue(f => f.Any());
 
-                var liveSessionFuture = _session.Query<BroadCastStudyRoom>()
+                var liveSessionFuture = _session.Query<Course>()
                      .Where(w => w.Tutor.Id == query.UserId)
                      .Select(s => s.Id)
                      .ToFutureValue(f => f.Any());
-
-                var documentFuture = _session.Query<Document>()
-                    .Where(w => w.User.Id == query.UserId).Select(s => s.Id)
-                    .ToFutureValue(f => f.Any());
-
 
                 var stripeConnectFuture = _session.Query<Core.Entities.Tutor>()
                     .Where(w => w.Id == query.UserId)
@@ -95,18 +79,16 @@ namespace Cloudents.Query.Tutor
 
 
                 var calendarShared = await calendarFuture.GetValueAsync(token);
-                var haveHours = await hoursFuture.GetValueAsync(token);
+                
                 var bookedSession = await bookedSessionFuture.GetValueAsync(token);
                 var userDetails = userDetailsFuture.Value;
 
                 var res = new TutorActionsDto()
                 {
                     CalendarShared = calendarShared,
-                    HaveHours = haveHours || userDetails.SbCountry != Country.Israel,
                     PhoneVerified = userDetails.PhoneNumberConfirmed,
                     EmailVerified = userDetails.EmailConfirmed,
                     LiveSession = liveSessionFuture.Value,
-                    UploadContent = documentFuture.Value,
                     StripeAccount = stripeConnectFuture.Value != null || !(userDetails.SbCountry == Country.UnitedStates),
                     BookedSession = new BookedSession()
                     {

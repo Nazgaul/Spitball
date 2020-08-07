@@ -8,7 +8,7 @@ namespace Cloudents.Web.Models
     {
         public string? BlobName { get; set; }
         [Required]
-        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = 4)]
+        [StringLength(Document.MaxLength, ErrorMessage = "StringLength")]
         public string Name { get; set; }
 
 

@@ -124,7 +124,7 @@ export default {
         goCourseUrl(session){
             this.$router.push(
                 {
-                    name: routeNames.StudyRoomLanding,
+                    name: routeNames.CoursePage,
                     params: {
                         id:session.id,
                         name:session.name

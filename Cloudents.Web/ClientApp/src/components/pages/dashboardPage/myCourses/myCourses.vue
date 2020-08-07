@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { CourseCreate, CourseUpdate, StudyRoomLanding } from '../../../../routes/routeNames'
+import { CourseCreate, CourseUpdate, CoursePage } from '../../../../routes/routeNames'
 
 import draggable from 'vuedraggable'
 export default {
@@ -165,7 +165,7 @@ export default {
          if(!item.isPublish) {
             return
          }
-         this.$router.push({name: StudyRoomLanding, params: { id: item.id }})
+         this.$router.push({name: CoursePage, params: { id: item.id }})
       },
       loaded() {
          this.isLoaded = true;
