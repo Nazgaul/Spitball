@@ -3,7 +3,6 @@
       <v-skeleton-loader v-if="skeleton" max-width="1366" type="table" />
       <v-data-table
          v-else
-         @click:row="handleRowClick"
          :headers="headers"
          :items="$store.getters.getCoursesItems"
          :items-per-page="5"
@@ -40,7 +39,7 @@
                @end="handleEndMove"
                tag="tbody"
             >
-               <tr v-for="(item, index) in props.items" :key="item.id">
+               <tr v-for="(item, index) in props.items" :key="item.id" @click="handleRowClick(item)">
                   <td class="text-start">
                      <div class="tablePreview d-flex align-center">
                         <div class="tableIndex me-2">{{index + 1}}.</div>
