@@ -2,11 +2,10 @@
 {
     public class ApplyCouponCommand : ICommand
     {
-        public ApplyCouponCommand(string coupon, long userId, long tutorId, long courseId)
+        public ApplyCouponCommand(string coupon, long userId,  long courseId)
         {
             Coupon = coupon;
             UserId = userId;
-            TutorId = tutorId;
             CourseId = courseId;
         }
 
@@ -16,6 +15,5 @@
         public long CourseId { get; }
 
         public double NewPrice { get; set; }
-        public long TutorId { get;  }
     }
 }

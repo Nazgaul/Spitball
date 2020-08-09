@@ -81,12 +81,12 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateCoursePositionCommand(userId,model.OldPosition,model.NewPosition);
+            var command = new UpdateCoursePositionCommand(userId, model.OldPosition, model.NewPosition);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        
+
 
 
         [HttpPut("{id:long}")]
@@ -121,11 +121,12 @@ namespace Cloudents.Web.Api
                 model.StudyRooms.Select(s => new CreateCourseCommand.CreateLiveStudyRoomCommand(s.Name, s.Date)),
                 model.Documents.Select(
                     s => new CreateCourseCommand.CreateDocumentCommand(s.BlobName ?? throw new InvalidOperationException(), s.Name, s.Visible)),
-                model.IsPublish);
+                model.IsPublish, model.Coupon == null ? null :
+                    new CreateCourseCommand.CreateCouponCommand(model.Coupon.Code, model.Coupon.CouponType, model.Coupon.Value, model.Coupon.Expiration));
 
             await _commandBus.DispatchAsync(command, token);
 
-            
+
 
             return Ok(new
             {

@@ -58,21 +58,21 @@ namespace Cloudents.Query.Tutor
                          TutorCountry = s.Tutor.User.SbCountry
                      }).ToFutureValue();
 
-                IFutureValue<CouponTemp>? futureCoupon = null;
+                //IFutureValue<CouponTemp>? futureCoupon = null;
                 IFutureValue<CourseEnrollment>? futureCourseEnrollment = null;
                 if (query.UserId > 0)
                 {
-                    futureCoupon  = _statelessSession.Query<UserCoupon>()
-                        .Where(w => w.User.Id == query.UserId)
-                        .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
-                            .Select(s => s.Tutor.Id).First())
-                        .Where(w => w.UsedAmount < 1)
-                        .Select(s => new CouponTemp()
-                        {
-                            CouponType = s.Coupon.CouponType,
-                           Value = s.Coupon.Value
-                        })
-                        .ToFutureValue();
+                    //futureCoupon  = _statelessSession.Query<UserCoupon>()
+                    //    .Where(w => w.User.Id == query.UserId)
+                    //    .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
+                    //        .Select(s => s.Tutor.Id).First())
+                    //    .Where(w => w.UsedAmount < 1)
+                    //    .Select(s => new CouponTemp()
+                    //    {
+                    //        CouponType = s.Coupon.CouponType,
+                    //       Value = s.Coupon.Value
+                    //    })
+                    //    .ToFutureValue();
 
                     futureCourseEnrollment = _statelessSession.Query<CourseEnrollment>()
                         .Where(w => w.User.Id == query.UserId)
@@ -132,25 +132,25 @@ namespace Cloudents.Query.Tutor
                 }
 
 
-                var coupon = futureCoupon?.Value;
-                if (coupon is null)
-                {
-                    //no coupon
-                    return result;
-                }
+                //var coupon = futureCoupon?.Value;
+                //if (coupon is null)
+                //{
+                //    //no coupon
+                //    return result;
+                //}
 
 
-                var newPrice = Coupon.CalculatePrice(coupon.CouponType,
-                    result.TutorPrice.Amount, coupon.Value);
-                result.TutorPrice = new Money(newPrice, result.TutorPrice.Currency);
+                //var newPrice = Coupon.CalculatePrice(coupon.CouponType,
+                //    result.TutorPrice.Amount, coupon.Value);
+                //result.TutorPrice = new Money(newPrice, result.TutorPrice.Currency);
 
                 return result;
             }
         }
-        internal class CouponTemp
-        {
-            public CouponType CouponType { get; set; }
-            public decimal Value { get; set; }
-        }
+        //internal class CouponTemp
+        //{
+        //    public CouponType CouponType { get; set; }
+        //    public double Value { get; set; }
+        //}
     }
 }
