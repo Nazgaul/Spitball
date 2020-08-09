@@ -83,11 +83,8 @@ namespace Cloudents.Query.Courses
 
 
                 var futureCoupon  = _statelessSession.Query<UserCoupon>()
-                    .Where(w => w.User.Id == query.UserId)
-                    .Where(w => w.Tutor.Id == _statelessSession.Query<Course>().Where(w2 => w2.Id == query.Id)
-                        .Select(s => s.Tutor.Id).First())
-                    .Where(w => w.UsedAmount < 1)
-                    .Select(s => new StudyRoomQuery.CouponTemp()
+                    .Where(w => w.User.Id == query.UserId &&  w.Coupon.Course.Id ==query.Id)
+                    .Select(s => new CouponTemp()
                     {
                         CouponType = s.Coupon.CouponType,
                         Value = s.Coupon.Value
@@ -146,6 +143,13 @@ namespace Cloudents.Query.Courses
 
                 return result;
             }
+        }
+
+
+        internal class CouponTemp
+        {
+            public CouponType CouponType { get; set; }
+            public double Value { get; set; }
         }
     }
 }

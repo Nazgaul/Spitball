@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Entities
@@ -43,7 +45,7 @@ namespace Cloudents.Core.Entities
             Value = value;
             Expiration = expiration;
             CreateTime = DateTime.UtcNow;
-            UserCoupon = new HashSet<UserCoupon>();
+            _userCoupons = new HashSet<UserCoupon>();
 
         }
 
@@ -71,9 +73,10 @@ namespace Cloudents.Core.Entities
 
         public virtual string? Description { get; protected set; }
 
-        protected internal virtual ISet<UserCoupon> UserCoupon { get;protected set; }
     
-        
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
+        private readonly ISet<UserCoupon> _userCoupons = new HashSet<UserCoupon>();
+        public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
 
 
         public virtual bool CanApplyCoupon()
@@ -127,6 +130,19 @@ namespace Cloudents.Core.Entities
             return Math.Max(result, 0);
         }
 
+        public virtual double CalculatePrice()
+        {
+            var d =  Value;
+            var result = CouponType switch
+            {
+                CouponType.Flat => (Course.Price.Amount - d),
+                CouponType.Percentage => (Course.Price.Amount * ((100 - d) / 100)),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return Math.Max(result, 0);
+        }
+
         public static double CalculatePrice(CouponType type, double price, double couponValue)
         {
             var d =  couponValue;
@@ -160,5 +176,14 @@ namespace Cloudents.Core.Entities
             return HashCode.Combine(41, Course.Id, Code);
         }
 
+        public virtual void ApplyCoupon(User user)
+        {
+            var p = new UserCoupon(user,this);
+            if (!_userCoupons.Add(p))
+            {
+                throw new DuplicateRowException();
+            }
+            AddEvent(new ApplyCouponEvent(p));
+        }
     }
 }

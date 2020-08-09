@@ -21,7 +21,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Description).Nullable().Length(8000);
             Map(x => x.CreateTime).Insert().Not.Update();
 
-            HasMany(x => x.UserCoupon)
+            HasMany(x => x.UserCoupons).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
         }
     }
@@ -37,7 +37,7 @@ namespace Cloudents.Persistence.Maps
             //We get signature-of-the-body-and-declaration-in-a-method-implementation-do-not-match if its lazy load on User.ApplyCoupon method
             References(x => x.StudyRoomSessionUser).LazyLoad(Laziness.False)
                 .Column("SessionUserId").Nullable();
-            Map(x => x.UsedAmount);
+            //Map(x => x.UsedAmount);
             Map(x => x.CreatedTime);
         }
     }
