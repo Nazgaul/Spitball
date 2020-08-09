@@ -56,9 +56,9 @@
                   <td class="text-start">{{item.lessons}}</td>
                   <td class="text-start">{{item.documents}}</td>
                   <td class="text-start">
-                     <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
+                     <v-tooltip top transition="fade-transition">
                         <template v-slot:activator="{on}">
-                           <div class="d-flex" v-on="on">
+                           <div class="d-flex" v-on="item.userNames && item.userNames.length ? on : null">
                               <v-icon size="14">sbf-groupPersons</v-icon>
                               <div class="ms-2">{{item.users}}</div>
                            </div>
