@@ -29,7 +29,7 @@ const mutations = {
          this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
       }
       for (let i = 0; i < data.length; i++) {
-         state.coursesItems.push(new CourseItem(data[i]));
+         state.coursesItems.unshift(new CourseItem(data[i]));
       }
       
    },
