@@ -42,15 +42,22 @@ namespace Cloudents.Command.Courses
 
             var course = new Course(message.Name, tutor, message.Price,
                 message.SubscriptionPrice,
-                message.Description, studyRooms.DefaultIfEmpty().Min(m=>m?.Date), message.IsPublish);
+                message.Description, studyRooms.DefaultIfEmpty().Min(m => m?.Date), message.IsPublish);
             tutor.AddCourse(course);
+
+
+            if (message.Coupon != null)
+            {
+                var couponData = message.Coupon;
+                course.AddCoupon(couponData.Code, couponData.CouponType, couponData.Value, couponData.Expiration);
+            }
 
 
             foreach (var createLiveStudyRoomCommand in studyRooms)
             {
                 var documentName = $"{message.Name}-{Guid.NewGuid()}";
                 var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
-                var studyRoom = new BroadCastStudyRoom(course, 
+                var studyRoom = new BroadCastStudyRoom(course,
                     createLiveStudyRoomCommand.Date, createLiveStudyRoomCommand.Name)
                 {
                     OnlineDocumentUrl = googleDocUrl

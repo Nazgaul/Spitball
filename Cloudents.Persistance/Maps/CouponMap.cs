@@ -10,13 +10,15 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Code).Not.Nullable().Unique();
             Map(x => x.CouponType).Not.Nullable();
+            
             References(x => x.Tutor).Nullable();
-            Map(x => x.Value).Not.Nullable();
-            //Map(x => x.AmountOfUsers).Nullable();
-            //Map(x => x.AmountOfUsePerUser).Not.Nullable();
+            References(x => x.Course).ForeignKey("FK_COUPON_COURSE");
+
+            Map(x => x.Value).Column("Value2").Not.Nullable();
+            Map(x => x.ValueOld).Column("Value").Not.Nullable();
+
             Map(x => x.Expiration).Nullable();
             Map(x => x.Description).Nullable().Length(8000);
-            //Map(x => x.Owner).Nullable();
             Map(x => x.CreateTime).Insert().Not.Update();
 
             HasMany(x => x.UserCoupon)

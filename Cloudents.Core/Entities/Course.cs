@@ -150,7 +150,9 @@ namespace Cloudents.Core.Entities
         }
 
 
-
+        [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
+        private readonly ISet<Coupon> _coupons = new HashSet<Coupon>();
+        public virtual IEnumerable<Coupon> Coupons => _coupons;
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly IList<Document> _documents = new List<Document>();
@@ -207,8 +209,16 @@ namespace Cloudents.Core.Entities
             _documents.Remove(document);
         }
 
-        public virtual int Version { get; protected set; }
+        [SuppressMessage("ReSharper", "UnassignedGetOnlyAutoProperty")] 
+        public virtual int Version { get;  }
 
+
+        public virtual void AddCoupon(string code, CouponType couponType, double value, DateTime? expiration)
+        {
+            var coupon = new Coupon(code,couponType,this,value,expiration);
+
+            _coupons.Add(coupon);
+        }
 
         //public virtual void SubscribeToAllStudyRooms()
         //{

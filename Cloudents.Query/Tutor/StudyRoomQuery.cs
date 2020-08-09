@@ -150,7 +150,7 @@ namespace Cloudents.Query.Tutor
         internal class CouponTemp
         {
             public CouponType CouponType { get; set; }
-            public decimal Value { get; set; }
+            public double Value { get; set; }
         }
     }
 }

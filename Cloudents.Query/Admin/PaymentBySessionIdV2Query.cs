@@ -108,7 +108,7 @@ namespace Cloudents.Query.Admin
             {
                 public string Code { get; set; }
                 public CouponType CouponType { get; set; }
-                public decimal Value { get; set; }
+                public double Value { get; set; }
                 public long? TutorId { get; set; }
 
               
