@@ -118,13 +118,13 @@ export default {
          createCourseRoute: CourseCreate,
          headers: [
             { text: '', align:'', sortable: false, value:'preview' },
-            { text: this.$t('dashboardPage_course_name'), align:'', sortable: true, value:'name' },
-            { text: this.$t('dashboardPage_startOn'), align:'', sortable: true, value:'startOn' },
-            { text: this.$t('dashboardPage_lecture'), align:'', sortable: true, value:'lessons' },
-            { text: this.$t('dashboardPage_resource'), align:'', sortable: true, value:'documents' },
-            { text: this.$t('dashboardPage_enroll'), align:'', sortable: true, value:'users' },
-            { text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price.amount' },
-            { text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish' },
+            { text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name' },
+            { text: this.$t('dashboardPage_startOn'), align:'', sortable: false, value:'startOn' },
+            { text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lessons' },
+            { text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'documents' },
+            { text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users' },
+            { text:this.$t('dashboardPage_price'), align:'', sortable: false, value:'price.amount' },
+            { text: this.$t('dashboardPage_status'), align:'', sortable: false, value:'isPublish' },
             { text: '', align:'', sortable: false, value:'action' }
          ]
       }
