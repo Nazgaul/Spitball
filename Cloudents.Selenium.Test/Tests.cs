@@ -956,11 +956,11 @@ namespace Cloudents.Selenium.Test
                                       "_myFollowers", "_myCoupons", "_mySales", "_myMarketing",
                                       "_myPurchases", "_learn" };
 
-                //FindSel(driver, "sidemenu_home").Click();
-                /*foreach (var element in elements)
+                FindSel(driver, "sidemenu_home").Click();
+                foreach (var element in elements)
                 {
                     FindSel(driver, $"sidemenu_dashboard{element}").Click();
-                }*/
+                }
 
                 string[] moreElements = { "", "_myCourses", "_myCalendar", "_testStudyRoom" };
 
