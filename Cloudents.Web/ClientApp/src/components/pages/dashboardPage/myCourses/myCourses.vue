@@ -42,7 +42,7 @@
                <tr v-for="(item, index) in props.items" :key="item.id" @click="handleRowClick(item)">
                   <td class="text-start">
                      <div class="tablePreview d-flex align-center">
-                        <div class="tableIndex me-2">{{index + 1}}.</div>
+                        <div class="tableIndex me-2">{{(page - 1) * itemsPerPage + index + 1}}.</div>
                         <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
                         <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
                      </div>
