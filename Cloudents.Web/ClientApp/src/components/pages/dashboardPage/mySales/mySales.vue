@@ -1,50 +1,48 @@
 <template>
    <div class="mySales">
-      <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
-      <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
-         <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
-            <div class="mySales_actions">
-               <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
-               <billOfflineLayout class="my-2 my-md-0 mx-lg-2"/>
-            </div>
-         </v-flex>
-      </v-layout>
+      <div class="pa-4">
+         <div class="mySales_title" v-t="'financial_status'"></div>
+         <v-layout wrap class="mySales_wallet mb-2" v-if="!!accountUser && accountUser.id">
+            <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
+               <div class="mySales_actions">
+                  <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
+                  <billOfflineLayout class="my-2 my-md-0 mx-lg-2"/>
+               </div>
+            </v-flex>
+         </v-layout>
+      </div>
 
       <v-data-table 
          calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
+         :mobile-breakpoint="0"
          :items="salesItems"
          :items-per-page="20"
          sort-by
          :item-key="'sessionId'"
-         class="elevation-1 mySales_table-full"
+         class="mySales_table-full"
          :footer-props="{
             showFirstLastPage: false,
             firstIcon: '',
             lastIcon: '',
             prevIcon: 'sbf-arrow-left-carousel',
             nextIcon: 'sbf-arrow-right-carousel',
-            itemsPerPageOptions: [20]
+            itemsPerPageOptions: [5]
          }">
             <template v-slot:item.preview="{item}">
                <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
-                  <v-avatar size="40">
+                  <v-avatar size="68">
                      <img :src="item.preview">
                   </v-avatar>
                </router-link>
                <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
-                  <!-- <user-avatar :user-id="item.userId" 
-                  :user-image-url="item.image" 
-                  :size="'40'" 
-                  :user-name="item.name" >
-                  </user-avatar> -->
                   <userAvatarNew
                      class="mySalesUserAvatar"
                      :userImageUrl="item.image"
                      :user-name="item.name"
-                     :width="40"
-                     :height="40"
+                     :width="68"
+                     :height="68"
                      :fontSize="14"
                   />
                </router-link>
@@ -59,7 +57,7 @@
                {{formatItemStatus(item.paymentStatus)}}
             </template>
             <template v-slot:item.date="{item}">
-               {{ $d(item.date) }}
+               {{$moment(item.date).format('MMM D')}}
             </template>
             <template v-slot:item.price="{item}">
                {{formatPrice(item.price,item.type)}}
@@ -68,7 +66,7 @@
                <v-btn 
                   color="#02C8BF"
                   class="white--text"
-                  width="120"
+                  width="100"
                   depressed
                   rounded
                   v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
@@ -159,6 +157,9 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .mySales{
+   background: #fff;
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+   // max-width: 1334px; 
    .mySales_title{
       font-size: 22px;
       color: #43425d;
@@ -188,6 +189,7 @@ export default {
                padding-bottom: 14px;
                font-weight: normal;
                min-width: 100px;
+               border-top: thin solid rgba(0, 0, 0, 0.12);
             }
             
          }
@@ -203,7 +205,7 @@ export default {
    td{
       border: none !important;
    }
-      max-width: 1334px;
+      // max-width: 1334px;
       td:first-child {
          width:1%;
          white-space: nowrap;
