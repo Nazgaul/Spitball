@@ -460,7 +460,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact]
+        [Fact(Skip = "Test need to be removed")]
         public void WhatsppHeaderTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -994,7 +994,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact]
+        [Fact(Skip ="Need to be fixed")]
         public void CreateStudyRoomTest()
         {
             foreach(var driver in this._driver.Drivers)
