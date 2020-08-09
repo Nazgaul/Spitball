@@ -60,6 +60,7 @@ namespace Cloudents.Query.Courses
 
                 var futureDocuments = _statelessSession.Query<Document>()
                     .Where(w => w.Course.Id == query.Id)
+                    .OrderBy(o=>o.Position)
                     .Select(s2 =>
                     new CourseEditDocumentDto()
                     {

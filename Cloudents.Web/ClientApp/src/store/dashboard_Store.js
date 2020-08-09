@@ -39,6 +39,7 @@ const mutations = {
          this.price = objInit.price
          this.users = objInit.users
          this.type = objInit.type;
+         this.userNames = objInit.userNames
          this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
       }
       for (let i = 0; i < data.length; i++) {
@@ -60,6 +61,10 @@ const mutations = {
       //update on the fly in my-sales approve button
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
       state.salesItems[index].paymentStatus = "Pending";
+   },
+   setUpdateItemPosition(state, pos) {
+      const movedItem = state.coursesItems.splice(pos.oldPosition, 1)[0]
+      state.coursesItems.splice(pos.newPosition, 0, movedItem)
    },
    resetCourseItems(state) {
       state.coursesItems = []
@@ -99,10 +104,10 @@ const actions = {
       });
    },
    updateCoursesItems({commit}){
-      axios.get('course').then(({data})=>{
+      return axios.get('course').then(({data})=>{
          commit('setCoursesItems', data);
       }).catch(ex => {
-         console.log(ex);
+         console.error(ex);
       })
    },
    updatePurchasesItems({commit}){
@@ -163,6 +168,14 @@ const actions = {
    // },
    updateBillOffline(context,params){
       return salesService.updateBillOffline(params);
+   },
+   updateCoursePosition({commit}, {oldIndex, newIndex}) {
+      let params = {
+         oldPosition: oldIndex,
+         newPosition: newIndex
+      }
+      commit('setUpdateItemPosition', params)
+      axios.post(`course/move`, params)
    },
    updateScheduledClasses({commit}){
       axios.get('/dashboard/upcoming').then(({data})=>{

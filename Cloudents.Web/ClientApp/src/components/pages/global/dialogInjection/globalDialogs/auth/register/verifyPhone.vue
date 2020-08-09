@@ -15,6 +15,7 @@
 			height="44"
 			outlined
 			dense
+			autocomplete="off"
 			prepend-inner-icon="sbf-keyCode"
 			placeholder=" "
 		>

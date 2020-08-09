@@ -1,137 +1,167 @@
 <template>
    <div class="myCourses">
-      <v-data-table 
-            @click:row="handleRowClick"
-            :headers="headers"
-            :items="coursesItems"
-            :items-per-page="5"
-            :mobile-breakpoint="0"
-            :item-key="'itemId'"
-            sort-by
-            class="myCourses_table"
-            :footer-props="{
-               showFirstLastPage: false,
-               firstIcon: '',
-               lastIcon: '',
-               itemsPerPageOptions: [5]
-            }">
-
-            <template v-slot:top>
-               <div class="tableTop">
-                  <div class="myCourses_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
-                  <div class="text-end">
-                     <v-btn
-                        :to="{name: createCourseRoute}"
-                        class="white--text"
-                        depressed
-                        width="180"
-                        rounded
-                        :block="$vuetify.breakpoint.xsOnly"
-                        color="#5360FC"
-                     >
-                        <v-icon size="22" left>sbf-plus-circle</v-icon>
-                        <span v-t="'dashboardPage_my_content_upload'"></span>
-                     </v-btn>
-                  </div>
-               </div>
-            </template>
-
-            <template v-slot:item.preview="{item}">
-                  <div class="tablePreview">
-                     <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
-                     <v-skeleton-loader v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
-                  </div>
-            </template>
-
-            <template v-slot:item.name="{item}">
-               <div style="max-width: 200px">
-                  {{item.name}}
-               </div>
-            </template>
-
-            <template v-slot:item.startOn="{item}">
-               <div>{{$moment(item.date).format('MMM D')}}</div>
-            </template>
-
-            <template v-slot:item.users="{item}">
-               <div class="d-flex">
-                  <v-icon size="14">sbf-groupPersons</v-icon>
-                  <div class="ms-2">{{item.users}}</div>
-               </div>
-            </template>
-
-            <template v-slot:item.price="{item}">
-               <div>{{$price(item.price.amount, item.price.currency, true)}}</div>
-            </template>
-
-            <template v-slot:item.isPublish="{item}">
-               <div class="d-flex">
-                  <div>{{item.isPublish ? $t('visible') : $t('notVisible')}}</div>
-               </div>
-            </template>
-
-            <template v-slot:item.action="{item}">
-               <v-menu offset-y>
-                  <template v-slot:activator="{ on }">
-                     <v-btn icon>
-                        <v-icon size="18" v-on="on">sbf-3-dot</v-icon>
-                     </v-btn>
-                  </template>
-                  <v-list>
-                  <v-list-item
-                     :to="{name: uppdateCourseRoute, params: { id: item.id }}"
+      <v-skeleton-loader v-if="skeleton" max-width="1366" type="table" />
+      <v-data-table
+         v-else
+         :headers="headers"
+         :items="$store.getters.getCoursesItems"
+         :items-per-page="5"
+         @pagination="handlePaginationIndexPosition"
+         :mobile-breakpoint="0"
+         class="myCourses_table"
+      >
+         <template v-slot:top>
+            <div class="tableTop">
+               <div class="myStudyRooms_title pb-3 pb-sm-0" v-t="'my_courses'"></div>
+               <div class="text-end">
+                  <v-btn
+                     :to="{name: createCourseRoute}"
+                     class="white--text"
+                     depressed
+                     width="180"
+                     rounded
+                     :block="$vuetify.breakpoint.xsOnly"
+                     color="#5360FC"
                   >
-                     <v-list-item-title v-t="'go_edit'"></v-list-item-title>
-                  </v-list-item>
-                  </v-list>
-               </v-menu>
-            </template>
-            <slot slot="no-data" name="tableEmptyState"/>
+                     <v-icon size="22" left>sbf-plus-circle</v-icon>
+                     <span v-t="'dashboardPage_my_content_upload'"></span>
+                  </v-btn>
+               </div>
+            </div>
+         </template>
+
+         <template v-slot:body="props">
+            <draggable
+               :list="props.items"
+               :move="checkMove"
+               :disabled="$vuetify.breakpoint.xsOnly"
+               @start="dragging = true"
+               @end="handleEndMove"
+               tag="tbody"
+            >
+               <tr v-for="(item, index) in props.items" :key="item.id" @click.stop="handleRowClick(item)">
+                  <td class="text-start">
+                     <div class="tablePreview d-flex align-center">
+                        <div class="tableIndex me-2">{{(page - 1) * itemsPerPage + index + 1}}.</div>
+                        <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
+                        <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" />
+                     </div>
+                  </td>
+                  <td class="text-start">
+                     <div style="max-width: 200px">{{item.name}}</div>
+                  </td>
+                  <td class="text-start">
+                     <div v-if="item.startOn">{{$moment(item.startOn).format('MMM D')}}</div>
+                  </td>
+                  <td class="text-start">{{item.lessons}}</td>
+                  <td class="text-start">{{item.documents}}</td>
+                  <td class="text-start">
+                     <v-tooltip top transition="fade-transition">
+                        <template v-slot:activator="{on}">
+                           <div class="d-flex" v-on="item.userNames && item.userNames.length ? on : null">
+                              <v-icon size="14">sbf-groupPersons</v-icon>
+                              <div class="ms-2">{{item.users}}</div>
+                           </div>
+                        </template>
+                        <div v-for="(user, index) in item.userNames" :key="index">{{user}}</div>          
+                     </v-tooltip>
+                  </td>
+                  <td class="text-start">
+                     {{$price(item.price.amount, item.price.currency, true)}}
+                  </td>
+                  <td class="text-start">
+                     {{item.isPublish ? $t('visible') : $t('notVisible')}}
+                  </td>
+                  <td class="text-start">
+                     <v-tooltip top transition="fade-transition">
+                        <template v-slot:activator="{on}">
+                           <v-btn icon text v-on="on" @click.stop="goEdit(item)">
+                              <v-icon size="18" color="#43425d">sbf-edit-icon</v-icon>
+                           </v-btn>
+                        </template>
+                        <div v-t="'go_edit'"></div>          
+                     </v-tooltip>
+   
+                     <!-- <v-menu offset-y>
+                        <template v-slot:activator="{ on }">
+                           <v-btn icon>
+                              <v-icon size="18" v-on="on">sbf-3-dot</v-icon>
+                           </v-btn>
+                        </template>
+                        <v-list>
+                           <v-list-item :to="{name: uppdateCourseRoute, params: { id: item.id }}">
+                              <v-list-item-title v-t="'go_edit'"></v-list-item-title>
+                           </v-list-item>
+                        </v-list>
+                     </v-menu> -->
+                  </td>
+               </tr>
+            </draggable>
+         </template>
       </v-data-table>
    </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { CourseCreate, CourseUpdate, CoursePage } from '../../../../routes/routeNames'
 
+import draggable from 'vuedraggable'
 export default {
    name:'myCourses',
+   components: {
+      draggable,
+   },
    data() {
       return {
-
+         skeleton: true,
+         itemsPerPage: 5,
+         page: 1,
+         oldIndex: 0,
+         newIndex: 0,
          isLoaded: false,
          uppdateCourseRoute: CourseUpdate,
          createCourseRoute: CourseCreate,
          headers: [
-            {text: '', align:'', sortable: false, value:'preview'},
-            {text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name'},
-            {text: this.$t('dashboardPage_startOn'), align:'', sortable: false, value:'startOn'},
-            {text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lessons'},
-            {text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'documents'},
-            {text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users'},
-            {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
-            {text: this.$t('dashboardPage_status'), align:'', sortable: true, value:'isPublish'},
-            {text: '', align:'', sortable: false, value:'action'},
+            { text: '', align:'', sortable: false, value:'preview' },
+            { text: this.$t('dashboardPage_course_name'), align:'', sortable: false, value:'name' },
+            { text: this.$t('dashboardPage_startOn'), align:'', sortable: false, value:'startOn' },
+            { text: this.$t('dashboardPage_lecture'), align:'', sortable: false, value:'lessons' },
+            { text: this.$t('dashboardPage_resource'), align:'', sortable: false, value:'documents' },
+            { text: this.$t('dashboardPage_enroll'), align:'', sortable: false, value:'users' },
+            { text:this.$t('dashboardPage_price'), align:'', sortable: false, value:'price.amount' },
+            { text: this.$t('dashboardPage_status'), align:'', sortable: false, value:'isPublish' },
+            { text: '', align:'', sortable: false, value:'action' }
          ]
       }
    },
-   computed: {
-      ...mapGetters(['getCoursesItems']),
-      coursesItems(){
-         // avoiding duplicate key becuase we have id that are the same,
-         // vuetify default key is "id", making new key "itemId" for unique index table items
-         return this.getCoursesItems && this.getCoursesItems.map((item, index) => {
-            return {
-               itemId: index,
-               ...item
-            }
-         })
-      }
-   },
    methods: {
-      loaded() {
-         this.isLoaded = true;
+      goEdit(item) {
+         this.$router.push({name: this.uppdateCourseRoute, params: { id: item.id }})
+      },
+      handlePaginationIndexPosition(tablePage) {
+         this.page = tablePage.page
+         this.itemsPerPage = tablePage.itemsPerPage
+      },
+      checkMove(e) {
+         this.oldIndex = e.draggedContext.index
+         this.newIndex = e.draggedContext.futureIndex
+      },
+      handleEndMove() {
+         if(this.oldIndex !== this.newIndex) {
+            if(this.page > 1) {
+               this.oldIndex = (this.page - 1) * this.itemsPerPage + this.oldIndex // this.oldIndex + this.itemsPerPage
+               this.newIndex = (this.page - 1) * this.itemsPerPage + this.newIndex // this.newIndex + this.itemsPerPage
+            }
+            let self = this
+            this.$store.dispatch('updateCoursePosition', {
+               oldIndex: this.oldIndex,
+               newIndex: this.newIndex
+            }).finally(() => {
+               self.oldIndex = 0
+               self.newIndex = 0
+            })
+         }
+         this.dragging = false
       },
       handleRowClick(item) {
          if(!item.isPublish) {
@@ -139,109 +169,76 @@ export default {
          }
          this.$router.push({name: CoursePage, params: { id: item.id }})
       },
+      loaded() {
+         this.isLoaded = true;
+      },
    },
    beforeDestroy() {
       this.$store.commit('resetCourseItems')
    },
    created() {
-      this.$store.dispatch('updateCoursesItems')
-   },
+      this.$store.dispatch('updateCoursesItems').then(() => {
+         this.skeleton = false
+      })
+   }
 }
 </script>
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
 @import "../../../../styles/colors.less";
-
-.myCourses{
-   // max-width: 1366px;
+.myCourses {
+   margin: 30px;
+   max-width: 1080px;
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+   @media (max-width: @screen-xs) {
+      margin: 8px 0;
+      box-shadow: none;
+   }
    .myCourses_table {
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-      thead {
-         tr {
-            height: auto;
-            th{
-               color: @global-purple !important;
-               font-size: 14px;
-               padding-top: 14px;
-               padding-bottom: 14px;
-               font-weight: normal;
-               border-top: thin solid rgba(0, 0, 0, 0.12);
-            }
-         }
-         color: @global-purple !important;
-      }
-      .tablePreview{
-         line-height: 0;
-         padding-right: 0 !important;
-         // width: 104px;
-         position: relative;
-         .tablePreview_img{
-            margin: 10px 0;
-            border: 1px solid #d8d8d8;
-         }
-      }
       .tableTop {
          padding: 20px;
-         color: @global-purple !important;
-         .myCourses_title {
+         color: @global-purple;
+         .myStudyRooms_title {
             font-size: 22px;
             font-weight: 600;
-            // line-height: 1.3px;
-            @media (max-width: @screen-xs) {
-            line-height: initial;
-            }
-            background: #fff;
          }
-         .link {
-            color: inherit;
-            font-weight: 600;
-            &.btnTestStudyRoom {
-            border: 1px solid #5360FC;
-            color: #5360FC;
+      }
+      thead {
+         tr {
+            th {
+               color: @global-purple !important;
+               font-weight: normal;
             }
          }
-         a {
-            text-transform: initial;
+      }
+      tbody {
+         tr {
+            &.sortable-chosen {
+               background: #E2E8EE !important;
+            }
+            td {
+               border-bottom: none !important;
+               cursor: pointer;
+            }
+            .tablePreview {
+               .tableIndex {
+                  color: @global-purple;
+                  font-weight: 600;
+               }
+               .tablePreview_img {
+                  margin: 10px 0;
+                  border: 1px solid #d8d8d8;
+               }
+            }
+         }
+         tr:nth-child(even) {
+            background-color: #f5f5f5;
          }
       }
-
-      tbody tr {
-         td {
-            border-bottom: none !important;
-            cursor:pointer;
-         }
-         td:nth-child(2) {
-            padding-left: 0;
-            cursor:pointer;
-            
-         }
-      }
-      tr:nth-child(even) {
-         background-color: #f5f5f5;
-         cursor:pointer;
-      }
-      .tableInfo{
-         width: 400px;
-         max-width: 400px;
-         min-width: 300px;
-         .tableInfo_router{
-            color: @global-purple !important;
-            line-height: 1.6;
-         }
-      }
-
-      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         color: @global-purple !important;
-         height: inherit;
+      .v-data-footer, .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         color: @global-purple;
          font-size: 14px;
-      }
-      .v-data-footer {
-         padding: 6px 0;
-         .v-data-footer__pagination {
-            font-size: 14px;
-            color: @global-purple;
-         }
       }
    }
 }

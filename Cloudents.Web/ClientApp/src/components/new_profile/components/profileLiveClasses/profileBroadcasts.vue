@@ -8,7 +8,8 @@
                 :key="session.id">
                 <div class="d-sm-flex listWrapper pt-4 pb-2 mb-7 mb-sm-0 py-sm-7 cursor-pointer" @click="goCourseUrl(session)">
                     <div class="leftSide d-sm-flex me-sm-8">
-                        <img class="cursor-pointer" :src="liveImage(session)" alt="" width="290" height="192">
+                        <v-skeleton-loader v-if="!isLoaded" width="290" height="192" type="image"></v-skeleton-loader>
+                        <img v-show="isLoaded" class="cursor-pointer" @load="loaded" :src="liveImage(session)" alt="" width="290" height="192">
                     </div>
                     <div class="rightSide d-flex flex-column justify-space-between flex-grow-1 px-3 pa-3 pa-sm-0 pt-2 pt-sm-0 pe-0 ps-0 pe-sm-4 pb-0">
                         <div>
@@ -75,6 +76,7 @@ export default {
     },
     data() {
         return {
+            isLoaded: false,
             isExpand: false,
         }
     },
@@ -116,6 +118,9 @@ export default {
         },
     },
     methods: {
+        loaded() {
+            this.isLoaded = true
+        },
         goCourseUrl(session){
             this.$router.push(
                 {
@@ -198,7 +203,7 @@ export default {
                 .center {
                     color: #363637;
                     .description {
-                        font-size: 14px;
+                        font-size: 15px;
                         line-height: 1.6;
                         color: #363637;
                         white-space: pre-line;
@@ -212,7 +217,7 @@ export default {
                     color: #363637;
                     .number {
                         font-size: 18px;
-                        font-weight: bold;
+                        font-weight: 600;
                         @media(max-width: @screen-xs) {
                             font-size: 16px;
                         }

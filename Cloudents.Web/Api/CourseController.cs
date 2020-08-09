@@ -75,6 +75,20 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpPost("move")]
+        [Authorize(Policy = "Tutor")]
+        public async Task<IActionResult> UpdatePositionAsync([FromBody] MoveElementRequest model,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new UpdateCoursePositionCommand(userId,model.OldPosition,model.NewPosition);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        
+
+
         [HttpPut("{id:long}")]
         [Authorize(Policy = "Tutor")]
         public async Task<IActionResult> UpdateCourseAsync([FromRoute] long id, [FromBody] CreateCourseRequest model, CancellationToken token)
