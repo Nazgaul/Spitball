@@ -141,13 +141,8 @@ export default {
       handleEndMove() {
          if(this.oldIndex !== this.newIndex) {
             if(this.page > 1) {
-               this.oldIndex = this.oldIndex + this.itemsPerPage
-               this.newIndex = this.newIndex + this.itemsPerPage
-               if(this.page > 2) {
-                  let page = this.page - 1
-                  this.oldIndex = this.oldIndex + this.itemsPerPage * page
-                  this.newIndex = this.newIndex + this.itemsPerPage * page
-               }
+               this.oldIndex = (this.page - 1) * this.itemsPerPage + this.oldIndex // this.oldIndex + this.itemsPerPage
+               this.newIndex = (this.page - 1) * this.itemsPerPage + this.newIndex // this.newIndex + this.itemsPerPage
             }
             let self = this
             this.$store.dispatch('updateCoursePosition', {
