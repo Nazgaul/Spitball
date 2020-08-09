@@ -39,7 +39,7 @@
                @end="handleEndMove"
                tag="tbody"
             >
-               <tr v-for="(item, index) in props.items" :key="item.id" @click="handleRowClick(item)">
+               <tr v-for="(item, index) in props.items" :key="item.id" @click.stop="handleRowClick(item)">
                   <td class="text-start">
                      <div class="tablePreview d-flex align-center">
                         <div class="tableIndex me-2">{{(page - 1) * itemsPerPage + index + 1}}.</div>
@@ -70,7 +70,7 @@
                   <td class="text-start">
                      <v-tooltip top transition="fade-transition">
                         <template v-slot:activator="{on}">
-                           <v-btn icon text v-on="on" :to="{name: uppdateCourseRoute, params: { id: item.id }}">
+                           <v-btn icon text v-on="on" @click.stop="goEdit(item)">
                               <v-icon size="18" color="#43425d">sbf-edit-icon</v-icon>
                            </v-btn>
                         </template>
@@ -130,6 +130,9 @@ export default {
       }
    },
    methods: {
+      goEdit(item) {
+         this.$router.push({name: this.uppdateCourseRoute, params: { id: item.id }})
+      },
       handlePaginationIndexPosition(tablePage) {
          this.page = tablePage.page
          this.itemsPerPage = tablePage.itemsPerPage
