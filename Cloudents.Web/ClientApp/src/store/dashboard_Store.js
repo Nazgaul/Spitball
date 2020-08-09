@@ -38,7 +38,7 @@ const mutations = {
          this.name = objInit.name
          this.price = objInit.price
          this.type = objInit.type;
-         this.userNames = objInit.users;
+         this.userNames = objInit.users || [];
          this.users = this.userNames.length;
          this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
       }
