@@ -1,6 +1,7 @@
 <template>
-    <div class="uploadFiles" v-if="!item.error">
-        <div class="uploadFilesWrap d-flex align-center justify-space-between">
+    <div class="uploadFiles d-flex align-center" v-if="!file.error">
+        <div class="fileIndexNumber me-2">{{singleFileIndex + 1}}.</div>
+        <div class="uploadFilesWrap d-flex align-center justify-space-between flex-grow-1">
             <div class="d-flex align-center">
                 <v-text-field
                     v-model="item.name"
@@ -35,22 +36,27 @@ import { validationRules } from '../../../../services/utilities/formValidationRu
 export default {
     name: 'uploadFiles',
     props: {
-        singleFileIndex: {}
+        singleFileIndex: {},
+        item: {}
     },
     data() {
         return {
             fileSwitch: true,
             rules: {
                 required: (value) => validationRules.required(value),
-                minimumChars: value => validationRules.minimumChars(value, 4),
                 maximumChars: value => validationRules.maximumChars(value, 150)
             }
         }
     },
+    watch: {
+        file(item) {
+            this.fileSwitch = item.visible
+        }
+    },
     computed: {
-        item() {
-            return this.$store.getters.getFileData[this.singleFileIndex]
-        },
+        file() {
+            return this.item
+        }
     },
     methods: {
         removeFile() {
@@ -64,15 +70,28 @@ export default {
         }
     },
     created() {
-        this.fileSwitch = this.item.visible
+        this.fileSwitch = this.file.visible
     }
 }
 </script>
 
 <style lang="less">
+@import '../../../../styles/colors.less';
 .uploadFiles {
     .uploadFileInput {
         min-width: 440px;
+    }
+    .uploadFilesWrap {
+        padding: 0 6px;
+        margin: 2px;
+        &:hover {
+            border: 2px dashed #d8d8df !important;
+            margin: 0;
+        }
+    }
+    .fileIndexNumber {
+        font-weight: 600;
+        color: @global-purple;
     }
 }
 </style>

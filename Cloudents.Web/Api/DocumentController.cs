@@ -1,10 +1,8 @@
 ﻿using Autofac.Features.Indexed;
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Command.Documents.Delete;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
@@ -22,6 +20,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command.Courses;
 
 namespace Cloudents.Web.Api
 {
@@ -34,13 +33,11 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
-        private readonly IStringLocalizer<DocumentController> _localizer;
 
 
         public DocumentController(IQueryBus queryBus,
             ICommandBus commandBus, UserManager<User> userManager,
             IDocumentDirectoryBlobProvider blobProvider,
-            IStringLocalizer<DocumentController> localizer,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
             IStringLocalizer<UploadControllerBase> localizer2)
         : base(blobProvider, tempDataDictionaryFactory, localizer2)
@@ -48,7 +45,6 @@ namespace Cloudents.Web.Api
             _queryBus = queryBus;
             _commandBus = commandBus;
             _userManager = userManager;
-            _localizer = localizer;
         }
 
         [HttpGet("{id}")]
@@ -81,31 +77,31 @@ namespace Cloudents.Web.Api
             return new DocumentPreviewResponse(model, files);
         }
 
-       
 
-        [HttpDelete("{id}"), Authorize]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> DeleteDocumentAsync([FromRoute] DeleteDocumentRequest model, CancellationToken token)
-        {
-            try
-            {
-                var command = new DeleteDocumentCommand(model.Id, _userManager.GetLongUserId(User));
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-            catch (InvalidOperationException)
-            {
-                ModelState.AddModelError("error", _localizer["SomeOnePurchased"]);
-                return BadRequest(ModelState);
-            }
-        }
+
+        //[HttpDelete("{id}"), Authorize]
+        //[ProducesResponseType(400)]
+        //[ProducesResponseType(200)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> DeleteDocumentAsync([FromRoute] DeleteDocumentRequest model, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var command = new DeleteDocumentCommand(model.Id, _userManager.GetLongUserId(User));
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (NotFoundException)
+        //    {
+        //        return NotFound();
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        ModelState.AddModelError("error", _localizer["SomeOnePurchased"]);
+        //        return BadRequest(ModelState);
+        //    }
+        //}
 
 
         [HttpPost("dropBox"), Authorize]
@@ -120,27 +116,41 @@ namespace Cloudents.Web.Api
 
             return new UploadStartResponse(blobName);
         }
-       
 
-        [HttpPost("rename"), Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> RenameDocumentAsync([FromBody] RenameDocumentRequest model,
-                CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new RenameDocumentCommand(userId, model.DocumentId, model.Name);
-            try
-            {
-                await _commandBus.DispatchAsync(command, token);
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
+
+        //[HttpPost("rename"), Authorize]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> RenameDocumentAsync([FromBody] RenameDocumentRequest model,
+        //        CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new RenameDocumentCommand(userId, model.DocumentId, model.Name);
+        //    try
+        //    {
+        //        await _commandBus.DispatchAsync(command, token);
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok();
+        //}
+        //[HttpPost("{courseId:long}/move")]
+        //[Authorize(Policy = "Tutor")]
+        //public async Task<IActionResult> UpdatePositionAsync
+        //(
+        //    [FromRoute] long courseId,
+        //    [FromBody] MoveElementRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new UpdateDocumentPositionCommand(userId, courseId, model.OldPosition, model.NewPosition);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
+
 
         [NonAction]
         public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)

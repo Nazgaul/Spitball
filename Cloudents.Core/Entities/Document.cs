@@ -44,12 +44,9 @@ namespace Cloudents.Core.Entities
             DocumentDownloads ??= new HashSet<UserDownloadDocument>();
         }
 
-        // public virtual long Id { get; set; }
         public virtual string Name { get; protected set; }
 
         public virtual Course Course { get; set; }
-
-        //public virtual string? Description { get; protected set; }
 
 
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
@@ -70,11 +67,11 @@ namespace Cloudents.Core.Entities
 
         //public virtual 
 
-       [Obsolete]
-        // ReSharper disable once CollectionNeverUpdated.Local 
-        private readonly IList<Transaction> _transactions = new List<Transaction>();
-        [Obsolete]
-        public virtual IEnumerable<Transaction> Transactions => _transactions;
+        //[Obsolete]
+        //// ReSharper disable once CollectionNeverUpdated.Local 
+        //private readonly IList<Transaction> _transactions = new List<Transaction>();
+        //[Obsolete]
+        //public virtual IEnumerable<Transaction> Transactions => _transactions;
 
         public virtual ItemStatus Status { get;  set; }
 
@@ -83,9 +80,6 @@ namespace Cloudents.Core.Entities
        // public virtual int? PurchaseCount { get; protected set; }
 
         protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
-
-        //[Obsolete]
-        //public virtual DocumentPrice DocumentPrice { get; protected set; }
 
         public virtual void AddDownload(User user)
         {
@@ -96,17 +90,16 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void MakePublic()
-        {
-            if (Status != Pending) return;
-            Status = Public;
-            AddEvent(new DocumentCreatedEvent(this));
-        }
+        //public virtual void MakePublic()
+        //{
+        //    if (Status != Pending) return;
+        //    Status = Public;
+        //    AddEvent(new DocumentCreatedEvent(this));
+        //}
 
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
-            //_votes.Clear();
             DocumentDownloads.Clear();
             AddEvent(new DocumentDeletedEvent(this));
         }
@@ -131,5 +124,6 @@ namespace Cloudents.Core.Entities
         public virtual TimeSpan? Duration { get; set; }
 
         public virtual string? Md5 { get; set; }
+        public virtual int? Position { get; set; }
     }
 }

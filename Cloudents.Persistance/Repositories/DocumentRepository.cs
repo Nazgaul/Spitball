@@ -31,5 +31,19 @@ namespace Cloudents.Persistence.Repositories
                 .UpdateAsync(token);
         }
 
+
+        public override async Task DeleteAsync(Document entity, CancellationToken token)
+        {
+            
+            await 
+                Session.CreateSQLQuery("delete from sb.DocumentsTags where documentId = :Id")
+                .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
+
+
+            await Session.CreateSQLQuery("delete from sb.[Transaction] where DocumentId = :Id")
+                .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
+
+            await base.DeleteAsync(entity, token);
+        }
     }
 }

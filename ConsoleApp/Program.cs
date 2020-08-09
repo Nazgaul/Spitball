@@ -107,6 +107,7 @@ namespace ConsoleApp
         }
 
         private static IQueryBus QueryBus => Container.Resolve<IQueryBus>();
+        private static ICommandBus CommandBus => Container.Resolve<ICommandBus>();
 
         static async Task Main()
         {
@@ -158,7 +159,9 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            await Dbi();
+            var userId = 638;
+            var command = new UpdateCoursePositionCommand(userId,2,3);
+            await CommandBus.DispatchAsync(command);
 
         }
 

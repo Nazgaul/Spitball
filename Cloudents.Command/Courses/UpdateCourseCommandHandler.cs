@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -65,20 +66,28 @@ namespace Cloudents.Command.Courses
                 }
             }
 
-            var documentsToUpdate =  message.Documents.Where(w=>w.Id.HasValue).ToDictionary(x => x.Id, x => x);
+            var documentsToUpdate = message.Documents.Where(w => w.Id.HasValue);
+               
+            var hashSet = new HashSet<long>();
+            var index = 0;
+            foreach (var updateDocumentCommand in documentsToUpdate)
+            {
+                hashSet.Add(updateDocumentCommand.Id!.Value);
+                course.UpdateDocument(updateDocumentCommand.Id,updateDocumentCommand.Name, updateDocumentCommand.Visible, index);
+                index++;
+            }
+              
+            
 
             foreach (var document in course.Documents.ToList())
             {
-                if (documentsToUpdate.TryGetValue(document.Id, out var updateStuff))
+                if (hashSet.Contains(document.Id))
                 {
-                    document.Status = updateStuff.Visible ? ItemStatus.Public : ItemStatus.Pending;
-                    document.Rename( updateStuff.Name);
+                    continue;
                 }
-                else
-                {
-                    course.RemoveDocument(document);
-                }
+                course.RemoveDocument(document);
             }
+
             foreach (var newDocuments in message.Documents.Where(w=>!w.Id.HasValue))
             {
                 var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(newDocuments.BlobName)];
