@@ -93,7 +93,22 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
     },
     computed: {
       scheduledClassesList(){
-        return this.$store.getters.getScheduledClasses;
+        let classes = this.$store.getters.getScheduledClasses;
+        let coursesIdxs = [...new Set(classes.map(c=>c.courseId))];
+        let colors = this.getColors(coursesIdxs.length);
+        return classes.map( c => {
+          return {
+            courseId: c.courseId,
+            courseName: c.courseName,
+            studentEnroll: c.studentEnroll,
+            date: c.broadcastTime,
+            name: c.studyRoomName || '',
+            id: c.studyRoomId,
+            start: this.$moment(c.broadcastTime).format('YYYY-MM-DD HH:mm'),
+            end: this.$moment(c.broadcastTime).format('YYYY-MM-DD HH:mm'),
+            color: this.$moment(c.broadcastTime).isBefore()? 'grey' : colors[coursesIdxs.findIndex(i=> i===c.courseId)]
+          }
+        })
       },
       isMobile() {
         return this.$vuetify.breakpoint.xsOnly
@@ -135,6 +150,18 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
       updateRange () {
         this.events = this.scheduledClassesList
       },
+      getColors(count){
+        let colors = ['#4c59ff', '#41c4bc', '#4094ff', '#ff6f30', '#ebbc18', '#69687d', 
+          '#1b2441','#5833cf', '#4daf50', '#995bea', '#074b8f', '#860941', '#757575', '#317ca0'] // 14;
+        
+        while (colors.length < count){
+          let color = '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+          if(!colors.includes(color)){
+              colors.push(color)
+          }
+        }
+        return colors
+      }
     },
     created() {
       if(!this.isMobile){

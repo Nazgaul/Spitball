@@ -1,20 +1,7 @@
 import axios from 'axios'
-import Moment from 'moment';
 
 import dashboardService from '../services/dashboardService.js';
 import salesService from '../services/salesService.js';
-function _getColors(count){
-   let colors = ['#4c59ff', '#41c4bc', '#4094ff', '#ff6f30', '#ebbc18', '#69687d', 
-      '#1b2441','#5833cf', '#4daf50', '#995bea', '#074b8f', '#860941', '#757575', '#317ca0'] // 14;
-   
-   while (colors.length < count){
-      let color = '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-      if(!colors.includes(color)){
-         colors.push(color)
-      }
-   }
-   return colors
-}
 const state = {
    salesItems: [],
    coursesItems: [],
@@ -42,7 +29,7 @@ const mutations = {
          this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
       }
       for (let i = 0; i < data.length; i++) {
-         state.coursesItems.push(new CourseItem(data[i]));
+         state.coursesItems.unshift(new CourseItem(data[i]));
       }
       
    },
@@ -69,22 +56,8 @@ const mutations = {
       state.coursesItems = []
    },
    setScheduledClasses(state,classes){
-      let coursesIdxs = [...new Set(classes.map(c=>c.courseId))];
-      let colors = _getColors(coursesIdxs.length);
-      state.scheduledClasses = classes.map( c => {
-         return {
-            courseId: c.courseId,
-            courseName: c.courseName,
-            studentEnroll: c.studentEnroll,
-            date: c.broadcastTime,
-            name: c.studyRoomName || '',
-            id: c.studyRoomId,
-            start: Moment(c.broadcastTime).format('YYYY-MM-DD HH:mm'),
-            end: Moment(c.broadcastTime).format('YYYY-MM-DD HH:mm'),
-            color: Moment(c.broadcastTime).isBefore()? 'grey' : colors[coursesIdxs.findIndex(i=> i===c.courseId)]
-         }
-      });
-    }
+      state.scheduledClasses = classes;
+   }
 };
 
 const getters = {
