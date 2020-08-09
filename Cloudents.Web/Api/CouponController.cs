@@ -2,7 +2,6 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
 using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -78,7 +77,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId, model.CourseId);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.CourseId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {
