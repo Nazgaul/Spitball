@@ -5,6 +5,7 @@ using NHibernate.Linq;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -39,12 +40,10 @@ namespace Cloudents.Persistence.Repositories
                 }).ToFutureValue();
 
             var coursesFuture = Session.Query<Course>()
-               // .ThenFetch(f => f.Subject)
-                .Where(w =>w.Tutor.Id == userId)
+                .Where(w =>w.Tutor.Id == userId && w.State == ItemState.Ok)
                 .Select(s => new
                 {
                     CourseName = s.Name,
-                   // SubjectName = s.Course.Subject!.Name
                 }).ToFuture();
 
             var query = from e in Session.Query<TutorReview>()

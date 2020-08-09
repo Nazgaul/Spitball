@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Entities
@@ -131,7 +132,7 @@ namespace Cloudents.Core.Entities
                 }
 
             }
-
+            AddEvent(new UpdateCourseEvent(this));
             Price = Price.ChangePrice(price);
         }
 

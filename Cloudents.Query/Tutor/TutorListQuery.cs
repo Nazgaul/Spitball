@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Cloudents.Core.DTOs;
-using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Tutor
 {
@@ -28,52 +30,42 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, ListWithCountDto<TutorCardDto>>
         {
-            private readonly IDapperRepository _dapper;
+            private readonly IStatelessSession _statelessSession;
             private readonly IUrlBuilder _urlBuilder;
 
-            public TutorListQueryHandler(IDapperRepository dapper, IUrlBuilder urlBuilder)
+            public TutorListQueryHandler(IStatelessSession dapper, IUrlBuilder urlBuilder)
             {
-                _dapper = dapper;
+                _statelessSession = dapper;
                 _urlBuilder = urlBuilder;
             }
 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-                
-                const string sql = @"Select rt.Id as UserId,
-rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio,  rt.Lessons, rt.SbCountry as SbCountry, rt.SubsidizedPrice as DiscountPrice
-from sb.ReadTutor rt
-where rt.SbCountry = @country
-and rt.Id != @userId
-and rt.State = 'Ok'
-order by
-CASE
-   WHEN exists (
-				select uc.courseId from sb.UsersCourses uc where rt.Id = uc.UserId and uc.CanTeach = 1
-   INTERSECT
-				select uc2.CourseId from sb.UsersCourses uc2 where uc2.UserId = @userid) THEN 2
- 
-   else 0
-   end  desc, rt.Rating desc
-OFFSET @PageSize * (@PageNumber) ROWS
-FETCH NEXT @PageSize ROWS ONLY;
+               var dbQuery =  _statelessSession.Query<Core.Entities.ReadTutor>()
+                    .Where(w=>w.SbCountry == query.Country &&
+                              w.State == ItemState.Ok && w.Id != query.UserId);
 
-Select count(distinct rt.Id) 
-from sb.ReadTutor rt
-where rt.SbCountry = @country
-and rt.State = 'Ok'
-and rt.Id != @userid;";
-                using var conn = _dapper.OpenConnection();
-                using var multi = await conn.QueryMultipleAsync(sql, new
-                {
-                    query.UserId,
-                    query.Country,
-                    query.PageSize,
-                    PageNumber = query.Page
-                });
-                var tutor = await multi.ReadAsync<TutorCardDto>();
-                var count = await multi.ReadFirstAsync<int>();
+
+               var futureResult = dbQuery.OrderBy(o => o.Rate)
+                   .Take(query.PageSize).Skip(query.Page * query.PageSize)
+                   .Select(s => new TutorCardDto
+                   {
+                       Name = s.Name,
+                       Bio = s.Bio,
+                       Image = s.ImageName,
+                       UserId = s.Id,
+                       Lessons = s.Lessons,
+                       Rate = s.Rate,
+                       Courses = s.Courses,
+                       ReviewsCount = s.RateCount
+                   }).ToFuture();
+
+               var futureCount = dbQuery.ToFutureValue(f => f.Count());
+                
+              
+                var tutor = await futureResult.GetEnumerableAsync(token);
+
+                var count = futureCount.Value;
                 return new ListWithCountDto<TutorCardDto>()
                 {
                     Count = count,
