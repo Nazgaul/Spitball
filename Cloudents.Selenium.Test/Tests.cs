@@ -560,7 +560,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Not relevant anymore")]
+        [Fact]
         public void TutorRequestTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -568,16 +568,20 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Maximize();
                 Login(driver, UserTypeAccounts.ElementAt(1));
 
-                var url = $"{_driver.SiteUrl.TrimEnd('/')}/feed?culture=en-US";
+                //var url = $"{_driver.SiteUrl.TrimEnd('/')}/feed?culture=en-US";
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/164307";
                 driver.Navigate().GoToUrl(url);
 
-                var tutorRequest = FindSel(driver, "request");
+                var sendMessage = FindContains(driver, "profileFloatingBtn");
 
-                tutorRequest.Click();
+                sendMessage.Click();
 
-                var submitRequest = FindSel(driver, "submit_tutor_request");
+                // Wait until this element is showing
+                FindContains(driver, "tutor-request-dialog");
 
-                submitRequest.Click();
+                var nextButton = FindContains(driver, "tutorRequest-btn-next");
+                
+                nextButton.Click();
 
                 // Wait until this element is showing
                 driver.FindElementByWait(By.XPath("//*[@class='v-messages__message']"));
@@ -594,9 +598,10 @@ namespace Cloudents.Selenium.Test
                 var freeText = FindSel(driver, "free_text");
                 var courseSelection = FindSel(driver, "course_request");
                 
+                
                 freeText.SendKeys("Hi");
                 courseSelection.SendKeys("Temp" + Keys.Tab);
-                submitRequest.Click();
+                nextButton.Click();
 
                 // Make sure this element is showing
                 FindContains(driver, "registerDialog");
@@ -664,7 +669,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Need to be fixed")]
+        [Fact]
         public void ProfileTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -673,45 +678,17 @@ namespace Cloudents.Selenium.Test
                 {
                     driver.Manage().Window.Maximize();
 
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039/culture={culture}";
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/profile/159039/culture={culture}#broadcast";
                     driver.Navigate().GoToUrl(url);
 
                     // Make sure those elements exist
-                    FindByClass(driver, "coverPhoto");
-                    FindContains(driver, "pUb_dS_img");
-                    FindByClass(driver, "profileItemBox_pagination");
-                    string[] elements = { "userName", "profileUserBox", "profileUserSticky_btn",
-                                          "profileReviewsBox", "profileItemsBox_title",
-                                          "profileItemsBox_content" , "followBtnNew"};
-                    foreach(var element in elements)
-                    {
-                        FindContains(driver, element);
-                    }
-                    
-                    driver.FindElementByWait(By.Id("profileItemsBox"));
 
-                    FindSel(driver, "send").Click();
-                    FindSel(driver, "cancel_tutor_request").Click();
+                    FindByClass(driver, "profileStats");
 
-                    var comboBoxes = driver.FindElements(By.XPath("//*[@class='v-input__control']"));
+                    driver.FindElement(By.Id("subscription"));
 
-                    foreach (var comboBox in comboBoxes)
-                    {
-                        comboBox.Click();
-                    }
+                    //driver.FindElement(By.Id("broadcast"));
 
-                    var coupon = FindSel(driver, "coupon");
-                    coupon.Click();
-                    FindContains(driver, "registerDialog");
-
-                    Login(driver, UserTypeAccounts.ElementAt(0));
-                    FindContains(driver, "dashboardMain");
-                    driver.Navigate().GoToUrl(url);
-
-                    coupon = FindSel(driver, "coupon");
-                    FindSel(driver, "send").Click();
-                    coupon.Click();
-                    FindContains(driver, "coupon-dialog");
                     Logout(driver);
                 }
 
@@ -719,8 +696,9 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Size = new System.Drawing.Size(414, 736);
                 driver.Navigate().GoToUrl($"{_driver.SiteUrl.TrimEnd('/')}/profile/159039");
 
-                // Check that this class exists containing text-center
-                FindContains(driver, "profileUserSticky_btns d-block d-sm-flex align-end text-center");
+                // Check that this elements exist
+                FindContains(driver, "profileFloatingBtn");
+                driver.FindElement(By.XPath("//*[contains(@class, 'actionWrapper')]//button"));
             }
         }
 
@@ -961,7 +939,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Need to fix")]
+        [Fact]
         public void SideMenuTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -974,14 +952,15 @@ namespace Cloudents.Selenium.Test
 
                 driver.Navigate().GoToUrl(driver.Url + "?culture=en-US");
 
-                string[] elements = { "", "_overview", "_opportunities", "_myContent",
-                                      "_myStudyRooms", "_mySales", "_myFollowers", "_myPurchases" };
+                string[] elements = { "", "_overview", "_myCourses", "_live_session",
+                                      "_myFollowers", "_myCoupons", "_mySales", "_myMarketing",
+                                      "_myPurchases", "_learn" };
 
-                FindSel(driver, "sidemenu_home").Click();
-                foreach (var element in elements)
+                //FindSel(driver, "sidemenu_home").Click();
+                /*foreach (var element in elements)
                 {
                     FindSel(driver, $"sidemenu_dashboard{element}").Click();
-                }
+                }*/
 
                 string[] moreElements = { "", "_myCourses", "_myCalendar", "_testStudyRoom" };
 
@@ -994,7 +973,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Need to be fixed")]
+        [Fact]
         public void CreateStudyRoomTest()
         {
             foreach(var driver in this._driver.Drivers)
@@ -1017,24 +996,6 @@ namespace Cloudents.Selenium.Test
                 FindContains(driver, "v-dialog--persistent");
 
                 FindContains(driver, "close-dialog").Click();
-
-                FindContains(driver, "sbf-myLive").Click();
-
-                createButton = driver.FindElementByWait(By.XPath("//*[contains(@class, 'tableTop')]//button"));
-
-                createButton.Click();
-
-                var title = driver.FindElementByWait(By.XPath("//*[@class='liveSession']//input"));
-
-                title.Click();
-                title.SendKeys("Test");
-
-                var description = driver.FindElementByWait(By.XPath("//*[@class='liveSession']//textarea"));
-                description.Click();
-                description.SendKeys("Test");
-
-                createButton = FindContains(driver, "createBtn");
-                createButton.Click();
 
                 Logout(driver);
             }
