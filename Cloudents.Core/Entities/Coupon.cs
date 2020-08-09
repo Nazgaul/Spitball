@@ -13,12 +13,12 @@ namespace Cloudents.Core.Entities
     }
 
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class Coupon
+    public class Coupon :Entity<Guid>
     {
         public const int MinimumLength = 5, MaxLength = 12;
         public Coupon(string code, CouponType couponType,
-            Tutor? tutor, decimal value,
-            DateTime? expiration, string? description)
+            Course course, double value,
+            DateTime? expiration)
         {
             if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
             if (couponType == CouponType.Percentage && value > 100)
@@ -38,10 +38,10 @@ namespace Cloudents.Core.Entities
             Code = code;
 
             CouponType = couponType;
-            Tutor = tutor;
+            Course = course ?? throw new ArgumentNullException(nameof(course));
+           // Tutor = course.Tutor;
             Value = value;
             Expiration = expiration;
-            Description = description;
             CreateTime = DateTime.UtcNow;
             UserCoupon = new HashSet<UserCoupon>();
 
@@ -53,15 +53,17 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual Guid Id { get; protected set; }
 
-        public virtual string Code { get; protected set; }
+        public virtual string Code { get;  }
 
-        public virtual CouponType CouponType { get; protected set; }
+        public virtual CouponType CouponType { get;  }
+        public virtual Course Course { get; }
 
         public virtual Tutor? Tutor { get; protected set; }
+        public virtual double Value { get; }
 
-        public virtual decimal Value { get; protected set; }
+        [Obsolete] public virtual decimal ValueOld{ get; set; }
+        
 
 
         public virtual DateTime? Expiration { get; protected set; }
@@ -86,21 +88,24 @@ namespace Cloudents.Core.Entities
             return true;
         }
 
-        //public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
+      
+
+        //public static double CalculatePrice(CouponType type, double price, decimal couponValue)
         //{
+        //    var d = (double) couponValue;
         //    var result = type switch
         //    {
-        //        CouponType.Flat => (price - couponValue),
-        //        CouponType.Percentage => (price * ((100 - couponValue) / 100)),
+        //        CouponType.Flat => (price - d),
+        //        CouponType.Percentage => (price * ((100 - d) / 100)),
         //        _ => throw new ArgumentOutOfRangeException()
         //    };
 
         //    return Math.Max(result, 0);
         //}
 
-        public static double CalculatePrice(CouponType type, double price, decimal couponValue)
+        public static double CalculatePrice(CouponType type, double price, double couponValue)
         {
-            var d = (double) couponValue;
+            var d =  couponValue;
             var result = type switch
             {
                 CouponType.Flat => (price - d),
@@ -109,6 +114,26 @@ namespace Cloudents.Core.Entities
             };
 
             return Math.Max(result, 0);
+        }
+
+
+
+        protected bool Equals(Coupon other)
+        {
+            return Course.Id.Equals(other.Course.Id) && Code.Equals(other.Code);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Coupon) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(41, Course.Id, Code);
         }
 
     }
