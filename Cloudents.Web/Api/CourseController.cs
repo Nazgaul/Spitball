@@ -125,8 +125,13 @@ namespace Cloudents.Web.Api
 
             await _commandBus.DispatchAsync(command, token);
 
+            
 
-            return Ok();
+            return Ok(new
+            {
+                command.Id
+
+            });
         }
 
 

@@ -76,6 +76,8 @@ namespace Cloudents.Command.Courses
             {
                 await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
             }
+
+            message.Id = course.Id;
             //var user = await _userRepository.LoadAsync(message.UserId, token);
             //user.AssignCourses(new[] { course });
         }
