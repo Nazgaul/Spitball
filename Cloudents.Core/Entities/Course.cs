@@ -10,6 +10,7 @@ namespace Cloudents.Core.Entities
 {
     public class Course : Entity<long>
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhiberate proxy")]
         public Course(string name, Tutor tutor, double price,
             double? subscriptionPrice, string description, DateTime? startTime, bool isPublish)
         {
@@ -68,7 +69,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual Tutor Tutor { get; set; }
+        public virtual Tutor Tutor { get;  }
 
         public virtual int Position { get; }
 
@@ -177,7 +178,7 @@ namespace Cloudents.Core.Entities
         {
             var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
 
-            var z = _courseEnrollments.Add(courseEnrollment);
+            _courseEnrollments.Add(courseEnrollment);
             foreach (var broadCastStudyRoom in _studyRooms)
             {
                 broadCastStudyRoom.AddUserToStudyRoom(user);
@@ -211,16 +212,7 @@ namespace Cloudents.Core.Entities
         public virtual int Version { get; protected set; }
 
 
-        //public virtual void SubscribeToAllStudyRooms()
-        //{
-        //    foreach (var courseEnrollment in _courseEnrollments)
-        //    {
-        //        foreach (var broadCastStudyRoom in _studyRooms)
-        //        {
-        //            broadCastStudyRoom.AddUserToStudyRoom(courseEnrollment.User);
-        //        }
-        //    }
-        //}
+      
 
         public virtual void UpdateDocument(long? id, string name, bool visible, int index)
         {

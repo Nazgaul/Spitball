@@ -6,8 +6,8 @@ namespace Cloudents.Core.Entities
     {
         public CourseEnrollment(User user, Course course, string? receipt, Money price)
         {
-            User = user;
-            Course = course;
+            User = user ?? throw new ArgumentNullException(nameof(user));
+            Course = course ?? throw new ArgumentNullException(nameof(course));
             Create = DateTime.UtcNow;
             Receipt = receipt;
             Price = price;
@@ -18,7 +18,7 @@ namespace Cloudents.Core.Entities
             
         }
 
-        public virtual User User { get; set; }
+        public virtual User User { get; }
 
         protected bool Equals(CourseEnrollment other)
         {
