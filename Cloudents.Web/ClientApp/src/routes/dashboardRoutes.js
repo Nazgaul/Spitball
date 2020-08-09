@@ -38,13 +38,11 @@ export const dashboardRoutes = [
    },
    {
        path: "/my-courses",
-       components: dashboardPages,
        name: "myCourses",
-       props: {
-           default: (route) => ({
-               component: route.name,
-           })
-       },
+        components: {
+            default: () => import(`../components/pages/dashboardPage/myCourses/myCourses.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
        meta: {
            requiresTutor: true,
            requiresAuth: true,
@@ -54,7 +52,6 @@ export const dashboardRoutes = [
    // this is route protect for reference to my-content
    {
        path: '/my-content',
-       name: 'myCourses',
        redirect: 'my-courses'
    },
    {

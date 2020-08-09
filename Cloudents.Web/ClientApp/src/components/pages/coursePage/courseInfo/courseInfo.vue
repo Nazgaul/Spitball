@@ -18,8 +18,8 @@
             v-model="followerPrice"
             type="number"
             class="priceFollower"
-            :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
-            :label="$t('follower_price')"
+            :rules="[rules.requiredNum, rules.minimum, rules.maximum, rules.subscriptionPrice]"
+            :label="isSubscription ? $t('follower_price') : $t('price')"
             :prefix="getSymbol"
             onkeypress="return !(event.charCode == 46)"
             placeholder=" "
@@ -31,32 +31,23 @@
         >
         </v-text-field>
 
-        <!-- <template v-if="isSubscription"> -->
-            <!-- <v-switch
-                v-model="subscribeSwitch"
-                class="mb-7 mt-0 pa-0"
-                :label="$t('set_subscriber_price')"
-                hide-details
-            ></v-switch> -->
-
-            <v-text-field
-                v-model="subscriberPrice"
-                v-if="isSubscription"
-                type="number"
-                class="priceSubscriber mb-6"
-                :rules="[rules.requiredNum, rules.minimum, rules.subscriptionPrice]"
-                :label="$t('subscriber_price')"
-                :prefix="getSymbol"
-                onkeypress="return !(event.charCode == 46)"
-                placeholder=" "
-                dense
-                color="#304FFE"
-                autocomplete="off"
-                height="50"
-                outlined
-            >
-            </v-text-field>
-        <!-- </template> -->
+        <v-text-field
+            v-model="subscriberPrice"
+            v-if="isSubscription"
+            type="number"
+            class="priceSubscriber mb-6"
+            :rules="[rules.requiredNum, rules.minimum, rules.maximum, rules.subscriptionPrice]"
+            :label="$t('subscriber_price')"
+            :prefix="getSymbol"
+            onkeypress="return !(event.charCode == 46)"
+            placeholder=" "
+            dense
+            color="#304FFE"
+            autocomplete="off"
+            height="50"
+            outlined
+        >
+        </v-text-field>
 
         <v-textarea
             v-model="courseDescription"
@@ -80,8 +71,13 @@
                     @setLiveImage="handleLiveImage"
                     class="editLiveImage"
                 />
-                <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
-                <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
+                <div class="noDefaultImage" v-if="!$route.params.id && !previewImage && !image">
+                    <v-icon size="40" color="#bdc0d1">sbf-plus-sign</v-icon>
+                </div>
+                <template v-else>
+                    <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
+                    <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
+                </template>
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </label>
         </div>
@@ -106,6 +102,7 @@ export default {
                 requiredNum: (val) => (val.toString() && !isNaN(val)) || this.$t("formErrors_required"),
                 required: (val) => validationRules.required(val),
                 minimum: (val) => validationRules.minVal(val,0),
+                maximum: (val) => validationRules.maxVal(val, 10000),
                 integer: (val) => validationRules.integer(val),
                 subscriptionPrice: val => {
                     if(global.country === 'IL') {
@@ -234,6 +231,14 @@ export default {
             .recommendedImage {
                 font-size: 16px;
                 color: #adb1b4;
+            }
+            .noDefaultImage {
+                display: flex;
+                justify-content: center;
+                width: 250px;
+                height: 140px;
+                border-radius: 6px;
+                background-color: #f0f4f8
             }
         }
     }

@@ -28,7 +28,6 @@ namespace Cloudents.Query.Courses
         internal sealed class CourseByIdQueryHandler : IQueryHandler<CourseByIdQuery, CourseDetailDto?>
         {
             private readonly IStatelessSession _statelessSession;
-           // private readonly ICronService _cronService;
             private readonly IUrlBuilder _urlBuilder;
 
             public CourseByIdQueryHandler(IStatelessSession repository,
@@ -72,7 +71,8 @@ namespace Cloudents.Query.Courses
 
                 var futureDocuments = _statelessSession.Query<Document>()
                     .Where(w => w.Course.Id == query.Id)
-                    .Where(w => w.Status.State == ItemState.Ok).Select(s2 =>
+                    .Where(w => w.Status.State == ItemState.Ok)
+                    .OrderBy(o=>o.Position).Select(s2 =>
                     new DocumentFeedDto()
                     {
                         Title = s2.Name,

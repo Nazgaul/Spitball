@@ -231,9 +231,9 @@ export default {
 @import "../../../../styles/colors.less";
 
 .uf-sDrop-container {
-    padding: 12px;
+    // padding: 12px;
     border-radius: 6px;
-    border: dashed 2px #d8d8df;
+    // border: dashed 2px #d8d8df;
     height: 194px;
     @media (max-width: @screen-xs) {
         height: unset;
@@ -267,6 +267,7 @@ export default {
     }
     .uf-upload-screen-container {
         padding: 10px;
+        margin-top: 40px;
         background: #f0f4f8;
         border-radius: 6px;
         display: flex;

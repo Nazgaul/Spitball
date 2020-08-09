@@ -65,7 +65,6 @@ namespace Cloudents.Web.Api
                 return Ok(new { user.Country });
             }
 
-
             if (result.IsLockedOut)
             {
                 if (user.LockoutEnd == DateTimeOffset.MaxValue)
@@ -86,13 +85,9 @@ namespace Cloudents.Web.Api
                 _logClient.TrackTrace("user is not allowed", model.AsDictionary());
                 ModelState.AddModelError(nameof(model.Password), _localizer["NotAllowed"]);
                 return BadRequest(ModelState);
-
             }
-            _logClient.TrackTrace($"user bad login {result} ", model.AsDictionary());
             ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
             return BadRequest(ModelState);
-
-
         }
     }
 }

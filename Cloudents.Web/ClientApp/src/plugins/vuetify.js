@@ -36,7 +36,7 @@ const MY_ICONS = {
   // expand: '...',
   // menu: '...',
   // subgroup: '...',
-  // dropdown: '...',
+  dropdown: 'sbf-arrow-down',
   radioOn: 'sbf-radioOn',
   radioOff: 'sbf-radioOff',
   // edit: '...',

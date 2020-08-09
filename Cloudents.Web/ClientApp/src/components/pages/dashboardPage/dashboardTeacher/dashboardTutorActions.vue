@@ -126,12 +126,23 @@ export default {
             autoplay: false,
             verifyEmailState: false,
             profileName: routeName.Profile,
-            linksItems: {
+        }
+    },
+    computed: {
+        linksItems() {
+            return {
                 [constants.EDIT]: {
                     color: colors.blue,
                     text: this.$t('dashboardTeacher_link_text_edit'),
                     btnText: this.$t('dashboardTeacher_btn_text_edit'),
-                    routeName: { name: routeName.Profile }
+                    routeName: {
+                        name: this.profileName,
+                        params: {
+                            id: this.userId,
+                            name: this.userName
+                        },
+                        hash: '#tutorEdit'
+                    }
                 },
                 [constants.SESSIONS]: {
                     color: colors.blue,
@@ -175,11 +186,9 @@ export default {
                     text: this.$t('dashboardTeacher_link_text_email'),
                     btnText: this.$t('dashboardTeacher_btn_text_email'),
                     method: this.verifyEmail
-                },
+                }
             }
-        }
-    },
-    computed: {
+        },
         isEditActionComplete() {
             return this.$store.getters.getTutorListActions[constants.EDIT]?.value
         },
