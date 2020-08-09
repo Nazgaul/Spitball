@@ -57,7 +57,7 @@ export const studyRoomRoutes = [
     },
     {
         // (\\d+) prevent from duplicate route with new coursePage
-        path: '/course/:id(\\d+)?/:name?',
+        path: '/course/:id(\\d+)/:name?',
         name: routeName.CoursePage,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),

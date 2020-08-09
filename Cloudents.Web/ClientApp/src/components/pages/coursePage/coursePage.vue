@@ -38,9 +38,6 @@
 <script>
 import { MyCourses } from '../../../routes/routeNames'
 
-import createCourse from '../../../store/createCourse';
-import storeService from '../../../services/store/storeService';
-
 import courseCreate from './courseCreate/courseCreate.vue';
 import courseInfo from './courseInfo/courseInfo.vue';
 import courseTeaching from './courseTeaching/courseTeaching.vue';
@@ -229,16 +226,7 @@ export default {
     beforeDestroy(){
         this.$store.commit('resetCreateCourse')
         this.$store.commit('resetUploadFiles')
-        storeService.unregisterModule(this.$store, 'createCourse');
     },
-    created() {
-        storeService.registerModule(this.$store, 'createCourse', createCourse);
-        let id = this.$route.params.id
-
-        if(id) {
-            this.$store.dispatch('getCourseInfo', id)
-        }
-    }
 }
 </script>
 

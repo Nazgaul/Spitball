@@ -26,6 +26,7 @@ import tutorDashboard from './tutorDashboard.js'
 import profile from './profile.js';
 import document from "./document.js";
 import courseStore from './courseStore.js';
+import createCourse from './createCourse.js';
 
 import studyRoomStore from './studyRoomStore/studyRoomStore.js'
 import signalRPlugin from '../plugins/signalRPlugin';
@@ -102,6 +103,7 @@ const store = new Vuex.Store({
         tutoringCanvas,
         roomRecording_store,
         courseStore,
+        createCourse,
     },
     plugins,
 });

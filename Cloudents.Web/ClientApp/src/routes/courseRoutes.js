@@ -28,8 +28,13 @@ export const courseRoutes = [
             name: CourseCreate,
          },
          {
-            path: ':id/edit',
+            path: 'edit/:id',
             name: CourseUpdate,
+            beforeEnter: (to, from, next) => {
+               store.dispatch('getCourseInfo', to.params.id).then(()=>{
+                  next()
+               })
+            }
          },
          {
             path: '*',
