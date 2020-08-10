@@ -96,7 +96,6 @@ export default {
     methods: {
         saveCourseInfo() {
             if(this.step == 3) {
-                this.showCourseNotVisible()
                 this.$router.push({name: MyCourses})
                 return
             }
@@ -130,22 +129,24 @@ export default {
                 let self = this
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
                     if(self.courseVisible) {
-                        self.currentCreatedCourseId = data.id
+                        self.currentCreatedCourseId = data?.id || id
                         self.goStep(3)
                         return
                     }
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    if(!ex.response.data) {
-                        self.errorText = self.$t('profile_enroll_error')
+                    if(ex.response) {
+                        if(!ex.response.data) {
+                            self.errorText = self.$t('profile_enroll_error')
+                        }
+                        if(ex.response.data) {
+                            self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                        }
+                        if(ex.response.status === 409) {
+                            self.errorText = this.statusErrorCode[ex.response.status]
+                        }
+                        self.showSnackbar = true
                     }
-                    if(ex.response.data) {
-                        self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
-                    }
-                    if(ex.response.status === 409) {
-                        self.errorText = this.statusErrorCode[ex.response.status]
-                    }
-                    self.showSnackbar = true
                 }).finally(() => {
                     self.loading = false
                 })
