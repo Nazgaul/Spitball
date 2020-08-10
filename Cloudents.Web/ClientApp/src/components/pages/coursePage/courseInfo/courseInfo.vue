@@ -49,6 +49,8 @@
         >
         </v-text-field>
 
+        <courseCoupon />
+
         <v-textarea
             v-model="courseDescription"
             class="mb-2"
@@ -87,10 +89,12 @@
 <script>
 import { validationRules } from '../../../../services/utilities/formValidationRules.js'
 import uploadImage from '../../../new_profile/profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
+import courseCoupon from '../courseCoupon/courseCoupon.vue';
 
 export default {
     name: 'courseInfo',
     components: {
+        courseCoupon,
         uploadImage
     },
     data() {
