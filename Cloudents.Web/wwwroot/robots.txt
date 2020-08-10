@@ -6,5 +6,6 @@ disallow: /d/
 disallow: /new/
 disallow: /landing/
 disallow: /quiz/
+disallow: /document/
 
 Sitemap: https://www.spitball.co/sitemap.xml/
