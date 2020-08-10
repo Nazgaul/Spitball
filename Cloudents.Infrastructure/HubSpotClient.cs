@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
@@ -65,11 +66,17 @@ namespace Cloudents.Infrastructure
 
         private async Task<int> HandleExceptionAsync(HubSpotContact? contact, HubSpotException e, int timeToWaitInMillisecond)
         {
+            if (e.Response.StatusCode == HttpStatusCode.BadGateway)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(timeToWaitInMillisecond));
+                return timeToWaitInMillisecond * 2;
+            }
             try
             {
-                dynamic response = JsonConvert.DeserializeObject(e.RawJsonResponse);
+                
+                dynamic? response = JsonConvert.DeserializeObject(e.RawJsonResponse);
 
-                if (response.message == "Contact already exists")
+                if (response?.message == "Contact already exists")
                 {
                     if (contact != null)
                     {
