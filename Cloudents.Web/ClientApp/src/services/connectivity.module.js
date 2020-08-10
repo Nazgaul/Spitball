@@ -24,7 +24,6 @@ const errorHandler = function (err) {
     if (err.response.status === 401) {
         global.location = '/?authDialog=register';
     } else if (err.response.status === 404) {
-        debugger
         global.location = '/error/notfound?client=true';
     } else {
         return Promise.reject(err);

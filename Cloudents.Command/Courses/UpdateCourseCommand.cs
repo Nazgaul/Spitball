@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.Courses
 {
@@ -8,7 +9,7 @@ namespace Cloudents.Command.Courses
         public UpdateCourseCommand(long userId, string name, int price, int? subscriptionPrice,
             string description, string? image,
             IEnumerable<UpdateLiveStudyRoomCommand> studyRooms,
-            IEnumerable<UpdateDocumentCommand> documents, bool isPublish, long courseId)
+            IEnumerable<UpdateDocumentCommand> documents, bool isPublish, long courseId, UpdateCouponCommand? coupon)
         {
             UserId = userId;
             Name = name;
@@ -20,8 +21,10 @@ namespace Cloudents.Command.Courses
             Documents = documents ?? throw new ArgumentNullException(nameof(documents));
             IsPublish = isPublish;
             CourseId = courseId;
+            Coupon = coupon;
         }
         public long CourseId { get; }
+        public UpdateCouponCommand? Coupon { get; }
 
         public long UserId { get; }
         public string Name { get; }
@@ -71,6 +74,25 @@ namespace Cloudents.Command.Courses
             public bool Visible { get;  }
 
             public long? Id { get; set; }
+        }
+
+        public class UpdateCouponCommand 
+        {
+            public UpdateCouponCommand(string code, CouponType couponType,  double value, DateTime expiration)
+            {
+                Code = code;
+                CouponType = couponType;
+                Value = value;
+                Expiration = expiration;
+            }
+
+
+            public double Value { get; }
+
+
+            public string Code { get; }
+            public CouponType CouponType { get; }
+            public DateTime Expiration { get; }
         }
     }
 }

@@ -209,27 +209,19 @@ namespace Cloudents.Core.Entities
             _documents.Remove(document);
         }
 
-        [SuppressMessage("ReSharper", "UnassignedGetOnlyAutoProperty")] 
-        public virtual int Version { get;  }
+        [SuppressMessage("ReSharper", "UnassignedGetOnlyAutoProperty")]
+        public virtual int Version { get; }
 
 
         public virtual void AddCoupon(string code, CouponType couponType, double value, DateTime? expiration)
         {
-            var coupon = new Coupon(code,couponType,this,value,expiration);
+            var coupon = new Coupon(code, couponType, this, value, expiration);
 
+            _coupons.IntersectWith(new[] { coupon });
             _coupons.Add(coupon);
         }
 
-        //public virtual void SubscribeToAllStudyRooms()
-        //{
-        //    foreach (var courseEnrollment in _courseEnrollments)
-        //    {
-        //        foreach (var broadCastStudyRoom in _studyRooms)
-        //        {
-        //            broadCastStudyRoom.AddUserToStudyRoom(courseEnrollment.User);
-        //        }
-        //    }
-        //}
+
 
         public virtual void UpdateDocument(long? id, string name, bool visible, int index)
         {
