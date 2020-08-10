@@ -67,17 +67,6 @@ namespace Cloudents.Query.Documents
                     )
                     .ToFutureValue(f => f.Any());
 
-
-                //var scribedQueryFuture = _session.Query<Follow>()
-                //      .Where(w => w.Follower.Id == query.UserId)
-                //      .Where(w => w.User.Id == _session.Query<Document>().Where(w => w.Id == query.Id).Select(s => s.User.Id).Single())
-                //      //.Where(w => w.User.Id == query.Id)
-                //      .Select(s => s.Subscriber).ToFutureValue();
-
-
-
-
-
                 var result = await futureValue.GetValueAsync(token);
 
 
@@ -85,7 +74,6 @@ namespace Cloudents.Query.Documents
                 {
                     return null;
                 }
-                //result.IsPurchased = true;
 
                 if (result.UserId == query.UserId)
                 {

@@ -30,7 +30,7 @@ export default {
     //     return new HomePage.Stats(data);
     // },
     async getBannerParams() {
-      let { data } = await Api.get.banner()
-      return data === null? null : new Banner.Default(data);
+      //let { data } = await Api.get.banner()
+      return null;
     }
 }
