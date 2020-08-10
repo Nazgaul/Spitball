@@ -16,8 +16,7 @@ namespace Cloudents.Core.Entities
     public class Coupon
     {
         public const int MinimumLength = 5, MaxLength = 12;
-        public Coupon(string code, CouponType couponType,
-            Tutor? tutor, decimal value,
+        public Coupon(string code, CouponType couponType, Tutor? tutor, decimal value,
             DateTime? expiration, string? description)
         {
             if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
