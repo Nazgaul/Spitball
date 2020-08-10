@@ -36,22 +36,16 @@ namespace Cloudents.Query.Session
                 var couponFuture = _stateless.Query<UserCoupon>()
                      .Fetch(f => f.Coupon)
                      .Where(w => w.StudyRoomSessionUser!.Id == query.SessionId)
-                     //.Where(w => w.UsedAmount < w.Coupon.AmountOfUsePerUser)
                      .Select(s => new
                      {
                          s.Coupon.Code,
                          s.Coupon.CouponType,
                          s.Coupon.Value,
-                         //s.Coupon.Id
                      })
-                     //.Take(1)
                      .ToFutureValue();
 
 
                 var studyRoomUserFuture =  _stateless.Query<StudyRoomPayment>()
-                    //.Fetch(f=>f.StudyRoomPayment)
-                    //.Fetch(f => f.StudyRoomSession)
-                    //.Where(w => w.User.Id == query.UserId)
                     .Where(w => w.Id == query.SessionId)
                     .Select(s => new PaymentDetailDto
                     {

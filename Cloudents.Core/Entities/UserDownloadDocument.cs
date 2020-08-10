@@ -20,8 +20,8 @@ namespace Cloudents.Core.Entities
         protected UserDownloadDocument()
 
         { }
-        public virtual User User { get; protected set; }
-        public virtual Document Document { get; protected set; }
+        public virtual User User { get; }
+        public virtual Document Document { get; }
         public virtual DateTime Created { get; }
 
 
