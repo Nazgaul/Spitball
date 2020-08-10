@@ -19,7 +19,7 @@
                     <courseCreate :courseRoute="courseRoute" @saveCourseInfo="saveCourseInfo" />
                 </div>
 
-                <v-stepper-items>
+                <v-stepper-items class="stepperItems">
                     <v-stepper-content :step="step" class="pa-0">
                         <component
                             :is="stepComponent"
@@ -244,8 +244,12 @@ export default {
         height: 100%;
     }
     .courseStepper {
+        overflow: visible; 
         background: inherit;
         .courseActionsSticky {
+            position: sticky;
+            z-index: 9;
+            top: 70px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
             .courseStepHeader {
                 background: #fff;
@@ -275,6 +279,9 @@ export default {
                     }
                 }
             }
+        }
+        .stepperItems, .v-stepper__wrapper {
+            overflow: visible;
         }
     }
     .v-textarea, .v-input {

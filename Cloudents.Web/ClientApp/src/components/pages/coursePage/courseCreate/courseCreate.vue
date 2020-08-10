@@ -39,9 +39,6 @@
 .createCourse {
     background: #fff;
     border-radius: 6px;
-    position: sticky;
-    z-index: 9;
-    top: 70px;
     .createTitle {
         font-size: 20px;
         font-weight: 600;
