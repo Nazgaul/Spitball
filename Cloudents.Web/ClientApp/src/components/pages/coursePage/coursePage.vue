@@ -60,6 +60,9 @@ export default {
         unSupportedFeature
     },
     computed: {
+        canCreateCourse() {
+            return this.$store.getters.getIsCanCreateCourse
+        },
         courseVisible() {
             return this.$store.getters.getCourseVisible
         },
@@ -93,6 +96,7 @@ export default {
     methods: {
         saveCourseInfo() {
             if(this.step == 3) {
+                this.showCourseNotVisible()
                 this.$router.push({name: MyCourses})
                 return
             }
@@ -125,7 +129,7 @@ export default {
                 let methodName = id ? 'update' : 'create'
                 let self = this
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
-                    if(self.courseVisible && !id) {
+                    if(self.courseVisible) {
                         self.currentCreatedCourseId = data.id
                         self.goStep(3)
                         return
@@ -239,6 +243,12 @@ export default {
             } else if(step === 3) {
                 this.stepComponent = 'courseShare'
             }
+        },
+        showCourseNotVisible() {
+            let isCourseVisible = this.canCreateCourse
+            if(!isCourseVisible) {
+                this.$store.commit('setShowCourse', false)
+            }
         }
     },
     beforeDestroy(){
@@ -246,11 +256,7 @@ export default {
         this.$store.commit('resetUploadFiles')
     },
     mounted() {
-        let isCourseVisible = this.$store.getters.getIsCanCreateCourse
-        if(!isCourseVisible) {
-            this.showSnackbar = true
-            this.errorText = this.$t('course_not_visible')
-        }
+        this.showCourseNotVisible()
     }
 }
 </script>
