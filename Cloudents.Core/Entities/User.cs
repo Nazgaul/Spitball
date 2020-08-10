@@ -150,26 +150,26 @@ namespace Cloudents.Core.Entities
 
 
 
-        //public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
-        //{
-        //    if (coupon.CanApplyCoupon())
-        //    {
-        //        var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
-        //        if (userCoupon != null)
-        //        {
-        //           return;
-        //        }
-        //        var p = new UserCoupon(this, coupon, tutor);
-        //        if (!_userCoupon.Add(p))
-        //        {
-        //            throw new DuplicateRowException();
-        //        }
-        //        AddEvent(new ApplyCouponEvent(p));
+        public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
+        {
+            if (coupon.CanApplyCoupon())
+            {
+                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
+                if (userCoupon != null)
+                {
+                   return;
+                }
+                var p = new UserCoupon(this, coupon, tutor);
+                if (!_userCoupon.Add(p))
+                {
+                    throw new DuplicateRowException();
+                }
+                AddEvent(new ApplyCouponEvent(p));
 
 
-        //    }
+            }
 
-        //}
+        }
 
         public virtual void ChangeCountry(string country)
         {

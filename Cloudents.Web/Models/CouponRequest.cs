@@ -10,7 +10,7 @@ namespace Cloudents.Web.Models
         /// The value of the coupon
         /// </summary>
         [Required]
-        public double Value { get; set; }
+        public decimal Value { get; set; }
 
         /// <summary>
         /// Code of the coupon - e.g Friends10

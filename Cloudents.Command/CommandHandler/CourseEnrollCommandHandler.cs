@@ -59,11 +59,13 @@ namespace Cloudents.Command.CommandHandler
                 return;
             }
 
-            var coupon = course.Coupons.SelectMany(s=>s.UserCoupons).FirstOrDefault(f => f.User.Id == message.UserId);
+            var coupon = course.Tutor.UserCoupons.FirstOrDefault(f => f.User.Id == message.UserId && f.IsNotUsed());
 
             if (coupon != null)
             {
-                var tempPrice = coupon.Coupon.CalculatePrice();
+                var tempPrice = Coupon.CalculatePrice(coupon.Coupon.CouponType, price.Amount,
+                    coupon.Coupon.Value);
+
                 price = price.ChangePrice(tempPrice);
             }
             if (price.Cents == 0)
@@ -79,6 +81,38 @@ namespace Cloudents.Command.CommandHandler
 
             //Need to continue
             course.EnrollUser(user,message.Receipt,price);
+
+            //if (studyRoom.Price.Cents > 0 &&
+            //    studyRoom.Tutor.User.SbCountry != Country.Israel && message.Receipt == null)
+            //{
+            //    var coupon = studyRoom.Tutor.UserCoupons.FirstOrDefault(f => f.User.Id == message.UserId && f.IsNotUsed());
+
+            //    var tempPrice = 100d;
+            //    if (coupon != null)
+            //    {
+            //        tempPrice = Coupon.CalculatePrice(coupon.Coupon.CouponType, studyRoom.Price.Amount,
+            //            coupon.Coupon.Value);
+            //    }
+
+            //    if (tempPrice > 0)
+            //    {
+            //        var subscription = studyRoom.Tutor.User.Followers
+            //            .SingleOrDefault(s => s.Follower.Id == message.UserId)?.Subscriber;
+            //        if (subscription.GetValueOrDefault() == false)
+            //        {
+            //            throw new UnauthorizedAccessException();
+            //        }
+            //    }
+            //}
+            
+
+            //if (message.Receipt != null)
+            //{
+            //    studyRoom.AddPayment(user, message.Receipt);
+            //}
+
+            //studyRoom.AddUserToStudyRoom(user);
+
         }
     }
 }

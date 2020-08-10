@@ -54,6 +54,8 @@ namespace Cloudents.Query.Admin
 
                 var paymentFuture = _stateless.Query<StudyRoomPayment>()
                     .Fetch(f=>f.StudyRoomSessionUser)
+                   // .Fetch(f => f.StudyRoomSession)
+                    //.ThenFetch(f => f.StudyRoom)
                     .Fetch(f => f.Tutor)
                     .ThenFetch(f => f.User)
                     .Fetch(f => f.User)
@@ -106,7 +108,7 @@ namespace Cloudents.Query.Admin
             {
                 public string Code { get; set; }
                 public CouponType CouponType { get; set; }
-                public double Value { get; set; }
+                public decimal Value { get; set; }
                 public long? TutorId { get; set; }
 
               

@@ -4,22 +4,22 @@
             <v-form ref="createCourse">
                 <div class="courseActionsSticky">
                     <v-stepper-header class="courseStepHeader elevation-0">
-                        <v-stepper-step class="stepStteper ps-8" :class="[step === 1 ? 'active' : 'noActive']" step="1" @click="goStep(1)">
+                        <v-stepper-step class="stepStteper ps-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
                             {{$t('create_course')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper- ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(2)">
+                        <v-stepper-step class="stepStteper- ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
                             {{$t('eedit_page')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3" @click="goStep(3)">
+                        <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3">
                             {{$t('promote_course')}}
                         </v-stepper-step>
                     </v-stepper-header>
                     <courseCreate :courseRoute="courseRoute" @saveCourseInfo="saveCourseInfo" />
                 </div>
 
-                <v-stepper-items>
+                <v-stepper-items class="stepperItems">
                     <v-stepper-content :step="step" class="pa-0">
                         <component
                             :is="stepComponent"
@@ -118,7 +118,6 @@ export default {
                 let methodName = id ? 'update' : 'create'
                 let self = this
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
-                    
                     self.currentCreatedCourseId = data.id
                     // self.$router.push({name: MyCourses})
                     self.goStep(3)
@@ -214,9 +213,9 @@ export default {
         },
         goTo(ref) {
             let options = {
-                offset: ref === 'courseInfo' ? '0': null,
+                offset: ref === 'courseInfo' ? '40': null,
             }
-            this.$vuetify.goTo(this.$refs[ref], options)
+            this.$vuetify.goTo(this.$refs.childComponent, options)
         },
         goStep(step) {
             this.step = step
@@ -225,7 +224,6 @@ export default {
             } else if(step === 3) {
                 this.stepComponent = 'courseShare'
             }
-            
         }
     },
     beforeDestroy(){
@@ -244,14 +242,18 @@ export default {
         height: 100%;
     }
     .courseStepper {
+        overflow: visible; 
         background: inherit;
         .courseActionsSticky {
+            position: sticky;
+            z-index: 9;
+            top: 70px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
             .courseStepHeader {
                 background: #fff;
                 .stepStteper {
                     &.noActive {
-                        cursor: pointer;
+                        // cursor: pointer;
                         .v-stepper__step__step {
                             background: transparent !important;
                             border: 2px solid #4452fc !important;
@@ -275,6 +277,9 @@ export default {
                     }
                 }
             }
+        }
+        .stepperItems, .v-stepper__wrapper {
+            overflow: visible;
         }
     }
     .v-textarea, .v-input {

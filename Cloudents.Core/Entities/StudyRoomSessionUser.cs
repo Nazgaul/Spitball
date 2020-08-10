@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -21,7 +23,7 @@ namespace Cloudents.Core.Entities
 
 
             }
-            //UseCoupon();
+            UseCoupon();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
         protected StudyRoomSessionUser()
@@ -49,18 +51,18 @@ namespace Cloudents.Core.Entities
             DisconnectCount++;
         }
 
-        //protected virtual void UseCoupon()
-        //{
-        //    var tutor = StudyRoomSession.StudyRoom.Tutor;
-        //    var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
-        //                                                     && w.IsNotUsed());
-        //    if (userCoupon is null) // we do not check before if user have coupon on that user
-        //    {
-        //        return;
-        //    }
-        //    userCoupon.UseCoupon(this);
-        //    AddEvent(new UseCouponEvent(userCoupon));
-        //}
+        protected virtual void UseCoupon()
+        {
+            var tutor = StudyRoomSession.StudyRoom.Tutor;
+            var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
+                                                             && w.IsNotUsed());
+            if (userCoupon is null) // we do not check before if user have coupon on that user
+            {
+                return;
+            }
+            userCoupon.UseCoupon(this);
+            AddEvent(new UseCouponEvent(userCoupon));
+        }
 
 
         public virtual bool Equals( StudyRoomSessionUser other)

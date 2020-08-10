@@ -117,7 +117,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Coupon.CouponType))]
         public CouponType? CouponType { get; set; }
         [EntityBind(nameof(Coupon.Value))]
-        public double? CouponValue { get; set; }
+        public decimal? CouponValue { get; set; }
 
         [EntityBind(nameof(Coupon.Tutor.Id))]
         public long? CouponTutor { get; set; }

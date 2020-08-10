@@ -2,6 +2,7 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -35,36 +36,36 @@ namespace Cloudents.Web.Api
             _queryBus = queryBus;
         }
 
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> PostAsync([FromBody]CouponRequest model, CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    try
-        //    {
-        //        var command = new CreateCouponCommand(model.Code, model.CouponType, userId, model.Value, model.Expiration);
-        //        await _commandBus.DispatchAsync(command, token);
-        //    }
-        //    catch (DuplicateRowException)
-        //    {
-        //        return Ok();
-        //    }
-        //    catch (SqlConstraintViolationException)
-        //    {
-        //        return BadRequest("User need to be a tutor");
-        //    }
-        //    catch (ArgumentOutOfRangeException)
-        //    {
-        //        return BadRequest("Invalid Value");
-        //    }
-        //    catch (ArgumentException)
-        //    {
-        //        return BadRequest("Value can not be more then 100%");
-        //    }
-        //    return Ok();
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> PostAsync([FromBody]CouponRequest model, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            try
+            {
+                var command = new CreateCouponCommand(model.Code, model.CouponType, userId, model.Value, model.Expiration);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException)
+            {
+                return Ok();
+            }
+            catch (SqlConstraintViolationException)
+            {
+                return BadRequest("User need to be a tutor");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return BadRequest("Invalid Value");
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Value can not be more then 100%");
+            }
+            return Ok();
+        }
 
 
 
@@ -77,7 +78,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new ApplyCouponCommand(model.Coupon, userId, model.CourseId);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId, model.CourseId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {

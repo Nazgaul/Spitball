@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.Courses
 {
@@ -9,7 +8,7 @@ namespace Cloudents.Command.Courses
         public CreateCourseCommand(long userId, string name, int price, int? subscriptionPrice,
             string description, string? image,
             IEnumerable<CreateLiveStudyRoomCommand> studyRooms,
-            IEnumerable<CreateDocumentCommand> documents, bool isPublish, CreateCouponCommand? coupon)
+            IEnumerable<CreateDocumentCommand> documents, bool isPublish)
         {
             UserId = userId;
             Name = name;
@@ -20,26 +19,23 @@ namespace Cloudents.Command.Courses
             StudyRooms = studyRooms ?? throw new ArgumentNullException(nameof(studyRooms));
             Documents = documents ?? throw new ArgumentNullException(nameof(documents));
             IsPublish = isPublish;
-            Coupon = coupon;
         }
 
         public long UserId { get; }
         public string Name { get; }
 
-        public CreateCouponCommand? Coupon { get; }
 
+        public int Price { get;  }
 
-        public int Price { get; }
-
-        public int? SubscriptionPrice { get; }
+        public int? SubscriptionPrice { get;  }
 
         public string Description { get; }
 
-        public string? Image { get; }
+        public string? Image { get;}
 
-        public IEnumerable<CreateLiveStudyRoomCommand> StudyRooms { get; }
-        public IEnumerable<CreateDocumentCommand> Documents { get; }
-        public bool IsPublish { get; }
+        public IEnumerable<CreateLiveStudyRoomCommand> StudyRooms { get;  }
+        public IEnumerable<CreateDocumentCommand> Documents { get;  }
+        public bool IsPublish { get;  }
 
         public long Id { get; set; }
 
@@ -52,10 +48,10 @@ namespace Cloudents.Command.Courses
                 Date = date;
             }
 
-            public string Name { get; }
+            public string Name { get;  }
 
-
-            public DateTime Date { get; }
+       
+            public DateTime Date { get;  }
         }
 
 
@@ -68,30 +64,10 @@ namespace Cloudents.Command.Courses
                 Visible = visible;
             }
 
-            public string BlobName { get; }
-            public string Name { get; }
+            public string BlobName { get;  }
+            public string Name { get;  }
 
-            public bool Visible { get; }
-        }
-
-
-        public class CreateCouponCommand : ICommand
-        {
-            public CreateCouponCommand(string code, CouponType couponType,  double value, DateTime expiration)
-            {
-                Code = code;
-                CouponType = couponType;
-                Value = value;
-                Expiration = expiration;
-            }
-
-
-            public double Value { get; }
-
-
-            public string Code { get; }
-            public CouponType CouponType { get; }
-            public DateTime Expiration { get; }
+            public bool Visible { get;  }
         }
     }
 }

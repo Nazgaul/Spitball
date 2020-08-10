@@ -1,6 +1,5 @@
 ﻿using System;
 using Cloudents.Core.Entities;
-using Moq;
 using Xunit;
 
 namespace Cloudents.Core.Test.Entities
@@ -12,25 +11,25 @@ namespace Cloudents.Core.Test.Entities
         [InlineData("aaaaaaaaaaaaaaaaa")]
         public void InitCoupon_CodeNotInRange_RaiseException(string code)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon(code, CouponType.Flat, null, 50, null));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon(code, CouponType.Flat, null, 50, null,  null));
 
         }
         [Fact]
         public void InitCoupon_NoCode_RaiseException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Coupon(null!, CouponType.Flat, null, 50, null));
+            Assert.Throws<ArgumentNullException>(() => new Coupon(null!, CouponType.Flat, null, 50, null,  null));
         }
 
         [Fact]
         public void InitCoupon_CouponTypePercentageOver100_RaiseException()
         {
-            Assert.Throws<ArgumentException>(() => new Coupon("SomeCode", CouponType.Percentage, null, 150, null));
+            Assert.Throws<ArgumentException>(() => new Coupon("SomeCode", CouponType.Percentage, null, 150, null,  null));
         }
 
         [Fact]
         public void InitCoupon_CouponTypeValueMinus_RaiseException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon("SomeCode", CouponType.Percentage, null, -5, null));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon("SomeCode", CouponType.Percentage, null, -5, null,  null));
         }
 
         //[Fact]
@@ -42,8 +41,8 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void CanApplyCoupon_ExpiredCoupon_RaiseException()
         {
-            var courseStub = new Mock<Course>();
-            var coupon = new Coupon("SomeCode", CouponType.Percentage, courseStub.Object, 5, null);
+            var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null,  
+                null);
 
             // ReSharper disable once PossibleNullReferenceException
             typeof(Coupon).GetProperty("Expiration").SetValue(coupon, DateTime.UtcNow.AddDays(-1));
@@ -54,8 +53,8 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitCoupon_Valid_Ok()
         {
-            var courseStub = new Mock<Course>();
-            var _ = new Coupon("SomeCode", CouponType.Percentage, courseStub.Object, 5, null);
+            var _ = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 
+                null);
 
             
         }

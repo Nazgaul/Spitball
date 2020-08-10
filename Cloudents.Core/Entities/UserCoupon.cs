@@ -8,15 +8,15 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
     public class UserCoupon : Entity<Guid>
     {
-        public UserCoupon(User user, Coupon coupon)
+        public UserCoupon(User user, Coupon coupon, Tutor tutor)
         {
-            if (user.Id == coupon.Course.Tutor.Id)
+            if (user.Id == tutor.Id)
             {
                 throw new ArgumentException();
             }
             User = user;
             Coupon = coupon;
-           // Tutor = tutor;
+            Tutor = tutor;
             CreatedTime = DateTime.UtcNow;
         }
 
@@ -30,15 +30,11 @@ namespace Cloudents.Core.Entities
 
         public virtual Coupon Coupon { get; protected set; }
 
-      
-        [Obsolete]
         public virtual Tutor Tutor { get; protected set; }
-        //public virtual Course C { get; protected set; }
 
-        [Obsolete]
         public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
 
-        //public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
+        public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
 
         //public static readonly Expression<Func<User, decimal>> CalculateBalanceExpression = x =>
         //    x.Transactions.Count();
@@ -50,26 +46,27 @@ namespace Cloudents.Core.Entities
         //    get { return CalculateBalance(this); }
         //}
 
-        //public virtual bool IsNotUsed()
-        //{
-        //    return IsUsedExpression.Compile()(this);
-        //    //return IsUsedExpression(this);
-        //    //return UsedAmount < 1;
-        //}
+        public virtual bool IsNotUsed()
+        {
+            return IsUsedExpression.Compile()(this);
+            //return IsUsedExpression(this);
+            //return UsedAmount < 1;
+        }
 
-        //public virtual void UseCoupon(StudyRoomSessionUser user)
-        //{
-        //    StudyRoomSessionUser = user;
-        //    UsedAmount = 1;
-        //}
+        public virtual void UseCoupon(StudyRoomSessionUser user)
+        {
+            StudyRoomSessionUser = user;
+            UsedAmount = 1;
+        }
 
-        //public virtual int UsedAmount { get; protected set; }
+        public virtual int UsedAmount { get; protected set; }
 
         public virtual DateTime CreatedTime { get; protected set; }
 
         protected bool Equals(UserCoupon other)
         {
             return Equals(User.Id, other.User.Id)
+                   && Equals(Tutor.Id, other.Tutor.Id)
                    && Equals(Coupon.Id, other.Coupon.Id);
         }
 
@@ -86,6 +83,7 @@ namespace Cloudents.Core.Entities
             unchecked
             {
                 return ((User != null ? User.Id.GetHashCode() : 0) * 397) ^
+                        (Tutor != null ? Tutor.Id.GetHashCode() : 0) ^
                         ((Coupon != null ? Coupon.Id.GetHashCode() : 0) * 11);
             }
         }
