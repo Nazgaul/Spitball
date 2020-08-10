@@ -46,7 +46,7 @@ namespace Cloudents.Query.Tutor
                               w.State == ItemState.Ok && w.Id != query.UserId);
 
 
-               var futureResult = dbQuery.OrderBy(o => o.Rate)
+               var futureResult = dbQuery.OrderByDescending(o => o.Rate)
                    .Take(query.PageSize).Skip(query.Page * query.PageSize)
                    .Select(s => new TutorCardDto
                    {
