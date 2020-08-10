@@ -27,8 +27,6 @@ namespace Cloudents.Web.Models
 
         public string? Image { get; set; }
 
-        public CouponRequest? Coupon { get; set; }
-
         public IEnumerable<CreateLiveStudyRoomRequest> StudyRooms
         {
             get => _studyRooms;
