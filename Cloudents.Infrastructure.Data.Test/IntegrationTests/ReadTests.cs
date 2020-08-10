@@ -309,12 +309,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    var _ = await fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Fact]
-        public async Task StatsQuery_Ok()
-        {
-            var query = new StatsQuery();
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task StatsQuery_Ok()
+        //{
+        //    var query = new StatsQuery();
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
         [Theory]

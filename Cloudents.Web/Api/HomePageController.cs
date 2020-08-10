@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core;
-using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
@@ -87,14 +86,14 @@ namespace Cloudents.Web.Api
             
         }
 
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
-        public async Task<StatsDto> GetStatsAsync(CancellationToken token)
-        {
-            var query = new StatsQuery();
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            return retValTask;
-        }
+        //[HttpGet]
+        //[ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
+        //public async Task<StatsDto> GetStatsAsync(CancellationToken token)
+        //{
+        //    var query = new StatsQuery();
+        //    var retValTask = await _queryBus.QueryAsync(query, token);
+        //    return retValTask;
+        //}
 
 
        
