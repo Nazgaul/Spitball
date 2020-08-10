@@ -24,19 +24,9 @@ function VideoPreview(objInit){
 function DocumentObject(objInit){
     this.documentType = objInit.details.documentType || '';
     this.preview = this.documentType === 'Video'? createVideoPreview(objInit.preview):createDocumentPreview(objInit.preview);
-    this.date = objInit.details.dateTime; // search and destroy
     this.id = objInit.details.id;
     this.isPurchased = objInit.details.isPurchased;
     this.pages = objInit.details.pages || 0;
-    this.price = objInit.details.price || 0;
-    // this.price = {
-        //     amount: objInit.price?.amount,
-        //     currency: objInit.price?.currency
-        // }
-    this.subscriptionPrice = {
-        amount: objInit.details.subscriptionPrice?.amount,
-        currency: objInit.details.subscriptionPrice?.currency
-    }
     this.courseId = objInit.details.courseId;
 
     this.userId = objInit.details.userId;

@@ -50,7 +50,6 @@ export default {
 
 .itemPage {
   //hacks to finish this fast
-  .price-area,
   hr,
   .spacer {
     display: none !important;

@@ -145,9 +145,6 @@ export default {
       }
       return name;
     },
-    isDiscount() {
-      return this.tutorData.discountPrice !== undefined;
-    }
   }
 };
 </script>
@@ -162,7 +159,7 @@ export default {
     background: #fff;
     display: flex;
     flex-direction: column;
-    h3, h4, .courses, .card-mobile-center, .price {
+    h3, h4, .courses, .card-mobile-center {
         color: @purple;
     }
     .card-mobile-header {
@@ -194,34 +191,6 @@ export default {
               display: inline;
             }
         }
-      //   .price {
-      //     display: flex;
-      //     align-items: flex-end;
-      //     flex: .5;
-      //     // margin: 4px 0 1px 0;
-      //     .price_oneline {
-      //       display: flex;
-      //       align-items: baseline;
-      //       color: #5158af;
-
-      //       &--count {
-      //         font-size: 20px;
-      //       }
-      //     }
-      //     .striked {
-      //           margin: 0 0 0 auto;
-      //           max-width: max-content;
-      //           color: #a0a4be;
-      //           font-size: 14px;
-      //           text-decoration: line-through;
-      //       }
-      //  }
-      //  .applyCoupon {
-      //     color: #4c59ff;
-      //     font-weight: 600;
-      //     font-size: 12px;
-      //     // margin-top: 6px;
-      //   }
     }
     .card-mobile-center {
       margin: 10px 0;
