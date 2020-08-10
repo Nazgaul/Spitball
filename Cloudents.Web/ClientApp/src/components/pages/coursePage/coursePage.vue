@@ -92,6 +92,10 @@ export default {
     },
     methods: {
         saveCourseInfo() {
+            if(this.step == 3) {
+                this.$router.push({name: MyCourses})
+                return
+            }
             let form = this.$refs.createCourse
             if(form.validate()) {
                 this.loading = true
