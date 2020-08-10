@@ -236,10 +236,10 @@ export default {
         this.$store.commit('resetUploadFiles')
     },
     mounted() {
-        let isCourseVisible = this.$store.getters.accountUser
+        let isCourseVisible = this.$store.getters.getIsCanCreateCourse
         if(!isCourseVisible) {
             this.showSnackbar = true
-            this.errorText = this.$t('course_pending')
+            this.errorText = this.$t('course_not_visible')
         }
     }
 }
