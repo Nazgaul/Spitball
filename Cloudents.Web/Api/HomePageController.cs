@@ -1,6 +1,4 @@
-﻿using System;
-using Cloudents.Core;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -11,12 +9,9 @@ using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
 
 namespace Cloudents.Web.Api
 {
@@ -48,32 +43,24 @@ namespace Cloudents.Web.Api
 
         
 
-        /// <summary>
-        /// Get banner for home page
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet("banner")]
-        public async Task<BannerDto> GetTopBannerAsync(CancellationToken token)
-        {
-            var query = new GetBannerQuery(CultureInfo.CurrentCulture);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            if (retValTask == null)
-            {
-                Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
-                {
-                    Public = true,
-                    MaxAge = TimeSpan.FromDays(1),
-                    MaxStale = true,
-                    MaxStaleLimit = TimeSpan.FromDays(1),
+        //[HttpGet("banner")]
+        //public async Task<BannerDto> GetTopBannerAsync(CancellationToken token)
+        //{
+          
+        //        Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
+        //        {
+        //            Public = true,
+        //            MaxAge = TimeSpan.FromDays(1),
+        //            MaxStale = true,
+        //            MaxStaleLimit = TimeSpan.FromDays(1),
                     
                     
-                };
-                Response.Headers.Remove("Pragma");
-                //Response.GetTypedHeaders(). = new EntityTagHeaderValue(new StringSegment("\"a\""),false);
-            }
-            return retValTask;
-        }
+        //        };
+        //        Response.Headers.Remove("Pragma");
+        //        return null;
+        //        //Response.GetTypedHeaders(). = new EntityTagHeaderValue(new StringSegment("\"a\""),false);
+          
+        //}
 
         /// <summary>
         /// Get tutor reviews for home page

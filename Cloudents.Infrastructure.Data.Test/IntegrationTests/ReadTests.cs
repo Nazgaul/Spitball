@@ -384,12 +384,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task GetBannerQuery_Ok()
-        {
-            var query = new GetBannerQuery(new System.Globalization.CultureInfo("en"));
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task GetBannerQuery_Ok()
+        //{
+        //    var query = new GetBannerQuery(new System.Globalization.CultureInfo("en"));
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
         [Fact]
