@@ -53,7 +53,11 @@ namespace Cloudents.Command.Courses
             }
 
 
-
+            if (message.Coupon != null)
+            {
+                var couponData = message.Coupon;
+                course.AddCoupon(couponData.Code, couponData.CouponType, couponData.Value, couponData.Expiration);
+            }
             course.UpdateStudyRoom(message.StudyRooms.Select(s=>new BroadCastStudyRoom(course,s.Date,s.Name)));
 
             foreach (var broadCastStudyRoom in course.StudyRooms)

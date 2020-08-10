@@ -44,21 +44,7 @@
                </div>
             </div>
          </template>
-         <!-- <template v-slot:header.data-table-select="props">
-            <v-checkbox
-               class="ma-0 pa-0"
-               v-model="headerCheckbox"
-               :label="$t('select_all')"
-               hide-details
-            ></v-checkbox>
-         </template>
-         <template v-slot:item.data-table-select="props">
-            <v-checkbox
-               class="ma-0 pa-0"
-               @change="selectItem(props.item)"
-               hide-details
-            ></v-checkbox>
-         </template> -->
+
          <template v-slot:item.preview="{item}">
             <userAvatarNew
                class="followersUserAvatar"

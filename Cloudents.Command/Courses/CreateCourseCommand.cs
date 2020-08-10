@@ -73,7 +73,7 @@ namespace Cloudents.Command.Courses
         }
 
 
-        public class CreateCouponCommand : ICommand
+        public class CreateCouponCommand 
         {
             public CreateCouponCommand(string code, CouponType couponType,  double value, DateTime expiration)
             {
