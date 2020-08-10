@@ -6,6 +6,7 @@ using Cloudents.Core.Entities;
 using FluentAssertions;
 using Xunit;
 using Cloudents.Query.Admin;
+using Cloudents.Query.Session;
 using NHibernate.Linq;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -117,15 +118,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //    await _fixture.QueryBus.QueryAsync(query, default);
         //}
 
-        [Theory]
-        [InlineData("")]
-        [InlineData("US")]
-        [InlineData("IL")]
-        public async Task AdminPaymentsQuery_Ok(string country)
-        {
-            var q1 = new SessionPaymentsQuery(country);
-            var _ = await _fixture.QueryBus.QueryAsync(q1, default);
-        }
+        //[Theory]
+        //[InlineData("")]
+        //[InlineData("US")]
+        //[InlineData("IL")]
+        //public async Task AdminPaymentsQuery_Ok(string country)
+        //{
+        //    var q1 = new SessionPaymentsQuery(country);
+        //    var _ = await _fixture.QueryBus.QueryAsync(q1, default);
+        //}
 
         [Theory]
         [InlineData(null)]
@@ -306,15 +307,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Theory]
-        [InlineData("BC6F84B9-7EFC-4B84-AA51-AAA700CCB406")]
-        [InlineData("C59F60BC-29BD-4101-84D2-AAAA00B7C637")]
-        public async Task AdminPaymentBySessionIdQuery_Ok(string sessionId)
-        {
-            var session = Guid.Parse(sessionId);
-            var query = new PaymentBySessionIdQuery(session);
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData("BC6F84B9-7EFC-4B84-AA51-AAA700CCB406")]
+        //[InlineData("C59F60BC-29BD-4101-84D2-AAAA00B7C637")]
+        //public async Task AdminPaymentBySessionIdQuery_Ok(string sessionId)
+        //{
+        //    var session = Guid.Parse(sessionId);
+        //    var query = new PaymentBySessionIdQuery(session);
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
         [Fact]

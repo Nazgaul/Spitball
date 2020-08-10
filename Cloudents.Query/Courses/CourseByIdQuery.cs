@@ -72,23 +72,19 @@ namespace Cloudents.Query.Courses
                 var futureDocuments = _statelessSession.Query<Document>()
                     .Where(w => w.Course.Id == query.Id)
                     .Where(w => w.Status.State == ItemState.Ok)
-                    .OrderBy(o=>o.Position).Select(s2 =>
-                    new DocumentFeedDto()
-                    {
-                        Title = s2.Name,
-                        DocumentType = s2.DocumentType,
-                        Id = s2.Id,
-                        Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
-                    }).ToFuture();
+                    .OrderBy(o => o.Position).Select(s2 =>
+                      new DocumentFeedDto()
+                      {
+                          Title = s2.Name,
+                          DocumentType = s2.DocumentType,
+                          Id = s2.Id,
+                          Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s2.Id, null)
+                      }).ToFuture();
 
 
-                var futureCoupon  = _statelessSession.Query<UserCoupon>()
-                    .Where(w => w.User.Id == query.UserId &&  w.Coupon.Course.Id ==query.Id)
-                    .Select(s => new CouponTemp()
-                    {
-                        CouponType = s.Coupon.CouponType,
-                        Value = s.Coupon.Value
-                    })
+                var futureCoupon = _statelessSession.Query<UserCoupon>()
+                    .Where(w => w.User.Id == query.UserId && w.Coupon.Course.Id == query.Id)
+                    .Select(s => s.Price)
                     .ToFutureValue();
 
                 var futureSubscription = _statelessSession.Query<Follow>()
@@ -106,7 +102,7 @@ namespace Cloudents.Query.Courses
                     .Where(a => a.Course.Id == query.Id).ToFutureValue(f => f.Count());
 
                 var sessionStartedFuture = _statelessSession.Query<StudyRoomSession>()
-                    .Where(w => ((BroadCastStudyRoom) w.StudyRoom).Course.Id == query.Id && w.Ended != null)
+                    .Where(w => ((BroadCastStudyRoom)w.StudyRoom).Course.Id == query.Id && w.Ended != null)
                     .ToFutureValue(f => f.Any());
 
                 var result = await futureCourse.GetValueAsync(token);
@@ -123,7 +119,7 @@ namespace Cloudents.Query.Courses
                 result.Enrolled = enrollmentsFuture.Value;
                 result.SessionStarted = sessionStartedFuture.Value;
 
-                
+
 
 
 
@@ -136,9 +132,7 @@ namespace Cloudents.Query.Courses
                 var coupon = futureCoupon.Value;
                 if (coupon != null)
                 {
-                    var newPrice = Coupon.CalculatePrice(coupon.CouponType,
-                        result.Price.Amount, coupon.Value);
-                    result.Price = result.Price.ChangePrice(newPrice);
+                    result.Price = coupon;
                 }
 
                 return result;
@@ -146,10 +140,10 @@ namespace Cloudents.Query.Courses
         }
 
 
-        internal class CouponTemp
-        {
-            public CouponType CouponType { get; set; }
-            public double Value { get; set; }
-        }
+        //internal class CouponTemp
+        //{
+        //    public CouponType CouponType { get; set; }
+        //    public double Value { get; set; }
+        //}
     }
 }

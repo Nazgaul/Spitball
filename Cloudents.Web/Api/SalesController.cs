@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("session/{id}")]
-        public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id, /*[FromQuery] long userId,*/ CancellationToken token)
+        public async Task<ActionResult<PaymentDetailDto>> GetPaymentAsync([FromRoute] Guid id, /*[FromQuery] long userId,*/ CancellationToken token)
         {
             var tutorId = _userManager.GetLongUserId(User);
             var querySessionV2 = new SessionApprovalQuery(id, tutorId);
@@ -87,8 +87,7 @@ namespace Cloudents.Web.Api
             var result = await _queryBus.QueryAsync(querySessionV2, token);
             if (result is null)
             {
-                var query = new PaymentBySessionIdQuery(id);
-                return await _queryBus.QueryAsync(query, token);
+                return NotFound();
             }
 
             return result;

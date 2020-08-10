@@ -33,16 +33,16 @@ namespace Cloudents.Query.Session
 
             public async Task<PaymentDetailDto?> GetAsync(SessionApprovalQuery query, CancellationToken token)
             {
-                var couponFuture = _stateless.Query<UserCoupon>()
-                     .Fetch(f => f.Coupon)
-                     .Where(w => w.StudyRoomSessionUser!.Id == query.SessionId)
-                     .Select(s => new
-                     {
-                         s.Coupon.Code,
-                         s.Coupon.CouponType,
-                         s.Coupon.Value,
-                     })
-                     .ToFutureValue();
+                //var couponFuture = _stateless.Query<UserCoupon>()
+                //     .Fetch(f => f.Coupon)
+                //     .Where(w => w.StudyRoomSessionUser!.Id == query.SessionId)
+                //     .Select(s => new
+                //     {
+                //         s.Coupon.Code,
+                //         s.Coupon.CouponType,
+                //         s.Coupon.Value,
+                //     })
+                //     .ToFutureValue();
 
 
                 var studyRoomUserFuture =  _stateless.Query<StudyRoomPayment>()
@@ -58,14 +58,14 @@ namespace Cloudents.Query.Session
                {
                    return null;
                }
-               var couponResult = couponFuture.Value;
-               if (couponResult != null)
-               {
-                   result.CouponType = couponResult.CouponType;
-                   result.CouponCode = couponResult.Code;
-                   result.CouponValue = couponResult.Value;
-                   result.CouponTutor = query.TutorId;
-               }
+               //var couponResult = couponFuture.Value;
+               //if (couponResult != null)
+               //{
+               //    result.CouponType = couponResult.CouponType;
+               //    result.CouponCode = couponResult.Code;
+               //    result.CouponValue = couponResult.Value;
+               //    result.CouponTutor = query.TutorId;
+               //}
 
                return result;
             }

@@ -33,6 +33,7 @@ namespace Cloudents.Command.CommandHandler
             }
 
             
+
             var user = await _userRepository.LoadAsync(message.UserId, token);
             coupon.ApplyCoupon(user);
 

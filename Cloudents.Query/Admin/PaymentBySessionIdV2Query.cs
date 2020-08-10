@@ -37,23 +37,23 @@ namespace Cloudents.Query.Admin
 
 
 
-                var couponFuture = _stateless.Query<UserCoupon>()
-                    .Fetch(f => f.Coupon)
-                    .Where(w => w.StudyRoomSessionUser!.StudyRoomSession.Id == query.SessionId)
-                    .Select(s => new CouponClass
-                    {
-                        Value = s.Coupon.Value,
-                        TutorId = s.Coupon.Tutor!.Id,
-                        CouponType = s.Coupon.CouponType,
-                        Code = s.Coupon.Code
-                        
-                    })
-                    .Take(1)
-                    .ToFutureValue();
+                //var couponFuture = _stateless.Query<UserCoupon>()
+                //    .Fetch(f => f.Coupon)
+                //    .Where(w => w.StudyRoomSessionUser!.StudyRoomSession.Id == query.SessionId)
+                //    .Select(s => new CouponClass
+                //    {
+                //        Value = s.Coupon.Value,
+                //        TutorId = s.Coupon.Tutor!.Id,
+                //        CouponType = s.Coupon.CouponType,
+                //        Code = s.Coupon.Code
+
+                //    })
+                //    .Take(1)
+                //    .ToFutureValue();
 
 
                 var paymentFuture = _stateless.Query<StudyRoomPayment>()
-                    .Fetch(f=>f.StudyRoomSessionUser)
+                    .Fetch(f => f.StudyRoomSessionUser)
                     .Fetch(f => f.Tutor)
                     .ThenFetch(f => f.User)
                     .Fetch(f => f.User)
@@ -74,48 +74,19 @@ namespace Cloudents.Query.Admin
 
                     }).ToFutureValue();
 
-                var couponResult = await couponFuture.GetValueAsync(token);
-                var payment = paymentFuture.Value;
+                // var couponResult = await couponFuture.GetValueAsync(token);
+                var payment = await paymentFuture.GetValueAsync(token);
 
-                if (couponResult == null)
-                {
-                    return payment;
-                }
 
-                if (couponResult.TutorId != 0 && couponResult.TutorId != query.TutorId)
-                {
-                    return payment;
-                }
-
-                payment.StudentPayPerHour = Coupon.CalculatePrice(couponResult.CouponType, payment.TutorPricePerHour, couponResult.Value);
-
-                if (couponResult.TutorId == 0)
-                {
-                    payment.SpitballPayPerHour = payment.TutorPricePerHour - payment.StudentPayPerHour;
-                }
-
-                payment.CouponCode = couponResult.Code;
-                payment.CouponType = couponResult.CouponType;
-                payment.CouponValue = couponResult.Value;
-                payment.CouponTutor = couponResult.TutorId;
                 return payment;
 
-            }
-
-            private class CouponClass
-            {
-                public string Code { get; set; }
-                public CouponType CouponType { get; set; }
-                public double Value { get; set; }
-                public long? TutorId { get; set; }
-
-              
-
 
             }
+
+
         }
 
     }
 
-    
+
 }

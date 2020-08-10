@@ -23,3 +23,12 @@ ALTER COLUMN [value] DECIMAL(19,5) null
 update sb.Coupon
 set value2 = value
 where value2 is null
+
+
+ ALTER TABLE [sb].[UserCoupon]
+    ADD [Amount] /*new_column_name*/ float /*new_column_datatype*/ NULL /*new_column_nullability*/
+GO
+
+ ALTER TABLE [sb].[UserCoupon]
+    ADD [Currency] /*new_column_name*/ nvarchar(255) /*new_column_datatype*/ NULL /*new_column_nullability*/
+GO

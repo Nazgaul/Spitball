@@ -61,6 +61,7 @@ namespace Cloudents.Core.Entities
         public virtual CouponType CouponType { get;  }
         public virtual Course Course { get; }
 
+        [Obsolete]
         public virtual Tutor? Tutor { get; protected set; }
         public virtual double Value { get; }
 
@@ -85,51 +86,9 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException("invalid coupon");
             }
-
-            //if (AmountOfUsers.HasValue && AmountOfUsers.Value <= UserCoupon.Count)
-            //{
-            //    throw new OverflowException();
-            //}
-
             return true;
         }
-
-      
-
-        //public static double CalculatePrice(CouponType type, double price, decimal couponValue)
-        //{
-        //    var d = (double) couponValue;
-        //    var result = type switch
-        //    {
-        //        CouponType.Flat => (price - d),
-        //        CouponType.Percentage => (price * ((100 - d) / 100)),
-        //        _ => throw new ArgumentOutOfRangeException()
-        //    };
-
-        //    if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
-        //    {
-        //        throw new OverflowException();
-        //    }
-        //    var p = new UserCoupon(user, this, tutor);
-        //    if (!_userCoupon.Add(p))
-        //    {
-        //        throw new ArgumentException("user already applied coupon");
-        //    }
-        //}
-
-
-        public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
-        {
-            var result = type switch
-            {
-                CouponType.Flat => (price - couponValue),
-                CouponType.Percentage => (price * ((100 - couponValue) / 100)),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            return Math.Max(result, 0);
-        }
-
+    
         public virtual double CalculatePrice()
         {
             var d =  Value;
@@ -143,18 +102,18 @@ namespace Cloudents.Core.Entities
             return Math.Max(result, 0);
         }
 
-        public static double CalculatePrice(CouponType type, double price, double couponValue)
-        {
-            var d =  couponValue;
-            var result = type switch
-            {
-                CouponType.Flat => (price - d),
-                CouponType.Percentage => (price * ((100 - d) / 100)),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+        //public static double CalculatePrice(CouponType type, double price, double couponValue)
+        //{
+        //    var d =  couponValue;
+        //    var result = type switch
+        //    {
+        //        CouponType.Flat => (price - d),
+        //        CouponType.Percentage => (price * ((100 - d) / 100)),
+        //        _ => throw new ArgumentOutOfRangeException()
+        //    };
 
-            return Math.Max(result, 0);
-        }
+        //    return Math.Max(result, 0);
+        //}
 
 
 
@@ -178,7 +137,8 @@ namespace Cloudents.Core.Entities
 
         public virtual void ApplyCoupon(User user)
         {
-            var p = new UserCoupon(user,this);
+            var amount = CalculatePrice();
+            var p = new UserCoupon(user,this,Course.Price.ChangePrice(amount));
             if (!_userCoupons.Add(p))
             {
                 throw new DuplicateRowException();

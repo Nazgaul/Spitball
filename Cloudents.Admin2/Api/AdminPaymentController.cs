@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,6 +20,7 @@ namespace Cloudents.Admin2.Api
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
     //[Authorize(Policy = Policy.IsraelUser)]
     public class AdminPaymentController : ControllerBase
     {
@@ -36,29 +37,20 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
-            var country = User.GetCountryClaim();
             var sbCountry = User.GetSbCountryClaim();
             var queryV2 = new SessionPaymentsQueryV2(sbCountry);
-            var query = new SessionPaymentsQuery(country);
-            var taskRetVal1 = _queryBus.QueryAsync(query, token);
-            var taskRetVal2 = _queryBus.QueryAsync(queryV2, token);
-
-            var result = await Task.WhenAll(taskRetVal1, taskRetVal2);
-
-            return result.SelectMany(s => s).OrderByDescending(o => o.Created);
-
+            return await _queryBus.QueryAsync(queryV2, token);
         }
 
         [HttpGet("{id}")]
-        public async Task<PaymentDetailDto> GetPayment(Guid id, [FromQuery] long userId, [FromQuery] long tutorId, CancellationToken token)
+        public async Task<ActionResult<PaymentDetailDto>> GetPayment(Guid id, [FromQuery] long userId, [FromQuery] long tutorId, CancellationToken token)
         {
             var queryV2 = new PaymentBySessionIdV2Query(id, userId, tutorId);
             var result = await _queryBus.QueryAsync(queryV2, token);
 
             if (result == null)
             {
-                var query = new PaymentBySessionIdQuery(id);
-                return await _queryBus.QueryAsync(query, token);
+                return NotFound();
             }
 
             return result;

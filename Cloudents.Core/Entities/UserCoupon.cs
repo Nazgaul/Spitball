@@ -8,7 +8,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
     public class UserCoupon : Entity<Guid>
     {
-        public UserCoupon(User user, Coupon coupon)
+        public UserCoupon(User user, Coupon coupon, Money price)
         {
             if (user.Id == coupon.Course.Tutor.Id)
             {
@@ -18,6 +18,7 @@ namespace Cloudents.Core.Entities
             Coupon = coupon;
            // Tutor = tutor;
             CreatedTime = DateTime.UtcNow;
+            Price = price;
         }
 
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate proxy")]
@@ -30,13 +31,15 @@ namespace Cloudents.Core.Entities
 
         public virtual Coupon Coupon { get; protected set; }
 
+
+        public virtual Money Price { get;  }
       
         //[Obsolete]
         //public virtual Tutor Tutor { get; protected set; }
         //public virtual Course C { get; protected set; }
 
-        [Obsolete]
-        public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
+        //[Obsolete]
+        //public virtual StudyRoomSessionUser? StudyRoomSessionUser { get; protected set; }
 
         //public static readonly Expression<Func<UserCoupon, bool>> IsUsedExpression = x => x.UsedAmount < 1;
 
