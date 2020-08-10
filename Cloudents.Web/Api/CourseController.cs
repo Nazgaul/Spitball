@@ -101,7 +101,8 @@ namespace Cloudents.Web.Api
                 model.Documents.Select(
                     s => new UpdateCourseCommand.UpdateDocumentCommand(
                         s.Id, s.BlobName, s.Name, s.Visible)),
-                model.IsPublish, id);
+                model.IsPublish, id, model.Coupon == null ? null :
+                    new UpdateCourseCommand.UpdateCouponCommand(model.Coupon.Code, model.Coupon.CouponType, model.Coupon.Value, model.Coupon.Expiration));
 
             await _commandBus.DispatchAsync(command, token);
 
