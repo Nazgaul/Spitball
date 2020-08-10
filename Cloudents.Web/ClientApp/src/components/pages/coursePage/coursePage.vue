@@ -122,7 +122,12 @@ export default {
                     // self.$router.push({name: MyCourses})
                     self.goStep(3)
                 }).catch(ex => {
-                    self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                    if(!ex.response.data) {
+                        self.errorText = self.$t('profile_enroll_error')
+                    }
+                    if(ex.response.data) {
+                        self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                    }
                     if(ex.response.status === 409) {
                         self.errorText = this.statusErrorCode[ex.response.status]
                     }
