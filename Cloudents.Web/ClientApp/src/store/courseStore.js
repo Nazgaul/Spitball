@@ -11,6 +11,7 @@ courseInstance.interceptors.response.use(
     if(error.response.status === 401){
       global.location = '/?authDialog=register';
     } else if(error.response.status === 404) {
+      debugger
       global.location = '/error/notfound';
     } else{
       return Promise.reject(error);

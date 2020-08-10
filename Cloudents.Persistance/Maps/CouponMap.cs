@@ -33,7 +33,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).Not.Nullable();
             References(x => x.Coupon).Not.Nullable();
-            References(x => x.Tutor).Not.Nullable();
+            //References(x => x.Tutor).Not.Nullable();
             //We get signature-of-the-body-and-declaration-in-a-method-implementation-do-not-match if its lazy load on User.ApplyCoupon method
             References(x => x.StudyRoomSessionUser).LazyLoad(Laziness.False)
                 .Column("SessionUserId").Nullable();

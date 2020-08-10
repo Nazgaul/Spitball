@@ -14,7 +14,7 @@
             <template v-slot:top>
                 <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
                     <div class="myCoupons_title pb-3 pb-sm-0" v-t="'marketing_tableCoupon_title'"></div>
-                    <div>
+                    <!-- <div>
                         <v-btn
                             @click="$store.commit('setComponent', 'createCoupon')"
                             class="couponBtn white--text"
@@ -24,7 +24,7 @@
                             color="#5360FC"
                             v-t="'dashboardPage_my_create_coupon'"
                         ></v-btn>
-                    </div>
+                    </div> -->
                </div>
             </template>
 
