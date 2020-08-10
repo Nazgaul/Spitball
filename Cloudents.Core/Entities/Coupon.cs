@@ -116,7 +116,6 @@ namespace Cloudents.Core.Entities
         //}
 
 
-
         protected bool Equals(Coupon other)
         {
             return Course.Id.Equals(other.Course.Id) && Code.Equals(other.Code);
@@ -129,7 +128,6 @@ namespace Cloudents.Core.Entities
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Coupon) obj);
         }
-
         public override int GetHashCode()
         {
             return HashCode.Combine(41, Course.Id, Code);

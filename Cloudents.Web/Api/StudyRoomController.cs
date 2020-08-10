@@ -40,16 +40,14 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
-        private readonly IUrlBuilder _urlBuilder;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
-            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, IUrlBuilder urlBuilder)
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
-            _urlBuilder = urlBuilder;
         }
 
         [HttpPost("private")]
@@ -358,7 +356,6 @@ namespace Cloudents.Web.Api
             [FromServices] IStudyRoomBlobProvider blobProvider,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
             Uri uri;
             try
             {

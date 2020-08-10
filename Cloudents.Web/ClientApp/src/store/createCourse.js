@@ -1,8 +1,4 @@
-import axios from 'axios'
-
-const courseInstance = axios.create({
-    baseURL: '/api/course'
- })
+const COURSE_API = 'course';
 
 const state = {
     numberOfLecture: 1,
@@ -98,7 +94,7 @@ const mutations = {
 
 const actions = {
     getCourseInfo({commit}, id) {
-        courseInstance.get(`${id}/edit`).then(({data}) => {
+        return this.$axios.get(`${COURSE_API}/${id}/edit`).then(({data}) => {
             commit('setNumberOfLecture', data.studyRooms.length)
             commit('setCourseName', data.name)
             commit('setFollowerPrice', data.price.amount)
@@ -133,7 +129,6 @@ const actions = {
             if(documents.length > 0) {
                 commit('setShowFiles', true)
             }
-            // data.documents.map(s => commit('setTeachLecture', s))
         }).catch(ex => {
             console.error(ex);
         })
@@ -149,7 +144,7 @@ const actions = {
             studyRooms,
             documents
         }
-        return courseInstance.post('', params)
+        return this.$axios.post(`${COURSE_API}`, params)
     },
     updateCourseInfo({state}, {documents, studyRooms, id}) {
         let params = {
@@ -162,7 +157,7 @@ const actions = {
             studyRooms,
             documents
         }
-        return courseInstance.put(`${id}`, params)
+        return this.$axios.put(`${COURSE_API}/${id}`, params)
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
@@ -37,6 +38,7 @@ namespace Cloudents.Core.Entities
         public virtual int DisconnectCount { get; protected set; }
 
      
+        protected internal virtual ICollection<UserCoupon> UserCoupons { get;  set; }
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {

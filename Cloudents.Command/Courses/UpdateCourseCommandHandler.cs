@@ -14,13 +14,13 @@ namespace Cloudents.Command.Courses
 {
     public class UpdateCourseCommandHandler : ICommandHandler<UpdateCourseCommand>
     {
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IStudyRoomBlobProvider _blobProvider;
         private readonly IGoogleDocument _googleDocument;
         private readonly IDocumentRepository _documentRepository;
         private readonly IDocumentDirectoryBlobProvider _documentBlobProvider;
 
-        public UpdateCourseCommandHandler(IRepository<Course> courseRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument, IDocumentRepository documentRepository, IDocumentDirectoryBlobProvider documentBlobProvider)
+        public UpdateCourseCommandHandler(ICourseRepository courseRepository, IStudyRoomBlobProvider blobProvider, IGoogleDocument googleDocument, IDocumentRepository documentRepository, IDocumentDirectoryBlobProvider documentBlobProvider)
         {
             _courseRepository = courseRepository;
             _blobProvider = blobProvider;
@@ -45,10 +45,10 @@ namespace Cloudents.Command.Courses
             course.Name = message.Name;
             course.Description = message.Description;
             course.ChangeSubscriptionPrice(message.SubscriptionPrice);
-            course.UpdateCourse(message.IsPublish,message.Price);
+            course.UpdateCourse(message.IsPublish, message.Price);
             if (message.Image != null)
             {
-               
+
                 await _blobProvider.MoveAsync(message.Image, course.Id.ToString(), "0.jpg", token);
             }
 
@@ -58,7 +58,7 @@ namespace Cloudents.Command.Courses
                 var couponData = message.Coupon;
                 course.AddCoupon(couponData.Code, couponData.CouponType, couponData.Value, couponData.Expiration);
             }
-            course.UpdateStudyRoom(message.StudyRooms.Select(s=>new BroadCastStudyRoom(course,s.Date,s.Name)));
+            course.UpdateStudyRoom(message.StudyRooms.Select(s => new BroadCastStudyRoom(course, s.Date, s.Name)));
 
             foreach (var broadCastStudyRoom in course.StudyRooms)
             {
@@ -71,17 +71,17 @@ namespace Cloudents.Command.Courses
             }
 
             var documentsToUpdate = message.Documents.Where(w => w.Id.HasValue);
-               
+
             var hashSet = new HashSet<long>();
             var index = 0;
             foreach (var updateDocumentCommand in documentsToUpdate)
             {
                 hashSet.Add(updateDocumentCommand.Id!.Value);
-                course.UpdateDocument(updateDocumentCommand.Id,updateDocumentCommand.Name, updateDocumentCommand.Visible, index);
+                course.UpdateDocument(updateDocumentCommand.Id, updateDocumentCommand.Name, updateDocumentCommand.Visible, index);
                 index++;
             }
-              
-            
+
+
 
             foreach (var document in course.Documents.ToList())
             {
@@ -92,7 +92,7 @@ namespace Cloudents.Command.Courses
                 course.RemoveDocument(document);
             }
 
-            foreach (var newDocuments in message.Documents.Where(w=>!w.Id.HasValue))
+            foreach (var newDocuments in message.Documents.Where(w => !w.Id.HasValue))
             {
                 var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(newDocuments.BlobName)];
                 var document = new Document(newDocuments.Name, course, extension.DocumentType, newDocuments.Visible);
@@ -102,8 +102,9 @@ namespace Cloudents.Command.Courses
                 await _documentBlobProvider.MoveAsync(newDocuments.BlobName ?? throw new InvalidOperationException(), id.ToString(), token);
                 course.AddDocument(document);
             }
-            
-          
+
+            //We are putting this because we want to create extra database updates for old tables
+            await _courseRepository.UpdateAsync(course, token);
 
         }
     }

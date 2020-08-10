@@ -20,7 +20,7 @@ namespace Cloudents.Query.Tutor
         }
 
         private long UserId { get; }
-        public StudyRoomType Type { get; }
+        private StudyRoomType Type { get; }
 
 
         internal sealed class UserStudyRoomQueryHandler : IQueryHandler<UserStudyRoomQuery, IEnumerable<UserStudyRoomDto>>

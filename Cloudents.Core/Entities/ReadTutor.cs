@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
     {
         public ReadTutor(long id, string name, string? imageName,
             IReadOnlyList<string>? allCourses,
-            double? rate, int rateCount, string bio,
+            double? rate, int rateCount, string? bio,
             int lessons, Country sbCountry,
             Money? subscriptionPrice, string? description, ItemState state)
         {
@@ -45,7 +45,7 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<string>? AllCourses { get; protected set; }
         public virtual double? Rate { get; protected set; }
         public virtual int RateCount { get; protected set; }
-        public virtual string Bio { get; protected set; }
+        public virtual string? Bio { get; protected set; }
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 

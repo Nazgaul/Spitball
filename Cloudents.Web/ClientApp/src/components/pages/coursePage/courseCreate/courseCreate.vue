@@ -6,7 +6,7 @@
         <div>
             <v-btn
                 class="createCourseBtn cancelBtn me-3"
-                :to="{name: parent.courseRoute}"
+                :to="{name: props.courseRoute}"
                 color="#fff"
                 width="132"
                 height="40"
@@ -26,7 +26,7 @@
                 depressed
                 rounded
             >
-                <span v-t="'save'"></span>
+                <span>{{parent.step === 3 ? parent.$t('save') : parent.$t('next')}}</span>
             </v-btn>
         </div>
     </div>
@@ -39,11 +39,6 @@
 .createCourse {
     background: #fff;
     border-radius: 6px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-    max-width: 1077px; // eidan request
-    position: sticky;
-    z-index: 9;
-    top: 70px;
     .createTitle {
         font-size: 20px;
         font-weight: 600;

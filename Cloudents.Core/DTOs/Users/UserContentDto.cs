@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.DTOs.Users
@@ -14,7 +15,7 @@ namespace Cloudents.Core.DTOs.Users
 
         public int Documents { get; set; }
 
-        public int Users { get; set; }
+        public IEnumerable<string> Users { get; set; }
 
         public Money Price { get; set; }
         public bool IsPublish { get; set; }

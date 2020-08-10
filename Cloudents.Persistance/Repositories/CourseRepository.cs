@@ -21,6 +21,31 @@ namespace Cloudents.Persistence.Repositories
                 .SingleOrDefaultAsync(token);
         }
 
+        public override async Task DeleteAsync(Course entity, CancellationToken token)
+        {
+            await RemoveOldObjectsAsync(entity, token);
+            await base.DeleteAsync(entity, token);
+        }
+
+        private async Task RemoveOldObjectsAsync(Course entity, CancellationToken token)
+        {
+            var studyRooms = await entity.StudyRooms.AsQueryable().Select(s => s.Id).ToListAsync(cancellationToken: token);
+
+            if (studyRooms.Count > 0)
+            {
+                var sqlQuery =
+                    Session.CreateSQLQuery("delete from sb.UserToken where StudyRoomId in (:Id)");
+                sqlQuery.SetParameterList("Id", studyRooms);
+
+                await sqlQuery.ExecuteUpdateAsync(token);
+            }
+        }
+
+        public override async Task UpdateAsync(Course entity, CancellationToken token)
+        {
+            await RemoveOldObjectsAsync(entity, token);
+            await base.UpdateAsync(entity, token);
+        }
         //public async Task MigrateCourseAsync(string courseToKeepId, string courseToRemoveId, CancellationToken token)
         //{
         //    var courseToKeep = await LoadAsync(courseToKeepId, token);

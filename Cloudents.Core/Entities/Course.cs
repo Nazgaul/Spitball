@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Entities
 {
     public class Course : Entity<long>
     {
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhiberate proxy")]
         public Course(string name, Tutor tutor, double price,
             double? subscriptionPrice, string description, DateTime? startTime, bool isPublish)
         {
@@ -67,7 +69,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual Tutor Tutor { get; set; }
+        public virtual Tutor Tutor { get;  }
 
         public virtual int Position { get; }
 
@@ -131,7 +133,7 @@ namespace Cloudents.Core.Entities
                 }
 
             }
-
+            AddEvent(new UpdateCourseEvent(this));
             Price = Price.ChangePrice(price);
         }
 
@@ -178,7 +180,7 @@ namespace Cloudents.Core.Entities
         {
             var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
 
-            var z = _courseEnrollments.Add(courseEnrollment);
+            _courseEnrollments.Add(courseEnrollment);
             foreach (var broadCastStudyRoom in _studyRooms)
             {
                 broadCastStudyRoom.AddUserToStudyRoom(user);
@@ -222,6 +224,7 @@ namespace Cloudents.Core.Entities
         }
 
 
+      
 
         public virtual void UpdateDocument(long? id, string name, bool visible, int index)
         {

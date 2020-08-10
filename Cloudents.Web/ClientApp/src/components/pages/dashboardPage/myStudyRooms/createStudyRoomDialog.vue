@@ -1,28 +1,24 @@
 <template>
-   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="isPrivate ? 'createStudyRoomDialog privateHeight' : 'createStudyRoomDialog liveHeight'">
+   <v-dialog :value="true" persistent max-width="620px" :fullscreen="$vuetify.breakpoint.xsOnly" content-class="createStudyRoomDialog privateHeight">
       <div class="createRoomWrapper px-sm-7 px-4 py-4 d-sm-block d-flex flex-column justify-space-between">
 
          <v-form class="justify-space-between input-room-name mb-3" ref="createRoomValidation">
             <v-icon class="close-dialog" v-text="'sbf-close'" @click="closeDialog()" />
-            <div class="createStudyRoomDialog-title text-center mb-7 pb-3">{{createSessionTitle}}</div>
+            <div class="createStudyRoomDialog-title text-center mb-7 pb-3">{{$t('dashboardPage_create_room_private_title')}}</div>
 
-            <component
-               :is="studyRoomType"
-               :price="price"
+            <Private :price="price"
                :currentError="currentError"
                @updateError="updateError"
                @resetErrors="resetErrors"
                @updatePrice="val => price = val"
-               ref="childComponent"
-            >
-            </component>
+               ref="childComponent"/>
          </v-form>
 
          <div class="d-flex flex-column align-center pt-4">
             <div class="mb-4">
                <span v-if="currentError" class="error--text" v-t="errorsResource[currentError]"></span>
             </div>
-            <v-btn :loading="isLoading" @click="createStudyRoom" width="200" depressed height="40" color="#4c59ff" class="white--text createBtn" rounded >{{btnCreateText}}</v-btn>
+            <v-btn :loading="isLoading" @click="createStudyRoom" width="200" depressed height="40" color="#4c59ff" class="white--text createBtn" rounded >{{$t('dashboardPage_create_private')}}</v-btn>
          </div>
       </div>
    </v-dialog>
@@ -30,13 +26,11 @@
 
 <script>
 import { CREATE_BROADCAST_ERROR ,SESSION_CREATE_DIALOG } from '../../global/toasterInjection/componentConsts'
-const Broadcast = () => import('./liveSession/liveSession.vue');
 const Private = () => import('./privateSession/privateSession.vue');
 
 export default {
    name:'createStudyRoom',
    components: {
-      Broadcast,
       Private
    },
    props: {
@@ -44,7 +38,6 @@ export default {
    },
    data() {
       return {
-         studyRoomType: '',
          isLoading: false,
          errors: {
             showErrorEmpty: false,
@@ -68,15 +61,6 @@ export default {
             showErrorWrongNumber: this.$t('not number')
          }
       },
-      isPrivate() {
-         return this.studyRoomType === 'private'
-      },
-      btnCreateText() {
-         return this.isPrivate ? this.$t('dashboardPage_create_private') : this.$t('dashboardPage_create_broadcast')
-      },
-      createSessionTitle() {
-         return this.isPrivate ? this.$t('dashboardPage_create_room_private_title') : this.$t('dashboardPage_create_room_live_title')
-      },
       isNoErrors() {
          return !this.errors.showErrorAlreadyCreated && !this.errors.showErrorEmpty &&
                 !this.errors.showErrorMaxUsers && !this.errors.showErrorWrongTime && !this.errors.showErrorWrongNumber
@@ -92,9 +76,7 @@ export default {
 
          if(!this.isLoading && this.isNoErrors){
             this.isLoading = true
-            if(this.isPrivate) {
-               this.createPrivateSession()
-            }
+            this.createPrivateSession()
          }
       },
       createPrivateSession() {
@@ -147,8 +129,7 @@ export default {
       }
    },
    created() {
-      this.studyRoomType = this.params?.type
-      this.price = this.$store.getters.accountUser.price
+      this.price = this.$store.getters.accountUser.price 
    },
 }
 </script>
@@ -171,12 +152,6 @@ export default {
    &::-webkit-scrollbar-thumb {
       border-radius: 10px;
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-   }
-   &.liveHeight {
-      height: 700px;
-      @media (max-width: @screen-xs) {
-         height: 100%;
-      }
    }
    &.privateHeight {
       .createRoomWrapper {

@@ -58,13 +58,11 @@ const Item = {
       this.date = objInit.dateTime;
       this.amountStudent = objInit.userNames.length
       this.userNames = objInit.userNames
-      this.scheduled = objInit.scheduled;
       this.type = objInit.type;
       this.price = {
          price: objInit.price.amount,
          currency: objInit.price.currency
       };
-      this.showChat = this.type ==='Private';
    },
    BuyPoints: function(objInit){
       this.price = objInit.price;

@@ -41,6 +41,8 @@ namespace Cloudents.Command.Courses
         public IEnumerable<CreateDocumentCommand> Documents { get; }
         public bool IsPublish { get; }
 
+        public long Id { get; set; }
+
 
         public class CreateLiveStudyRoomCommand
         {

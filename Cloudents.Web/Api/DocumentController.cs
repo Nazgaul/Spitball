@@ -117,7 +117,6 @@ namespace Cloudents.Web.Api
             return new UploadStartResponse(blobName);
         }
 
-
         //[HttpPost("rename"), Authorize]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -137,20 +136,6 @@ namespace Cloudents.Web.Api
         //    }
         //    return Ok();
         //}
-        //[HttpPost("{courseId:long}/move")]
-        //[Authorize(Policy = "Tutor")]
-        //public async Task<IActionResult> UpdatePositionAsync
-        //(
-        //    [FromRoute] long courseId,
-        //    [FromBody] MoveElementRequest model,
-        //    CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var command = new UpdateDocumentPositionCommand(userId, courseId, model.OldPosition, model.NewPosition);
-        //    await _commandBus.DispatchAsync(command, token);
-        //    return Ok();
-        //}
-
 
         [NonAction]
         public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)

@@ -1,23 +1,5 @@
-import axios from 'axios'
 import {ENROLLED_ERROR} from '../components/pages/global/toasterInjection/componentConsts.js';
-
-const courseInstance = axios.create({
-  baseURL: '/api/course'
-})
-
-courseInstance.interceptors.response.use(
-  response => response,
-  error => {
-    if(error.response.status === 401){
-      global.location = '/?authDialog=register';
-    } else if(error.response.status === 404) {
-      debugger
-      global.location = '/error/notfound';
-    } else{
-      return Promise.reject(error);
-    }
- }
-);
+const COURSE_API = 'course';
 
 const state = {
   courseDetails: null,
@@ -85,7 +67,7 @@ const getters = {
 const actions = {
   updateCourseDetails({ commit }, courseId) {
     if (courseId) {
-      courseInstance.get(`${courseId}`).then(({ data }) => {
+      this.$axios.get(`${COURSE_API}/${courseId}`).then(({ data }) => {
         commit('setCourseDetails', data)
       })
     } else {
@@ -107,7 +89,7 @@ const actions = {
         return;
       }
     }
-    return courseInstance.post(`${courseId}/enroll`)
+    return this.$axios.post(`${COURSE_API}/${courseId}/enroll`)
       .then(() => {
         commit('setCourseEnrolled',true);
       }).catch(ex => {

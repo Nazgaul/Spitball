@@ -60,6 +60,8 @@ namespace Cloudents.Web.Controllers
             return Redirect($"/course/{course.Id}");
 
         }
+
+
         //https://www.spitball.co/course/9fe69dc0-f8c6-4ccc-a1aa-ac0c0134485a?t=1596480572534
     }
 }
