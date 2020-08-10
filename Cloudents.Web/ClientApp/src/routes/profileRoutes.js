@@ -8,7 +8,7 @@ export const profileRoutes = [
         name: routeName.Profile,
         components: {
             default: () => import(`../components/new_profile/new_profile.vue`),
-            ...staticComponents(['banner', 'header'])
+            ...staticComponents(['header'])
         },
         beforeEnter(to, from, next) {          
             if (to.params.id == null) {

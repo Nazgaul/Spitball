@@ -1,5 +1,4 @@
 import Api from './Api/homePage.js';
-import { Banner } from './Dto/banner.js';
 import { HomePage } from './Dto/homePage.js';
 // import { User } from './Dto/user.js';
 
@@ -29,8 +28,4 @@ export default {
     //     let { data } = await Api.get.stats()
     //     return new HomePage.Stats(data);
     // },
-    async getBannerParams() {
-      let { data } = await Api.get.banner()
-      return data === null? null : new Banner.Default(data);
-    }
 }

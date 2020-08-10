@@ -3,7 +3,7 @@ import * as routeName from "./routeNames.js";
 
 const dashboardPages = {
    default: () => import('../components/pages/dashboardPage/dashboardPage.vue'),
-   ...staticComponents(['banner', 'header', 'sideMenu'])
+   ...staticComponents(['header', 'sideMenu'])
 };
 
 export const dashboardRoutes = [
@@ -41,7 +41,7 @@ export const dashboardRoutes = [
        name: "myCourses",
         components: {
             default: () => import(`../components/pages/dashboardPage/myCourses/myCourses.vue`),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
+            ...staticComponents(['header', 'sideMenu'])
         },
        meta: {
            requiresTutor: true,
@@ -73,7 +73,7 @@ export const dashboardRoutes = [
         name: "myStudyRooms",
         components: {
             default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
+            ...staticComponents(['header', 'sideMenu'])
         },
         meta: {
             type: 'private',
@@ -86,7 +86,7 @@ export const dashboardRoutes = [
         name: "myStudyRoomsBroadcast",
         components: {
             default: () => import(`../components/pages/dashboardPage/scheduledClasses/scheduledClasses.vue`),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
+            ...staticComponents(['header', 'sideMenu'])
         },
         props: {
             default: (route) => ({
@@ -120,7 +120,7 @@ export const dashboardRoutes = [
         name: 'dashboardTeacher',
         components: {
             default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
+            ...staticComponents(['header', 'sideMenu'])
         },
         meta: {
             requiresTutor: true,
@@ -133,7 +133,7 @@ export const dashboardRoutes = [
         name: routeName.MyCoupons,
         components: {
             default: () => import('../components/pages/dashboardPage/myCoupons/myCoupons.vue'),
-            ...staticComponents(['banner', 'header', 'sideMenu']),
+            ...staticComponents(['header', 'sideMenu']),
         },
         meta: {
             requiresTutor: true,

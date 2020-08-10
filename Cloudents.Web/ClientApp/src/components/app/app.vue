@@ -1,7 +1,6 @@
 ﻿<template>
   <v-app>
     <!-- <component :is="layout"></component> -->
-    <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
     <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
@@ -186,7 +185,6 @@ export default {
       "updateRequestDialog",
       "setTutorRequestAnalyticsOpenedFrom",
       "fireOptimizeActivate",
-      "updateBannerStatus"
     ]),
 //    ...mapGetters(["getCookieAccepted"]),
 
@@ -210,7 +208,6 @@ export default {
         }, 170);
       }
     }
-    this.updateBannerStatus(true);
 
     //this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
