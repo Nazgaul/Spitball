@@ -230,6 +230,13 @@ export default {
         this.$store.commit('resetCreateCourse')
         this.$store.commit('resetUploadFiles')
     },
+    mounted() {
+        let isCourseVisible = this.$store.getters.accountUser
+        if(!isCourseVisible) {
+            this.showSnackbar = true
+            this.errorText = this.$t('course_pending')
+        }
+    }
 }
 </script>
 
