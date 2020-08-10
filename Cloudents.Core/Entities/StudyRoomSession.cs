@@ -48,7 +48,10 @@ namespace Cloudents.Core.Entities
 
         //public virtual int RejoinCount { get; protected set; }
         public virtual string SessionId { get; protected set; }
+        
+        [Obsolete]
         public virtual string? Receipt { get; protected set; }
+        [Obsolete]
         public virtual decimal? Price { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
@@ -82,33 +85,33 @@ namespace Cloudents.Core.Entities
             sessionUser.Disconnect(durationInRoom);
         }
 
-        [Obsolete]
-        public virtual DateTime? PaymentApproved { get; protected set; }
-        [Obsolete]
-        public virtual TimeSpan? AdminDuration { get; protected set; }
-        [Obsolete]
-        public virtual TimeSpan? RealDuration { get; protected set; }
+        //[Obsolete]
+        //public virtual DateTime? PaymentApproved { get; protected set; }
+        //[Obsolete]
+        //public virtual TimeSpan? AdminDuration { get; protected set; }
+        //[Obsolete]
+        //public virtual TimeSpan? RealDuration { get; protected set; }
 
 
 
-        [Obsolete]
-        protected virtual void CalculatePriceAndDuration()
-        {
-            Duration = Ended - Created;
-            // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
-            Price = (decimal)(Math.Floor(Duration.Value.TotalMinutes) / 60 * StudyRoom.Price.Amount);
-        }
+        //[Obsolete]
+        //protected virtual void CalculatePriceAndDuration()
+        //{
+        //    Duration = Ended - Created;
+        //    // var tutorPrice = StudyRoom.Tutor.Price.SubsidizedPrice ??
+        //    Price = (decimal)(Math.Floor(Duration.Value.TotalMinutes) / 60 * StudyRoom.Price.Amount);
+        //}
 
-        [Obsolete]
-        public virtual void EditDuration(int minutes)
-        {
-            if (Ended == null)
-            {
-                throw new ArgumentException();
-            }
-            Ended = Created.AddMinutes(minutes);
-            CalculatePriceAndDuration();
-        }
+        //[Obsolete]
+        //public virtual void EditDuration(int minutes)
+        //{
+        //    if (Ended == null)
+        //    {
+        //        throw new ArgumentException();
+        //    }
+        //    Ended = Created.AddMinutes(minutes);
+        //    CalculatePriceAndDuration();
+        //}
 
         public virtual void EndSession()
         {
@@ -122,33 +125,33 @@ namespace Cloudents.Core.Entities
         }
 
 
-        [Obsolete]
-        public virtual void SetReceipt(string receipt)
-        {
-            if (string.IsNullOrEmpty(receipt))
-            {
-                throw new ArgumentException();
-            }
-            Receipt = receipt;
-        }
+        //[Obsolete]
+        //public virtual void SetReceipt(string receipt)
+        //{
+        //    if (string.IsNullOrEmpty(receipt))
+        //    {
+        //        throw new ArgumentException();
+        //    }
+        //    Receipt = receipt;
+        //}
 
-        [Obsolete]
-        public virtual void SetReceiptAndAdminDate(string receipt, TimeSpan adminDuration)
-        {
-            if (string.IsNullOrEmpty(receipt))
-            {
-                throw new ArgumentException();
-            }
-            Receipt = receipt;
-            PaymentApproved = DateTime.UtcNow;
-            AdminDuration = adminDuration;
-        }
+        //[Obsolete]
+        //public virtual void SetReceiptAndAdminDate(string receipt, TimeSpan adminDuration)
+        //{
+        //    if (string.IsNullOrEmpty(receipt))
+        //    {
+        //        throw new ArgumentException();
+        //    }
+        //    Receipt = receipt;
+        //    PaymentApproved = DateTime.UtcNow;
+        //    AdminDuration = adminDuration;
+        //}
 
-        [Obsolete]
-        public virtual void SetRealDuration(TimeSpan realDuration, double price)
-        {
-            Price = (decimal)price;
-            RealDuration = realDuration;
-        }
+        //[Obsolete]
+        //public virtual void SetRealDuration(TimeSpan realDuration, double price)
+        //{
+        //    Price = (decimal)price;
+        //    RealDuration = realDuration;
+        //}
     }
 }

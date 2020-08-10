@@ -15,7 +15,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Course).ForeignKey("FK_COUPON_COURSE");
 
             Map(x => x.Value).Column("Value2").Not.Nullable();
-            Map(x => x.ValueOld).Column("Value").Not.Nullable();
+           // Map(x => x.ValueOld).Column("Value").Not.Nullable();
 
             Map(x => x.Expiration).Nullable();
             Map(x => x.Description).Nullable().Length(8000);

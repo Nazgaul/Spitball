@@ -12,7 +12,6 @@ namespace Cloudents.Command.CommandHandler.Admin
     {
         // private readonly IPaymeProvider _payment;
         private readonly IIndex<Type, IPaymentProvider> _payments;
-        private readonly IRepository<StudyRoomSession> _studyRoomSessionRepository;
 
         private readonly IRepository<StudyRoomPayment> _studyRoomPaymentRepository;
 
@@ -20,10 +19,9 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IRegularUserRepository _userRepository;
 
         public PaymentCommandHandler(
-            IRepository<StudyRoomSession> studyRoomSessionRepository, ITutorRepository tutorRepository,
+            ITutorRepository tutorRepository,
             IRegularUserRepository userRepository, IIndex<Type, IPaymentProvider> payments, IRepository<StudyRoomPayment> studyRoomPaymentRepository)
         {
-            _studyRoomSessionRepository = studyRoomSessionRepository;
             _tutorRepository = tutorRepository;
             _userRepository = userRepository;
             _payments = payments;
@@ -63,17 +61,16 @@ namespace Cloudents.Command.CommandHandler.Admin
             if (studyRoomPayment != null)
             {
                 studyRoomPayment.Pay(receipt, message.AdminDuration, message.StudentPay + message.SpitballPay);
-                return;
             }
 
-            var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
+            //var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
 
-            if (session.StudyRoomVersion.GetValueOrDefault() == 0)
-            {
-                session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
-            }
+            //if (session.StudyRoomVersion.GetValueOrDefault() == 0)
+            //{
+            //    session.SetReceiptAndAdminDate(receipt, message.AdminDuration);
+            //}
 
-            await _studyRoomSessionRepository.UpdateAsync(session, token);
+           // await _studyRoomSessionRepository.UpdateAsync(session, token);
         }
     }
 }

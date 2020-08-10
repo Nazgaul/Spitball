@@ -65,7 +65,7 @@ namespace Cloudents.Core.Entities
         public virtual Tutor? Tutor { get; protected set; }
         public virtual double Value { get; }
 
-        [Obsolete] public virtual decimal ValueOld{ get; set; }
+       // [Obsolete] public virtual decimal ValueOld{ get; set; }
         
 
 

@@ -27,17 +27,10 @@ namespace Cloudents.Command.CommandHandler.Admin
                 return;
             }
             var session = await _studyRoomSessionRepository.LoadAsync(message.StudyRoomSessionId, token);
-            if (session.StudyRoomVersion.GetValueOrDefault() == StudyRoomSession.StudyRoomNewVersion)
-            {
-                var sessionUser = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
-                sessionUser.StudyRoomPayment.NoPay();
-            }
-            else
-            {
-                session.SetReceipt("No Pay");
-            }
 
-            await _studyRoomSessionRepository.UpdateAsync(session, token);
+            var sessionUser = session.RoomSessionUsers.AsQueryable().Single(s => s.User.Id == message.UserId);
+            sessionUser.StudyRoomPayment.NoPay();
+
         }
     }
 }

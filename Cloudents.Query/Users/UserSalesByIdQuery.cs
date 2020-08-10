@@ -53,30 +53,30 @@ namespace Cloudents.Query.Users
 
 
 
-                var sessionFuture = _session.Query<StudyRoomSession>()
-                    .Fetch(f => f.StudyRoom)
-                    .ThenFetch(f => f.Users)
-                    .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
-                    .Where(w => w.Duration!.Value > StudyRoomSession.BillableStudyRoomSession)
-                    .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
-                    .Select(s => new SessionSaleDto()
-                    {
-                        SessionId = s.Id,
-                        PaymentStatus = 
-                            s.Receipt != null ? PaymentStatus.Approved:
-                            s.RealDuration != null ? PaymentStatus.PendingSystem :
-                                PaymentStatus.PendingTutor,
+                //var sessionFuture = _session.Query<StudyRoomSession>()
+                //    .Fetch(f => f.StudyRoom)
+                //    .ThenFetch(f => f.Users)
+                //    .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
+                //    .Where(w => w.Duration!.Value > StudyRoomSession.BillableStudyRoomSession)
+                //    .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
+                //    .Select(s => new SessionSaleDto()
+                //    {
+                //        SessionId = s.Id,
+                //        PaymentStatus = 
+                //            s.Receipt != null ? PaymentStatus.Approved:
+                //            s.RealDuration != null ? PaymentStatus.PendingSystem :
+                //                PaymentStatus.PendingTutor,
                           
-                        Date = s.Created,
-                        _oldPrice = s.Price ?? 0,
-                        StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name)
-                            .FirstOrDefault(),
-                        Duration = s.RealDuration.GetValueOrDefault(s.Duration!.Value),
-                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id)
-                            .Select(si => si.User.ImageName).FirstOrDefault(),
-                        StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id)
-                            .FirstOrDefault()
-                    }).ToFuture<SaleDto>();
+                //        Date = s.Created,
+                //        _oldPrice = s.Price ?? 0,
+                //        StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name)
+                //            .FirstOrDefault(),
+                //        Duration = s.RealDuration.GetValueOrDefault(s.Duration!.Value),
+                //        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id)
+                //            .Select(si => si.User.ImageName).FirstOrDefault(),
+                //        StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id)
+                //            .FirstOrDefault()
+                //    }).ToFuture<SaleDto>();
 
 
                
@@ -102,11 +102,11 @@ namespace Cloudents.Query.Users
 
 
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
-                var sessionResult = await sessionFuture.GetEnumerableAsync(token);
+                //var sessionResult = await sessionFuture.GetEnumerableAsync(token);
                 var sessionV2Result = await sessionFuture2.GetEnumerableAsync(token);
 
                 return documentResult
-                    .Union(sessionResult)
+                    //.Union(sessionResult)
                     .Union(sessionV2Result)
                     .OrderByDescending(o => o.Date);
             }

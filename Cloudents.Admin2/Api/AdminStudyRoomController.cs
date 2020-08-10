@@ -35,22 +35,22 @@ namespace Cloudents.Admin2.Api
         }
 
      
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdateSessionAsync([FromBody] UpdateSessionDurationRequest model, 
-            [FromServices] ICommandBus commandBus,
-            CancellationToken token)
-        {
-            try
-            {
-                var command = new UpdateSessionInfoCommand(model.SessionId, model.Minutes);
-                await commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (ArgumentException)
-            {
-                return BadRequest();
-            }
+        //[HttpPost("update")]
+        //public async Task<IActionResult> UpdateSessionAsync([FromBody] UpdateSessionDurationRequest model, 
+        //    [FromServices] ICommandBus commandBus,
+        //    CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var command = new UpdateSessionInfoCommand(model.SessionId, model.Minutes);
+        //        await commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        return BadRequest();
+        //    }
            
-        }
+        //}
     }
 }
