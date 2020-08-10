@@ -12,7 +12,7 @@
                             {{$t('eedit_page')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3">
+                        <v-stepper-step class="" :class="[{'stepStteper': courseVisible},step === 3 ? 'active' : 'noActive']" step="3">
                             {{$t('promote_course')}}
                         </v-stepper-step>
                     </v-stepper-header>
@@ -60,6 +60,9 @@ export default {
         unSupportedFeature
     },
     computed: {
+        courseVisible() {
+            return this.$store.getters.getCourseVisible
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         }
@@ -118,9 +121,12 @@ export default {
                 let methodName = id ? 'update' : 'create'
                 let self = this
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
-                    self.currentCreatedCourseId = data.id
-                    // self.$router.push({name: MyCourses})
-                    self.goStep(3)
+                    if(self.courseVisible && !id) {
+                        self.currentCreatedCourseId = data.id
+                        self.goStep(3)
+                        return
+                    }
+                    self.$router.push({name: MyCourses})
                 }).catch(ex => {
                     if(!ex.response.data) {
                         self.errorText = self.$t('profile_enroll_error')
