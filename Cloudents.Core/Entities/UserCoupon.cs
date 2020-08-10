@@ -31,8 +31,8 @@ namespace Cloudents.Core.Entities
         public virtual Coupon Coupon { get; protected set; }
 
       
-        [Obsolete]
-        public virtual Tutor Tutor { get; protected set; }
+        //[Obsolete]
+        //public virtual Tutor Tutor { get; protected set; }
         //public virtual Course C { get; protected set; }
 
         [Obsolete]
