@@ -39,7 +39,7 @@
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.5" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="4.7.0" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
-    <PackageReference Include="HubSpotClient" Version="0.8.4" />
+    <PackageReference Include="HubSpotClient" Version="0.9.0" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0010" />
     <!--Azure function uses this nuget Package-->
     

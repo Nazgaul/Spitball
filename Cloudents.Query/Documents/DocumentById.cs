@@ -43,7 +43,7 @@ namespace Cloudents.Query.Documents
                     {
                         Title = s.Name,
                         Id = s.Id,
-                        UserId = s.User.Tutor!.Id,
+                        UserId = s.User.Id,
                         UserName = s.User.Name,
                         DocumentType = s.DocumentType,
                         Pages = s.PageCount ?? 0,
