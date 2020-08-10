@@ -12,7 +12,7 @@
                             {{$t('eedit_page')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3">
+                        <v-stepper-step class="" :class="[{'stepStteper': courseVisible},step === 3 ? 'active' : 'noActive']" step="3">
                             {{$t('promote_course')}}
                         </v-stepper-step>
                     </v-stepper-header>
@@ -60,6 +60,12 @@ export default {
         unSupportedFeature
     },
     computed: {
+        canCreateCourse() {
+            return this.$store.getters.getIsCanCreateCourse
+        },
+        courseVisible() {
+            return this.$store.getters.getCourseVisible
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         }
@@ -89,6 +95,10 @@ export default {
     },
     methods: {
         saveCourseInfo() {
+            if(this.step === 3) {
+                this.$router.push({name: MyCourses})
+                return
+            }
             let form = this.$refs.createCourse
             if(form.validate()) {
                 this.loading = true
@@ -118,20 +128,25 @@ export default {
                 let methodName = id ? 'update' : 'create'
                 let self = this
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
-                    self.currentCreatedCourseId = data.id
-                    // self.$router.push({name: MyCourses})
-                    self.goStep(3)
+                    if(self.courseVisible) {
+                        self.currentCreatedCourseId = data?.id || id
+                        self.goStep(3)
+                        return
+                    }
+                    self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    if(!ex.response.data) {
-                        self.errorText = self.$t('profile_enroll_error')
+                    if(ex.response) {
+                        if(!ex.response.data) {
+                            self.errorText = self.$t('profile_enroll_error')
+                        }
+                        if(ex.response.data) {
+                            self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                        }
+                        if(ex.response.status === 409) {
+                            self.errorText = this.statusErrorCode[ex.response.status]
+                        }
+                        self.showSnackbar = true
                     }
-                    if(ex.response.data) {
-                        self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
-                    }
-                    if(ex.response.status === 409) {
-                        self.errorText = this.statusErrorCode[ex.response.status]
-                    }
-                    self.showSnackbar = true
                 }).finally(() => {
                     self.loading = false
                 })
@@ -229,6 +244,12 @@ export default {
             } else if(step === 3) {
                 this.stepComponent = 'courseShare'
             }
+        },
+        showCourseNotVisible() {
+            let isCourseVisible = this.canCreateCourse
+            if(!isCourseVisible) {
+                this.$store.commit('setShowCourse', false)
+            }
         }
     },
     beforeDestroy(){
@@ -236,11 +257,7 @@ export default {
         this.$store.commit('resetUploadFiles')
     },
     mounted() {
-        let isCourseVisible = this.$store.getters.accountUser
-        if(!isCourseVisible) {
-            this.showSnackbar = true
-            this.errorText = this.$t('course_pending')
-        }
+        this.showCourseNotVisible()
     }
 }
 </script>
