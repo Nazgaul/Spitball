@@ -94,6 +94,7 @@
   "courseItemsTitle_enrolled": "Course content",
   "course_free": "This course is free",
   "course_not_visible": "Course is not visible",
+  "course_pending": "The course is in pending status",
   "course_visible": "Show course on your site",
   "create_broadcast_error": "Error creating new live session. Try again later",
   "create_coupon": "Create a coupon code",
