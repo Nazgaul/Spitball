@@ -95,7 +95,7 @@ export default {
     },
     methods: {
         saveCourseInfo() {
-            if(this.step == 3) {
+            if(this.step === 3) {
                 this.$router.push({name: MyCourses})
                 return
             }
