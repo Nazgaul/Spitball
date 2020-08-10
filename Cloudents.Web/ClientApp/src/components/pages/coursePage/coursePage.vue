@@ -130,7 +130,12 @@ export default {
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(() => {
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                    if(!ex.response.data) {
+                        self.errorText = self.$t('profile_enroll_error')
+                    }
+                    if(ex.response.data) {
+                        self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                    }
                     if(ex.response.status === 409) {
                         self.errorText = this.statusErrorCode[ex.response.status]
                     }
