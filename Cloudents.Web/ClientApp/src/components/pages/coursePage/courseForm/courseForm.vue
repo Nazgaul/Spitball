@@ -85,7 +85,7 @@ export default {
         width: 100%;
         height: max-content;
         position: sticky;
-        // top: 170px;
+        top: 240px;
     }
 }
 </style>
