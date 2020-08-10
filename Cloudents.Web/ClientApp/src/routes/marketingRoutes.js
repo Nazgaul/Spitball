@@ -9,7 +9,7 @@ export const marketingRoutes = [
         name: routeName.Marketing,
         components: {
             default: () => import('../components/pages/marketing/marketing.vue'),
-            ...staticComponents(['banner', 'header', 'sideMenu']),
+            ...staticComponents(['header', 'sideMenu']),
         },
         meta: {
             requiresAuth: true

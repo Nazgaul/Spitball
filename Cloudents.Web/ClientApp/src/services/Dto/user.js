@@ -11,7 +11,6 @@ export const User = {
         this.image = objInit.image || '';
     },
     // TutorDefault: function(objInit){
-    //     this.price = objInit.price || 0;
     //     this.bio = objInit.bio || '';
     //     this.lessons = objInit.lessons || 0;
     //     this.discountPrice = objInit.discountPrice;
@@ -21,7 +20,6 @@ export const User = {
     // },
     // Tutor: function (objInit) {
     //     return{
-    //             price : objInit.price || 0,
     //             bio: objInit.bio || '',
     //             lessons: objInit.lessons || 0,
     //             discountPrice: objInit.discountPrice,
@@ -34,7 +32,6 @@ export const User = {
     //             firstName: objInit.firstName || '',
     //             lastName: objInit.lastName || '',
     //             students: objInit.students || 0,
-    //             subscriptionPrice: objInit.subscriptionPrice,
     //             isSubscriber : objInit.isSubscriber
     //     }
     //

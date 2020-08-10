@@ -23,14 +23,8 @@ const getters = {
         }
         return ''
     },
-    getDocumentPrice: (state,_getter) => {
-        if (_getter._getDocumentLoaded) {
-            return  state.document.price;
-        }
-        return 0
-    },
     getIsPurchased: (state,_getter) => {
-        return state.document?.isPurchased || _getter.getDocumentPrice === 0
+        return state.document?.isPurchased
     },
     getBtnLoading: (state, _getter) => {
         if (_getter._getDocumentLoaded) {

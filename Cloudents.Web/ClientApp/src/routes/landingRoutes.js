@@ -8,7 +8,7 @@ export const landingRoutes = [
         name: routeNames.HomePage,
         components: {
             default: () => import(`../components/pages/homePage/homePage.vue`),
-            ...staticComponents(['banner', 'header', 'footer']),
+            ...staticComponents(['header', 'footer']),
         },
         beforeEnter: (to, from, next) => {    
             if(store.getters.getUserLoggedInStatus){
@@ -43,7 +43,7 @@ export const landingRoutes = [
     //     name: routeNames.Learning,
     //     components: {
     //         default: () => import(`../components/landingPage/learn.vue`),
-    //         ...staticComponents(['banner', 'header', 'footer']),
+    //         ...staticComponents(['header', 'footer']),
     //     },
     //     beforeEnter: (to, from, next) => {
     //         if(store.getters.getUserLoggedInStatus){
@@ -70,7 +70,7 @@ export const landingRoutes = [
         name: routeNames.Learning,
         components: {
             default: () => import(`../components/tutorLandingPage/tutorLandingPage.vue`),
-            ...staticComponents(['banner', 'header', 'footer']),
+            ...staticComponents(['header', 'footer']),
         },
         meta: {
             showMobileFooter: true, 

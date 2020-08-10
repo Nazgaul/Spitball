@@ -50,7 +50,6 @@ export default {
 
 .itemPage {
   //hacks to finish this fast
-  .price-area,
   hr,
   .spacer {
     display: none !important;
@@ -72,9 +71,6 @@ export default {
     position: sticky;
     height: fit-content;
     top: 80px;
-    &.sticky-item_bannerActive {
-      top: 150px;
-    }
   }
   &__main {
     @media (max-width: @screen-sm) {

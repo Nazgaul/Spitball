@@ -170,9 +170,6 @@ export default {
     isReviews() {
       return this.tutorData.reviews > 0;
     },
-    isDiscount() {
-      return this.tutorData.discountPrice !== undefined;
-    }
   },
 };
 </script>
@@ -188,7 +185,7 @@ export default {
     background: #fff;
     width: 100%;
     display: flex;
-    h3, h4, .user-bio, .courses, .price, .classes-hours, .study-area {
+    h3, h4, .user-bio, .courses, .classes-hours, .study-area {
       color: @purple;
     }
     .user-avatar-rect {
@@ -236,46 +233,6 @@ export default {
           min-height: 19px;
         }
       }
-      // .price {
-      //   width: 100%;
-      //   display: flex;
-      //   justify-content: space-between;
-      //   margin-bottom: -20px;
-        // .applyCoupon {
-        //   color: #5a61ba;
-        //   font-weight: 600;
-        //   font-size: 12px;
-        //   margin-top: 6px;
-        // }
-        // .user-rates-top {
-        //   align-items: baseline;
-        //   .tutor-card-currency {
-        //     font-size: 16px;
-        //     color:#5158af;
-        //   }
-        //   .tutor-card-price {
-        //     font-size: 18px;
-        //     color:#5158af;
-        //   }
-        //   .tutor-card-price-divider {
-        //     font-size: 12px;
-        //     color:#5158af;
-        //   }
-        //   .menu-area {
-        //       margin-top: -12px;
-        //       width: 21px;
-        //     .v-btn__content {
-        //       i {
-        //         font-size: 16px;
-        //         color: rgba(0, 0, 0, 0.25);
-        //       }
-        //     }
-        //   }
-        // }
-      //   .price-default-height {
-      //     .heightMinMax(16px);
-      //   }
-      // }
       .classes-hours {
         margin-left: 3px;
         display: flex;
