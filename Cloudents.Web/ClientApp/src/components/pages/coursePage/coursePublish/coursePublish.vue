@@ -4,6 +4,7 @@
             <div class="courseStickyTitle" v-t="'visible'"></div>
             <v-switch
                 v-model="courseVisible"
+                :disabled="!canCreateCourse"
                 class="ma-0 pa-0"
                 hide-details
             ></v-switch>
@@ -17,6 +18,12 @@
 export default {
     name: 'coursePublish',
     computed: {
+        canCreateCourse() {
+            return this.$store.getters.getIsCanCreateCourse
+        },
+        IsCourseVisible() {
+            return this.$store.getters.getCourseVisible
+        },
         courseVisible: {
             get() {
                 return this.$store.getters.getCourseVisible

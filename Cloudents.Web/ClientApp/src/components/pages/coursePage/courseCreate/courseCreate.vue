@@ -5,6 +5,7 @@
         </div>
         <div>
             <v-btn
+                v-if="parent.step !== 3"
                 class="createCourseBtn cancelBtn me-3"
                 :to="{name: props.courseRoute}"
                 color="#fff"
