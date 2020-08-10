@@ -13,7 +13,6 @@
                         <td class="ps-4 d-flex">
                             <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
                             <span v-else v-t="'studyRoomSettings_free'"></span>
-                            <button v-if="showApplyCouponBtn" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
                         </td>
                     </tr>
                     <tr>
@@ -191,12 +190,6 @@ export default {
         roomTutor() {
             return this.$store.getters.getRoomTutor
         },
-        showApplyCouponBtn(){
-            if(this.isRoomBroadcast) return false;
-            else{
-                return this.isLoggedIn && this.roomPrice
-            }
-        }
         // roomLink() {
         //     // @idan - I think this better approach getting the room id with $route.params instead of passing props
         //     // TODO: Make room link getter from store
@@ -298,10 +291,6 @@ export default {
                 .option.link  {
                     visibility: hidden !important;
                 }
-            }
-            .couponBtn {
-                outline: none;
-                color: #bbb;
             }
         }
     }
