@@ -20,7 +20,6 @@ namespace Cloudents.Core.Entities
             DateTime? expiration, string? description)
         {
             if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
-           // if (amountOfUsers.HasValue && amountOfUsers.Value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
             if (couponType == CouponType.Percentage && value > 100)
             {
                 throw new ArgumentException("value cannot be more than 100");
@@ -81,44 +80,22 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException("invalid coupon");
             }
 
-            //if (AmountOfUsers.HasValue && AmountOfUsers.Value <= UserCoupon.Count)
-            //{
-            //    throw new OverflowException();
-            //}
+           
 
             return true;
         }
 
-        //public virtual void ApplyCoupon(User user, Tutor tutor)
+        //public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
         //{
-        //    if (Expiration.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
+        //    var result = type switch
         //    {
-        //        throw new ArgumentException("invalid coupon");
-        //    }
+        //        CouponType.Flat => (price - couponValue),
+        //        CouponType.Percentage => (price * ((100 - couponValue) / 100)),
+        //        _ => throw new ArgumentOutOfRangeException()
+        //    };
 
-        //    if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
-        //    {
-        //        throw new OverflowException();
-        //    }
-        //    var p = new UserCoupon(user, this, tutor);
-        //    if (!_userCoupon.Add(p))
-        //    {
-        //        throw new ArgumentException("user already applied coupon");
-        //    }
+        //    return Math.Max(result, 0);
         //}
-
-
-        public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
-        {
-            var result = type switch
-            {
-                CouponType.Flat => (price - couponValue),
-                CouponType.Percentage => (price * ((100 - couponValue) / 100)),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            return Math.Max(result, 0);
-        }
 
         public static double CalculatePrice(CouponType type, double price, decimal couponValue)
         {

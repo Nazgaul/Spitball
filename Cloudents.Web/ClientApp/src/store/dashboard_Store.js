@@ -24,8 +24,9 @@ const mutations = {
          this.lessons = objInit.lessons
          this.name = objInit.name
          this.price = objInit.price
-         this.users = objInit.users
          this.type = objInit.type;
+         this.userNames = objInit.users || [];
+         this.users = this.userNames.length;
          this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
       }
       for (let i = 0; i < data.length; i++) {
@@ -135,9 +136,9 @@ const actions = {
    updateSessionDuration(context, session) {
       return dashboardService.updateSessionDuration(session)
    },
-   deleteStudyRoomSession(context, id) {
-      return dashboardService.removeStudyRoomSession(id)
-   },
+   // deleteStudyRoomSession(context, id) {
+   //    return dashboardService.removeStudyRoomSession(id)
+   // },
    updateBillOffline(context,params){
       return salesService.updateBillOffline(params);
    },

@@ -1,13 +1,12 @@
 <template>
    <div class="mySales">
-
       <div class="pa-4">
          <div class="mySales_title" v-t="'financial_status'"></div>
          <v-layout wrap class="mySales_wallet mb-2" v-if="!!accountUser && accountUser.id">
             <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
                <div class="mySales_actions">
                   <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
-                  <buyPointsLayout class="my-2 my-md-0 mx-lg-2"/>
+                  <billOfflineLayout class="my-2 my-md-0 mx-lg-2"/>
                </div>
             </v-flex>
          </v-layout>
@@ -31,11 +30,6 @@
             nextIcon: 'sbf-arrow-right-carousel',
             itemsPerPageOptions: [5]
          }">
-
-            <template v-slot:top>
-               <div class="mySales_title pa-6" v-t="'dashboardPage_my_sales_title'"/>
-            </template>
-
             <template v-slot:item.preview="{item}">
                <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
                   <v-avatar size="68">
@@ -89,12 +83,12 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
-import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
+import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
 import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
 export default {
    name:'mySales',
-   components:{tableInfoTd,buyPointsLayout,redeemPointsLayout},
+   components:{tableInfoTd,billOfflineLayout,redeemPointsLayout},
    props:{
       dictionary:{
          type: Object,

@@ -65,8 +65,28 @@ namespace Cloudents.Core.DTOs.Users
             }
         }
 
+        public bool CanCreateCourse
+        {
+            get
+            {
+                if (IsTutor == null)
+                {
+                    return false;
+                }
+
+                if (SellerKey == null && this.Country == Country.Israel)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         public bool IsSold { get; set; }
 
+        [NonSerialized]
+        public string? SellerKey;
 
         public string CurrencySymbol => (Country ?? Country.UnitedStates).RegionInfo.ISOCurrencySymbol;
     }

@@ -56,10 +56,15 @@
                   <td class="text-start">{{item.lessons}}</td>
                   <td class="text-start">{{item.documents}}</td>
                   <td class="text-start">
-                     <div class="d-flex">
-                        <v-icon size="14">sbf-groupPersons</v-icon>
-                        <div class="ms-2">{{item.users}}</div>
-                     </div>
+                     <v-tooltip top transition="fade-transition">
+                        <template v-slot:activator="{on}">
+                           <div class="d-flex" v-on="item.userNames && item.userNames.length ? on : null">
+                              <v-icon size="14">sbf-groupPersons</v-icon>
+                              <div class="ms-2">{{item.users}}</div>
+                           </div>
+                        </template>
+                        <div v-for="(user, index) in item.userNames" :key="index">{{user}}</div>          
+                     </v-tooltip>
                   </td>
                   <td class="text-start">
                      {{$price(item.price.amount, item.price.currency, true)}}
@@ -94,6 +99,14 @@
             </draggable>
          </template>
       </v-data-table>
+      <v-snackbar
+         v-model="showCourseNotVisible"
+         :timeout="6000"
+         color="error"
+         top
+      >
+         <div class="white--text text-center">{{errorText}}</div>
+      </v-snackbar>
    </div>
 </template>
 
@@ -108,6 +121,8 @@ export default {
    },
    data() {
       return {
+         errorText: '',
+         showCourseNotVisible: false,
          skeleton: true,
          itemsPerPage: 5,
          page: 1,
@@ -160,6 +175,8 @@ export default {
       },
       handleRowClick(item) {
          if(!item.isPublish) {
+            this.errorText = this.$t('course_not_visible')
+            this.showCourseNotVisible = true
             return
          }
          this.$router.push({name: CoursePage, params: { id: item.id }})

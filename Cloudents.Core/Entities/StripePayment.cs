@@ -19,9 +19,6 @@ namespace Cloudents.Core.Entities
         public virtual string PaymentKey { get; set; }
 
         public virtual DateTime? Created { get; set; }
-        //public virtual DateTime PaymentKeyExpiration { get; set; }
-
-        //public virtual string CreditCardMask { get; set; }
         public virtual IPayment2 AvoidProxy => (IPayment2)Actual;
         public virtual bool IsValid()
         {

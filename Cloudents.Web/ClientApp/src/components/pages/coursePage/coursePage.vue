@@ -1,29 +1,38 @@
 <template>
     <div id="coursePage" class="coursePage ma-sm-8">
-        <v-form ref="createCourse" v-if="!isMobile">
-            <courseCreate @saveCourseInfo="saveCourseInfo" />
-            <div class="d-flex">
-                <div class="courseLeftSide">
-                    <courseInfo ref="courseInfo" />
-                    <div class="courseTeachingWrapper mb-6">
-                        <div class="pa-5">
-                            <div class="courseTeachingTitle" v-t="'set_Teaching'"></div>
-                        </div>
-                        <courseTeaching v-for="n in numberOfLecture" :key="n" :index="n" />
-                        <div class="addLecture d-flex pa-5 pt-0">
-                            <v-icon size="14" color="#4c59ff">sbf-plus-regular</v-icon>
-                            <button class="ms-1" v-t="'another_lecture'" @click.prevent="$store.commit('setNumberOfLecture', numberOfLecture + 1)"></button>
-                        </div>
-                    </div>
-                    <courseUpload ref="courseUpload" />
+        <v-stepper v-if="!isMobile" class="courseStepper elevation-0">
+            <v-form ref="createCourse">
+                <div class="courseActionsSticky">
+                    <v-stepper-header class="courseStepHeader elevation-0">
+                        <v-stepper-step class="stepStteper ps-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
+                            {{$t('create_course')}}
+                        </v-stepper-step>
+                        <v-divider></v-divider>
+                        <v-stepper-step class="stepStteper- ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
+                            {{$t('eedit_page')}}
+                        </v-stepper-step>
+                        <v-divider></v-divider>
+                        <v-stepper-step class="" :class="[{'stepStteper': courseVisible},step === 3 ? 'active' : 'noActive']" step="3">
+                            {{$t('promote_course')}}
+                        </v-stepper-step>
+                    </v-stepper-header>
+                    <courseCreate :courseRoute="courseRoute" @saveCourseInfo="saveCourseInfo" />
                 </div>
-                <div class="courseRightSide ms-6">
-                    <coursePublish />
-                    <coursePromote />
-                </div>
-            </div>
-        </v-form>
+
+                <v-stepper-items class="stepperItems">
+                    <v-stepper-content :step="step" class="pa-0">
+                        <component
+                            :is="stepComponent"
+                            ref="childComponent"
+                            :currentCreatedCourseId="currentCreatedCourseId"
+                        >
+                        </component>
+                    </v-stepper-content>
+                </v-stepper-items>
+            </v-form>
+        </v-stepper>
         <unSupportedFeature v-else />
+
         <v-snackbar
             v-model="showSnackbar"
             :timeout="6000"
@@ -38,39 +47,24 @@
 <script>
 import { MyCourses } from '../../../routes/routeNames'
 
-import createCourse from '../../../store/createCourse';
-import storeService from '../../../services/store/storeService';
-
 import courseCreate from './courseCreate/courseCreate.vue';
-import courseInfo from './courseInfo/courseInfo.vue';
-import courseTeaching from './courseTeaching/courseTeaching.vue';
-import courseUpload from './courseUpload/courseUpload.vue';
-import coursePublish from './coursePublish/coursePublish.vue';
-import coursePromote from './coursePromote/coursePromote.vue';
-
+import courseForm from './courseForm/courseForm.vue';
+import courseShare from './courseShare/courseShare.vue';
 import unSupportedFeature from './unSupportedFeature.vue';
 
 export default {
     components: {
         courseCreate,
-        courseInfo,
-        courseTeaching,
-        courseUpload,
-        coursePublish,
-        coursePromote,
-
+        courseForm,
+        courseShare,
         unSupportedFeature
     },
-    // watch: {
-    //     showSnackbar(val) {
-    //         if(val) {
-    //             this.$vuetify.goTo(this.$refs.courseUpload)
-    //         }
-    //     }
-    // },
     computed: {
-        numberOfLecture() {
-            return this.$store.getters.getNumberOfLecture
+        canCreateCourse() {
+            return this.$store.getters.getIsCanCreateCourse
+        },
+        courseVisible() {
+            return this.$store.getters.getCourseVisible
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
@@ -78,10 +72,13 @@ export default {
     },
     data() {
         return {
+            step: 1,
+            stepComponent: 'courseForm',
             saveMethodsName: {
                 create: 'createCourseInfo',
                 update: 'updateCourseInfo'
             },
+            currentCreatedCourseId: null,
             courseRoute: MyCourses,
             loading: false,
             showSnackbar: false,
@@ -98,21 +95,24 @@ export default {
     },
     methods: {
         saveCourseInfo() {
-            if(this.$refs.createCourse.validate()) {
+            if(this.step === 3) {
+                this.$router.push({name: MyCourses})
+                return
+            }
+            let form = this.$refs.createCourse
+            if(form.validate()) {
                 this.loading = true
                 let files = this.$store.getters.getFileData
                 let studyRoom = this.$store.getters.getTeachLecture
                 let documentsValidation = this.documentValidate(files)
                 let studyRooms = this.studyroomValidate(studyRoom)
                 
-                //if(documents === false || studyRooms === false) {
                 if(documentsValidation === 1 || studyRooms === 1) {
                     this.showSnackbar = true
                     this.loading = false
                     return
                 }
 
-                // if(!documents.length && !studyRooms.length) {
                 if(documentsValidation === 0 && studyRooms === 0) {
                     this.errorText = this.$t('required_files_or_studyroom')
                     this.showSnackbar = true
@@ -127,19 +127,26 @@ export default {
                 let id = this.$route.params.id ? this.$route.params.id : undefined
                 let methodName = id ? 'update' : 'create'
                 let self = this
-                this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(() => {
+                this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
+                    if(self.courseVisible) {
+                        self.currentCreatedCourseId = data?.id || id
+                        self.goStep(3)
+                        return
+                    }
                     self.$router.push({name: MyCourses})
                 }).catch(ex => {
-                    if(!ex.response.data) {
-                        self.errorText = self.$t('profile_enroll_error')
+                    if(ex.response) {
+                        if(!ex.response.data) {
+                            self.errorText = self.$t('profile_enroll_error')
+                        }
+                        if(ex.response.data) {
+                            self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
+                        }
+                        if(ex.response.status === 409) {
+                            self.errorText = this.statusErrorCode[ex.response.status]
+                        }
+                        self.showSnackbar = true
                     }
-                    if(ex.response.data) {
-                        self.errorText = ex.response.data[Object.keys(ex.response.data)[0]][0]
-                    }
-                    if(ex.response.status === 409) {
-                        self.errorText = this.statusErrorCode[ex.response.status]
-                    }
-                    self.showSnackbar = true
                 }).finally(() => {
                     self.loading = false
                 })
@@ -156,13 +163,13 @@ export default {
             }
         },
         documentValidate(files) {
-            if(!files.length) return 0 // return []
+            if(!files.length) return 0
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if(file.error) {
                     this.errorText = this.statusErrorCode['file']
-                    return 1 //return false
+                    return 1
                 }
                 if(file.progress < 100) {
                     this.errorText = this.statusErrorCode['uploadFileNotFinished']
@@ -187,7 +194,7 @@ export default {
         },
         studyroomValidate(studyRoomList) {
             if(studyRoomList.length === 1 && !studyRoomList[0].text) {
-                return 0 // return []
+                return 0
             }
 
             let i, studyRoomArr = []
@@ -200,7 +207,7 @@ export default {
                     })
                     if(validateDuplicateSessionTime.length) {
                         this.errorText = this.statusErrorCode['duplicateDate']
-                        return 1 //return false
+                        return 1
                     }
                 }
                 let isToday = userChooseDate.isSame(this.$moment(), 'day');
@@ -208,13 +215,13 @@ export default {
                     let isValidDateToday = userChooseDate.isAfter(this.$moment().format())
                     if(!isValidDateToday) {
                         this.errorText = this.statusErrorCode['date']
-                        return 1 //return false
+                        return 1
                     }
                 }
 
                 if(!studyRoom.text) {
                     this.errorText = this.statusErrorCode['studyRoomText']
-                    return 1 //return false
+                    return 1
                 } 
 
                 studyRoomArr.push({
@@ -226,23 +233,31 @@ export default {
         },
         goTo(ref) {
             let options = {
-                offset: ref === 'courseInfo' ? '0': null,
+                offset: ref === 'courseInfo' ? '40': null,
             }
-            this.$vuetify.goTo(this.$refs[ref], options)
+            this.$vuetify.goTo(this.$refs.childComponent, options)
+        },
+        goStep(step) {
+            this.step = step
+            if(step === 1) {
+                this.stepComponent = 'courseForm'
+            } else if(step === 3) {
+                this.stepComponent = 'courseShare'
+            }
+        },
+        showCourseNotVisible() {
+            let isCourseVisible = this.canCreateCourse
+            if(!isCourseVisible) {
+                this.$store.commit('setShowCourse', false)
+            }
         }
     },
     beforeDestroy(){
         this.$store.commit('resetCreateCourse')
         this.$store.commit('resetUploadFiles')
-        storeService.unregisterModule(this.$store, 'createCourse');
     },
-    created() {
-        storeService.registerModule(this.$store, 'createCourse', createCourse);
-        let id = this.$route.params.id
-
-        if(id) {
-            this.$store.dispatch('getCourseInfo', id)
-        }
+    mounted() {
+        this.showCourseNotVisible()
     }
 }
 </script>
@@ -251,42 +266,51 @@ export default {
 @import '../../../styles/mixin.less';
 
 .coursePage {
+    max-width: 1077px; // eidan request
     @media (max-width: @screen-xs) {
         height: 100%;
-    }    
-    .courseLeftSide {
-        max-width: 760px;
-        min-width: 0;
-        width: 100%;
-        .courseTeachingWrapper {
-            background: #fff;
-            border-radius: 6px;
+    }
+    .courseStepper {
+        overflow: visible; 
+        background: inherit;
+        .courseActionsSticky {
+            position: sticky;
+            z-index: 9;
+            top: 70px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            .courseStepHeader {
+                background: #fff;
+                .stepStteper {
+                    &.noActive {
+                        // cursor: pointer;
+                        .v-stepper__step__step {
+                            background: transparent !important;
+                            border: 2px solid #4452fc !important;
 
-            .courseTeachingTitle {
-                font-size: 20px;
-                font-weight: 600;
-                color: @global-purple;
-            }
-            .addLecture {
-                font-size: 16px;
-                color: #4c59ff;
 
-                button {
-                    outline: none;
+                            font-weight: 600;
+                            color: #4c59ff !important;
+                        }
+                            .v-stepper__label {
+                                text-shadow: none;
+                            }
+                    }
+                    &.active {
+                        .v-stepper__step__step {
+                            background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
+                            background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
+                        }
+                        .v-stepper__label {
+                            text-shadow: 0 0 0 black;
+                        }
+                    }
                 }
             }
         }
+        .stepperItems, .v-stepper__wrapper {
+            overflow: visible;
+        }
     }
-    .courseRightSide {
-        max-width: 296px;
-        width: 100%;
-        height: max-content;
-        position: sticky;
-        top: 170px;
-    }
-
-    // Shiran design colors for border input's
     .v-textarea, .v-input {
         .v-input__slot {
             fieldset {

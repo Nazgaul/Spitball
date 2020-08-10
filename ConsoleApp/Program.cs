@@ -159,10 +159,7 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            var userId = 638;
-            var command = new UpdateCoursePositionCommand(userId,2,3);
-            await CommandBus.DispatchAsync(command);
-
+            await Dbi();
         }
 
 
@@ -172,7 +169,7 @@ namespace ConsoleApp
 
         private static async Task Dbi()
         {
-           
+            await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()
