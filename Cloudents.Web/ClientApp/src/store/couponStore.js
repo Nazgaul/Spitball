@@ -7,11 +7,20 @@ const couponInstance = axios.create({
 const state = {
     couponError: false,
     couponDialog: false,
+    couponName: '',
+    couponAmount: 0,
+    couponType: '',
+    couponDate: new Date().FormatDateToString()
 };
 
 const getters = {
     getCouponError: state => state.couponError,
     //getCouponDialog: state => state.couponDialog,
+    getCouponName: state => state.couponName,
+    getCouponAmount: state => state.couponAmount,
+    getCouponType: state => state.couponType,
+    getCouponDate: state => state.couponDate,
+
 };
 
 const mutations = {
@@ -19,6 +28,18 @@ const mutations = {
     setCouponDialog(state, val){ 
         state.couponDialog = val;
         state.couponError = false;
+    },
+    setCouponName(state, val){ 
+        state.couponName = val;
+    },
+    setCouponAmount(state, val){ 
+        state.couponAmount = val;
+    },
+    setCouponType(state, val){
+        state.couponType = val;
+    },
+    setCouponDate(state, val){ 
+        state.couponDate = val;
     }
 };
 
