@@ -1,113 +1,96 @@
 <template>
     <div class="createCouponDialog mb-4">
         <div class="text-wrap pt-4 pt-sm-0">
-            <!-- <template v-if="!showSuccess"> -->
-                <!-- <div class="dialog-title pb-4" v-t="'coupon_create_title'"></div> -->
-                <!-- <v-form v-model="validCreateCoupon" ref="validCreateCoupon"> -->
-                <v-layout justify-space-between wrap class="inputs-coupon pe-0 pe-sm-4">
-                    <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
-                      <v-text-field
-                          v-model="couponCode"
-                          :rules="[rules.required, rules.notSpaces, rules.minimumChars, rules.maximumChars]"
-                          :label="$t('coupon_label_code')"
-                          :placeholder="placeHoldersEmpty"
-                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
-                          autocomplete="off"
-                          type="text"
-                          color="#304FFE"
-                          dense
-                          outlined
-                      />
-                    </v-flex>
-                    <v-flex sm3>
+            <!-- <div class="dialog-title pb-4" v-t="'coupon_create_title'"></div> -->
+            <v-layout justify-space-between wrap class="inputs-coupon pe-0 pe-sm-4">
+
+                <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
+                  <v-text-field
+                      v-model="couponCode"
+                      :rules="[rules.required, rules.notSpaces, rules.minimumChars, rules.maximumChars]"
+                      :label="$t('coupon_label_code')"
+                      :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                      type="text"
+                      color="#304FFE"
+                      placeholder=" "
+                      autocomplete="off"
+                      dense
+                      outlined
+                  />
+                </v-flex>
+
+                <v-flex sm3>
+                    <v-text-field
+                      v-model="couponValue"
+                      :label="$t('coupon_label_value')"
+                      placeholder=" "
+                      :rules="[rules.required, rules.integer, rules.minimum, rules.maximum]"
+                      :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                      autocomplete="off"
+                      type="text"
+                      color="#304FFE"
+                      dense
+                      outlined
+                    />
+                </v-flex>
+
+                <v-flex xs12 sm8 pe-0 pe-sm-0 pb-1 pb-sm-0>
+                    <v-select
+                      v-model="couponType"
+                      class="coupon-type"
+                      :items="couponTypesList"
+                      :label="$t('coupon_label_type')"
+                      :rules="[rules.required]"
+                      placeholder=" "
+                      :append-icon="'sbf-triangle-arrow-down'"
+                      :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                      color="#304FFE"
+                      item-text="key"
+                      outlined
+                      dense
+                    >
+                      <template slot="item" slot-scope="data">
+                        <span class="subtitle-1">{{data.item.key}}</span>
+                      </template>
+                    </v-select>
+                </v-flex>
+                
+                <!-- <v-flex xs6 pe-2 pe-sm-0 v-if="$vuetify.breakpoint.xsOnly">
+                    <v-text-field v-model="couponType" :label="$t('coupon_label_value')"
+                    :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                    dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
+                </v-flex> -->
+
+                <v-flex xs6 sm4 ps-2 ps-sm-4>
+                    <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
+                      <template v-slot:activator="{ on }">
                         <v-text-field
-                          v-model="couponValue"
-                          :label="$t('coupon_label_value')"
-                          :placeholder="placeHoldersEmpty"
-                          :rules="[rules.required, rules.integer, rules.minimum, rules.maximum]"
-                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
-                          autocomplete="off"
-                          type="text"
-                          color="#304FFE"
-                          dense
-                          outlined
-                        />
-                    </v-flex>
-
-                    <v-flex xs12 sm8 pe-0 pe-sm-0 pb-1 pb-sm-0>
-                        <v-select
-                          v-model="couponType"
-                          class="coupon-type"
-                          :items="couponTypesList"
-                          :label="$t('coupon_label_type')"
+                          v-model="dateFormatted"
+                          v-on="on"
+                          class="date-input"
                           :rules="[rules.required]"
-                          :placeholder="placeHoldersEmpty"
-                          :append-icon="'sbf-triangle-arrow-down'"
-                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
-                          color="#304FFE"
-                          item-text="key"
-                          outlined
+                          :label="$t('coupon_label_date')"
+                          autocomplete="nope"
+                          prepend-inner-icon="sbf-calendar"
+                          @blur="date = parseDate(dateFormatted)"
                           dense
-                        >
-                          <template slot="item" slot-scope="data">
-                            <span class="subtitle-1">{{data.item.key}}</span>
-                          </template>
-                        </v-select>
-                    </v-flex>
-                    <!-- <v-flex xs6 pe-2 pe-sm-0 v-if="$vuetify.breakpoint.xsOnly">
-                        <v-text-field v-model="couponType" :label="$t('coupon_label_value')"
-                        :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
-                        dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-                    </v-flex> -->
-
-                    <v-flex xs6 sm4 ps-2 ps-sm-4>
-                        <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
-                          <template v-slot:activator="{ on }">
-                            <v-text-field
-                              v-model="dateFormatted"
-                              v-on="on"
-                              class="date-input"
-                              :rules="[rules.required]"
-                              :label="$t('coupon_label_date')"
-                              autocomplete="nope"
-                              prepend-inner-icon="sbf-calendar"
-                              @blur="date = parseDate(dateFormatted)"
-                              dense
-                              color="#304FFE"
-                              outlined
-                              type="text"
-                              :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
-                            />
-                          </template>                  
-                          <v-date-picker color="#4C59FF" class="date-picker-coupon" v-model="date" no-title @input="datePickerMenu = false">
-                              <v-spacer></v-spacer>
-                              <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
-                              <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
-                          </v-date-picker>
-                        </v-menu>
-                    </v-flex>
-                </v-layout>
-                <!-- </v-form> -->
-            <!-- </template> -->
-        <!-- <template v-else>
-          <div class="succes-title pb-9 pb-sm-12 pt-2 pt-sm-6">{{$t('coupon_create_succes')}}</div>
-          <div class="coupon-box">
-            <img class="coupon-box_img" src="./b.png" alt="">
-            <span class="coupon-box_code" v-text="couponCode"/>            
-          </div>
-        </template> -->
+                          color="#304FFE"
+                          outlined
+                          type="text"
+                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                        />
+                      </template>                  
+                      <v-date-picker color="#4C59FF" class="date-picker-coupon" v-model="date" no-title @input="datePickerMenu = false">
+                          <v-spacer></v-spacer>
+                          <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
+                          <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
+                      </v-date-picker>
+                    </v-menu>
+                </v-flex>
+            </v-layout>
         </div>
-      <!-- <div class="btns-wrap">
-        <v-btn @click="$store.commit('setComponent', '')" class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed>
-          <span> {{showSuccess?$t('coupon_btn_exit'):$t('coupon_btn_cancel')}} </span>
-        </v-btn>
-        <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ms-1 ms-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
-          <span> {{showSuccess?$t('coupon_btn_copy'):$t('coupon_btn_submit')}} </span>
-        </v-btn>
-      </div> -->
     </div>
-<!-- 
-    <v-snackbar v-model="snackbar" :timeout="3000" top>
+    <!-- <v-snackbar v-model="snackbar" :timeout="3000" top>
       <div class="text-center flex-grow-1">{{ $t('coupon_toaster_copy') }}</div>
     </v-snackbar> -->
 </template>
@@ -119,12 +102,13 @@ import { validationRules } from '../../../../services/utilities/formValidationRu
 export default {
   data() {
     return {
-      // validCreateCoupon: false,
-      couponTypesList:[{key: this.$t('coupon_type_flat'),value: 'flat'},{key: this.$t('coupon_type_percentage'),value: 'percentage'}],
-      // couponCode:'',
-      // couponType:'',
-      // couponValue:'',
+      couponTypesList:[
+        { key: this.$t('coupon_type_flat'),value: 'flat' },
+        { key: this.$t('coupon_type_percentage'),value: 'percentage' }
+      ],
       maximumValue: Infinity,
+      datePickerMenu: false,
+      dateFormatted: '',
       rules: {
         required: (value) => validationRules.required(value),
         minimumChars: (value) => validationRules.minimumChars(value, 5),
@@ -134,13 +118,14 @@ export default {
         minimum: (value) => validationRules.minVal(value,1),
         maximum: (value) => validationRules.maxVal(value, this.maximumValue),
       },
+      // snackbar:false,
+      // validCreateCoupon: false,
+      // couponCode:'',
+      // couponType:'',
+      // couponValue:'',
       // loadingBtn:false,
       // showSuccess:false,
-      snackbar:false,
-      placeHoldersEmpty:'',
-      datePickerMenu:false,
       // date: new Date().FormatDateToString(),
-      dateFormatted: '',
       // couponErr:''
     }
   },
@@ -243,7 +228,6 @@ export default {
     },
   },
   mounted() {
-    this.placeHoldersEmpty = ' '
     setTimeout(()=>{
       this.dateFormatted = this.formatDate(new Date().FormatDateToString())
     })
