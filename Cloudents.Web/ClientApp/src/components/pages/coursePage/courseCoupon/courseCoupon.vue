@@ -97,7 +97,6 @@
 
 <script>
 import { validationRules } from '../../../../services/utilities/formValidationRules';
-// import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -181,7 +180,7 @@ export default {
       set(date) {
         this.$store.commit('setCouponDate', date)
       }
-    },
+    }
   },
   methods: {
     // ...mapActions(['createCoupon']),
