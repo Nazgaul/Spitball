@@ -67,13 +67,28 @@ const getters = {
   getCourseNamePreview: state => state.courseEditedDetails?.name || state.courseDetails?.name,
   getCourseDescriptionPreview: state => state.courseEditedDetails?.description || state.courseDetails?.description,
   getCourseImagePreview: state => state.courseEditedDetails?.image? state.courseEditedDetails.previewImage : state.courseDetails?.image,
+  getCourseSessionsPreview: state => {
+    if(state.courseDetails?.studyRooms){
+      if(state.courseEditedDetails.studyRooms){
+        return state.courseDetails.studyRooms.map(courseSession=>{
+          let refSession = state.courseEditedDetails.studyRooms.find(s=>s.id == courseSession.id);
+          let currentSession = courseSession;
+          currentSession.name = refSession?.name || courseSession.name;
+          return currentSession;
+        })
+      }else{
+        return state.courseDetails.studyRooms;
+      }
+    }else{
+      return [];
+    }
+  },
 
 
 
-  getCourseSessions: state => state.courseDetails?.studyRooms || [],
   getNextCourseSession: (state,getters) => {
     // TODO: get the nearest date;
-    return getters.getCourseSessions[0]
+    return getters.getCourseSessionsPreview[0]
   },
   getIsCourseTutor: (state, getters) => state.courseDetails?.tutorId == getters.getAccountId,
   getCoursePrice: state => state.courseDetails?.price || null,

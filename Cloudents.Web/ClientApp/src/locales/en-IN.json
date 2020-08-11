@@ -69,6 +69,7 @@
   "chat_teacher_name": "Hi, I’m {0}",
   "chat_type_message": "Type something",
   "class_list": "Live class list",
+  "class_title": "Class {0} title",
   "content_edit": "Class Content",
   "continue_tracks": "Continue without video and mic",
   "coupon_already_exists": "This coupon already exists",

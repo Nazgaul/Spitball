@@ -40,7 +40,7 @@ export default {
 	},
 	computed: {
 		isCourseSessions(){
-			return this.$store.getters.getCourseSessions?.length
+			return this.$store.getters.getCourseSessionsPreview?.length
 		},
 		isCourseItems(){
          return this.$store.getters.getCourseItems?.length

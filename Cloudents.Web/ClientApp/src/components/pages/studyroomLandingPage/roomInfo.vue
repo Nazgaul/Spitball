@@ -128,7 +128,7 @@ export default {
          return this.$store.getters.getCourseDetails;
       },
       courseSessions(){
-         return this.$store.getters.getCourseSessions
+         return this.$store.getters.getCourseSessionsPreview
       },
       isCourseTutor(){
          return this.$store.getters.getIsCourseTutor
