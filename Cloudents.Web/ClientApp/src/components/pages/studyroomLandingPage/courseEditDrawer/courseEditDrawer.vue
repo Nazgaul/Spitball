@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="courseEditSections ps-5 pe-7 pt-6">
-		<v-expansion-panels accordion flat >
+		<v-expansion-panels v-model="x" accordion flat >
 			<heroEdit/>
 			<classEdit v-if="isCourseSessions"/>
 			<contentEdit v-if="isCourseItems"/>
@@ -32,6 +32,11 @@ export default {
 		classEdit,
 		contentEdit,
 		teacherEdit
+	},
+	data() {
+		return {
+			x:true
+		}
 	},
 	computed: {
 		isCourseSessions(){

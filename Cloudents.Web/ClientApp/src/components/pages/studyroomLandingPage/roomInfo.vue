@@ -1,5 +1,5 @@
 <template>
-   <div class="roomInfoContainer d-flex flex-column">
+   <div id="courseInfoSection" class="roomInfoContainer d-flex flex-column">
       <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
          <logo :menuList="true" class="logoRoom"></logo>
       </div>
@@ -112,17 +112,23 @@ export default {
       }
    },
    computed: {
+      courseName(){
+         return this.$store.getters.getCourseNamePreview;
+      },
+      courseImage(){
+         let img = this.$store.getters.getCourseImagePreview;
+         if(img && img.includes('blob')){
+            return img;
+         }else{
+            return this.$proccessImageUrl(img, 528, 357)
+         }
+      },
+
       courseDetails(){
          return this.$store.getters.getCourseDetails;
       },
       courseSessions(){
          return this.$store.getters.getCourseSessions
-      },
-      courseImage(){
-         return this.$proccessImageUrl(this.courseDetails?.image, 528, 357)
-      },
-      courseName(){
-         return this.courseDetails?.name;
       },
       isCourseTutor(){
          return this.$store.getters.getIsCourseTutor

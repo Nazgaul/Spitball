@@ -1,5 +1,5 @@
 <template>
-   <v-expansion-panel class="editSection mb-4 elevation-0 rounded heroEdit">
+   <v-expansion-panel @click="goTo" class="editSection mb-4 elevation-0 rounded heroEdit">
       <v-expansion-panel-header class="pa-3">
          <div class="editHeader d-flex justify-space-between align-center">
             {{$t('hero')}}
@@ -9,65 +9,87 @@
          </div>
          </v-expansion-panel-header>
       <v-expansion-panel-content>
-         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" :value="courseName">
+         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="courseName" :rules="[rules.required]">
             <template v-slot:label>
                   <div class="inputLabel">
                      Course Name
                   </div>
             </template>
          </v-textarea>
-         <v-textarea class="textInputs mt-3" auto-grow color="#4c59ff" rows="1" :value="courseDescription">
+         <v-textarea class="textInputs mt-3" auto-grow color="#4c59ff" rows="1"  v-model="courseDescription">
             <template v-slot:label>
                   <div class="inputLabel">
                      Course Description
                   </div>
             </template>
          </v-textarea>
-         <div class="courseImage mb-8">
+         <div class="courseImage mb-2">
             <div class="courseImage_title mb-3">Image or a video</div>
             <label class="liveImageWrap d-flex flex-column">
                <uploadImage v-show="isLoaded" :fromLiveSession="true" @setLiveImage="handleLiveImage" class="editLiveImage"/>
-               <div class="noDefaultImage" v-if="!$route.params.id && !previewImage && !image">
-                  <v-icon size="40" color="#bdc0d1">sbf-plus-sign</v-icon>
-               </div>
-               <template v-else>
-                  <v-skeleton-loader v-if="!isLoaded" height="130" width="200" type="image"></v-skeleton-loader>
-                  <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image, 200, 130)" width="200" height="130" alt="">
-               </template>
+               <v-skeleton-loader v-if="!isLoaded" height="130" width="200" type="image"></v-skeleton-loader>
+               <img v-show="isLoaded" @load="loaded" class="liveImage" :src="courseImage" width="200" height="130" alt="">
                <div class="recommendedImage mt-1">{{$t('img_res')}}</div>
             </label>
          </div>
-         <v-text-field class="textInputs mb-2" color="#4c59ff" :value="courseBtnText" autocomplete="off" >
+         <!-- <v-text-field class="textInputs mb-2" color="#4c59ff" :value="courseBtnText" autocomplete="off" >
             <template v-slot:label>
                   <div class="inputLabel">
                      Button
                   </div>
             </template>
-         </v-text-field>
+         </v-text-field> -->
       </v-expansion-panel-content>
    </v-expansion-panel>
 </template>
 
 <script>
 import uploadImage from '../../../new_profile/profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue';
+import { validationRules } from '../../../../services/utilities/formValidationRules.js'
 
 export default {
    data() {
       return {
+         heroModal:true,
          isLoaded: false,
-         previewImage: null,
-         newLiveImage: null,
+         rules: {
+            required: (val) => validationRules.required(val),
+         }
       }
    },
    components:{
       uploadImage
    },
    computed: {
-      courseName(){
-         return this.$store.getters.getCourseDetails?.name
+      courseName:{
+         get(){
+            return this.$store.getters.getCourseNamePreview;
+         },
+         set(val){
+            this.$store.commit('setEditedDetailsByType',{
+               type:'name',
+               val
+            })
+         }
       },
-      courseDescription(){
-         return this.$store.getters.getCourseDetails?.description
+      courseDescription:{
+         get(){
+            return this.$store.getters.getCourseDescriptionPreview;
+         },
+         set(val){
+            this.$store.commit('setEditedDetailsByType',{
+               type:'description',
+               val
+            })
+         }
+      },
+      courseImage(){
+         let img = this.$store.getters.getCourseImagePreview;
+         if(img && img.includes('blob')){
+            return img;
+         }else{
+            return this.$proccessImageUrl(img, 200, 130)
+         }
       },
       image() {
          return this.$store.getters.getCourseDetails?.image;
@@ -77,6 +99,15 @@ export default {
       }
    },
    methods: {
+      goTo(e){
+         if(!e.currentTarget.classList.toString().includes('--active')){
+            this.$vuetify.goTo('#courseInfoSection',{
+               duration: 1000,
+               offset: 10,
+               easing:'easeInOutCubic',
+            })
+         }
+      },
       handleLiveImage(previewImage) {
          if(previewImage) {
             this.isLoaded = false
@@ -85,9 +116,14 @@ export default {
             let self = this
             this.$store.dispatch('updateLiveImage', formData).then(({data}) => {
                self.isLoaded = false
-               self.previewImage = window.URL.createObjectURL(previewImage[0])
-               self.newLiveImage = data.fileName
-               self.$store.commit('setCourseCoverImage', self.newLiveImage)
+               self.$store.commit('setEditedDetailsByType',{
+                  type:'image',
+                  val: data.fileName
+               })
+               self.$store.commit('setEditedDetailsByType',{
+                  type:'previewImage',
+                  val: window.URL.createObjectURL(previewImage[0])
+               })
             })
          }
       },
@@ -128,14 +164,6 @@ export default {
              .recommendedImage {
                  font-size: 12px;
                  color: #b4babd;
-             }
-             .noDefaultImage {
-                 display: flex;
-                 justify-content: center;
-                 width: 200px;
-                 height: 130px;
-                 border-radius: 6px;
-                 background-color: #f0f4f8
              }
          }
    } 

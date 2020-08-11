@@ -1,8 +1,11 @@
 import {ENROLLED_ERROR} from '../components/pages/global/toasterInjection/componentConsts.js';
+import Vue from 'vue';
+
 const COURSE_API = 'course';
 
 const state = {
   courseDetails: null,
+  courseEditedDetails:{}
 }
 const mutations = {
   setCourseEnrolled(state, val) {
@@ -51,9 +54,22 @@ const mutations = {
       this.startTime = objInit.broadcastTime;
     }
   },
+
+
+
+  setEditedDetailsByType(state,{type,val}){
+    Vue.set(state.courseEditedDetails, type, val);
+  }
 }
 const getters = {
   getCourseDetails: state => state.courseDetails,
+
+  getCourseNamePreview: state => state.courseEditedDetails?.name || state.courseDetails?.name,
+  getCourseDescriptionPreview: state => state.courseEditedDetails?.description || state.courseDetails?.description,
+  getCourseImagePreview: state => state.courseEditedDetails?.image? state.courseEditedDetails.previewImage : state.courseDetails?.image,
+
+
+
   getCourseSessions: state => state.courseDetails?.studyRooms || [],
   getNextCourseSession: (state,getters) => {
     // TODO: get the nearest date;
@@ -104,3 +120,20 @@ export default {
   getters,
   actions
 }
+
+/*
+hero:
+      Vue.delete(state.roomParticipants, participantId)
+      Vue.set(state.roomParticipants, participantId, participantObj);
+{
+  id:'123',
+  image:'sdfsfsf',
+  description: 'sdfs sdfsfssf sf  sdfasfs s ',
+  enrollBtn: 'buy now',
+}
+
+update store object ref to real data
+getters depend on the updated store object || real data
+setters that set store object props && real data for preview
+resx
+*/ 
