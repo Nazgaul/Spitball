@@ -11,6 +11,7 @@ export default {
     },
     data() {
         return {
+            gmailBtnLodaing: false,
             studyroomRoute: routeNames.StudyRoom,
             routeNames,
             localCode: '',
@@ -79,8 +80,8 @@ export default {
                 })
         },
         gmailRegister() {
+            this.gmailBtnLodaing = true
             let userType = this.teacher ? 'tutor' : 'student'
-            this.$store.commit('setGlobalLoading', true);
             if(this.isFromTutorReuqest) {
                 sessionStorage.setItem('hash','#tutorRequest');
                 sessionStorage.setItem('tutorRequest', JSON.stringify({
