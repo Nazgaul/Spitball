@@ -23,7 +23,7 @@ const getters = {
         }
         return ''
     },
-    getIsPurchased: (state,_getter) => {
+    getIsPurchased: (state) => {
         return state.document?.isPurchased
     },
     getBtnLoading: (state, _getter) => {
