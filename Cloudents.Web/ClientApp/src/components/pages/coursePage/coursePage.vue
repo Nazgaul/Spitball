@@ -258,6 +258,7 @@ export default {
     beforeDestroy(){
         this.$store.commit('resetCreateCourse')
         this.$store.commit('resetUploadFiles')
+        this.$store.commit('resetCoupon')
         storeService.unregisterModule(this.$store, 'couponStore');
     },
     mounted() {

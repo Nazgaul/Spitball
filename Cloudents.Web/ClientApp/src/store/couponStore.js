@@ -8,8 +8,8 @@ const state = {
     couponError: false,
     couponDialog: false,
     couponCode: '',
-    couponAmount: 0,
     couponType: '',
+    couponAmount: 0,
     couponDate: new Date().FormatDateToString()
 };
 
@@ -39,6 +39,12 @@ const mutations = {
     },
     setCouponDate(state, val){ 
         state.couponDate = val;
+    },
+    resetCoupon(state) {
+        state.couponCode = '',
+        state.couponType = '',
+        state.couponAmount = 0,
+        state.couponDate = new Date().FormatDateToString()
     }
 };
 
