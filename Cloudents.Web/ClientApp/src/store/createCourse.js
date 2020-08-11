@@ -141,10 +141,12 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage,
             isPublish: state.courseVisible,
-            value: getters.getCouponCode,
-            code: getters.getCouponAmount,
-            couponType: getters.getCouponType,
-            expiration: getters.getCouponDate,
+            coupon: {
+                value: getters.getCouponCode,
+                code: getters.getCouponAmount,
+                couponType: getters.getCouponType,
+                expiration: getters.getCouponDate,
+            },
             studyRooms,
             documents
         }
