@@ -1,79 +1,94 @@
 <template>
     <div class="createCouponDialog mb-4">
         <div class="text-wrap pt-4 pt-sm-0">
-            <template v-if="!showSuccess">
-                <div class="dialog-title pb-4" v-t="'coupon_create_title'"></div>
+            <!-- <template v-if="!showSuccess"> -->
+                <!-- <div class="dialog-title pb-4" v-t="'coupon_create_title'"></div> -->
                 <!-- <v-form v-model="validCreateCoupon" ref="validCreateCoupon"> -->
-                    <v-layout justify-space-between wrap class="inputs-coupon pe-0 pe-sm-4">
-                    
-                        <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
-                          {{couponCode}}
+                <v-layout justify-space-between wrap class="inputs-coupon pe-0 pe-sm-4">
+                    <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
+                      <v-text-field
+                          v-model="couponCode"
+                          :rules="[rules.required, rules.notSpaces, rules.minimumChars, rules.maximumChars]"
+                          :label="$t('coupon_label_code')"
+                          :placeholder="placeHoldersEmpty"
+                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                          autocomplete="off"
+                          type="text"
+                          color="#304FFE"
+                          dense
+                          outlined
+                      />
+                    </v-flex>
+                    <v-flex sm3>
+                        <v-text-field
+                          v-model="couponValue"
+                          :label="$t('coupon_label_value')"
+                          :placeholder="placeHoldersEmpty"
+                          :rules="[rules.required, rules.integer, rules.minimum, rules.maximum]"
+                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                          autocomplete="off"
+                          type="text"
+                          color="#304FFE"
+                          dense
+                          outlined
+                        />
+                    </v-flex>
+
+                    <v-flex xs12 sm8 pe-0 pe-sm-0 pb-1 pb-sm-0>
+                        <v-select
+                          v-model="couponType"
+                          class="coupon-type"
+                          :items="couponTypesList"
+                          :label="$t('coupon_label_type')"
+                          :rules="[rules.required]"
+                          :placeholder="placeHoldersEmpty"
+                          :append-icon="'sbf-triangle-arrow-down'"
+                          :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                          color="#304FFE"
+                          item-text="key"
+                          outlined
+                          dense
+                        >
+                          <template slot="item" slot-scope="data">
+                            <span class="subtitle-1">{{data.item.key}}</span>
+                          </template>
+                        </v-select>
+                    </v-flex>
+                    <!-- <v-flex xs6 pe-2 pe-sm-0 v-if="$vuetify.breakpoint.xsOnly">
+                        <v-text-field v-model="couponType" :label="$t('coupon_label_value')"
+                        :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                        dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
+                    </v-flex> -->
+
+                    <v-flex xs6 sm4 ps-2 ps-sm-4>
+                        <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
+                          <template v-slot:activator="{ on }">
                             <v-text-field
-                                v-model="couponCode"
-                                autofocus
-                                :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
-                                :label="$t('coupon_label_code')"
-                                :placeholder="placeHoldersEmpty"
-                                :error-messages="couponErr"
-                                autocomplete="nope"
-                                dense
-                                color="#304FFE"
-                                outlined
-                                type="text"
-                                :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                              v-model="dateFormatted"
+                              v-on="on"
+                              class="date-input"
+                              :rules="[rules.required]"
+                              :label="$t('coupon_label_date')"
+                              autocomplete="nope"
+                              prepend-inner-icon="sbf-calendar"
+                              @blur="date = parseDate(dateFormatted)"
+                              dense
+                              color="#304FFE"
+                              outlined
+                              type="text"
+                              :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                             />
-                        </v-flex>
-                        <v-flex sm3 v-if="!$vuetify.breakpoint.xsOnly">
-                            <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
-                            :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
-                            dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-                        </v-flex>
-
-                        <v-flex xs12 sm8 pe-0 pe-sm-0 pb-1 pb-sm-0>
-                            <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
-                                outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
-                                :label="$t('coupon_label_type')" :rules="[rules.required]" :placeholder="placeHoldersEmpty">
-                                <template slot="item" slot-scope="data">
-                                <span class="subtitle-1">{{data.item.key}}</span>
-                                </template>
-                            </v-select>
-                        </v-flex>
-                        {{couponType}}
-                        <!-- <v-flex xs6 pe-2 pe-sm-0 v-if="$vuetify.breakpoint.xsOnly">
-                            <v-text-field v-model="couponType" :label="$t('coupon_label_value')"
-                            :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
-                            dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-                        </v-flex> -->
-
-                        <v-flex xs6 sm4 ps-2 ps-sm-4>
-                            <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
-                              <template v-slot:activator="{ on }">
-                                <v-text-field
-                                  v-model="dateFormatted"
-                                  v-on="on"
-                                  class="date-input"
-                                  :rules="[rules.required]"
-                                  :label="$t('coupon_label_date')"
-                                  autocomplete="nope"
-                                  prepend-inner-icon="sbf-calendar"
-                                  @blur="date = parseDate(dateFormatted)"
-                                  dense
-                                  color="#304FFE"
-                                  outlined
-                                  type="text"
-                                  :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
-                                />
-                              </template>                  
-                              <v-date-picker color="#4C59FF" class="date-picker-coupon" v-model="date" no-title @input="datePickerMenu = false">
-                                  <v-spacer></v-spacer>
-                                  <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
-                                  <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
-                              </v-date-picker>
-                            </v-menu>
-                        </v-flex>
-                    </v-layout>
+                          </template>                  
+                          <v-date-picker color="#4C59FF" class="date-picker-coupon" v-model="date" no-title @input="datePickerMenu = false">
+                              <v-spacer></v-spacer>
+                              <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
+                              <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                    </v-flex>
+                </v-layout>
                 <!-- </v-form> -->
-            </template>
+            <!-- </template> -->
         <!-- <template v-else>
           <div class="succes-title pb-9 pb-sm-12 pt-2 pt-sm-6">{{$t('coupon_create_succes')}}</div>
           <div class="coupon-box">
@@ -99,18 +114,16 @@
 
 <script>
 import { validationRules } from '../../../../services/utilities/formValidationRules';
-import { mapActions } from 'vuex';
-import storeService from '../../../../services/store/storeService';
-import couponStore from '../../../../store/couponStore';
+// import { mapActions } from 'vuex';
 
 export default {
   data() {
     return {
-      validCreateCoupon: false,
+      // validCreateCoupon: false,
       couponTypesList:[{key: this.$t('coupon_type_flat'),value: 'flat'},{key: this.$t('coupon_type_percentage'),value: 'percentage'}],
-      couponCode:'',
+      // couponCode:'',
       // couponType:'',
-      couponValue:'',
+      // couponValue:'',
       maximumValue: Infinity,
       rules: {
         required: (value) => validationRules.required(value),
@@ -121,45 +134,46 @@ export default {
         minimum: (value) => validationRules.minVal(value,1),
         maximum: (value) => validationRules.maxVal(value, this.maximumValue),
       },
-      loadingBtn:false,
-      showSuccess:false,
+      // loadingBtn:false,
+      // showSuccess:false,
       snackbar:false,
       placeHoldersEmpty:'',
       datePickerMenu:false,
       // date: new Date().FormatDateToString(),
       dateFormatted: '',
-      couponErr:''
+      // couponErr:''
     }
   },
   watch: {
     couponCode(val){
-      this.couponCode = val.replace(/\s/g,''); 
-      this.couponErr = '';
+      let code = val.replace(/\s/g,''); 
+      this.$store.commit('setCouponCode', code)
+      // this.couponErr = '';
     },
     couponType(val){
-      if(val === 'percentage'){
+      if(val === 'percentage') {
         this.maximumValue = 100;
-      }else{
+      } else {
         this.maximumValue = Infinity;
       }
-      if(this.couponValue){
-        this.$refs.validCreateCoupon.validate()
-      }
+      // if(this.couponValue){
+      //   this.$refs.validCreateCoupon.validate()
+      // }
     },
     date () {
       this.dateFormatted = this.formatDate(this.date)
     },
   },
   computed: {
-    couponName: {
+    couponCode: {
       get() {
-        return this.$store.getters.getCouponName
+        return this.$store.getters.getCouponCode
       },
-      set(name) {
-        this.$store.commit('setCouponName', name)
+      set(code) {
+        this.$store.commit('setCouponCode', code)
       }
     },
-    couponAmount: {
+    couponValue: {
       get() {
         return this.$store.getters.getCouponAmount
       },
@@ -185,45 +199,47 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['createCoupon']),
-    copyCode(){
-      let self = this;
-      this.loadingBtn = true;
-      this.$copyText(this.couponCode).then(() => {
-          self.loadingBtn = false;
-          self.snackbar = true;
-      })
-    },
-    createMyCoupon() {
-      if(this.$refs.validCreateCoupon.validate()){
-        this.loadingBtn = true;
-        let params = {
-          value: this.couponValue,
-          code: this.couponCode,
-          couponType: this.couponType,
-          expiration: new Date(this.date).toISOString()
-        }
-        let self = this;
-        this.createCoupon(params).then(()=>{
-          self.loadingBtn = false;
-          self.showSuccess = true;
-          self.couponErr = '';
-        }).catch(()=>{
-          self.couponErr = this.$t('coupon_already_exists');
-          self.loadingBtn = false;
-        })
-      }
-    },
+    // ...mapActions(['createCoupon']),
+    // copyCode(){
+    //   let self = this;
+    //   this.loadingBtn = true;
+    //   this.$copyText(this.couponCode).then(() => {
+    //       self.loadingBtn = false;
+    //       self.snackbar = true;
+    //   })
+    // },
+    // createMyCoupon() {
+    //   if(this.$refs.validCreateCoupon.validate()){
+    //     this.loadingBtn = true;
+    //     let params = {
+    //       value: this.couponValue,
+    //       code: this.couponCode,
+    //       couponType: this.couponType,
+    //       expiration: new Date(this.date).toISOString()
+    //     }
+    //     let self = this;
+    //     this.createCoupon(params).then(()=>{
+    //       self.loadingBtn = false;
+    //       self.showSuccess = true;
+    //       self.couponErr = '';
+    //     }).catch(()=>{
+    //       self.couponErr = this.$t('coupon_already_exists');
+    //       self.loadingBtn = false;
+    //     })
+    //   }
+    // },
     formatDate (date) {
       if (!date) return null
-
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
+      // return this.$moment(date).format('YYYY/MM/DD')
     },
     parseDate (date) {
       if (!date) return null
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      // let parseDate = new Date(date)
+      // return this.$moment(parseDate).format("YYYY-MM-DD")
     },
   },
   mounted() {
@@ -232,16 +248,6 @@ export default {
       this.dateFormatted = this.formatDate(new Date().FormatDateToString())
     })
   },
-    beforeDestroy(){
-      if(!this.$store.state.hasOwnProperty('couponStore')) {
-        storeService.unregisterModule(this.$store, 'couponStore');
-      }
-     },
-    created() {
-      if(!this.$store.state.hasOwnProperty('couponStore')) {
-        storeService.registerModule(this.$store, 'couponStore', couponStore);
-      }
-    },
 };
 </script>
 

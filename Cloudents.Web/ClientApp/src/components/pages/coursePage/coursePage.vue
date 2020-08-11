@@ -47,6 +47,9 @@
 <script>
 import { MyCourses } from '../../../routes/routeNames'
 
+import storeService from '../../../services/store/storeService';
+import couponStore from '../../../store/couponStore';
+
 import courseCreate from './courseCreate/courseCreate.vue';
 import courseForm from './courseForm/courseForm.vue';
 import courseShare from './courseShare/courseShare.vue';
@@ -255,10 +258,14 @@ export default {
     beforeDestroy(){
         this.$store.commit('resetCreateCourse')
         this.$store.commit('resetUploadFiles')
+        storeService.unregisterModule(this.$store, 'couponStore');
     },
     mounted() {
         this.showCourseNotVisible()
-    }
+    },
+    created() {
+      storeService.registerModule(this.$store, 'couponStore', couponStore);
+    },
 }
 </script>
 

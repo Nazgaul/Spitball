@@ -133,7 +133,7 @@ const actions = {
             console.error(ex);
         })
     },
-    createCourseInfo({state}, {documents, studyRooms}) {
+    createCourseInfo({state, getters}, {documents, studyRooms}) {
         let params = {
             name: state.courseName,
             price: state.followerPrice,
@@ -141,12 +141,16 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage,
             isPublish: state.courseVisible,
+            value: getters.getCouponCode,
+            code: getters.getCouponAmount,
+            couponType: getters.getCouponType,
+            expiration: getters.getCouponDate,
             studyRooms,
             documents
         }
         return this.$axios.post(`${COURSE_API}`, params)
     },
-    updateCourseInfo({state}, {documents, studyRooms, id}) {
+    updateCourseInfo({state, /*getters*/}, {documents, studyRooms, id}) {
         let params = {
             name: state.courseName,
             price: state.followerPrice,
@@ -154,6 +158,10 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage.startsWith("https://") ? undefined : state.courseCoverImage,
             isPublish: state.courseVisible,
+            // value: getters.getCouponCode,
+            // code: getters.getCouponAmount,
+            // couponType: getters.getCouponType,
+            // expiration: getters.getCouponDate,
             studyRooms,
             documents
         }
