@@ -174,8 +174,7 @@ namespace Cloudents.Core.Entities
 
         public virtual Course AddCourse(Course course)
         {
-            
-            Courses.Add(course);
+            Courses.Insert(0,course);
             AddEvent(new NewCourseEvent(course));
             return course;
         }
