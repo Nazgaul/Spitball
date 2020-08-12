@@ -46,6 +46,8 @@
                       v-model="couponType"
                       class="coupon-type me-0 me-sm-4 mb-1 mb-sm-0"
                       :items="couponTypesList"
+                      clearable
+                      :clear-icon="'sbf-close'"
                       :label="$t('coupon_label_type')"
                       :append-icon="'sbf-triangle-arrow-down'"
                       :rules="[requiredCouponType]"
@@ -393,6 +395,11 @@ export default {
           color: #43425d;
         }
         .v-input__append-inner{
+          .v-input__icon--clear {
+            .sbf-close {
+              font-size: 14px !important;
+            }
+          }
           margin-top: 10px !important;
           @media (max-width: @screen-xs) {
             margin-top: 12px !important;
