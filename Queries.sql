@@ -20,6 +20,10 @@ ALTER table sb.coupon
 ALTER COLUMN [value] DECIMAL(19,5) null
 
 
+ALTER TABLE [sb].[Coupon] DROP CONSTRAINT [UQ__Coupon__A25C5AA792EA6C5C]
+GO
+
+
 update sb.Coupon
 set value2 = value
 where value2 is null

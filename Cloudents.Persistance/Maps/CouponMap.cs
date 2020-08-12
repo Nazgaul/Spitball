@@ -8,7 +8,7 @@ namespace Cloudents.Persistence.Maps
         public CouponMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Code).Not.Nullable().Unique();
+            Map(x => x.Code).Not.Nullable();
             Map(x => x.CouponType).Not.Nullable();
             
             References(x => x.Tutor).Nullable();

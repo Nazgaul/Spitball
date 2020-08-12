@@ -41,7 +41,6 @@ namespace Cloudents.Core.Entities
 
             CouponType = couponType;
             Course = course ?? throw new ArgumentNullException(nameof(course));
-           // Tutor = course.Tutor;
             Value = value;
             Expiration = expiration;
             CreateTime = DateTime.UtcNow;
