@@ -48,6 +48,7 @@
                       :items="couponTypesList"
                       :label="$t('coupon_label_type')"
                       :append-icon="'sbf-triangle-arrow-down'"
+                      :rules="[requiredCouponType]"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                       :disabled="couponDisabled"
                       placeholder=" "
@@ -163,7 +164,7 @@ export default {
     },
     requiredCouponCode() {
       return (val) => {
-        if(val || this.$store.getters.getCouponAmount) {
+        if(val || this.$store.getters.getCouponAmount || this.$store.getters.getCouponType) {
           let rules = [
             validationRules.required(val),
             validationRules.minimumChars(val, 5),
@@ -178,7 +179,7 @@ export default {
     },
     requiredCouponAmount() {
       return val => {
-        if(val || this.$store.getters.getCouponCode) {
+        if(val || this.$store.getters.getCouponCode || this.$store.getters.getCouponType) {
           let rules = [
             validationRules.integer(val),
             validationRules.minVal(val, 1),
@@ -186,6 +187,14 @@ export default {
           ]
           let x = rules.filter((r) => r !== true)[0]
           return x || true
+        }
+        return true
+      }
+    },
+    requiredCouponType() {
+      return val => {
+        if(val || this.$store.getters.getCouponCode || this.$store.getters.getCouponAmount) {
+          return validationRules.required(val)
         }
         return true
       }
