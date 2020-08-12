@@ -101,7 +101,7 @@ namespace Cloudents.Query.Courses
                     .Where(a => a.Course.Id == query.Id).ToFutureValue(f => f.Count());
 
                 var sessionStartedFuture = _statelessSession.Query<StudyRoomSession>()
-                    .Where(w => ((BroadCastStudyRoom)w.StudyRoom).Course.Id == query.Id && w.Ended != null)
+                    .Where(w => ((BroadCastStudyRoom) w.StudyRoom).Course.Id == query.Id && w.Ended == null)
                     .ToFutureValue(f => f.Any());
 
                 var result = await futureCourse.GetValueAsync(token);

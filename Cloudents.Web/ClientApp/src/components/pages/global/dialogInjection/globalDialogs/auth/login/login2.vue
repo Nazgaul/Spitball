@@ -10,7 +10,7 @@
             <v-btn
                 v-if="cIsWebView"
                 @click="gmailRegister"
-                :loading="btnLoading"
+                :loading="gmailBtnLodaing"
                 class="btns google white--text mb-6"
                 sel="gmail"
                 block
