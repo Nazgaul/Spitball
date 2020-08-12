@@ -8,13 +8,13 @@
                         <td class="" v-t="'studyRoomSettings_tutor_name'"></td>
                         <td class="ps-4">{{roomTutor.tutorName}}</td>
                     </tr>
-                    <tr v-if="!isMyRoom">
+                    <!-- <tr v-if="!isMyRoom">
                         <td class="" v-t="'studyRoomSettings_price'"></td>
                         <td class="ps-4 d-flex">
                             <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
                             <span v-else v-t="'studyRoomSettings_free'"></span>
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td class="" v-t="'studyRoomSettings_share'"></td>
                         <td class="ps-1">
@@ -175,18 +175,18 @@ export default {
         currencySymbol() {
             return this.$store.getters.accountUser?.currencySymbol
         },
-        roomPrice(){
-            let priceObj = this.roomTutor?.tutorPrice
-            if(priceObj?.amount > 0){
-                // TODO: Currency Change
-                return this.$price(priceObj.amount, priceObj.currency)
-                // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
-            }
-            return 0
-        },
-        isMyRoom() {
-            return this.roomTutor?.tutorId === this.$store.getters.accountUser?.id
-        },
+        // roomPrice(){
+        //     let priceObj = this.roomTutor?.tutorPrice
+        //     if(priceObj?.amount > 0){
+        //         // TODO: Currency Change
+        //         return this.$price(priceObj.amount, priceObj.currency)
+        //         // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
+        //     }
+        //     return 0
+        // },
+        // isMyRoom() {
+        //     return this.roomTutor?.tutorId === this.$store.getters.accountUser?.id
+        // },
         roomTutor() {
             return this.$store.getters.getRoomTutor
         },
