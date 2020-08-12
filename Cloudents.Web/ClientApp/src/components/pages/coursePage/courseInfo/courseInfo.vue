@@ -1,6 +1,6 @@
 <template>
     <div class="courseInfo pa-5 mb-6">
-        <div class="courseInfoTitle mb-9" v-t="'basic_info'"></div>
+        <div class="courseInfoTitle mb-6" v-t="'basic_info'"></div>
         <v-text-field 
             v-model="courseName"
             class="courseName mb-2"
@@ -49,8 +49,6 @@
         >
         </v-text-field>
 
-        <courseCoupon />
-
         <v-textarea
             v-model="courseDescription"
             class="mb-2"
@@ -63,8 +61,8 @@
             no-resize
         ></v-textarea>
 
-        <div class="addImage">
-            <div class="addImageTitle mb-4" v-t="'add image'"></div>
+        <div class="addImage mb-8">
+            <div class="addImageTitle mb-6" v-t="'add image'"></div>
 
             <label class="liveImageWrap d-flex flex-column">
                 <uploadImage
@@ -83,6 +81,8 @@
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </label>
         </div>
+
+        <courseCoupon />
     </div>
 </template>
 

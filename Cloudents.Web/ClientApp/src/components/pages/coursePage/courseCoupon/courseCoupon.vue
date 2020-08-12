@@ -1,15 +1,16 @@
 <template>
-    <div class="createCouponDialog mb-4">
+    <div class="createCouponDialog">
         <div class="text-wrap pt-4 pt-sm-0">
-            <!-- <div class="dialog-title pb-4" v-t="'coupon_create_title'"></div> -->
-            <v-layout justify-space-between wrap class="inputs-coupon pe-0 pe-sm-4">
+            <div class="dialog-title mb-6" v-t="'coupon_create_title'"></div>
+            <div class="inputs-coupon">
 
-                <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
+                <div class="d-flex">
                   <v-text-field
                       v-model="couponCode"
                       :rules="[rules.required, rules.notSpaces, rules.minimumChars, rules.maximumChars]"
                       :label="$t('coupon_label_code')"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                      class="couponCode me-0 me-sm-4 mb-1 mb-sm-0"
                       type="text"
                       color="#304FFE"
                       placeholder=" "
@@ -17,27 +18,30 @@
                       dense
                       outlined
                   />
-                </v-flex>
+                <!-- </div> -->
 
-                <v-flex sm3>
+
+                <!-- <v-flex sm3 class="flex-grow-1"> -->
                     <v-text-field
                       v-model="couponValue"
                       :label="$t('coupon_label_value')"
                       placeholder=" "
                       :rules="[rules.required, rules.integer, rules.minimum, rules.maximum]"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                      class="couponValue"
                       autocomplete="off"
                       type="text"
                       color="#304FFE"
                       dense
                       outlined
                     />
-                </v-flex>
+                <!-- </v-flex> -->
+                </div>
 
-                <v-flex xs12 sm8 pe-0 pe-sm-0 pb-1 pb-sm-0>
+                <div class="d-flex">
                     <v-select
                       v-model="couponType"
-                      class="coupon-type"
+                      class="coupon-type me-0 me-sm-4 mb-1 mb-sm-0"
                       :items="couponTypesList"
                       :label="$t('coupon_label_type')"
                       :rules="[rules.required]"
@@ -53,7 +57,7 @@
                         <span class="subtitle-1">{{data.item.key}}</span>
                       </template>
                     </v-select>
-                </v-flex>
+                <!-- </div> -->
                 
                 <!-- <v-flex xs6 pe-2 pe-sm-0 v-if="$vuetify.breakpoint.xsOnly">
                     <v-text-field v-model="couponType" :label="$t('coupon_label_value')"
@@ -61,7 +65,7 @@
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
                 </v-flex> -->
 
-                <v-flex xs6 sm4 ps-2 ps-sm-4>
+                <!-- <v-flex xs6 sm4 ps-2 ps-sm-4> -->
                     <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
                       <template v-slot:activator="{ on }">
                         <v-text-field
@@ -86,8 +90,10 @@
                           <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
                       </v-date-picker>
                     </v-menu>
-                </v-flex>
-            </v-layout>
+                </div>
+
+                <!-- </v-flex> -->
+            </div>
         </div>
     </div>
     <!-- <v-snackbar v-model="snackbar" :timeout="3000" top>
@@ -301,6 +307,12 @@ export default {
       @media (max-width: @screen-xs) {
         max-width: 292px;
       }
+      .couponCode {
+        max-width: 180px;
+      }
+      .couponValue, .date-input {
+        max-width: 160px;
+      }
       .date-input {
         // .v-label{
         //   left: initial !important;
@@ -327,6 +339,7 @@ export default {
         padding: 0 !important;
       }
       .coupon-type {
+        max-width: 180px;
         .v-select__selection--comma{
           line-height: initial;
         }
