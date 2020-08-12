@@ -59,12 +59,34 @@ export default {
          deep:true,
          handler(track){
             if(track){
-               this.$nextTick(()=>{
-                  const localMediaContainer = document.getElementById('classFullScreenVideo');
-                  let videoTag = localMediaContainer.querySelector("video");
-                  if (videoTag) {localMediaContainer.removeChild(videoTag)}
-                  localMediaContainer.appendChild(track.attach());
-               })
+               debugger
+               let p = {
+                  video:{
+                     width:1000
+                  }
+               }
+               debugger;
+               track.mediaStreamTrack.applyConstraints({
+                  width: 1920,
+                  height: 1080
+               }).then(x=>{
+                  this.$nextTick(()=>{
+                     const localMediaContainer = document.getElementById('classFullScreenVideo');
+                     let videoTag = localMediaContainer.querySelector("video");
+                     if (videoTag) {localMediaContainer.removeChild(videoTag)}
+                     localMediaContainer.appendChild(track.attach());
+                  })
+               });
+
+               // track.restart(p).then(()=>{
+               //    debugger
+               //    this.$nextTick(()=>{
+               //       const localMediaContainer = document.getElementById('classFullScreenVideo');
+               //       let videoTag = localMediaContainer.querySelector("video");
+               //       if (videoTag) {localMediaContainer.removeChild(videoTag)}
+               //       localMediaContainer.appendChild(track.attach());
+               //    })
+               // })
             }
          }
       }

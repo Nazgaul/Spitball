@@ -86,7 +86,7 @@
     "myscript": "^4.3.0",
     "postcss-loader": "^3.0.0",
     "postcss-rtl": "^1.7.3",
-    "twilio-video": "2.6.0",
+    "twilio-video": "2.7.1",
     "unused-webpack-plugin": "^2.4.0",
     "vue-application-insights": "1.0.6",
     "vue-clipboard2": "^0.3.1",

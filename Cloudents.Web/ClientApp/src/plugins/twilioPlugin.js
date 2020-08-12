@@ -311,6 +311,18 @@ export default () => {
             let roomOptions = _getRoomConfigByTopologyType(store.getters.getRoomTopologyType);
 
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
+
+            twillioClient.createLocalVideoTrack(
+               {
+                  name:VIDEO_TRACK_NAME,
+                  deviceId: 
+                  {
+                     exact: store.getters.getVideoDeviceId
+                  },
+                  width:1024
+               }).then(video=>{
+                  debugger
+               
             twillioClient.connect(jwtToken, roomOptions).then((room) => {
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
@@ -328,15 +340,12 @@ export default () => {
                // if(store.getters.getVideoDeviceId){
                //    devicesList.push(createLocalVideoTrack({name:VIDEO_TRACK_NAME,deviceId: {exact: store.getters.getVideoDeviceId}}))
                // }
+               debugger
+               window.video = video;
+               _setLocalVideoTrack(video)
+
                Promise.allSettled([
-                  createLocalVideoTrack(
-                     {
-                        name:VIDEO_TRACK_NAME,
-                        deviceId: 
-                        {
-                           exact: store.getters.getVideoDeviceId
-                        }
-                     }),
+                
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME}),
                ]).then((tracks) => {
                   tracks.forEach(({value}) => {
@@ -353,6 +362,8 @@ export default () => {
             }).catch(()=>{
                store.dispatch('updateRoomIsJoined',false)
             })
+         })
+
          }
          if(_activeRoom){
             if (mutation.type === twilio_SETTERS.DATA_TRACK){
@@ -536,12 +547,13 @@ export default () => {
             tracks: [dataTrack],
             networkQuality: {local:2, remote: 2}, //https://www.twilio.com/docs/video/using-network-quality-api
             maxAudioBitrate:16000,//For music remove this line
-            maxVideoBitrate : isMobileMode ? 500000 : undefined, // problem with screen share maybe we should put in on the student side only cuz he have only 1 video track 
+video: {width:1024,height:768},
+     //       maxVideoBitrate : isMobileMode ? 500000 : undefined, // problem with screen share maybe we should put in on the student side only cuz he have only 1 video track 
             // video: isMobileMode? { height: 480, frameRate: 24, width: 640 } : { height: 720, frameRate: 24, width: 1280 }, // makes problems with share screen... choppy
          }
-         if(roomTopologyType == 'PeerToPeer'){
-            return defaultRoomSettings
-         }else{ 
+         // if(roomTopologyType == 'PeerToPeer'){
+         //    return defaultRoomSettings
+         // }else{ 
             let groupRoomSettings = {
                ...defaultRoomSettings,
                
@@ -566,7 +578,7 @@ export default () => {
                ],
             }
             return groupRoomSettings;
-         }
+         // }
       }
    }
 }
