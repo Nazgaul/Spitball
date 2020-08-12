@@ -80,6 +80,8 @@ namespace Cloudents.Core.DTOs
 
         public IEnumerable<CourseEditStudyRoomDto> StudyRooms { get; set; }
 
+        public IEnumerable<CourseEditCouponDto> Coupons { get; set; }
+
         [NonSerialized] public int Version;
     }
 

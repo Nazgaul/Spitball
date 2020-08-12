@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Attributes;
+﻿using System;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
@@ -24,6 +25,14 @@ namespace Cloudents.Core.DTOs.Documents
         public bool Visible { get; set; }
 
 
+    }
+
+    public class CourseEditCouponDto
+    {
+        public Guid Id { get; set; }
+        public double Value { get; set; }
+        public string Code { get; set; }
+        public CouponType CouponType { get; set; }
     }
 
     

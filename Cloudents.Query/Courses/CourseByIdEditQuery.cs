@@ -42,14 +42,14 @@ namespace Cloudents.Query.Courses
                         Price = s.Price,
                         SubscriptionPrice = s.SubscriptionPrice,
                         Description = s.Description,
-                        Visible = s.State == ItemState.Ok ,
+                        Visible = s.State == ItemState.Ok,
                         Version = s.Version
                     }).ToFutureValue();
 
 
                 var futureStudyRoom = _statelessSession.Query<BroadCastStudyRoom>()
                     .Where(w => w.Course.Id == query.Id)
-                    .OrderBy(o=> o.BroadcastTime)
+                    .OrderBy(o => o.BroadcastTime)
                     .Select(
                         s2 => new CourseEditStudyRoomDto()
                         {
@@ -60,7 +60,7 @@ namespace Cloudents.Query.Courses
 
                 var futureDocuments = _statelessSession.Query<Document>()
                     .Where(w => w.Course.Id == query.Id)
-                    .OrderBy(o=>o.Position)
+                    .OrderBy(o => o.Position)
                     .Select(s2 =>
                     new CourseEditDocumentDto()
                     {
@@ -69,10 +69,19 @@ namespace Cloudents.Query.Courses
                         Id = s2.Id
                     }).ToFuture();
 
-               
-               
 
-            
+
+                var futureCoupon = _statelessSession.Query<Coupon>()
+                    .Where(w => w.Course.Id == query.Id)
+                    .Select(s => new CourseEditCouponDto
+                    {
+                        Id = s.Id,
+                        Value = s.Value,
+                        Code = s.Code,
+                        CouponType = s.CouponType
+                    })
+                    .ToFuture();
+
 
                 var result = await futureCourse.GetValueAsync(token);
 
@@ -83,7 +92,7 @@ namespace Cloudents.Query.Courses
 
                 result.StudyRooms = await futureStudyRoom.GetEnumerableAsync(token);
                 result.Documents = await futureDocuments.GetEnumerableAsync(token);
-             
+                result.Coupons = await futureCoupon.GetEnumerableAsync(token);
 
                 return result;
             }
