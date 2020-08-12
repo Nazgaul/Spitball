@@ -141,12 +141,12 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage,
             isPublish: state.courseVisible,
-            coupon: {
+            coupon: getters.getCouponAmount && getters.getCouponCode ? {
                 value: getters.getCouponAmount,
                 code: getters.getCouponCode,
                 couponType: getters.getCouponType,
                 expiration: getters.getCouponDate,
-            },
+            } : null,
             studyRooms,
             documents
         }
@@ -160,12 +160,12 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage.startsWith("https://") ? undefined : state.courseCoverImage,
             isPublish: state.courseVisible,
-            // coupon: {
+            // coupon: getters.getCouponAmount && getters.getCouponCode ? {
             //     value: getters.getCouponAmount,
             //     code: getters.getCouponCode,
             //     couponType: getters.getCouponType,
             //     expiration: getters.getCouponDate,
-            // },
+            // } : null,
             studyRooms,
             documents
         }

@@ -3,11 +3,11 @@
         <div class="text-wrap pt-4 pt-sm-0">
             <div class="dialog-title mb-6" v-t="'coupon_create_title'"></div>
             <div class="inputs-coupon">
-
                 <div class="d-flex">
+                  <!-- {{requiredCouponCode}} -->
                   <v-text-field
                       v-model="couponCode"
-                      :rules="[rules.required, rules.notSpaces, rules.minimumChars, rules.maximumChars]"
+                      :rules="[requiredCouponCode]"
                       :label="$t('coupon_label_code')"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                       class="couponCode me-0 me-sm-4 mb-1 mb-sm-0"
@@ -22,11 +22,12 @@
 
 
                 <!-- <v-flex sm3 class="flex-grow-1"> -->
+                  <!-- {{requiredCouponAmount}} -->
                     <v-text-field
                       v-model="couponValue"
                       :label="$t('coupon_label_value')"
                       placeholder=" "
-                      :rules="[rules.required, rules.integer, rules.minimum, rules.maximum]"
+                      :rules="[requiredCouponAmount]"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                       class="couponValue"
                       autocomplete="off"
@@ -44,7 +45,6 @@
                       class="coupon-type me-0 me-sm-4 mb-1 mb-sm-0"
                       :items="couponTypesList"
                       :label="$t('coupon_label_type')"
-                      :rules="[rules.required]"
                       placeholder=" "
                       :append-icon="'sbf-triangle-arrow-down'"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
@@ -72,7 +72,6 @@
                           v-model="dateFormatted"
                           v-on="on"
                           class="date-input"
-                          :rules="[rules.required]"
                           :label="$t('coupon_label_date')"
                           autocomplete="nope"
                           prepend-inner-icon="sbf-calendar"
@@ -155,6 +154,35 @@ export default {
     },
   },
   computed: {
+    requiredCouponCode() {
+      return (val) => {
+        if(val || this.$store.getters.getCouponAmount) {
+          let rules = [
+            validationRules.required(val),
+            validationRules.minimumChars(val, 5),
+            validationRules.maximumChars(val, 12),
+            validationRules.notSpaces(val),
+          ]
+          let x = rules.filter((r) => r !== true)[0]
+          return x || true
+        }
+        return true
+      }
+    },
+    requiredCouponAmount() {
+      return val => {
+        if(val || this.$store.getters.getCouponCode) {
+          let rules = [
+            validationRules.integer(val),
+            validationRules.minVal(val, 1),
+            validationRules.maxVal(val, this.maximumValue),
+          ]
+          let x = rules.filter((r) => r !== true)[0]
+          return x || true
+        }
+        return true
+      }
+    },
     couponCode: {
       get() {
         return this.$store.getters.getCouponCode
