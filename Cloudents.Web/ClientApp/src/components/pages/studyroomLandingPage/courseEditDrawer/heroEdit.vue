@@ -91,9 +91,6 @@ export default {
             return this.$proccessImageUrl(img, 200, 130)
          }
       },
-      image() {
-         return this.$store.getters.getCourseDetails?.image;
-      },
       courseBtnText(){
          return 'Buy Now!'
       }

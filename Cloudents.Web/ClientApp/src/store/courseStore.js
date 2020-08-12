@@ -83,6 +83,9 @@ const getters = {
       return [];
     }
   },
+  getCourseTeacherNamePreview: state => state.courseEditedDetails?.tutorName || state.courseDetails?.tutorName,
+  getCourseTeacherBioPreview: state => state.courseEditedDetails?.tutorBio || state.courseDetails?.tutorBio,
+  getCourseIsFull: state => state.courseDetails?.full,
 
 
 

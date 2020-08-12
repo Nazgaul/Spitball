@@ -1,5 +1,5 @@
 <template>
-   <v-expansion-panel class="editSection mb-4 elevation-0 rounded teacherEdit">
+   <v-expansion-panel @click="goTo" class="editSection mb-4 elevation-0 rounded teacherEdit">
       <v-expansion-panel-header class="pa-3">
          <div class="editHeader d-flex justify-space-between align-center">
             {{$t('teacher_edit')}}
@@ -14,7 +14,7 @@
                </div>
             </template>
          </v-text-field>
-         <v-text-field class="textInputs" color="#4c59ff" value="Ariel Fineshtain">
+         <v-text-field class="textInputs" color="#4c59ff" v-model="teacherName">
             <template v-slot:label>
                <div class="inputLabel">
                   Name
@@ -22,7 +22,7 @@
             </template>
          </v-text-field>
 
-         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" value="I’m a teacher for many years, learn how to effectively search for a quality online teaching job! Many companies are looking for teachers. Find hidden job boards and awesome online teaching opportunities. We'll also talk about how to network on Linked In to find work and how to search for online teaching jobs using keywords." >
+         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="teacherBio">
             <template v-slot:label>
                   <div class="inputLabel">
                      Text
@@ -36,14 +36,40 @@
 <script>
 export default {
    computed: {
-
-
+      teacherName:{
+         get(){
+            return this.$store.getters.getCourseTeacherNamePreview;
+         },
+         set(val){
+            this.$store.commit('setEditedDetailsByType',{
+               type:'tutorName',
+               val
+            })
+         }
+      },
+      teacherBio:{
+         get(){
+            return this.$store.getters.getCourseTeacherBioPreview;
+         },
+         set(val){
+            this.$store.commit('setEditedDetailsByType',{
+               type:'tutorBio',
+               val
+            })
+         }
+      },
+   },
+   methods: {
+      goTo(e){
+         if(!e.currentTarget.classList.toString().includes('--active')){
+            this.$vuetify.goTo('#courseTeacherSection',{
+               duration: 1000,
+               offset: 10,
+               easing:'easeInOutCubic',
+            })
+         }
+      },
    },
 }
 </script>
 <style lang="less" src="./editCards.less"></style>
-<style lang="less">
-   .teacherEdit{
-      
-   }
-</style>
