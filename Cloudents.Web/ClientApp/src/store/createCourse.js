@@ -9,7 +9,7 @@ const state = {
     courseVisible: true,
     showFiles: false,
     courseCoverImage: null,
-    teachingDates: []
+    teachingDates: [],
 }
 
 const getters = {
@@ -102,7 +102,19 @@ const actions = {
             commit('setCourseDescription', data.description)
             commit('setCourseCoverImage', data.image)
             commit('setShowCourse', data.visible)
-            
+            commit('setShowCourse', data.visible)
+
+            // COUPONS
+            let c = 0, coupons = data.coupons
+            for (c = 0; c < coupons.length; c++) {
+                const coupon = coupons[c]
+                commit('setCouponCode', coupon.code)
+                commit('setCouponAmount', coupon.value)
+                commit('setCouponType', coupon.couponType)
+                commit('setCouponDate', coupon.expiration)
+            }
+
+            // STUDYROOMS
             let i = 0, studyRooms = data.studyRooms
             for (i = 0; i < studyRooms.length; i++) {
                 const elem = studyRooms[i]
@@ -117,6 +129,7 @@ const actions = {
                 })
             }
 
+            // DOCUMENTS
             let j = 0, documents = data.documents
             for (j = 0; j < documents.length; j++) {
                 const elem = documents[j]
@@ -152,7 +165,7 @@ const actions = {
         }
         return this.$axios.post(`${COURSE_API}`, params)
     },
-    updateCourseInfo({state, getters}, {documents, studyRooms, id}) {
+    updateCourseInfo({state}, {documents, studyRooms, id}) {
         let params = {
             name: state.courseName,
             price: state.followerPrice,
@@ -160,12 +173,6 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage.startsWith("https://") ? undefined : state.courseCoverImage,
             isPublish: state.courseVisible,
-            coupon: getters.getCouponAmount && getters.getCouponCode ? {
-                value: getters.getCouponAmount,
-                code: getters.getCouponCode,
-                couponType: getters.getCouponType,
-                expiration: getters.getCouponDate,
-            } : null,
             studyRooms,
             documents
         }

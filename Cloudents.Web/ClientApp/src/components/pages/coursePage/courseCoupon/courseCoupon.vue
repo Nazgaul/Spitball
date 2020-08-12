@@ -11,6 +11,7 @@
                       :label="$t('coupon_label_code')"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                       class="couponCode me-0 me-sm-4 mb-1 mb-sm-0"
+                      :disabled="couponDisabled"
                       type="text"
                       color="#304FFE"
                       placeholder=" "
@@ -30,6 +31,7 @@
                       :rules="[requiredCouponAmount]"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
                       class="couponValue"
+                      :disabled="couponDisabled"
                       autocomplete="off"
                       type="text"
                       color="#304FFE"
@@ -45,9 +47,10 @@
                       class="coupon-type me-0 me-sm-4 mb-1 mb-sm-0"
                       :items="couponTypesList"
                       :label="$t('coupon_label_type')"
-                      placeholder=" "
                       :append-icon="'sbf-triangle-arrow-down'"
                       :height="$vuetify.breakpoint.xsOnly ? 50 : 44"
+                      :disabled="couponDisabled"
+                      placeholder=" "
                       color="#304FFE"
                       item-text="key"
                       outlined
@@ -76,6 +79,7 @@
                           autocomplete="nope"
                           prepend-inner-icon="sbf-calendar"
                           @blur="date = parseDate(dateFormatted)"
+                          :disabled="couponDisabled"
                           dense
                           color="#304FFE"
                           outlined
@@ -154,6 +158,9 @@ export default {
     },
   },
   computed: {
+    couponDisabled() {
+      return this.$route.params.id && this.couponCode ? true : false
+    },
     requiredCouponCode() {
       return (val) => {
         if(val || this.$store.getters.getCouponAmount) {
@@ -201,7 +208,8 @@ export default {
     },
     couponType: {
       get() {
-        return this.$store.getters.getCouponType
+        let typeValue = this.$store.getters?.getCouponType.toLowerCase()
+        return this.couponTypesList.filter((type) => type.value === typeValue)[0]
       },
       set(type) {
         this.$store.commit('setCouponType', type)
@@ -261,6 +269,7 @@ export default {
     },
   },
   mounted() {
+    
     setTimeout(()=>{
       this.dateFormatted = this.formatDate(new Date().FormatDateToString())
     })

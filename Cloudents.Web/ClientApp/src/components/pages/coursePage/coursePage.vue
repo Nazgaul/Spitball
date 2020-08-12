@@ -266,6 +266,7 @@ export default {
     },
     created() {
       storeService.registerModule(this.$store, 'couponStore', couponStore);
+      this.$store.dispatch('getCourseInfo', this.$route.params.id)
     },
 }
 </script>

@@ -30,11 +30,11 @@ export const courseRoutes = [
          {
             path: 'edit/:id',
             name: CourseUpdate,
-            beforeEnter: (to, from, next) => {
-               store.dispatch('getCourseInfo', to.params.id).then(()=>{
-                  next()
-               })
-            }
+            // beforeEnter: (to, from, next) => {
+            //    store.dispatch('getCourseInfo', to.params.id).then(()=>{
+            //       next()
+            //    })
+            // }
          },
          {
             path: '*',
