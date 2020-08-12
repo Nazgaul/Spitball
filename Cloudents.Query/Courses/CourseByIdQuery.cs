@@ -84,7 +84,6 @@ namespace Cloudents.Query.Courses
 
                 var futureCoupon = _statelessSession.Query<UserCoupon>()
                     .Where(w => w.User.Id == query.UserId && w.Coupon.Course.Id == query.Id)
-                    .Select(s => s.Price)
                     .ToFutureValue();
 
                 var futureSubscription = _statelessSession.Query<Follow>()
@@ -132,7 +131,7 @@ namespace Cloudents.Query.Courses
                 var coupon = futureCoupon.Value;
                 if (coupon != null)
                 {
-                    result.Price = coupon;
+                    result.Price = coupon.Price;
                 }
 
                 return result;

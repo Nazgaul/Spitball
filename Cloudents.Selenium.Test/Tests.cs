@@ -633,7 +633,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact]
+        [Fact(Skip ="IL blog is not available right now")]
         public void MarketingTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -952,17 +952,16 @@ namespace Cloudents.Selenium.Test
 
                 driver.Navigate().GoToUrl(driver.Url + "?culture=en-US");
 
-                string[] elements = { "", "_overview", "_myCourses", "_live_session",
-                                      "_myFollowers", "_myCoupons", "_mySales", "_myMarketing",
+                string[] elements = { "_overview", "_myCourses", "_live_session",
+                                      "_myFollowers", "_myCoupons", "_mySales", 
                                       "_myPurchases", "_learn" };
 
-                FindSel(driver, "sidemenu_home").Click();
                 foreach (var element in elements)
                 {
                     FindSel(driver, $"sidemenu_dashboard{element}").Click();
                 }
 
-                string[] moreElements = { "", "_myCourses", "_myCalendar", "_testStudyRoom" };
+                string[] moreElements = { "_myMarketing", "_myCalendar" };
 
                 foreach (var element in moreElements)
                 {

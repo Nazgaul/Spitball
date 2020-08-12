@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CourseController : Controller
     {
         private readonly IQueryBus _queryBus;
