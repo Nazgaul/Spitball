@@ -1,6 +1,6 @@
 <template>
    <div id="courseTeacherSection" class="hostInfo">
-      <div class="hostTitle" v-t="'about_host'"/>
+      <div class="hostTitle">{{teacherTitle}}</div>
       <div class="divider"/>
       <div class="hostBox d-flex flex-wrap flex-sm-nowrap">
          <div class="hostImg">
@@ -30,6 +30,10 @@ export default {
       teacherBio(){
          return this.$store.getters.getCourseTeacherBioPreview;
       },
+      teacherTitle(){
+         return this.$store.getters.getCourseTeacherTitlePreview || this.$t('about_host');
+      },
+
       courseDetails(){
          return this.$store.getters.getCourseDetails;
       },

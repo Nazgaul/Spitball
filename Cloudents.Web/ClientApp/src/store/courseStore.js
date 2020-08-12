@@ -52,6 +52,10 @@ const mutations = {
       this.tutorCountry = objInit.tutorCountry;
       this.tutorBio = objInit.tutorBio;
       this.startTime = objInit.broadcastTime;
+
+
+
+      this.teacherTitle = objInit.tutorTitle;
     }
   },
 
@@ -86,9 +90,10 @@ const getters = {
   getCourseTeacherNamePreview: state => state.courseEditedDetails?.tutorName || state.courseDetails?.tutorName,
   getCourseTeacherBioPreview: state => state.courseEditedDetails?.tutorBio || state.courseDetails?.tutorBio,
   getCourseIsFull: state => state.courseDetails?.full,
+  getCourseTeacherTitlePreview: state => state.courseEditedDetails?.teacherTitle || state.courseDetails?.teacherTitle,
 
 
-
+  
   getNextCourseSession: (state,getters) => {
     // TODO: get the nearest date;
     return getters.getCourseSessionsPreview[0]

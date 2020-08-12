@@ -7,26 +7,21 @@
          </v-expansion-panel-header>
       <v-expansion-panel-content>
 
-         <v-text-field class="textInputs" color="#4c59ff" value="About the teacher">
+         <v-text-field class="textInputs" color="#4c59ff" v-model="teacherTitle">
             <template v-slot:label>
-               <div class="inputLabel">
-                  Title
-               </div>
+               <div class="inputLabel" v-t="'teacher_title'"/>
             </template>
          </v-text-field>
+
          <v-text-field class="textInputs" color="#4c59ff" v-model="teacherName">
             <template v-slot:label>
-               <div class="inputLabel">
-                  Name
-               </div>
+               <div class="inputLabel" v-t="'teacher_name'"/>
             </template>
          </v-text-field>
 
          <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="teacherBio">
             <template v-slot:label>
-                  <div class="inputLabel">
-                     Text
-                  </div>
+               <div class="inputLabel" v-t="'teacher_text'"/>
             </template>
          </v-textarea>
       </v-expansion-panel-content>
@@ -54,6 +49,17 @@ export default {
          set(val){
             this.$store.commit('setEditedDetailsByType',{
                type:'tutorBio',
+               val
+            })
+         }
+      },
+      teacherTitle:{
+         get(){
+            return this.$store.getters.getCourseTeacherTitlePreview || this.$t('about_host');
+         },
+         set(val){
+            this.$store.commit('setEditedDetailsByType',{
+               type:'teacherTitle',
                val
             })
          }
