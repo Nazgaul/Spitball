@@ -51,7 +51,7 @@
                      <div style="max-width: 200px">{{item.name}}</div>
                   </td>
                   <td class="text-start">
-                     <div v-if="item.startOn">{{$moment(item.startOn).format('MMM D')}}</div>
+                     <div v-if="item.startOn && item.lessons">{{$moment(item.startOn).format('MMM D')}}</div>
                   </td>
                   <td class="text-start">{{item.lessons}}</td>
                   <td class="text-start">{{item.documents}}</td>
