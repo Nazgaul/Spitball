@@ -63,7 +63,7 @@
                               <div class="ms-2">{{item.users}}</div>
                            </div>
                         </template>
-                        <div v-for="(user, index) in item.userNames" :key="index">{{user}}</div>          
+                        <div v-for="(user, userNameIndex) in item.userNames" :key="userNameIndex">{{user}}</div>          
                      </v-tooltip>
                   </td>
                   <td class="text-start">
