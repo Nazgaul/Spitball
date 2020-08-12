@@ -152,7 +152,7 @@ const actions = {
         }
         return this.$axios.post(`${COURSE_API}`, params)
     },
-    updateCourseInfo({state, /*getters*/}, {documents, studyRooms, id}) {
+    updateCourseInfo({state, getters}, {documents, studyRooms, id}) {
         let params = {
             name: state.courseName,
             price: state.followerPrice,
@@ -160,12 +160,12 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage.startsWith("https://") ? undefined : state.courseCoverImage,
             isPublish: state.courseVisible,
-            // coupon: getters.getCouponAmount && getters.getCouponCode ? {
-            //     value: getters.getCouponAmount,
-            //     code: getters.getCouponCode,
-            //     couponType: getters.getCouponType,
-            //     expiration: getters.getCouponDate,
-            // } : null,
+            coupon: getters.getCouponAmount && getters.getCouponCode ? {
+                value: getters.getCouponAmount,
+                code: getters.getCouponCode,
+                couponType: getters.getCouponType,
+                expiration: getters.getCouponDate,
+            } : null,
             studyRooms,
             documents
         }
