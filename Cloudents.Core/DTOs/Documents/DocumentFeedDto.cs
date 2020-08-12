@@ -33,6 +33,7 @@ namespace Cloudents.Core.DTOs.Documents
         public double Value { get; set; }
         public string Code { get; set; }
         public CouponType CouponType { get; set; }
+        public DateTime? Expiration { get; set; }
     }
 
     

@@ -78,7 +78,8 @@ namespace Cloudents.Query.Courses
                         Id = s.Id,
                         Value = s.Value,
                         Code = s.Code,
-                        CouponType = s.CouponType
+                        CouponType = s.CouponType,
+                        Expiration = s.Expiration
                     })
                     .ToFuture();
 
