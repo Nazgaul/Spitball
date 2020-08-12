@@ -51,7 +51,7 @@
                      <div style="max-width: 200px">{{item.name}}</div>
                   </td>
                   <td class="text-start">
-                     <div v-if="item.startOn">{{$moment(item.startOn).format('MMM D')}}</div>
+                     <div v-if="item.startOn && item.lessons">{{$moment(item.startOn).format('MMM D')}}</div>
                   </td>
                   <td class="text-start">{{item.lessons}}</td>
                   <td class="text-start">{{item.documents}}</td>
@@ -63,7 +63,7 @@
                               <div class="ms-2">{{item.users}}</div>
                            </div>
                         </template>
-                        <div v-for="(user, index) in item.userNames" :key="index">{{user}}</div>          
+                        <div v-for="(user, userNameIndex) in item.userNames" :key="userNameIndex">{{user}}</div>          
                      </v-tooltip>
                   </td>
                   <td class="text-start">

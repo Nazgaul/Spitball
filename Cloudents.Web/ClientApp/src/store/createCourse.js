@@ -154,7 +154,7 @@ const actions = {
             description: state.description,
             image: state.courseCoverImage,
             isPublish: state.courseVisible,
-            coupon: getters.getCouponAmount && getters.getCouponCode ? {
+            coupon: getters.getCouponAmount && getters.getCouponCode && getters.getCouponType ? {
                 value: getters.getCouponAmount,
                 code: getters.getCouponCode,
                 couponType: getters.getCouponType,
