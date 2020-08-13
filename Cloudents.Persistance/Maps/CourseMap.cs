@@ -18,7 +18,7 @@ namespace Cloudents.Persistence.Maps
 
             //HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
             //    .Inverse().Cascade.AllDeleteOrphan();
-
+            Map(x=>x.Details).
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().AsList(x =>

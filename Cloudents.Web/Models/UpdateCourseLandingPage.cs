@@ -15,6 +15,7 @@ namespace Cloudents.Web.Models
         public HeroSectionValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
             
             //RuleFor(x => x.Name).Length(0, 10);
             //RuleFor(x => x.Email).EmailAddress();

@@ -167,6 +167,8 @@ namespace Cloudents.Core.Entities
 
         public virtual DomainTimeStamp DomainTime { get; protected set; }
 
+        public virtual CourseDetails Details { get; set; }
+
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
         private DateTime? _startTime;
         private string _name;
