@@ -162,7 +162,7 @@ export default {
   },
   computed: {
     couponDisabled() {
-      return this.$route.params.id && this.couponCode ? true : false
+      return this.$route.params.id ? true : false
     },
     requiredCouponCode() {
       return (val) => {
