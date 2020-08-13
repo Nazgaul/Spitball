@@ -1035,6 +1035,78 @@ namespace Cloudents.Selenium.Test
                 Logout(driver);
             }
         }
+
+        [Fact]
+        public void Dashboard()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                string[] elements = { "dashboardTutorActions", "dashboardNotifications", "marketingTools",
+                                      "spitballTips", "analyticOverview", "rightSide",
+                                      "user-avatar-rect text-center mb-4", "menuDropDown" };
+
+                foreach (var element in elements)
+                {
+                    FindContains(driver, element);
+                }
+
+                var notifications = driver.FindElements(By.XPath("//*[contains(@class, 'notifyWrap')]"));
+
+                notifications.Count.Should().Be(4);
+            }
+        }
+
+        [Fact]
+        public void MyCourses()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                FindSel(driver, "sidemenu_dashboard_myCourses").Click();
+
+                var create = driver.FindElementByWait(By.XPath("//*[@class='text-end']//a"));
+
+                create.Click();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.ClassName("courseActionsSticky"));
+
+                driver.Url.Should().Be("https://dev.spitball.co/course/create");
+
+                FindContains(driver, "cancelBtn").Click();
+
+                // Wait until this element is showing
+                driver.FindElementByWait(By.XPath("//*[@class='myCourses main-container']"));
+
+                driver.Url.Should().Be("https://dev.spitball.co/my-courses");
+            }
+        }
+
+        [Fact]
+        public void MyStudents()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                Login(driver, UserTypeAccounts.ElementAt(0));
+
+                FindSel(driver, "sidemenu_dashboard_myFollowers").Click();
+
+                // Make sure that those elements are showing
+                FindContains(driver, "myFollowersTable");
+                FindContains(driver, "searchTextField");
+                driver.FindElement(By.XPath("//*[contains(@class, 'itemsAction')]//button"));
+                driver.FindElement(By.XPath("//*[contains(@class, 'itemsAction')]//a"));
+
+                FindContains(driver, "v-simple-checkbox").Click();
+                FindContains(driver, "white--text");
+            }
+        }
     }
 
     public static class SeleniumExtensions
