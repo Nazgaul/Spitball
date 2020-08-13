@@ -497,7 +497,7 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip ="Need to be removed")]
+        [Fact]
         public void PopupWindowsTest()
         {
             foreach (var driver in this._driver.Drivers)
@@ -513,13 +513,13 @@ namespace Cloudents.Selenium.Test
                 Login(driver, UserTypeAccounts.ElementAt(0));
 
                 // Wait until this element is showing
-                FindSel(driver, "menu");
+                FindByClass(driver, "gH_i_r_chat_i");
 
-                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=upload";
+                /*url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=upload";
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure this element is exist
-                FindContains(driver, "upload-dialog");
+                FindContains(driver, "upload-dialog");*/
 
                 url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=createCoupon";
                 driver.Navigate().GoToUrl(url);
@@ -527,7 +527,7 @@ namespace Cloudents.Selenium.Test
                 // Make sure this element is exist
                 FindContains(driver, "createCouponDialog");
 
-                url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=becomeTutor";
+                /*url = $"{_driver.SiteUrl.TrimEnd('/')}?dialog=becomeTutor";
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure this element is exist
@@ -537,7 +537,7 @@ namespace Cloudents.Selenium.Test
                 driver.Navigate().GoToUrl(url);
 
                 // Make sure this element is exist
-                FindByClass(driver, "buy-tokens-wrap");
+                FindByClass(driver, "buy-tokens-wrap");*/
 
                 Logout(driver);
             }
