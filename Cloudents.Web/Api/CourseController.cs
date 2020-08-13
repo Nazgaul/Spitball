@@ -109,6 +109,20 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPut("{id:long}/landing")]
+
+        public async Task<IActionResult> UpdateCourseLandingPageAsync([FromRoute] long id, [FromBody] UpdateCourseLandingCommand command, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+
+            command.UserId = userId;
+            command.CourseId = id;
+
+            await _commandBus.DispatchAsync(command, token);
+
+
+            return Ok();
+        }
 
         [HttpPost]
         [Authorize(Policy = "Tutor")]
