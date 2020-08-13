@@ -30,7 +30,7 @@ namespace Cloudents.Command.Courses
             {
                 throw new UnauthorizedAccessException();
             }
-
+            course.DomainTime.UpdateTime = DateTime.UtcNow;
             if (message.HeroSection != null)
             {
                 course.Name = message.HeroSection.Name;
