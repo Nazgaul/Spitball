@@ -1022,6 +1022,8 @@ namespace Cloudents.Selenium.Test
                 var notifications = driver.FindElements(By.XPath("//*[contains(@class, 'notifyWrap')]"));
 
                 notifications.Count.Should().Be(4);
+
+                Logout(driver);
             }
         }
 
@@ -1071,6 +1073,8 @@ namespace Cloudents.Selenium.Test
 
                 FindContains(driver, "v-simple-checkbox").Click();
                 FindContains(driver, "white--text");
+
+                Logout(driver);
             }
         }
 
