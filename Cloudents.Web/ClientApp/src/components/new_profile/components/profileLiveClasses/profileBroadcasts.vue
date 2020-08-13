@@ -49,24 +49,24 @@
                 </div>
             </div>
         </div>
-        <div class="showMore text-center pb-10 pb-sm-0 mt-n4 mt-sm-7"  v-if="broadcastSessions.length > 2">
+        <!-- <div class="showMore text-center pb-10 pb-sm-0 mt-n4 mt-sm-7"  v-if="broadcastSessions.length > 2">
             <v-btn class="showBtn" color="#fff" fab depressed small dark @click="isExpand = !isExpand">
                 <arrowDownIcon class="arrowIcon" :class="{'exapnd': isExpand}" width="22" />
             </v-btn>
-        </div>
+        </div> -->
         <stripe ref="stripe"></stripe>
     </div>
 </template>
 
 <script>
 import * as routeNames from '../../../../routes/routeNames';
-import arrowDownIcon from './group-3-copy-16.svg'
+// import arrowDownIcon from './group-3-copy-16.svg'
 import stripe from "../../../pages/global/stripe.vue";
 
 export default {
     name: 'profileLiveClasses',
     components: {
-        arrowDownIcon,
+        // arrowDownIcon,
         stripe
     },
     props: {
@@ -77,16 +77,16 @@ export default {
     data() {
         return {
             isLoaded: false,
-            isExpand: false,
+            // isExpand: false,
         }
     },
-    watch: {
-        isExpand() {
-            this.$nextTick(() => {
-                this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
-            })
-        }
-    },
+    // watch: {
+    //     isExpand() {
+    //         this.$nextTick(() => {
+    //             this.$vuetify.goTo(this.$parent.$refs.profileLiveClassesElement)
+    //         })
+    //     }
+    // },
     computed: {
         broadCastTitle() {
             return this.isMobile ? this.$t('my_live_classes_mobile') : this.$t('my_live_classes')
@@ -95,7 +95,7 @@ export default {
             return this.$store.getters.getProfileTutorSubscription
         },
         sessionsList() {
-            return this.liveSessionsList.map((session, index) => {
+            return this.broadcastSessions.map((session, index) => {
                 return {
                     ...session,
                     index,
@@ -106,13 +106,13 @@ export default {
         broadcastSessions() {
             return this.$store.getters.getProfileCourses;
         },
-        liveSessionsList() {
-            let liveList = this.broadcastSessions
-            if(this.isExpand) {
-                return liveList
-            }
-            return liveList.slice(0, 2)
-        },
+        // liveSessionsList() {
+        //     let liveList = this.broadcastSessions
+        //     if(this.isExpand) {
+        //         return liveList
+        //     }
+        //     return liveList.slice(0, 2)
+        // },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
@@ -244,20 +244,20 @@ export default {
 
     }
 }
-.showMore {
-    margin-bottom: 60px;
-    @media (max-width: @screen-xs) {
-        margin-bottom: unset;
-    }
-    .showBtn {
-        border: 1px solid #d4d6da !important;
-    }
-    .arrowIcon {
-        padding-top: 1px;
-        cursor: pointer;
-        &.exapnd {
-            transform: scaleY(-1);
-        }
-    }
-}
+// .showMore {
+//     margin-bottom: 60px;
+//     @media (max-width: @screen-xs) {
+//         margin-bottom: unset;
+//     }
+//     .showBtn {
+//         border: 1px solid #d4d6da !important;
+//     }
+//     .arrowIcon {
+//         padding-top: 1px;
+//         cursor: pointer;
+//         &.exapnd {
+//             transform: scaleY(-1);
+//         }
+//     }
+// }
 </style>
