@@ -133,7 +133,6 @@ export default {
             )
         },
         liveImage(session) {
-
             return this.$proccessImageUrl(session.image, 290, 192, 'crop')
         },
     },

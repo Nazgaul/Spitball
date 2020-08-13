@@ -100,6 +100,8 @@
                 ></v-textarea>
             </v-col>
         </v-row>
+        
+        <profileCourses />
 
         <div class="text-center">
             <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="closeDialog">
@@ -111,6 +113,7 @@
         </div>
     </v-form>
 
+
 	<!-- <div class="text-center pt-9">
 		<v-btn class="me-3" color="#4452fc" width="132" height="40" v-t="'cancel'" rounded depressed outlined/>
 		<v-btn class="white--text" color="#4452fc" width="132" height="40" v-t="'save'" depressed rounded/>
@@ -121,12 +124,14 @@
 <script>
 import { TUTOR_EDIT_PROFILE } from '../../pages/global/toasterInjection/componentConsts'
 import { validationRules } from '../../../services/utilities/formValidationRules';
+import profileCourses from './profileCourse.vue';
 import uploadImage from '../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue'
 import cover from '../components/cover.vue'
 
 export default {
     name: "tutorInfoEdit",
     components: {
+        profileCourses,
         uploadImage,
         cover
     },
@@ -154,6 +159,9 @@ export default {
         };
     },
     computed: {
+        broadcastSessions() {
+            return this.$store.getters.getProfileCourses;
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
         },
