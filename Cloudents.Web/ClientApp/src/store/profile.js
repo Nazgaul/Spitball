@@ -158,6 +158,15 @@ const mutations = {
             currency: objInit.subscriptionPrice?.currency
          }
       }
+   },
+   setFakeShorParagraph(state, paragraph) {
+      state.profile.user.tutorData.bio = paragraph
+   },
+   setFakeShortTitle(state, title) {
+      state.profile.user.tutorData.title = title
+   },
+   setFakeBio(state, bio) {
+      state.profile.user.tutorData.paragraph = bio
    }
 }
 

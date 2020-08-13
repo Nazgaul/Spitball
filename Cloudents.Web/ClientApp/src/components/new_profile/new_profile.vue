@@ -1,5 +1,6 @@
 <template>
     <div class="profilePage">
+      <profileDrawer />
       <div>
         <div class="coverWrapper" :key="componentRenderKey">
             <profileCover  />
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import profileDrawer from './profileDrawer/profileDrawer.vue';
 import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileStats from './components/profileStats/profileStats.vue';
@@ -43,6 +45,7 @@ import profileFloatingBtn from './components/profileFloatingBtn.vue';
 export default {
     name: "new_profile",
     components: {
+        profileDrawer,
         profileCover,
         profileCoverActions,
         profileStats,

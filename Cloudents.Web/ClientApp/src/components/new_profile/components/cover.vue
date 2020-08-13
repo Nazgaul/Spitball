@@ -20,7 +20,7 @@
       sel="cover_image"
     />
 
-    <slot>
+    <slot v-if="!mainCoverImage">
       <div class="coverupload" v-if="$store.getters.getIsMyProfile && isLoaded">
         <input sel="edit_cover_image"
           class="profile-upload"
