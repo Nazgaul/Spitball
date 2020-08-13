@@ -376,6 +376,8 @@ namespace Cloudents.Selenium.Test
                 var password = driver.FindElementByWait(By.XPath("//*[@type='password']"));
                 password.Click();
                 password.SendKeys("123456789");
+
+                Logout(driver);
             }
         }
 
@@ -481,7 +483,7 @@ namespace Cloudents.Selenium.Test
         }
 
         [Fact]
-        public void AnalyticTest()
+        public void AnalyticsTest()
         {
             foreach (var driver in this._driver.Drivers)
             {
@@ -628,42 +630,6 @@ namespace Cloudents.Selenium.Test
 
                 // Check that this element exists
                 FindContains(driver, "buy-dialog-wrap");
-
-                Logout(driver);
-            }
-        }
-
-        [Fact]
-        public void MarketingTest()
-        {
-            foreach (var driver in this._driver.Drivers)
-            {
-                driver.Manage().Window.Maximize();
-
-                Login(driver, "elad12@cloudents.com");
-
-                // Make sure those elements exist
-                //FindContains(driver, "uploadBtn").GetAttribute("type").Should().Be("button");
-                //FindByClass(driver, "dashboardSide");
-                /*string[] elements = { "uploadContent", "spitballTips", "teacherTasks", "answerStudent" };
-                foreach(var element in elements)
-                {
-                    FindContains(driver, element);
-                }*/
-
-                FindContains(driver, "spitballTips");
-
-                var letsGo = driver.FindElementByWait(By.XPath("//*[contains(@class, 'marketingTools')]//a"));
-
-                letsGo.Click();
-
-                // Making sure those elements display
-                FindContains(driver, "marketingActions");
-                FindByClass(driver, "spitballBlogs");
-                //FindContains(driver, "tableCoupon");
-
-                // Make sure those buttons exist
-                FindContains(driver, "marketingbtn");
 
                 Logout(driver);
             }
@@ -1105,6 +1071,42 @@ namespace Cloudents.Selenium.Test
 
                 FindContains(driver, "v-simple-checkbox").Click();
                 FindContains(driver, "white--text");
+            }
+        }
+
+        [Fact]
+        public void MarketingTest()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+
+                Login(driver, "elad12@cloudents.com");
+
+                // Make sure those elements exist
+                //FindContains(driver, "uploadBtn").GetAttribute("type").Should().Be("button");
+                //FindByClass(driver, "dashboardSide");
+                /*string[] elements = { "uploadContent", "spitballTips", "teacherTasks", "answerStudent" };
+                foreach(var element in elements)
+                {
+                    FindContains(driver, element);
+                }*/
+
+                FindContains(driver, "spitballTips");
+
+                var letsGo = driver.FindElementByWait(By.XPath("//*[contains(@class, 'marketingTools')]//a"));
+
+                letsGo.Click();
+
+                // Making sure those elements display
+                FindContains(driver, "marketingActions");
+                FindByClass(driver, "spitballBlogs");
+                //FindContains(driver, "tableCoupon");
+
+                // Make sure those buttons exist
+                FindContains(driver, "marketingbtn");
+
+                Logout(driver);
             }
         }
     }
