@@ -5,7 +5,7 @@
                 <div class="courseActionsSticky">
                     <v-stepper-header class="courseStepHeader elevation-0">
                         <v-stepper-step class="stepStteper ps-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
-                            {{$t('create_course')}}
+                            {{$route.params.id ? $t('update_course') : $t('create_course')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
                         <v-stepper-step class="stepStteper- ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">

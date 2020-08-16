@@ -162,7 +162,7 @@ export default {
   },
   computed: {
     couponDisabled() {
-      return this.$route.params.id && this.couponCode ? true : false
+      return this.$route.params.id ? true : false
     },
     requiredCouponCode() {
       return (val) => {
@@ -219,7 +219,7 @@ export default {
     },
     couponType: {
       get() {
-        let typeValue = this.$store.getters?.getCouponType.toLowerCase()
+        let typeValue = this.$store.getters?.getCouponType?.toLowerCase()
         return this.couponTypesList.filter((type) => type.value === typeValue)[0]
       },
       set(type) {

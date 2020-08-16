@@ -111,7 +111,7 @@ const actions = {
                 commit('setCouponCode', coupon.code)
                 commit('setCouponAmount', coupon.value)
                 commit('setCouponType', coupon.couponType)
-                commit('setCouponDate', coupon.expiration)
+                commit('setCouponDate', coupon.expiration.substr(0, 10))
             }
 
             // STUDYROOMS
