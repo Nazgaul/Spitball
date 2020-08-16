@@ -9,7 +9,7 @@
          </div>
          </v-expansion-panel-header>
       <v-expansion-panel-content>
-         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="courseName" :rules="[rules.required]">
+         <v-textarea class="textInputs mt-4" auto-grow color="#4c59ff" rows="1" v-model="courseName" :rules="[rules.required]">
             <template v-slot:label>
                <div class="inputLabel" v-t="'course_name'"/>
             </template>
@@ -19,7 +19,7 @@
                <div class="inputLabel" v-t="'course_description'"/>
             </template>
          </v-textarea>
-         <div class="courseImage mb-2">
+         <div class="courseImage mb-2 mt-2">
             <div class="courseImage_title mb-3" v-t="'course_imgVideo'"/>
             <label class="liveImageWrap d-flex flex-column">
                <uploadImage v-show="isLoaded" :fromLiveSession="true" @setLiveImage="handleLiveImage" class="editLiveImage"/>
@@ -28,7 +28,7 @@
                <div class="recommendedImage mt-1">{{$t('img_res')}}</div>
             </label>
          </div>
-         <v-text-field class="textInputs mb-2" color="#4c59ff" v-model="courseBtnText" autocomplete="off" >
+         <v-text-field class="textInputs mb-2 mt-6" color="#4c59ff" v-model="courseBtnText" autocomplete="off" >
             <template v-slot:label>
                <div class="inputLabel" v-t="'course_btn'"/>
             </template>
@@ -164,6 +164,7 @@ export default {
              .liveImage {
                  border: solid 1px #c6cdda;
                  border-radius: 4px;
+                 object-fit: cover;
              }
              .recommendedImage {
                  font-size: 12px;
