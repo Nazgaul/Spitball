@@ -22,10 +22,10 @@
          <span v-text="$t(isExpandVideoMode?'tutor_tooltip_fullscreen_exit':'tutor_tooltip_fullscreen')"/>
       </v-tooltip>
    </div>
-
       <span class="name">{{userName}}</span>
-      <div class="linear"></div>
-      <div class="linear2"></div>
+      <div v-if="!isExpandVideoMode" class="linear2"></div>
+      <div v-if="!isExpandVideoMode || isExpandVideoMode && isCurrentParticipant" class="linear"></div>
+
       <div class="videoPreviewTools" v-if="isCurrentParticipant">
          <v-tooltip top>
             <template v-slot:activator="{ on }">
