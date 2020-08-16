@@ -3,9 +3,44 @@ import Vue from 'vue';
 
 const COURSE_API = 'course';
 
+function _createCourseEditedSections(objInit,refObj){
+  let heroSection = new HeroSection(objInit,refObj);
+  clean(heroSection);
+  // let classSection = objInit.studyRooms?.length? objInit.studyRooms : undefined;
+  // let teacherSection = new TeacherSection(objInit,refObj);
+  // clean(teacherSection);
+
+  let editedObject = {
+    heroSection: Object.values(heroSection).some(p => (p)) ? heroSection : undefined,
+    // classSection: classSection,
+    // teacherSection: Object.values(teacherSection).some(p => (p)) ? teacherSection : undefined,
+  }
+  clean(editedObject)
+  return editedObject
+  function HeroSection(objInit,objRef){
+    this.name = objInit.name || objRef?.name;
+    this.description = objInit.description || objRef?.description;
+    this.image = objInit.image;
+    this.button = objInit.heroButton || objRef?.heroButton;
+  }
+  // function TeacherSection(objInit,objRef){
+  //   this.tutorName = objInit.tutorName || objRef.tutorName;
+  //   this.tutorImage = objInit.tutorImage || objRef.tutorImage;
+  //   this.teacherTitle = objInit.teacherTitle || objRef.teacherTitle;
+  //   this.tutorBio = objInit.tutorBio || objRef.tutorBio;
+  // }
+  function clean(obj) {
+    for (var propName in obj) { 
+      if (obj[propName] === null || obj[propName] === undefined) {
+        delete obj[propName];
+      }
+    }
+  }
+}
 const state = {
   courseDetails: null,
-  courseEditedDetails:{}
+  courseEditedDetails:{},
+  loadingEditCourseBtn:false,
 }
 const mutations = {
   setCourseEnrolled(state, val) {
@@ -56,6 +91,7 @@ const mutations = {
 
 
       this.teacherTitle = objInit.tutorTitle;
+      this.heroButton = objInit.details?.heroButton;
     }
   },
 
@@ -92,6 +128,8 @@ const getters = {
   getCourseIsFull: state => state.courseDetails?.full,
   getCourseTeacherTitlePreview: state => state.courseEditedDetails?.teacherTitle || state.courseDetails?.teacherTitle,
 
+  getCourseButtonPreview: state => state.courseEditedDetails?.heroButton || state.courseDetails?.heroButton,
+  getCourseLoadingButton: state => state.loadingEditCourseBtn,
 
   
   getNextCourseSession: (state,getters) => {
@@ -136,6 +174,13 @@ const actions = {
         commit('trackException',ex);
       })
   },
+  updateCourseEditedInfo({state},courseId){
+    state.loadingEditCourseBtn = true;
+    let params = _createCourseEditedSections(state.courseEditedDetails,state.courseDetails);
+    this.$axios.put(`${COURSE_API}/${courseId}/landing`,params).finally(()=>{
+      state.loadingEditCourseBtn = false;
+    })
+  }
 }
 export default {
   state,

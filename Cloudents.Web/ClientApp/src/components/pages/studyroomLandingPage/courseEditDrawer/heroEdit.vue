@@ -11,20 +11,16 @@
       <v-expansion-panel-content>
          <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="courseName" :rules="[rules.required]">
             <template v-slot:label>
-                  <div class="inputLabel">
-                     Course Name
-                  </div>
+               <div class="inputLabel" v-t="'course_name'"/>
             </template>
          </v-textarea>
          <v-textarea class="textInputs mt-3" auto-grow color="#4c59ff" rows="1"  v-model="courseDescription">
             <template v-slot:label>
-                  <div class="inputLabel">
-                     Course Description
-                  </div>
+               <div class="inputLabel" v-t="'course_description'"/>
             </template>
          </v-textarea>
          <div class="courseImage mb-2">
-            <div class="courseImage_title mb-3">Image or a video</div>
+            <div class="courseImage_title mb-3" v-t="'course_imgVideo'"/>
             <label class="liveImageWrap d-flex flex-column">
                <uploadImage v-show="isLoaded" :fromLiveSession="true" @setLiveImage="handleLiveImage" class="editLiveImage"/>
                <v-skeleton-loader v-if="!isLoaded" height="130" width="200" type="image"></v-skeleton-loader>
@@ -32,13 +28,11 @@
                <div class="recommendedImage mt-1">{{$t('img_res')}}</div>
             </label>
          </div>
-         <!-- <v-text-field class="textInputs mb-2" color="#4c59ff" :value="courseBtnText" autocomplete="off" >
+         <v-text-field class="textInputs mb-2" color="#4c59ff" v-model="courseBtnText" autocomplete="off" >
             <template v-slot:label>
-                  <div class="inputLabel">
-                     Button
-                  </div>
+               <div class="inputLabel" v-t="'course_btn'"/>
             </template>
-         </v-text-field> -->
+         </v-text-field>
       </v-expansion-panel-content>
    </v-expansion-panel>
 </template>
@@ -91,9 +85,22 @@ export default {
             return this.$proccessImageUrl(img, 200, 130)
          }
       },
-      courseBtnText(){
-         return 'Buy Now!'
-      }
+      courseBtnText:{
+         get(){
+            if(this.$store.getters.getCourseButtonPreview) {
+               return this.$store.getters.getCourseButtonPreview;
+            }
+            else{
+               return this.$store.getters.getCoursePrice?.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+            }
+         },
+         set(val){
+            this.$store.commit('setEditedDetailsByType',{
+               type:'heroButton',
+               val
+            })
+         }
+      },
    },
    methods: {
       goTo(e){
