@@ -223,6 +223,14 @@ const actions = {
          })
       }
    },
+   updateProfileClassPosition(context, {oldIndex, newIndex}) {
+      let params = {
+         oldPosition: oldIndex,
+         newPosition: newIndex,
+         visibleOnly: true
+      }
+      axios.post(`course/move`, params)
+   },
 }
 
 export default {
