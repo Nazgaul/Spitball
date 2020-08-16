@@ -204,7 +204,6 @@ namespace Cloudents.Core.Entities
             {
                 _studyRooms.Add(hours);
             }
-
         }
 
         public virtual void RemoveDocument(Document document)

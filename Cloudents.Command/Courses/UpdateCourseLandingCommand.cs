@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Cloudents.Command.Courses
@@ -12,6 +13,8 @@ namespace Cloudents.Command.Courses
         public long CourseId;
 
         public HeroSection? HeroSection { get; set; }
+
+        public IEnumerable<LiveClassSection>? LiveClassSection { get; set; }
     }
 
     public class HeroSection
@@ -21,5 +24,12 @@ namespace Cloudents.Command.Courses
         public string? Image { get; set; }
 
         public string Description { get; set; }
+    }
+
+    public class LiveClassSection
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
     }
 }

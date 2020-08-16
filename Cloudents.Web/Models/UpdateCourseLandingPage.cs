@@ -16,9 +16,10 @@ namespace Cloudents.Web.Models
         public UpdateCourseLandingCommandValidator()
         {
             RuleFor(x => x.HeroSection)
-
                 .SetValidator(new HeroSectionValidator()).When(w => w.HeroSection != null);
-            // RuleFor(x=>x.HeroSection).
+
+            RuleForEach(x => x.LiveClassSection)
+                .SetValidator(new LiveClassSectionValidator()).When(w => w.LiveClassSection != null);
         }
     }
 
@@ -28,11 +29,15 @@ namespace Cloudents.Web.Models
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Description).NotEmpty();
-
-            //RuleFor(x => x.Name).Length(0, 10);
-            //RuleFor(x => x.Email).EmailAddress();
-            //RuleFor(x => x.Age).InclusiveBetween(18, 60);
         }
     }
 
+    public class LiveClassSectionValidator : AbstractValidator<LiveClassSection>
+    {
+        public LiveClassSectionValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Id).NotEmpty();
+        }
+    }
 }

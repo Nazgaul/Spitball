@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Exceptions;
@@ -40,6 +41,15 @@ namespace Cloudents.Command.Courses
                 }
 
                 course.Details.HeroButton = message.HeroSection.Button;
+            }
+
+            if (message.LiveClassSection != null)
+            {
+                foreach (var liveClassSection in message.LiveClassSection)
+                {
+                    var studyRoom = course.StudyRooms.Single(s => s.Id == liveClassSection.Id);
+                    studyRoom.Description = liveClassSection.Name;
+                }
             }
         }
     }
