@@ -27,6 +27,7 @@ import heroEdit from './heroEdit.vue';
 import classEdit from './classEdit.vue';
 import contentEdit from './contentEdit.vue';
 import teacherEdit from './teacherEdit.vue';
+import { CourseUpdate } from '../../../../routes/routeNames'
 
 export default {
 	components:{
@@ -56,7 +57,17 @@ export default {
 			if(this.loadignBtn) return;
 
 			let courseId = this.$route.params?.id;
-			this.$store.dispatch('updateCourseEditedInfo',courseId)
+			this.$store.dispatch('updateCourseEditedInfo',courseId).then(()=>{
+				this.$router.push({
+					name: CourseUpdate,
+					params:{
+						id:courseId
+					},
+					query:{
+						step: 3
+					}
+				})
+			})
 		}
 	},
 };

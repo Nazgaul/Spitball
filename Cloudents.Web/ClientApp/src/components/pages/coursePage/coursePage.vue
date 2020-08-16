@@ -8,11 +8,11 @@
                             {{$t('create_course')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper- ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
+                        <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
                             {{$t('eedit_page')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="" :class="[{'stepStteper': courseVisible},step === 3 ? 'active' : 'noActive']" step="3">
+                        <v-stepper-step :class="[{'stepStteper': courseVisible},step === 3 ? 'active' : 'noActive']" step="3">
                             {{$t('promote_course')}}
                         </v-stepper-step>
                     </v-stepper-header>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { MyCourses } from '../../../routes/routeNames'
+import { MyCourses,CoursePage } from '../../../routes/routeNames'
 
 import courseCreate from './courseCreate/courseCreate.vue';
 import courseForm from './courseForm/courseForm.vue';
@@ -130,7 +130,13 @@ export default {
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
                     if(self.courseVisible) {
                         self.currentCreatedCourseId = data?.id || id
-                        self.goStep(3)
+                        self.$router.push({
+                            name: CoursePage,
+                            params:{
+                                id:self.currentCreatedCourseId
+                            }
+                        })
+                        // self.goStep(3)
                         return
                     }
                     self.$router.push({name: MyCourses})
@@ -257,6 +263,12 @@ export default {
         this.$store.commit('resetUploadFiles')
     },
     mounted() {
+        if(this.$route.query?.step == 3){
+            let self = this;
+            this.$nextTick(()=>{
+                self.goStep(3)
+            })
+        }
         this.showCourseNotVisible()
     }
 }
