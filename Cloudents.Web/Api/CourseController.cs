@@ -81,7 +81,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateCoursePositionCommand(userId,model.OldPosition,model.NewPosition);
+            var command = new UpdateCoursePositionCommand(userId,model.OldPosition,model.NewPosition,model.VisibleOnly.GetValueOrDefault());
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
