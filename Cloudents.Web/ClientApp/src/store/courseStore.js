@@ -7,13 +7,13 @@ function _createCourseEditedSections(objInit,refObj){
   let heroSection = new HeroSection(objInit,refObj);
   clean(heroSection);
   let liveClassSection = objInit.studyRooms?.length? objInit.studyRooms.map(c=>new LiveClassSection(c)) : undefined;
-  // let teacherBio = new TeacherBio(objInit,refObj);
-  // clean(teacherBio);
+  let teacherBio = new TeacherBio(objInit,refObj);
+  clean(teacherBio);
 
   let editedObject = {
     heroSection: Object.values(heroSection).some(p => (p)) ? heroSection : undefined,
     liveClassSection,
-    // teacherBio: Object.values(teacherBio).some(p => (p)) ? teacherBio : undefined,
+    teacherBio: Object.values(teacherBio).some(p => (p)) ? teacherBio : undefined,
   }
   clean(editedObject)
   return editedObject
@@ -27,11 +27,11 @@ function _createCourseEditedSections(objInit,refObj){
     this.id = objInit.id;
     this.name = objInit.name;
   }
-  // function TeacherBio(objInit,objRef){
-  //   this.name = objInit.tutorName || objRef.tutorName;
-  //   this.title = objInit.teacherTitle || objRef.title;
-  //   this.text = objInit.tutorBio || objRef.tutorBio;
-  // }
+  function TeacherBio(objInit,objRef){
+    this.name = objInit.tutorName || objRef.tutorName;
+    this.title = objInit.teacherTitle || objRef.teacherTitle;
+    this.text = objInit.tutorBio || objRef.tutorBio;
+  }
   function clean(obj) {
     for (var propName in obj) { 
       if (obj[propName] === null || obj[propName] === undefined) {
@@ -83,22 +83,18 @@ const mutations = {
         }
       });
 
-      this.documents = objInit.documents
-      this.tutorName = objInit.tutorName;
+      this.documents = objInit.documents;
       this.tutorImage = objInit.tutorImage;
       this.tutorId = objInit.tutorId;
       this.tutorCountry = objInit.tutorCountry;
-      this.tutorBio = objInit.tutorBio;
       this.startTime = objInit.broadcastTime;
 
 
-      // this.tutorName = objInit.details?.teacherBioName || objInit.tutorName;
-      // this.tutorBio = objInit.details?.teacherBioText || objInit.tutorBio;
-      // this.teacherTitle = objInit.;
-      // this.heroButton = objInit.details?.heroButton;
 
-      this.teacherTitle = objInit.tutorTitle;
       this.heroButton = objInit.details?.heroButton;
+      this.teacherTitle = objInit.details?.teacherBioTitle;
+      this.tutorName = objInit.details?.teacherBioName || objInit.tutorName;
+      this.tutorBio = objInit.details?.teacherBioText || objInit.tutorBio;
     }
   },
 
