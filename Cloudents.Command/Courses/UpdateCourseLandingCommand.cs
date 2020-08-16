@@ -15,6 +15,8 @@ namespace Cloudents.Command.Courses
         public HeroSection? HeroSection { get; set; }
 
         public IEnumerable<LiveClassSection>? LiveClassSection { get; set; }
+
+        public ClassContent? ClassContent { get; set; }
     }
 
     public class HeroSection
@@ -31,5 +33,11 @@ namespace Cloudents.Command.Courses
         public Guid Id { get; set; }
         public string Name { get; set; }
 
+    }
+
+    public class ClassContent
+    {
+        public string Title { get; set; }
+        public string Text { get; set; }
     }
 }

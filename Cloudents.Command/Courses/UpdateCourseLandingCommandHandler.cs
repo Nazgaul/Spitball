@@ -51,6 +51,12 @@ namespace Cloudents.Command.Courses
                     studyRoom.Description = liveClassSection.Name;
                 }
             }
+
+            if (message.ClassContent != null)
+            {
+                course.Details.ContentText = message.ClassContent.Text;
+                course.Details.ContentTitle = message.ClassContent.Title;
+            }
         }
     }
 }

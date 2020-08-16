@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Command.Courses;
+﻿using Cloudents.Command.Courses;
 using FluentValidation;
 
 namespace Cloudents.Web.Models
@@ -20,6 +19,11 @@ namespace Cloudents.Web.Models
 
             RuleForEach(x => x.LiveClassSection)
                 .SetValidator(new LiveClassSectionValidator()).When(w => w.LiveClassSection != null);
+
+
+            RuleFor(x => x.ClassContent)
+                .SetValidator(new ClassContentValidator()).When(w => w.ClassContent != null);
+
         }
     }
 
@@ -38,6 +42,15 @@ namespace Cloudents.Web.Models
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Id).NotEmpty();
+        }
+    }
+
+    public class ClassContentValidator : AbstractValidator<ClassContent>
+    {
+        public ClassContentValidator()
+        {
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.Text).NotEmpty();
         }
     }
 }
