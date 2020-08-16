@@ -1,7 +1,7 @@
 <template>
-  <v-navigation-drawer class="profileDrawer" :right="$vuetify.rtl" permanent width="338" app fixed touchless clipped>
+  <v-navigation-drawer class="profileDrawer" v-model="drawer" :right="$vuetify.rtl" :permanent="drawer" width="338" app fixed touchless clipped>
 	<div class="drawerHeader">
-		<div class="pa-5">Edit Tutor</div>
+		<div class="pa-5" v-t="'edit_tutor'"></div>
 	</div>
 
     <v-form v-model="valid" ref="formTutor" class="pa-4">
@@ -10,7 +10,7 @@
             <!-- <v-icon class="closeIcon" size="12" @click="closeDialog">{{$vuetify.icons.values.close}}</v-icon> -->
         <!-- </div> -->
         <div class="profilePicture mb-5">
-            <div class="pictureTitle text-center mb-2" v-t="'profile picture'"></div>
+            <div class="pictureTitle mb-4" v-t="'profile picture'"></div>
             <div class="profileEditAvatarWrap">
                 <uploadImage
                     sel="photo"
@@ -36,12 +36,12 @@
         </div>
 
         <label class="profileCover mb-12" @click="$vuetify.goTo('#profileCover')">
-            <div class="coverTitle mb-2" v-t="'profile cover'"></div>
+            <div class="coverTitle mb-4" v-t="'profile cover'"></div>
             <cover  />
         </label>
 
         <v-row no-gutters class="profileInfo">
-            <v-col cols="12" class="mb-4">
+            <v-col cols="12" class="my-4">
                 <div class="infoTitle" v-t="'profile_personal_details'"></div>
             </v-col>
             <v-col cols="12" sm="6">
@@ -69,7 +69,7 @@
                 <v-textarea
                     rows="2"
                     outlined
-                    v-model="title"profileParagraph 
+                    v-model="title" 
                     :rules="[rules.titleMaxChars]"
                     @focus="$vuetify.goTo('#profileCover')"
                     :counter="TITLE_MAX"
@@ -125,7 +125,6 @@
 </template>
 
 <script>
-import { TUTOR_EDIT_PROFILE } from '../../pages/global/toasterInjection/componentConsts'
 import { validationRules } from '../../../services/utilities/formValidationRules';
 import profileCourses from './profileCourse.vue';
 import uploadImage from '../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue'
@@ -162,6 +161,14 @@ export default {
         };
     },
     computed: {
+        drawer: {
+            get() {
+                return this.$store.getters.getProfileCoverDrawer
+            },
+            set(newVal) {
+                this.$store.commit('setToggleProfileDrawer', newVal)
+            }
+        },
         broadcastSessions() {
             return this.$store.getters.getProfileCourses;
         },
@@ -234,7 +241,7 @@ export default {
             }
         },
         closeDialog() {
-            this.$store.commit('removeComponent', TUTOR_EDIT_PROFILE)
+            this.$store.commit('setToggleProfileDrawer', false)
         }
     }
 };
@@ -263,8 +270,6 @@ export default {
     }
     .profilePicture {
         position: relative;
-        width: max-content;
-        margin: 0 auto;
         @media (max-width: @screen-xs) {
             padding: 8px 6px;
             background: #fff;
@@ -276,6 +281,8 @@ export default {
             color: #131415;
         }
         .profileEditAvatarWrap {
+            width: max-content;
+            margin: 0 auto;
             .pUb_dS_img{
                 pointer-events: none !important;
             }

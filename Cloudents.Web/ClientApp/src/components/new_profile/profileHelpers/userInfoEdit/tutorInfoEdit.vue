@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { TUTOR_EDIT_PROFILE } from '../../../pages/global/toasterInjection/componentConsts'
+// import { TUTOR_EDIT_PROFILE } from '../../../pages/global/toasterInjection/componentConsts'
 import { validationRules } from '../../../../services/utilities/formValidationRules';
 import uploadImage from '../../profileHelpers/profileBio/bioParts/uploadImage/uploadImage.vue'
 import cover from '../../components/cover.vue'
@@ -210,9 +210,9 @@ export default {
                     });
             }
         },
-        closeDialog() {
-            this.$store.commit('removeComponent', TUTOR_EDIT_PROFILE)
-        }
+        // closeDialog() {
+            // this.$store.commit('removeComponent', TUTOR_EDIT_PROFILE)
+        // }
     }
 };
 </script>

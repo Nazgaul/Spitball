@@ -1,9 +1,9 @@
 <template>
     <div class="profilePage">
-      <profileDrawer />
+      <profileDrawer v-if="isMyProfile" />
       <div>
         <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
-            <profileCover  />
+            <profileCover />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
         <profileStats v-if="showProfileStats" />

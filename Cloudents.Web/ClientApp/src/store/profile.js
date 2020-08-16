@@ -9,7 +9,8 @@ const state = {
    faq: [],
    profileReviews: null,
    amountOfReviews: 0,
-   profileCoverLoading: false
+   profileCoverLoading: false,
+   profileDrawerState: false
 }
 
 const getters = {
@@ -33,6 +34,7 @@ const getters = {
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
+   getProfileCoverDrawer: state => state.profileDrawerState,
    //getProfileCountry: state => state.profile?.user?.tutorCountry,
    getProfileCourses: state => state.courses,
    getIsProfileFollowing: state => state.profile?.user?.isFollowing,
@@ -167,6 +169,9 @@ const mutations = {
    },
    setFakeBio(state, bio) {
       state.profile.user.tutorData.paragraph = bio
+   },
+   setToggleProfileDrawer(state, val) {
+      state.profileDrawerState = val
    }
 }
 

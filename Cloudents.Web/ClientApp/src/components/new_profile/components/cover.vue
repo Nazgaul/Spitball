@@ -20,7 +20,7 @@
       sel="cover_image"
     />
 
-    <slot v-if="!mainCoverImage">
+    <slot>
       <div class="coverupload" v-if="$store.getters.getIsMyProfile && isLoaded">
         <input sel="edit_cover_image"
           class="profile-upload"
@@ -78,9 +78,11 @@ export default {
       if (profileUser) {
         let size = this.coverImageSize
         let coverImage = this.$store.getters.getProfileCoverImage
+        let profileDrawerState = this.$store.getters.getProfileCoverDrawer
+        let width = profileDrawerState ? size.width - 338 : size.width
         return utilitiesService.proccessImageURL(
           coverImage,
-          size.width,
+          width,
           size.height,
           'anchorPosition=center',
           'cover'
