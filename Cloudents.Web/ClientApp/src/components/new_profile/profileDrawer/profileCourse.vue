@@ -6,7 +6,7 @@
             v-bind="dragOptions"
             :move="checkMove"
             @start="dragging = true"
-            @end="dragging = false"
+            @end="handleEndMove"
         >
             <transition-group type="transition" name="flip-list">
                 <div v-for="(course, index) in courses" :key="index" class="courseSessionsDragWrap d-flex align-center">
@@ -25,6 +25,12 @@ export default {
     components: {
         draggable
     },
+    data() {
+        return {
+            oldIndex: 0,
+            newIndex: 0
+        }
+    },
     computed: {
         dragOptions() {
             return {
@@ -39,11 +45,25 @@ export default {
         }
     },
     methods: {
-        checkMove: function(e) {
-            return
-            let {futureIndex, index} = e.draggedContext
-            const movedItem = this.files.slice(index, 1)[0]
-            this.files.slice(futureIndex, 0, movedItem)
+        handleEndMove() {
+            if(this.oldIndex !== this.newIndex) {
+                let self = this
+                this.$store.dispatch('updateProfileClassPosition', {
+                    oldIndex: this.oldIndex,
+                    newIndex: this.newIndex
+                }).then(() => {
+                    const movedItem = self.courses.slice(self.oldIndex, 1)[0]
+                    self.courses.slice(self.newIndex, 0, movedItem)
+                }).finally(() => {
+                    self.oldIndex = 0
+                    self.newIndex = 0
+                })
+            }
+            this.dragging = false
+        },
+        checkMove(e) {
+            this.oldIndex = e.draggedContext.index
+            this.newIndex = e.draggedContext.futureIndex
         }
     }
 }
