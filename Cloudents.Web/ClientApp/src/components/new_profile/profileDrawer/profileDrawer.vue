@@ -1,7 +1,7 @@
 <template>
-  <v-navigation-drawer class="profileDrawer" v-model="drawer" :right="$vuetify.rtl" :permanent="drawer" width="338" app fixed touchless clipped>
+  <v-navigation-drawer class="profileDrawer" v-model="drawer" :right="$vuetify.rtl" :permanent="drawer" :width="$vuetify.breakpoint.xsOnly ? '100%' : '338'" app fixed touchless clipped>
 	<div class="drawerHeader">
-		<div class="pa-5" v-t="'edit_tutor'"></div>
+		<div class="pa-5" v-t="'edit'"></div>
 	</div>
 
     <v-form v-model="valid" ref="formTutor" class="pa-4">
@@ -9,8 +9,8 @@
             <!-- <div class="mainTitle" v-t="'upload images'"></div> -->
             <!-- <v-icon class="closeIcon" size="12" @click="closeDialog">{{$vuetify.icons.values.close}}</v-icon> -->
         <!-- </div> -->
-        <div class="profilePicture mb-5">
-            <div class="pictureTitle mb-4" v-t="'profile picture'"></div>
+        <div class="profilePicture mb-5 mt-2">
+            <div class="pictureTitle mb-3" v-t="'profile picture'"></div>
             <div class="profileEditAvatarWrap">
                 <uploadImage
                     sel="photo"
@@ -23,8 +23,8 @@
                     class="pUb_dS_img"
                     :userName="$store.getters.getAccountName"
                     :userImageUrl="$store.getters.getAccountImage"
-                    :width="isMobile ? 130: 160"
-                    :height="isMobile ? 161 : 200"
+                    :width="134"
+                    :height="164"
                     :userId="$store.getters.getAccountId"
                     :fontSize="36"
                     :borderRadius="8"
@@ -33,16 +33,18 @@
                     @setAvatarLoaded="val => avatarLoading = val"
                 />
             </div>
+            <div class="avatrRecommended mt-0" v-t="'profile_pic_recommended'"></div>
         </div>
 
         <label class="profileCover mb-12" @click="$vuetify.goTo('#profileCover')">
-            <div class="coverTitle mb-4" v-t="'profile cover'"></div>
+            <div class="coverTitle mt-8 mb-3" v-t="'profile cover'"></div>
             <cover  />
+            <div class="coverRecommended text-center mt-2" v-t="'profile_cover_recommended'"></div>
         </label>
 
         <v-row no-gutters class="profileInfo">
             <v-col cols="12" class="my-4">
-                <div class="infoTitle" v-t="'profile_personal_details'"></div>
+                <div class="infoTitle mt-8" v-t="'profile_personal_details'"></div>
             </v-col>
             <v-col cols="12" sm="6">
                 <v-text-field
@@ -68,6 +70,7 @@
             <v-col cols="12">
                 <v-textarea
                     rows="2"
+                    class="my-1"
                     outlined
                     v-model="title" 
                     :rules="[rules.titleMaxChars]"
@@ -83,6 +86,7 @@
                 <v-textarea
                     rows="2"
                     outlined
+                    class="mb-1"
                     v-model="shortParagraph"
                     @focus="$vuetify.goTo('#profileCover')"
                     :rules="[rules.shortParagraphMaxChars]"
@@ -106,7 +110,7 @@
         
         <profileCourses />
 
-        <div class="text-center">
+        <div class="text-center profileDrawerSticky">
             <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="closeDialog">
                 <span v-t="'cancel'"></span>
             </v-btn>
@@ -276,13 +280,13 @@ export default {
             border-radius: 8px;
         }
         .pictureTitle {
-            .responsive-property(font-size, 18px, null, 16px);
+            font-size: 16px;
             font-weight: 600;
             color: #131415;
         }
         .profileEditAvatarWrap {
             width: max-content;
-            margin: 0 auto;
+            // margin: 0 auto;
             .pUb_dS_img{
                 pointer-events: none !important;
             }
@@ -297,25 +301,29 @@ export default {
                 z-index: 1;
             }
             .user-avatar-image-wrap {
-                width: auto !important;
+                // width: auto !important;
                 .user-avatar-rect-img {
                     border: solid 1px #c6cdda;
                     border-radius: 3px !important;
                 }
             }
         }
+        .avatrRecommended {
+            font-size: 12px;
+            color: #a4a7ab;
+        }
     }
     .profileCover {
         cursor: pointer;
         position: relative;
         .coverTitle {
-            .responsive-property(font-size, 18px, null, 16px);
+            font-size: 16px;
             font-weight: 600;
             color: #43425d;
         }
         .coverPhoto {
             object-fit: cover;
-            .responsive-property(height, 212px, null, 107px);
+            height: 150px;
             border-radius: 3px;
             border: solid 1px #c6cdda;
         }
@@ -325,10 +333,14 @@ export default {
         .imageLinear {
             display: none;
         }
+        .coverRecommended {
+            font-size: 12px;
+            color: #a4a7ab;
+        }
     }
     .profileInfo {
         .infoTitle {
-            .responsive-property(font-size, 22px, null, 20px);
+            font-size: 16px;
             font-weight: 600;
             color: #43425d;
         }
@@ -355,6 +367,12 @@ export default {
                 font-size: 14px;
             }
         }
+    }
+    .profileDrawerSticky {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 10px;
     }
 }
 </style>

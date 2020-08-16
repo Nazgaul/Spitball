@@ -9,9 +9,9 @@
             @end="handleEndMove"
         >
             <transition-group type="transition" name="flip-list">
-                <div v-for="(course, index) in courses" :key="index" class="courseSessionsDragWrap d-flex align-center">
-                    <img :src="$proccessImageUrl(course.image, 60, 60)" width="60" height="60" />
-                    <div class="ms-2">{{course.name}}</div>
+                <div v-for="(course, index) in courses" :key="index" class="courseSessionsDragWrap">
+                    <div class="mb-3">{{course.name}}</div>
+                    <img :src="$proccessImageUrl(course.image, 200, 130)" width="200" height="130" />
                 </div>
             </transition-group>
         </draggable>
