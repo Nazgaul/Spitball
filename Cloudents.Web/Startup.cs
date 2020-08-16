@@ -242,8 +242,8 @@ namespace Cloudents.Web
                 .AddFluentValidation(fv=>
                 {
                     
-                    fv.RegisterValidatorsFromAssemblyContaining<HeroSectionValidator>();
-                    fv.ImplicitlyValidateChildProperties = true;
+                    fv.RegisterValidatorsFromAssemblyContaining<UpdateCourseLandingCommandValidator>();
+                  //  fv.ImplicitlyValidateChildProperties = true;
                 });
             if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {
