@@ -38,12 +38,7 @@
                <div v-else class="pt-7 sessionPrice">{{$t('course_free')}}</div>
             </template>
 
-            <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
-             class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{$t('enter_room')}}
-            </v-btn>
-            <v-btn v-else :disabled="isCourseFull" :loading="loadingBtn" 
-            @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn class="saveBtn" :loading="loadingBtn" @click="enrollSession" :disabled="isCourseFull" depressed :height="btnHeight" color="#1b2441">
                {{enrollBtnText}}
             </v-btn>
             <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isCourseFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
@@ -102,6 +97,13 @@ export default {
             return
          }
          if(this.loadingBtn) return;
+         if(this.isCourseTutor){
+            if(this.courseSessions.length !== 0){
+               this.enterStudyRoom()
+            }else{
+               return;
+            }
+         }
          this.loadingBtn = true;
          let courseId = this.$route.params?.id;
          let self = this
@@ -139,7 +141,10 @@ export default {
          if(this.isCourseFull){
             return this.$t('room_full')
          }else{
-            return this.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+            if(this.$store.getters.getCourseButtonPreview) return this.$store.getters.getCourseButtonPreview;
+            else{
+               return this.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+            }
          }
       },
       tutorCountry(){

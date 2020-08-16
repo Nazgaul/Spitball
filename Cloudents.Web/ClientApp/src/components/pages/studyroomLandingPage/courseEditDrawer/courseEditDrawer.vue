@@ -15,7 +15,9 @@
 
 	<div class="text-center pt-9">
 		<v-btn class="me-3" color="#4452fc" width="132" height="40" v-t="'cancel'" rounded depressed outlined/>
-		<v-btn class="white--text" color="#4452fc" width="132" height="40" v-t="'save'" depressed rounded/>
+		<v-btn @click="updateInfo" :loading="loadignBtn" class="white--text" color="#4452fc" width="132" height="40" depressed rounded>
+			{{$t('save')}}
+		</v-btn>
 	</div>
   </v-navigation-drawer>
 </template>
@@ -44,6 +46,17 @@ export default {
 		},
 		isCourseItems(){
          return this.$store.getters.getCourseItems?.length
+		},
+		loadignBtn(){
+			return this.$store.getters.getCourseLoadingButton;
+		}
+	},
+	methods: {
+		updateInfo(){
+			if(this.loadignBtn) return;
+
+			let courseId = this.$route.params?.id;
+			this.$store.dispatch('updateCourseEditedInfo',courseId)
 		}
 	},
 };
