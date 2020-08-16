@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph pa-2 mt-sm-6 mt-3 px-4" dir="auto">
+  <div id="profileParagraph" class="profileParagraph pa-2 mt-sm-6 mt-3 px-4" dir="auto">
     <div class="paragraph">
         <span class="paragraphSpan">{{bio}}</span>
     </div>

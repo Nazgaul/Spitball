@@ -35,10 +35,10 @@
             </div>
         </div>
 
-        <div class="profileCover mb-12">
+        <label class="profileCover mb-12" @click="$vuetify.goTo('#profileCover')">
             <div class="coverTitle mb-2" v-t="'profile cover'"></div>
             <cover  />
-        </div>
+        </label>
 
         <v-row no-gutters class="profileInfo">
             <v-col cols="12" class="mb-4">
@@ -69,8 +69,9 @@
                 <v-textarea
                     rows="2"
                     outlined
-                    v-model="title"
+                    v-model="title"profileParagraph 
                     :rules="[rules.titleMaxChars]"
+                    @focus="$vuetify.goTo('#profileCover')"
                     :counter="TITLE_MAX"
                     :label="$t('profile_description_label')"
                     dense
@@ -83,6 +84,7 @@
                     rows="2"
                     outlined
                     v-model="shortParagraph"
+                    @focus="$vuetify.goTo('#profileCover')"
                     :rules="[rules.shortParagraphMaxChars]"
                     :counter="SHORTPARAGRAPG_MAX"
                     :label="$t('Short paragraph')"
@@ -95,6 +97,7 @@
                     outlined
                     v-model="bio"
                     class="tutor-edit-bio"
+                    @focus="$vuetify.goTo('#profileParagraph')"
                     :label="$t('profile_bio_label')"
                     :placeholder="$t('bio placeholder')"
                 ></v-textarea>
@@ -296,6 +299,7 @@ export default {
         }
     }
     .profileCover {
+        cursor: pointer;
         position: relative;
         .coverTitle {
             .responsive-property(font-size, 18px, null, 16px);

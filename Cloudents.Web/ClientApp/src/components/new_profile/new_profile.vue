@@ -2,7 +2,7 @@
     <div class="profilePage">
       <profileDrawer />
       <div>
-        <div class="coverWrapper" :key="componentRenderKey">
+        <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
             <profileCover  />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
