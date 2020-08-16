@@ -53,6 +53,7 @@ namespace Cloudents.Core.DTOs
         public bool Full { get; set; }
         public bool SessionStarted { get; set; }
         public DateTime? BroadcastTime { get; set; }
+        public CourseDetails Details { get; set; }
 
         [NonSerialized]
         public int Version;

@@ -10,7 +10,7 @@ namespace Cloudents.Persistence.Maps
         public CourseMap()
         {
             DynamicUpdate();
-            Id(x=>x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "5",
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "5",
                 $"{nameof(HiLoGenerator.TableName)}='Course'");
             Map(x => x.Name).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
             Map(x => x.Description).Access.CamelCaseField(Prefix.Underscore).Not.Nullable();
@@ -18,7 +18,7 @@ namespace Cloudents.Persistence.Maps
 
             //HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
             //    .Inverse().Cascade.AllDeleteOrphan();
-            //Map(x=>x.De)
+            Map(x => x.Details).CustomType<JsonColumnType<CourseDetails>>();
 
             HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().AsList(x =>
@@ -35,10 +35,10 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
-                .Columns.Add("SubscriptionPrice","SubscriptionCurrency");
+                .Columns.Add("SubscriptionPrice", "SubscriptionCurrency");
             Map(x => x.Price)//.Not.Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
-                .Columns.Add("Price","PriceCurrency");
+                .Columns.Add("Price", "PriceCurrency");
 
             Map(x => x.StartTime).Access.CamelCaseField(Prefix.Underscore).Nullable();
 

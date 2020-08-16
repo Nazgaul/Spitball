@@ -53,6 +53,7 @@ namespace Cloudents.Query.Courses
                         TutorCountry = s.Tutor.User.SbCountry,
                         TutorSellerKey = s.Tutor.SellerKey,
                         Description = s.Description,
+                        Details = s.Details,
                         TutorBio = s.Tutor.Paragraph2,
                         Version = s.Version
                     }).ToFutureValue();

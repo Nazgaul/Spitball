@@ -4,11 +4,12 @@ namespace Cloudents.Core.Entities
 {
     public class CourseDetails : ValueObject
     {
-        public string HeroButton { get; set; }
+        public string? HeroButton { get; set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new System.NotImplementedException();
+            yield return HeroButton;
+            //throw new System.NotImplementedException();
         }
     }
 }

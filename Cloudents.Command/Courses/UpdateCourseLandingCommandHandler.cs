@@ -38,6 +38,8 @@ namespace Cloudents.Command.Courses
                 {
                     await _blobProvider.MoveAsync(message.HeroSection.Image, course.Id.ToString(), "0.jpg", token);
                 }
+
+                course.Details.HeroButton = message.HeroSection.Button;
             }
         }
     }

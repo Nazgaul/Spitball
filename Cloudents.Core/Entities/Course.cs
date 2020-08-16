@@ -48,6 +48,7 @@ namespace Cloudents.Core.Entities
             Description = description;
             StartTime = startTime ?? DateTime.UtcNow;
             Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            Details = new CourseDetails();
 
         }
 
