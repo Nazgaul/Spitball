@@ -152,6 +152,13 @@ export default {
          }
       },
       toggleExpandScreen(){
+         if(!this.isExpandVideoMode){
+            if(!this.isCurrentParticipant){
+               this.videoTrack.setPriority('standard')
+            }  
+            this.videoTrack.dimensions.width = 1280;
+            this.videoTrack.dimensions.height = 720;
+         }
          this.isExpandVideoMode = !this.isExpandVideoMode
       },
       startShareScreen(){
