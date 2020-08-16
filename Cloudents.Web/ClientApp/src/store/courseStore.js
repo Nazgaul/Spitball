@@ -9,10 +9,13 @@ function _createCourseEditedSections(objInit,refObj){
   let liveClassSection = objInit.studyRooms?.length? objInit.studyRooms.map(c=>new LiveClassSection(c)) : undefined;
   let teacherBio = new TeacherBio(objInit,refObj);
   clean(teacherBio);
+  let classContent = new ClassContent(objInit,refObj);
+  clean(classContent);
 
   let editedObject = {
     heroSection: Object.values(heroSection).some(p => (p)) ? heroSection : undefined,
     liveClassSection,
+    classContent: Object.values(classContent).some(p => (p)) ? classContent : undefined,
     teacherBio: Object.values(teacherBio).some(p => (p)) ? teacherBio : undefined,
   }
   clean(editedObject)
@@ -26,6 +29,10 @@ function _createCourseEditedSections(objInit,refObj){
   function LiveClassSection(objInit){
     this.id = objInit.id;
     this.name = objInit.name;
+  }
+  function ClassContent(objInit,objRef){
+    this.title = objInit.contentTitle || objRef.contentTitle;
+    this.text = objInit.contentText || objRef.contentText;
   }
   function TeacherBio(objInit,objRef){
     this.name = objInit.tutorName || objRef.tutorName;
@@ -95,6 +102,9 @@ const mutations = {
       this.teacherTitle = objInit.details?.teacherBioTitle;
       this.tutorName = objInit.details?.teacherBioName || objInit.tutorName;
       this.tutorBio = objInit.details?.teacherBioText || objInit.tutorBio;
+
+      this.contentText = objInit.details?.contentText;
+      this.contentTitle = objInit.details?.contentTitle;
     }
   },
 
@@ -132,6 +142,9 @@ const getters = {
   getCourseTeacherTitlePreview: state => state.courseEditedDetails?.teacherTitle || state.courseDetails?.teacherTitle,
 
   getCourseButtonPreview: state => state.courseEditedDetails?.heroButton || state.courseDetails?.heroButton,
+  getCourseItemsContentTextPreview: state => state.courseEditedDetails?.contentText || state.courseDetails?.contentText,
+  getCourseItemsContentTitlePreview: state => state.courseEditedDetails?.contentTitle || state.courseDetails?.contentTitle,
+  
   getCourseLoadingButton: state => state.loadingEditCourseBtn,
 
   
@@ -191,20 +204,3 @@ export default {
   getters,
   actions
 }
-
-/*
-hero:
-      Vue.delete(state.roomParticipants, participantId)
-      Vue.set(state.roomParticipants, participantId, participantObj);
-{
-  id:'123',
-  image:'sdfsfsf',
-  description: 'sdfs sdfsfssf sf  sdfasfs s ',
-  enrollBtn: 'buy now',
-}
-
-update store object ref to real data
-getters depend on the updated store object || real data
-setters that set store object props && real data for preview
-resx
-*/ 
