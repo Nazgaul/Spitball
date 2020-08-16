@@ -5,9 +5,9 @@
             {{$t('class_list')}}
          </div>
       </v-expansion-panel-header>
-      <v-expansion-panel-content>
+      <v-expansion-panel-content class="pb-3">
          <v-textarea v-for="(session, index) in sessionsList" :key="index" 
-            class="textInputs" auto-grow color="#4c59ff" rows="1" :value="session.name" @input="editClassName($event,session)">
+            class="textInputs mt-4" auto-grow color="#4c59ff" rows="1" :value="session.name" @input="editClassName($event,session)">
             <template v-slot:label>
                <div class="inputLabel">{{$t('class_title',[index+1])}}</div>
             </template>
