@@ -9,6 +9,10 @@ namespace Cloudents.Core.Entities
         public string? ContentTitle { get; set; }
         public string? ContentText { get; set; }
 
+        public string? TeacherBioTitle { get; set; }
+        public string? TeacherBioName { get; set; }
+        public string? TeacherBioText { get; set; }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return HeroButton;

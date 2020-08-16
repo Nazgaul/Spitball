@@ -24,6 +24,9 @@ namespace Cloudents.Web.Models
             RuleFor(x => x.ClassContent)
                 .SetValidator(new ClassContentValidator()).When(w => w.ClassContent != null);
 
+            RuleFor(x => x.TeacherBio)
+                .SetValidator(new TeacherBioValidator()).When(w => w.TeacherBio != null);
+
         }
     }
 
@@ -50,6 +53,16 @@ namespace Cloudents.Web.Models
         public ClassContentValidator()
         {
             RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.Text).NotEmpty();
+        }
+    }
+
+    public class TeacherBioValidator : AbstractValidator<TeacherBio>
+    {
+        public TeacherBioValidator()
+        {
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Text).NotEmpty();
         }
     }

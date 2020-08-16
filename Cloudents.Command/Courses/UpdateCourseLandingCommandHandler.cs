@@ -40,7 +40,7 @@ namespace Cloudents.Command.Courses
                     await _blobProvider.MoveAsync(message.HeroSection.Image, course.Id.ToString(), "0.jpg", token);
                 }
 
-                course.Details.HeroButton = message.HeroSection.Button;
+                
             }
 
             if (message.LiveClassSection != null)
@@ -52,11 +52,13 @@ namespace Cloudents.Command.Courses
                 }
             }
 
-            if (message.ClassContent != null)
-            {
-                course.Details.ContentText = message.ClassContent.Text;
-                course.Details.ContentTitle = message.ClassContent.Title;
-            }
+            course.Details.HeroButton = message.HeroSection?.Button;
+            course.Details.ContentText = message.ClassContent?.Text;
+            course.Details.ContentTitle = message.ClassContent?.Title;
+
+            course.Details.TeacherBioName = message.TeacherBio?.Name;
+            course.Details.TeacherBioText = message.TeacherBio?.Text;
+            course.Details.TeacherBioTitle = message.TeacherBio?.Title;
         }
     }
 }
