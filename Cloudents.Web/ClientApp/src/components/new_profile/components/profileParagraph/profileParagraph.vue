@@ -1,5 +1,5 @@
 <template>
-  <div class="profileParagraph pa-2 mt-sm-6 mt-3 px-4" dir="auto">
+  <div id="profileParagraph" class="profileParagraph pa-2 mt-sm-6 mt-3 px-4" dir="auto">
     <div class="paragraph">
         <span class="paragraphSpan">{{bio}}</span>
     </div>
@@ -11,7 +11,7 @@ export default {
     name: 'profileParagraph',
     computed: {
         bio() {
-            return this.$store.getters.getProfileParagraph
+            return this.$store.getters.getProfileTempBio || this.$store.getters.getProfileParagraph
         },
     }
 }

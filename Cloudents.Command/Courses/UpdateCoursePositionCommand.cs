@@ -2,16 +2,18 @@
 {
     public class UpdateCoursePositionCommand : ICommand
     {
-        public UpdateCoursePositionCommand(long tutorId, int oldPosition, int newPosition)
+        public UpdateCoursePositionCommand(long tutorId, int oldPosition, int newPosition, bool modelVisibleOnly)
         {
             TutorId = tutorId;
             OldPosition = oldPosition;
             NewPosition = newPosition;
+            ModelVisibleOnly = modelVisibleOnly;
         }
 
         public long TutorId { get;  }
         public int OldPosition { get; }
         public int NewPosition { get; }
+        public bool ModelVisibleOnly { get; }
     }
 
     //public class UpdateDocumentPositionCommand : ICommand

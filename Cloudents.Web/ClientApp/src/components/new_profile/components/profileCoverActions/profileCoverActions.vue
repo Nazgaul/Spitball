@@ -1,4 +1,4 @@
-    <template>
+<template>
     <div class="profileCoverActions text-sm-center">
         <h1 dir="auto" class="mainTitle mb-sm-4 mb-2 white--text px-4">{{title}}</h1>
         <h2 dir="auto" class="subTitle white--text mb-sm-7 mb-5 px-4">{{paragraph}}</h2>
@@ -26,7 +26,7 @@
                 rounded
                 depressed>
                 <v-icon size="18" class="me-0 me-sm-2">sbf-person</v-icon>
-                <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0" v-t="''">{{isFollowing ? $t('unfollow_me') : $t('follow_me')}}</span>
+                <span class="flex-grow-1 flex-sm-grow-0 pe-sm-0">{{isFollowing ? $t('unfollow_me') : $t('follow_me')}}</span>
             </v-btn>
         </div>
     </div>
@@ -54,10 +54,10 @@ export default {
             return this.$store.getters.getIsMyProfile
         },
         title() {
-            return this.$store.getters.getProfileTitle
+            return this.$store.getters.getProfileTempTitle || this.$store.getters.getProfileTitle
         },
         paragraph() {
-            return this.$store.getters.getProfileBio
+            return this.$store.getters.getProfileTempParagraph || this.$store.getters.getProfileBio
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
@@ -117,6 +117,7 @@ export default {
     right: 0;
     bottom: 16px;
     .mainTitle {
+        word-break: break-all;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.21);
         max-width: 753px;
         line-height: 1.2;

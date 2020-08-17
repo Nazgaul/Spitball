@@ -1,8 +1,9 @@
 <template>
     <div class="profilePage">
+      <profileDrawer v-if="isMyProfile && $store.getters.getProfileCoverDrawer" />
       <div>
-        <div class="coverWrapper" :key="componentRenderKey">
-            <profileCover  />
+        <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
+            <profileCover />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
         </div>
         <profileStats v-if="showProfileStats" />
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import profileDrawer from './profileDrawer/profileDrawer.vue';
 import profileCover from './components/profileCover/profileCover.vue';
 import profileCoverActions from './components/profileCoverActions/profileCoverActions.vue';
 import profileStats from './components/profileStats/profileStats.vue';
@@ -43,6 +45,7 @@ import profileFloatingBtn from './components/profileFloatingBtn.vue';
 export default {
     name: "new_profile",
     components: {
+        profileDrawer,
         profileCover,
         profileCoverActions,
         profileStats,
