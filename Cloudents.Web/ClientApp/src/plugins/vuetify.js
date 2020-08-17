@@ -54,7 +54,10 @@ const opts = {
     locales: { en, he },
     current: global.lang,
   },
-  theme: { disable: true },
+  theme: {
+    disable: true,
+    themes: undefined
+  },
   // theme: {
   //   theme : 'disabled'
   // },
