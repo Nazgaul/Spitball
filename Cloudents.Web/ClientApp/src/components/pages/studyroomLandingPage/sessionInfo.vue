@@ -50,6 +50,7 @@ export default {
          white-space: pre-line;
          font-size: 20px;
          line-height: 1.7;
+         word-break: break-word;
          //max-width: 855px;
          //margin: 0 auto;
          // @media(max-width: @screen-xs) {
