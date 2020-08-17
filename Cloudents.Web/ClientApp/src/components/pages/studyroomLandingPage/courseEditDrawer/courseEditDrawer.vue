@@ -4,7 +4,7 @@
 		<div class="ps-5 pb-4 pt-12">Edit sell page</div>
 	</div>
 
-	<div class="courseEditSections ps-5 pe-7 pt-6">
+	<div class="courseEditSections ps-5 pe-5 pt-6">
 		<v-expansion-panels v-model="x" accordion flat >
 			<heroEdit/>
 			<classEdit v-if="isCourseSessions"/>
@@ -13,7 +13,7 @@
 		</v-expansion-panels>
 	</div>
 
-	<div class="text-center pt-9">
+	<div class="text-center pt-7">
 		<v-btn class="me-3" color="#4452fc" width="132" height="40" v-t="'cancel'" rounded depressed outlined/>
 		<v-btn @click="updateInfo" :loading="loadignBtn" class="white--text" color="#4452fc" width="132" height="40" depressed rounded>
 			{{$t('save')}}

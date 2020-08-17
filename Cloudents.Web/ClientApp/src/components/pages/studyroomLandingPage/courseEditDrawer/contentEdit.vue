@@ -6,12 +6,12 @@
          </div>
          </v-expansion-panel-header>
       <v-expansion-panel-content>
-         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="contentTitle">
+         <v-textarea class="textInputs my-4" auto-grow color="#4c59ff" rows="1" v-model="contentTitle">
             <template v-slot:label>
                <div class="inputLabel" v-t="'content_title'"/>
             </template>
          </v-textarea>
-         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="contentText">
+         <v-textarea class="textInputs mb-3" auto-grow color="#4c59ff" rows="1" v-model="contentText">
             <template v-slot:label>
                <div class="inputLabel" v-t="'content_text'"/>
             </template>

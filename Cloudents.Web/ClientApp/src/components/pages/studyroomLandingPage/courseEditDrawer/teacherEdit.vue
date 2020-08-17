@@ -7,7 +7,7 @@
          </v-expansion-panel-header>
       <v-expansion-panel-content>
 
-         <v-text-field class="textInputs" color="#4c59ff" v-model="teacherTitle">
+         <v-text-field class="textInputs my-4" color="#4c59ff" v-model="teacherTitle">
             <template v-slot:label>
                <div class="inputLabel" v-t="'teacher_title'"/>
             </template>
@@ -19,7 +19,7 @@
             </template>
          </v-text-field>
 
-         <v-textarea class="textInputs" auto-grow color="#4c59ff" rows="1" v-model="teacherBio">
+         <v-textarea class="textInputs my-4" auto-grow color="#4c59ff" rows="1" v-model="teacherBio">
             <template v-slot:label>
                <div class="inputLabel" v-t="'teacher_text'"/>
             </template>

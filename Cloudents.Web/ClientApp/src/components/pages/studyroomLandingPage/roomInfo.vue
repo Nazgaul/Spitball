@@ -236,6 +236,7 @@ export default {
                color: #41c4bc;
             }
             .classSubject{
+               word-break: break-all;
                margin: 0 auto;
                font-size: 42px;
                @media(max-width: @screen-sm) {
