@@ -31,6 +31,9 @@ export default {
    },
    methods: {
       editClassName(newName,session){
+         if(!newName){
+            newName = session.name
+         }
          let idx;
          let currentSession = this.editedRef.find((s,i)=>{
             if(s.id === session.id){
