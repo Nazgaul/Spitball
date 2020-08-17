@@ -1,17 +1,17 @@
 <template>
-   <div v-if="sessionDescription" class="sessionInfo pt-4 pt-sm-0 px-4 px-lg-0">
+   <div class="sessionInfo pt-4 pt-sm-0 px-4 px-lg-0">
       <div class="sessionTitle pt-0 pt-sm-6" v-t="'what_learn'"/>
        <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
-      <div class="sessionText pt-4  pe-12" v-html="sessionDescription"/>
+      <div class="sessionText pt-4  pe-12" v-html="courseDescription"/>
    </div>
 </template>
 
 <script>
 export default {
    computed: {
-      sessionDescription(){
-         return this.$store.getters.getCourseDetails?.description;
-      }
+      courseDescription(){
+         return this.$store.getters.getCourseDescriptionPreview;
+      },
    },
 }
 </script>
@@ -50,6 +50,7 @@ export default {
          white-space: pre-line;
          font-size: 20px;
          line-height: 1.7;
+         word-break: break-word;
          //max-width: 855px;
          //margin: 0 auto;
          // @media(max-width: @screen-xs) {

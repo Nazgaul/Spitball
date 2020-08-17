@@ -62,6 +62,7 @@ export const studyRoomRoutes = [
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
             ...staticComponents([ 'footer']),
+            courseDrawer: () => import(`../components/pages/studyroomLandingPage/courseEditDrawer/courseEditDrawer.vue`),
         },
         beforeEnter: (to, from, next) => {
             if(!to.params?.id){

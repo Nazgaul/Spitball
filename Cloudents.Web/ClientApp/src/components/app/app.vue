@@ -4,6 +4,7 @@
     <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
+   <router-view v-if="isCourseDrawer" name="courseDrawer"></router-view>
     <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
 
@@ -87,7 +88,9 @@ export default {
       'getLoginDialog',
       'getRegisterDialog'
     ]),
-
+    isCourseDrawer(){
+      return this.$store.getters.getIsCourseTutor && !this.$vuetify.breakpoint.smAndDown && this.$route.query?.edit;   
+    },
     isDrawer() {
       let isLogged = this.getUserLoggedInStatus
       let isTeacher = this.getIsTeacher

@@ -48,6 +48,7 @@ namespace Cloudents.Core.Entities
             Description = description;
             StartTime = startTime ?? DateTime.UtcNow;
             Price = new Money(price, Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
+            Details = new CourseDetails();
 
         }
 
@@ -167,6 +168,8 @@ namespace Cloudents.Core.Entities
 
         public virtual DomainTimeStamp DomainTime { get; protected set; }
 
+        public virtual CourseDetails Details { get; set; }
+
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
         private DateTime? _startTime;
         private string _name;
@@ -201,7 +204,6 @@ namespace Cloudents.Core.Entities
             {
                 _studyRooms.Add(hours);
             }
-
         }
 
         public virtual void RemoveDocument(Document document)

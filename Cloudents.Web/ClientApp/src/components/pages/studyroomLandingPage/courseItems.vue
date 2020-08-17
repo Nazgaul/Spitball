@@ -1,8 +1,8 @@
 <template>
-   <div class="courseItems mt-7 pb-0 py-5 px-4 px-sm-4 px-lg-0" v-if="courseItemsList.length">
-      <div class="courseTitle">{{isCourseEnrolled? $t('courseItemsTitle_enrolled') : $t('courseItemsTitle')}}</div>
+   <div id="courseContentSection" class="courseItems mt-7 pb-0 py-5 px-4 px-sm-4 px-lg-0" v-if="courseItemsList.length">
+      <div class="courseTitle">{{courseItemsTitle}}</div>
       <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
-      <div class="courseSubtitle pt-4 pb-8 pe-12">{{$t('courseItemsAccsess')}}</div>
+      <div class="courseSubtitle pt-4 pb-8 pe-12">{{courseItemsSubtitle}}</div>
       <v-row class="itemsWrapper">
          <v-col class="px-0 px-sm-3 py-2 py-sm-3" v-for="(item) in itemToPreview" :key="item.id" cols="12" md="3" sm="6" >
             <itemCard :item="item"/>
@@ -34,6 +34,20 @@ export default {
       }
    },
    computed: {
+      courseItemsTitle(){
+         if(this.$store.getters.getCourseItemsContentTitlePreview){
+            return this.$store.getters.getCourseItemsContentTitlePreview
+         }else{
+            if(this.isCourseEnrolled){
+               return this.$t('courseItemsTitle_enrolled');
+            }else{
+               return this.$t('courseItemsTitle');
+            }
+         }
+      },
+      courseItemsSubtitle(){
+         return this.$store.getters.getCourseItemsContentTextPreview || this.$t('courseItemsAccsess');
+      },
       isCourseEnrolled(){
          return this.$store.getters.getIsCourseEnrolled;
       },

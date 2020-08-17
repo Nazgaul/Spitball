@@ -57,11 +57,11 @@ export default {
       },
       isButtonDisabled(){
          if(this.$store.getters.getJwtToken || this.$store.getters.getCourseDetails?.sessionStarted) return false;
-         if(this.$store.getters.getCourseSessions?.length === 0) return true;
+         if(this.$store.getters.getCourseSessionsPreview?.length === 0) return true;
          else return !this.isRoomReady
       },
       isSessions(){
-         return this.$store.getters.getCourseSessions?.length
+         return this.$store.getters.getCourseSessionsPreview?.length
       }
       
    },

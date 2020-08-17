@@ -1,5 +1,5 @@
 <template>
-   <div class="roomInfoContainer d-flex flex-column">
+   <div id="courseInfoSection" class="roomInfoContainer d-flex flex-column">
       <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
          <logo :menuList="true" class="logoRoom"></logo>
       </div>
@@ -7,7 +7,7 @@
       <div class="roomInfoTop d-flex">
          <div class="rightSide px-2 pt-10 pb-5 pb-sm-0 pt-sm-0">
             <div>
-               <div class="classTitle">{{$t('live_with',[tutorName])}}</div>
+               <div class="classTitle">{{$t('live_with')}}</div>
                <div class="classSubject pt-4" v-text="courseName"/>
             </div>
             <div v-if="courseSessions.length">
@@ -38,15 +38,10 @@
                <div v-else class="pt-7 sessionPrice">{{$t('course_free')}}</div>
             </template>
 
-            <v-btn v-if="isCourseTutor" @click="enterStudyRoom" :disabled="courseSessions.length === 0"
-             class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-               {{$t('enter_room')}}
-            </v-btn>
-            <v-btn v-else :disabled="isRoomFull" :loading="loadingBtn" 
-            @click="enrollSession" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
+            <v-btn class="saveBtn" :loading="loadingBtn" @click="enrollSession" :disabled="isCourseFull" depressed :height="btnHeight" color="#1b2441">
                {{enrollBtnText}}
             </v-btn>
-            <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isRoomFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isCourseFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
         
          </div>
          <div class="bottomLeft" v-if="courseDetails">
@@ -102,6 +97,13 @@ export default {
             return
          }
          if(this.loadingBtn) return;
+         if(this.isCourseTutor){
+            if(this.courseSessions.length !== 0){
+               this.enterStudyRoom()
+            }else{
+               return;
+            }
+         }
          this.loadingBtn = true;
          let courseId = this.$route.params?.id;
          let self = this
@@ -112,17 +114,19 @@ export default {
       }
    },
    computed: {
-      courseDetails(){
-         return this.$store.getters.getCourseDetails;
-      },
-      courseSessions(){
-         return this.$store.getters.getCourseSessions
+      courseName(){
+         return this.$store.getters.getCourseNamePreview;
       },
       courseImage(){
-         return this.$proccessImageUrl(this.courseDetails?.image, 528, 357)
+         let img = this.$store.getters.getCourseImagePreview;
+         if(img && img.includes('blob')){
+            return img;
+         }else{
+            return this.$proccessImageUrl(img, 528, 357)
+         }
       },
-      courseName(){
-         return this.courseDetails?.name;
+      courseSessions(){
+         return this.$store.getters.getCourseSessionsPreview
       },
       isCourseTutor(){
          return this.$store.getters.getIsCourseTutor
@@ -130,15 +134,18 @@ export default {
       coursePrice(){
          return this.$store.getters.getCoursePrice;
       },
+      courseDetails(){
+         return this.$store.getters.getCourseDetails;
+      },
       enrollBtnText(){
-         if(this.isRoomFull){
+         if(this.isCourseFull){
             return this.$t('room_full')
          }else{
-            return this.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+            if(this.$store.getters.getCourseButtonPreview) return this.$store.getters.getCourseButtonPreview;
+            else{
+               return this.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+            }
          }
-      },
-      tutorName(){
-         return this.courseDetails?.tutorName;
       },
       tutorCountry(){
          return this.courseDetails?.tutorCountry
@@ -158,8 +165,8 @@ export default {
       courseDate(){
          return this.courseDetails?.startTime;
       },
-      isRoomFull(){
-         return this.courseDetails?.full;
+      isCourseFull(){
+         return this.$store.getters.getCourseIsFull
       },
    },
    mounted() {
@@ -175,6 +182,7 @@ export default {
 
 <style lang="less">
    @import '../../../styles/mixin.less';
+  
    .roomInfoContainer{
       width: 100%;
       @media(max-width: @screen-sm) {
@@ -229,6 +237,7 @@ export default {
                color: #41c4bc;
             }
             .classSubject{
+               word-break: break-all;
                margin: 0 auto;
                font-size: 42px;
                @media(max-width: @screen-sm) {
@@ -342,5 +351,23 @@ export default {
             }
          }
       }
+   }
+    .courseDrawer ~ .v-main {
+       min-width: 1264px;
+       overflow-x: auto;
+       background: #fff;
+         ::-webkit-scrollbar-track {
+            background: #f5f5f5; 
+         }
+         ::-webkit-scrollbar {
+               width: 22px;
+         }
+         ::-webkit-scrollbar-thumb {
+               background: #b5b8d9 !important;
+               border-radius: 4px !important;
+         }
+         .studyroomLandingPage{
+            min-width: 1264px + 338px;
+         }
    }
 </style>

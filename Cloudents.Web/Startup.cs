@@ -36,7 +36,9 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure;
+using Cloudents.Web.Models;
 using Cloudents.Web.Seo;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -236,6 +238,12 @@ namespace Cloudents.Web
                         telemetryClient.TrackEvent($"Bad request - {actionContext.HttpContext.Request.GetDisplayUrl()}", errorList);
                         return new BadRequestObjectResult(actionContext.ModelState);
                     };
+                })
+                .AddFluentValidation(fv=>
+                {
+                    
+                    fv.RegisterValidatorsFromAssemblyContaining<UpdateCourseLandingCommandValidator>();
+                  //  fv.ImplicitlyValidateChildProperties = true;
                 });
             if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {

@@ -1,6 +1,6 @@
 <template>
-   <div class="hostInfo">
-      <div class="hostTitle" v-t="'about_host'"/>
+   <div id="courseTeacherSection" class="hostInfo">
+      <div class="hostTitle">{{teacherTitle}}</div>
       <div class="divider"/>
       <div class="hostBox d-flex flex-wrap flex-sm-nowrap">
          <div class="hostImg">
@@ -9,13 +9,13 @@
             :tile="true"
             :width="242"
             :height="298"
-            :user-name="tutorName" 
+            :user-name="teacherName" 
             :user-id="tutorId" 
             :userImageUrl="tutorImage"/> 
          </div>
          <div class="hostText">
-            <div class="hostName" v-text="tutorName"/>
-            <div class="hostBio" v-text="tutorBio"/>
+            <div class="hostName" v-text="teacherName"/>
+            <div class="hostBio" v-text="teacherBio"/>
          </div>
       </div>
    </div>
@@ -24,11 +24,18 @@
 <script>
 export default {
    computed: {
+      teacherName(){
+         return this.$store.getters.getCourseTeacherNamePreview;
+      },
+      teacherBio(){
+         return this.$store.getters.getCourseTeacherBioPreview;
+      },
+      teacherTitle(){
+         return this.$store.getters.getCourseTeacherTitlePreview || this.$t('about_host');
+      },
+
       courseDetails(){
          return this.$store.getters.getCourseDetails;
-      },
-      tutorName(){
-         return this.courseDetails?.tutorName;
       },
       tutorId(){
          return this.courseDetails?.tutorId;
@@ -36,9 +43,6 @@ export default {
       tutorImage(){
          return this.courseDetails?.tutorImage;
       },
-      tutorBio(){
-         return this.courseDetails?.tutorBio;
-      }
    },
 
 }
@@ -85,6 +89,8 @@ export default {
          @media(max-width: @screen-xs) {
             padding: 0;
             justify-content: center;
+            flex-direction: column;
+            align-items: center;
          }
          .hostText{
             padding-left: 24px;

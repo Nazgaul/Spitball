@@ -1,7 +1,7 @@
 <template>
     <div class="courseShare">
         <div class="promotePublishWrap">
-            <promotePublish :document="{id: currentCreatedCourseId}"/>
+            <promotePublish :document="{id: courseId}"/>
         </div>
         <marketingBlogs />  
     </div>
@@ -19,7 +19,12 @@ export default {
     components: {
         promotePublish,
         marketingBlogs
-    }
+    },
+    computed: {
+        courseId(){
+            return this.currentCreatedCourseId || this.$route.params?.id;
+        }       
+    },
 }
 </script>
 
