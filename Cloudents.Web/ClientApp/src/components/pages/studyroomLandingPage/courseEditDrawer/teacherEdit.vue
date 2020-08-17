@@ -76,6 +76,9 @@ export default {
          }
       },
    },
+   beforeDestroy(){
+      this.teacherTitle = this.teacherTitle
+   }
 }
 </script>
 <style lang="less" src="./editCards.less"></style>

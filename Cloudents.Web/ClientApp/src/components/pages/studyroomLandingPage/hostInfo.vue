@@ -89,6 +89,8 @@ export default {
          @media(max-width: @screen-xs) {
             padding: 0;
             justify-content: center;
+            flex-direction: column;
+            align-items: center;
          }
          .hostText{
             padding-left: 24px;

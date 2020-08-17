@@ -1,7 +1,7 @@
 <template>
    <div class="studyroomLandingPage d-flex" :class="[{'window2':isCourseEnrolled}]">
       <div class="pageWrapper px-0 px-sm-0 px-md-0 px-lg-0">
-         <v-window :value="isCourseEnrolled? 1 : 0"> 
+         <v-window :value="isCourseEnrolled? 1 : 0" touchless> 
             <v-window-item>
                <div class="roominfoHeader">
                   <div class="cursor-pointer content" v-if="!isMobile" @click="$router.push('/')">

@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer class="courseDrawer" :right="$vuetify.rtl" permanent width="338" app fixed touchless clipped>
 	<div class="drawerHeader">
-		<div class="ps-5 pb-4 pt-12">Edit sell page</div>
+		<div class="ps-5 pb-4 pt-12" v-t="'title_edit'"/>
 	</div>
 
 	<div class="courseEditSections ps-5 pe-5 pt-6">
@@ -13,10 +13,9 @@
 		</v-expansion-panels>
 	</div>
 
-	<div class="text-center pt-7">
-		<v-btn class="me-3" color="#4452fc" width="132" height="40" v-t="'cancel'" rounded depressed outlined/>
+	<div class="text-center px-5 pt-7">
 		<v-btn @click="updateInfo" :loading="loadignBtn" class="white--text" color="#4452fc" width="132" height="40" depressed rounded>
-			{{$t('save')}}
+			{{$t('next')}}
 		</v-btn>
 	</div>
   </v-navigation-drawer>
