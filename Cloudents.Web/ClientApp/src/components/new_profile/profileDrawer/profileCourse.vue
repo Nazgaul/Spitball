@@ -71,6 +71,7 @@ export default {
 
 <style lang="less">
     .courseSessionsDragWrap {
+        max-width: 204px;
         padding: 4px;
         margin: 4px;
         cursor: move;
