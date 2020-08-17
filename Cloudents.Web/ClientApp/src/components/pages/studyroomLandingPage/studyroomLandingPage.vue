@@ -1,5 +1,5 @@
 <template>
-   <div class="studyroomLandingPage d-flex" :class="[{'window2':isCourseEnrolled}]">
+   <div class="studyroomLandingPage d-flex" :class="[{'window2':isCourseEnrolled},{'blockEvents':isPointerNone}]">
       <div class="pageWrapper px-0 px-sm-0 px-md-0 px-lg-0">
          <v-window :value="isCourseEnrolled? 1 : 0" touchless> 
             <v-window-item>
@@ -52,6 +52,9 @@ export default {
             return this.$store.getters.getIsCourseEnrolled;
          }
       },
+      isPointerNone(){
+         return this.$route.query?.edit
+      }
    },
    beforeRouteLeave (to, from, next) {
       this.$store.dispatch('updateCourseDetails',null)
@@ -63,6 +66,9 @@ export default {
 <style lang="less">
    @import '../../../styles/mixin.less';
     .studyroomLandingPage{
+       &.blockEvents{
+          pointer-events: none;
+       }
    //    width: 100%;
    //    height: 100%;
        background: white;  
