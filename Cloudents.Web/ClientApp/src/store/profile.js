@@ -10,7 +10,10 @@ const state = {
    profileReviews: null,
    amountOfReviews: 0,
    profileCoverLoading: false,
-   profileDrawerState: false
+   profileDrawerState: false,
+   tempTitle: '',
+   tempBio: '',
+   tempParagraph: '',
 }
 
 const getters = {
@@ -28,8 +31,14 @@ const getters = {
    getProfileTutorName: state => state.profile?.user?.name,
    getIsSubscriber: state => state.profile?.user?.tutorData?.isSubscriber,
    getProfileTitle: state => state.profile?.user?.tutorData?.title,
+   getProfileTempTitle: state => state.tempTitle,
+
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
+   getProfileTempBio: state => state.tempBio,
+
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
+   getProfileTempParagraph: state => state.tempParagraph,
+
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileFaq: state => state.faq,
@@ -162,13 +171,17 @@ const mutations = {
       }
    },
    setFakeShorParagraph(state, paragraph) {
-      state.profile.user.tutorData.bio = paragraph
+      // state.profile.user.tutorData.bio = paragraph
+      state.tempParagraph = paragraph
    },
    setFakeShortTitle(state, title) {
-      state.profile.user.tutorData.title = title
+      // state.profile.user.tutorData.title = title
+      state.tempTitle = title
    },
    setFakeBio(state, bio) {
-      state.profile.user.tutorData.paragraph = bio
+      // state.profile.user.tutorData.paragraph = bio
+      state.tempBio = bio
+
    },
    setToggleProfileDrawer(state, val) {
       state.profileDrawerState = val

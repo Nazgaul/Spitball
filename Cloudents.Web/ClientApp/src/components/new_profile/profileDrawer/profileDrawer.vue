@@ -246,6 +246,14 @@ export default {
         },
         closeDialog() {
             this.$store.commit('setToggleProfileDrawer', false)
+            this.$store.commit('setFakeShorParagraph', '')
+            this.$store.commit('setFakeBio', '')
+            this.$store.commit('setFakeShortTitle', '')
+            this.editedBio = ''
+            this.editTitle = ''
+            this.editShortParagraph = ''
+            this.editedFirstName = ''
+            this.editedLastName = ''
         }
     }
 };
