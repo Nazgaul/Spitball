@@ -70,11 +70,14 @@ export default {
 </script>
 
 <style lang="less">
+    @import '../../../styles/mixin.less';
     .courseSessionsDragWrap {
-        max-width: 204px;
         padding: 4px;
         margin: 4px;
         cursor: move;
+        @media (max-width: @screen-xs) {
+            max-width: 204px;
+        }
         img {
             border: 1px solid #ddd;
         }
