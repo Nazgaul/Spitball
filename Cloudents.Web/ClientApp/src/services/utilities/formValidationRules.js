@@ -7,11 +7,11 @@ export const validationRules = {
     //     return pattern.test(value) || i18n.t("formErrors_positive_only");
     // },
     maximumChars: (value, maxLength) => {
-        return value.length <= maxLength || ` ${maxLength} ${i18n.t("formErrors_max_chars")}`;
+        return value?.length <= maxLength || ` ${maxLength} ${i18n.t("formErrors_max_chars")}`;
     },
     minimumChars: (value, minLength) => {
-        let trimmed = value.trim();
-        return trimmed.length >= minLength || `${i18n.t("formErrors_min_chars")} ${minLength}`;
+        let trimmed = value?.trim();
+        return trimmed?.length >= minLength || `${i18n.t("formErrors_min_chars")} ${minLength}`;
     },
     maxVal: (value, max) => {
         return value <= max || `${i18n.t("formErrors_max_number")} ${max}`;

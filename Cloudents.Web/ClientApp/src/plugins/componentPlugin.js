@@ -1,5 +1,5 @@
 import { auth_SETTER } from '../store/constants/authConstants';
-import { TUTOR_EDIT_PROFILE } from '../components/pages/global/toasterInjection/componentConsts'
+// import { TUTOR_EDIT_PROFILE } from '../components/pages/global/toasterInjection/componentConsts'
 import { Profile } from '../routes/routeNames.js';
 
 export default () => {
@@ -15,15 +15,15 @@ export default () => {
         store.dispatch('updateCurrentItem',mutation.payload?.query?.d)
       }
       if(mutation.type === 'route/ROUTE_CHANGED') {
-        let { name, hash, params } = store.state.route
-        if(name === Profile) {
-          if(hash === '#tutorEdit') {
-            let userId = store.getters.accountUser?.id
-            if(params.id == userId) {
-              store.commit('addComponent', TUTOR_EDIT_PROFILE)
-            }
-          }
-        }
+        // let { name } = store.state.route
+        // if(name === Profile) {
+          // if(hash === '#tutorEdit') {
+          //   let userId = store.getters.accountUser?.id
+          //   if(params.id == userId) {
+          //     store.commit('addComponent', TUTOR_EDIT_PROFILE)
+          //   }
+          // }
+        // }
         if(sessionStorage.getItem('hash') === '#tutorRequest') {
           let tutor = JSON.parse(sessionStorage.getItem('tutorRequest'))
           store.commit('setCourseDescription', tutor.text)

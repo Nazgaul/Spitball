@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 
@@ -23,7 +25,18 @@ namespace Cloudents.Command.Courses
                 throw new ArgumentException();
             }
             var list = tutor.Courses;
-            list.Move(message.OldPosition, message.NewPosition);
+            var newPosition = message.NewPosition;
+            var oldPosition = message.OldPosition;
+            if (message.ModelVisibleOnly)
+
+            {
+                newPosition=  list.Select((s, i) => new {s, i})
+                    .Where(w => w.s.State == ItemState.Ok).Skip(message.NewPosition).First().i;
+
+                oldPosition=  list.Select((s, i) => new {s, i})
+                    .Where(w => w.s.State == ItemState.Ok).Skip(message.OldPosition).First().i;
+            }
+            list.Move(oldPosition,newPosition);
             //var newIndex = message.NewPosition;
 
             //var item = tutor.Courses[oldIndex];
