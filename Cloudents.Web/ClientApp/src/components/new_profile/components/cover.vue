@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex coverWrapper1">
     <v-skeleton-loader
       v-if="!isLoaded"
       class="skeletonAvatar"
@@ -134,6 +134,8 @@ export default {
 
 <style lang="less">
 @import "../../../styles/mixin";
+.coverWrapper1{
+  position: relative;
 .coverPhoto {
   left: 0;
   right: 0;
@@ -173,4 +175,6 @@ export default {
     }
   }
 }
+}
+
 </style>

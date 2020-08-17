@@ -117,6 +117,7 @@ export default {
     right: 0;
     bottom: 16px;
     .mainTitle {
+        word-break: break-all;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.21);
         max-width: 753px;
         line-height: 1.2;
