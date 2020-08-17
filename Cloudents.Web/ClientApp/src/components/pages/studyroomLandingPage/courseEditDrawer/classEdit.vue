@@ -6,12 +6,12 @@
          </div>
       </v-expansion-panel-header>
       <v-expansion-panel-content class="pb-3">
-         <v-textarea v-for="(session, index) in sessionsList" :key="index" 
-            class="textInputs mt-4" auto-grow color="#4c59ff" rows="1" :value="session.name" @input="editClassName($event,session)">
+         <v-text-field v-for="(session, index) in sessionsList" :key="index" 
+         class="textInputs mt-4" color="#4c59ff" :value="session.name" @input="editClassName($event,session)">
             <template v-slot:label>
                <div class="inputLabel">{{$t('class_title',[index+1])}}</div>
             </template>
-         </v-textarea>
+         </v-text-field>
       </v-expansion-panel-content>
    </v-expansion-panel>
 </template>
