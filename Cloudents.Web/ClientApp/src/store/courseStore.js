@@ -193,7 +193,7 @@ const actions = {
   updateCourseEditedInfo({state},courseId){
     state.loadingEditCourseBtn = true;
     let params = _createCourseEditedSections(state.courseEditedDetails,state.courseDetails);
-    this.$axios.put(`${COURSE_API}/${courseId}/landing`,params).finally(()=>{
+    return this.$axios.put(`${COURSE_API}/${courseId}/landing`,params).finally(()=>{
       state.loadingEditCourseBtn = false;
     })
   }

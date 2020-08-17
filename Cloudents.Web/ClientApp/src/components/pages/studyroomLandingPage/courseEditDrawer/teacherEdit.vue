@@ -76,9 +76,9 @@ export default {
          }
       },
    },
-   beforeDestroy(){
-      let title = this.teacherTitle
-      this.teacherTitle = title
+   mounted() {
+      let title = this.teacherTitle;
+      this.teacherTitle = title;
    }
 }
 </script>
