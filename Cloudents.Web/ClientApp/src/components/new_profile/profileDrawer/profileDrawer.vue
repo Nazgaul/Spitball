@@ -185,7 +185,9 @@ export default {
             },
             set(newVal) {
                 this.editShortParagraph = newVal;
-                this.$store.commit('setFakeShorParagraph', newVal)
+                if(newVal.length <= this.SHORTPARAGRAPG_MAX) {
+                    this.$store.commit('setFakeShorParagraph', newVal)
+                }
             }
         },
         bio: {
@@ -219,7 +221,9 @@ export default {
             },
             set(newVal) {
                 this.editTitle = newVal;
-                this.$store.commit('setFakeShortTitle', newVal)
+                if(newVal.length <= this.TITLE_MAX) {
+                    this.$store.commit('setFakeShortTitle', newVal)
+                }
             }
         }
     },
