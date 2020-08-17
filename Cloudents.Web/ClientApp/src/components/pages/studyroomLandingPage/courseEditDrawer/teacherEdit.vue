@@ -77,7 +77,8 @@ export default {
       },
    },
    beforeDestroy(){
-      this.teacherTitle = this.teacherTitle
+      let title = this.teacherTitle
+      this.teacherTitle = title
    }
 }
 </script>
