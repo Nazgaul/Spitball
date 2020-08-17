@@ -335,7 +335,9 @@ export default () => {
                         deviceId: 
                         {
                            exact: store.getters.getVideoDeviceId
-                        }
+                        },
+                        width: {ideal: 1280, max: 1920},
+                        height: {ideal: 720, max: 1080}
                      }),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME}),
                ]).then((tracks) => {
