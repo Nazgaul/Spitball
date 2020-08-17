@@ -89,7 +89,7 @@ export default {
       'getRegisterDialog'
     ]),
     isCourseDrawer(){
-      return this.$store.getters.getIsCourseTutor && !this.$vuetify.breakpoint.xsOnly && this.$route.query?.edit;   
+      return this.$store.getters.getIsCourseTutor && !this.$vuetify.breakpoint.smAndDown && this.$route.query?.edit;   
     },
     isDrawer() {
       let isLogged = this.getUserLoggedInStatus

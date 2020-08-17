@@ -182,6 +182,7 @@ export default {
 
 <style lang="less">
    @import '../../../styles/mixin.less';
+  
    .roomInfoContainer{
       width: 100%;
       @media(max-width: @screen-sm) {
@@ -350,5 +351,23 @@ export default {
             }
          }
       }
+   }
+    .courseDrawer ~ .v-main {
+       min-width: 1264px;
+       overflow-x: auto;
+       background: #fff;
+         ::-webkit-scrollbar-track {
+            background: #f5f5f5; 
+         }
+         ::-webkit-scrollbar {
+               width: 22px;
+         }
+         ::-webkit-scrollbar-thumb {
+               background: #b5b8d9 !important;
+               border-radius: 4px !important;
+         }
+         .studyroomLandingPage{
+            min-width: 1264px + 338px;
+         }
    }
 </style>

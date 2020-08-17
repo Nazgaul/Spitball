@@ -67,7 +67,7 @@ export default {
             return this.$store.getters.getCourseVisible
         },
         isMobile() {
-            return this.$vuetify.breakpoint.xsOnly
+            return this.$vuetify.breakpoint.smAndDown
         }
     },
     data() {
