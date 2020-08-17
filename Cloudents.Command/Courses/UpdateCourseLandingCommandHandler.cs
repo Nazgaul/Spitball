@@ -34,6 +34,7 @@ namespace Cloudents.Command.Courses
             course.DomainTime.UpdateTime = DateTime.UtcNow;
             if (message.HeroSection != null)
             {
+                course.Description = message.HeroSection.Description;
                 course.Name = message.HeroSection.Name;
                 if (message.HeroSection.Image != null)
                 {
