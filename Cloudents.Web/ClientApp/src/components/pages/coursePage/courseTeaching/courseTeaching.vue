@@ -1,7 +1,7 @@
 <template>
     <div class="courseTeaching mx-5 pt-5" :class="{'pb-5': numberOfLecture === index}">
         <div class="lectureTitle d-flex align-center justify-space-between mb-6">
-            <div>{{$t('live_lecture', [index])}}</div>
+            <div>{{$t('live_lecture_teach', [index])}}</div>
             <v-icon @click="removeLecture" size="12" color="grey">{{$vuetify.icons.values.close}}</v-icon>
         </div>
 
