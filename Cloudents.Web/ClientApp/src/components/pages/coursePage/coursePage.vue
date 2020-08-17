@@ -134,6 +134,9 @@ export default {
                             name: CoursePage,
                             params:{
                                 id:self.currentCreatedCourseId
+                            },
+                            query:{
+                                edit:true
                             }
                         })
                         // self.goStep(3)
