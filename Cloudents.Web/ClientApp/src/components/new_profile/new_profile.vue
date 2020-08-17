@@ -1,6 +1,6 @@
 <template>
     <div class="profilePage">
-      <profileDrawer v-if="isMyProfile" />
+      <profileDrawer v-if="isMyProfile && $store.getters.getProfileCoverDrawer" />
       <div>
         <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
             <profileCover />
