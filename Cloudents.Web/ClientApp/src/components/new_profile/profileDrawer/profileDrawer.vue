@@ -228,8 +228,8 @@ export default {
             if(this.$refs.formTutor.validate()) {
                 this.btnLoading = true;
                 let serverFormat = {
-                    firstName: this.editedFirstName || undefined, // this.firstName,
-                    lastName: this.editedLastName || undefined, // this.lastName,
+                    firstName: this.editedFirstName ||  this.firstName,
+                    lastName: this.editedLastName || this.lastName,
                     shortParagraph: this.editShortParagraph || undefined, // this.shortParagraph,
                     bio: this.editedBio || undefined, // this.bio,
                     title: this.editTitle || undefined // this.title
