@@ -78,7 +78,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var sessionUser = RoomSessionUsers.Single(s => s.User == user);
+            var sessionUser = RoomSessionUsers.Single(s => s.User.Id == user.Id);
             sessionUser.Disconnect(durationInRoom);
         }
 
