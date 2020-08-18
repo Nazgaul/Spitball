@@ -49,16 +49,7 @@ namespace Cloudents.Web.Api
             _payment = payment;
         }
 
-        // GET
-        //[HttpGet("balance")]
-        //public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId), token);
-
-        //    return retVal;
-        //}
-
+      
 
 
 
@@ -86,30 +77,7 @@ namespace Cloudents.Web.Api
 
         #region PayMe
 
-        //[HttpPost("BuyTokens")]
-        //public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model, CancellationToken token)
-        //{
-
-        //    var user = await _userManager.GetUserAsync(User);
-        //    var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName2, new
-        //    {
-        //        userId = user.Id,
-        //        points = model.Points
-        //    }, "https");
-
-        //    var bundle = Enumeration.FromValue<PointBundle>(model.Points);
-        //    var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
-        //    var saleUrl = new UriBuilder(result.SaleUrl);
-        //    saleUrl.AddQuery(new NameValueCollection()
-        //    {
-        //        ["first_name"] = user.FirstName,
-        //        ["last_name"] = user.LastName,
-        //        ["phone"] = user.PhoneNumber,
-        //        ["email"] = user.Email,
-        //    });
-        //    return new SaleResponse(saleUrl.Uri);
-        //}
-
+     
         /// <summary>
         /// Generate a buyer for - don't forget to run ngrok if you run it locally
         /// </summary>
