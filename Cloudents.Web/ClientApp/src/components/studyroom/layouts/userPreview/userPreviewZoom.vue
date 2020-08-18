@@ -12,7 +12,7 @@
          <span> {{isShareScreen? $t('tutor_btn_stop_sharing'): $t('tutor_btn_share_screen')}}) </span>
       </v-tooltip>
 
-      <!-- <v-tooltip top>
+      <v-tooltip top>
          <template v-slot:activator="{ on }">
             <v-icon v-on="on" :size="isExpandVideoMode? 30 :18" v-show="showExpandVideoBtn" 
                   @click="toggleExpandScreen" color="#ffffff">
@@ -20,7 +20,7 @@
             </v-icon>
          </template>
          <span v-text="$t(isExpandVideoMode?'tutor_tooltip_fullscreen_exit':'tutor_tooltip_fullscreen')"/>
-      </v-tooltip> -->
+      </v-tooltip>
    </div>
       <span class="name">{{userName}}</span>
       <div class="linear2"></div>
@@ -152,6 +152,7 @@ export default {
          }
       },
       toggleExpandScreen(){
+         let el = document.getElementById(this.participant.id);
          if(!this.isExpandVideoMode){
             if(!this.isCurrentParticipant){
                this.videoTrack.setPriority('standard')
@@ -159,7 +160,13 @@ export default {
             this.videoTrack.dimensions.width = 1280;
             this.videoTrack.dimensions.height = 720;
          }
-         this.isExpandVideoMode = !this.isExpandVideoMode
+         if (el.classList.contains('OT_big')) {
+            el.classList.remove('OT_big');
+         } else {
+            el.classList.add('OT_big');
+         }
+         this.$parent.layout()
+         this.isExpandVideoMode = !this.isExpandVideoMode;
       },
       startShareScreen(){
          this.$store.dispatch('updateShareScreen',true)
