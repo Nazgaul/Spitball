@@ -65,7 +65,12 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var studyRoomPayment = this.StudyRoom.StudyRoomPayments.SingleOrDefault(w => w.User.Id == user.Id);
+            StudyRoomPayment? studyRoomPayment = null;
+            if (this.StudyRoom is BroadCastStudyRoom)
+            {
+                studyRoomPayment =  this.StudyRoom.StudyRoomPayments
+                    .SingleOrDefault(w => w.User.Id == user.Id);
+            }
 
             var sessionUser = new StudyRoomSessionUser(this, user, studyRoomPayment);
             _roomSessionUsers.Add(sessionUser);
