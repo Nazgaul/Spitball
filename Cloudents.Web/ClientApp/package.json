@@ -88,6 +88,7 @@
     "postcss-rtl": "^1.7.3",
     "twilio-video": "2.6.0",
     "unused-webpack-plugin": "^2.4.0",
+    "video-layout": "^1.1.0",
     "vue-application-insights": "1.0.6",
     "vue-clipboard2": "^0.3.1",
     "vue-codemirror": "^4.0.6",
