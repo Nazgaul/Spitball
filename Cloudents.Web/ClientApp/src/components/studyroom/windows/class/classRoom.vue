@@ -59,11 +59,10 @@ export default {
    },
    watch: {
       getStudyRoomDrawerState:{
-         handler(newVal,oldVval){
+         handler(){
          let self = this;
          setTimeout(()=>{
             self.layout();
-
          },500)
          // this.$nextTick(()=>{
          //    self.layout();
