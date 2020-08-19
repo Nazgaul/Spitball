@@ -2,9 +2,12 @@
 
 namespace Cloudents.Admin2.Models
 {
-    public class UnSuspendTutorRequest
+    public class TutorSubscriptionRequest
     {
         [Range(1, long.MaxValue)]
         public long TutorId { get; set; }
+
+        [Range(1, double.MaxValue)]
+        public double Price { get; set; }
     }
 }
