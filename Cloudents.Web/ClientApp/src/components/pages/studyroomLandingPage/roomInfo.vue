@@ -238,6 +238,7 @@ export default {
             }
             .classSubject{
                word-break: break-all;
+               word-break: break-word;
                margin: 0 auto;
                font-size: 42px;
                @media(max-width: @screen-sm) {

@@ -9,7 +9,9 @@ namespace Cloudents.Core.Entities
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user , StudyRoomPayment? studyRoomPayment)
+        public StudyRoomSessionUser(StudyRoomSession studyRoomSession,
+            User user,
+            StudyRoomPayment? studyRoomPayment)
         {
             StudyRoomSession = studyRoomSession;
             User = user;
@@ -19,11 +21,10 @@ namespace Cloudents.Core.Entities
             }
             else
             {
-                studyRoomPayment.StudyRoomSessionUser =  this;
+                studyRoomPayment.StudyRoomSessionUser = this;
                 StudyRoomPayment = studyRoomPayment;
-
-
             }
+
             UseCoupon();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
@@ -39,8 +40,8 @@ namespace Cloudents.Core.Entities
 
         public virtual int DisconnectCount { get; protected set; }
 
-     
-        protected internal virtual ICollection<UserCoupon> UserCoupons { get;  set; }
+
+        protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
@@ -56,7 +57,7 @@ namespace Cloudents.Core.Entities
         protected virtual void UseCoupon()
         {
             var tutor = StudyRoomSession.StudyRoom.Tutor;
-            var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
+            var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id
                                                              && w.IsNotUsed());
             if (userCoupon is null) // we do not check before if user have coupon on that user
             {
@@ -67,7 +68,7 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual bool Equals( StudyRoomSessionUser other)
+        public virtual bool Equals(StudyRoomSessionUser other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

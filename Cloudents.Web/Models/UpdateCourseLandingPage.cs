@@ -61,9 +61,9 @@ namespace Cloudents.Web.Models
     {
         public TeacherBioValidator()
         {
-            RuleFor(x => x.Title).NotEmpty();
+            //RuleFor(x => x.Title).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.Text).NotEmpty();
+            //RuleFor(x => x.Text).NotEmpty();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Cloudents.Query.Tutor
                      .Where(w => w.Id == query.Id)
                      .Select(s => new StudyRoomDto
                      {
-                         Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id ==query.UserId),
+                         Enrolled = _statelessSession.Query<StudyRoomUser>().Any(w => w.Room.Id == query.Id && w.User.Id == query.UserId),
                          OnlineDocument = s.OnlineDocumentUrl,
                          ConversationId = s.Identifier,
                          TutorId = s.Tutor.Id,
@@ -51,7 +51,7 @@ namespace Cloudents.Query.Tutor
                          TutorPrice = s.Price,
                          TutorName = s.Tutor.User.Name,
                          TutorImage = s.Tutor.User.ImageName,
-                         
+
                          _UserPaymentExists =
                              _statelessSession.Query<User>().Where(w => w.Id == query.UserId)
                                  .Select(s2 => s2.PaymentExists).First() == PaymentStatus.Done,
@@ -62,7 +62,7 @@ namespace Cloudents.Query.Tutor
                 IFutureValue<CourseEnrollment>? futureCourseEnrollment = null;
                 if (query.UserId > 0)
                 {
-                    futureCoupon  = _statelessSession.Query<UserCoupon>()
+                    futureCoupon = _statelessSession.Query<UserCoupon>()
                         .Where(w => w.User.Id == query.UserId)
                         .Where(w => w.Tutor.Id == _statelessSession.Query<StudyRoom>().Where(w2 => w2.Id == query.Id)
                             .Select(s => s.Tutor.Id).First())
@@ -70,7 +70,7 @@ namespace Cloudents.Query.Tutor
                         .Select(s => new CouponTemp()
                         {
                             CouponType = s.Coupon.CouponType,
-                           Value = s.Coupon.Value
+                            Value = s.Coupon.Value
                         })
                         .ToFutureValue();
 
@@ -83,8 +83,8 @@ namespace Cloudents.Query.Tutor
 
                 var futurePayment = _statelessSession.Query<StudyRoomPayment>()
                     .Where(w => w.StudyRoom!.Id == query.Id && w.User.Id == query.UserId)
-                    
-                    .ToFutureValue(f=>f.Any());
+                    .Where(w => w.StudyRoom is BroadCastStudyRoom)
+                    .ToFutureValue(f => f.Any());
 
 
                 var futureSubscription = _statelessSession.Query<Follow>()
@@ -118,7 +118,7 @@ namespace Cloudents.Query.Tutor
                 {
                     result._UserPaymentExists = true;
                 }
-                
+
                 if (futureSubscription.Value.GetValueOrDefault())
                 {
                     result.TutorPrice = result.TutorPrice.ChangePrice(0);

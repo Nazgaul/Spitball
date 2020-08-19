@@ -16,7 +16,7 @@
 		</v-expansion-panels>
 	</div>
 
-	<div class="text-center px-5 pt-7">
+	<div class="courseDrawerBtns text-center px-5 pt-7">
 		<v-btn @click="updateInfo" :loading="loadignBtn" class="white--text" color="#4452fc" width="132" height="40" depressed rounded>
 			{{$t('next')}}
 		</v-btn>
@@ -89,6 +89,13 @@ export default {
 				font-size: 13px;
 				padding-bottom: 2px;
 			}
+		}
+		.courseDrawerBtns{
+		  z-index: 1;
+        position: sticky;
+		  bottom: 0;
+        background: white;
+        padding: 10px;
 		}
 		.courseEditSections{
 
