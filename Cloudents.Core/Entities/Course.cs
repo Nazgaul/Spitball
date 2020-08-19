@@ -205,10 +205,10 @@ namespace Cloudents.Core.Entities
                 _studyRooms.Add(hours);
             }
 
-            var firstStudyRoomBroadcastTime = StudyRooms.DefaultIfEmpty().Min(m => m?.BroadcastTime);
-            if (firstStudyRoomBroadcastTime != null)
+            var studyRoomEarlyBroadcastTime = StudyRooms.DefaultIfEmpty().Min(m => m?.BroadcastTime);
+            if (studyRoomEarlyBroadcastTime != null)
             {
-                StartTime = firstStudyRoomBroadcastTime.Value;
+                StartTime = studyRoomEarlyBroadcastTime.Value;
             }
 
 
