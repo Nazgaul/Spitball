@@ -32,7 +32,7 @@ namespace Cloudents.Core.Entities
             User = user;
             ApproveSession(TimeSpan.FromHours(1),  studyRoom.Price.Amount);
             Receipt = receipt;
-            Created = DateTime.UtcNow;;
+            Created = DateTime.UtcNow;
         }
 
         public StudyRoomPayment(Tutor tutor, User user,TimeSpan duration,double price)
@@ -41,10 +41,11 @@ namespace Cloudents.Core.Entities
             Tutor = tutor;
             User = user;
             ApproveSession(duration, price);
-            Created = DateTime.UtcNow;;
+            Created = DateTime.UtcNow;
         }
 
-        [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
+        [SuppressMessage("Microsoft.Maintainability", "CS8618:Non-nullable field is uninitialized. Consider declaring as nullable.", Justification = "Nhibernate proxy")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         protected StudyRoomPayment()
         {
         }
