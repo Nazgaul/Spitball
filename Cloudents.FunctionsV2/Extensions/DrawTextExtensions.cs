@@ -8,7 +8,6 @@ using Cloudents.FunctionsV2.Services;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using Color = SixLabors.ImageSharp.Color;
@@ -131,21 +130,5 @@ namespace Cloudents.FunctionsV2.Extensions
 
 
 
-    }
-
-
-
-    public static class ImageExtensions
-    {
-        public static Stream SaveAsJpeg(this Image image)
-        {
-            var ms = new MemoryStream();
-            image.SaveAsJpeg(ms,new JpegEncoder()
-            {
-                Quality = 80
-            });
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
-        }
     }
 }

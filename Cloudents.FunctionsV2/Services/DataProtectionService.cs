@@ -18,9 +18,4 @@ namespace Cloudents.FunctionsV2.Services
             return _dataProtector.Protect(data, dateTimeOffset);
         }
     }
-
-    public interface IDataProtectionService
-    {
-        string ProtectData(string data, DateTimeOffset dateTimeOffset);
-    }
 }
