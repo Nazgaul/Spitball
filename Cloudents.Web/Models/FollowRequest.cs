@@ -11,10 +11,4 @@ namespace Cloudents.Web.Models
         [Required]
         public long Id { get; set; }
     }
-
-    public class UnFollowRequest
-    {
-        [Required]
-        public long Id { get; set; }
-    }
 }

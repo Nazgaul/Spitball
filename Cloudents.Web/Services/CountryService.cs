@@ -106,11 +106,4 @@ namespace Cloudents.Web.Services
 
 
     }
-
-
-
-    public interface ICountryService
-    {
-        Task<string> GetUserCountryAsync(CancellationToken token);
-    }
 }
