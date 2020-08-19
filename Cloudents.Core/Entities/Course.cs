@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
 {
     public class Course : Entity<long>
     {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhiberate proxy")]
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhiberate proxy")]
         public Course(string name, Tutor tutor, double price,
             double? subscriptionPrice, string description, DateTime? startTime, bool isPublish)
         {
@@ -70,7 +70,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual Tutor Tutor { get;  }
+        public virtual Tutor Tutor { get; }
 
         public virtual int Position { get; }
 
@@ -204,6 +204,15 @@ namespace Cloudents.Core.Entities
             {
                 _studyRooms.Add(hours);
             }
+
+            var firstStudyRoomBroadcastTime = StudyRooms.DefaultIfEmpty().Min(m => m?.BroadcastTime);
+            if (firstStudyRoomBroadcastTime != null)
+            {
+                StartTime = firstStudyRoomBroadcastTime.Value;
+            }
+
+
+
         }
 
         public virtual void RemoveDocument(Document document)
@@ -214,7 +223,7 @@ namespace Cloudents.Core.Entities
         public virtual int Version { get; protected set; }
 
 
-      
+
 
         public virtual void UpdateDocument(long? id, string name, bool visible, int index)
         {
