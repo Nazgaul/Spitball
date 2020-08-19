@@ -150,9 +150,4 @@ namespace Cloudents.Web.Extensions
     //            : pagePathWithoutQueryString;
     //    }
     //}
-
-    public sealed class IgnoreNextPageLinkAttribute : Attribute
-    {
-
-    }
 }

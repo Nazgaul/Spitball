@@ -23,18 +23,4 @@ namespace Cloudents.Web.Models
             return $"{nameof(StatusCode)}: {StatusCode}, {nameof(BuyerKey)}: {BuyerKey}, {nameof(BuyerCardExp)}: {BuyerCardExp}, {nameof(BuyerCardMask)}: {BuyerCardMask}";
         }
     }
-
-    public class PayMeSellerCallbackRequest
-    {
-        [ModelBinder(Name = "status_code")]
-        public int StatusCode { get; set; }
-
-        [ModelBinder(Name = "seller_payme_id")]
-        [Required]
-        public string SellerKey { get; set; }
-
-        [ModelBinder(Name = "seller_email")]
-        [Required]
-        public string Email { get; set; }
-    }
 }

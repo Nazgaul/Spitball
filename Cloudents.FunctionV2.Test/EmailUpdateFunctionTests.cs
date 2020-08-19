@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.Models;
 using Xunit;
 
 namespace Cloudents.FunctionsV2.Test

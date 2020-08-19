@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message.Email;
@@ -51,17 +50,6 @@ namespace Cloudents.FunctionsV2.Operations
 
             }, token);
             await emailProvider.AddAsync(message, token);
-        }
-    }
-
-    public static class SendGridMessageExtensions
-    {
-        public static void AddFromResource(this SendGridMessage message, CultureInfo culture)
-        {
-
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            var mailAddress = new MailAddress(ResourceWrapper.GetString("email_from"));
-            message.From = new EmailAddress(mailAddress.Address, mailAddress.DisplayName);
         }
     }
 }

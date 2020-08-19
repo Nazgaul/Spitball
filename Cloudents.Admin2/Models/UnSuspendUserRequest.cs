@@ -14,14 +14,5 @@ namespace Cloudents.Admin2.Models
         public IEnumerable<long> Ids { get; set; }
 
     }
-
-
-    public class UnSuspendUserResponse
-    {
-        /// <summary>
-        /// The User Email
-        /// </summary>
-        public IEnumerable<string> Email { get; set; }
-    }
 }
 

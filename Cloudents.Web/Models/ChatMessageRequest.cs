@@ -16,11 +16,4 @@ namespace Cloudents.Web.Models
 
         public long? TutorId { get; set; }
     }
-
-
-    public class ChatResetRequest
-    {
-        [Required]
-        public string ConversationId { get; set; }
-    }
 }
