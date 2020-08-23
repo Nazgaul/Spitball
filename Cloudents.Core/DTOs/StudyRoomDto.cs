@@ -14,6 +14,12 @@ namespace Cloudents.Core.DTOs
 
         [NonSerialized] public Country TutorCountry;
         [NonSerialized] public long UserId;
+        [NonSerialized] public bool EnrolledStudyRoom;
+        [NonSerialized] public bool EnrolledCourse;
+
+
+        public bool Enrolled => EnrolledStudyRoom || EnrolledCourse;
+
 
         public string OnlineDocument { get; set; }
         public string ConversationId { get; set; }
@@ -58,7 +64,6 @@ namespace Cloudents.Core.DTOs
 
         public StudyRoomTopologyType TopologyType { get; set; }
         public StudyRoomType Type { get; set; }
-        public bool Enrolled { get; set; }
     };
 
     
