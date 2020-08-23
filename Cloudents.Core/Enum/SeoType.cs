@@ -18,6 +18,8 @@ namespace Cloudents.Core.Enum
     public static class SeoTypeString
     {
         public const string Document = "Document";
+
+        public const string Course = "CourseRoute";
        // public const string Question = "Question";
         public const string Tutor = "Tutor";
         public const string Static = "Static";

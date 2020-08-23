@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core
 {
@@ -90,18 +91,22 @@ namespace Cloudents.Core
 
     public class DbConnectionString
     {
-        public DbConnectionString(string db, string? redis, DataBaseIntegration dataBaseIntegration)
+        public DbConnectionString(string db, string? redis, DataBaseIntegration dataBaseIntegration,
+            TimeSpan? connectionTimeout = null)
         {
             Db = db;
             Redis = redis;
             Integration = dataBaseIntegration;
+            ConnectionTimeout = connectionTimeout;
         }
 
         public string Db { get; }
 
         public string? Redis { get; }
 
-        public DataBaseIntegration Integration { get; set; }
+        public DataBaseIntegration Integration { get;  }
+
+        public TimeSpan? ConnectionTimeout { get;  }
 
 
         public enum DataBaseIntegration

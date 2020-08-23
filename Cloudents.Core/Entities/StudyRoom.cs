@@ -114,7 +114,7 @@ namespace Cloudents.Core.Entities
         public virtual string Identifier { get; protected set; }
         public virtual DomainTimeStamp DateTime { get; protected set; }
 
-        public virtual string OnlineDocumentUrl { get; set; }
+        public virtual string? OnlineDocumentUrl { get; set; }
 
         private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
 

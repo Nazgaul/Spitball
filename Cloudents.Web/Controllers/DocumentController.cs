@@ -51,10 +51,10 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            return RedirectToRoute(SeoTypeString.Tutor, new
+            return RedirectToRoute(SeoTypeString.Course, new
             {
-                id = model.UserId,
-                name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
+                id = model.CourseId,
+                //name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
                 d = id
             });
         }
@@ -72,10 +72,10 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
-            return RedirectToRoute(SeoTypeString.Tutor, new
+            return RedirectToRoute(SeoTypeString.Course, new
             {
-                id = model.UserId,
-                name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
+                id = model.CourseId,
+                //name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
                 d = id
             });
 
@@ -98,10 +98,10 @@ namespace Cloudents.Web.Controllers
             }
 
 
-            return RedirectToRoute(SeoTypeString.Tutor, new
+            return RedirectToRoute(SeoTypeString.Course, new
             {
-                id = model.UserId,
-                name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
+                id = model.CourseId,
+                //name = FriendlyUrlHelper.GetFriendlyTitle(model.UserName),
                 d = id
             });
 
