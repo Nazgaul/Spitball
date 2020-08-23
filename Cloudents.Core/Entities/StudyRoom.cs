@@ -13,14 +13,17 @@ namespace Cloudents.Core.Entities
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public PrivateStudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price) : base(tutor,users,onlineDocumentUrl, name, price)
+            string name, decimal price) : base(tutor,users,  price)
         {
             if (_users.Count == 0)
             {
                 throw new ArgumentException();
             }
+
+            Name = name;
             Identifier = ChatRoom.BuildChatRoomIdentifier(
                 _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
+            OnlineDocumentUrl = onlineDocumentUrl;
             if (_users.Count < 4 && _users.Count > 0)
             {
                 TopologyType = StudyRoomTopologyType.SmallGroup;
@@ -34,6 +37,8 @@ namespace Cloudents.Core.Entities
         {
         }
 
+        public virtual string Name { get; set; }
+
         public override void AddUserToStudyRoom(User user)
         {
             if (Tutor.User.Id == user.Id)
@@ -43,23 +48,28 @@ namespace Cloudents.Core.Entities
             var _ = Users.AsQueryable().Single(s => s.User.Id == user.Id);
         }
 
+        public virtual void AddPayment(User user,string receipt)
+        {
+            var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
+            _studyRoomPayments.Add(studyRoomPayment);
+        }
+        //public virtual string Name { get; set; }
+
         public override StudyRoomType Type => StudyRoomType.Private;
     }
 
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public abstract class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price) : this()
+        public StudyRoom(Tutor tutor, IEnumerable<User> users, 
+             decimal price) : this()
         {
             if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
             _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
             Tutor = tutor;
-          
-
-            OnlineDocumentUrl = onlineDocumentUrl;
-            Name = name;
+            //OnlineDocumentUrl = onlineDocumentUrl;
+            //Name = name;
           
 
             DateTime = new DomainTimeStamp();
@@ -90,7 +100,7 @@ namespace Cloudents.Core.Entities
 
       //  public virtual StudyRoomType StudyRoomType { get; protected set; }
 
-        public virtual string Name { get; set; }
+        
 
         public virtual Tutor Tutor { get; protected set; }
 
@@ -104,7 +114,7 @@ namespace Cloudents.Core.Entities
         public virtual string Identifier { get; protected set; }
         public virtual DomainTimeStamp DateTime { get; protected set; }
 
-        public virtual string OnlineDocumentUrl { get; protected set; }
+        public virtual string OnlineDocumentUrl { get; set; }
 
         private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
 

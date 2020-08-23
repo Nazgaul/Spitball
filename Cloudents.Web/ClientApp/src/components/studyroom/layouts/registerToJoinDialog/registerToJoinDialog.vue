@@ -36,9 +36,8 @@ export default {
    border-radius: 6px;
    background: white;
    box-shadow: 0 13px 21px 0 rgba(0, 0, 0, 0.51);
-   padding: 16px;
-   padding-top: 36px;
-   text-align: center;
+    padding: 36px 16px 16px;
+    text-align: center;
    position: relative;
    .closeIcon{
       position: absolute;

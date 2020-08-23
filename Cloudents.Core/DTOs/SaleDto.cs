@@ -24,31 +24,31 @@ namespace Cloudents.Core.DTOs
       public override double Price => (double) _price;
     }
 
-    public class QuestionSaleDto : SaleDto
-    {
-        public long Id{ get; set; }
-        public string Course { get; set; }
-        public string Text { get; set; }
-        public string AnswerText { get; set; }
-       // public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
-        public override ContentType Type => ContentType.Question;
+    //public class QuestionSaleDto : SaleDto
+    //{
+    //    public long Id{ get; set; }
+    //    public string Course { get; set; }
+    //    public string Text { get; set; }
+    //    public string AnswerText { get; set; }
+    //   // public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
+    //    public override ContentType Type => ContentType.Question;
 
-        [NonSerialized] public decimal _price;
+    //    [NonSerialized] public decimal _price;
 
-        //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
-        public override double Price => (double) _price;
-    }
+    //    //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
+    //    public override double Price => (double) _price;
+    //}
     public class SessionSaleDto : SaleDto
     {
         public string StudyRoomName { get; set; }
         public Guid SessionId { get; set; }
         public string StudentName { get; set; }
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         public bool ShouldSerializeDuration() => false;
 
-        public double TotalMinutes => Duration.TotalMinutes;
-        public string StudentImage { get; set; }
+        public double TotalMinutes => Duration.GetValueOrDefault().TotalMinutes;
+        public string? StudentImage { get; set; }
         public long StudentId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
 
@@ -75,7 +75,7 @@ namespace Cloudents.Core.DTOs
         Document,
         Video,
         TutoringSession,
-        Question,
+      //  Question,
         BuyPoints
     }
 }

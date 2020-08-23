@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Globalization;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class UserMap : SubclassMap<User>
+    public class UserMap : ClassMap<User>
     {
         public UserMap()
         {
 
             DynamicUpdate();
-            DiscriminatorValue(false);
+            //DiscriminatorValue(false);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.PhoneNumberConfirmed);
             Map(e => e.PasswordHash).Nullable();
@@ -19,8 +20,8 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.AccessFailedCount);
             Map(e => e.LockoutEnabled);
             Map(e => e.LockoutReason);
-            HasMany(x => x.Answers).Inverse()
-                .Cascade.AllDeleteOrphan();
+            //HasMany(x => x.Answers).Inverse()
+            //    .Cascade.AllDeleteOrphan();
             HasMany(x => x.UserLogins)
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
@@ -47,16 +48,9 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.FirstName);
             Map(x => x.LastName);
-//            Map(x => x.Description);
             Map(x => x.CoverImage);
 
-            //Component(x => x.BuyerPayment, y =>
-            //{
-            //    y.Map(z => z!.PaymentKey);
-            //    y.Map(z => z!.PaymentKeyExpiration);
-            //    y.Map(z => z!.CreditCardMask);
-
-            //});
+          
 
             ReferencesAny(x => x.Payment)
                 .MetaType<string>()
@@ -67,11 +61,7 @@ namespace Cloudents.Persistence.Maps
                 .AddMetaValue<StripePayment>("Stripe").Cascade.All();
 
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
-            //Map(z => z.Gender).CustomType<Gender>().Nullable();
-            //Map(x => x.UserType2).Column("UserType").CustomType<GenericEnumStringType<UserType>>().Nullable();
-            HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
-                .Cascade.AllDeleteOrphan()
-                .KeyColumn("UserId").Inverse().AsSet();
+         
 
             HasMany(x => x.ChatUsers).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
@@ -104,10 +94,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse();
 
             //We are using cascade all because we need to save the tutor in Become Tutor command handler
-
             //HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
-
-         
 
 
             HasMany(x => x.Followers).Access.CamelCaseField(Prefix.Underscore)
@@ -120,6 +107,48 @@ namespace Cloudents.Persistence.Maps
 
             HasMany(x => x.Leads)
                 .Cascade.AllDeleteOrphan();
+
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
+            Map(e => e.Email)/*.Not.Nullable()*/.Unique();
+            Map(e => e.Name).Not.Nullable();
+            Map(e => e.EmailConfirmed);
+
+            //Map(e => e.NormalizedName);
+            //Map(e => e.NormalizedEmail);
+            Map(e => e.SecurityStamp);
+            // Map(e => e.Image).Length(5000).Nullable();
+            Map(e => e.ImageName).Length(5000).Nullable();
+            Map(e => e.AuthenticatorKey);
+            // Map(e => e.Culture);
+
+
+
+            Map(e => e.Country).Nullable().Length(2);
+            Map(e => e.SbCountry).CustomType<EnumerationType<Country>>().Nullable();
+
+            Map(e => e.Created).Insert().Not.Update();
+
+
+
+            Map(x => x.Language).Column("Language").CustomType<CultureInfo>().Nullable();
+
+            HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+
+            HasMany(x => x.Documents).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
+                .Inverse()
+                .Cascade.AllDeleteOrphan();
+
+
+         
+
+            Table("User"); //if not there is sql error
+
+            DynamicUpdate();
+            OptimisticLock.Version();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
 

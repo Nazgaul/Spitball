@@ -7,7 +7,7 @@
          <v-flex class="redeemPointsLayout_action" text-center>
             <p class="redeemPointsLayout_title">{{$t('dashboardPage_my_sales_action_redeem',[userPts])}}</p>
             <v-btn @click="redeem(cost)" :disabled="!isAvailable" :loading="isLoading" class="redeemPointsLayout_btn white--text" depressed color="#4c59ff">
-               <span v-t="'dashboardPage_my_sales_action_redeem_btn'"/>
+               <span>{{$t('dashboardPage_my_sales_action_redeem_btn',[cost])}}</span>
             </v-btn>
          </v-flex>
       </v-layout>
@@ -24,7 +24,7 @@ export default {
    data() {
       return {
          isLoading:false,
-         cost:1000,
+         cost:250,
       }
    },
    computed: {
@@ -40,7 +40,7 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateToasterParams','updateBalancesItems']),
+      ...mapActions(['updateToasterParams']),
       redeem(amount){
          this.isLoading = true;
          walletService.redeem(amount)
@@ -49,7 +49,6 @@ export default {
                      toasterText: this.$t('cashoutcard_Cashed'),
                      showToaster: true,
                });
-               this.updateBalancesItems();
                this.isLoading = false;
             },
                error => {
@@ -57,10 +56,7 @@ export default {
                });
 
       }
-   },
-   created(){
-      this.updateBalancesItems()
-   },
+   }
 }
 </script>
 
@@ -110,8 +106,7 @@ export default {
          font-weight: 600;
          color: #43425d;
          margin: 0;
-         padding: 0;
-         padding-top: 10px;
+          padding: 10px 0 0;
           @media (max-width: @screen-md-plus) {
              font-size: 14px;
           }

@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System.Net;
+using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,11 +12,13 @@ namespace Cloudents.Infrastructure.Mail
     public class MailProvider : IMailProvider
     {
         private readonly HttpClient _client;
+        private readonly ILogger _logger;
         private const string SendGridApiKey = "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";
 
-        public MailProvider(HttpClient restClient)
+        public MailProvider(HttpClient restClient, ILogger logger)
         {
             _client = restClient;
+            _logger = logger;
         }
 
         public async Task<bool> ValidateEmailAsync(string email, CancellationToken token)
@@ -33,6 +36,16 @@ namespace Cloudents.Infrastructure.Mail
             if (!response.IsSuccessStatusCode)
             {
                 var str = await response.Content.ReadAsStringAsync();
+                _logger.Error($"statusCode: {response.StatusCode} reason: {response.ReasonPhrase}, body: {str}");
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    return true;
+                }
+
+                if (response.StatusCode == HttpStatusCode.NotAcceptable)
+                {
+                    return true;
+                }
                 throw new HttpRequestException($"statusCode: {response.StatusCode} reason: {response.ReasonPhrase}, body: {str}");
             }
 

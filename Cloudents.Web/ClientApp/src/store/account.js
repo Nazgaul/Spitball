@@ -29,8 +29,8 @@ const getters = {
     getAccountName: state => state.user?.name,
     getAccountEmail: state => state.user?.email,
     getAccountImage: state => state.user?.image,
-    getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,
-    
+    getIsCanCreateCourse: state => state.user?.canCreateCourse,
+    getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,    
 };
 
 const mutations = {
@@ -60,7 +60,7 @@ const mutations = {
             this.email = objInit.email
             this.lastName = objInit.lastName
             this.firstName = objInit.firstName
-            this.name = `${objInit.firstName} ${objInit.lastName}`
+            this.name = `${objInit.firstName} ${objInit.lastName || ''}`
             this.image = objInit.image || ''
             this.balance = objInit.balance
             this.currencySymbol = objInit.currencySymbol
@@ -70,6 +70,7 @@ const mutations = {
             this.isSold = objInit.isSold
             this.pendingSessionsPayments = objInit.pendingSessionsPayments
             this.chatUnread = objInit.chatUnread;
+            this.canCreateCourse = objInit.canCreateCourse
         }
         
         state.user = user
@@ -158,7 +159,7 @@ const actions = {
                 return
             }
             commit('setAccountStudentInfo', params)
-            return
+
         })
     },
     updateUserStats(context, days) {
@@ -176,8 +177,8 @@ const actions = {
         if(getters.getIsComponentActiveByName(componentConsts.PAYMENT_DIALOG)){
             commit('removeComponent',componentConsts.PAYMENT_DIALOG)
         }
-        if (getters.getIsBuyPoints || state.user.balance > newBalance) {
-            commit('setComponent', 'buyPointsTransaction')
+        if (state.user.balance > newBalance) {
+            commit('addComponent', componentConsts.PURCHASE_TRANSACTION)
         }
         commit('updateUser', { ...state.user, balance: newBalance, dollar: dollarCalculate(newBalance) });
     },

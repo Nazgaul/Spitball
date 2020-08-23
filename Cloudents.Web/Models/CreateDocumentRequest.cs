@@ -1,45 +1,26 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Web.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Cloudents.Core.Entities;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
 {
     public class CreateDocumentRequest : IValidatableObject
     {
+        public string? BlobName { get; set; }
         [Required]
-        public string BlobName { get; set; }
-        [Required]
-        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
+        [StringLength(Document.MaxLength, ErrorMessage = "StringLength")]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Document.MinLength)]
-        public string Course { get; set; }
 
+        public bool Visible { get; set; }
 
-        [Range(0, int.MaxValue)]
-        public decimal? Price { get; set; }
-
-        public string? Description { get; set; }
-
-        public PriceType PriceType { get; set; }
+        public long? Id { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (string.IsNullOrEmpty(FriendlyUrlHelper.GetFriendlyTitle(Name)))
+            if (Id == null && BlobName == null)
             {
-                yield return new ValidationResult(
-                    "File Name is invalid",
-                    new[] { nameof(Name) });
-            }
-
-            if (PriceType == PriceType.HasPrice && Price == null)
-            {
-                yield return new ValidationResult(
-                    "Need to have price",
-                    new[] { nameof(Price) });
+                yield return new ValidationResult("Should have blob or id");
             }
         }
     }

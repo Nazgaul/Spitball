@@ -14,46 +14,32 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Name).Length(150).Not.Nullable();
             
             Component(x => x.TimeStamp);
+            
+            //Cannot put not nullable because no inverse on course.
+            References(x => x.Course).Column("CourseId").ForeignKey("Document_course2");
 
-            References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
+
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
             Map(x => x.PageCount).Nullable();
-            Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Md5).Nullable();
-            Map(x => x.PurchaseCount).Column("Purchased");
-            //Map(x => x.DocumentPrice.Price).Not.Nullable().CustomSqlType("smallmoney");
-            //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
-            HasMany(x => x.Transactions)
-                .KeyColumn("DocumentId")
-                //.Cascade.()
-                .Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
-                .Inverse();
-            //Map(x => x.OldId).Nullable();
-            HasMany(x => x.Votes)
-                .Access.CamelCaseField(Prefix.Underscore)
-                .KeyColumns.Add("DocumentId")
-                .Inverse().Cascade.AllDeleteOrphan();
-            Map(m => m.VoteCount);
+            //HasMany(x => x.Transactions)
+            //    .KeyColumn("DocumentId")
+            //    //.Cascade.()
+            //    .Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
+            //    .Inverse();
+           
 
             HasMany(x => x.DocumentDownloads)
              .Cascade.AllDeleteOrphan()
              .KeyColumn("DocumentId").Inverse().AsSet();
 
             Map(x => x.DocumentType).Column("DocumentType");
-            Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
-          //  Map(e => e.IsShownHomePage);
-            Map(x => x.Boost);
+            Map(x => x.Duration);
             Component(x => x.Status);
-
-            Component(x => x.DocumentPrice, y =>
-            {
-                y.Map(z => z!.Price).CustomSqlType("smallMoney");
-                y.Map(z => z!.Type).Column("PriceType");
-
-            });
+            Map(x => x.Position).ReadOnly();
         }
     }
 

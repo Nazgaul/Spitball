@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Users
 {
-    public class UserContentByIdQuery : IQuery<IEnumerable<UserContentDto>>
+    public class UserCoursesByIdQuery : IQuery<IEnumerable<UserCoursesDto>>
     {
-        public UserContentByIdQuery(long id)
+        public UserCoursesByIdQuery(long id)
         {
             Id = id;
         }
 
         private long Id { get; }
 
-        internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserContentByIdQuery, IEnumerable<UserContentDto>>
+        internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserCoursesByIdQuery, IEnumerable<UserCoursesDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -28,60 +28,49 @@ namespace Cloudents.Query.Users
                 _session = session;
             }
 
-            public async Task<IEnumerable<UserContentDto>> GetAsync(UserContentByIdQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserCoursesDto>> GetAsync(UserCoursesByIdQuery query, CancellationToken token)
             {
-                var documentFuture = _session.Query<Document>()
-                    .WithOptions(w => w.SetComment(nameof(UserContentByIdQuery)))
-                    .Fetch(f => f.User).FetchMany(f => f.Transactions)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => new UserDocumentsDto()
+                var courseFuture = _session.Query<Course>()
+                    .WithOptions(w => w.SetComment(nameof(UserCoursesByIdQuery)))
+                    .Where(w => w.Tutor.Id == query.Id && w.State != ItemState.Deleted)
+                    .OrderBy(o=>o.Position)
+                    .Select(s => new UserCoursesDto()
                     {
                         Id = s.Id,
                         Name = s.Name,
-                        Course = s.Course.Id,
-                        Type = s.DocumentType.ToString(),
-                        Likes = s.VoteCount,
-                        Price = s.DocumentPrice.Price,
-                        //State = s.Status.State,
-                        Date = s.TimeStamp.CreationTime,
-                        Views = s.Views,
-                        Downloads = s.Downloads,
-                        Purchased = s.PurchaseCount ?? 0
-                    }).ToFuture<UserContentDto>();
+                        Price = s.Price,
+                        //Users =  s.CourseEnrollments.Select(s2 => s2.User.FirstName).ToList(),
+                        Documents = s.Documents.Count(c=>c.Status.State == ItemState.Ok),
+                        Lessons = s.StudyRooms.Count(),
+                        IsPublish = s.State == ItemState.Ok,
+                        StartOn = s.StartTime,
+                        Version = s.Version
+                    }).ToFuture();
 
 
-                var questionFuture = _session.Query<Question>()
-                    .FetchMany(f => f.Answers)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .Select(s => new UserQuestionsDto()
+                var usersFuture = _session.Query<CourseEnrollment>()
+                    .Where(w => w.Course.Tutor.Id == query.Id)
+                    .Select(s => new
                     {
-                        Id = s.Id,
-                        //State = s.Status.State,
-                        Date = s.Created,
-                        Course = s.Course.Id,
-                        Text = s.Text,
-                        AnswerText = s.Answers.Select(si => si.Text).FirstOrDefault()
-                    }).ToFuture<UserContentDto>();
+                        s.Course.Id,
+                        s.User.FirstName
+                    }).ToFuture();
 
-                var answerFuture = _session.Query<Answer>()
-                    .Fetch(f => f.User).Fetch(f => f.Question)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
-                    .Select(s => new UserAnswersDto()
-                    { 
-                        QuestionId = s.Question.Id,
-                        //State = s.Status.State,
-                        Date = s.Created,
-                        Course = s.Question.Course.Id,
-                        QuestionText = s.Question.Text,
-                        AnswerText = s.Text
+                var courses = await courseFuture.GetEnumerableAsync(token);
+                var users = usersFuture.GetEnumerable().GroupBy(g => g.Id)
+                    .ToDictionary(z => z.Key, v => v.Select(s => s.FirstName));
 
-                    }).ToFuture<UserContentDto>();
 
-                var documentResult = await documentFuture.GetEnumerableAsync(token);
-                var questionResult = await questionFuture.GetEnumerableAsync(token);
-                var answerResult = await answerFuture.GetEnumerableAsync(token);
 
-                return documentResult.Union(questionResult).Union(answerResult).OrderByDescending(o => o.Date);
+                return courses.Select(s =>
+                {
+                    if (users.TryGetValue(s.Id,out var usersFirstNames))
+                    {
+                        s.Users = usersFirstNames;
+                    }
+
+                    return s;
+                });
             }
         }
     }

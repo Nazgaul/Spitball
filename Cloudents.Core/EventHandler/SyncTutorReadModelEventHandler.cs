@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +10,8 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<TutorApprovedEvent>,
         IEventHandler<TutorAddReviewEvent>,
         IEventHandler<UpdateTutorSettingsEvent>,
-        IEventHandler<CanTeachCourseEvent>,
+        IEventHandler<NewCourseEvent>,
+        IEventHandler<UpdateCourseEvent>,
         IEventHandler<UpdateImageEvent>,
         IEventHandler<EndStudyRoomSessionEvent>,
         IEventHandler<ChangeCountryEvent>,
@@ -35,10 +35,7 @@ namespace Cloudents.Core.EventHandler
             return SubmitAsync(eventMessage.TutorId, token);
         }
 
-        //public Task HandleAsync(TutorUnSuspendedEvent eventMessage, CancellationToken token)
-        //{
-        //    return SubmitAsync(eventMessage.Id, token);
-        //}
+      
 
         public Task HandleAsync(TutorAddReviewEvent eventMessage, CancellationToken token)
         {
@@ -50,9 +47,14 @@ namespace Cloudents.Core.EventHandler
             return SubmitAsync(eventMessage.UserId, token);
         }
 
-        public Task HandleAsync(CanTeachCourseEvent eventMessage, CancellationToken token)
+        public Task HandleAsync(NewCourseEvent eventMessage, CancellationToken token)
         {
-            return SubmitAsync(eventMessage.UserCourse.User.Id, token);
+            return SubmitAsync(eventMessage.UserCourse.Tutor.Id, token);
+        }
+
+        public  Task HandleAsync(UpdateCourseEvent eventMessage, CancellationToken token)
+        {
+            return SubmitAsync(eventMessage.UserCourse.Tutor.Id, token);
         }
 
         public Task HandleAsync(UpdateImageEvent eventMessage, CancellationToken token)
@@ -129,5 +131,7 @@ namespace Cloudents.Core.EventHandler
             }
             return SubmitAsync(eventMessage.User.Id, token);
         }
+
+       
     }
 }

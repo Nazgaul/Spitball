@@ -26,10 +26,7 @@ namespace Cloudents.Command.CommandHandler
                 return;
             }
             var user = await _userRepository.LoadAsync(message.InvitingUserId, token);
-            var register = await _userRepository.LoadAsync(user.Id, token);
-
-            //var referCount = await _referUserTransactionRepository.GetReferUserCountAsync(register.Id, token);
-           // var price = referCount > MaxRefer || user.Country == Country.India.Name ? 0 : 10;
+            var register = await _userRepository.LoadAsync(message.RegisteredUserId, token);
             user.ReferUser(register);
             await _userRepository.UpdateAsync(user, token);
 

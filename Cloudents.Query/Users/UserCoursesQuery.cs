@@ -1,8 +1,12 @@
 ﻿using Cloudents.Core.DTOs;
-using Dapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Users
 {
@@ -17,28 +21,33 @@ namespace Cloudents.Query.Users
 
         internal sealed class UserCoursesQueryHandler : IQueryHandler<UserCoursesQuery, IEnumerable<CourseDto>>
         {
-            private readonly IDapperRepository _dapperRepository;
+            private readonly IStatelessSession _statelessSession;
 
-            public UserCoursesQueryHandler(IDapperRepository dapperRepository)
+            public UserCoursesQueryHandler(IStatelessSession statelessSession)
             {
-                _dapperRepository = dapperRepository;
+                _statelessSession = statelessSession;
             }
 
             public async Task<IEnumerable<CourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
             {
-                
-                token.ThrowIfCancellationRequested();
-                //We use Students, IsPending and IsTeaching in "My Courses" when a user edit his courses list
-                const string sql = @"select CourseId as [Name], 
-                        c.count as Students,
-                        uc.CanTeach as IsTeaching
-                        from sb.UsersCourses uc
-                        join sb.Course c
-                        on uc.courseId = c.Name
-                        where UserId = @Id
-                        order by  Students desc";
-                using var conn = _dapperRepository.OpenConnection();
-                return await conn.QueryAsync<CourseDto>(sql, new { Id = query.UserId });
+                var result =  await _statelessSession.Query<Course>()
+                    .Where(w => w.Tutor.Id == query.UserId && w.State == ItemState.Ok)
+                    .OrderBy(o=>o.Position)
+                    .Select(s => new CourseDto
+                    {
+                        Name = s.Name,
+                        Price = s.Price,
+                        SubscriptionPrice = s.SubscriptionPrice,
+                        Description = s.Description,
+                        Id = s.Id,
+                        StudyRoomCount = s.StudyRooms.Count(),
+                        StartTime = s.StartTime,
+                        Version = s.Version
+                    }).ToListAsync(token);
+
+                return result;
+
+
             }
         }
     }

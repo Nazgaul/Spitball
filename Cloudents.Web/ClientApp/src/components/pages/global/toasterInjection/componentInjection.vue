@@ -8,16 +8,14 @@
 import * as componentConsts from './componentConsts.js';
 
 const PAYMENT_DIALOG = () => import('../dialogInjection/globalDialogs/payment/paymentWrapper.vue');
-const TUTOR_EDIT_PROFILE = () => import('../../../new_profile/profileHelpers/userInfoEdit/tutorInfoEdit.vue');
+// const TUTOR_EDIT_PROFILE = () => import('../../../new_profile/profileHelpers/userInfoEdit/tutorInfoEdit.vue');
 
 const auth = () => import('../../global/dialogInjection/globalDialogs/auth/auth.vue')
 
 const simpleToaster = () => import('./simpleToaster.vue');
 const simpleErrorToaster = () => import('./simpleErrorToaster.vue')
 const errorLinkToaster = () => import('./errorLinkToaster.vue')
-const buyPointsTransaction = () => import('./buyPointsTransaction.vue')
-
-const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue')
+const PURCHASE_TRANSACTION = () => import('./buyPointsTransaction.vue')
 
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const applyCoupon = () => import('./applyCoupon.vue')
@@ -26,42 +24,59 @@ const editStudentInfo = () => import('../../../new_profile/profileHelpers/userIn
 
 const verifyPhone = () => import('../dialogInjection/globalDialogs/auth/register/verifyPhone.vue')
 const studRoomSettings = () => import('../../../studyroom/tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue')
-const createStudyRoomDialog = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
+const SESSION_CREATE_DIALOG = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue')
 
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
+const ITEM_DIALOG = () => import('../itemDialog/itemDialog.vue');
+
 export default {
     components: {
         PAYMENT_DIALOG,
-        TUTOR_EDIT_PROFILE,
+        // TUTOR_EDIT_PROFILE,
         auth,
         simpleToaster,
         simpleErrorToaster,
         errorLinkToaster,
-        buyPointsTransaction,
-        upload,
+        PURCHASE_TRANSACTION,
         createCoupon,
         verifyPhone,
         editStudentInfo,
         applyCoupon,
         studRoomSettings,
-        createStudyRoomDialog,
-        teacherBillOfflineDialog
+        SESSION_CREATE_DIALOG,
+        teacherBillOfflineDialog,
+        ITEM_DIALOG
     },
     data() {
         return {
             component: {},
             componentObj: {
+                // DIALOGS:
+                [componentConsts.ITEM_DIALOG]:{
+                    name:componentConsts.ITEM_DIALOG,
+                    params:{
+                        name: componentConsts.ITEM_DIALOG
+                    }
+                },
                 [componentConsts.PAYMENT_DIALOG]:{
                     name: componentConsts.PAYMENT_DIALOG,
                 },
-                [componentConsts.TUTOR_EDIT_PROFILE]: {
-                    name: componentConsts.TUTOR_EDIT_PROFILE 
-                },
+                // [componentConsts.TUTOR_EDIT_PROFILE]: {
+                //     name: componentConsts.TUTOR_EDIT_PROFILE 
+                // },
+                // TOASTERS:ERRORS
                 [componentConsts.BOOK_FAILED]:{
                     name:'simpleErrorToaster',
                     params:{
                         text: this.$t("calendar_error_create_event"),
                         name: componentConsts.BOOK_FAILED
+                    }
+                },
+                [componentConsts.CREATE_BROADCAST_ERROR]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t("create_broadcast_error"),
+                        name: componentConsts.CREATE_BROADCAST_ERROR
                     }
                 },
                 [componentConsts.WENT_WRONG]:{
@@ -113,11 +128,12 @@ export default {
                         timeout: 30000,
                     }
                 },
-                buyPointsTransaction:{
-                    name:'buyPointsTransaction',
+                [componentConsts.PURCHASE_TRANSACTION]:{
+                    name: componentConsts.PURCHASE_TRANSACTION,
                     params: {
                         text: this.$t('buyTokens_success_transaction'),
                         timeout: 30000,
+                        name: componentConsts.PURCHASE_TRANSACTION
                     }
                 },
                 simpleToaster_userConnected:{
@@ -173,20 +189,13 @@ export default {
                 studyRoomSettings: {
                     name: 'studRoomSettings',
                 },
-                createPrivateSession: {
-                    name: 'createStudyRoomDialog',
-                    params: {
-                        type: 'private'
+
+                [componentConsts.SESSION_CREATE_DIALOG]:{
+                    name: componentConsts.SESSION_CREATE_DIALOG,
+                    params:{
+                        type: 'private',
+                        name: componentConsts.SESSION_CREATE_DIALOG
                     }
-                },
-                createLiveSession: {
-                    name: 'createStudyRoomDialog',
-                    params: {
-                        type: 'broadcast'
-                    }
-                },
-                upload: {
-                    name: 'upload',
                 },
                 createCoupon: {
                     name: 'createCoupon'

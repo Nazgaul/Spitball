@@ -26,7 +26,7 @@ namespace Cloudents.Core.Test.CommandHandler
             const string someCoupon = "xxxxxx";
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync((Coupon)null);
 
-            var command = new ApplyCouponCommand(someCoupon, 0, 0,Guid.Empty);
+            var command = new ApplyCouponCommand(someCoupon, 0, 0,0);
             var instance = _mock.Create<ApplyCouponCommandHandler>();
             await Assert.ThrowsAsync<ArgumentException>(() => instance.ExecuteAsync(command, default));
 

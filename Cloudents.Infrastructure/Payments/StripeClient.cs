@@ -19,13 +19,13 @@ namespace Cloudents.Infrastructure.Payments
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
 
-        public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
-        {
-            var session = await GetSessionByIdAsync(sessionId, token);
-            var amountOfPoints = long.Parse(session.Metadata["Points"]);
-            var paymentId = session.PaymentIntentId;
-            return (paymentId, amountOfPoints);
-        }
+        //public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
+        //{
+        //    var session = await GetSessionByIdAsync(sessionId, token);
+        //    var amountOfPoints = long.Parse(session.Metadata["Points"]);
+        //    var paymentId = session.PaymentIntentId;
+        //    return (paymentId, amountOfPoints);
+        //}
 
 
         public async Task<Dictionary<string, string>> GetMetaDataAsync(string sessionId, CancellationToken token)

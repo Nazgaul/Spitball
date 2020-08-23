@@ -235,21 +235,21 @@ namespace Cloudents.Admin2.Api
             return res;
         }
 
-        [HttpGet("questions")]
-        public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
-        {
-            var country = User.GetSbCountryClaim();
-            var query = new UserQuestionsQuery(id, page, country);
-            return await _queryBus.QueryAsync(query, token);
-        }
+        //[HttpGet("questions")]
+        //public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
+        //{
+        //    var country = User.GetSbCountryClaim();
+        //    var query = new UserQuestionsQuery(id, page, country);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
 
-        [HttpGet("answers")]
-        public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
-        {
-            var country = User.GetSbCountryClaim();
-            var query = new UserAnswersQuery(id, page, country);
-            return await _queryBus.QueryAsync(query, token);
-        }
+        //[HttpGet("answers")]
+        //public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
+        //{
+        //    var country = User.GetSbCountryClaim();
+        //    var query = new UserAnswersQuery(id, page, country);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
 
 
 
@@ -318,14 +318,14 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-        [HttpGet("usersFlags")]
-        public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
-        {
-            var country = User.GetCountryClaim();
-            var query = new UserFlagsOthersQuery(minFlags, page, country);
-            var res = await _queryBus.QueryAsync(query, token);
-            return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
-        }
+        //[HttpGet("usersFlags")]
+        //public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
+        //{
+        //    var country = User.GetCountryClaim();
+        //    var query = new UserFlagsOthersQuery(minFlags, page, country);
+        //    var res = await _queryBus.QueryAsync(query, token);
+        //    return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
+        //}
 
         [HttpPut("phone")]
         public async Task<IActionResult> UpdatePhoneAsync(

@@ -12,9 +12,6 @@
             <div class="tutorName text-truncate text-center text-sm-start mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
-            <!-- <div class="globalHeader_items_left" v-if="!isMobile">
-                <searchCMP :placeholder="searchPlaceholder"/>
-            </div> -->
             <v-spacer></v-spacer>
             <div class="globalHeader_items_right">
                 <div>
@@ -78,11 +75,6 @@
                 </v-menu>
             </div>
         </div>
-        <!-- <template v-slot:extension v-if="isMobile && showSearch">
-            <div class="mobileHeaderSearch">
-                <searchCMP :placeholder="searchPlaceholder"/>
-            </div>
-        </template> -->
     </v-app-bar>
         <v-navigation-drawer 
             temporary 
@@ -113,7 +105,7 @@ import chatIcon from './images/chatIcon.svg';
 import arrowDownIcon from './images/arrowDownIcon.svg';
 import hamburgerIcon from './images/hamburgerIcon.svg';
 const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
-// const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
+
 
 export default {
 components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},

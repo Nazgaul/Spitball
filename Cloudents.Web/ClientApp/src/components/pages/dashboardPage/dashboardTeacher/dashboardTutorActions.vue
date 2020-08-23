@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <img src="./images/group-14-copy-2@2x.png" v-if="!isMobile" @click="startVideo" width="250" height="150" alt="Spitball How It Works">
-                <video class="dashboardVideo" v-else @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
+                <img src="./images/video-banner@3x.png" v-if="!isMobile" @click="startVideo" width="300" height="180" alt="Spitball How It Works">
+                <video class="dashboardVideo"  v-else @click="startVideo" :controls="controls" :autoplay="autoplay" playsinline :src="onBoardingVideo" width="300" height="180" poster="./images/video-banner@3x.png"></video>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
             max-width="1200px"
             contet-class="spitballDialogVideo"
         >
-            <video v-if="showSpitballDialog" class="dashboardVideo" ref="howItWork" :controls="true" autoplay="true" :src="onBoardingVideo"></video>
+            <video v-if="showSpitballDialog" class="dashboardVideo" :controls="true" autoplay="true" :src="onBoardingVideo"></video>
         </v-dialog>
 
         <v-snackbar
@@ -109,6 +109,7 @@ const colors = {
     blue: '#4c59ff',
     green: '#41c4bc',
     yellow: '#eac569',
+    orange: '#ff6927'
 }
 
 export default {
@@ -125,72 +126,69 @@ export default {
             autoplay: false,
             verifyEmailState: false,
             profileName: routeName.Profile,
-            linksItems: {
-                [constants.PHONE]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_phone'),
-                    btnText: this.$t('dashboardTeacher_btn_text_phone'),
-                    method: this.openPhoneDialog
-                },
-                [constants.EMAIL]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_email'),
-                    btnText: this.$t('dashboardTeacher_btn_text_email'),
-                    method: this.verifyEmail
-                },
+        }
+    },
+    computed: {
+        linksItems() {
+            return {
                 [constants.EDIT]: {
                     color: colors.blue,
                     text: this.$t('dashboardTeacher_link_text_edit'),
                     btnText: this.$t('dashboardTeacher_btn_text_edit'),
-                    routeName: { name: routeName.Profile }
+                    routeName: {
+                        name: this.profileName,
+                        params: {
+                            id: this.userId,
+                            name: this.userName
+                        },
+                        hash: '#tutorEdit'
+                    }
                 },
-                [constants.BOOK]: {
+                [constants.SESSIONS]: {
                     color: colors.blue,
+                    text: this.$t('dashboardTeacher_link_text_session'),
+                    btnText: this.$t('dashboardTeacher_btn_text_session'),
+                    routeName: { name: routeName.CourseCreate }
+                },
+                // [constants.TEST]: {
+                //     color: colors.orange,
+                //     text: this.$t('test_drive'),
+                //     btnText: this.$t('test_btn'),
+                //     method: this.openPhoneDialog
+                // },
+                [constants.BOOK]: {
+                    color: colors.green,
                     text: this.$t('dashboardTeacher_link_text_book'),
                     btnText: this.$t('dashboardTeacher_btn_text_book'),
                     method: this.bookSession
                 },
+                [constants.PHONE]: {
+                    color: colors.green,
+                    text: this.$t('dashboardTeacher_link_text_phone'),
+                    btnText: this.$t('dashboardTeacher_btn_text_phone'),
+                    method: this.openPhoneDialog
+                },
                 [constants.STRIPE]: {
-                    color: colors.blue,
+                    color: colors.green,
                     text: this.$t('dashboardTeacher_link_text_stripe'),
                     btnText: this.$t('dashboardTeacher_btn_text_stripe'),
                     method: this.addStripe
                 },
                 [constants.CALENDAR]: {
-                    color: colors.green,
+                    color: colors.yellow,
                     text: this.$t('dashboardTeacher_link_text_calendar'),
                     btnText: this.$t('dashboardTeacher_btn_text_calendar'),
                     routeName: { name: routeName.MyCalendar }
                 },
-                [constants.TEACH]: {
+
+                [constants.EMAIL]: {
                     color: colors.green,
-                    text: this.$t('dashboardTeacher_link_text_teach'),
-                    btnText: this.$t('dashboardTeacher_btn_text_teach'),
-                    routeName: { name: routeName.MyCalendar }
-                },
-                [constants.SESSIONS]: {
-                    color: colors.yellow,
-                    text: this.$t('dashboardTeacher_link_text_session'),
-                    btnText: this.$t('dashboardTeacher_btn_text_session'),
-                    routeName: { name: routeName.MyStudyRoomsBroadcast }
-                },
-                [constants.UPLOAD]: {
-                    color: colors.yellow,
-                    text: this.$t('dashboardTeacher_link_text_upload'),
-                    btnText: this.$t('dashboardTeacher_btn_text_upload'),
-                    routeName: { name: routeName.MyContent }
-                },
+                    text: this.$t('dashboardTeacher_link_text_email'),
+                    btnText: this.$t('dashboardTeacher_btn_text_email'),
+                    method: this.verifyEmail
+                }
             }
-        }
-    },
-    // watch: {
-    //     showSpitballDialog(val) {
-    //         if(!val) {
-    //             this.$refs.howItWork.pause()
-    //         }
-    //     }
-    // },
-    computed: {
+        },
         isEditActionComplete() {
             return this.$store.getters.getTutorListActions[constants.EDIT]?.value
         },
@@ -245,6 +243,7 @@ export default {
                 if(this.controls && this.autoplay) return
                 this.controls = true
                 this.autoplay = true
+                document.querySelector('.dashboardVideo').play()
             } else {
                 this.showSpitballDialog = true
             }

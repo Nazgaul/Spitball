@@ -66,8 +66,8 @@ export default {
     },
     computed: {
         roomTutorId() {
-            if(this.$route.name === routeNames.StudyRoomLanding){
-                return this.$store.getters.getRoomDetails?.tutorId;
+            if(this.$route.name === routeNames.CoursePage){
+                return this.$store.getters.getCourseDetails?.tutorId;
             }else{
                 return this.$store.getters.getRoomTutor?.tutorId;
             }

@@ -1,87 +1,48 @@
 <template>
    <div class="mySales">
-      <div class="mySales_title" v-t="'dashboardPage_my_sales_title'"/>
-      <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
-         <v-flex sm12 md6>
-            <v-data-table
-               :headers="balancesHeaders"
-               :items="balancesItems"
-               sort-by
-               hide-default-footer
-               hide-default-header
-               class="elevation-1 mySales_table">
-               <template v-slot:header="{props}">
-                  <thead>
-                     <tr>
-                        <th class="text-center"
-                           v-for="header in props.headers"
-                           :key="header.value">
-                           {{header.text}}
-                        </th>
-                     </tr>
-                  </thead>
-               </template>
-               <template v-slot:item="props">
-                  <tr class="mySales_table_tr">
-                     <td class="text-start">
-                        <span>{{wallet[props.item.type]}}</span>
-                     </td>
-                     <td class="text-center">
-                        <span>{{formatBalancePts(props.item.points)}}</span>
-                     </td> 
-                     <td class="text-center">
-                        <span class="font-weight-bold">
-                           <!-- TODO: Currency Change -->
-                           {{$n(props.item.value, {'style':'currency','currency': accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}}
-                        </span>
-                     </td> 
-                  </tr>
-               </template>
-            </v-data-table>
-         </v-flex>
-         <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
-            <div class="mySales_actions ms-md-6">
-               <redeemPointsLayout class="my-2 my-md-0 mx-lg-2 "/>
-               <buyPointsLayout class="my-2 my-md-0 mx-lg-2"/>
-            </div>
-         </v-flex>
-      </v-layout>
+      <div class="pa-4">
+         <div class="mySales_title" v-t="'financial_status'"></div>
+         <v-layout wrap class="mySales_wallet mb-2" v-if="!!accountUser && accountUser.id">
+            <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
+               <div class="mySales_actions">
+                  <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
+                  <billOfflineLayout class="my-2 my-md-0 mx-lg-2"/>
+               </div>
+            </v-flex>
+         </v-layout>
+      </div>
 
       <v-data-table 
          calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
+         :mobile-breakpoint="0"
          :items="salesItems"
          :items-per-page="20"
          sort-by
          :item-key="'sessionId'"
-         class="elevation-1 mySales_table-full"
+         class="mySales_table-full"
          :footer-props="{
             showFirstLastPage: false,
             firstIcon: '',
             lastIcon: '',
             prevIcon: 'sbf-arrow-left-carousel',
             nextIcon: 'sbf-arrow-right-carousel',
-            itemsPerPageOptions: [20]
+            itemsPerPageOptions: [5]
          }">
             <template v-slot:item.preview="{item}">
                <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
-                  <v-avatar size="40">
+                  <v-avatar size="68">
                      <img :src="item.preview">
                   </v-avatar>
                </router-link>
                <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
-                  <!-- <user-avatar :user-id="item.userId" 
-                  :user-image-url="item.image" 
-                  :size="'40'" 
-                  :user-name="item.name" >
-                  </user-avatar> -->
                   <userAvatarNew
                      class="mySalesUserAvatar"
                      :userImageUrl="item.image"
                      :user-name="item.name"
-                     :width="40"
-                     :height="40"
+                     :width="68"
+                     :height="68"
                      :fontSize="14"
                   />
                </router-link>
@@ -96,7 +57,7 @@
                {{formatItemStatus(item.paymentStatus)}}
             </template>
             <template v-slot:item.date="{item}">
-               {{ $d(item.date) }}
+               {{$moment(item.date).format('MMM D')}}
             </template>
             <template v-slot:item.price="{item}">
                {{formatPrice(item.price,item.type)}}
@@ -105,7 +66,7 @@
                <v-btn 
                   color="#02C8BF"
                   class="white--text"
-                  width="120"
+                  width="100"
                   depressed
                   rounded
                   v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
@@ -122,12 +83,12 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
-import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
+import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
 import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
 export default {
    name:'mySales',
-   components:{tableInfoTd,buyPointsLayout,redeemPointsLayout},
+   components:{tableInfoTd,billOfflineLayout,redeemPointsLayout},
    props:{
       dictionary:{
          type: Object,
@@ -147,26 +108,13 @@ export default {
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
             this.dictionary.headers['action'],
-         ],
-         balancesHeaders:[
-            this.dictionary.headers['preview'],
-            this.dictionary.headers['points'],
-            this.dictionary.headers['value'],
-         ],
-         wallet:{
-            'Earned': this.$t(`wallet_earned`),
-            'Spent': this.$t(`wallet_spent`),
-            'Total': this.$t(`wallet_total`),
-         }
+         ]
       }
    },
    computed: {
-      ...mapGetters(['getSalesItems','accountUser','getBalancesItems']),
+      ...mapGetters(['getSalesItems','accountUser']),
       salesItems(){
          return this.getSalesItems;
-      },
-      balancesItems(){
-         return this.getBalancesItems;
       },
       // pendingPayments() {
       //    return this.$store.getters.getPendingPayment
@@ -187,10 +135,6 @@ export default {
             // TODO: Currency Change
             return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
          }
-      },
-      formatBalancePts(pts){
-         pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
-         return `${pts} ${this.$t('dashboardPage_pts')}`
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Approved'){
@@ -213,6 +157,9 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .mySales{
+   background: #fff;
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+   // max-width: 1334px; 
    .mySales_title{
       font-size: 22px;
       color: #43425d;
@@ -242,14 +189,15 @@ export default {
                padding-bottom: 14px;
                font-weight: normal;
                min-width: 100px;
+               border-top: thin solid rgba(0, 0, 0, 0.12);
             }
             
          }
          color: #43425d !important;
       } 
-   .mySales_table{
-      max-width: 1334px; 
-   }
+   // .mySales_table{
+   //    max-width: 1334px; 
+   // }
    .mySales_table-full{
    tr{
       height:54px;
@@ -257,7 +205,7 @@ export default {
    td{
       border: none !important;
    }
-      max-width: 1334px;
+      // max-width: 1334px;
       td:first-child {
          width:1%;
          white-space: nowrap;

@@ -13,12 +13,10 @@
     "stylelint": "node node_modules/stylelint/bin/stylelint.js **/*.{vue,less}"
   },
   "devDependencies": {
-    "@automattic/mini-css-extract-plugin-with-rtl": "^0.8.0",
     "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
-    "@vue/test-utils": "^1.0.0-beta.29",
     "aspnet-webpack": "3.0.0",
     "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
@@ -92,13 +90,14 @@
     "timeago.js": "^4.0.2",
     "twilio-video": "2.6.0",
     "unused-webpack-plugin": "^2.4.0",
+    "video-layout": "^1.1.0",
     "vue-application-insights": "1.0.6",
     "vue-clipboard2": "^0.3.1",
     "vue-codemirror": "^4.0.6",
     "vue-color": "^2.7.0",
     "vue-i18n": "^8.18.1",
-    "vue-numeric": "^2.3.0",
     "vue-paypal-checkout": "^3.2.0",
+    "vuedraggable": "^2.24.0",
     "vuex-router-sync": "^5.0.0",
     "webpack-retry-chunk-load-plugin": "^1.2.0"
   },

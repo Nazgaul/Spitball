@@ -1,6 +1,6 @@
 import axios from 'axios'
 import constants from './constants/dashboardConstants';
-import registerService from '../services/registrationService2';
+//import registerService from '../services/registrationService2';
 
 const state = {
     tutorLinkActions: {},
@@ -17,18 +17,17 @@ const mutations = {
         let tutorActions = new TutorAction(data)
         
         function TutorAction(objInit) {
-            this.PHONE = { value: objInit.phoneVerified }
-            this.EMAIL = { value: objInit.emailVerified }
-            this.EDIT = { value: objInit.editProfile }
-            this.BOOK = { 
+            this.EDIT = { value: objInit.editProfile } // create your site
+            this.SESSIONS = { value: objInit.liveSession } // create your first course
+            // this.TEST = { value: false}
+            this.BOOK = { // join a live demo
                 value: objInit.bookedSession.exists,
                 tutorId: objInit.bookedSession.tutorId
             }
-            this.STRIPE = { value: objInit.stripeAccount }
-            this.CALENDAR = { value: objInit.calendarShared }
-            this.TEACH = { value: objInit.haveHours }
-            this.SESSIONS = { value: objInit.liveSession }
-            this.UPLOAD = { value: objInit.uploadContent }
+            this.STRIPE = { value: objInit.stripeAccount } // set up your stripe
+            this.EMAIL = { value: objInit.emailVerified } // email
+            this.PHONE = { value: objInit.phoneVerified } // add a phone number
+            this.CALENDAR = { value: objInit.calendarShared } // connect your calendar
         }
         
         state.tutorLinkActions = tutorActions
@@ -67,9 +66,9 @@ const actions = {
                 commit('setTutorNotifications', data)
             })
     },
-    updatePhoneCode() {
-        return registerService.sendSmsCode()
-    },
+    // updatePhoneCode() {
+    //     return registerService.sendSmsCode()
+    // },
     verifyTutorEmail() {
         return axios.post('/register/verifyEmail')
     },

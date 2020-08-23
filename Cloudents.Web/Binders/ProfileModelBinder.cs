@@ -66,13 +66,4 @@ namespace Cloudents.Web.Binders
             bindingContext.Result = ModelBindingResult.Success(profile);
         }
     }
-
-    [Flags]
-    public enum ProfileServiceQuery
-    {
-        None,
-        Country = 2,
-        //  Course = 4,
-        Subscribers = 8
-    }
 }

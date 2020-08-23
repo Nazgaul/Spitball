@@ -1,23 +1,17 @@
 <template>
     <v-card class="ref-block" elevation="0"
             :style="isTransparent ? 'backgroundColor: transparent;' : 'background-color: #fff;' ">
-        <div class="dialog-wrapp referral-container">
+        <div class="dialog-wrapp flex-grow-1 referral-container">
             <v-icon class="close-btn-referral body-1 pe-3 pt-3" @click.prevent="requestDialogClose()">sbf-close</v-icon>
             <v-layout column v-show="!isUploadReferral">
-                <v-flex xs12   class="mb-4">
-                    <!-- <div v-show="getSchoolName">
-                        <span class="ref-title" v-html="text.dialog.title">
-                        </span>
-                        <span class="ref-title" v-if="getSchoolName">{{getSchoolName}}</span>
-                    </div> -->
+                <v-flex xs12 class="mb-4">
                     <div>
                         <span class="ref-title" v-html="text.dialog.titleSpread"></span>
                     </div>
                 </v-flex>
-                <v-flex xs12   class="mb-4">
+                <v-flex xs12 class="mb-4">
                     <div>
-                        <span class="text-center ref-subtitle"
-                              v-html="text.dialog.subTitle"></span>
+                        <span class="text-center ref-subtitle" v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>
             </v-layout>
@@ -87,7 +81,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <v-layout align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
+        <v-layout align-center class="ref-bottom-section px-3 flex-grow-0" v-show="!isUploadReferral">
             <v-flex xs1 >
                 <!-- <i class="bottom-five"> -->
                     <v-icon  class="spread-out-loud-icon">sbf-spread-loud</v-icon>
@@ -179,10 +173,8 @@
             return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
             },
             termOfServiceLink() {
-                if(global.country === 'US') {
-                    return true
-                }
-                return false
+                return global.country === 'US';
+
             }
         },
         watch: {

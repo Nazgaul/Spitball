@@ -25,16 +25,13 @@
                <span>{{item.name}}</span>
             </div>
          </template>
-         <template v-if="item.type === 'Question' || item.type === 'Answer'">
-            <div class="text-truncate">
-               <span class="font-weight-bold" v-t="'dashboardPage_question'"/>
-               <span class="text-truncate">{{item.text}}</span>
-            </div>
-            <div class="text-truncate" v-if="item.answerText">
-               <span class="font-weight-bold" v-t="'dashboardPage_answer'"/>
-               <span>{{item.answerText}}</span>
-            </div>
-         </template>
+<!--         <template v-if="item.type === 'Question' || item.type === 'Answer'">-->
+<!--            <div class="text-truncate">-->
+<!--               <span class="font-weight-bold" v-t="'dashboardPage_question'"/>-->
+<!--            </div>-->
+<!--               <span class="font-weight-bold" v-t="'dashboardPage_answer'"/>-->
+<!--            </div>-->
+<!--         </template>-->
          <template v-if="item.conversationId">
             <div class="text-truncate">
                <span>{{item.name}}</span>
@@ -60,9 +57,9 @@ export default {
          if(item.url){
             return item.url;
          }
-         if(item.type === 'Question' || item.type === 'Answer'){
-            return {path:'/question/'+item.id}
-         }
+         // if(item.type === 'Question' || item.type === 'Answer'){
+         //    return {path:'/question/'+item.id}
+         // }
          if(item.type === 'TutoringSession'){
             return {name: 'profile',params: {id: item.id, name: item.name}}
          }

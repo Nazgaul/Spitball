@@ -22,10 +22,10 @@ namespace Cloudents.Core.Interfaces
         // Task FlushAsync(CancellationToken token);
     }
 
-    public interface IFictiveUserRepository : IRepository<SystemUser>
-    {
-        Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token);
-    }
+    //public interface IFictiveUserRepository : IRepository<SystemUser>
+    //{
+    //    Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token);
+    //}
 
 
     public interface IRegularUserRepository : IRepository<User>
@@ -41,17 +41,17 @@ namespace Cloudents.Core.Interfaces
         Task UpdateNumberOfDownloadsAsync(long id, CancellationToken token);
     }
 
-    public interface IQuestionRepository : IRepository<Question>
-    {
-        Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
-    }
+    //public interface IQuestionRepository : IRepository<Question>
+    //{
+    //    Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
+    //}
 
 
 
-    public interface IAnswerRepository : IRepository<Answer>
-    {
-        Task<int> GetNumberOfPendingAnswerAsync(long userId, CancellationToken token);
-    }
+    //public interface IAnswerRepository : IRepository<Answer>
+    //{
+    //    Task<int> GetNumberOfPendingAnswerAsync(long userId, CancellationToken token);
+    //}
 
     public interface IChatRoomRepository : IRepository<ChatRoom>
     {
@@ -70,10 +70,10 @@ namespace Cloudents.Core.Interfaces
 
 
 
-    public interface ITransactionRepository : IRepository<Transaction>
-    {
-        Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
-    }
+    //public interface ITransactionRepository : IRepository<Transaction>
+    //{
+    //    Task<decimal> GetBalanceAsync(long userId, CancellationToken token);
+    //}
 
    
     //public interface IReferUserTransactionRepository : IRepository<ReferUserTransaction>
@@ -111,12 +111,10 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<TutorHours>> GetTutorHoursAsync(long tutorId, CancellationToken token);
     }
 
-    
 
-    //public interface ICourseRepository : IRepository<Course>
-    //{
-    //   // Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
-    //   // Task MigrateCourseAsync(string courseToKeepId, string courseToRemoveId, CancellationToken token);
-    //    Task RenameCourseAsync(string courseName, string newName, CancellationToken token);
-    //}
+
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task<Course?> GetCourseByNameAsync(long tutorId, string name, CancellationToken token);
+    }
 }

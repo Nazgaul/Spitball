@@ -335,7 +335,9 @@ export default () => {
                         deviceId: 
                         {
                            exact: store.getters.getVideoDeviceId
-                        }
+                        },
+                        width: {ideal: 1280, max: 1920},
+                        height: {ideal: 720, max: 1080}
                      }),
                   createLocalAudioTrack({name:AUDIO_TRACK_NAME}),
                ]).then((tracks) => {
@@ -555,7 +557,7 @@ export default () => {
                      renderDimensions: isMobileMode? undefined : {
                         [PRIORITY.HIGH]: {height:720, width:1280}, //{height:1080, width:1920},
                         [PRIORITY.STANDARD]: {height:720, width:1280},
-                        [PRIORITY.LOW]: {height:236, width:149}
+                        [PRIORITY.LOW]: {height:720, width:1280} //{height:236, width:149}
                      }
                   }
                },

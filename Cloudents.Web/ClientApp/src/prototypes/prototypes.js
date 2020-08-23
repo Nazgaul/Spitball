@@ -28,6 +28,10 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
         return '';
     }
 };
+
+Vue.directive('visible', function(el, binding) {
+	el.style.visibility = !!binding.value ? 'visible' : 'hidden';
+});
 // Vue.prototype.$chatMessage = function (message) {
 //     let userName = this.$store.getters.accountUser.id == message.userId ? '' : `<span style="font-weight: 600;display: block;margin-bottom: 6px;">${message.name}:</span>`
 //     if(message.type === 'text'){
@@ -69,10 +73,10 @@ Vue.prototype.$price = function(price, currency,freeText = false, minFraction = 
 }
 Date.prototype.FormatDateToString = function() {
     //https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
-    var d = new Date(this),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+    const d = new Date(this);
+    let month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate();
+    const year = d.getFullYear();
 
     if (month.length < 2) 
         month = '0' + month;
@@ -83,7 +87,7 @@ Date.prototype.FormatDateToString = function() {
 }
 
 Date.prototype.AddDays = function(days) {
-    var date = new Date(this.valueOf());
+    const date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
 }

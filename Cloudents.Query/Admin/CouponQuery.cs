@@ -26,13 +26,13 @@ namespace Cloudents.Query.Admin
                     .WithOptions(w => w.SetComment(nameof(CouponQuery)))
                      .Select(s => new CouponDto()
                      {
-                         Value = s.Value,
+                         //Temp for now
+                         Value  = s.Value == null ? 0 : s.Value,
                          AmountOfUsers = _statelessSession.Query<UserCoupon>().Count(w => w.Coupon.Id == s.Id),
                          Code = s.Code,
                          CouponType = s.CouponType,
                          TutorId = s.Tutor!.Id,
                          Description = s.Description,
-                        // Owner = s.Owner
                      }).ToListAsync(token);
             }
         }

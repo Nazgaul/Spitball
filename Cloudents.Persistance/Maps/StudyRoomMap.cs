@@ -9,12 +9,13 @@ namespace Cloudents.Persistence.Maps
     {
         public StudyRoomMap()
         {
+            DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Identifier).Not.Nullable().Unique();
             References(x => x.Tutor).Not.Nullable();
 
             Map(x => x.TopologyType).Column("Type");
-            Map(x => x.Name).Length(500);
+           
             Component(x => x.DateTime, z => {
                 z.Map(m => m.CreationTime).Column("DateTime");
                 z.Map(m => m.UpdateTime).Column("Updated");
@@ -57,6 +58,7 @@ namespace Cloudents.Persistence.Maps
     {
         public PrivateStudyRoomMap()
         {
+            Map(x => x.Name).Length(500);
             DiscriminatorValue(StudyRoomType.Private.ToString());
         }
     }
@@ -65,16 +67,19 @@ namespace Cloudents.Persistence.Maps
     {
         public BroadCastStudyRoomMap()
         {
+            DynamicUpdate();
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
             Map(x => x.Description).Length(4000).Nullable();
+            //Cannot put not nullable because no inverse on course.
+            References(x => x.Course).Column("CourseId")/*.Not.Nullable()*/.ForeignKey("StudyRoom_course2");
 
-            Component(x => x.Schedule, z =>
-            {
-                z.Map(x => x.End).Column("ScheduleEnd");
-                z.Map(x => x.CronString).Column("ScheduleCron");
-                z.Map(x => x.Start).Column("ScheduleStart");
-            });
+            //Component(x => x.Schedule, z =>
+            //{
+            //    z.Map(x => x!.End).Column("ScheduleEnd");
+            //    z.Map(x => x!.CronString).Column("ScheduleCron");
+            //    z.Map(x => x!.Start).Column("ScheduleStart");
+            //});
         }
     }
 

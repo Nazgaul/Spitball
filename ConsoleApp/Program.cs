@@ -10,39 +10,17 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Storage.Queues;
 using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Command.Documents.PurchaseDocument;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
-using Microsoft.Azure.Management.Media.Models;
-using NCrontab;
 using NHibernate.Linq;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Processing.Processors.Quantization;
-using Skarp.HubSpotClient.Contact;
-using Skarp.HubSpotClient.Contact.Dto;
 
 
 namespace ConsoleApp
@@ -105,6 +83,9 @@ namespace ConsoleApp
 
         }
 
+        private static IQueryBus QueryBus => Container.Resolve<IQueryBus>();
+        private static ICommandBus CommandBus => Container.Resolve<ICommandBus>();
+
         static async Task Main()
         {
 
@@ -149,114 +130,23 @@ namespace ConsoleApp
 
         }
 
-       
+
 
 
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-
-            using var sr = File.OpenRead(@"C:\Users\Ram\Downloads\1594672075.png");
-
-            var image = SixLabors.ImageSharp.Image.Load(sr);
-            image.Mutate(x=>x.Quantize(new WuQuantizer()));
-
-
-            using var sw = File.OpenWrite(@"C:\Users\Ram\Downloads\1594672075-1.png");
-            //image.SaveAsJpeg(sw,new JpegEncoder()
-            //{
-            //    Quality = 80
-            //});
-            image.SaveAsPng(sw, new PngEncoder()
-            {
-                Quantizer = new WuQuantizer() ,
-                BitDepth = PngBitDepth.Bit8
-                //  CompressionLevel = PngCompressionLevel.BestCompression,
-                //                IgnoreMetadata = true,
-                //BitDepth = PngBitDepth.Bit8,
-                //IgnoreMetadata = true,
-                //Quantizer = new OctreeQuantizer()
-                //CompressionLevel = PngCompressionLevel.BestCompression,
-                //Quantizer = new WuQuantizer(),
-                //InterlaceMethod = PngInterlaceMode.Adam7
-                
-                //ChunkFilter = PngChunkFilter.ExcludeAll,
-
-            });
-
-            //var command = new CreateLiveStudyRoomCommand(638,"This is the first schedule",10,
-            //    DateTime.UtcNow.AddDays(1),"Wow what a tutor",StudyRoomRepeat.Custom,
-            //    null,5,new [] {DayOfWeek.Saturday,DayOfWeek.Wednesday});
-
-            //var bus = Container.Resolve<ICommandBus>();
-            //await bus.DispatchAsync(command);
-
+            await Dbi();
         }
 
 
-        //private static async Task HubSportAsync()
-        //{
-        //    var session = Container.Resolve<IStatelessSession>();
 
-        //    var phoneNumber = await session.Query<User>().Where(w => w.Email == "jaron@spitball.co").Select(s => s.Id)
-        //        .SingleOrDefaultAsync();
 
-        //    //https://api.hubapi.com/contacts/v1/contact/email/jaron@spitball.co/profile?hapikey=57453297-0104-4d83-8a3c-e58588c15a90
-        //    var api = new HubSpotContactClient("57453297-0104-4d83-8a3c-e58588c15a90");
-            
-        //    var contact = await api.GetByEmailAsync<HubSpotExtra>("jaron@spitball.co");
-            
-        //    //contact.Phone = phoneNumber;
 
-        //    //await api.UpdateAsync(contact);
-           
-        //}
-
-     
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<ISession>();
-            long i = 0;
-
-            List<Tutor> users;
-            do
-            {
-                users = await session.Query<Tutor>()
-                    .Fetch(f => f.User)
-                    .Where(w => w.Id  > i)
-                    .Take(100).ToListAsync();
-
-                foreach (var user in users)
-                {
-                    i = user.Id;
-                    using var uow = Container.Resolve<IUnitOfWork>();
-
-                    var title = user.Title;
-                    var p2 = user.Paragraph2;
-                    var p3 = user.Paragraph3;
-
-                    if (p2?.Length > 80)
-                    {
-                        p3 = p2;
-                        p2 = null;
-                    }
-
-                    if (title?.Length > 25)
-                    {
-                        p3 = p2;
-                        p2 = title;
-                        title = null;
-                    }
-
-                    user.UpdateSettings(p2, title, p3);
-                    await uow.CommitAsync();
-
-                    Console.WriteLine("no");
-                }
-            } while (users.Count > 0);
-
-           // await DeleteOldStuff.ResyncTutorRead();
+            await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()

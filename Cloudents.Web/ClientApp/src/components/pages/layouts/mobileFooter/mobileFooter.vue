@@ -12,14 +12,6 @@
                 <span class="mF_title" v-t="'mobileFooter_btn_home'"/>
                 <v-icon class="mF_icon" v-html="'sbf-home-tab'"/>
             </v-btn>
-            <!-- <v-btn v-if="!isTutor" :ripple="false" class="mF_btns" text value="tutorLandingPage" @click="changeActiveTab('tutorLandingPage')">
-                <span class="mF_title" v-t="'mobileFooter_btn_tutors'"/>
-                <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
-            </v-btn> -->
-            <v-btn v-if="isTutor" :ripple="false" class="mF_btns" text value='upload' @click="$store.commit('setComponent', 'upload')">
-                <span class="mF_title" v-t="'mobileFooter_btn_upload'"/>
-                <v-icon class="mF_icon" v-html="'sbf-button-add'" />
-            </v-btn>
             <v-btn v-if="showChat" :ripple="false" class="mF_btns" text value="messages" @click="changeActiveTab('messages')">
                 <span class="mF_title" v-t="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">
@@ -37,6 +29,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import * as routeNames from '../../../../routes/routeNames.js';
+
 export default {
     name: "mobileFooter",
     data() {

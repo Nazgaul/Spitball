@@ -95,7 +95,7 @@ export default {
             }
         },
         getSuggestionList(term){
-            courseService.getCourse({term, page:0}).then(data=>{
+            courseService.getCourse({term}).then(data=>{
                 this.suggests = data;
             }).finally(()=>{
                 this.openSuggestions();

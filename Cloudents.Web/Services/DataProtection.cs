@@ -25,13 +25,4 @@ namespace Cloudents.Web.Services
             return dataProtector.Unprotect(protectedData);
         }
     }
-
-
-    public interface IDataProtect
-    {
-        string Protect(string plaintext, DateTimeOffset expiration);
-
-        string Unprotect(string protectedData);
-        // Task InsertMessageAsync(ServiceBusMessageBase message, CancellationToken token);
-    }
 }

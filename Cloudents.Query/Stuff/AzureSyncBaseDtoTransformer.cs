@@ -8,7 +8,7 @@ using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
-    public class AzureSyncBaseDtoTransformer<T, Tu> : IResultTransformer where T : AzureSyncBaseDto<Tu>, new() where Tu : new()
+    public class AzureSyncBaseDtoTransformer<T, TU> : IResultTransformer where T : AzureSyncBaseDto<TU>, new() where TU : new()
     {
 
         public object TransformTuple(object[] tuple, string[] aliases)
@@ -20,13 +20,13 @@ namespace Cloudents.Query.Stuff
 
             }
 
-            var x = new T { Data = new Tu() };
+            var x = new T { Data = new TU() };
             foreach (var propertyInfo in typeof(T).GetProperties())
             {
                 SetValues(dic, propertyInfo, x);
             }
 
-            foreach (var propertyInfo in typeof(Tu).GetProperties())
+            foreach (var propertyInfo in typeof(TU).GetProperties())
             {
                 SetValues(dic, propertyInfo, x.Data);
             }
@@ -94,7 +94,7 @@ namespace Cloudents.Query.Stuff
             return collection;
         }
 
-        public bool Equals(AzureSyncBaseDtoTransformer<T, Tu> other)
+        public bool Equals(AzureSyncBaseDtoTransformer<T, TU> other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -109,7 +109,7 @@ namespace Cloudents.Query.Stuff
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as AzureSyncBaseDtoTransformer<T, Tu>);
+            return Equals(obj as AzureSyncBaseDtoTransformer<T, TU>);
         }
 
         public override int GetHashCode()

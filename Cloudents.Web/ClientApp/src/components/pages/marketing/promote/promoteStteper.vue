@@ -96,14 +96,16 @@ export default {
           title2: this.$t('promote_createOffer_title2'),
           image: require('../images/promoteVideo.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteVideos
+          action: this.promoteVideos,
+          isDisabled:true
         },
         box3: {
           title1: this.$t('promote_createVideo_title1'),
           title2: this.$t('promote_createVideo_title2'),
           image: require('../images/promoteContent.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteDocuments
+          action: this.promoteDocuments,
+          isDisabled:true
         }
       }
     }

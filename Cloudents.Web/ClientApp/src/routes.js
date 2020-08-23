@@ -3,7 +3,6 @@ import {profileRoutes} from './routes/profileRoutes.js';
 import {studyRoomRoutes} from './routes/studyRoomRoutes.js';
 import {registrationRoutes} from './routes/registrationRoutes.js';
 import {landingRoutes} from './routes/landingRoutes.js';
-import {questionRoutes} from './routes/questionRoutes.js';
 import {itemRoutes} from './routes/itemRoutes.js';
 import {feedRoutes} from './routes/feedRoutes.js';
 import {globalRoutes} from './routes/globalRoutes.js';
@@ -17,7 +16,6 @@ let routes2 = [
     ...marketingRoutes,
     ...profileRoutes,
     ...dashboardRoutes,
-    ...questionRoutes,
     ...itemRoutes,
     ...feedRoutes,
     ...globalRoutes,

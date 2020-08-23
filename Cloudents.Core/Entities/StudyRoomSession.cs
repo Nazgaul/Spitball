@@ -65,7 +65,12 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var studyRoomPayment = this.StudyRoom.StudyRoomPayments.SingleOrDefault(w => w.User.Id == user.Id);
+            StudyRoomPayment? studyRoomPayment = null;
+            if (this.StudyRoom is BroadCastStudyRoom)
+            {
+                studyRoomPayment =  this.StudyRoom.StudyRoomPayments
+                    .SingleOrDefault(w => w.User.Id == user.Id);
+            }
 
             var sessionUser = new StudyRoomSessionUser(this, user, studyRoomPayment);
             _roomSessionUsers.Add(sessionUser);
@@ -78,7 +83,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            var sessionUser = RoomSessionUsers.Single(s => s.User == user);
+            var sessionUser = RoomSessionUsers.Single(s => s.User.Id == user.Id);
             sessionUser.Disconnect(durationInRoom);
         }
 

@@ -1,13 +1,11 @@
 import { connectivityModule } from "./connectivity.module";
 import { Blogs } from './Dto/blogs'
 
-function itemTypeChcker(type){
+function itemTypeChecker(type){
    if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
       return 'Document';
    }
-   if(type.toLowerCase() === 'question' || type.toLowerCase() === 'answer'){
-      return 'Question';
-   }
+
    if(type.toLowerCase() === 'tutoringsession'){
       return 'Session';
    }
@@ -28,7 +26,7 @@ const Item = {
       this.type = objInit.type;
       this.date = objInit.date ? new Date(objInit.date) : '';
       this.course = objInit.course || '';
-      this.id = objInit.id || objInit.questionId || objInit.tutorId || objInit.studentId;
+      this.id = objInit.id ||  objInit.tutorId || objInit.studentId;
    },
    Document:function(objInit){
       this.name = objInit.name;
@@ -36,15 +34,10 @@ const Item = {
       this.views = objInit.views;
       this.likes = objInit.likes;
       this.downloads = objInit.downloads;
-      this.purchased = objInit.purchased;
       this.preview = objInit.preview;
       this.url = objInit.url;
    },
-   Question:function(objInit){
-      this.text = objInit.text || objInit.questionText;
-      this.answerText = objInit.answerText || '';
-      this.url = `/question/${objInit.questionId || objInit.id}`
-   },
+
    Session:function(objInit){
       this.sessionId = objInit.sessionId
       this.price = objInit.price;
@@ -65,13 +58,11 @@ const Item = {
       this.date = objInit.dateTime;
       this.amountStudent = objInit.userNames.length
       this.userNames = objInit.userNames
-      this.scheduled = objInit.scheduled;
       this.type = objInit.type;
       this.price = {
          price: objInit.price.amount,
          currency: objInit.price.currency
       };
-      this.showChat = this.type ==='Private';
    },
    BuyPoints: function(objInit){
       this.price = objInit.price;
@@ -102,13 +93,13 @@ const Item = {
 function ContentItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
-      new Item[itemTypeChcker(objInit.type)](objInit)
+      new Item[itemTypeChecker(objInit.type)](objInit)
    );
 }
 function SalesItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
-      new Item[itemTypeChcker(objInit.type)](objInit),
+      new Item[itemTypeChecker(objInit.type)](objInit),
       {
          paymentStatus: objInit.paymentStatus || 'Approved',
       }
@@ -117,7 +108,7 @@ function SalesItem(objInit){
 function PurchasesItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
-      new Item[itemTypeChcker(objInit.type)](objInit)
+      new Item[itemTypeChecker(objInit.type)](objInit)
    );
 }
 function FollowersItem(objInit){

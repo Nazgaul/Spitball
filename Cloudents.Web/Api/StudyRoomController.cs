@@ -24,8 +24,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Models;
-using Cloudents.Web.Binders;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -42,16 +40,14 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
-        private readonly IUrlBuilder _urlBuilder;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
-            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, IUrlBuilder urlBuilder)
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
-            _urlBuilder = urlBuilder;
         }
 
         [HttpPost("private")]
@@ -86,38 +82,7 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("live")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateStudyRoomResponse>> CreateLiveStudyRoomAsync(CreateLiveStudyRoomRequest model,
-            [FromServices] TelemetryClient client,
-            CancellationToken token)
-        {
-            var tutorId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new CreateLiveStudyRoomCommand(tutorId,
-                     model.Name, model.Price,
-                     model.Date, model.Description, model.Repeat, model.EndDate,
-                     model.EndAfterOccurrences, model.RepeatOn, model.Image);
-                await _commandBus.DispatchAsync(command, token);
-                return new CreateStudyRoomResponse(command.StudyRoomId, command.Identifier);
-            }
-            catch (DuplicateRowException)
-            {
-                return Conflict("Already active study room");
-            }
-            catch (InvalidOperationException e)
-            {
-                client.TrackException(e, new Dictionary<string, string>()
-                {
-                    //["UserId"] = model.UserId.ToString(),
-                    ["tutorId"] = tutorId.ToString()
-                });
-                return BadRequest("user is not a tutor");
-            }
-        }
+       
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteStudyRoomAsync(Guid id, CancellationToken token)
@@ -136,31 +101,12 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError("error", "Study room with session");
+                ModelState.AddModelError("error", "Cannot delete an active session");
                 return BadRequest(ModelState);
             }
         }
 
-
-        [HttpGet("{id:guid}/details"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDetailDto?>> GetStudyRoomDetailAsync(Guid id,
-            [FromServices] IUrlBuilder urlBuilder,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new StudyRoomByIdDetailsQuery(id, userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
-            result.Image = _urlBuilder.BuildStudyRoomThumbnailEndPoint(result.Id);
-            return result;
-        }
+       
 
         /// <summary>
         /// Get Study Room data and sessionId if opened
@@ -246,7 +192,7 @@ namespace Cloudents.Web.Api
              CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserStudyRoomQuery(userId);
+            var query = new UserStudyRoomQuery(userId ,type);
             var result = await _queryBus.QueryAsync(query, token);
             return result.Where(w => w.Type == type);
 
@@ -360,25 +306,19 @@ namespace Cloudents.Web.Api
             [FromServices] IStudyRoomBlobProvider blobProvider,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
             Uri uri;
             try
             {
                 uri = await blobProvider.UploadImageAsync(file.FileName, file.OpenReadStream(), file.ContentType, token);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                //_telemetryClient.TrackException(e, new Dictionary<string, string>()
-                //{
-                //    ["fileName"] = file.FileName,
-                //    ["contentType"] = file.ContentType
-                //});
                 ModelState.AddModelError("x", "not an image");
                 return BadRequest(ModelState);
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
+            //var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
             return Ok(new
             {
                 fileName

@@ -57,12 +57,10 @@ export default {
                 [constants.BROADCAST]: {
                     text: this.$tc('dashboardTeacher_notify_broadcast', notifylist[constants.BROADCAST]),
                     amount: notifylist[constants.BROADCAST]
-                    // routeName: routeName.MyFollowers
                 },
                 [constants.FOLLOWERS]: {
                     text: this.$tc('dashboardTeacher_notify_follower', notifylist[constants.FOLLOWERS]),
                     amount: notifylist[constants.FOLLOWERS]
-                    // routeName: routeName.MyFollowers
                 },
              
                 [constants.PAYMENTS]: {

@@ -1,6 +1,6 @@
 <template>
-   <div class="hostInfo">
-      <div class="hostTitle" v-t="'about_host'"/>
+   <div id="courseTeacherSection" class="hostInfo">
+      <div class="hostTitle">{{teacherTitle}}</div>
       <div class="divider"/>
       <div class="hostBox d-flex flex-wrap flex-sm-nowrap">
          <div class="hostImg">
@@ -9,13 +9,13 @@
             :tile="true"
             :width="242"
             :height="298"
-            :user-name="tutorName" 
+            :user-name="teacherName" 
             :user-id="tutorId" 
             :userImageUrl="tutorImage"/> 
          </div>
          <div class="hostText">
-            <div class="hostName" v-text="tutorName"/>
-            <div class="hostBio" v-text="tutorBio"/>
+            <div class="hostName" v-text="teacherName"/>
+            <div class="hostBio" v-text="teacherBio"/>
          </div>
       </div>
    </div>
@@ -24,21 +24,25 @@
 <script>
 export default {
    computed: {
-      roomDetails(){
-         return this.$store.getters.getRoomDetails;
+      teacherName(){
+         return this.$store.getters.getCourseTeacherNamePreview;
       },
-      tutorName(){
-         return this.roomDetails?.tutorName;
+      teacherBio(){
+         return this.$store.getters.getCourseTeacherBioPreview;
+      },
+      teacherTitle(){
+         return this.$store.getters.getCourseTeacherTitlePreview || this.$t('about_host');
+      },
+
+      courseDetails(){
+         return this.$store.getters.getCourseDetails;
       },
       tutorId(){
-         return this.roomDetails?.tutorId;
+         return this.courseDetails?.tutorId;
       },
       tutorImage(){
-         return this.roomDetails?.tutorImage;
+         return this.courseDetails?.tutorImage;
       },
-      tutorBio(){
-         return this.roomDetails?.tutorBio;
-      }
    },
 
 }
@@ -57,8 +61,8 @@ export default {
       }
 
       background-color: #f5f5f5;
-      margin-top: 54px;
-      margin-bottom: 80px;
+      margin-top: 54px !important; //for now
+      margin-bottom: 80px !important; //for now
       color: #43425d;
       .hostTitle{
          text-align: center;
@@ -85,12 +89,13 @@ export default {
          @media(max-width: @screen-xs) {
             padding: 0;
             justify-content: center;
+            flex-direction: column;
+            align-items: center;
          }
          .hostText{
             padding-left: 24px;
             @media(max-width: @screen-xs) {
-               padding: 0 16px;
-               padding-top: 24px;
+                padding: 24px 16px 0;
             }
             display: flex;
             flex-direction: column;
@@ -107,6 +112,7 @@ export default {
                padding-bottom: 8px;
             }
             .hostBio{
+               word-break: break-word;
                font-size: 18px;
                line-height: 1.67;
                color: #43425d;

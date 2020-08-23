@@ -135,14 +135,14 @@ const handleImage = function (e,isDragged) {
 };
 
 const mousedown = function () {
-    return;
+
 };
 const mousemove = function () {
-    return;
+
 };
 
 const defineEndPosition = function () {
-    return;
+
 };
 
 const mouseup = function (e) {

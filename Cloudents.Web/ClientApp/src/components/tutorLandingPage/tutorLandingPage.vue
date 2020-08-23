@@ -266,7 +266,6 @@ export default {
             &.v-pagination__item--active{
                 color: initial !important;
                 background-color: initial !important;
-                border: none !important;
                 border: 1px solid rgb(68, 82, 252) !important;
             }
         }

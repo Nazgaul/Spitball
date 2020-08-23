@@ -13,7 +13,7 @@ export const Marketing = 'marketing';
 export const MySales = 'mySales';
 export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
-export const MyContent = 'myContent';
+export const MyCourses = 'myCourses';
 export const MyStudyRooms = 'myStudyRooms';
 export const MyStudyRoomsBroadcast = 'myStudyRoomsBroadcast';
 export const MyCalendar = 'myCalendar';
@@ -31,8 +31,7 @@ export const Learning = 'Learning';
 // Profile:
 export const Profile = 'profile';
 
-// Feed:
-//export const Feed = 'feed';
+
 
 // Document:
 export const Document = 'document';
@@ -43,16 +42,18 @@ export const Dashboard = 'dashboardTeacher';
 // Study Room:
 export const StudyRoom = 'tutoring';
 
-// StudyRoom Landing Page:
-export const StudyRoomLanding = 'live';
-
 // Question:
 export const Question = 'question';
 
-// Tutor List:
-//export const TutorList = 'tutorLandingPage';
+
 
 // Message Center:
 export const MessageCenter = 'messages';
 
 export const notFound = '404'
+
+// Courses
+
+export const CourseCreate = 'create'
+export const CourseUpdate = 'edit'
+export const CoursePage = 'course'

@@ -26,13 +26,6 @@ namespace Cloudents.Admin2.Models
         public string Reason { get; set; }
     }
 
-    public enum SuspendTime
-    {
-        Day,
-        Week,
-        Undecided
-    }
-
 
     //public class SuspendUserResponse
     //{

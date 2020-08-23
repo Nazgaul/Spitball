@@ -3,29 +3,26 @@ const profileInstance = axios.create({
     baseURL:'/api/profile'
 })
 
-let cancelTokenList;
-
 const state = {
+   courses: [],
    profile: null,
-   // documents: [],
    faq: [],
-   documents: [],
    profileReviews: null,
-   profileLiveSessions: [],
-   //showEditDataDialog: false,
    amountOfReviews: 0,
-   profileCoverLoading: false
+   profileCoverLoading: false,
+   profileDrawerState: false,
+   tempTitle: '',
+   tempBio: '',
+   tempParagraph: '',
 }
 
 const getters = {
    getProfile: state => state.profile,
    getProfileReviews: state => state.profileReviews,
-   getProfileLiveSessions: state => state.profileLiveSessions,
    getProfileStatsHours: state => state.profile?.user?.hoursTaught,
    getProfileStatsReviews: state => state.profile?.user?.reviewCount,
    getProfileStatsFollowers: state => state.profile?.user?.followers,
    getProfileStatsResources: state => state.profile?.user?.contentCount,
-   // getShowEditDataDialog: state => state.showEditDataDialog,
    getProfileCoverImage: state => state.profile?.user?.cover || '',
    getProfileTutorSubscription: state => state.profile?.user?.tutorData?.subscriptionPrice,
    getIsMyProfile: (state, _getters) => _getters.getUserLoggedInStatus && (state.profile?.user?.id === _getters.accountUser?.id),
@@ -34,15 +31,22 @@ const getters = {
    getProfileTutorName: state => state.profile?.user?.name,
    getIsSubscriber: state => state.profile?.user?.tutorData?.isSubscriber,
    getProfileTitle: state => state.profile?.user?.tutorData?.title,
+   getProfileTempTitle: state => state.tempTitle,
+
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
+   getProfileTempBio: state => state.tempBio,
+
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
+   getProfileTempParagraph: state => state.tempParagraph,
+
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
-   getProfileDocuments: state => state.documents,
-   getProfileDocumentsLength: state => state.documents.length,
    getProfileFaq: state => state.faq,
    getProfileCoverLoading: state => state.profileCoverLoading,
-   getProfileCountry: state => state.profile?.user?.tutorCountry,
+   getProfileCoverDrawer: state => state.profileDrawerState,
+   //getProfileCountry: state => state.profile?.user?.tutorCountry,
+   getProfileCourses: state => state.courses,
+   getIsProfileFollowing: state => state.profile?.user?.isFollowing,
 }
 
 const mutations = {
@@ -57,8 +61,6 @@ const mutations = {
             name: `${objInit.firstName} ${objInit.lastName}`,
             image: objInit.image || '',
             cover: objInit.cover || '',
-            documentCourses: objInit.documentCourses,
-            coursesString: objInit.documentCourses.toString().replace(/,/g, ", "),
             calendarShared: objInit.calendarShared || false,
             isFollowing: objInit.isFollowing,
             followers: objInit.followers || 0,
@@ -77,35 +79,6 @@ const mutations = {
                isSubscriber : objInit.isSubscriber,
                paragraph: objInit.paragraph3 || '',
             }
-         }
-      }
-   },
-   setProfileDocuments(state, data) {
-      state.documents = Object.keys(data).map(objData => new Document(objData, data[objData]))
-
-      function Document(name, objInit) {
-         this.result = Object.keys(objInit).map(objData => new DocumentItem(objInit[objData]));
-         this.courseName = name
-         this.isExpand = false
-         this.count = objInit.length
-      }
-
-      function DocumentItem(objInit) {
-         this.id = objInit.id;
-         // this.type = objInit.type;
-         this.course = objInit.course;
-         this.dateTime = new Date(objInit.dateTime);
-         this.documentType = objInit.documentType;
-         this.preview = objInit.preview;
-         this.title = objInit.title;
-         this.url = `/document/${encodeURIComponent(this.course)}/${encodeURIComponent(this.title)}/${encodeURIComponent(this.id)}`;
-         this.snippet = objInit.snippet
-         this.itemDuration = objInit.duration
-         this.template = 'result-note';
-         this.priceType =  objInit.priceType || 'Free'; //Free,HasPrice,Subscriber
-         this.price = objInit.price ? objInit.price.toFixed(0) : 0;
-         if (this.price == 0 ) {
-            this.priceType = 'Free'
          }
       }
    },
@@ -134,24 +107,6 @@ const mutations = {
          state.amountOfReviews = amountOfRevies;
       }
    },
-   setLiveSession(state, data) {
-      state.profileLiveSessions = data.map(broadcast => new BroadcastSession(broadcast))
-
-      function BroadcastSession(objInit) {
-         this.id = objInit.id;
-         this.name = objInit.name;
-         this.price = {
-            amount: objInit.price.amount,
-            currency: objInit.price.currency
-         }
-         this.isFull= objInit.isFull
-         this.created = objInit.dateTime ? new Date(objInit.dateTime) : '';
-         this.enrolled = objInit.enrolled;
-         this.description = objInit.description;
-         this.image = objInit.image;
-         this.nextEvents = objInit?.nextEvents?.length? objInit.nextEvents : null;
-      }
-   },
    setProfileFaq(state, data) {
       state.faq = data.map(faq => new ProfileFaq(faq))
 
@@ -164,7 +119,6 @@ const mutations = {
    resetProfile(state) {
       state.profile = null;
       state.profileCoverLoading = false;
-      state.documents = []
    },
    setProfileFollower(state, val) {
       if(state.profile?.user) {
@@ -176,9 +130,6 @@ const mutations = {
          }
       }
    },
-   // setEditDialog(state, val) {
-   //    state.showEditDataDialog = val;
-   // },
    setProfileTutorInfo(state, newData) {
       state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
       state.profile.user.firstName = newData.firstName;
@@ -198,9 +149,42 @@ const mutations = {
    setProfileCoverLoading(state, val) {
       state.profileCoverLoading = val;
    },
-   setExpandItems(state, item) {
-      let document = state.documents.filter(doc => doc.courseName === item.courseName)[0]
-      document.isExpand = !document.isExpand
+   setProfileCourses(state,courses){
+      state.courses = courses.map(course => new Course(course))
+
+      function Course(objInit){
+         this.id = objInit.id;
+         this.name = objInit.name;
+         this.image = objInit.image;
+         this.price = {
+            amount: objInit.price?.amount,
+            currency: objInit.price?.currency
+         }
+         this.studyRoomCount = objInit.studyRoomCount;
+         this.startTime = objInit.startTime;
+         
+         this.description = objInit.description;
+         this.subscriptionPrice = {
+            amount: objInit.subscriptionPrice?.amount,
+            currency: objInit.subscriptionPrice?.currency
+         }
+      }
+   },
+   setFakeShorParagraph(state, paragraph) {
+      // state.profile.user.tutorData.bio = paragraph
+      state.tempParagraph = paragraph
+   },
+   setFakeShortTitle(state, title) {
+      // state.profile.user.tutorData.title = title
+      state.tempTitle = title
+   },
+   setFakeBio(state, bio) {
+      // state.profile.user.tutorData.paragraph = bio
+      state.tempBio = bio
+
+   },
+   setToggleProfileDrawer(state, val) {
+      state.profileDrawerState = val
    }
 }
 
@@ -210,7 +194,7 @@ const actions = {
       return profileInstance.get(`${id}`).then(({data}) => {
          commit('setProfile', data)
          dispatch('setUserStatus', state.profile.user);
-         return
+
       })
    },
    updateProfileReviews({commit}, id) {
@@ -218,48 +202,21 @@ const actions = {
          commit('setProfileReviews', data)
       })
    },
-   updateProfileItemsByType({ commit }, id) {
-      cancelTokenList?.cancel();
-      const axiosSource = axios.CancelToken.source();
-      cancelTokenList = axiosSource;
-
-      return profileInstance.get(`${id}/documents`, { cancelToken : axiosSource.token })
-         .then(({data}) => {
-            commit('setProfileDocuments', data);
-         });
-   },
-   // toggleProfileFollower({ state, commit, getters }, val) {
-   //    let id = getters.getCurrTutor?.id || state.profile?.user?.id
-   //    if (val) {
-   //       return profileInstance.post('follow',{ id }).then(() => {
-   //          commit('setProfileFollower', true)
-   //          return Promise.resolve()
-   //       })
-   //    } else {
-   //       return profileInstance.delete(`unfollow/${id}`).then(() => {
-   //          commit('setProfileFollower', false)
-   //          return Promise.resolve()
-   //       })
-   //    }
-   // },
-   getStudyroomLiveSessions({ commit }, id) {
-      profileInstance.get(`${id}/studyRoom`).then(({data}) => {
-         commit('setLiveSession', data)
+   updateProfileCourses({commit},id){
+      profileInstance.get(`${id}/courses`).then(({data}) => {
+         commit('setProfileCourses', data)
       })
    },
    async updateStudyroomLiveSessionsWithPrice(context,session) {
       let studyRoomId = session.studyRoomId
-      let {data} = await axios.post(`wallet/Stripe/StudyRoom/${studyRoomId}`);
+      let {data} = await axios.post(`wallet/Stripe/Course/${studyRoomId}`);
       return data.sessionId;
    },
-   async updateStudyroomLiveSessions(context, session) {
-       let id = session.userId
-       let studyRoomId = session.studyRoomId
-    
-      return profileInstance.post(`${id}/studyRoom`, { studyRoomId })
+   async updateStudyroomLiveSessionsWithPricePayMe(context,session) {
+      let studyRoomId = session.studyRoomId
+      let {data} = await axios.post(`wallet/Payme/Course/${studyRoomId}`);
+      return data.sessionId;
    },
-
-
    updateProfileFaq({commit}) {
       // profileInstance.get(``).then(({data}) => {
          let data = [
@@ -269,7 +226,29 @@ const actions = {
          ]
          commit('setProfileFaq', data)
       // })
-   }
+   },
+   toggleProfileFollower({ state, commit }, val) {
+      let id = state.profile?.user?.id
+      if (val) {
+         return profileInstance.post('follow',{ id }).then(() => {
+            commit('setProfileFollower', true)
+            return Promise.resolve()
+         })
+      } else {
+         return profileInstance.delete(`unfollow/${id}`).then(() => {
+            commit('setProfileFollower', false)
+            return Promise.resolve()
+         })
+      }
+   },
+   updateProfileClassPosition(context, {oldIndex, newIndex}) {
+      let params = {
+         oldPosition: oldIndex,
+         newPosition: newIndex,
+         visibleOnly: true
+      }
+      axios.post(`course/move`, params)
+   },
 }
 
 export default {

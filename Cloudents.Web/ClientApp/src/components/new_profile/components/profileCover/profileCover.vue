@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { TUTOR_EDIT_PROFILE } from '../../../pages/global/toasterInjection/componentConsts'
 import editIcon from '../../images/edit.svg'
 import cover from "../../components/cover.vue";
 export default {
@@ -22,13 +21,16 @@ export default {
         editIcon
     },
     computed: {
+        drawer() {
+            return this.$store.getters.getProfileCoverDrawer
+        },
         loading() {
             return this.$store.getters.getProfileCoverLoading
         }
     },
     methods: {
         openEdit() {
-            this.$store.commit('addComponent', TUTOR_EDIT_PROFILE)
+            this.$store.commit('setToggleProfileDrawer', !this.drawer)
         }
     }
 }

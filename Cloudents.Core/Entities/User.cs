@@ -4,12 +4,13 @@ using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class User : BaseUser
+    public class User  : Entity<long>, IAggregateRoot
     {
         /// <summary>
         /// Create a new user
@@ -24,8 +25,6 @@ namespace Cloudents.Core.Entities
             Language language, string country, bool isTutor = false)
         {
             if (firstName == null) throw new ArgumentNullException(nameof(firstName));
-            //if (lastName == null) throw new ArgumentNullException(nameof(lastName));
-            if (country == null) throw new ArgumentNullException(nameof(country));
             Email = email ?? throw new ArgumentNullException(nameof(email));
             ChangeName(firstName, lastName);
             FirstName = firstName;
@@ -33,7 +32,7 @@ namespace Cloudents.Core.Entities
             Language = language;
             Created = DateTime.UtcNow;
             FinishRegistrationDate = DateTime.UtcNow;
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
             SbCountry = Entities.Country.FromCountry(country);
             UserLogins = new List<UserLogin>();
             Transactions = new UserTransactions();
@@ -65,8 +64,6 @@ namespace Cloudents.Core.Entities
         public virtual string? LockoutReason { get; set; }
 
 
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
-        protected internal virtual ICollection<Answer> Answers { get; protected set; }
         protected internal virtual ICollection<UserLogin> UserLogins { get; protected set; }
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
@@ -77,62 +74,72 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
 
         public virtual IEnumerable<ChatUser> ChatUsers => _chatUsers;
+        
+        private readonly ISet<CourseEnrollment> _userCourses = new HashSet<CourseEnrollment>();
 
-        private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
-
-        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+        public virtual IEnumerable<CourseEnrollment> UserCourses => _userCourses.ToList();
 
 
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void AssignCourse(Course course)
-        {
-            var p = new UserCourse(this, course);
-            if (_userCourses.Add(p))
-            {
-                course.Count++;
-                AddEvent(new CanTeachCourseEvent(p));
-            }
 
+        public virtual string Name { get; protected set; }
+        public virtual string? SecurityStamp { get; set; }
+
+      
+        public virtual string? ImageName { get; protected set; }
+
+        public virtual string AuthenticatorKey { get; set; }
+
+        private readonly ICollection<Document> _documents = new List<Document>();
+        public virtual IEnumerable<Document> Documents => _documents;
+
+
+        public virtual DateTime Created { get; protected set; }
+
+        public virtual string Email { get; set; }
+        public virtual bool EmailConfirmed { get; set; }
+
+
+        public virtual CultureInfo Language { get; protected set; }
+
+        public virtual void ChangeLanguage(Language lang)
+        {
+            Language = lang;
         }
+
+        public virtual string Country { get; protected set; }
+        public virtual Country SbCountry { get; protected set; }
+
+        public virtual byte[] Version { get; protected set; }
+
 
         public virtual void BecomeTutor()
         {
             Tutor = new Tutor(this);
         }
 
-
-
-
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
         {
-            if (coupon.CanApplyCoupon())
+            if (!coupon.CanApplyCoupon()) return;
+            var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
+            if (userCoupon != null)
             {
-                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.IsNotUsed());
-                if (userCoupon != null)
-                {
-                    throw new DuplicateRowException();
-                }
-                var p = new UserCoupon(this, coupon, tutor);
-                if (!_userCoupon.Add(p))
-                {
-                    throw new DuplicateRowException();
-                }
-                AddEvent(new ApplyCouponEvent(p));
-
-
+                return;
             }
+            var p = new UserCoupon(this, coupon, tutor);
+            if (!_userCoupon.Add(p))
+            {
+                throw new DuplicateRowException();
+            }
+            AddEvent(new ApplyCouponEvent(p));
 
         }
 
         public virtual void ChangeCountry(string country)
         {
-            if (Entities.Country.CountriesNotSupported.Contains(country))
-            {
-                throw new NotSupportedException();
-            }
-            if (Country?.Equals(country) == true)
+            if (Country.Equals(country))
             {
                 return;
             }
@@ -144,37 +151,24 @@ namespace Cloudents.Core.Entities
 
         public virtual void ChangeCountryAdmin(string country)
         {
-            if (Tutor != null)
+            var newRegion =  Entities.Country.FromCountry(country);
+            if (SbCountry != newRegion)
             {
-                if (Tutor.HasSubscription())
+                if (Tutor != null)
                 {
-                    throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                    if (Tutor.HasSubscription())
+                    {
+                        throw new UnauthorizedAccessException("Cannot change country of tutor with subscription");
+                    }
                 }
+
+                PaymentExists = PaymentStatus.None;
             }
-            PaymentExists = PaymentStatus.None;
+
             ChangeCountry(country);
             ChangeLanguage(Entities.Language.English);
 
         }
-
-
-        //public virtual void RemoveCourse(Course course)
-        //{
-        //    var p = new UserCourse(this, course);
-        //    if (_userCourses.Remove(p))
-        //    {
-        //        course.Count--;
-        //    }
-        //    AddEvent(new RemoveCourseEvent(Id));
-        //}
-
-        //public virtual void CanTeachCourse(string courseName)
-        //{
-        //    var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
-        //    course.ToggleCanTeach();
-
-        //}
-
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
@@ -189,20 +183,16 @@ namespace Cloudents.Core.Entities
 
         public virtual string FirstName { get; protected set; }
         public virtual string? LastName { get; protected set; }
-        //[Obsolete]
-        //public virtual string Description { get; set; }
-
+      
         public virtual string CoverImage { get; protected set; }
         public virtual Tutor? Tutor { get; protected set; }
 
-        //[Obsolete]
-        //public virtual BuyerPayment? BuyerPayment { get; protected set; }
+      
         public virtual IPayment2? Payment { get; protected set; }
 
-        //public virtual Gender? Gender { get; protected set; }
         public virtual PaymentStatus? PaymentExists { get; protected set; }
 
-        public virtual DateTime? FinishRegistrationDate { get; set; }
+        public virtual DateTime? FinishRegistrationDate { get; protected set; }
 
         public virtual void CreditCardReceived()
         {
@@ -218,15 +208,15 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void ChangeOnlineStatus(bool isOnline)
-        {
-            if (IsSuspended())
-            {
-                throw new UserLockoutException();
-            }
-            Online = isOnline;
-            LastOnline = DateTime.UtcNow;
-        }
+        //public virtual void ChangeOnlineStatus(bool isOnline)
+        //{
+        //    if (IsSuspended())
+        //    {
+        //        throw new UserLockoutException();
+        //    }
+        //    Online = isOnline;
+        //    LastOnline = DateTime.UtcNow;
+        //}
 
 
 
@@ -259,15 +249,15 @@ namespace Cloudents.Core.Entities
             AddEvent(new UserSuspendEvent(this));
         }
 
-        protected virtual bool IsSuspended()
-        {
-            if (LockoutEnd.HasValue && LockoutEnd.Value > DateTimeOffset.UtcNow)
-            {
-                return true;
-            }
+        //protected virtual bool IsSuspended()
+        //{
+        //    if (LockoutEnd.HasValue && LockoutEnd.Value > DateTimeOffset.UtcNow)
+        //    {
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         public virtual void UnSuspendUser()
         {
@@ -275,15 +265,14 @@ namespace Cloudents.Core.Entities
             AddEvent(new UserUnSuspendEvent(this));
         }
 
-        public virtual void UpdateUserBalance()
-        {
-            var balance = Transactions.Balance;
-            Transactions.UpdateBalance(balance);
-        }
+        //public virtual void UpdateUserBalance()
+        //{
+        //    var balance = Transactions.Balance;
+        //    Transactions.UpdateBalance(balance);
+        //}
 
         public virtual void UpdateUserImage(string imageName)
         {
-            //Image = image;
             ImageName = imageName;
             AddEvent(new UpdateImageEvent(Id));
         }
@@ -293,15 +282,9 @@ namespace Cloudents.Core.Entities
             CoverImage = image;
         }
 
-        //public override string ToString()
-        //{
-        //    return $"{nameof(Id)}: {Id}, " +
-        //           $"{nameof(EmailConfirmed)}: {EmailConfirmed}," +
-        //           $" {nameof(PhoneNumberConfirmed)}: {PhoneNumberConfirmed}" +
-        //           $" {nameof(SbCountry)}: {SbCountry}";
-        //}
+      
 
-        public override void MakeTransaction(Transaction transaction)
+        public virtual void MakeTransaction(Transaction transaction)
         {
             Transactions.Add(transaction, this);
             AddEvent(new TransactionEvent(transaction, this));
@@ -318,9 +301,9 @@ namespace Cloudents.Core.Entities
         private readonly ISet<Follow> _followers = new HashSet<Follow>();
         public virtual IEnumerable<Follow> Followers => _followers;
 
-        public override void AddFollower(User follower)
+        public virtual void AddFollower(User follower)
         {
-            if (this.Id == follower.Id)
+            if (Id == follower.Id)
             {
                 return;
             }
@@ -337,7 +320,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddSubscriber(User follower)
         {
-            if (this.Id == follower.Id)
+            if (Id == follower.Id)
             {
                 return;
             }
@@ -347,8 +330,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
 
-            //if (!Equals(follower))
-            //{
+           
             var existingFollow = _followers.FirstOrDefault(f => f.Follower.Id == follower.Id);
             if (existingFollow != null)
             {
@@ -368,9 +350,7 @@ namespace Cloudents.Core.Entities
             {
                 AddFollower(follower);
             }
-            //if (!Equals(follower))
-            //{
-
+          
         }
 
         public virtual void RemoveFollower(User follower)
@@ -399,30 +379,25 @@ namespace Cloudents.Core.Entities
         public virtual void ReferUser(User user)
         {
             const int maxRefer = 5;
-
-            //Country country = user.Country;
-
+            if (Id == user.Id)
+            {
+                return;
+                
+            }
             var referCount = Transactions.TransactionsReadOnly.AsQueryable().Count(w => w is ReferUserTransaction);
             var price = referCount > maxRefer || SbCountry == Entities.Country.India ? 0 : 10;
             MakeTransaction(new ReferUserTransaction(user, price));
         }
 
-        //public virtual void FinishRegistration()
+      
+        //public virtual void ConfirmPhoneNumber()
         //{
-        //    FinishRegistrationDate = DateTime.UtcNow;
-        //    //MakeTransaction(AwardMoneyTransaction.FinishRegistration(this));
+        //    if (PhoneNumberConfirmed == false)
+        //    {
+        //        PhoneNumberConfirmed = true;
+        //    }
         //}
 
-        public virtual void ConfirmPhoneNumber()
-        {
-            if (PhoneNumberConfirmed == false)
-            {
-                PhoneNumberConfirmed = true;
-            }
-        }
-
-        // public override int Score { get; protected set; }  //=> Transactions.Score;
-        public override decimal Balance => Transactions.Balance;
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserDownloadDocument> DocumentDownloads { get; protected set; }
@@ -431,7 +406,6 @@ namespace Cloudents.Core.Entities
 
         public virtual void DeleteUserPayment()
         {
-            //BuyerPayment = null;
             Payment = null;
             PaymentExists = PaymentStatus.None;
         }
@@ -500,87 +474,4 @@ namespace Cloudents.Core.Entities
         //    }
         //}
     }
-
-    //public class Parent : UserComponent
-    //{
-    //    public Parent(User user)
-    //        : base(UserType.Parent, user)
-    //    {
-
-    //    }
-    //    public Parent(User user, string name, short grade)
-    //        : base(UserType.Parent, user)
-    //    {
-    //        Name = name;
-    //        Grade = grade;
-    //    }
-
-    //    protected Parent()
-    //    {
-
-    //    }
-    //    public virtual string Name { get; protected set; }
-    //    public virtual short Grade { get; protected set; }
-
-
-
-
-    //    public virtual void SetChildData(string name, short grade)
-    //    {
-    //        Name = name;
-    //        Grade = grade;
-    //    }
-
-    //    //public override UserType Type { get; protected set; }
-    //}
-
-
-    //public class HighSchoolStudent : UserComponent
-    //{
-    //    public HighSchoolStudent(User user) : base(UserType.HighSchoolStudent, user)
-    //    {
-
-    //    }
-
-    //    protected HighSchoolStudent()
-    //    {
-
-    //    }
-    //    public override UserType Type { get; protected set; }
-
-    //    public virtual void SetGrade(short grade)
-    //    {
-    //        Grade = grade;
-    //    }
-
-    //    public virtual short Grade { get; protected set; }
-    //}
-
-    //public class CollegeStudent : UserComponent
-    //{
-    //    public CollegeStudent(User user) : base(UserType.UniversityStudent, user)
-    //    {
-    //    }
-
-    //    protected CollegeStudent()
-    //    {
-
-    //    }
-    //    public override UserType Type { get; protected set; }
-    //}
-
-    //public class Teacher : UserComponent
-    //{
-    //    public Teacher(User user) : base(UserType.Teacher, user)
-    //    {
-    //    }
-
-    //    protected Teacher()
-    //    {
-
-    //    }
-    //    public override UserType Type { get; protected set; }
-    //}
-
-
 }

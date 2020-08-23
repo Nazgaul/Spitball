@@ -5,6 +5,7 @@ import analyticsService from './services/analytics.service'
 //TODO we can improve that
 global.lang = document.getElementsByTagName("html")[0].getAttribute("lang");
 global.mainCdn = true;
+
 //TODO get it out of here
 global.client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com';
 
@@ -27,7 +28,7 @@ versionCheck();
 
 function errorHandling(err) {
     let body = document.body;
-    var errJson = JSON.stringify(err);
+    const errJson = JSON.stringify(err);
     console.error(err);
     //for (let prop in err) {
     let el = document.createElement('div');

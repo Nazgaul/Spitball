@@ -4,17 +4,17 @@ namespace Cloudents.Web.Models
 {
     public class DocumentPreviewResponse
     {
-        public DocumentPreviewResponse(DocumentDetailDto details, object preview, string content)
+        public DocumentPreviewResponse(DocumentDetailDto details, object preview/*, string content*/)
         {
             Details = details;
-            Content = content;
+          //  Content = content;
             Preview = preview;
         }
 
         public DocumentDetailDto Details { get; }
         public object Preview { get; }
 
-        public string Content { get; }
+        //public string Content { get; }
     }
 
 

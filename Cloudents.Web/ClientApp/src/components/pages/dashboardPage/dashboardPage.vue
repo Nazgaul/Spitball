@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component v-if="!!accountUser" :dictionary="dictionary" :is="component">
+      <component v-if="!!accountUser" :dictionary="dictionary" :is="component" class="globalTable">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -12,10 +12,8 @@
 import { mapGetters } from 'vuex';
 
 const mySales = () => import('./mySales/mySales.vue');
-const myContent = () => import('./myContent/myContent.vue');
 const myPurchases = () => import('./myPurchases/myPurchases.vue');
 const myStudyRooms = () => import('./myStudyRooms/myStudyRooms.vue');
-const myStudyRoomsBroadcast = () => import('./myStudyRooms/myStudyRooms.vue');
 const myCalendar = () => import('./myCalendar/myCalendar.vue');
 const myFollowers = () => import('./myFollowers/myFollowers.vue');
 const tableEmptyState = () => import('./global/tableEmptyState.vue');
@@ -27,8 +25,8 @@ export default {
       return {
          dictionary:{
             types:{
-               'Question': this.$t('dashboardPage_qa'),
-               'Answer': this.$t('dashboardPage_qa'),
+               //'Question': this.$t('dashboardPage_qa'),
+               //'Answer': this.$t('dashboardPage_qa'),
                'Document': this.$t('dashboardPage_document'),
                'Video': this.$t('dashboardPage_video'),
                'TutoringSession': this.$t('dashboardPage_tutor_session'),
@@ -41,7 +39,6 @@ export default {
                'likes': {text:this.$t('dashboardPage_likes'), align:'', sortable: true, value:'likes'},
                'views': {text:this.$t('dashboardPage_views'), align:'', sortable: true, value:'views'},
                'downloads': {text:this.$t('dashboardPage_downloads'), align:'', sortable: true, value:'downloads'},
-               'purchased': {text:this.$t('dashboardPage_purchased'), align:'', sortable: true, value:'purchased'},
                'price': {text:this.$t('dashboardPage_price'), align:'', sortable: true, value:'price'},
                'date': {text: this.$t('dashboardPage_date'), align:'', sortable: true, value:'date'},
                'action': {text: '', align:'center', sortable: false, value:'action'},
@@ -54,17 +51,14 @@ export default {
                'joined': {text: this.$t('dashboardPage_joined'), align:'', sortable: true, value:'date'},
                'name': {text: this.$t('dashboardPage_name'), align:'', sortable: true, value:'name'},
                'students': {text: this.$t('dashboardPage_students'), align:'', sortable: true, value:'students'},
-               'scheduled': {text: this.$t('dashboardPage_scheduled'), align:'', sortable: true, value:'scheduled'},
             }
          },
       }
    },
    components:{
       mySales,
-      myContent,
       myPurchases,
       myStudyRooms,
-      myStudyRoomsBroadcast,
       myCalendar,
       myFollowers,
       tableEmptyState,
@@ -80,10 +74,12 @@ export default {
 .dashboardPage{
    padding: 30px;
 	@media (max-width: @screen-xs) {
-      padding-left: 6px;
-      padding-right: 6px;
+      padding: 8px 0;
       width: 100%;
       height: 100%;
+   }
+   .globalTable {
+      max-width: 1080px;
    }
    .v-snack__content{
       justify-content: center;

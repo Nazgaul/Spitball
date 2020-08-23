@@ -33,43 +33,48 @@ export const studyRoomRoutes = [
                 .then(()=>{
                     if(store.getters.getRoomIsBroadcast && (!store.getters.getStudyroomEnrolled && !store.getters.getRoomIsTutor)){
                         let routeData = router.resolve({
-                            name: routeName.StudyRoomLanding,
+                            name: 'studyroomSettings2',
                             params:{...to.params }
                         });
                         global.open(routeData.href, "_self"); 
                     }else{
                         next();
-                        return
+
                     }
                 })
                 .catch((err)=>{
                     if(err?.response){
                         next('/');
-                        return
+
                     }
                 })
         }
     },
     {
-        path: '/live/:id?',
-        name: routeName.StudyRoomLanding,
+        path: `/live/:id?`,
+        name: 'studyroomSettings2',
+        redirect: { name: routeName.CoursePage }
+    },
+    {
+        // (\\d+) prevent from duplicate route with new coursePage
+        path: '/course/:id(\\d+)/:name?',
+        name: routeName.CoursePage,
         components: {
             default: () => import(`../components/pages/studyroomLandingPage/studyroomLandingPage.vue`),
             ...staticComponents([ 'footer']),
+            courseDrawer: () => import(`../components/pages/studyroomLandingPage/courseEditDrawer/courseEditDrawer.vue`),
         },
         beforeEnter: (to, from, next) => {
             if(!to.params?.id){
                 next('/');
-                return
+
             }else{
-                store.dispatch('updateRoomDetails',to.params.id)
+                store.dispatch('updateCourseDetails',to.params.id)
                      .then(()=>{
                         next();
-                        return;
                     })
                     .catch(()=>{
                         next('/');
-                        return
                     })
             }
         }

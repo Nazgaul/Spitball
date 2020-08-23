@@ -1,6 +1,5 @@
 ﻿using System;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
@@ -11,12 +10,10 @@ using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 
 namespace Cloudents.Web.Api
@@ -46,34 +43,27 @@ namespace Cloudents.Web.Api
         }
 
 
-
-        
-
-        /// <summary>
-        /// Get banner for home page
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet("banner")]
-        public async Task<BannerDto> GetTopBannerAsync(CancellationToken token)
+        [HttpGet("banner"),Obsolete]
+        public object GetTopBannerAsync()
         {
-            var query = new GetBannerQuery(CultureInfo.CurrentCulture);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            if (retValTask == null)
+            //var query = new GetBannerQuery(CultureInfo.CurrentCulture);
+            // var retValTask = await _queryBus.QueryAsync(query, token);
+            // if (retValTask == null)
+            // {
+            Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
             {
-                Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
-                {
-                    Public = true,
-                    MaxAge = TimeSpan.FromDays(1),
-                    MaxStale = true,
-                    MaxStaleLimit = TimeSpan.FromDays(1),
-                    
-                    
-                };
-                Response.Headers.Remove("Pragma");
-                //Response.GetTypedHeaders(). = new EntityTagHeaderValue(new StringSegment("\"a\""),false);
-            }
-            return retValTask;
+                Public = true,
+                MaxAge = TimeSpan.FromDays(1),
+                MaxStale = true,
+                MaxStaleLimit = TimeSpan.FromDays(1),
+
+
+            };
+            Response.Headers.Remove("Pragma");
+            return null;
+            //Response.GetTypedHeaders(). = new EntityTagHeaderValue(new StringSegment("\"a\""),false);
+            //}
+            // return retValTask;
         }
 
         /// <summary>
@@ -84,7 +74,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("reviews")]
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Week, VaryByQueryKeys = new []{"count"})]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Week, VaryByQueryKeys = new[] { "count" })]
 
         public async Task<IEnumerable<ReviewDto>> GetReviewsAsync(int count,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
@@ -98,7 +88,7 @@ namespace Cloudents.Web.Api
                 s.TutorImage = _urlBuilder.BuildUserImageEndpoint(s.TutorId, s.TutorImage);
                 return s;
             });
-            
+
         }
 
         [HttpGet]
@@ -111,6 +101,6 @@ namespace Cloudents.Web.Api
         }
 
 
-       
+
     }
 }

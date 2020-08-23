@@ -186,23 +186,23 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("content")]
-        public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserContentByIdQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
+        //[HttpGet("content")]
+        //public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var query = new UserContentByIdQuery(userId);
+        //    var result = await _queryBus.QueryAsync(query, token);
 
-            return result.Select(s =>
-            {
-                if (s is UserDocumentsDto d)
-                {
-                    d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
-                }
-                return s;
-            });
-        }
+        //    return result.Select(s =>
+        //    {
+        //        if (s is UserDocumentsDto d)
+        //        {
+        //            d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+        //            d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+        //        }
+        //        return s;
+        //    });
+        //}
 
         [HttpGet("purchases")]
         public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync(CancellationToken token)
@@ -254,14 +254,6 @@ namespace Cloudents.Web.Api
             var query = new UserStatsQuery(userId, request.Days);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
-        }
-
-        [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserCoursesQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
         }
     }
 }

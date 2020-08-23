@@ -1,4 +1,3 @@
-import { mapActions } from 'vuex';
 
 export default {
     props: {
@@ -45,11 +44,7 @@ export default {
     computed: {
         OverlayActive() {
             if (this.$vuetify.breakpoint.xs) {
-                if (this.activateOverlay) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return !this.activateOverlay;
             } else {
                 return false;
             }
@@ -74,14 +69,7 @@ export default {
                 if (!!this.onclosefn) {
                     this.onclosefn();
                 }
-                this.updateNewQuestionDialogState(false);
             }
         }
     },
-
-    methods: {
-        ...mapActions(['updateNewQuestionDialogState']),
-    },
-
-
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex coverWrapper1">
     <v-skeleton-loader
       v-if="!isLoaded"
       class="skeletonAvatar"
@@ -45,7 +45,7 @@
 <script>
 import utilitiesService from "../../../services/utilities/utilitiesService";
 
-var typeingTimer;
+let typeingTimer;
 export default {
   name: "uploadCover",
   props: {
@@ -78,9 +78,11 @@ export default {
       if (profileUser) {
         let size = this.coverImageSize
         let coverImage = this.$store.getters.getProfileCoverImage
+        let profileDrawerState = this.$store.getters.getProfileCoverDrawer
+        let width = profileDrawerState ? size.width - 338 : size.width
         return utilitiesService.proccessImageURL(
           coverImage,
-          size.width,
+          width,
           size.height,
           'anchorPosition=center',
           'cover'
@@ -132,6 +134,8 @@ export default {
 
 <style lang="less">
 @import "../../../styles/mixin";
+.coverWrapper1{
+  position: relative;
 .coverPhoto {
   left: 0;
   right: 0;
@@ -171,4 +175,6 @@ export default {
     }
   }
 }
+}
+
 </style>
