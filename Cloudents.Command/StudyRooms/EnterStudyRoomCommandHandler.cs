@@ -37,7 +37,7 @@ namespace Cloudents.Command.StudyRooms
                     studyRoom.Tutor.User.SbCountry != Country.Israel)
                 {
                     if (studyRoom.Tutor.User.Followers
-                            .SingleOrDefault(s => s.Follower.Id == message.UserId).Subscriber ==
+                            .SingleOrDefault(s => s.Follower.Id == message.UserId)?.Subscriber ==
                         false)
                     {
                         throw new UnauthorizedAccessException();
