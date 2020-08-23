@@ -81,6 +81,17 @@ namespace Cloudents.Persistence.Repositories
                 await sqlQuery.ExecuteUpdateAsync(token);
             }
 
+            await Session.CreateSQLQuery("delete from sb.Answer where userId = :Id")
+                .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
+
+
+            await Session.CreateSQLQuery("delete from sb.Answer where questionId in (select Id from sb.question where userId = :Id)")
+                .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
+
+            await Session.CreateSQLQuery("delete from sb.question where userId = :Id")
+                .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
+
+         
         
             await Session.CreateSQLQuery("delete from sb.UsersCourses where userId = :Id")
                     .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);

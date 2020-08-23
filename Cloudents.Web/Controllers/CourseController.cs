@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Courses;
@@ -19,7 +20,7 @@ namespace Cloudents.Web.Controllers
             _urlBuilder = urlBuilder;
         }
 
-        [Route("course/{id:long}")]
+        [Route("course/{id:long}", Name = SeoTypeString.Course)]
 
         public async Task<IActionResult> Index([FromRoute] long id, CancellationToken token)
         {

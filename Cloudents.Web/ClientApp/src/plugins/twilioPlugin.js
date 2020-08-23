@@ -512,8 +512,8 @@ export default () => {
       function _toggleTrack(tracks,trackType,value){
          let {track} = tracks.find(track=>track.kind === trackType);
          if(track){
-            // if user was fasle by local dont change it by remote
-            // value: FLASE - USER TURNED OFF / TRUE - USER TURNED ON
+            // if user was false by local dont change it by remote
+            // value: FALSE - USER TURNED OFF / TRUE - USER TURNED ON
             if(!value){
                track.disable()
             }
