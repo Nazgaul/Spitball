@@ -86,6 +86,11 @@ namespace Cloudents.FunctionsV2
                     var image = ProcessImage(sr, mutation);
                     return new ImageResult(image, TimeSpan.FromDays(365));
                 }
+                catch (InvalidDataException ex)
+                {
+                    logger.LogError(ex, $"id: {id} file {file}");
+                    return new RedirectResult(blob.Uri.AbsoluteUri);
+                }
                 catch (ImageFormatException ex)
                 {
                     logger.LogError(ex, $"id: {id} file {file}");
