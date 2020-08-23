@@ -53,7 +53,6 @@ namespace Cloudents.Core.Entities
             var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
             _studyRoomPayments.Add(studyRoomPayment);
         }
-        //public virtual string Name { get; set; }
 
         public override StudyRoomType Type => StudyRoomType.Private;
     }

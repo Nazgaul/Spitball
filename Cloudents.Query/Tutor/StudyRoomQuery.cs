@@ -85,8 +85,14 @@ namespace Cloudents.Query.Tutor
 
                 var futurePayment = _statelessSession.Query<StudyRoomPayment>()
                     .Where(w => w.StudyRoom!.Id == query.Id && w.User.Id == query.UserId)
-                    .Where(w => w.StudyRoom is BroadCastStudyRoom)
-                    .ToFutureValue(f => f.Any());
+                    //.Where(w => w.StudyRoom is BroadCastStudyRoom)
+                    .ToFutureValue(f => f.Count());
+
+
+                var futureStudyRoomSessionCount = _statelessSession.Query<StudyRoomSession>()
+                    .Where(w => w.StudyRoom!.Id == query.Id)
+                    //.Where(w => w.StudyRoom is BroadCastStudyRoom)
+                    .ToFutureValue(f => f.Count());
 
 
                 var futureSubscription = _statelessSession.Query<Follow>()
@@ -116,7 +122,7 @@ namespace Cloudents.Query.Tutor
                     result.EnrolledStudyRoom = true;
                 }
 
-                if (futurePayment.Value)
+                if (result.Type == StudyRoomType.Private &&  futurePayment.Value >= futureStudyRoomSessionCount.Value)
                 {
                     result._UserPaymentExists = true;
                 }
