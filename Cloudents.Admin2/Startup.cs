@@ -132,7 +132,8 @@ namespace Cloudents.Admin2
             var keys = new ConfigurationKeys()
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
-                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
+                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate, TimeSpan.FromMinutes(5)),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()
