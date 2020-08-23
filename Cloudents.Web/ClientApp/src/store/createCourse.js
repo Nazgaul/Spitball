@@ -106,10 +106,15 @@ const actions = {
             let i = 0, studyRooms = data.studyRooms
             for (i = 0; i < studyRooms.length; i++) {
                 const elem = studyRooms[i]
+
+                const start = this._vm.$moment(elem.dateTime);
+                const remainder = 15 - (start.minute() % 15);
+                let hour = remainder % 15 === 0 ? this._vm.$moment(elem.dateTime).format('HH:mm') : this._vm.$moment(start).add(remainder, "minutes").format('HH:mm')
+
                 commit('setTeachLecture', {
                     index: i,
                     date: this._vm.$moment(elem.dateTime).format('YYYY-MM-DD'),
-                    hour: this._vm.$moment(elem.dateTime).format('HH:mm'),
+                    hour,
                 })
                 commit('setTextLecture', {
                     index: i,
