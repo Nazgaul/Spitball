@@ -58,9 +58,6 @@ export default {
     roomMutedToaster,
 
     studyRoomAudio,
-
-    studyRoomAudio,
-
   },
   computed: {
     ...mapGetters(['getRoomIsNeedPayment']),
