@@ -125,9 +125,6 @@ export default {
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      //@media max-width {
-         
-      //}
       @media (max-width: @screen-sm) and (orientation: landscape) {
          top: 0;
          left: 0;

@@ -4,8 +4,13 @@
 
 
       <v-content style="width: 100%;" class="d-flex flex-grow-0 flex-shrink-0">
-         <component style="width:100%" :is="currentMode"></component>
          <mobileControllers/>
+         <component class="roomWrapper" :class="currentEditor" style="width:100%" :is="currentMode"></component>
+         <div class="landscapeNotSupported text-center">
+            <unSupportSvg class="svgIcon mt-5" />
+            <div class="unSupportedText my-4 px-5" v-t="'unsupported_feature_ls'"></div>
+            <div class="unSupportedText" v-t="'unsupported_feature2'"></div>
+         </div>
       </v-content>
 
 
@@ -36,6 +41,8 @@
 </template>
 
 <script>
+import unSupportSvg from '../pages/coursePage/unSupported.svg';
+
 import mobileControllers from './layouts/mobileControllers/mobileControllers.vue';
 import studyRoomWrapper from './windows/studyRoomWrapper.vue'
 import chat from '../chat/components/messages.vue';
@@ -47,7 +54,8 @@ export default {
       chat,
       mobileControllers,
       studyRoomMobileVideo,
-      studyRoomWrapper
+      studyRoomWrapper,
+      unSupportSvg
    },
    data() {
       return {
@@ -234,6 +242,32 @@ export default {
 
             }
          }
+      }
+      .white-board + .landscapeNotSupported,
+      .shared-document + .landscapeNotSupported, .code-editor + .landscapeNotSupported{
+         background: #fff;
+         display: none;
+         .unSupportedText {
+            font-size: 20px;
+            line-height: 1.6;
+            text-align: center;
+            color: #43425d;
+         }
+         .svgIcon {
+            height: auto;
+            width: 120px;
+         }
+         @media (max-width: @screen-sm) and (orientation: landscape) {
+            display: block;
+            position: fixed;
+            z-index: 150;
+            top:0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+         }
+
       }
    }
 </style>

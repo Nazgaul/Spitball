@@ -1,6 +1,6 @@
 <template>
    <div :id="elementId" class="d-flex align-center flex-grow-0 flex-shrink-0">
-      <span class="tutorName">{{roomTutorName}}</span>
+      <!-- <span class="tutorName">{{roomTutorName}}</span> -->
       <!-- <div class="videoLiner">
          <v-btn icon @click="toggleAudio" sel="audio_enabling"
          :class="['micControl','drawerControlsBtn',{'btnIgnore':!isAudioActive},'mb-2']" >
