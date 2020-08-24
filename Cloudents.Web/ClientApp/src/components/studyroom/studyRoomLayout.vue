@@ -80,11 +80,14 @@ export default {
     }
   },
   watch: {
-    isRoomEnabled(val){
-      if(val){
-        window.onbeforeunload = function() {     
-          return "Are you sure you want to close the window?";
-        };
+    isRoomActive:{
+      immediate:true,
+      handler(val){
+        if(val ){
+          window.onbeforeunload = function() {     
+            return "Are you sure you want to close the window?";
+          };
+        }
       }
     },
     showRoomMutedToaster:{

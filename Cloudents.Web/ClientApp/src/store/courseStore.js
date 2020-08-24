@@ -1,15 +1,15 @@
-import {ENROLLED_ERROR} from '../components/pages/global/toasterInjection/componentConsts.js';
+import { ENROLLED_ERROR } from '../components/pages/global/toasterInjection/componentConsts.js';
 import Vue from 'vue';
 
 const COURSE_API = 'course';
 
-function _createCourseEditedSections(objInit,refObj){
-  let heroSection = new HeroSection(objInit,refObj);
+function _createCourseEditedSections(objInit, refObj) {
+  let heroSection = new HeroSection(objInit, refObj);
   clean(heroSection);
-  let liveClassSection = objInit.studyRooms?.length? objInit.studyRooms.map(c=>new LiveClassSection(c)) : undefined;
-  let teacherBio = new TeacherBio(objInit,refObj);
+  let liveClassSection = objInit.studyRooms?.length ? objInit.studyRooms.map(c => new LiveClassSection(c)) : undefined;
+  let teacherBio = new TeacherBio(objInit, refObj);
   clean(teacherBio);
-  let classContent = new ClassContent(objInit,refObj);
+  let classContent = new ClassContent(objInit, refObj);
   clean(classContent);
 
   let editedObject = {
@@ -20,27 +20,27 @@ function _createCourseEditedSections(objInit,refObj){
   }
   clean(editedObject)
   return editedObject
-  function HeroSection(objInit,objRef){
+  function HeroSection(objInit, objRef) {
     this.name = objInit.name || objRef?.name;
     this.description = objInit.description || objRef?.description;
     this.image = objInit.image;
     this.button = objInit.heroButton || objRef?.heroButton;
   }
-  function LiveClassSection(objInit){
+  function LiveClassSection(objInit) {
     this.id = objInit.id;
     this.name = objInit.name;
   }
-  function ClassContent(objInit,objRef){
+  function ClassContent(objInit, objRef) {
     this.title = objInit.contentTitle || objRef.contentTitle;
     this.text = objInit.contentText || objRef.contentText;
   }
-  function TeacherBio(objInit,objRef){
+  function TeacherBio(objInit, objRef) {
     this.name = objInit.tutorName || objRef.tutorName;
     this.title = objInit.teacherTitle || objRef.teacherTitle;
     this.text = objInit.tutorBio || objRef.tutorBio;
   }
   function clean(obj) {
-    for (var propName in obj) { 
+    for (var propName in obj) {
       if (obj[propName] === null || obj[propName] === undefined) {
         delete obj[propName];
       }
@@ -49,8 +49,8 @@ function _createCourseEditedSections(objInit,refObj){
 }
 const state = {
   courseDetails: null,
-  courseEditedDetails:{},
-  loadingEditCourseBtn:false,
+  courseEditedDetails: {},
+  loadingEditCourseBtn: false,
 }
 const mutations = {
   setCourseEnrolled(state, val) {
@@ -82,7 +82,7 @@ const mutations = {
         }
       })
       this.sessionStarted = objInit.sessionStarted || null;
-      this.studyRooms = objInit.studyRooms.map(session=>{
+      this.studyRooms = objInit.studyRooms.map(session => {
         return {
           id: session.id,
           name: session.name,
@@ -110,7 +110,7 @@ const mutations = {
 
 
 
-  setEditedDetailsByType(state,{type,val}){
+  setEditedDetailsByType(state, { type, val }) {
     Vue.set(state.courseEditedDetails, type, val);
   }
 }
@@ -119,20 +119,20 @@ const getters = {
 
   getCourseNamePreview: state => state.courseEditedDetails?.name || state.courseDetails?.name,
   getCourseDescriptionPreview: state => state.courseEditedDetails?.description || state.courseDetails?.description,
-  getCourseImagePreview: state => state.courseEditedDetails?.image? state.courseEditedDetails.previewImage : state.courseDetails?.image,
+  getCourseImagePreview: state => state.courseEditedDetails?.image ? state.courseEditedDetails.previewImage : state.courseDetails?.image,
   getCourseSessionsPreview: state => {
-    if(state.courseDetails?.studyRooms){
-      if(state.courseEditedDetails.studyRooms){
-        return state.courseDetails.studyRooms.map(courseSession=>{
-          let refSession = state.courseEditedDetails.studyRooms.find(s=>s.id == courseSession.id);
+    if (state.courseDetails?.studyRooms) {
+      if (state.courseEditedDetails.studyRooms) {
+        return state.courseDetails.studyRooms.map(courseSession => {
+          let refSession = state.courseEditedDetails.studyRooms.find(s => s.id == courseSession.id);
           let currentSession = courseSession;
           currentSession.name = refSession?.name || courseSession.name;
           return currentSession;
         })
-      }else{
+      } else {
         return state.courseDetails.studyRooms;
       }
-    }else{
+    } else {
       return [];
     }
   },
@@ -144,11 +144,11 @@ const getters = {
   getCourseButtonPreview: state => state.courseEditedDetails?.heroButton || state.courseDetails?.heroButton,
   getCourseItemsContentTextPreview: state => state.courseEditedDetails?.contentText || state.courseDetails?.contentText,
   getCourseItemsContentTitlePreview: state => state.courseEditedDetails?.contentTitle || state.courseDetails?.contentTitle,
-  
+
   getCourseLoadingButton: state => state.loadingEditCourseBtn,
 
-  
-  getNextCourseSession: (state,getters) => {
+
+  getNextCourseSession: (state, getters) => {
     // TODO: get the nearest date;
     return getters.getCourseSessionsPreview[0]
   },
@@ -167,33 +167,33 @@ const actions = {
       commit('setCourseDetails', null)
     }
   },
-  async updateEnrollCourse({commit,getters,dispatch}, courseId) {
-    if(getters.getCoursePrice?.amount){
+  async updateEnrollCourse({ commit, getters, dispatch }, courseId) {
+    if (getters.getCoursePrice?.amount) {
       let session = {
         studyRoomId: courseId
       };
-      if(getters.getCourseDetails?.tutorCountry !== 'IL' ){
+      if (getters.getCourseDetails?.tutorCountry !== 'IL') {
         let x = await dispatch('updateStudyroomLiveSessionsWithPrice', session);
-        dispatch('goStripe',x)
+        dispatch('goStripe', x)
         return;
-      }else{
-        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe',session);
+      } else {
+        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe', session);
         location.href = x;
         return;
       }
     }
     return this.$axios.post(`${COURSE_API}/${courseId}/enroll`)
       .then(() => {
-        commit('setCourseEnrolled',true);
+        commit('setCourseEnrolled', true);
       }).catch(ex => {
-        commit('setComponent',ENROLLED_ERROR);
-        commit('trackException',ex);
+        commit('setComponent', ENROLLED_ERROR);
+        commit('trackException', ex);
       })
   },
-  updateCourseEditedInfo({state},courseId){
+  updateCourseEditedInfo({ state }, courseId) {
     state.loadingEditCourseBtn = true;
-    let params = _createCourseEditedSections(state.courseEditedDetails,state.courseDetails);
-    return this.$axios.put(`${COURSE_API}/${courseId}/landing`,params).finally(()=>{
+    let params = _createCourseEditedSections(state.courseEditedDetails, state.courseDetails);
+    return this.$axios.put(`${COURSE_API}/${courseId}/landing`, params).finally(() => {
       state.loadingEditCourseBtn = false;
     })
   }
