@@ -21,7 +21,7 @@ namespace Cloudents.Command.CommandHandler
             user.ChangeName(message.FirstName, message.LastName);
             if (user.Tutor != null)
             {
-                user.Tutor.UpdateSettings(message.Bio,message.Description,null);
+                user.Tutor.UpdateSettings(message.ShortParagraph,message.Title,message.Paragraph);
             }
             await _userRepository.UpdateAsync(user, token);
         }

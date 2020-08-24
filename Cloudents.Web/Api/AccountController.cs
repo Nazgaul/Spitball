@@ -76,7 +76,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpPost("language")]
-        public async Task<IActionResult> ChangeLanguageAsync([FromBody]ChangeCultureRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeLanguageAsync([FromBody] ChangeCultureRequest model, CancellationToken token)
         {
             var culture = model.Culture;
 
@@ -123,7 +123,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException e)
             {
-                _telemetryClient.TrackException(e,new Dictionary<string, string>()
+                _telemetryClient.TrackException(e, new Dictionary<string, string>()
                 {
                     ["fileName"] = file.FileName,
                     ["contentType"] = file.ContentType
@@ -134,7 +134,7 @@ namespace Cloudents.Web.Api
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserImageCommand(userId,  fileName);
+            var command = new UpdateUserImageCommand(userId, fileName);
             await _commandBus.DispatchAsync(command, token);
             return Ok(url);
         }
@@ -156,7 +156,7 @@ namespace Cloudents.Web.Api
             }
             catch (ArgumentException e)
             {
-                _telemetryClient.TrackException(e,new Dictionary<string, string>()
+                _telemetryClient.TrackException(e, new Dictionary<string, string>()
                 {
                     ["fileName"] = file.FileName,
                     ["contentType"] = file.ContentType
@@ -166,7 +166,7 @@ namespace Cloudents.Web.Api
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserCoverImageCommand(userId,  fileName);
+            var command = new UpdateUserCoverImageCommand(userId, fileName);
             await _commandBus.DispatchAsync(command, token);
 
             var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
@@ -176,33 +176,33 @@ namespace Cloudents.Web.Api
 
         [HttpPost("settings")]
         public async Task<IActionResult> ChangeSettingsAsync(
-            [FromBody]UpdateSettingsRequest model,
+            [FromBody] UpdateSettingsRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
-                model.Description, model.Bio);
+                model.Title, model.ShortParagraph, model.Paragraph);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        [HttpGet("content")]
-        public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserContentByIdQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
+        //[HttpGet("content")]
+        //public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var query = new UserContentByIdQuery(userId);
+        //    var result = await _queryBus.QueryAsync(query, token);
 
-            return result.Select(s =>
-            {
-                if (s is UserDocumentsDto d)
-                {
-                    d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
-                }
-                return s;
-            });
-        }
+        //    return result.Select(s =>
+        //    {
+        //        if (s is UserDocumentsDto d)
+        //        {
+        //            d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+        //            d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+        //        }
+        //        return s;
+        //    });
+        //}
 
         [HttpGet("purchases")]
         public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync(CancellationToken token)
@@ -254,14 +254,6 @@ namespace Cloudents.Web.Api
             var query = new UserStatsQuery(userId, request.Days);
             var result = await _queryBus.QueryAsync(query, token);
             return result;
-        }
-
-        [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new UserCoursesQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
         }
     }
 }

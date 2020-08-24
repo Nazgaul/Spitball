@@ -58,7 +58,7 @@ namespace Cloudents.Persistence.Repositories
             return Session.DeleteAsync(entity, token);
         }
 
-        public Task UpdateAsync(T entity, CancellationToken token)
+        public virtual Task UpdateAsync(T entity, CancellationToken token)
         {
             return Session.UpdateAsync(entity, token);
         }

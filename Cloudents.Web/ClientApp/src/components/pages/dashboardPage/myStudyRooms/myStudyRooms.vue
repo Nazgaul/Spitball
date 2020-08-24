@@ -28,10 +28,10 @@
     >
       <template v-slot:top>
         <div class="tableTop d-flex flex-sm-row flex-column align-sm-center justify-space-between">
-          <div class="myStudyRooms_title pb-3 pb-sm-0">{{myStudyroomTitle}}</div>
+          <div class="myStudyRooms_title pb-3 pb-sm-0">{{$t("dashboardPage_title_private")}}</div>
           <div v-if="isTutor">
             <v-btn
-              @click="isStudyroomLive ? openLiveSession() : openPrivateSession()"
+              @click="openPrivateSession"
               class="link white--text"
               depressed
               rounded
@@ -39,25 +39,20 @@
               color="#5360FC"
             >
               <v-icon size="24" left>sbf-plus-circle</v-icon>
-              <span>{{btnText}}</span>
+              <span>{{$t("dashboardPage_my_studyrooms_create_room")}}</span>
             </v-btn>
           </div>
         </div>
       </template>
 
-      <template v-slot:item.date="{item}">{{ $d(new Date(item.date)) }}</template>
+      <template v-slot:item.date="{item}">{{$moment(item.date).format('MMM D')}}</template>
       <template v-slot:item.name="{item}">{{item.name}}</template>
 
       <template v-slot:item.type>
         <div
-          class="sessionType"
-          :class="{'private': !isStudyroomLive}"
-          v-t="!isStudyroomLive ? 'dashboardPage_type_private' : 'dashboardPage_type_broadcast'"
+          class="sessionType private"
+          v-t="$t('dashboardPage_type_private')"
         ></div>
-      </template>
-
-      <template v-slot:item.scheduled="{item}" v-if="isStudyroomLive">
-        <div v-if="item.scheduled">{{ $d(new Date(item.scheduled)) }}</div>
       </template>
 
       <template v-slot:item.students="{item}">
@@ -75,34 +70,19 @@
       </template>
 
       <template v-slot:item.lastSession="{item}">
-        <template v-if="item.lastSession">{{ $d(new Date(item.lastSession)) }}</template>
+        <template v-if="item.lastSession">{{$moment(item.lastSession).format('MMM D')}}</template>
       </template>
 
       <template v-slot:item.price="{item}">{{$price(item.price,item.currency,true)}}</template>
 
       <template v-slot:item.action="{item}">
         <div class="actionsWrapper d-flex align-center justify-center">
-          <div v-if="item.showChat" class="mr-9">
+          <div class="me-9">
             <v-btn icon @click="sendMessage(item)" :title="$t('schoolBlock_SendMessageTooltip')">
               <iconChat fill="#4c59ff" />
             </v-btn>
             <div v-t="'schoolBlock_SendMessageTooltip'"></div>
           </div>
-
-          <div v-else class="copyLink mr-8 flex-shrink-0">
-            <v-tooltip :value="currentItemId === item.id" top transition="fade-transition">
-              <template v-slot:activator="{}">
-                <linkSVG
-                  style="width:20px;height:36px;"
-                  class="option link"
-                  @click="copyLink(item)"
-                />
-              </template>
-              <span v-t="'shareContent_copy_tool'"></span>
-            </v-tooltip>
-            <div v-t="'dashboardPage_link_share'"></div>
-          </div>
-
           <div class="flex-shrink-0">
             <v-btn
               icon
@@ -113,69 +93,38 @@
             </v-btn>
             <div v-t="'schoolBlock_EnterStudyRoomTooltip'"></div>
           </div>
-
-          <v-menu v-model="showMenu" offset-overflow>
-            <template v-slot:activator="{ on }">
-              <div class="dotsIcon mr-2 ml-4 pb-5 pr-5 pr-sm-0" v-if="isTutor && isStudyroomLive">
-                <v-icon
-                  color="#bbb"
-                  v-on="on"
-                  @click="openDeleteMenu(item.id)"
-                  slot="activator"
-                  small
-                  icon
-                >sbf-3-dot</v-icon>
-              </div>
-              <div class="dotsIcon mr-2 ml-2 pb-5" v-else>
-                <!-- <v-icon color="#bbb" v-on="on" @click="openDeleteMenu(item.id)" slot="activator" small icon>sbf-3-dot</v-icon> -->
-              </div>
-            </template>
-            <v-list v-if="menuShowId === item.id">
-              <v-list-item @click="deleteSession(item.id)" v-t="'dashboardPage_link_delete'"></v-list-item>
-            </v-list>
-          </v-menu>
+          
+          <div class="dotsIcon me-2 ms-2 pb-5">
+          </div>
         </div>
       </template>
 
       <slot slot="no-data" name="tableEmptyState" />
     </v-data-table>
-
-    <v-snackbar v-model="snackbar.value" @input="snackbar.value = false" :timeout="5000" top>
-      <div class="text-center flex-grow-1">{{snackbar.text}}</div>
-    </v-snackbar>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import * as routeNames from "../../../../routes/routeNames";
+import * as componentConsts from '../../global/toasterInjection/componentConsts.js';
 
 import iconChat from "./images/icon-chat.svg";
 import enterRoom from "./images/enterRoomGreen.svg";
-import linkSVG from "../../global/shareContent/images/link.svg";
 
 export default {
   name: "myStudyRooms",
   components: {
     iconChat,
     enterRoom,
-    linkSVG
   },
   data() {
     return {
       skeleton: true,
-      studyRoomType: "",
-      snackbar: {
-        value: false,
-        text: ""
-      },
-      showMenu: false,
-      menuShowId: null,
       currentItemId: null,
       paginationModel: {
         page: 1
       }
-      //headers: headersBuilder
     };
   },
   computed: {
@@ -184,66 +133,45 @@ export default {
       let headersBuilder = [
         {
           text: this.$t("studyRoom_created"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "date"
         },
         {
           text: this.$t("dashboardPage_name"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "name"
         },
         {
           text: this.$t("dashboardPage_type"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "type"
         }
       ];
-      if (this.isStudyroomLive) {
-        headersBuilder.push({
-          text: this.$t("dashboardPage_scheduled"),
-          align: "left",
-          sortable: true,
-          value: "scheduled"
-        });
-      }
       headersBuilder = headersBuilder.concat([
         {
           text: this.$t("dashboardPage_students"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "students"
         },
         {
           text: this.$t("dashboardPage_last_date"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "lastSession"
         },
         {
           text: this.$t("study room price"),
-          align: "left",
+          align: "",
           sortable: true,
           value: "price"
         },
         { text: "", align: "center", sortable: false, value: "action" }
       ]);
       return headersBuilder;
-    },
-    btnText() {
-      return this.isStudyroomLive
-        ? this.$t("dashboardPage_my_studyrooms_create_live")
-        : this.$t("dashboardPage_my_studyrooms_create_room");
-    },
-    myStudyroomTitle() {
-      return this.isStudyroomLive
-        ? this.$t("dashboardPage_title_live")
-        : this.$t("dashboardPage_title_private");
-    },
-    isStudyroomLive() {
-      return this.studyRoomType === "broadcast";
     },
     isTutor() {
       return this.$store.getters.accountUser?.isTutor;
@@ -260,47 +188,14 @@ export default {
          })
     }
   },
-  watch: {
-    "$route.meta.type"(val) {
-      this.skeleton = true
-      this.getSessions(val);
-    }
-  },
   methods: {
     ...mapActions([
       "updateStudyRoomItems",
       "dashboard_sort",
       "setActiveConversationObj",
-      "deleteStudyRoomSession"
     ]),
     openPrivateSession() {
-      this.$store.commit("setComponent", "createPrivateSession");
-    },
-    openLiveSession() {
-      this.$store.commit("setComponent", "createLiveSession");
-    },
-    deleteSession(id) {
-      let self = this;
-      this.deleteStudyRoomSession(id)
-        .then(() => {
-          let newItems = self.studyRoomItems.filter(item => item.id !== id);
-          self.$store.commit("setStudyRoomItems", newItems);
-          self.snackbar.text = self.$t("dashboardPage_success_session_removed");
-        })
-        .catch(error => {
-          let {
-            response: { data }
-          } = error;
-          self.snackbar.text = data["error"][0];
-          self.snackbar.color = "error";
-        })
-        .finally(() => {
-          self.snackbar.value = true;
-        });
-    },
-    openDeleteMenu(id) {
-      this.menuShowId = id;
-      this.showMenu = true;
+      this.$store.commit("addComponent", componentConsts.SESSION_CREATE_DIALOG);
     },
     sendMessage(item) {
       let currentConversationObj = {
@@ -322,26 +217,12 @@ export default {
       });
       global.open(routeData.href, "_self");
     },
-    copyLink(item) {
-      let link = `${window.origin}/studyroom/${item.id}`;
-      let self = this;
-      this.$copyText(link).then(({ text }) => {
-        self.currentItemId = item.id;
-        self.$ga.event("Share", "Link", text);
-        setTimeout(() => {
-          self.currentItemId = null;
-        }, 2000);
-      });
-    },
-    getSessions(type) {
-      this.studyRoomType = type;
-      this.updateStudyRoomItems({ type: this.studyRoomType }).then(() => {
-        this.skeleton = false
-      })
-    }
   },
   created() {
-    this.getSessions(this.$route.meta.type);
+    let self = this;
+    self.updateStudyRoomItems({ type: 'private' }).then(() => {
+        self.skeleton = false
+      })
   }
 };
 </script>
@@ -352,7 +233,7 @@ export default {
 
 .myStudyRooms {
   padding: 30px;
-  max-width: 1334px;
+  max-width: 1080px;
   @media (max-width: @screen-xs) {
     padding: 30px 0;
     width: 100%;
@@ -404,32 +285,10 @@ export default {
     display: inline-block;
     padding: 4px 10px;
   }
-  .copyLink {
-    width: 100px;
-
-    @media (max-width: @screen-xs) {
-      width: 86px;
-    }
-  }
   tr {
-    height: 70px;
-
     .actionsWrapper {
-      transition: opacity 0.5s ease-out;
-      opacity: 0;
-      display: none;
-
-      @media (max-width: @screen-xs) {
-        display: flex;
-        opacity: 1;
-      }
-    }
-    &:hover {
-      .actionsWrapper {
-        display: flex;
-        opacity: 1;
-        transition: opacity 0.5s ease-in;
-      }
+      font-size: 12px;
+      color: #69687d;
     }
   }
   td {
@@ -452,7 +311,11 @@ export default {
         padding-top: 14px;
         padding-bottom: 14px;
         font-weight: normal;
-        min-width: 100px;
+        border-top: thin solid rgba(0, 0, 0, 0.12);
+
+        &:nth-child(2) {
+          width: 120px;
+        }
       }
     }
     color: #43425d !important;
@@ -462,7 +325,6 @@ export default {
   }
   .sbf-arrow-right-carousel,
   .sbf-arrow-left-carousel {
-    transform: none /*rtl:rotate(180deg)*/;
     color: #43425d !important;
     height: inherit;
     font-size: 14px !important;

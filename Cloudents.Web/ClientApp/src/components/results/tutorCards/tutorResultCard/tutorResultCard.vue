@@ -28,11 +28,11 @@
                   <div class="user-bio">{{tutorData.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
-                  <span class="mr-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
+                  <span class="me-1 font-weight-bold" v-t="'resultTutor_study-area'"></span>
                   <span>{{subjects}}</span>
                 </div>
                 <div class="courses text-truncate" v-if="isCourses">
-                  <span class="mr-2 font-weight-bold" v-t="'resultTutor_courses'"></span>
+                  <span class="me-2 font-weight-bold" v-t="'resultTutor_courses'"></span>
                   <span>{{courses}}</span> 
                 </div>
             </div>
@@ -117,7 +117,7 @@ export default {
           });
           this.updateRequestDialog(true);
       } else if(user.isTutor && user.userId == this.accountUser.id) { // this is my profile
-        return
+
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
           let conversationObj = {
@@ -151,10 +151,10 @@ export default {
       return '';
     },
     isSubjects() {
-      return this.tutorData && this.tutorData.subjects.length > 0 ? true : false;
+      return !!(this.tutorData && this.tutorData.subjects.length > 0);
     },
     isCourses() {
-      return this.tutorData && this.tutorData.courses.length > 0 ? true : false;
+      return !!(this.tutorData && this.tutorData.courses.length > 0);
     },
     subjects() {
       return this.tutorData.subjects.join(', ');
@@ -168,7 +168,7 @@ export default {
       return name;
     },
     isReviews() {
-      return this.tutorData.reviews > 0 ? true : false;
+      return this.tutorData.reviews > 0;
     },
     isDiscount() {
       return this.tutorData.discountPrice !== undefined;

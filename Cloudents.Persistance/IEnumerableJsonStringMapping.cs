@@ -33,7 +33,7 @@ namespace Cloudents.Persistence
             return x.GetHashCode();
         }
 
-        public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
+        public object? NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
             if (names.Length == 0)
                 throw new ArgumentException("Expecting at least one column");

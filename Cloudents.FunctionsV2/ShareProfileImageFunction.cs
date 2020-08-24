@@ -9,6 +9,7 @@ using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Cloudents.FunctionsV2.Extensions;
+using Cloudents.FunctionsV2.Models;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Microsoft.AspNetCore.Mvc;
@@ -71,7 +72,9 @@ namespace Cloudents.FunctionsV2
                 height = SquareProfileImageDimension
             });
 
-            await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
+            var clientResponse = await client.GetAsync(uriBuilder.Uri, token);
+
+            await using var profileImageStream = await clientResponse.Content.ReadAsStreamAsync();
             var bgBlobName = $"share-placeholder/bg-profile-{(isRtl ? "rtl" : "ltr")}.jpg";
             var bgBlob = Blobs.Single(s => s.Name == bgBlobName);
 
@@ -235,20 +238,5 @@ namespace Cloudents.FunctionsV2
 
             return bytes;
         }
-    }
-
-    public class Star : Enumeration
-    {
-        public string BlobPath { get; }
-        private Star(int id, string name, string blobPath) : base(id, name)
-        {
-            BlobPath = $"share-placeholder/{blobPath}";
-
-        }
-
-        public static readonly Star Full = new Star(1, "Full", "star-full.png");
-        public static readonly Star Half = new Star(2, "Half", "star-half.png");
-        public static readonly Star None = new Star(3, "Empty", "star-empty.png");
-
     }
 }

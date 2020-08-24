@@ -1,18 +1,27 @@
 <template>
    <div class="studyRoomMobile">
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
+
+
       <v-content style="width: 100%;">
          <component style="width:100%" :is="currentMode"></component>
       </v-content>
+
+
+         <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
+            <mobileControllers/>
+         </div>
+
+
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">
                <span>
-                  <v-icon class="mr-1">sbf-message-icon</v-icon>
+                  <v-icon class="me-1">sbf-message-icon</v-icon>
                   {{$t('studyRoom_chat')}}
                </span>
                <span v-if="$store.getters.getRoomIsBroadcast">
-               <v-icon size="16" color="#7a798c" class="pr-1">sbf-users</v-icon>
+               <v-icon size="16" color="#7a798c" class="pe-1">sbf-users</v-icon>
                {{$store.getters.getRoomParticipantCount}}
                </span>
             </div>
@@ -26,22 +35,29 @@
 </template>
 
 <script>
-
+import mobileControllers from './layouts/mobileControllers/mobileControllers.vue';
 import studyRoomWrapper from './windows/studyRoomWrapper.vue'
 import chat from '../chat/components/messages.vue';
 import studyRoomMobileVideo from './studyRoomMobileVideo.vue';
+
+import { mapGetters } from 'vuex';
 export default {
    components:{
       chat,
+      mobileControllers,
       studyRoomMobileVideo,
       studyRoomWrapper
    },
+   data() {
+      return {
+         tutorVideo:null,
+         elementId:'studyRoomMobileVideo'
+      }
+   },
    computed: {
-      currentEditor(){
-         return this.$store.getters.getActiveNavEditor 
-      },
-      roomModes(){
-         return this.$store.getters.getRoomModeConsts;
+      ...mapGetters(['getRoomTutorParticipant']),
+      tutorVideoTrack(){
+         return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
       },
       currentMode(){
          switch(this.currentEditor) {
@@ -57,7 +73,37 @@ export default {
             default:
                return 'studyRoomMobileVideo'
          }
-      }
+      },
+      currentEditor(){
+         return this.$store.getters.getActiveNavEditor 
+      },
+      roomModes(){
+         return this.$store.getters.getRoomModeConsts;
+      },
+   },
+   watch: {
+      tutorVideoTrack:{
+         immediate:true,
+         deep:true,
+         handler(track){
+            if(track){
+               let self = this;
+               this.$nextTick(()=>{
+                  self.tutorVideo = track;
+                  const localMediaContainer = document.getElementById(self.elementId);
+                  if(localMediaContainer){
+                     let videoTag = localMediaContainer.querySelector("video");
+                     if (videoTag) {localMediaContainer.removeChild(videoTag)}
+                     localMediaContainer.appendChild(track.attach());
+
+                  }
+               })
+            }
+            if(this.tutorVideo && !track){
+               this.tutorVideo = null;
+            }
+         }
+      },
    },
 }
 </script>
@@ -77,10 +123,43 @@ export default {
                   background: #bdc0d1 !important;
                   border-radius: 4px !important;
             }
-            height: ~"calc(100vh - 8px)";
+            height: 100vh;
+            //height: -webkit-fill-available; //safari
+            //position: fixed;
+            //left: 0;
+            //right: 0;
+            //top: 0;
+            //bottom: 0;
+            //height: ~"calc(100vh - 8px)";
             @media (max-width: @screen-xs) {
-               height: ~"calc(100vh - 56px)";
+               //height: ~"calc(100vh - 56px)";
             }
+         #studyRoomMobileVideo{
+            width: 100%;
+            min-height: 280px;
+            background: black;
+            position: relative;
+            video {
+               width: 100%;
+               height: 100%;
+               pointer-events: none;
+               max-height: 50vh;
+               @media (max-width: @screen-sm) and (orientation: landscape) {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  width: 100vw;
+                  height: 100vh;
+                  max-height: initial;
+                  background: #000;
+               }
+            }
+            video::-webkit-media-controls-enclosure {
+               display: none !important;
+            }
+         }
          .studyRoomMobileChatHeader{
             @media (max-width: @screen-sm) and (orientation: landscape) {
                display: none !important;
@@ -109,10 +188,10 @@ export default {
             }
             .messages-body{
                padding-bottom: 0;
-               margin-bottom: 0;
+               margin-bottom: 14px + 50px;
                .message_wrap{
                   &:last-child{
-                     margin-bottom: 14px;
+                     margin-bottom: 0; //override
                   }
                }
             }
@@ -143,6 +222,14 @@ export default {
                      }
                   } 
                } 
+
+
+               @media (max-width: @screen-sm) and (orientation: portrait) {
+                     position: fixed;
+                     bottom: 0;
+                     left: 0;
+                     right: 0;
+               }
 
             }
          }

@@ -12,6 +12,12 @@ import AppLogo from "./logo-spitball.svg";
 import AppMobileLogo from './logo-m-spitball.svg'
 import AppFrymo from "./frymo-logo.svg";
 export default {
+    props: {
+        menuList: {
+            type: Boolean,
+            required: false
+        }
+    },
     components:{
         AppLogo,
         AppMobileLogo,
@@ -20,7 +26,7 @@ export default {
     computed:{
         ...mapGetters(['isFrymo']),
         spLogo() {
-            return this.$vuetify.breakpoint.xsOnly
+            return this.$vuetify.breakpoint.xsOnly && !this.menuList
             ? 'AppMobileLogo'
             : 'AppLogo'
         }
@@ -33,12 +39,12 @@ export default {
     .logo {
         // width: 120px;
         height: 30px;
-        fill: #43425D;
+        fill: #43425D !important; // vuetify upgrade to 2.3.2 add svg:not([fill]) to svg element
         vertical-align: bottom;
         @media (max-width: @screen-xs) {
             // width: 94px;
             height: 22px;
-            margin-top: 8px;
+            // margin-top: 8px;
             margin-left: 10px;
         }  
     }

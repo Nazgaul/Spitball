@@ -1,70 +1,94 @@
 <template>
-  <div class="d-flex">
-    <!--Should be nice to have quiet attribute-->
-    <img v-resize.quiet="onResize" sel="cover_image" class="coverPhoto" :src="getCoverImage" />
-    <div class="coverupload" v-if="$store.getters.getIsMyProfile">
-      <input sel="edit_cover_image"
-        class="profile-upload"
-        type="file"
-        name="File Upload"
-        @change="uploadCoverPicture"
-        accept="image/*"
-        ref="profileImage"
-        id="profile-cover-upload"
-        v-show="false"
-      />
-      <label for="profile-cover-upload">
-        <v-icon class="attach-icon">sbf-camera</v-icon>
-        <span class="image-edit-text" v-t="'profile_edit_image_text'"></span>
-      </label>
-    </div>
+  <div class="d-flex coverWrapper1">
+    <v-skeleton-loader
+      v-if="!isLoaded"
+      class="skeletonAvatar"
+      :class="{'mainCoverImage': mainCoverImage}"
+      type="image"
+      :min-width="mainCoverImage ? coverImageSize.width : '100%'"
+      :height="mainCoverImage ? coverImageSize.height : '100%'"
+    >
+    </v-skeleton-loader>
+    <img
+      v-show="isLoaded"
+      v-resize.quiet="onResize"
+      :src="getCoverImage" 
+      :width="coverImageSize.width"
+      :height="coverImageSize.height"
+      @load="loaded"
+      class="coverPhoto"
+      sel="cover_image"
+    />
+
+    <slot>
+      <div class="coverupload" v-if="$store.getters.getIsMyProfile && isLoaded">
+        <input sel="edit_cover_image"
+          class="profile-upload"
+          type="file"
+          name="File Upload"
+          @change="uploadCoverPicture"
+          accept="image/*"
+          ref="profileImage"
+          id="profile-cover-upload"
+          v-show="false"
+        />
+        <label for="profile-cover-upload">
+          <v-icon class="attach-icon" color="#fff">sbf-cameraNew</v-icon>
+        </label>
+      </div>
+    </slot>
+    
+    <div class="imageLinear" :class="{'noImage': !isLoaded}"></div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 import utilitiesService from "../../../services/utilities/utilitiesService";
-var typeingTimer;
+
+let typeingTimer;
 export default {
   name: "uploadCover",
-  computed: {
-    ...mapGetters([
-      "getProfileCoverImage",
-      "currentProfileUser",
-      "accountUser",
-      "getProfile",
-      "getUserLoggedInStatus"
-    ]),
-    // isCurrentProfileUser() {
-    //   let profileUser = this.getProfile?.user;
-    //   if (profileUser && this.getUserLoggedInStatus) {
-    //     return profileUser.id == this.accountUser?.id;
-    //   }
-    //   return false;
-    // },
-    getCoverImage() {
-      //https://github.com/vuejs/vue/issues/214
-      this.currentTime;
-      let isMobile = this.$vuetify.breakpoint.xsOnly;
-      let profileUser = this.getProfile?.user;
-      if (profileUser) {
-        if (this.getProfileCoverImage) {
-          let size = isMobile
-            ? [window.innerWidth, 178]
-            : [window.innerWidth, 430];
-          return utilitiesService.proccessImageURL(
-            this.getProfileCoverImage,
-            ...size
-          );
-        }
-        return `${require("./cover-default.png")}`;
-      }
-      return "";
+  props: {
+    mainCoverImage: {
+      type: Boolean,
+      required: false
     }
   },
   data() {
     return {
-      currentTime: Date.now()
+      isLoaded: false,
+      currentTime: Date.now(),
+      windowWidth: window.innerWidth
+    }
+  },
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.xsOnly
+    },
+    coverImageSize() {
+      return {
+        width: this.windowWidth,
+        height: this.isMobile ? 420 : 594
+      }
+    },
+    getCoverImage() {
+      //https://github.com/vuejs/vue/issues/214
+      this.currentTime;
+      let profileUser = this.$store.getters.getProfile?.user;
+      if (profileUser) {
+        let size = this.coverImageSize
+        let coverImage = this.$store.getters.getProfileCoverImage
+        let profileDrawerState = this.$store.getters.getProfileCoverDrawer
+        let width = profileDrawerState ? size.width - 338 : size.width
+        return utilitiesService.proccessImageURL(
+          coverImage,
+          width,
+          size.height,
+          'anchorPosition=center',
+          'cover'
+        );
+      }
+      return "";
     }
   },
   methods: {
@@ -72,16 +96,30 @@ export default {
       clearTimeout(typeingTimer);
       let self = this;
       typeingTimer = setTimeout(() => {
-         self.currentTime = Date.now()
-        }, 1000);
+        // prevent duplicate request on switch to mobile, coverImageSize computed is already listen to isMobile changes
+        if(!self.isMobile) {
+          self.windowWidth = window.innerWidth
+        } else {
+          self.windowWidth = self.$el.clientWidth
+        }
+        self.currentTime = Date.now()
+      }, 1000);
     },
-    ...mapActions(["uploadCoverImage", "updateToasterParams"]),
+    loaded() {
+      this.isLoaded = true
+      this.$store.commit('setProfileCoverLoading', true)
+    },
+    unLoaded() {
+      this.isLoaded = false
+      this.$store.commit('setProfileCoverLoading', false)
+    },
     uploadCoverPicture() {
       let self = this;
+      this.unLoaded()
       let formData = new FormData();
       let file = self.$refs.profileImage.files[0];
       formData.append("file", file);
-      self.uploadCoverImage(formData).then(() => {
+      this.$store.dispatch('uploadCoverImage', formData).then(() => {
         // this.updateToasterParams({
         //    // toasterText: this.$t("chat_file_error"),
         //     showToaster: true
@@ -90,31 +128,53 @@ export default {
       this.$refs.profileImage.value = "";
       //document.querySelector('#profile-picture').value = ''
     }
-  }
+  },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "../../../styles/mixin";
-
+.coverWrapper1{
+  position: relative;
 .coverPhoto {
-  position: absolute;
   left: 0;
   right: 0;
   width: 100%;
-  height: 350px;
   @media (max-width: @screen-xs) {
     position: static;
-    height: 178px;
   }
 }
 .coverupload {
-  padding: 4px;
+  position: absolute;
+  padding: 6px;
   z-index: 2;
-  border: 1px solid black;
-  background-color: #fff;
-  @media (max-width: @screen-xs) {
-    position: absolute; // temporary for mobile version till new design
+  color: #fff;
+  border-radius: 6px;
+  .attach-icon {
+    cursor: pointer;
   }
 }
+.imageLinear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 17%, rgba(0, 0, 0, 0.41) 50%, #000000);
+  @media (max-width: @screen-xs) {
+    // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 97%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.94) 18%);
+  }
+  &.noImage {
+    background-image: none
+  }
+}
+.skeletonAvatar {
+  &.mainCoverImage {
+    .v-skeleton-loader__image {
+      height: 594px;
+    }
+  }
+}
+}
+
 </style>

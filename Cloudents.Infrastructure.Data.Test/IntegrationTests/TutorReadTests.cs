@@ -22,24 +22,24 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Theory]
-        [InlineData("xxx", 0, "IL", 5)]
-        [InlineData("Economics", 638, "IL", 5)]
-        [InlineData("Economics", 0, "IL", 100)]
-        [InlineData("Economics", 638, "IN", 5)]
-        [InlineData("xxx", 0, "IN", 5)]
+        //[Theory]
+        //[InlineData("xxx", 0, "IL", 5)]
+        //[InlineData("Economics", 638, "IL", 5)]
+        //[InlineData("Economics", 0, "IL", 100)]
+        //[InlineData("Economics", 638, "IN", 5)]
+        //[InlineData("xxx", 0, "IN", 5)]
 
-        public async Task TutorListByCourseQuery_Ok(string course, long userId, string countryStr, int count)
-        {
-            var country = Country.FromCountry(countryStr);
-            var query = new TutorListByCourseQuery(course, userId, country, count);
-            var result = await _fixture.QueryBus.QueryAsync(query, default);
-            foreach (var tutorCardDto in result)
-            {
-                //var test = Country.FromCountry(countryStr);
-                //tutorCardDto.SbCountry.Should().BeEquivalentTo(test);
-            }
-        }
+        //public async Task TutorListByCourseQuery_Ok(string course, long userId, string countryStr, int count)
+        //{
+        //    var country = Country.FromCountry(countryStr);
+        //    var query = new TutorListByCourseQuery(course, userId, country, count);
+        //    var result = await _fixture.QueryBus.QueryAsync(query, default);
+        //    foreach (var tutorCardDto in result)
+        //    {
+        //        //var test = Country.FromCountry(countryStr);
+        //        //tutorCardDto.SbCountry.Should().BeEquivalentTo(test);
+        //    }
+        //}
 
 
         [Theory]
@@ -101,6 +101,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query);
         }
 
+
+        [Theory]
+        [InlineData(638)]
+        public async Task UpcomingLessonsQuery_Ok(long userId)
+        {
+          
+
+            var query = new UpcomingLessonsQuery(userId);
+            var result = await _fixture.QueryBus.QueryAsync(query);
+        }
+
         [Fact]
         public async Task UserCouponsQuery_Ok()
         {
@@ -109,25 +120,25 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
     }
 
-    [Collection("Database collection")]
-    public class TutorRepositoryReadTests
-    {
-        private readonly DatabaseFixture _fixture;
+    //[Collection("Database collection")]
+    //public class TutorRepositoryReadTests
+    //{
+    //    private readonly DatabaseFixture _fixture;
 
-        public TutorRepositoryReadTests(DatabaseFixture fixture)
-        {
-            _fixture = fixture;
-            // _autoMock = AutoMock.GetLoose();
+    //    public TutorRepositoryReadTests(DatabaseFixture fixture)
+    //    {
+    //        _fixture = fixture;
+    //        // _autoMock = AutoMock.GetLoose();
 
-        }
+    //    }
 
-        [Fact]
-        public async Task GetTutorsByCourseAsync_Ok()
-        {
-            var res = await _fixture.TutorRepository.GetTutorsByCourseAsync("פיזיקה 2", 161238, "IL", default);
-            res.Should().NotBeEmpty();
-        }
-    }
+    //    [Fact]
+    //    public async Task GetTutorsByCourseAsync_Ok()
+    //    {
+    //        var res = await _fixture.TutorRepository.GetTutorsByCourseAsync("פיזיקה 2", 161238, "IL", default);
+    //        res.Should().NotBeEmpty();
+    //    }
+    //}
 
 
     [Collection("Database collection")]

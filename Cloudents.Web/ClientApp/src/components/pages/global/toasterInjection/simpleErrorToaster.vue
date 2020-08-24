@@ -1,12 +1,14 @@
 <template>
     <v-snackbar
-        absolute
         top
         color="error"
         :timeout="params.timeout || 3000"
         :value="true"
+        @input="onCloseToaster"
     >
+    <div class="text-center">
        {{params.text}}
+    </div>
     </v-snackbar>
 </template>
 
@@ -18,6 +20,11 @@ export default {
         params: {
             type:Object,
             required:true
+        }
+    },
+    methods: {
+        onCloseToaster() {
+            this.$store.commit('removeComponent',this.params.name)
         }
     },
 }

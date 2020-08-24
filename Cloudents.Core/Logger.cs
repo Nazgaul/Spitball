@@ -12,7 +12,7 @@ namespace Cloudents.Core
             System.Diagnostics.Trace.TraceError(ex.ToString());
         }
 
-        public void Info(string message, bool email = false)
+        public void Info(string message, IDictionary<string, string>? properties = null)
         {
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(message);
@@ -28,8 +28,9 @@ namespace Cloudents.Core
             System.Diagnostics.Trace.TraceWarning(message);
         }
 
-        public void Error(string message)
+        public void Error(string message, IDictionary<string, string>? properties = null)
         {
+            
             System.Diagnostics.Trace.TraceError(message);
         }
 

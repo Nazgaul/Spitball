@@ -1,28 +1,28 @@
 <template>
-  <div class="smsConfirmation text-center">
-	<div class="mainTitle mb-8" v-t="'loginRegister_verifyPhone_main_title'"></div>
-	<i18n path="loginRegister_verifyPhone_subtitle" tag="div" class="subTitle mb-9">
-		<bdi>{{userPhone}}</bdi>
-	</i18n>
+	<div class="smsConfirmation text-center">
+		<div class="mainTitle mb-8" v-t="'loginRegister_verifyPhone_main_title'"></div>
+		<i18n path="loginRegister_verifyPhone_subtitle" tag="div" class="subTitle mb-9">
+			<bdi>{{userPhone}}</bdi>
+		</i18n>
 
+		<v-text-field
+			v-model="smsCode"
+			class="code widther"
+			color="#304FFE"
+			:rules="[rules.required]"
+			:error-messages="errors.code"
+			:label="$t('loginRegister_smsconfirm_input')"
+			height="44"
+			outlined
+			dense
+			autocomplete="off"
+			prepend-inner-icon="sbf-keyCode"
+			placeholder=" "
+		>
+		</v-text-field>
 
-	<v-text-field
-		v-model="smsCode"
-		class="code widther"
-		color="#304FFE"
-		:rules="[rules.required]"
-		:error-messages="errors.code"
-		:label="$t('loginRegister_smsconfirm_input')"
-		height="44"
-		outlined
-		dense
-		prepend-inner-icon="sbf-keyCode"
-		placeholder=" "
-	>
-	</v-text-field>
-
-	<span class="resendCode" @click="resendCode" v-t="'loginRegister_smsconfirm_resend_code'"></span>
-  </div>
+		<span class="resendCode" @click="resendCode" v-t="'loginRegister_smsconfirm_resend_code'"></span>
+	</div>
 </template>
 
 <script>
@@ -55,7 +55,10 @@ export default {
 		}
 	},
 	watch: {
-        smsCode(){
+        smsCode(val){
+			if(val) {
+				this.$emit('setConfirmCode', val)
+			}
 			if(this.errors.code) {
 				this.errors.code = ''
 			}
@@ -82,20 +85,6 @@ export default {
 					self.$appInsights.trackException(error);
 				})
 		}
-	},
-	created() {
-		let self = this
-		this.$store.dispatch('updatePhoneCode').then(({data}) => {
-			if(data.phoneNumber) {
-				self.$emit('updatePhone', data.phoneNumber)
-			}
-			self.$store.dispatch('updateToasterParams',{
-				toasterText: self.$t("login_verification_code_sent_to_phone"),
-				showToaster: true,
-			});
-		}).catch(ex => {
-			self.$appInsights.trackException(ex);
-		})
 	}
 };
 </script>

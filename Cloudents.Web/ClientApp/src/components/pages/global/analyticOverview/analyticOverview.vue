@@ -7,7 +7,7 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
-                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
+                        <span class="pe-2 selectedItem">{{$t(`dashboardTeacher_last_days`, [selectedItem.value])}}</span>
                         <div class="arrow-down" sel="analytics_dropdown"></div>
                     </div>
                 </template>
@@ -36,7 +36,7 @@
                   <div class="minus" v-else>-</div>
                   <div class="rate font-weight-bold" v-if="val > 0">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
-                      <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
+                      <bdi class="precent me-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
                 </router-link>
             </v-col>
@@ -70,7 +70,7 @@ export default {
     navigation: {
       revenue: 'mySales',
       sales: 'mySales',
-      views: 'myContent',
+      views: 'myCourses',
       followers: 'myFollowers'
     },
     items: [
@@ -95,7 +95,7 @@ export default {
       this.getData();
     },
     getData() {
-      let self = this
+      let self = this;
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
         self.results = data;
       }).catch(ex => {
@@ -118,10 +118,10 @@ export default {
     },
     analyticTypeResource(key) {
       let resource = {
-        revenue: 'dashboardTeacher_revenue',
-        sales: 'dashboardTeacher_sales',
-        views: 'dashboardTeacher_views',
-        followers: 'dashboardTeacher_followers'
+        revenue: this.$t('dashboardTeacher_revenue'),
+        sales: this.$t('dashboardTeacher_sales'),
+        views: this.$t('dashboardTeacher_views'),
+        followers: this.$t('dashboardTeacher_followers')
       }
       return resource[key]
     }

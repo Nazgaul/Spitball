@@ -30,20 +30,20 @@ namespace Cloudents.Web.Seo
 
         public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
-            var t = _session.Query<ReadTutor>();
+            var t = _session.Query<Tutor>();
             if (isFrymo)
             {
-                t = t.Where(w => w.SbCountry == Country.India);
+                t = t.Where(w => w.User.SbCountry == Country.India);
             }
             else
             {
-                t = t.Where(w => w.SbCountry != Country.India);
+                t = t.Where(w => w.User.SbCountry != Country.India);
             }
 
 
             var tutors = t.Take(SiteMapController.PageSize)
               .Skip(SiteMapController.PageSize * index)
-              .Select(s => new { s.Id, s.Name, s.ImageName });
+              .Select(s => new { s.Id, s.User.Name, s.User.ImageName });
 
             foreach (var item in tutors)
             {
@@ -73,15 +73,5 @@ namespace Cloudents.Web.Seo
 
             }
         }
-
-        //private static bool FilterCountry(ReadTutor w, bool isFrymo)
-        //{
-        //    if (isFrymo)
-        //    {
-        //        return w.Country == Country.India.Name;
-        //    }
-
-        //    return w.Country != Country.India.Name;
-        //}
     }
 }

@@ -21,15 +21,11 @@ namespace Cloudents.Command.CommandHandler
             if (message == null) throw new ArgumentNullException(nameof(message));
             if (string.IsNullOrEmpty(message.Token)) throw new ArgumentNullException(nameof(message));
             var user = await _userRepository.GetUserByEmailAsync(message.UserEmail, token);
-            if (user == null)
+            if (user == null || user.Tutor == null)
             {
                 throw new NullReferenceException($"{message.UserEmail} does not exists");
             }
-            //if (user.Tutor.SellerKey != null)
-            //{
-            //    throw new ArgumentException();
-            //}
-            user.Tutor.SellerKey = message.Token;
+            user.Tutor.SetSellerKey(message.Token);
         }
     }
 }

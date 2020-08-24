@@ -1,5 +1,4 @@
 import { staticComponents } from './routesUtils.js';
-import store from '../store';
 import * as routeName from "./routeNames.js";
 
 const dashboardPages = {
@@ -18,6 +17,7 @@ export const dashboardRoutes = [
            })
        },
        meta: {
+           requiresTutor: true,
            requiresAuth: true,
            showMobileFooter: true,
        },
@@ -37,18 +37,22 @@ export const dashboardRoutes = [
        },
    },
    {
-       path: "/my-content",
-       components: dashboardPages,
-       name: "myContent",
-       props: {
-           default: (route) => ({
-               component: route.name,
-           })
-       },
+       path: "/my-courses",
+       name: "myCourses",
+        components: {
+            default: () => import(`../components/pages/dashboardPage/myCourses/myCourses.vue`),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
        meta: {
+           requiresTutor: true,
            requiresAuth: true,
            showMobileFooter: true,
        },
+   },
+   // this is route protect for reference to my-content
+   {
+       path: '/my-content',
+       redirect: 'my-courses'
    },
    {
        path: "/my-purchases",
@@ -81,7 +85,7 @@ export const dashboardRoutes = [
         path: "/study-rooms-broadcast",
         name: "myStudyRoomsBroadcast",
         components: {
-            default: () => import(`../components/pages/dashboardPage/myStudyRooms/myStudyRooms.vue`),
+            default: () => import(`../components/pages/dashboardPage/scheduledClasses/scheduledClasses.vue`),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         props: {
@@ -90,6 +94,7 @@ export const dashboardRoutes = [
             }),
         },
         meta: {
+            requiresTutor: true,
             type: 'broadcast',
             requiresAuth: true,
             showMobileFooter: true,
@@ -105,6 +110,7 @@ export const dashboardRoutes = [
             })
         },
         meta: {
+            requiresTutor: true,
             requiresAuth: true,
             showMobileFooter: true,
         },
@@ -116,15 +122,8 @@ export const dashboardRoutes = [
             default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
-        beforeEnter: (to, from, next) => {
-            if(store.getters.getIsTeacher){
-                next()
-                return
-            }
-            // Redirect to root
-            next('/')
-        },
         meta: {
+            requiresTutor: true,
             showMobileFooter: true,
             requiresAuth: true,
         },
@@ -136,14 +135,8 @@ export const dashboardRoutes = [
             default: () => import('../components/pages/dashboardPage/myCoupons/myCoupons.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu']),
         },
-        beforeEnter: (to, from, next) => {
-            if(store.getters.getIsTeacher){
-                next()
-                return
-            }
-            next('/')
-        },
         meta: {
+            requiresTutor: true,
             showMobileFooter: true,
             requiresAuth: true,
         }

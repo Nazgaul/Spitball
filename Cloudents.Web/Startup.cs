@@ -36,7 +36,10 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure;
+using Cloudents.Web.Models;
 using Cloudents.Web.Seo;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Newtonsoft.Json.Serialization;
@@ -121,14 +124,14 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 
 
-            containerBuilder.RegisterType<SeoDocumentBuilder>()
-                .Keyed<IBuildSeo>(SeoType.Document);
+            //containerBuilder.RegisterType<SeoDocumentBuilder>()
+            //    .Keyed<IBuildSeo>(SeoType.Document);
             containerBuilder.RegisterType<SeoTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Tutor);
             containerBuilder.RegisterType<SeoStaticBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Static);
-            containerBuilder.RegisterType<SeoQuestionBuilder>()
-                .Keyed<IBuildSeo>(SeoType.Question);
+            //containerBuilder.RegisterType<SeoQuestionBuilder>()
+            //    .Keyed<IBuildSeo>(SeoType.Question);
 
             containerBuilder.RegisterType<SeoCourseTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.TutorList);
@@ -235,6 +238,12 @@ namespace Cloudents.Web
                         telemetryClient.TrackEvent($"Bad request - {actionContext.HttpContext.Request.GetDisplayUrl()}", errorList);
                         return new BadRequestObjectResult(actionContext.ModelState);
                     };
+                })
+                .AddFluentValidation(fv=>
+                {
+                    
+                    fv.RegisterValidatorsFromAssemblyContaining<UpdateCourseLandingCommandValidator>();
+                  //  fv.ImplicitlyValidateChildProperties = true;
                 });
             if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {
@@ -308,6 +317,13 @@ namespace Cloudents.Web
             {
                  o.AddPolicy("Tutor",x=>x.RequireClaim(AppClaimsPrincipalFactory.TutorClaim,bool.TrueString));
             });
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
+                options.ClientSecret = "lSncxmb-F0cmii1OdDiKXrs-";
+                options.ClaimActions.MapJsonKey("image","picture");
+
+            });
 
 
         }
@@ -351,7 +367,7 @@ namespace Cloudents.Web
             }
 
             app.UseRewriter(reWriterOptions);
-
+            app.UseHttpsRedirection();
 
             app.UseResponseCaching();
 

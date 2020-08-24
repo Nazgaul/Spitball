@@ -48,7 +48,7 @@ export default {
     urlLink() {
       let urlLink;
       if(this.document) {
-        urlLink = `${global.location.origin}/d/${this.document.id}?t=${Date.now()}&theme=${this.theme}`;
+        urlLink = `${global.location.origin}/course/${this.document.id}?t=${Date.now()}`;
       } else {
         urlLink = `${global.location.origin}/p/${this.user.id}?t=${Date.now()}`;
       }
@@ -57,6 +57,19 @@ export default {
     shareContentParams(){
       let urlLink = this.urlLink;
       let user = this.user;
+      if(this.document) {
+        let courseName = this.$store.getters.getCourseName
+        let courseDescription = this.$store.getters.getDescription
+        return {
+          link: urlLink,
+          twitter: this.$t('shareContent_course_twitter_whatsapp',[courseName]),
+          whatsApp: this.$t('shareContent_course_twitter_whatsapp',[courseName]),
+          email: {
+            subject: this.$t('shareContent_course_email_subject',[courseName]),
+            body: this.$t('shareContent_course_email_body',[courseName, courseDescription]),
+          }
+        }
+      }
       return {
         link: urlLink,
         twitter: this.$t('shareContent_share_profile_twitter',[user.name,urlLink]),
@@ -69,12 +82,12 @@ export default {
     },
     publishImage() {
       let user = this.user;
-      let rtl = global.country === 'IL' ? true : false;
+      let rtl = global.country === 'IL';
       //TODO: move to store
       if(this.dataType === 'profile') {
         return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}`
-      }
-      return `${window.functionApp}/api/share/document/${this.document.id}?theme=${this.theme}&width=420&height=220&rtl=${rtl}`
+      } 
+      return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=1?&width=420&height=220&mode=crop`
     },
   },
   methods: {

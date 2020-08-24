@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query.Payment;
 using Stripe;
 using Stripe.Checkout;
 
@@ -19,12 +19,19 @@ namespace Cloudents.Infrastructure.Payments
             StripeConfiguration.ApiKey = configuration.Stripe;
         }
 
-        public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
+        //public async Task<(string receipt, long points)> GetBuyPointDataByIdAsync(string sessionId, CancellationToken token)
+        //{
+        //    var session = await GetSessionByIdAsync(sessionId, token);
+        //    var amountOfPoints = long.Parse(session.Metadata["Points"]);
+        //    var paymentId = session.PaymentIntentId;
+        //    return (paymentId, amountOfPoints);
+        //}
+
+
+        public async Task<Dictionary<string, string>> GetMetaDataAsync(string sessionId, CancellationToken token)
         {
             var session = await GetSessionByIdAsync(sessionId, token);
-            var amountOfPoints = long.Parse(session.Metadata["Points"]);
-            var paymentId = session.PaymentIntentId;
-            return (paymentId, amountOfPoints);
+            return session.Metadata;
         }
 
         public async Task<long> GetSubscriptionByIdAsync(string sessionId, CancellationToken token)
@@ -199,7 +206,8 @@ namespace Cloudents.Infrastructure.Payments
             return result.Id;
         }
 
-        public async Task<string> BuyPointsAsync(PointBundle bundle, string email, string successCallback, string fallbackCallback, CancellationToken token)
+        public async Task<string> CreatePaymentAsync(StripePaymentRequest model,
+            CancellationToken token)
         {
 
             var options = new SessionCreateOptions
@@ -210,28 +218,29 @@ namespace Cloudents.Infrastructure.Payments
                 },
                 LineItems = new List<SessionLineItemOptions> {
                     new SessionLineItemOptions {
-                        Name = "Buy Points on Spitball",
-                        Amount = (long)(bundle.PriceInUsd * 100),
-                        Currency = "usd",
+                        Name = model.Name,
+                        Amount = model.Money.Cents,
+                        Currency = model.Money.Currency.ToLowerInvariant(),
                         Quantity = 1
+                        
                     },
 
                 },
-                Metadata = new Dictionary<string, string>()
-                {
-                    ["Points"] = bundle.Points.ToString()
-                },
+                Metadata = model.Metadata,
 
-                SuccessUrl = successCallback,
-                CancelUrl = fallbackCallback,
-                CustomerEmail = email
+                SuccessUrl = model.SuccessCallback,
+                CancelUrl = model.FallbackCallback,
+                CustomerEmail = model.Email,
+                
             };
 
             var service = new SessionService();
             var session = await service.CreateAsync(options, cancellationToken: token);
             return session.Id;
-
         }
+
+
+
 
         public Task<string> ChargeSessionAsync(StudyRoomPayment sessionPayment, double price, CancellationToken token)
         {

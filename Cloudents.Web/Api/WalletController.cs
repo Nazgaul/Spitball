@@ -1,11 +1,9 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Users;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -20,10 +18,13 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Query.Payment;
+using Cloudents.Query.Courses;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -32,6 +33,7 @@ namespace Cloudents.Web.Api
     [Authorize, ApiController]
     public class WalletController : ControllerBase
     {
+        public const string StudyRoomIdMetaData = "StudyRoomId";
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
@@ -47,16 +49,7 @@ namespace Cloudents.Web.Api
             _payment = payment;
         }
 
-        // GET
-        [HttpGet("balance")]
-        public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId), token);
-
-            return retVal;
-        }
-
+      
 
 
 
@@ -84,30 +77,7 @@ namespace Cloudents.Web.Api
 
         #region PayMe
 
-        [HttpPost("BuyTokens")]
-        public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model, CancellationToken token)
-        {
-
-            var user = await _userManager.GetUserAsync(User);
-            var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName2, new
-            {
-                userId = user.Id,
-                points = model.Points
-            }, "https");
-
-            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
-            var result = await _payment.Value.BuyTokens(bundle!, urlReturn, token);
-            var saleUrl = new UriBuilder(result.SaleUrl);
-            saleUrl.AddQuery(new NameValueCollection()
-            {
-                ["first_name"] = user.FirstName,
-                ["last_name"] = user.LastName,
-                ["phone"] = user.PhoneNumber,
-                ["email"] = user.Email,
-            });
-            return new SaleResponse(saleUrl.Uri);
-        }
-
+     
         /// <summary>
         /// Generate a buyer for - don't forget to run ngrok if you run it locally
         /// </summary>
@@ -134,7 +104,7 @@ namespace Cloudents.Web.Api
                 }, "https");
 
 
-                var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName, new
+                var urlReturn = Url.RouteUrl(PaymeController.PaymeCallbackRouteName, new
                 {
                     userId = user.Id
                 }, "https");
@@ -157,7 +127,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
+        public async Task<IActionResult> PayMeCallbackAsync([FromQuery] long userId,
             [FromForm] PayMeBuyerCallbackRequest model,
             [FromServices] TelemetryClient client,
             CancellationToken token)
@@ -205,55 +175,127 @@ namespace Cloudents.Web.Api
 
 
 
-        #endregion
-
-       
-
-        #region Stripe
-        [HttpPost("Stripe/StudyRoom")]
-        public async Task<IActionResult> StripeAsync(
+        [HttpPost("Payme/Course/{id:long}")]
+        public async Task<IActionResult> PaymeAsync(long id,
+            [FromServices] IPaymeProvider paymeProvider,
+            [FromHeader(Name = "referer")] string referer,
             CancellationToken token)
         {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new AddStripeCustomerCommand(userId);
-            await _commandBus.DispatchAsync(command, token);
+
+            var user = await _userManager.GetUserAsync(User);
+            var query = new CourseByIdQuery(id, user.Id);
+            var courseDetail = await _queryBus.QueryAsync(query, token);
+
+            var urlReturn = Url.RouteUrl(PaymeController.EnrollStudyRoom, new
+            {
+                userId = user.Id,
+                courseId = id,
+                redirectUrl = referer
+            }, "https");
+            var result = await paymeProvider.BuyCourseAsync(courseDetail.Price, courseDetail.Name, urlReturn,
+                courseDetail.TutorSellerKey, token);
+            
             return Ok(new
             {
-                secret = command.ClientSecretId
+                sessionId = result.SaleUrl
             });
-        }
-        
 
-      
-        [HttpPost("Stripe")]
-        public async Task<IActionResult> GetStripe(
-            BuyPointsRequest model,
+
+        }
+
+
+        #endregion
+
+
+
+        #region Stripe
+        [HttpPost("Stripe/Course/{id:long}")]
+        public async Task<IActionResult> StripeAsync(long id,
             [FromHeader(Name = "referer")] string referer,
             [FromServices] IStripeService service,
             CancellationToken token)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new CourseByIdQuery(id, userId);
+            var studyRoomResult = await _queryBus.QueryAsync(query, token);
+
             var uriBuilder = new UriBuilder(referer)
             {
                 Query = string.Empty
             };
-            var url = new UriBuilder(Url.RouteUrl("stripe-buy-points", new
+
+            var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom, new
             {
                 redirectUrl = uriBuilder.ToString()
             }, "https"));
-            var bundle = Enumeration.FromValue<PointBundle>(model.Points);
+
             var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
 
-            var result = await service.BuyPointsAsync(bundle!, user.Email, successCallback, referer, token);
+            var stripePaymentRequest = new StripePaymentRequest(studyRoomResult.Name,
+                studyRoomResult.Price,
+                email,
+                successCallback,
+                referer)
+            {
+                Metadata = new Dictionary<string, string>()
+                {
+                    [StudyRoomIdMetaData] = id.ToString(),
+                    ["UserId"] = userId.ToString()
+                }
+            };
+
+            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
             return Ok(new
             {
                 sessionId = result
             });
         }
 
-        
 
-        
+        [HttpPost("Stripe/Course/{id:guid}")]
+        public async Task<IActionResult> StripeAsync(Guid id,
+            [FromHeader(Name = "referer")] string referer,
+            [FromServices] IStripeService service,
+            CancellationToken token)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userId = _userManager.GetLongUserId(User);
+            var query = new StudyRoomQuery(id,userId);
+            var studyRoomResult = await _queryBus.QueryAsync(query, token);
+
+            var uriBuilder = new UriBuilder(referer)
+            {
+                Query = string.Empty
+            };
+            
+            var url = new UriBuilder(Url.RouteUrl(StripeController.EnrollStudyRoom2, new
+            {
+                redirectUrl = uriBuilder.ToString()
+            }, "https"));
+
+            var successCallback = url.AddQuery(("sessionId", "{CHECKOUT_SESSION_ID}"), false).ToString();
+
+            var stripePaymentRequest = new StripePaymentRequest(studyRoomResult.Name,
+                studyRoomResult.TutorPrice,
+                email,
+                successCallback,
+                referer)
+            {
+                Metadata = new Dictionary<string, string>()
+                {
+                    [StudyRoomIdMetaData] = id.ToString(),
+                    ["UserId"] = userId.ToString()
+                }
+            };
+
+            var result = await service.CreatePaymentAsync(stripePaymentRequest, token);
+            return Ok(new
+            {
+                sessionId = result
+            });
+        }
+
         #endregion
 
     }

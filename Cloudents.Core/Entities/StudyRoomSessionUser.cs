@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Cloudents.Core.Event;
@@ -8,11 +9,22 @@ namespace Cloudents.Core.Entities
     public class StudyRoomSessionUser : Entity<Guid>, IEquatable<StudyRoomSessionUser>
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public StudyRoomSessionUser(StudyRoomSession studyRoomSession, User user)
+        public StudyRoomSessionUser(StudyRoomSession studyRoomSession,
+            User user,
+            StudyRoomPayment? studyRoomPayment)
         {
             StudyRoomSession = studyRoomSession;
             User = user;
-            StudyRoomPayment = new StudyRoomPayment(this);
+            if (studyRoomPayment == null)
+            {
+                StudyRoomPayment = new StudyRoomPayment(this);
+            }
+            else
+            {
+                studyRoomPayment.StudyRoomSessionUser = this;
+                StudyRoomPayment = studyRoomPayment;
+            }
+
             UseCoupon();
         }
         [SuppressMessage("ReSharper", "CS8618", Justification = "Nhibernate proxy")]
@@ -20,7 +32,7 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual StudyRoomSession StudyRoomSession { get; protected set; }
+        public virtual StudyRoomSession StudyRoomSession { get; }
 
         public virtual User User { get; protected set; }
 
@@ -28,42 +40,35 @@ namespace Cloudents.Core.Entities
 
         public virtual int DisconnectCount { get; protected set; }
 
-        //[Obsolete]
-        //public virtual decimal PricePerHour { get; protected set; }
 
-        //[Obsolete]
-        //public virtual TimeSpan? TutorApproveTime { get; protected set; }
-
-        //[Obsolete]
-        //public virtual decimal TotalPrice { get; protected set; }
-
-        //[Obsolete]
-        //public virtual string? Receipt { get; protected set; }
-     
+        protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
 
         public virtual void Disconnect(TimeSpan durationInRoom)
         {
             Duration = Duration.GetValueOrDefault(TimeSpan.Zero) + durationInRoom;
-            StudyRoomPayment.TotalPrice = Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
+            if (StudyRoomPayment != null)
+            {
+                StudyRoomPayment.TotalPrice = Duration.Value.TotalHours * StudyRoomPayment.PricePerHour;
+            }
+
             DisconnectCount++;
         }
 
         protected virtual void UseCoupon()
         {
             var tutor = StudyRoomSession.StudyRoom.Tutor;
-            var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id 
+            var userCoupon = User.UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id
                                                              && w.IsNotUsed());
             if (userCoupon is null) // we do not check before if user have coupon on that user
             {
                 return;
             }
             userCoupon.UseCoupon(this);
-            //'userCoupon.UsedAmount++;
             AddEvent(new UseCouponEvent(userCoupon));
         }
 
 
-        public virtual bool Equals( StudyRoomSessionUser other)
+        public virtual bool Equals(StudyRoomSessionUser other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -88,7 +93,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual StudyRoomPayment StudyRoomPayment { get; set; }
+        public virtual StudyRoomPayment? StudyRoomPayment { get; set; }
 
     }
 }

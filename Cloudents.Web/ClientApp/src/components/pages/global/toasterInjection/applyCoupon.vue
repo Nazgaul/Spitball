@@ -46,6 +46,8 @@
 <script>
 import storeService from '../../../../services/store/storeService';
 import couponStore from '../../../../store/couponStore';
+import * as routeNames from '../../../../routes/routeNames';
+import EventBus from '../../../../eventBus.js';
 
 export default {
     name: 'applyCoupon',
@@ -63,11 +65,12 @@ export default {
         },
     },
     computed: {
-        isTutor() {
-            return this.$store.getters.getIsTeacher
-        },
-        roomTutor() {
-            return this.$store.getters.getRoomTutor
+        roomTutorId() {
+            if(this.$route.name === routeNames.CoursePage){
+                return this.$store.getters.getCourseDetails?.tutorId;
+            }else{
+                return this.$store.getters.getRoomTutor?.tutorId;
+            }
         },
         isCouponError() {
             return this.$store.getters.getCouponError
@@ -76,13 +79,14 @@ export default {
     methods: {
         applyCoupon() {
             this.disableApplyBtn = true;
-            let tutorId = this.roomTutor.tutorId
-            let roomId = this.$route.params.id
+            let tutorId = this.roomTutorId;
+            let roomId = this.$route.params.id;
             let coupon = this.coupon;
-            let self = this
+            let self = this;
             this.$store.dispatch('updateCoupon', {coupon, tutorId, roomId})
             .then(() => {
-                self.closeCouponDialog()
+                EventBus.$emit('applyCouponDone');
+                self.closeCouponDialog();
             }).finally(() => {
                 self.coupon = ''
                 self.disableApplyBtn = false;
@@ -95,7 +99,6 @@ export default {
             this.coupon = ''
             this.$store.commit('setCouponError', '')
             this.$store.commit('setComponent')
-            // this.$store.dispatch('updateCouponDialog', false);
         },
     },
     beforeDestroy(){

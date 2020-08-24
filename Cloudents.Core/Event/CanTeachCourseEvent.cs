@@ -3,33 +3,24 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Event
 {
-    public class CanTeachCourseEvent : IEvent
+    public class NewCourseEvent : IEvent
     {
-        public CanTeachCourseEvent(UserCourse userCourse)
+        public NewCourseEvent(Course userCourse)
         {
             UserCourse = userCourse;
         }
 
-        public UserCourse UserCourse { get; private set; }
+        public Course UserCourse { get; private set; }
     }
-
-    public class CourseChangeSubjectEvent : IEvent
+    public class UpdateCourseEvent : IEvent
     {
-        public CourseChangeSubjectEvent(Course course)
+        public UpdateCourseEvent(Course userCourse)
         {
-            Course = course;
+            UserCourse = userCourse;
         }
 
-        public Course Course { get;  }
+        public Course UserCourse { get; private set; }
     }
 
-    public class RemoveCourseEvent : IEvent
-    {
-        public RemoveCourseEvent(long userId)
-        {
-            UserId = userId;
-        }
-
-        public long UserId { get; private set; }
-    }
+   
 }

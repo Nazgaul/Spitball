@@ -2,101 +2,71 @@
     <div class="registerDialog">
         <v-form @submit.prevent="submit" ref="form" class="registerForm pa-4">  
             <div>
-                <div class="closeIcon" v-if="!isSetPhoneStep && !isStudyRoomRoute">
+                <div class="closeIcon" v-if="!isStudyRoomRoute">
                     <v-icon size="12" color="#aaa" @click="closeRegister">sbf-close</v-icon>
                 </div>
 
-                <template v-if="isEmailRegister">
-                    <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
+                <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
+<template v-if="cIsWebView">
+                <v-btn 
+                    :loading="btnLoading"
+                    @click="gmailRegister"
+                    depressed
+                    block
+                    height="40"
+                    sel="gmail"
+                    color="#da6156"
+                    class="btns white--text mb-6"
+                >
+                    <gIcon class="me-2" />
+                    <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
+                </v-btn>
 
-                    <v-btn 
-                        :disabled="!googleLoaded"
-                        @click="gmailRegister"
-                        depressed
-                        :loading="googleLoading"
-                        block
-                        height="40"
-                        sel="gmail"
-                        color="#da6156"
-                        class="btns white--text mb-6"
-                    >
-                        <gIcon class="mr-2" />
-                        <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
-                    </v-btn>
-
-                    <div class="d-flex justify-center text-center mb-6">
-                        <div class="divider"></div>
-                        <div class="or" v-t="'loginRegister_or'"></div>
-                        <div class="divider"></div>
-                    </div>
+                <div class="d-flex justify-center text-center mb-6">
+                    <div class="divider"></div>
+                    <div class="or" v-t="'loginRegister_or'"></div>
+                    <div class="divider"></div>
+                </div>
                 </template>
 
                 <component 
                     :is="component"
                     ref="childComponent"
                     :errors="errors"
-                    :phone="phoneNumber"
-                    :code="localCode"
                     :teacher="teacher"
-                    @updatePhone="updatePhone"
-                    @updateCode="updateCode"
                 >
                 </component>
             </div>
 
             <div class="bottom">
-
-                <template v-if="isVerifyPhone">
-                    <div class="verifyPhone mb-11">
-                        <div class="d-flex justify-center text-center mb-6">
-                            <div class="divider"></div>
-                            <div class="otherMethod" v-t="'loginRegister_choose_other_method'"></div>
-                            <div class="divider"></div>
-                        </div>
-
-                        <div class="methods d-flex justify-space-between">
-                            <div class="linkAction d-flex" @click="phoneCall">
-                                <phoneCall />
-                                <div class="ml-2" v-t="'loginRegister_change_number'"></div>
-                            </div>
-                            <div class="linkAction d-flex">
-                                <changeNumber />
-                                <div @click="goStep('setPhone2')" class="ml-2" v-t="'loginRegister_change_numb'"></div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-
                 <v-btn
                     type="submit"
                     depressed
                     height="40"
-                    :loading="btnLoading && !googleLoading"
+                    :loading="btnLoading"
                     block
                     class="btns white--text"
                     color="#4452fc"
                 >
-                    <span>{{globalBtnText}}</span>
+                    <span v-t="'loginRegister_setemailpass_btn'"></span>
                 </v-btn>
 
-                <template v-if="isEmailRegister">
-                    <div class="termsWrap text-center">
-                        <div class="my-3">
-                            <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
-                            <a class="link" :href="termsLink" target="_blank" v-t="'loginRegister_getstarted_terms_terms'"></a>
-                            <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
-                            <a class="link" :href="policyLink" target="_blank" v-t="'loginRegister_getstarted_terms_privacy'"></a>
-                        </div>
+                <div class="termsWrap text-center">
+                    <div class="my-3">
+                        <span v-t="'loginRegister_getstarted_terms_i_agree'"></span>
+                        <a class="link" :href="termsLink" target="_blank" v-t="'loginRegister_getstarted_terms_terms'"></a>
+                        <span class="" v-t="'loginRegister_getstarted_terms_and'"></span>
+                        <a class="link" :href="policyLink" target="_blank" v-t="'loginRegister_getstarted_terms_privacy'"></a>
                     </div>
+                </div>
 
-                    <div class="getStartedBottom mt-2">    
-                        <div class="text-center">
-                            <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
-                            <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
-                        </div>
+                <div class="getStartedBottom mt-2">    
+                    <div class="text-center">
+                        <span class="needAccount" v-t="'loginRegister_getstarted_signin_text'"></span>
+                        <span class="link" v-t="'loginRegister_getstarted_signin_link'" @click="$emit('goTo', 'login')"></span>
                     </div>
+                </div>
 
-                </template>
             </div>
         </v-form>
 
@@ -106,42 +76,32 @@
             :sitekey="siteKey"
             ref="recaptcha"
             @verify="onVerify"
-            @expired="onExpired()"
+            @expired="onExpired"
         /> 
     </div>
 </template>
 
 <script>
 import registrationService from '../../../../../../../services/registrationService2';
-
 import analyticsService from '../../../../../../../services/analytics.service.js';
-
 import authMixin from '../authMixin'
-
 import VueRecaptcha from "vue-recaptcha";
 
 const emailRegister = () => import('./emailRegister.vue');
-const setPhone2 = () => import('./setPhone2.vue');
-const verifyPhone = () => import('./verifyPhone.vue');
 
 import gIcon from '../images/g-icon.svg'
-import changeNumber from '../images/changeNumber.svg'
-import phoneCall from '../images/phoneCall.svg'
 
 export default {
     mixins: [authMixin],
     components: {
         emailRegister,
-        setPhone2,
-        verifyPhone,
         VueRecaptcha,
-        changeNumber,
-        phoneCall,
         gIcon
     },
     props: {
         params: {},
     },
+  
     data() {
         return {
             component: 'emailRegister',
@@ -149,17 +109,6 @@ export default {
             recaptcha: "",
             siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
         }
-    },
-    computed: {
-        globalBtnText() {
-            return this.isVerifyPhone ? this.$t('loginRegister_setemailpass_btn_verify') : this.$t('loginRegister_setemailpass_btn')
-        },
-        isSetPhoneStep() {
-            return this.component === 'setPhone2'
-        },
-        isEmailRegister() {
-            return this.component === 'emailRegister'
-        },
     },
     methods: {
         closeRegister() {
@@ -172,19 +121,7 @@ export default {
         submit() {
             let formValidate = this.$refs.form.validate()
             if(formValidate) {
-                switch(this.component) {
-                    case 'emailRegister':
-                        this.$refs.recaptcha.execute()
-                        break;
-                    case 'setPhone2':
-                        this.sendSms()
-                        break;
-                    case 'verifyPhone':
-                        this.verifyPhone()
-                        break;
-                    default:
-                        return
-                }
+                this.$refs.recaptcha.execute()
             }
         },
         onVerify(response) {
@@ -207,14 +144,12 @@ export default {
             }
             let self = this
             registrationService.emailRegistration(emailRegister)
-                .then(({data}) => {
+                .then(() => {
                     analyticsService.sb_unitedEvent('Registration', 'Start')
-                    if (data && data.param && data.param.phoneNumber) {
-                        self.component = data.step.name
-                        self.phoneNumber = data.param.phoneNumber
-                        return
-                    }
-                    self.component = 'setPhone2'
+
+                    if(self.presetRouting()) return
+
+                    window.location.reload()
                 }).catch(error => {
                     let { response: { data } } = error
 

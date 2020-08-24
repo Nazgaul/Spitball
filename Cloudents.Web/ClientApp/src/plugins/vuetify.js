@@ -28,17 +28,17 @@ const MY_ICONS = {
   lock: 'sbf-lock',
   prev: 'sbf-arrow-left-carousel',
   next: 'sbf-arrow-right-carousel',
-  // checkboxOn: '...',
-  // checkboxOff: '...',
+   checkboxOn: 'sbf-check-box-done',
+   checkboxOff: 'sbf-check-box-un',
   // checkboxIndeterminate: '...',
  // delimiter: '...', // for carousel
   sort: 'sbf-arrow-up',
   // expand: '...',
   // menu: '...',
   // subgroup: '...',
-  // dropdown: '...',
-  // radioOn: '...',
-  // radioOff: '...',
+  dropdown: 'sbf-arrow-down',
+  radioOn: 'sbf-radioOn',
+  radioOff: 'sbf-radioOff',
   // edit: '...',
   ratingEmpty: 'sbf-star-rating-empty',
   ratingFull: 'sbf-star-rating-full',
@@ -49,7 +49,6 @@ const MY_ICONS = {
   // unfold: '...',
   // file: '...',
 }
-
 const opts = {
   lang: {
     locales: { en, he },
@@ -60,7 +59,8 @@ const opts = {
   // },
   icons: {
     values: MY_ICONS
-  }
+  },
+  rtl: document.dir === "rtl"//global.isRtl
 }
 
 export default new Vuetify(opts)

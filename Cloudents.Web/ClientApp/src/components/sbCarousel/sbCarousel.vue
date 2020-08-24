@@ -34,9 +34,11 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import { Flicking } from "@egjs/vue-flicking";
 
 export default {
     name:'sbCarousel',
+    components: {Flicking},
     props:{
         name:{
             type: String,

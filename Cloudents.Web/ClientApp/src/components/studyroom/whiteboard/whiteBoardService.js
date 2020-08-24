@@ -67,7 +67,7 @@ const ghostDeleteData = function(actionObj, fromUndo){
     dragData = store.getters['getDragData'];
     dragData.forEach(shape=>{
         if(actionObj.ids.indexOf(shape.id) > -1){
-            shape.visible = fromUndo ? true : false;
+            shape.visible = !!fromUndo;
         }
     });
 };

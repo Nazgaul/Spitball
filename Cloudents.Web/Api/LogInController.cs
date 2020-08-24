@@ -10,7 +10,8 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
+using Cloudents.Core.Extension;
+using Microsoft.ApplicationInsights;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
@@ -19,17 +20,19 @@ namespace Cloudents.Web.Api
     public class LogInController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly SbSignInManager _signInManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ICommandBus _commandBus;
+        private readonly TelemetryClient _logClient;
         private readonly IStringLocalizer<LogInController> _localizer;
 
-        public LogInController(UserManager<User> userManager, SbSignInManager signInManager,
-            IStringLocalizer<LogInController> localizer, ICommandBus commandBus)
+        public LogInController(UserManager<User> userManager, SignInManager<User> signInManager,
+            IStringLocalizer<LogInController> localizer, ICommandBus commandBus, TelemetryClient logClient)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _localizer = localizer;
             _commandBus = commandBus;
+            _logClient = logClient;
         }
 
         // GET
@@ -45,12 +48,7 @@ namespace Cloudents.Web.Api
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user is null)
             {
-                ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
-                return BadRequest(ModelState);
-            }
-
-            if (user.PhoneNumber == null)
-            {
+                _logClient.TrackTrace("can find user", model.AsDictionary());
                 ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
                 return BadRequest(ModelState);
             }
@@ -67,15 +65,16 @@ namespace Cloudents.Web.Api
                 return Ok(new { user.Country });
             }
 
-
             if (result.IsLockedOut)
             {
                 if (user.LockoutEnd == DateTimeOffset.MaxValue)
                 {
+                    _logClient.TrackTrace("user locked out", model.AsDictionary());
                     ModelState.AddModelError(nameof(model.Password), _localizer["LockOut"]);
                     return BadRequest(ModelState);
                 }
 
+                _logClient.TrackTrace("user temp locked out", model.AsDictionary());
                 ModelState.AddModelError(nameof(model.Password), _localizer["TempLockOut"]);
                 return BadRequest(ModelState);
             }
@@ -83,47 +82,12 @@ namespace Cloudents.Web.Api
 
             if (result.IsNotAllowed)
             {
+                _logClient.TrackTrace("user is not allowed", model.AsDictionary());
                 ModelState.AddModelError(nameof(model.Password), _localizer["NotAllowed"]);
                 return BadRequest(ModelState);
-
             }
             ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
             return BadRequest(ModelState);
-
-
         }
-
-
-        //[HttpGet("ValidateEmail")]
-        //[ResponseCache(Duration = TimeConst.Minute * 2, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { nameof(EmailValidateRequest.Email) })]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        //[ProducesDefaultResponseType]
-        //public async Task<ActionResult<ReturnSignUserResponse>> CheckUserStatusAsync(
-        //    [FromQuery] EmailValidateRequest model)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(model.Email);
-        //    if (user is null)
-        //    {
-        //        ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (!user.PhoneNumberConfirmed)
-        //    {
-        //        //if (user.OldUser.GetValueOrDefault())
-        //        //{
-        //        //    return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
-        //        //}
-        //        ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (user.PasswordHash is null)
-        //    {
-        //        return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
-        //    }
-        //    return new ReturnSignUserResponse(RegistrationStep.LoginSetPassword);
-        //}
     }
 }

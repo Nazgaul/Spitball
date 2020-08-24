@@ -1,10 +1,10 @@
 <template>
    <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
       <a @click="resetItems()">
-         <logoComponent/>
+         <logoComponent class="studyRoomMainLogo"/>
       </a>
       <div class="roundShape"></div>
-      <v-toolbar-title class="white--text mr-7">
+      <v-toolbar-title class="white--text me-7">
          <span class="liveText">{{$t('studyRoom_live')}}</span>
          </v-toolbar-title>
       <template v-if="isRoomTutor" >
@@ -13,7 +13,7 @@
             <button :key="objectKey" @click="actionHandler(objectKey)"
                :class="['tutorNavTab', 'd-flex','flex-md-column','px-lg-5','px-md-4','align-md-center','flex-lg-row','justify-md-center',
                   {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
-                  <v-icon class="mr-md-0 mr-lg-2" style="vertical-align: sub;" size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'">
+                  <v-icon class="me-md-0 me-lg-2" style="vertical-align: sub;" size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'">
                      {{navTab.icon}}
                   </v-icon>
                   <span>
@@ -24,7 +24,7 @@
       </template>
       <template v-else>
          <button :class="['tutorNavTab','tutorNavTab-active','px-5']" style="cursor:initial" >
-               <v-icon class="mr-2" style="vertical-align: sub;" size="15" color="#4c59ff">
+               <v-icon class="me-2" style="vertical-align: sub;" size="15" color="#4c59ff">
                   {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
                </v-icon>
                <span>
@@ -33,10 +33,20 @@
          </button>
       </template>
       <v-spacer></v-spacer>
+      <v-btn v-if="isRoomTutor" class="mb-2" :ripple="false" text @click="muteAll()">
+         <div class="muteAllBtn">
+            <v-icon size="16">sbf-microphone</v-icon>
+            <span>{{$t('tutor_mute_room')}}</span>
+         </div>
+      </v-btn>
+      <button :class="['endBtn','mb-2',{'ms-2':!isRoomTutor}]" @click="endSession()">
+         <div class="btnIcon"></div>
+         <span>{{isRoomTutor? $t('studyRoom_end') : $t('studyRoom_end_student')}}</span>
+      </button>
       <template v-if="roomNetworkQualityLevel">
          <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-               <div v-on="on" class="net mr-4 mt-3" >
+               <div v-on="on" class="net ms-3 me-3 mt-3" >
                   <div v-for="(item, index) in 5" :key="index" :class="['bar',{'barFull':roomNetworkQualityLevel <= index}]"></div>
                </div>
             </template>
@@ -45,19 +55,6 @@
             <div dir="auto" v-if="roomNetworkQualityStats.remoteAudioReceive" v-text="$t('remoteAudioReceive',{0:roomNetworkQualityStats.remoteAudioReceive})"/>
             <div dir="auto" v-if="roomNetworkQualityStats.remoteVideoReceive" v-text="$t('remoteVideoReceive',{0:roomNetworkQualityStats.remoteVideoReceive})"/>
          </v-tooltip>
-      </template>
-      <template v-if="isRoomTutor">
-         <v-btn class="mb-2" :ripple="false" text @click="muteAll()">
-            <div class="muteAllBtn">
-               <v-icon v-if="$store.getters.getIsAudioParticipants" size="16">sbf-microphone</v-icon>
-               <v-icon v-else size="16">sbf-mic-ignore</v-icon>
-               <span>{{$t($store.getters.getIsAudioParticipants?'tutor_mute_room':'tutor_unmute_room')}}</span>
-            </div>
-         </v-btn>
-         <button class="endBtn mb-2" @click="endSession()">
-            <div class="btnIcon"></div>
-            <span>{{$t('studyRoom_end')}}</span>
-         </button>
       </template>
       <v-menu offset-y min-width="158" content-class="menuStudyRoom">
          <template v-slot:activator="{ on }">
@@ -68,20 +65,20 @@
          <v-list>
             <v-list-item class="menuStudyRoomOption" @click="toggleRecord">
                <template v-if="!getIsRecording">
-                     <v-icon color="7a798c" class="mr-2" size="20">sbf-record</v-icon> 
+                     <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
                      {{$t('tutor_begain_recording')}}
                </template>
                <template v-else>
-                     <v-icon color="7a798c" class="mr-2" size="20">sbf-record</v-icon> 
+                     <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
                      {{$t('tutor_stop_recording')}}
                </template>
             </v-list-item>
             <v-list-item class="menuStudyRoomOption" sel="setting_draw" @click="openSettingsDialog">
-                  <v-icon color="7a798c" class="mr-2" size="20">sbf-settings</v-icon> 
+                  <v-icon color="7a798c" class="me-2" size="20">sbf-settings</v-icon> 
                   {{$t('studyRoom_menu_settings')}}
             </v-list-item>
             <v-list-item class="menuStudyRoomOption" sel="help_draw" @click="showIntercom">
-                  <v-icon color="7a798c" class="mr-2" size="20">sbf-help-icon</v-icon> 
+                  <v-icon color="7a798c" class="me-2" size="20">sbf-help-icon</v-icon> 
                   {{$t('studyRoom_menu_help')}}
             </v-list-item>
             </v-list>
@@ -179,8 +176,12 @@ export default {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.SCREEN_MODE)
       },
       endSession() {
-            this.$ga.event("tutoringRoom", "endSession");
+         this.$ga.event("tutoringRoom", "endSession");
+         if(this.isRoomTutor){
             this.$store.dispatch('updateEndDialog',true)
+         }else{
+            this.$store.dispatch('updateEndSession')
+         }
       },
       actionHandler(editorType){
          let actionsOptions = {
@@ -194,6 +195,7 @@ export default {
       },
       muteAll(){
          this.$store.dispatch('updateToggleAudioParticipants')
+         this.$emit('roomMuted')
       },
       getIsCurrentMode(modeName){
          if(modeName == this.roomModes.CLASS_SCREEN){
@@ -219,8 +221,10 @@ export default {
          padding-top: 10px;
          padding-right: 6px;
       }
-      .logo {
-         fill: #fff;
+      .studyRoomMainLogo {
+         .logo {
+            fill: #fff !important;
+         }
       }
       .tutorNavTab{
          outline: none;
@@ -276,42 +280,43 @@ export default {
          }
       }
       .net{
-         @barWidth : 5px;
+         @barWidth : 3px;
          width: @barWidth * 5;
          position: relative;
-         height: 10px;
+         height: 12px;
          .bar{
             position: absolute;
             bottom: 0;
             width: @barWidth;
             &:nth-child(1){
                background: white;
-               height: 10px;
+               height: 3px;
                left: @barWidth * 0 + 3px;
             }
             &:nth-child(2){
                background: white;
-               height: 15px;
+               height: 8px;
                left: @barWidth * 1 + 6px
             }
             &:nth-child(3){
                background: white;
-               height: 20px;
+               height: 13px;
                left: @barWidth * 2 + 9px
             }
             &:nth-child(4){
                background: white;
-               height: 25px;
+               height: 18px;
                left: @barWidth * 3 + 12px
             }
 
             &:nth-child(5){
                background: white;
-               height: 30px;
+               height: 23px;
                left: @barWidth * 4 + 15px
             } 
             &.barFull{
-               background: rgb(108 117 253);
+               // background: rgb(108 117 253);
+               background: #3742CF;
                z-index: 2;
             }
          }

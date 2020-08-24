@@ -2,15 +2,14 @@
     <div  class="tutor-landing-page-container">
         <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
             <v-flex pt-6 pb-4>
-                <div v-if="subjectName" class="tutor-landing-title" v-text="$t('tutorListLanding_header_get_lesson_subject',[subjectName])" />
-                <div v-else class="tutor-landing-title" v-t="'tutorListLanding_header_get_lesson'"/>
+                <div class="tutor-landing-title" v-t="'tutorListLanding_header_get_lesson'"/>
             </v-flex>
             <v-flex pb-6>
                 <div class="tutor-landing-subtitle" v-t="'tutorListLanding_header_find_tutors'"></div>
             </v-flex>
             <v-flex class="pb-sm-6">
                 <span class="rating_tutorLanding">
-                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-t="'tutorListLanding_reviews'"></span>
+                    <span class="me-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ms-1" v-t="'tutorListLanding_reviews'"></span>
                 </span>
             </v-flex>
         </v-layout>
@@ -58,7 +57,6 @@ const sbCarousel = () => import(/* webpackChunkName: "sbCarousel" */'../sbCarous
 
 import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
 import tutorLandingPageService from './tutorLandingPageService';
-import courseService from '../../services/courseService.js';
 import * as routeName from "../../routes/routeNames.js";
 
 import { mapActions,mapGetters } from 'vuex'
@@ -84,7 +82,6 @@ export default {
             },
             showEmptyState: false,
             topOffset: 0,
-            subjectName: null,
         }
     },
     computed:{
@@ -132,12 +129,6 @@ export default {
                 self.items = data.result;
                 self.pagination.length = Math.ceil(data.count / self.query.pageSize)
                 self.showEmptyState = true;
-                self.subjectName = null;
-                if(this.query.term){
-                    courseService.getSubject({courseName: this.query.term}).then(res=>{
-                        self.subjectName = res.name;
-                    })
-                }
             })
         },
         goSelected(){
@@ -148,7 +139,7 @@ export default {
                     page: this.pagination.current -1,
                 },
                 params:{
-                    course: this.query.term
+                    course: this.query.term || undefined
                 }
             }).catch(() => {})
         },
@@ -275,7 +266,6 @@ export default {
             &.v-pagination__item--active{
                 color: initial !important;
                 background-color: initial !important;
-                border: none !important;
                 border: 1px solid rgb(68, 82, 252) !important;
             }
         }
@@ -284,7 +274,6 @@ export default {
             background-color: initial !important;
             box-shadow: none !important;
             i{
-                transform: scaleX(1)/*rtl:scaleX(-1)*/; 
                 color: rgb(68, 82, 252) !important;
                 font-size: 16px;
             }

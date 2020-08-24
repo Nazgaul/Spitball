@@ -36,10 +36,4 @@ namespace Cloudents.Web.Models
         [Captcha]
         public string Captcha { get; set; }
     }
-
-    public enum UserType
-    {
-        Student,
-        Tutor
-    }
 }

@@ -82,13 +82,6 @@ function createUserInfoItem(data) {
     return new UserInfo(data);
 }
 
-function QuestionItem(objInit) {
-    this.id = objInit.id || 0;
-    this.create = objInit.created;
-    this.text = objInit.text;
-    this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
-}
-
 function DocumentItem(objInit) {
     this.name = objInit.name;
     this.id = objInit.id;
@@ -100,15 +93,6 @@ function DocumentItem(objInit) {
     this.siteLink = objInit.siteLink || 'Not specified';
 }
 
-function AnswerItem(objInit) {
-    this.id = objInit.id;
-    this.questionId = objInit.questionId;
-    this.create = objInit.created;
-    this.text = objInit.text;
-    this.questionText = objInit.questionText;
-    this.state = objInit.state ? objInit.state.toLowerCase() : 'ok';
-}
-
 function PurchasedDocItem(objInit) {
     this.id = objInit.documentId  || 'no ID';
     this.title = objInit.title  || 'not specified';
@@ -116,21 +100,9 @@ function PurchasedDocItem(objInit) {
     this.price = Math.abs(objInit.price ) || 'not specified';
 }
 
-function createQuestionItem(data) {
-    return data.map((item) => {
-        return new QuestionItem(item);
-    });
-}
-
 function createDocumentItem(data) {
     return data.map((item) => {
         return new DocumentItem(item);
-    });
-}
-
-function createAnswerItem(data) {
-    return data.map((item) => {
-        return new AnswerItem(item);
     });
 }
 function createPurchasedDocItem(data) {
@@ -228,28 +200,6 @@ export default {
                 return error;
             });
     },
-    getUserQuestions: (id, page) => {
-        let path = `AdminUser/questions?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createQuestionItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return error;
-            });
-    },
-    getUserAnswers: (id, page) => {
-        let path = `AdminUser/answers?id=${id}&page=${page}`;
-        return connectivityModule.http.get(path)
-            .then((resp) => {
-                return createAnswerItem(resp);
-
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return error;
-            });
-    },
     getPurchasedDocs: (id, page) => {
         let path = `AdminUser/purchased?id=${id}&page=${page}`;
         return connectivityModule.http.get(path)
@@ -326,16 +276,16 @@ export default {
     //     let path = `AdminUser/type`;
     //     return connectivityModule.http.post(path, data);
     // },
-    verifyPhone: (data) => {
-        let path = `AdminUser/verify`;
-        return connectivityModule.http.post(path, data)
-            .then(() => {
+    // verifyPhone: (data) => {
+    //     let path = `AdminUser/verify`;
+    //     return connectivityModule.http.post(path, data)
+    //         .then(() => {
 
-            }, (error) => {
-                console.log(error, 'error get 20 docs');
-                return error;
-            });
-    },
+    //         }, (error) => {
+    //             console.log(error, 'error get 20 docs');
+    //             return error;
+    //         });
+    // },
     suspendTutor: (id) => {
         return connectivityModule.http.post(`AdminTutor/suspend`, id);
     },

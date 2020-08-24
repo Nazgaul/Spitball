@@ -89,9 +89,9 @@ export default {
         }
     },
     created(){
-        if(!this.$route.query['code'] || !this.$route.query['Id']){
-            this.updateStep('getStarted')
-        }
+        // if(!this.$route.query['code'] || !this.$route.query['Id']){
+        //     this.updateStep('getStarted')
+        // }
         this.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
     }
 }

@@ -49,13 +49,13 @@ export default {
               }
             });
             MathJax.AuthorInit = function(texstring, callback) {
-              var input = texstring;
-              var wrapper = document.createElement("div");
+              const input = texstring;
+              const wrapper = document.createElement("div");
               wrapper.innerHTML = input;
-              var output = { svg: "" };
+              const output = {svg: ""};
               MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
               MathJax.Hub.Queue(function() {
-                var mjOut = wrapper.getElementsByTagName("svg")[0];
+                const mjOut = wrapper.getElementsByTagName("svg")[0];
                 if (!mjOut) {
                   return null;
                 }
@@ -81,6 +81,6 @@ export default {
 
   .tabs {
     background: #e0e0e1;
-  }
+  } 
 }
 </style>

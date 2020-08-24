@@ -8,6 +8,7 @@ export const signlaREvents = {
             });
         },
         action: function(arrEventObj){
+            // noinspection JSUnusedGlobalSymbols
             let userActions = {
                 logout: function(){
                     // changed logout to mutation

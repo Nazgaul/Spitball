@@ -2,7 +2,7 @@
     <div class="promoteTemplate">
         <div class="top d-none d-md-flex align-center">
             <div class="topWrap">
-                <div class="textWrap mr-4">
+                <div class="textWrap me-4">
                   <div class="text1 mb-1">{{$t('promote_template_title1')}}</div>
                   <div class="text2">{{$t('promote_template_title2')}}</div>
                 </div>

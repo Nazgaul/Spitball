@@ -7,7 +7,7 @@
                <v-tooltip top>
                   <template v-slot:activator="{ on }">
                      <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isVideoActive}]" icon @click="toggleVideo" sel="video_class_enabling">
-                        <v-icon v-if="isVideoActive" size="20" class="ml-1" color="white">sbf-video-camera</v-icon>
+                        <v-icon v-if="isVideoActive" size="20" class="ms-1" color="white">sbf-video-camera</v-icon>
                         <v-icon v-else size="30" color="white">sbf-camera-ignore</v-icon>
                      </v-btn>
                   </template>
@@ -15,7 +15,7 @@
                </v-tooltip>
                <v-tooltip top>
                   <template v-slot:activator="{ on }">
-                     <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isAudioActive},'ml-3']" icon @click="toggleAudio" sel="audio_class_enabling">
+                     <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isAudioActive},'ms-3']" icon @click="toggleAudio" sel="audio_class_enabling">
                         <v-icon v-if="isAudioActive" size="22" color="white">sbf-microphone</v-icon>
                         <v-icon v-else size="28" color="white">sbf-mic-ignore</v-icon>
                      </v-btn>
@@ -28,7 +28,7 @@
             </div>
          </div>
       </div>
-      <v-footer :height="124" inset app fixed color="#212123" class="classFooter pa-0 py-3 pl-2">
+      <v-footer :height="124" inset app fixed color="#212123" class="classFooter pa-0 py-3 ps-2">
          <v-slide-group
             class="pa-0"
             active-class="success"
@@ -137,7 +137,7 @@ export default {
          video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            // object-fit: cover;
             object-position: center;
          }
            video::-webkit-media-controls-enclosure {

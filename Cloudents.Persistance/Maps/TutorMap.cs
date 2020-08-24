@@ -13,21 +13,9 @@ namespace Cloudents.Persistence.Maps
             HasOne(x => x.User).Constrained().Cascade.None();
             
 
-            Map(x => x.Title);
-            
-            Map(x => x.Paragraph3).Length(1000);
-            Map(x => x.Paragraph2).Column("Bio").Length(1000);
-            //Component(x => x.Price, y2 =>
-            //{
-            //    y2.Map(z => z.Price).CustomSqlType("smallMoney");
-            //    y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
-            //});
-
-
-       
-
-
-
+            Map(x => x.Title).Nullable();
+            Map(x => x.Paragraph3).Nullable().Length(8000);
+            Map(x => x.Paragraph2).Nullable().Column("Bio").Length(1000);
 
             Map(x => x.SubscriptionPrice).Nullable()
                 .CustomType<MoneyCompositeUserType>().Columns.Clear()
@@ -49,7 +37,19 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Coupons)
                 .Cascade.AllDeleteOrphan().Inverse();
 
+            HasMany(x => x.ChatRooms)
+                .Cascade.AllDeleteOrphan().Inverse();
+
+            //no inverse so we can have position persist in db - i know extra update
+            HasMany(x => x.Courses)
+                .Cascade.AllDeleteOrphan().AsList(x =>
+                {
+                    x.Type<int>();
+                    x.Column("Position");
+                });
+
             HasMany(x => x.UserCoupons)
+                .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse();
 
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();

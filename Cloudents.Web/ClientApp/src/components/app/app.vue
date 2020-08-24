@@ -4,21 +4,9 @@
     <router-view name="banner"></router-view>
     <router-view v-if="showHeader" name="header"></router-view>
     <router-view name="sideMenu" v-if="isDrawer"></router-view>
-    <v-content :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
+   <router-view v-if="isCourseDrawer" name="courseDrawer"></router-view>
+    <v-main :class="[{'site-content': $route.path !== '/' && $route.name !== profileRoute}, {'hidden-sideMenu': drawerPlaceholder}]">
         <router-view class="main-container"></router-view>
-
-
-      
-
-        <sb-dialog
-          :isPersistent="true"
-          :showDialog="newQuestionDialogSate"
-          :popUpType="'newQuestion'"
-          :max-width="'510px'"
-          :content-class="'question-request-dialog'"
-        >
-          <AddQuestion v-if="newQuestionDialogSate"></AddQuestion>
-        </sb-dialog>
 
         <sb-dialog
           :isPersistent="true"
@@ -46,10 +34,9 @@
         </sb-dialog>
 
       <mobile-footer v-if="showMobileFooter" />
-    </v-content>
+    </v-main>
     
     <v-snackbar
-      absolute
       top
       :timeout="getToasterTimeout"
       :class="getShowToasterType"
@@ -67,7 +54,6 @@ import { mapGetters, mapActions } from "vuex";
 import * as routeNames from '../../routes/routeNames.js';
 
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
-const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
 // const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
@@ -76,7 +62,6 @@ const referralDialog = () => import("../question/helpers/referralDialog/referral
 export default {
   components: {
     referralDialog,
-    AddQuestion,
     sbDialog,
     mobileFooter,
     tutorRequest,
@@ -92,7 +77,6 @@ export default {
     ...mapGetters([
       "getReferralDialog",
       "accountUser",
-      "newQuestionDialogSate",
       "getShowToaster",
       "getShowToasterType",
       "getToasterTimeout",
@@ -104,7 +88,9 @@ export default {
       'getLoginDialog',
       'getRegisterDialog'
     ]),
-
+    isCourseDrawer(){
+      return this.$store.getters.getIsCourseTutor && !this.$vuetify.breakpoint.smAndDown && this.$route.query?.edit;   
+    },
     isDrawer() {
       let isLogged = this.getUserLoggedInStatus
       let isTeacher = this.getIsTeacher
@@ -114,16 +100,13 @@ export default {
     drawerPlaceholder() {
       // need to think of better way to check if placeholder
       let isRoutes = [
-      'feed',
       'question',
       'myFollowers',
       'mySales',
-      'myContent',
+      'myCourses',
       'myPurchases',
       'myStudyRooms',
-      'myCalendar',
-      'addCourse',
-      'editCourse'].some(route => this.$route.name === route)
+      'myCalendar'].some(route => this.$route.name === route)
       return isRoutes && !this.getIsTeacher
     },
     isMobile() {
@@ -138,7 +121,8 @@ export default {
     //   }
     // },
     showMobileFooter() {
-      return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
+      let isMobileChatConversation = this.$route.name === routeNames.MessageCenter && this.$route.params?.id
+      return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage' && !isMobileChatConversation;
     },
     showHeader(){
       if(this.$route.name == routeNames.MessageCenter){
@@ -234,14 +218,8 @@ export default {
     //this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
       global.addEventListener("resize", () => {
-        if (
-          (document && document.activeElement.tagName == "INPUT") ||
-          document.activeElement.tagName == "TEXTAREA"
-        ) {
-          this.hideFooter = true;
-        } else {
-          this.hideFooter = false;
-        }
+        this.hideFooter = (document && document.activeElement.tagName == "INPUT") ||
+            document.activeElement.tagName == "TEXTAREA";
       });
     }
     global.addEventListener("error", event => {
@@ -249,17 +227,6 @@ export default {
       event.stopPropagation();
       event.preventDefault();
     });
-
-    // let failedTranscationId = global.localStorage.getItem(
-    //   "sb_transactionError"
-    // );
-    // if (failedTranscationId) {
-    //   global.localStorage.removeItem("sb_transactionError");
-    //   let transactionObjectError = {
-    //     points: failedTranscationId
-    //   };
-      // this.tryBuyTokens(transactionObjectError);
-    // }
   }
 };
 </script>

@@ -57,12 +57,10 @@ export default {
                 [constants.BROADCAST]: {
                     text: this.$tc('dashboardTeacher_notify_broadcast', notifylist[constants.BROADCAST]),
                     amount: notifylist[constants.BROADCAST]
-                    // routeName: routeName.MyFollowers
                 },
                 [constants.FOLLOWERS]: {
                     text: this.$tc('dashboardTeacher_notify_follower', notifylist[constants.FOLLOWERS]),
                     amount: notifylist[constants.FOLLOWERS]
-                    // routeName: routeName.MyFollowers
                 },
              
                 [constants.PAYMENTS]: {
@@ -135,11 +133,11 @@ export default {
                     font-weight: 600;
                 }
             }
-            .arrowRight {
-                transform: none /*rtl:scaleX(-1)*/;
-                vertical-align: bottom;
-                width: 10px;
-            }
+            // .arrowRight {
+            //     transform: none /*rtl:scaleX(-1)*/;
+            //     vertical-align: bottom;
+            //     width: 10px;
+            // }
         }
     }
 </style>

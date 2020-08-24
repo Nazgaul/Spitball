@@ -21,21 +21,21 @@ authInstance.interceptors.response.use((config) => {
 });
 
 
-function googleRegistration(userType) {
-  
-    let gapiInstance = gapi.auth2.getAuthInstance();
-    
-    return gapiInstance.signIn().then((googleUser) => {
-        let token = googleUser.getAuthResponse().id_token;
-        return authInstance.post("/register/google", { token, userType })
-    }, error => {
-        return Promise.reject(error);
-    });
-}
+// function googleRegistration(userType) {
+//
+//     let gapiInstance = gapi.auth2.getAuthInstance();
+//
+//     return gapiInstance.signIn().then((googleUser) => {
+//         let token = googleUser.getAuthResponse().id_token;
+//         return authInstance.post("/register/google", { token, userType })
+//     }, error => {
+//         return Promise.reject(error);
+//     });
+// }
 
 
 export default {
-    googleRegistration,
+    // googleRegistration,
     emailLogin: logObj => authInstance.post("/LogIn", logObj),
     emailRegistration: regObj => authInstance.post("/Register", regObj),
     smsRegistration: smsObj => authInstance.post("/sms", smsObj),

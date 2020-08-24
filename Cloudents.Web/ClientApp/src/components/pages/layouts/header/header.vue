@@ -2,19 +2,16 @@
     <div>
     <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
-            <hamburgerIcon class="ml-2 hamburgerIcon"/>
+            <hamburgerIcon class="ms-2 hamburgerIcon"/>
         </v-btn>
         <router-link @click.prevent="resetItems()" to="/" :class="{'globalHeader_logo': !$route.meta.tutorHeaderSlot}">
             <logoComponent/>
         </router-link>
         <template v-if="$route.meta.tutorHeaderSlot">
             <div class="dividerName mx-8" v-show="!isMobile"></div>
-            <div class="tutorName text-truncate text-center text-sm-left">{{$store.getters.getProfileTutorName}}</div>
+            <div class="tutorName text-truncate text-center text-sm-start mb-1">{{tutorName}}</div>
         </template>
         <div class="globalHeader_items" :class="{'tutorProfile': $route.name === profileRoute}">
-            <!-- <div class="globalHeader_items_left" v-if="!isMobile">
-                <searchCMP :placeholder="searchPlaceholder"/>
-            </div> -->
             <v-spacer></v-spacer>
             <div class="globalHeader_items_right">
                 <div>
@@ -40,8 +37,8 @@
                     </template>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$store.commit('setComponent', 'login')" v-t="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$store.commit('setComponent', 'registerType')" v-t="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in me-2" @click="$store.commit('setComponent', 'login')" v-t="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up me-4" @click="$store.commit('setComponent', 'registerType')" v-t="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">
@@ -54,14 +51,16 @@
                                     :userImageUrl="userImageUrl"
                                     :userName="userName"
                                     :fontSize="14"
+                                    :loading="avatarUpdate"
+                                    @setAvatarLoaded="val => avatarUpdate = val"
                                 />
                             </div>
                             <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
                                     <span class="ur_greets">{{$t('header_greets', [userName])}}</span>
                                     <div class="ur_balance">
-                                        <span>{{$t('header_balance', {'0': getUserBalance})}}</span>
-                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
+                                        <span>{{$t('header_balance', {'0': $n(getUserBalance)})}}</span>
+                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ms-2"/>
                                     </div>
                                 </div>
                             </template>
@@ -76,23 +75,17 @@
                 </v-menu>
             </div>
         </div>
-        <!-- <template v-slot:extension v-if="isMobile && showSearch">
-            <div class="mobileHeaderSearch">
-                <searchCMP :placeholder="searchPlaceholder"/>
-            </div>
-        </template> -->
     </v-app-bar>
-        <v-navigation-drawer
-            temporary
-            v-model="drawer"
-            light
-            :right="!isRtl"
-            fixed
-            app
-            v-if="$vuetify.breakpoint.xsOnly"
+        <v-navigation-drawer 
+            temporary 
+            v-model="drawer" 
+            light 
+            :right="!$vuetify.rtl"
+            fixed 
+            app 
+            v-if="$vuetify.breakpoint.xsOnly" 
             class="drawerIndex"
-            width="280"
-        >
+            width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
@@ -107,24 +100,24 @@ import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
-import helpIcon from './images/helpIcon.svg';
+import helpIcon from '../../../../font-icon/help-icon.svg';
 import chatIcon from './images/chatIcon.svg';
 import arrowDownIcon from './images/arrowDownIcon.svg';
 import hamburgerIcon from './images/hamburgerIcon.svg';
 const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
-// const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
+
 
 export default {
 components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
+            avatarUpdate: false,
             drawer: false,
             profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
             languageChoisesAval: [],
             currLanguage: document.documentElement.lang,
             clickOnce: false,
-            isRtl: global.isRtl
         }
     },
     props: {
@@ -132,6 +125,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
     },
     computed: {
         ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus','getUserBalance', 'getIsTeacher']),
+        tutorName() {
+            return this.$store.getters.getProfileTutorName
+        },
         loggedIn() {
             return this.getUserLoggedInStatus;
         },
@@ -167,7 +163,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            let showRoutes = [routeNames.Profile, routeNames.Document];
+            let showRoutes = [routeNames.Profile, routeNames.Document, routeNames.Learning];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {
@@ -205,13 +201,13 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 this.closeDrawer();
             })
         })
+        this.$root.$on("avatarUpdate", (val) => {
+            this.avatarUpdate = val
+        })
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;
         })[0];
-    },
-    beforeDestroy(){
-            document.body.removeAttribute("class","noscroll");
     }
 }
 </script>
@@ -415,7 +411,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 width: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
-
+                outline: none;
                 &--margin {
                     margin-right: 20px;
                     margin-bottom: 1px;

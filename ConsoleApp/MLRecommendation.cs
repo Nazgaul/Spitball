@@ -79,8 +79,8 @@ join sb.UsersCourses uc2 on uc.UserId = uc2.UserId where id = 638";
             Console.WriteLine("=============== Evaluating the model ===============");
             var prediction = model.Transform(testDataView);
             var metrics = mlContext.Regression.Evaluate(prediction, labelColumnName: "Label", scoreColumnName: "Score");
-            Console.WriteLine("Root Mean Squared Error : " + metrics.RootMeanSquaredError.ToString());
-            Console.WriteLine("RSquared: " + metrics.RSquared.ToString());
+            Console.WriteLine("Root Mean Squared Error : " + metrics.RootMeanSquaredError);
+            Console.WriteLine("RSquared: " + metrics.RSquared);
         }
         public  void UseModelForSinglePrediction(MLContext mlContext, ITransformer model)
         {

@@ -2,7 +2,7 @@
    <div class="shareScreenWindow">
       <div :class="['shareScreenVideoContainer',{'heightFooterActive':isFooterActive}]">
          <template v-if="!isRoomTutor">
-            <div id="shareScreenWindowVideo" :class="[{'heightFooterActive':isFooterActive}]"></div>
+            <div :id="videoElId" :class="[{'heightFooterActive':isFooterActive}]"></div>
             <div class="presentCard studentPresentWaiting" v-if="!isTutorSharing">
                <img src="./image/studentStart.png" alt="">
                <div class="text">{{$t('studyRoom_start_present_student')}}</div>
@@ -18,8 +18,10 @@
                         {{$t('studyRoom_start_present')}}
                </v-btn>
             </template>
-            <template v-else> 
-               <img src="./image/stop.png" alt="">
+            <template v-else>
+               <v-responsive class="mb-4" max-height="300px" max-width="440px" :aspect-ratio="16/9">
+                  <div :id="videoElId"></div>
+               </v-responsive>
                <div class="text">{{$t('studyRoom_stop_present_text')}}</div>
                <v-btn class="tutorStartPresentingBtn white--text text-truncate"
                      @click="stopShareScreen" 
@@ -35,6 +37,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+
+// noinspection JSUnusedGlobalSymbols
 export default {
    data() {
       return {
@@ -46,11 +50,10 @@ export default {
          immediate:true,
          deep:true,
          handler(track){
-            if(this.isRoomTutor) return;
             if(track){
                let self = this
                this.$nextTick(()=>{
-                  const localMediaContainer = document.getElementById('shareScreenWindowVideo');
+                  const localMediaContainer = document.getElementById(self.videoElId);
                   let videoTag = localMediaContainer.querySelector("video");
                   if (videoTag) {localMediaContainer.removeChild(videoTag)}
                   localMediaContainer.appendChild(track.attach());
@@ -64,9 +67,17 @@ export default {
    },
    computed: {
       ...mapGetters(['getRoomTutorParticipant']),
+      videoElId(){
+         if(this.isRoomTutor){
+            return 'shareScreenPreviewVideo'
+         }else{
+            return 'shareScreenWindowVideo'
+         }
+      },
       isFooterActive(){
          return this.$store.getters.getStudyRoomFooterState;
       },
+
       tutorScreenTrack(){
          return this.getRoomTutorParticipant?.screen;
       },
@@ -105,7 +116,8 @@ export default {
       .presentCard{
          margin-top: 140px;
          width: 540px;
-         height: 264px;
+         // height: 264px;
+         height: fit-content;
          border-radius: 6px;
          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
          padding: 34px 0;
@@ -139,6 +151,13 @@ export default {
                font-weight: 600;
                color: #43425d;
                padding-bottom: 28px;
+            }
+            #shareScreenPreviewVideo{
+               video{
+                  border: 1px solid #ddd;
+                  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.55);
+                  width: 100%;
+               }
             }
             .tutorStartPresentingBtn{
                height: 42px;

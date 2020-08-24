@@ -1,16 +1,12 @@
 ﻿using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Stuff;
 using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.SqlCommand;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Documents;
-using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.EventHandler;
 using NHibernate.Linq;
 
@@ -41,82 +37,44 @@ namespace Cloudents.Query.Documents
             [Cache(TimeConst.Minute * 2, CacheRegions.DocumentById, false)]
             public async Task<DocumentDetailDto?> GetAsync(DocumentById query, CancellationToken token)
             {
-
-                Document documentAlias = null!;
-                ReadTutor tutorAlias = null!;
-                BaseUser userAlias = null!;
-                DocumentDetailDto dtoAlias = null!;
-
-                var similarDocumentQueryOver = QueryOver.Of<Document>()
-                    .Where(w => w.Md5 == documentAlias.Md5 && w.Status.State == ItemState.Ok)
-                    .And(x => x.Md5 != null).OrderBy(o => o.Id).Asc.Select(s => s.Id).Take(1);
-
-
-                var futureValue = _session.QueryOver(() => documentAlias)
-                    .JoinAlias(x => x.User, () => userAlias)
-                    .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
+                var futureValue = _session.Query<Document>()
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
-                    .SelectList(l =>
-                        l.Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.Pages)
-                            .SelectSubQuery(similarDocumentQueryOver).WithAlias(() => dtoAlias.DuplicateId)
-                            .Select(Projections.Property(() => documentAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Id)}"))
-                            .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
-                            .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
-                            //.Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
-                            .Select(Projections.Property(() => documentAlias.DocumentPrice.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
-                            .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
-                            .Select(Projections.Property(() => documentAlias.DocumentPrice.Type).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.PriceType)}"))
-                            //.Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
-                            //.Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))
-                            .Select(Projections.SqlFunction("COALESCE", NHibernateUtil.String
-                               , Projections.Property<Document>(documentAlias2 => documentAlias2.Description)
-                               , Projections.Property<Document>(documentAlias2 => documentAlias2.MetaContent))
-                            .WithAlias($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Snippet)}"))
-                            .Select(Projections.Property(() => userAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Id)}"))
-                            .Select(Projections.Property(() => userAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Name)}"))
-                            .Select(Projections.Property(() => userAlias.SbCountry).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Country)}"))
-                            .Select(Projections.Property(() => userAlias.ImageName).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Image)}"))
-                            .Select(Projections.Property(() => documentAlias.DocumentType).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DocumentType)}"))
-                            .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.UserId)}"))
-                            .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Name)}"))
-                            .Select(Projections.Property(() => tutorAlias.ImageName).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Image)}"))
-                            .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Courses)}"))
-                            .Select(Projections.Property(() => tutorAlias.Subjects).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Subjects)}"))
-                            .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Rate)}"))
-                            .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.ReviewsCount)}"))
-                            .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Bio)}"))
-                            .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Lessons)}"))
-
-
-                    )
-                    .TransformUsing(new DeepTransformer<DocumentDetailDto>())
-                    .UnderlyingCriteria.SetComment(nameof(DocumentById))
-                    .FutureValue<DocumentDetailDto>();
+                    .Select(s => new DocumentDetailDto()
+                    {
+                        Title = s.Name,
+                        Id = s.Id,
+                        UserId = s.User.Tutor!.Id,
+                        UserName = s.User.Name,
+                        DocumentType = s.DocumentType,
+                        Pages = s.PageCount ?? 0,
+                        Price = s.Course.Price,
+                        SubscriptionPrice = s.Course.SubscriptionPrice,
+                        CourseId = s.Course.Id
+                    }).ToFutureValue();
 
 
                 if (!query.UserId.HasValue)
                 {
                     return await futureValue.GetValueAsync(token);
                 }
-                var purchaseFuture = _session.QueryOver<DocumentTransaction>()
-                       .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-                       .UnderlyingCriteria.SetComment(nameof(DocumentById))
-                       .FutureValue<DocumentTransaction>();
 
 
-                var scribedQueryFuture = _session.Query<Follow>()
-                      .Where(w => w.Follower.Id == query.UserId)
-                      .Where(w=> w.User.Id == _session.Query<Document>().Where(w=>w.Id == query.Id).Select(s=>s.User.Id).Single())
-                      //.Where(w => w.User.Id == query.Id)
-                      .Select(s => s.Subscriber).ToFutureValue();
+                var purchaseFuture = _session.Query<CourseEnrollment>()
+                    .Where(w => w.User.Id == query.UserId.Value
+                                && w.Course.Id == _session.Query<Document>()
+                                    .Where(w2 => w2.Id == query.Id 
+                                            && w2.Status.State == ItemState.Ok).Select(s=>s.Course.Id).FirstOrDefault()
+                    )
+                    .ToFutureValue(f => f.Any());
 
-             //   var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
-             //.Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
-             //.SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
 
-                //var voteQuery = _session.QueryOver<Vote>()
-                //    .Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType)
-                //    .Take(1).FutureValue<VoteType>();
+                //var scribedQueryFuture = _session.Query<Follow>()
+                //      .Where(w => w.Follower.Id == query.UserId)
+                //      .Where(w => w.User.Id == _session.Query<Document>().Where(w => w.Id == query.Id).Select(s => s.User.Id).Single())
+                //      //.Where(w => w.User.Id == query.Id)
+                //      .Select(s => s.Subscriber).ToFutureValue();
+
+
 
 
 
@@ -127,36 +85,28 @@ namespace Cloudents.Query.Documents
                 {
                     return null;
                 }
-                result.IsPurchased = true;
-              //  var voteResult = await voteQuery.GetValueAsync(token);
-                //if (voteResult == VoteType.None)
-                //{
-                //    result.Document.Vote.Vote = null;
-                //}
-                //else
-                //{
-                //    result.Document.Vote.Vote = voteResult;
-                //}
-                if (result.Document.Price.GetValueOrDefault() <= 0) return result;
-                if (purchaseFuture == null)
+                //result.IsPurchased = true;
+
+                if (result.UserId == query.UserId)
                 {
-                    result.IsPurchased = false;
+                    result.IsPurchased = true;
+                    return result;
+                }
+
+                if (result.Price.Cents == 0)
+                {
+                    result.IsPurchased = true;
+                    return result;
+                }
+                if (purchaseFuture.Value)
+                {
+                    result.IsPurchased = true;
+                    return result;
 
                 }
-                else
-                {
-                    if (result.Document.User.Id == query.UserId.Value)
-                    {
-                        result.IsPurchased = true;
-                    }
-                    else
-                    {
-                        var transactionResult = await purchaseFuture.GetValueAsync(token);
-                        result.IsPurchased = scribedQueryFuture.Value ?? transactionResult != null;
-                    }
-                }
-               // result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
+
                 return result;
+
             }
         }
     }

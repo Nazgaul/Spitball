@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 
@@ -9,38 +9,73 @@ namespace Cloudents.Core.Entities
     public class BroadCastStudyRoom : StudyRoom
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public BroadCastStudyRoom(Tutor tutor,
-            IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price, DateTime broadcastTime, string? description) 
-            : base(tutor, users, onlineDocumentUrl, name, price)
+        public BroadCastStudyRoom(
+             Course course, DateTime broadcastTime, string description)
+            : base(course.Tutor, Enumerable.Empty<User>(),  0)
         {
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);
             BroadcastTime = broadcastTime;
             TopologyType = StudyRoomTopologyType.GroupRoom;
+            Course = course ?? throw new ArgumentNullException(nameof(course));
             Description = description;
         }
 
-        protected BroadCastStudyRoom(): base()
+
+        
+
+        public virtual string Description { get; set; }
+
+        protected BroadCastStudyRoom() : base()
         {
         }
 
-        public virtual DateTime BroadcastTime { get; protected set; }
+        public virtual DateTime BroadcastTime { get; set; }
 
 
-        public virtual string? Description { get; protected set; }
+        public virtual Course Course { get; protected set; }
+
+     
 
         public override void AddUserToStudyRoom(User user)
         {
-            var studyRoomUser = new StudyRoomUser(user, this);
-            _users.Add(studyRoomUser);
             ChatRoom.AddUserToChat(user);
-            Tutor.User.AddFollower(user);
-            AddEvent(new AddUserBroadcastStudyRoomEvent(this,user));
+            if (Tutor.Id == user.Id)
+            {
+                return;
+            }
+            var studyRoomUser = new StudyRoomUser(user, this);
+
+            var x = _users.Add(studyRoomUser);
+            if (x)
+            {
+                Tutor.User.AddFollower(user);
+                AddEvent(new AddUserBroadcastStudyRoomEvent(this, user));
+            }
         }
 
-       
+
+
 
         public override StudyRoomType Type => StudyRoomType.Broadcast;
+
+
+        protected bool Equals(BroadCastStudyRoom other)
+        {
+            return BroadcastTime.Equals(other.BroadcastTime) && Course.Id.Equals(other.Course.Id);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BroadCastStudyRoom) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(37, Course.Id, BroadcastTime);
+        }
     }
 }

@@ -5,13 +5,14 @@
     </template>
     <template v-else>
       <studyRoomDrawer/>
-      <studyRoomHeader/>
-      <v-content>
+
+      <studyRoomHeader @roomMuted="showRoomMutedToaster = true"/>
+      <v-main>
         <studyRoomWrapper style="height:100%"/>
-      </v-content>
+        <roomMutedToaster v-if="showRoomMutedToaster"/>
+      </v-main>
       <studyRoomFooter v-if="isShowFooter"/>
     </template>
-
     <studyRoomAudio/>
     <studyRoomSettingsDialog v-if="!isRoomActive"/>
     <studyRoomDialogs/>
@@ -19,23 +20,30 @@
   </v-app>
 </template>
 
+<!--suppress JSUnusedGlobalSymbols -->
 <script>
-const studyRoomDrawer = () => import('./layouts/studyRoomDrawer/studyRoomDrawer.vue');
-const studyRoomFooter = () => import('./layouts/studyRoomFooter/studyRoomFooter.vue');
-const studyRoomHeader = () => import('./layouts/studyRoomHeader/studyRoomHeader.vue');
+const studyRoomDrawer = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomDrawer/studyRoomDrawer.vue');
+const studyRoomFooter = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomFooter/studyRoomFooter.vue');
+const studyRoomHeader = () => import(/* webpackChunkName: "studyroomdesktop" */'./layouts/studyRoomHeader/studyRoomHeader.vue');
+const studyRoomWrapper = () => import(/* webpackChunkName: "studyroomdesktop" */'./windows/studyRoomWrapper.vue');
+
 import chatService from "../../services/chatService";
 import { mapGetters } from 'vuex';
 const studyRoomMobile = () => import('./studyRoomMobile.vue');
-const studyRoomWrapper = () => import('./windows/studyRoomWrapper.vue');
+
 const studyRoomSettingsDialog = () => import("./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue");
-const studyRoomDialogs = () => import('./studyRoomDialogs.vue');
-const studyRoomAudio = () => import('./layouts/studyRoomAudio/studyRoomAudio.vue');
+import roomMutedToaster from './layouts/roomMutedToaster.vue';
+
 import * as componentConsts from '../pages/global/toasterInjection/componentConsts.js';
+import studyRoomAudio from'./layouts/studyRoomAudio/studyRoomAudio.vue';
+import studyRoomDialogs from './studyRoomDialogs.vue';
 
 export default {
   data() {
     return {
       id: this.$route.params.id,
+      showRoomMutedToaster:false,
+      isReady:false,
     }
   },
   components: {
@@ -47,6 +55,9 @@ export default {
     studyRoomWrapper,
     studyRoomSettingsDialog,
     studyRoomDialogs,
+    roomMutedToaster,
+
+    studyRoomAudio,
 
     studyRoomAudio,
 
@@ -65,28 +76,44 @@ export default {
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
     },
+    isRoomEnabled(){
+      return this.$store.getters.getJwtToken
+    }
   },
   watch: {
-    getRoomIsNeedPayment:{
-      immediate:true,
-      handler(newVal){
-        // note: we need the immediate cuz no one listen to getRoomIsNeedPayment and can 
-        // getStudyRoomData empty
-        if(newVal !== null){
-          this.handleNeedPayment(newVal)
-        }
+    isRoomEnabled(val){
+      if(val){
+        window.onbeforeunload = function() {     
+          return "Are you sure you want to close the window?";
+        };
       }
     },
+    showRoomMutedToaster:{
+      deep:true,
+      handler(newVal){
+        if(newVal){
+          setTimeout(() => {
+            this.showRoomMutedToaster = false
+          }, 1000);
+        }
+      }
+    }
   },
   methods: {
     handleNeedPayment(needPayment){
+      if(!this.$store.getters.getUserLoggedInStatus){
+        return
+      }
       if(needPayment){
         this.$store.commit('addComponent',componentConsts.PAYMENT_DIALOG)
         return;
       }
+      if(!this.isReady){
       this.setStudyRoom(this.id);
+      }
     },
     setStudyRoom() {
+      this.isReady = true;
       let self = this;
       this.$store.dispatch('getChatById',this.$store.getters.getRoomConversationId).then(({ data }) => {
         let currentConversationObj = chatService.createActiveConversationObj(data);
@@ -94,17 +121,16 @@ export default {
       });
     },
   },
-  created() {
-    if(this.$store.getters.accountUser?.id){
-      this.$store.dispatch('updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            this.$router.push('/')
-          }
-        })
-      global.onbeforeunload = function() {     
-        return "Are you sure you want to close the window?";
-      };
-    }
+  updated() {
+    this.$watch('getRoomIsNeedPayment', (newVal) => {
+        // note: we need the immediate cuz no one listen to getRoomIsNeedPayment and can 
+        // getStudyRoomData empty
+          let self = this;
+          self.$nextTick(()=>{
+            self.handleNeedPayment(newVal)
+          })
+      },{immediate:true}
+    );
   },
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');

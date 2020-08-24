@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Models
 {
@@ -7,17 +10,5 @@ namespace Cloudents.Web.Models
     {
         [Required]
         public long Id { get; set; }
-    }
-
-    public class UnFollowRequest
-    {
-        [Required]
-        public long Id { get; set; }
-    }
-
-    public class EnrollStudyRoomRequest
-    {
-        [Required]
-        public Guid StudyRoomId { get; set; }
     }
 }

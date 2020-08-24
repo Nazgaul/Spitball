@@ -8,6 +8,7 @@ using NHibernate.Event;
 using NHibernate.Mapping;
 using NHibernate.Tool.hbm2ddl;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -32,7 +33,8 @@ namespace Cloudents.Persistence
 #if DEBUG
                         .ShowSql()
 #endif
-                ).ExposeConfiguration((x) => BuildSchema(x, interceptor, connectionString.Db.Integration));
+                ).ExposeConfiguration((x) => BuildSchema(x, interceptor,
+                    connectionString.Db));
 
             configuration.Mappings(m =>
             {
@@ -73,7 +75,7 @@ namespace Cloudents.Persistence
         }
 
         private void BuildSchema(Configuration config, IInterceptor? interceptor,
-            DbConnectionString.DataBaseIntegration needValidate)
+            DbConnectionString configuration)
         {
             SchemaMetadataUpdater.QuoteTableAndColumns(config, new SbDialect());
 #if DEBUG
@@ -89,6 +91,11 @@ namespace Cloudents.Persistence
             config.SetListener(ListenerType.PostCommitUpdate, _publisher);
             config.SetListener(ListenerType.PostCollectionUpdate, _publisher);
 
+            if (configuration.ConnectionTimeout.HasValue)
+            {
+                config.SetProperty("command_timeout",
+                    configuration.ConnectionTimeout.Value.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+            }
 
             foreach (var t in Assembly
                 .GetExecutingAssembly()
@@ -115,7 +122,7 @@ namespace Cloudents.Persistence
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
-            switch (needValidate)
+            switch (configuration.Integration)
             {
                 case DbConnectionString.DataBaseIntegration.None:
                     break;

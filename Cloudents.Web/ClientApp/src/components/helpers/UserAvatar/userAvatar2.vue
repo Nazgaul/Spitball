@@ -1,13 +1,13 @@
 <template>
     <component
         v-if="!!userName"
-        class="user-avatar-rect"
+        class="user-avatar-rect text-center"
         :is="userId ? 'router-link' : 'div'"
         :to="userId ? {name: 'profile', params: { id: userId, name: userName }} : ''"
     >
         <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`}">
             <v-skeleton-loader
-                v-if="!isLoaded"
+                v-if="!loading && !isLoaded"
                 class="skeletonAvatar"
                 :type="tile ? 'image' : 'avatar'"
                 :width="width"
@@ -16,7 +16,8 @@
             >
             </v-skeleton-loader>
             <intersection>
-                <img 
+                <img
+                    v-show="isLoaded"
                     draggable="false"
                     @load="loaded"
                     @error="onImgError"
@@ -31,7 +32,6 @@
             v-else
             :tile="tile"
             tag="v-avatar"
-            class="user-avatar-rect-no-image"
             :class="`userColor${strToACII % 11}`"
             :width="width"
             :min-width="width"
@@ -79,6 +79,10 @@ export default {
             type: Number,
             required: false,
             default: 0
+        },
+        loading: {
+            type: Boolean,
+            required: false
         }
     },
     data(){
@@ -87,9 +91,20 @@ export default {
             imgError: false,
         }
     },
+    watch: {
+        loading(val) {
+            if(!val) {
+                this.isLoaded = false
+            }
+        }
+    },
     methods:{
         loaded() {
             this.isLoaded = true;
+            // trigger for loading render in parent component
+            if(typeof this.$listeners.setAvatarLoaded === "function") {
+                this.$emit('setAvatarLoaded', true)
+            }
         },
         onImgError(){
             this.userImageUrl = null;

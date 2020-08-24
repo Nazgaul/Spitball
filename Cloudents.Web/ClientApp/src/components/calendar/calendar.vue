@@ -182,9 +182,9 @@ export default {
         return a.toUpperCase();
       });
     },
-    calendarType() {
-      return this.getCalendarType;
-    },
+    // calendarType() {
+    //   return this.getCalendarType;
+    // },
     calendarLocale() {
       return `${global.lang}-${global.country}`.toLowerCase();
     },
@@ -242,7 +242,7 @@ export default {
       return currentDateStemp >= lastDateStemp;
     },
     isRtl() {
-      return global.isRtl;
+      return this.$vuetify.rtl;
     },
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
@@ -255,20 +255,15 @@ export default {
       return this.getNeedPayment;
     },
     isSelfTutor() {
-      if (
-        this.$route.name == "myCalendar" ||
-        (!!this.getProfile &&
-          !!this.accountUser &&
-          this.getProfile.user.id == this.accountUser.id)
-      ) {
-        return true;
-      }
-      return false;
+      return this.$route.name == "myCalendar" ||
+              (!!this.getProfile &&
+                      !!this.accountUser &&
+                      this.getProfile.user.id == this.accountUser.id);
+
     }
   },
   methods: {
     ...mapActions([
-      "updateToasterParams",
       "btnClicked",
       "insertEvent",
       "updateNeedPayment"
@@ -294,7 +289,7 @@ export default {
       //debugger;
       let dateEvent = this.eventsMap[date];
       if (dateEvent) {
-        var e = dateEvent.find(x => x.time === time);
+        const e = dateEvent.find(x => x.time === time);
         if (e != null) {
           return true;
         }
@@ -329,13 +324,7 @@ export default {
         () => {
           this.addEventDialog = false;
           this.isLoading = false;
-          this.updateToasterParams({
-            toasterText: this.$t(
-              "calendar_error_create_event"
-            ),
-            showToaster: true,
-            toasterType: "error-toaster"
-          });
+          this.$store.commit('addComponent',componentConsts.BOOK_FAILED);
         }
       );
     },
@@ -358,7 +347,7 @@ export default {
       let year = this.selectedDate.slice(0, 4);
       let month = this.selectedDate.slice(5, 7);
       let day = this.selectedDate.slice(8, 11);
-      if (global.isRtl) {
+      if (this.isRtl) {
         let options = { weekday: "long", month: "short", day: "numeric" };
         let dateStr = new Date(year, month - 1, day, 0, 0, 0, 0)
           .toLocaleDateString(`${global.lang}-${global.country}`, options)
@@ -388,7 +377,7 @@ export default {
       } else {
         endTime = `${endTime}:00`;
       }
-      return `${this.selectedTime} - ${endTime} ${global.isRtl ? "" : ampm}`;
+      return `${this.selectedTime} - ${endTime} ${this.isRtl ? "" : ampm}`;
     },
     closeDialog() {
       this.selectedTime = "";
@@ -700,8 +689,7 @@ export default {
   .my-event {
     text-align: center;
     font-size: 12px;
-    padding: 5px;
-    padding-bottom: 0;
+    padding: 5px 5px 0;
     margin-right: 8px;
     position: relative;
 

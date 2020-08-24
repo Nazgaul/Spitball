@@ -5,7 +5,7 @@
       :class="{'higherIndex':isMediumAndUp}"
       :mini-variant.sync="isMiniSideMenu"
       :temporary="isMediumAndUp"
-      :right="isRtl"
+      :right="$vuetify.rtl"
       :permanent="!$vuetify.breakpoint.xsOnly"
       width="220"
       mini-variant-width="62"
@@ -30,7 +30,7 @@
                       :class="{'active_list_dash': currentPageChecker(item.route)}"
                     >
                         <v-icon size="18" class="group_list_icon_dash">{{item.icon}}</v-icon>
-                        <span class="group_list_title_dash ml-3">{{item.name}}</span>
+                        <span class="group_list_title_dash ms-3">{{item.name}}</span>
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -47,19 +47,18 @@ export default {
   data() {
     return {
       isMiniSideMenuState: false,
-      isRtl: global.isRtl,
       drawer: false,
       dashboardList: {
         myDashboard:{name: this.$t('schoolBlock_dashboard'), route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},
-        myMarketingTools:{name: this.$t('schoolBlock_my_marketing'), route: routeNames.Marketing, icon:'sbf-myMarketing', sel:'sidemenu_settings_myMarketing'},
-        myFollowersItem:{name: this.$t('schoolBlock_my_followers'), route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sidemenu_dashboard_myFollowers'},
-        mySessions:{name: this.$t('schoolBlock_private_session'), route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:''},
+        myCourses:{name: this.$t('schoolBlock_my_courses'), route: routeNames.MyCourses, icon:'sbf-my-content', sel:'sidemenu_dashboard_myCourses'},
         myBroadcast:{name: this.$t('schoolBlock_live_session'), route: routeNames.MyStudyRoomsBroadcast, icon:'sbf-myLive', sel:'sidemenu_dashboard_live_session'},
-        myContentItem:{name: this.$t('schoolBlock_my_content'), route: routeNames.MyContent, icon:'sbf-my-content', sel:'sidemenu_dashboard_myContent'},
-        mySalesItem:{name: this.$t('schoolBlock_my_sales'), route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
-        myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
+        myFollowersItem:{name: this.$t('schoolBlock_my_followers'), route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sidemenu_dashboard_myFollowers'},
         myCoupons:{name: this.$t('schoolBlock_coupons'), route: routeNames.MyCoupons, icon:'sbf-my-coupon', sel:'sidemenu_dashboard_myCoupons'},
-        myCoursesItem:{name: this.$t('schoolBlock_courses'), route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sidemenu_settings_myCourses'},
+        mySalesItem:{name: this.$t('schoolBlock_my_sales'), route: routeNames.MySales, icon:'sbf-my-sales', sel:'sidemenu_dashboard_mySales'},
+        myMarketingTools:{name: this.$t('schoolBlock_my_marketing'), route: routeNames.Marketing, icon:'sbf-myMarketing', sel:'sidemenu_settings_myMarketing'},
+        myPurchasesItem:{name: this.$t('schoolBlock_purchases'), route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sidemenu_dashboard_myPurchases'},
+        mySearch:{name: this.$t('schoolBlock_search'), route: routeNames.Learning, icon:'sbf-searchP', sel:'sidemenu_dashboard_learn'},
+        mySessions:{name: this.$t('schoolBlock_private_session'), route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:''},
         myCalendarItem:{name: this.$t('schoolBlock_calendar'), route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sidemenu_settings_myCalendar'},
       },
     };

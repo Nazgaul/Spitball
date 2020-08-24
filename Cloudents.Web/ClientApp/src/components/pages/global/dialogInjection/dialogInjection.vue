@@ -6,7 +6,6 @@
 const exitRegister = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('./globalDialogs/login/login.vue');
-const buyPoints = () => import('./globalDialogs/buyPoints/buyPointsWrapper.vue');
 const teacherApproval = () => import('./globalDialogs/teacherApproval/teacherApproval.vue');
 
 const createStudyRoom = () => import('../../dashboardPage/myStudyRooms/createStudyRoomDialog.vue');
@@ -18,7 +17,6 @@ export default {
         exitRegister,
         createCoupon,
         login,
-        buyPoints,
         teacherApproval,
         createStudyRoom,
     },
@@ -30,10 +28,10 @@ export default {
         component(val){
             if (val) {
                 if (this.$vuetify.breakpoint.xs) {
-                    document.getElementsByTagName("body")[0].className = "noscroll";
+                    document.body.classList.add('noscroll')
                 }
             } else {
-                document.body.removeAttribute("class", "noscroll");
+                document.body.classList.remove('noscroll')
             }
         }
     },
@@ -64,10 +62,10 @@ export default {
                     }
                     if(self.component){
                         return
-                    }else{
-                        self.component = dialogNameFromRoute
-                        return
                     }
+                    self.component = dialogNameFromRoute
+                    return
+                    
                 })
             }   
         }

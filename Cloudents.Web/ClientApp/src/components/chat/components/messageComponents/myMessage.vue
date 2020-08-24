@@ -9,7 +9,7 @@
       </div>
       <v-card-actions class="messageBottom d-flex align-baseline justify-end px-0 pb-0 pt-2">
          <span class="messageDate">{{messageDate}}</span>
-         <v-icon :color="message.unreadMessage? '#00000077':'#4fc3f7'" class="ml-1" size="10">sbf-readIcon</v-icon>
+         <v-icon :color="message.unreadMessage? '#00000077':'#4fc3f7'" class="ms-1" size="10">sbf-readIcon</v-icon>
       </v-card-actions>
    </v-card>
 </template>
@@ -85,11 +85,16 @@ export default {
 </script>
 
 <style lang="less">
+ @import '../../../../styles/mixin.less';
 .myMessageContainer{
-   border-radius: 8px 8px 0 8px;
+   &.v-card {
+      // overide vuetify new border radius on v-card 
+      border-radius: 8px 8px 0 8px !important;
+   }
    max-width: 70%;
-   width: fit-content;
-   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+   .widthFitContent();
+   
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25) !important;
    margin-right: unset;
    margin-left: auto;
    .messageTitle{

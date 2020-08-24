@@ -2,7 +2,7 @@
    <v-dialog :value="true" persistent :maxWidth="'580'" :content-class="'teacherBillOffline'" :fullscreen="$vuetify.breakpoint.xsOnly">
         <div class="py-4 pa-sm-4 text-center wrapper">
             <div>
-                <div class="text-right pr-4 pr-sm-0 d-sm-none"><v-icon size="12" @click="closeDialog()">sbf-close</v-icon></div>
+                <div class="text-right pe-4 pe-sm-0 d-sm-none"><v-icon size="12" @click="closeDialog()">sbf-close</v-icon></div>
 
                 <div class="mainTitle text-center" :class="[modifyDurationError || priceError ? 'mb-3' : 'mb-12']" v-t="'teacherApproval_title'"></div>
 
@@ -10,21 +10,21 @@
                     <span class="white--text" v-t="'teacherApproval_success'"></span>
                 </div>
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="modifyDurationError">
-                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="50" />
+                    <whiteWarn class="image me-2 me-sm-4 pt-1 pt-sm-0" width="50" />
                     <span class="white--text" v-t="'teacherApproval_error'"></span>
                 </div>
                 <div class="v-alert error tableEmptyState text-left mb-5 pa-2 align-start align-sm-center" v-if="priceError">
-                    <whiteWarn class="image mr-2 mr-sm-4 pt-1 pt-sm-0" width="30"/>
+                    <whiteWarn class="image me-2 me-sm-4 pt-1 pt-sm-0" width="30"/>
                     <span class="white--text" v-t="'teacherApproval_error_price'"></span>
                 </div>
 
-                <table class="table text-left">
+                <table class="table text-start">
                     <tr>
                         <td>
                             <div class="pb-3" v-t="'teacherApproval_date'"></div>
                         </td>
                         <td>
-                            <div class="mb-3 pl-2">{{formatDate}}</div>
+                            <div class="mb-3 ps-2">{{formatDate}}</div>
                         </td>
                     </tr>
 
@@ -57,7 +57,7 @@
                         <td>
                             <div class="d-flex align-center">
                                 <input type="number" class="durationInput" maxlength="4" @keypress="inputRestriction" v-model.number="newSessionDuration" />
-                                <span class="ml-2" v-t="'teacherApproval_minutes'"></span>
+                                <span class="ms-2" v-t="'teacherApproval_minutes'"></span>
                             </div>
                         </td>
                     </tr>
@@ -79,7 +79,7 @@
                     <tr class="bordeTop font-weight-bold">
                         <td class="pt-4"><div class="totalText" v-t="'teacherApproval_total_session'"></div></td>
                         <!-- TODO: Currency Change -->
-                        <td class="pt-4 pl-2"><div class="totalNumber">{{$n(totalPrice, {'style':'currency','currency': currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}}</div></td>
+                        <td class="pt-4 ps-2"><div class="totalNumber">{{$n(totalPrice, {'style':'currency','currency': currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})}}</div></td>
                     </tr>
                 </table>
             </div>
@@ -88,7 +88,7 @@
                 <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
 
                 <div class="bottomActions d-flex text-center">
-                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block mr-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
+                    <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block me-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
                     <v-btn :loading="isLoading" width="140" height="40" color="#4452fc" class="white--text" @click="approveSession" rounded depressed>{{$t('teacherApproval_btn_approve')}}</v-btn>
                 </div>
             </div>
@@ -147,11 +147,7 @@ export default {
             set(val) {
                 this.session.tutorPricePerHour = val
                 this.updateTotalPrice(this.newSessionDuration)
-                if(this.session.tutorPricePerHour <= 0){
-                    this.priceError = true;
-                }else{
-                    this.priceError = false;
-                }
+                this.priceError = this.session.tutorPricePerHour <= 0;
             }
         }
     },
@@ -204,7 +200,7 @@ export default {
             if (!/\d/.test(e.key)) {
                 e.preventDefault();
             }
-            var x = parseInt(this.newSessionDuration + e.key,10);
+            const x = parseInt(this.newSessionDuration + e.key, 10);
             if (x >= this.MAX_DIGITS) {
                 e.preventDefault();
                 

@@ -31,13 +31,13 @@
             <tr @click="selectDocument(props)">
                 <td class="product pa-0">
                     <div class="wrap d-flex pa-2">
-                        <v-radio-group class="mr-n2 mt-5" :value="props.item.id === selectedId ? `radio-${props.index}` : ''" columns>
+                        <v-radio-group class="me-n2 mt-5" :value="props.item.id === selectedId ? `radio-${props.index}` : ''" columns>
                             <v-radio :value="`radio-${props.index}`" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
                         </v-radio-group>
                       <div class="d-flex align-center">
                         <img :src="$proccessImageUrl(props.item.preview, 120, 68)" alt="">
                       </div>
-                      <div class="description ml-2">
+                      <div class="description ms-2">
                         <div class="intro text-truncate mb-1">
                           {{props.item.name}}
                         </div>
@@ -48,7 +48,7 @@
                       </div>
                   </div>
                 </td>
-                <td class="insideBox"><div class="">{{$t(dataType === 'Video' ? 'promote_table_video' : 'promote_table_document')}}</div></td>
+                <td class="insideBox"><div class="">{{dataType === 'Video' ? $t('promote_table_video') : $t('promote_table_document')}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.likes}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.views}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.downloads}}</div></td>
@@ -169,7 +169,6 @@ export default {
     .v-data-footer__icons-before,
     .v-data-footer__icons-after {
         .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-            transform: none /*rtl:rotate(180deg)*/;
             // color: @global-purple !important; //vuetify
             font-size: 14px;
         }

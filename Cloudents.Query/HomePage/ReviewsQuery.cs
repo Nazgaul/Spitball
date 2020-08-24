@@ -53,9 +53,6 @@ namespace Cloudents.Query.HomePage
                             TutorReviews = s.tutor.Rate.GetValueOrDefault(),
                             TutorCount = s.tutor.RateCount,
                             TutorId = s.tutor.Id
-
-
-
                         }).Take(query.Count).ToListAsync(token);
             }
         }

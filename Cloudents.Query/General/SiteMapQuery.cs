@@ -3,9 +3,10 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using NHibernate.Criterion;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.General
 {
@@ -31,68 +32,39 @@ namespace Cloudents.Query.General
             {
 
 
-                BaseUser? userAlias = null!;
 
-                var documentCountFutureQuery = _session.QueryOver<Document>()
-                    .JoinAlias(x => x.User, () => userAlias)
-                    .Where(w => w.Status.State == ItemState.Ok);
-                if (query.IsFrymo)
-                {
-                    
-                    documentCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
-                }
-                else
-                {
-                    documentCountFutureQuery.Where(() => userAlias.SbCountry != Country.India);
-
-                }
-                var documentCountFuture = documentCountFutureQuery.ToRowCountQuery().UnderlyingCriteria.SetComment(nameof(SiteMapQuery)).FutureValue<int>();
-
-
-                var questionCountFutureQuery = _session.QueryOver<Question>()
-                    .JoinAlias(x => x.User, () => userAlias)
-                    .Where(w => w.Status.State == ItemState.Ok);
+                var tutorCountFutureQuery = _session.Query<Core.Entities.Tutor>();
 
                 if (query.IsFrymo)
                 {
-                    questionCountFutureQuery.Where(() => userAlias.SbCountry == Country.India);
+                    tutorCountFutureQuery = tutorCountFutureQuery.Where(w => w.User.SbCountry == Country.India);
                 }
                 else
                 {
-                    //questionCountFutureQuery.Where(Restrictions.Eq(Projections.Property(()=> userAlias.SbCountry), Country.India));
-                    questionCountFutureQuery.Where(() => userAlias.SbCountry != Country.India);
+                    tutorCountFutureQuery = tutorCountFutureQuery.Where(w => w.User.SbCountry != Country.India);
 
                 }
 
-                var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().FutureValue<int>();
+                var tutorCountFuture = tutorCountFutureQuery.ToFutureValue(f => f.Count());
 
-                var tutorCountFutureQuery = _session.QueryOver<ReadTutor>();
 
-                if (query.IsFrymo)
-                {
-                    tutorCountFutureQuery.Where(w => w.SbCountry == Country.India);
-                }
-                else
-                {
-                    tutorCountFutureQuery.Where(w => w.SbCountry != Country.India);
+                Core.Entities.Tutor tutorAlias = null!;
+                Course courseAlias = null!;
+                User userAlias = null!;
 
-                }
-                var tutorCountFuture = tutorCountFutureQuery.ToRowCountQuery().FutureValue<int>();
 
-                UserCourse userCourseAlias = null!;
-                ReadTutor tutorAlias = null!;
 
                 var tutorCoursesFutureQuery = _session.QueryOver(() => tutorAlias)
-                    .JoinEntityAlias(() => userCourseAlias, () => tutorAlias.Id == userCourseAlias.User.Id)
-                    .Where(() => userCourseAlias.IsTeach)
-                    .SelectList(t => t.SelectCountDistinct(() => userCourseAlias.Course.Id));
+                    .JoinAlias(x => x.Courses, () => courseAlias)
+                    .JoinAlias(x => x.User, () => userAlias)
+                    .SelectList(t => t.SelectCountDistinct(() => courseAlias.Name));
                 if (query.IsFrymo)
                 {
-                    tutorCoursesFutureQuery.Where(w => w.SbCountry == Country.India);
+                    tutorCoursesFutureQuery.Where(() => userAlias.SbCountry == Country.India);
                 }
                 else
                 {
-                    tutorCoursesFutureQuery.Where(w => w.SbCountry != Country.India);
+                    tutorCoursesFutureQuery.Where(() => userAlias.SbCountry != Country.India);
 
                 }
 
@@ -103,14 +75,10 @@ namespace Cloudents.Query.General
 
 
 
-                var documentCount = await documentCountFuture.GetValueAsync(token);
-                var questionCount = await questionCountFuture.GetValueAsync(token);
                 var tutorCount = await tutorCountFuture.GetValueAsync(token);
                 var tutorSiteCount = await tutorCoursesFuture.GetValueAsync(token);
                 return new List<SiteMapCountDto>
                 {
-                    new SiteMapCountDto(SeoType.Document, documentCount),
-                    new SiteMapCountDto(SeoType.Question,questionCount),
                     new SiteMapCountDto(SeoType.Tutor, tutorCount),
                     new SiteMapCountDto(SeoType.TutorList, tutorSiteCount)
                 };

@@ -39,28 +39,4 @@ namespace Cloudents.Web.Services
             return new ProviderCultureResult(new StringSegment(culture));
         }
     }
-
-    public class CountryCultureProvider : IRequestCultureProvider
-    {
-        public async Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
-        {
-            try
-            {
-                var countryService = httpContext.RequestServices.GetService<ICountryService>();
-
-                var country = await countryService.GetUserCountryAsync(httpContext.RequestAborted);
-
-                if (country?.Equals("IL", StringComparison.OrdinalIgnoreCase) == true)
-                {
-                    return new ProviderCultureResult(new StringSegment("he-IL"));
-                }
-
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-    }
 }

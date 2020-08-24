@@ -1,16 +1,15 @@
 <template>
     <div class="leave_review_wrap">
         <closeIcon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog"></closeIcon>
-        <!-- <v-icon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog">sbf-close</v-icon> -->
         <div class="d-flex">
             <div class="review_title text-center font-weight-bold mx-auto">{{reviewsTitle}}</div>
         </div>
         <div class="review_sub_title text-center mt-1" :class="{'mb-6': !showNextStep}">
-            <span v-if="!showNextStep"> {{$t('leaveReview_sub_title_step1', [tutorName])}}"></span>
+            <span v-if="!showNextStep"> {{$t('leaveReview_sub_title_step1', [tutorName])}}"</span>
             <span class="review_sub_title_step2" v-else v-t="'leaveReview_sub_title_step2'"></span>
         </div>
         <div class="review_user_rate" v-if="!showNextStep">
-            <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
+            <user-avatar class="tutor-img-wrap me-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
             <v-rating
                 v-model="rating"
                 ref="hahahahau"
@@ -23,7 +22,7 @@
                 :background-color="'#ffca54'"
             >
             </v-rating>
-            <span class="review_start_rate ml-2">{{ratingRate}}</span>
+            <span class="review_start_rate ms-2">{{ratingRate}}</span>
         </div>
         <div class="review_textarea" :class="{'review_textarea--noPadding':showNextStep}">
             <template>
@@ -55,7 +54,6 @@
                     :rules="[rules.required]"
                 ></v-textarea>
             </v-form>
-                <!-- hide-details -->
         </div>
         
         <div class="text-center mt-4">
@@ -203,6 +201,8 @@
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
+                global.onbeforeunload = function() { };
+                window.location = '/'
             }
         },
         mounted(){
@@ -292,6 +292,10 @@
             height: 40px !important; //vuetify
             margin: 0 8px;
             font-weight: 600;
+            @media (max-width: @screen-xs) {
+                // keep the button next to each other on every breakpoint
+                min-width: 42% !important;
+            }
             &.review_btn-back {
                 color: #4452fc;
             }

@@ -26,7 +26,7 @@ namespace Cloudents.Core.Interfaces
         /// <param name="token"></param>
         /// <returns>return url for stream - null if none exists</returns>
         Task<string?> GetShortStreamingUrlAsync(long videoId, CancellationToken token);
-        Task CreateShortStreamingLocator(long videoId, CancellationToken token);
+        Task CreateShortStreamingLocatorAsync(long videoId, CancellationToken token);
         Task CreatePreviewJobAsync(long id, string url, System.TimeSpan videoLength, CancellationToken token);
 
         /// <summary>

@@ -140,11 +140,7 @@ export default {
             let unsupportedResizeShapes = ["liveDraw", "textDraw", "equationDraw", "iink"];
             if(Object.keys(this.getShapesSelected).length === 1){
                 let shapeId = Object.keys(this.getShapesSelected)[0];
-                if(unsupportedResizeShapes.indexOf(this.getShapesSelected[shapeId].type) > -1){
-                    return false;
-                }else{
-                    return true;
-                }
+                return unsupportedResizeShapes.indexOf(this.getShapesSelected[shapeId].type) <= -1;
             }else{
                 return false;
             }

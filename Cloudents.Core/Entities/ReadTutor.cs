@@ -9,24 +9,20 @@ namespace Cloudents.Core.Entities
     public class ReadTutor : Entity<long>
     {
         public ReadTutor(long id, string name, string? imageName,
-            IReadOnlyList<string>? allSubjects,
             IReadOnlyList<string>? allCourses,
-            double? rate, int rateCount, string bio,
+            double? rate, int rateCount, string? bio,
             int lessons, Country sbCountry,
             Money? subscriptionPrice, string? description, ItemState state)
         {
             Id = id;
             Name = name;
             ImageName = imageName;
-            Subjects = allSubjects?.OrderBy(o => o).Take(3);
-            AllSubjects = allSubjects;
             Courses = allCourses?.OrderBy(o => o).Take(3);
             AllCourses = allCourses;
             Rate = rate;
             RateCount = rateCount;
             Bio = bio;
             Lessons = lessons;
-            //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
             SubscriptionPrice = subscriptionPrice;
@@ -43,13 +39,13 @@ namespace Cloudents.Core.Entities
 
         public virtual string Name { get; protected set; }
         public virtual string? ImageName { get; protected set; }
-        public virtual IEnumerable<string>? Subjects { get; protected set; }
-        public virtual IEnumerable<string>? AllSubjects { get; protected set; }
+        //public virtual IEnumerable<string>? Subjects { get; protected set; }
+        //public virtual IEnumerable<string>? AllSubjects { get; protected set; }
         public virtual IEnumerable<string>? Courses { get; protected set; }
         public virtual IEnumerable<string>? AllCourses { get; protected set; }
         public virtual double? Rate { get; protected set; }
         public virtual int RateCount { get; protected set; }
-        public virtual string Bio { get; protected set; }
+        public virtual string? Bio { get; protected set; }
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 

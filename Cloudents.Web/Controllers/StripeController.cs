@@ -4,10 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.StudyRooms;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Web.Api;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +22,10 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class StripeController : Controller
     {
+        public const string EnrollStudyRoom = "enroll-study-room";
+
+
+        public const string EnrollStudyRoom2 = "enroll-study-room2";
         private readonly IStripeService _stripeService;
         private readonly ICommandBus _commandBus;
         private readonly UserManager<User> _userManager;
@@ -33,15 +39,46 @@ namespace Cloudents.Web.Controllers
             _configuration = configuration;
         }
 
-        [Route("BuyPoints", Name = "stripe-buy-points")]
-        public async Task<IActionResult> StripeCallbackBuyPointsAsync(
+        //[Route("BuyPoints", Name = "stripe-buy-points")]
+        //public async Task<IActionResult> StripeCallbackBuyPointsAsync(
+        //    string redirectUrl, string sessionId,
+        //    CancellationToken token)
+        //{
+        //    var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId, token);
+
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Redirect(redirectUrl);
+        //}
+
+
+        [Route("Enroll", Name = EnrollStudyRoom)]
+        public async Task<IActionResult> StripeCallbackEnrollAsync(
             string redirectUrl, string sessionId,
             CancellationToken token)
         {
-            var (receipt, points) = await _stripeService.GetBuyPointDataByIdAsync(sessionId, token);
+            var metaData = await _stripeService.GetMetaDataAsync(sessionId, token);
+
+            var courseId = long.Parse(metaData[WalletController.StudyRoomIdMetaData]);
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new TransferMoneyToPointsCommand(userId, points, receipt);
+            var command = new CourseEnrollCommand(userId, courseId, sessionId);
+            await _commandBus.DispatchAsync(command, token);
+            return Redirect(redirectUrl);
+        }
+
+        [Route("Enroll2", Name = EnrollStudyRoom2)]
+        public async Task<IActionResult> PrivateStudyRoomStripeCallbackEnrollAsync(
+            string redirectUrl, string sessionId,
+            CancellationToken token)
+        {
+            var metaData = await _stripeService.GetMetaDataAsync(sessionId, token);
+
+            var studyRoomId = Guid.Parse(metaData[WalletController.StudyRoomIdMetaData]);
+
+            var userId = _userManager.GetLongUserId(User);
+            var command = new EnterStudyRoomCommand(studyRoomId, userId, sessionId);
             await _commandBus.DispatchAsync(command, token);
             return Redirect(redirectUrl);
         }
@@ -64,7 +101,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("stripe-finish-connect", Name = "stripe-finish-connect")]
-        public async Task<IActionResult> StripeFinishConnect([FromQuery]string code, CancellationToken token)
+        public async Task<IActionResult> StripeFinishConnect([FromQuery] string code, CancellationToken token)
         {
             var user = await _userManager.GetUserAsync(User);
             var stripeUserId = await _stripeService.GetStripeUserIdAsync(code, token);

@@ -1,28 +1,41 @@
-import dashboardService from '../services/dashboardService.js';
-import walletService from '../services/walletService.js';
-import salesService from '../services/salesService.js';
+import axios from 'axios'
 
+import dashboardService from '../services/dashboardService.js';
+import salesService from '../services/salesService.js';
 const state = {
    salesItems: [],
-   contentItems: [],
+   coursesItems: [],
    purchasesItems: [],
-   balancesItems: [],
    studyRoomItems: [],
    followersItems: [],
+   scheduledClasses: [],
 };
 
 const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   setContentItems(state,val) {
-      state.contentItems = val;
+   setCoursesItems(state, data) {
+      function CourseItem(objInit) {
+         this.documents = objInit.documents
+         this.id = objInit.id
+         this.image = objInit.image
+         this.isPublish = objInit.isPublish
+         this.lessons = objInit.lessons
+         this.name = objInit.name
+         this.price = objInit.price
+         this.type = objInit.type;
+         this.userNames = objInit.users || [];
+         this.users = this.userNames.length;
+         this.startOn = objInit.startOn ? new Date(objInit.startOn) : '';
+      }
+      for (let i = 0; i < data.length; i++) {
+         state.coursesItems.push(new CourseItem(data[i]));
+      }
+      
    },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
-   },
-   setBalancesItems(state,val) {
-      state.balancesItems = val;
    },
    setStudyRoomItems(state,val) {
       state.studyRoomItems = val;
@@ -30,34 +43,31 @@ const mutations = {
    setFollowersItems(state,val) {
       state.followersItems = val;
    },
-   dashboard_setPrice(state,{newPrice,itemId}){
-      state.contentItems.forEach(item =>{
-         if(item.id === itemId){
-            item.price = newPrice;
-         }
-      });
-   },
-   dashboard_setName(state,{newName,itemId}){
-      state.contentItems.forEach(item =>{
-         if(item.id === itemId){
-            item.name = newName;
-         }
-      });
-   },
+
    setSaleItem(state, sessionId) {
       //update on the fly in my-sales approve button
       let index = state.salesItems.findIndex(item => item.sessionId === sessionId)
       state.salesItems[index].paymentStatus = "Pending";
+   },
+   setUpdateItemPosition(state, pos) {
+      const movedItem = state.coursesItems.splice(pos.oldPosition, 1)[0]
+      state.coursesItems.splice(pos.newPosition, 0, movedItem)
+   },
+   resetCourseItems(state) {
+      state.coursesItems = []
+   },
+   setScheduledClasses(state,classes){
+      state.scheduledClasses = classes;
    }
 };
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   getContentItems: state => state.contentItems,
+   getCoursesItems: state => state.coursesItems,
    getPurchasesItems: state => state.purchasesItems,
-   getBalancesItems: state => state.balancesItems,
    getStudyRoomItems: state => state.studyRoomItems,
    getFollowersItems: state => state.followersItems,
+   getScheduledClasses: state => state.scheduledClasses,
 };
 
 const actions = {
@@ -66,19 +76,16 @@ const actions = {
          commit('setSalesItems', items);
       });
    },
-   updateContentItems({commit}){
-      dashboardService.getContentItems().then(items=>{
-         commit('setContentItems', items);
-      });
+   updateCoursesItems({commit}){
+      return axios.get('course').then(({data})=>{
+         commit('setCoursesItems', data);
+      }).catch(ex => {
+         console.error(ex);
+      })
    },
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);
-      });
-   },
-   updateBalancesItems({commit}){
-      walletService.getBalances().then(items=>{
-         commit('setBalancesItems', items);
       });
    },
    updateStudyRoomItems({commit}, type){
@@ -90,12 +97,6 @@ const actions = {
       return dashboardService.getFollowersItems().then(items=>{
          commit('setFollowersItems', items);
       });
-   },
-   dashboard_updatePrice({commit},paramObj){
-      commit('dashboard_setPrice',paramObj);
-   },
-   dashboard_updateName({commit},paramObj){
-      commit('dashboard_setName',paramObj);
    },
    dashboard_sort({state},{listName,sortBy,sortedBy}){
       if(sortBy == 'date' || sortBy == 'lastSession'){
@@ -117,7 +118,7 @@ const actions = {
             if(b[sortBy] > a[sortBy])return 1;
             return 0;
          });
-         return;
+
       }
    },
    // updateTutorActions() {
@@ -135,12 +136,25 @@ const actions = {
    updateSessionDuration(context, session) {
       return dashboardService.updateSessionDuration(session)
    },
-   deleteStudyRoomSession(context, id) {
-      return dashboardService.removeStudyRoomSession(id)
-   },
+   // deleteStudyRoomSession(context, id) {
+   //    return dashboardService.removeStudyRoomSession(id)
+   // },
    updateBillOffline(context,params){
       return salesService.updateBillOffline(params);
-   }
+   },
+   updateCoursePosition({commit}, {oldIndex, newIndex}) {
+      let params = {
+         oldPosition: oldIndex,
+         newPosition: newIndex
+      }
+      commit('setUpdateItemPosition', params)
+      axios.post(`course/move`, params)
+   },
+   updateScheduledClasses({commit}){
+      axios.get('/dashboard/upcoming').then(({data})=>{
+        commit('setScheduledClasses',data)
+      })
+    }
 };
 
 export default {

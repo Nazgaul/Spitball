@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -23,7 +24,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CashOutCommand message, CancellationToken token)
         {
             var balance = await _userRepository.UserBalanceAsync(message.UserId, token);
-            if (balance < 1000)
+            if (balance < CashOutTransaction.CashOutValue)
             {
                 throw new InvalidOperationException("user doesn't have enough money");
             }

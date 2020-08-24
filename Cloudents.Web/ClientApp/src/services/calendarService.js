@@ -26,13 +26,13 @@ function _formatDayRead(UTC){
 }
 const Calendar = {
     Event:function(objInit){
-        var date = new Date(objInit);
+        const date = new Date(objInit);
         this.needToAdd = function() {
             return date.getHours() >7 && date.getHours() <= 23;
         };
         this.date = date.FormatDateToString();
         this.time = `${date.getHours().toString().padStart(2,'0')}:00`  //_calendarTime(date);
-        this.datex = date;
+       // this.datex = date;
     },
     //Avaibilty
     Day:function(objInit){

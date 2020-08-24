@@ -17,7 +17,14 @@
                     <button class="tutorUrl me-4 mb-4" :class="{'text-truncate': isMobile}" @click="$router.push(myProfileRedirect)">{{userUrl}}</button>
                     <v-btn 
                         class="btn align-self-end"
-                        :to="myProfileRedirect"
+                        :to="{
+                            name: this.profileName,
+                            params: {
+                                id: this.userId,
+                                name: this.userName
+                            },
+                            hash: '#tutorEdit'
+                        }"
                         v-if="isEditActionComplete"
                         rounded
                         outlined
@@ -32,7 +39,8 @@
                 </div>
             </div>
             <div class="rightSide mt-8 mt-sm-0">
-                <video class="dashboardVideo" @click="startVideo" :controls="controls" :autoplay="autoplay" :src="onBoardingVideo" width="250" height="150" poster="./images/group-14-copy-2@2x.png"></video>
+                <img src="./images/video-banner@3x.png" v-if="!isMobile" @click="startVideo" width="300" height="180" alt="Spitball How It Works">
+                <video class="dashboardVideo"  v-else @click="startVideo" :controls="controls" :autoplay="autoplay" playsinline :src="onBoardingVideo" width="300" height="180" poster="./images/video-banner@3x.png"></video>
             </div>
         </div>
 
@@ -70,13 +78,20 @@
         <analyticOverview class="px-0" />
 
 
+        <v-dialog
+            v-model="showSpitballDialog"
+            max-width="1200px"
+            contet-class="spitballDialogVideo"
+        >
+            <video v-if="showSpitballDialog" class="dashboardVideo" :controls="true" autoplay="true" :src="onBoardingVideo"></video>
+        </v-dialog>
+
         <v-snackbar
-            absolute
             top
             :timeout="4000"
             :value="verifyEmailState"
         >
-            <div class="text-wrap" v-t="'dashboardTeacher_email_verify'"></div>
+            <div class="text-center" v-t="'dashboardTeacher_email_verify'"></div>
         </v-snackbar>
     </div>
 </template>
@@ -94,6 +109,7 @@ const colors = {
     blue: '#4c59ff',
     green: '#41c4bc',
     yellow: '#eac569',
+    orange: '#ff6927'
 }
 
 export default {
@@ -105,75 +121,74 @@ export default {
     },
     data() {
         return {
+            showSpitballDialog: false,
             controls: false,
             autoplay: false,
             verifyEmailState: false,
             profileName: routeName.Profile,
-            linksItems: {
-                [constants.PHONE]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_phone'),
-                    btnText: this.$t('dashboardTeacher_btn_text_phone'),
-                    method: this.openPhoneDialog
-                },
-                [constants.EMAIL]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_email'),
-                    btnText: this.$t('dashboardTeacher_btn_text_email'),
-                    method: this.verifyEmail
-                },
+        }
+    },
+    computed: {
+        linksItems() {
+            return {
                 [constants.EDIT]: {
                     color: colors.blue,
                     text: this.$t('dashboardTeacher_link_text_edit'),
                     btnText: this.$t('dashboardTeacher_btn_text_edit'),
-                    routeName: { name: routeName.Profile }
+                    routeName: {
+                        name: this.profileName,
+                        params: {
+                            id: this.userId,
+                            name: this.userName
+                        },
+                        hash: '#tutorEdit'
+                    }
                 },
-                [constants.BOOK]: {
+                [constants.SESSIONS]: {
                     color: colors.blue,
+                    text: this.$t('dashboardTeacher_link_text_session'),
+                    btnText: this.$t('dashboardTeacher_btn_text_session'),
+                    routeName: { name: routeName.CourseCreate }
+                },
+                // [constants.TEST]: {
+                //     color: colors.orange,
+                //     text: this.$t('test_drive'),
+                //     btnText: this.$t('test_btn'),
+                //     method: this.openPhoneDialog
+                // },
+                [constants.BOOK]: {
+                    color: colors.green,
                     text: this.$t('dashboardTeacher_link_text_book'),
                     btnText: this.$t('dashboardTeacher_btn_text_book'),
                     method: this.bookSession
                 },
-                [constants.COURSES]: {
-                    color: colors.blue,
-                    text: this.$t('dashboardTeacher_link_text_courses'),
-                    btnText: this.$t('dashboardTeacher_btn_text_courses'),
-                    routeName: { name: routeName.EditCourse }
+                [constants.PHONE]: {
+                    color: colors.green,
+                    text: this.$t('dashboardTeacher_link_text_phone'),
+                    btnText: this.$t('dashboardTeacher_btn_text_phone'),
+                    method: this.openPhoneDialog
                 },
                 [constants.STRIPE]: {
-                    color: colors.blue,
+                    color: colors.green,
                     text: this.$t('dashboardTeacher_link_text_stripe'),
                     btnText: this.$t('dashboardTeacher_btn_text_stripe'),
                     method: this.addStripe
                 },
                 [constants.CALENDAR]: {
-                    color: colors.green,
+                    color: colors.yellow,
                     text: this.$t('dashboardTeacher_link_text_calendar'),
                     btnText: this.$t('dashboardTeacher_btn_text_calendar'),
                     routeName: { name: routeName.MyCalendar }
                 },
-                [constants.TEACH]: {
+
+                [constants.EMAIL]: {
                     color: colors.green,
-                    text: this.$t('dashboardTeacher_link_text_teach'),
-                    btnText: this.$t('dashboardTeacher_btn_text_teach'),
-                    routeName: { name: routeName.MyCalendar }
-                },
-                [constants.SESSIONS]: {
-                    color: colors.yellow,
-                    text: this.$t('dashboardTeacher_link_text_session'),
-                    btnText: this.$t('dashboardTeacher_btn_text_session'),
-                    routeName: { name: routeName.MyStudyRoomsBroadcast }
-                },
-                [constants.UPLOAD]: {
-                    color: colors.yellow,
-                    text: this.$t('dashboardTeacher_link_text_upload'),
-                    btnText: this.$t('dashboardTeacher_btn_text_upload'),
-                    routeName: { name: routeName.MyContent }
-                },
+                    text: this.$t('dashboardTeacher_link_text_email'),
+                    btnText: this.$t('dashboardTeacher_btn_text_email'),
+                    method: this.verifyEmail
+                }
             }
-        }
-    },
-    computed: {
+        },
         isEditActionComplete() {
             return this.$store.getters.getTutorListActions[constants.EDIT]?.value
         },
@@ -223,13 +238,19 @@ export default {
     },
     methods: {
         startVideo() {
-            if(this.controls && this.autoplay) return
-            this.controls = true
-            this.autoplay = true
+
+            if(this.isMobile) {
+                if(this.controls && this.autoplay) return
+                this.controls = true
+                this.autoplay = true
+                document.querySelector('.dashboardVideo').play()
+            } else {
+                this.showSpitballDialog = true
+            }
             this.$ga.event("Dashboard Video", "Get Started How It Works");
         },
         openPhoneDialog() {
-            this.$store.commit('setComponent', 'verifyPhone')
+            this.$store.commit('setComponent', 'setPhone')
         },
         bookSession() {
             this.$router.push({

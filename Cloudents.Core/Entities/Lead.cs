@@ -38,9 +38,7 @@ namespace Cloudents.Core.Entities
         public virtual string? UtmSource { get; protected set; }
 
         public virtual DateTime? CreationTime { get; set; }
-  
 
-        //private readonly ISet<ChatRoomAdmin> _chatRoomsAdmin = new HashSet<ChatRoomAdmin>();
         protected internal virtual ISet<ChatRoomAdmin> ChatRoomsAdmin { get; set; }
     }
 }

@@ -20,9 +20,4 @@ namespace Cloudents.FunctionsV2.Services
             //return hostName2;
         }
     }
-
-    public interface IHostUriService
-    {
-        Uri GetHostUri();
-    }
 }

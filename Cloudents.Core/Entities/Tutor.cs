@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
             AddEvent(new TutorCreatedEvent(this));
-
+            Courses = new List<Course>();
         }
 
 
@@ -25,18 +25,26 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public virtual string Paragraph2 { get; protected set; }
+        public virtual string? Paragraph2 { get; protected set; }
 
-        public virtual string Title { get;protected set; }
+        public virtual string? Title { get;protected set; }
 
-        public virtual string Paragraph3 { get; protected set; }
+        public virtual string? Paragraph3 { get; protected set; }
 
         public virtual User User { get; protected set; }
 
         public virtual Money? SubscriptionPrice { get; protected set; }
 
-        protected internal virtual ICollection<UserCoupon> UserCoupons { get; set; }
+        public virtual IList<Course> Courses { get; protected set; }
+
+        private readonly ICollection<UserCoupon> _userCoupons =new List<UserCoupon>();
+       
+        public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
+
         protected internal virtual ICollection<Coupon> Coupons { get; set; }
+        protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
+
+
 
 
         public virtual void ChangeSubscriptionPrice(double price)
@@ -48,15 +56,6 @@ namespace Cloudents.Core.Entities
             var currency = User.SbCountry.RegionInfo.ISOCurrencySymbol;
             var money = new Money(price, currency);
             SubscriptionPrice = money;
-
-            foreach (var document in User.Documents)
-            {
-                if (document.DocumentPrice.Price > 0)
-                {
-                    document.ChangeToSubscribeMode(this);
-                }
-            }
-
             AddEvent(new TutorSubscriptionEvent(Id));
         }
 
@@ -65,11 +64,11 @@ namespace Cloudents.Core.Entities
             return SubscriptionPrice != null;
         }
 
-        public virtual void UpdateSettings(string bio, string title, string paragraph)
+        public virtual void UpdateSettings(string? shortParagraph, string? title, string? paragraph)
         {
         
-            Paragraph2 = bio;
-            Paragraph3 = Paragraph3;
+            Paragraph2 = shortParagraph;
+            Paragraph3 = paragraph;
             Title = title;
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
@@ -109,7 +108,18 @@ namespace Cloudents.Core.Entities
         protected internal virtual ICollection<StudyRoom> StudyRooms { get; set; }
 
         protected internal virtual ICollection<Lead> Leads { get; set; }
-        public virtual string? SellerKey { get; set; }
+        public virtual string? SellerKey { get;protected set; }
+
+        public virtual void SetSellerKey(string key)
+        {
+            SellerKey = key ?? throw new ArgumentNullException(nameof(key));
+            foreach (var course in Courses.Where(w=>w.State == ItemState.Pending))
+            {
+                
+                course.State = ItemState.Ok;
+            }
+        }
+
         public virtual ItemState State { get; protected set; }
         public virtual DateTime Created { get; protected set; }
 
@@ -147,7 +157,6 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
-      //  public virtual bool IsShownHomePage { get; protected set; }
 
 
         protected internal virtual ICollection<AdminTutor> AdminUsers { get; set; }
@@ -160,6 +169,14 @@ namespace Cloudents.Core.Entities
                 AdminUsers.Clear();
                 AdminUsers.Add(value);
             }
+        }
+      
+
+        public virtual Course AddCourse(Course course)
+        {
+            Courses.Insert(0,course);
+            AddEvent(new NewCourseEvent(course));
+            return course;
         }
 
 

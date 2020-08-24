@@ -30,17 +30,17 @@ const track={
         global.appInsights.trackEvent(eventName, properties, measurements);
     },
 };
-const authenticate= {
-    set: function(userId){
-        let x = userId || '';
-        global.appInsights.setAuthenticatedUserContext(x);
+// const authenticate= {
+//     set: function(userId){
+//         let x = userId || '';
+       
         
-    }
-};
+//     }
+// };
 
 
 export default{
     track,
     EVENT_TYPES,
-    authenticate
+   //authenticate
 }

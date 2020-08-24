@@ -11,24 +11,15 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Storage.Queues;
 using Cloudents.Command;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Command.Documents.PurchaseDocument;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using NHibernate.Linq;
 
 
@@ -92,6 +83,9 @@ namespace ConsoleApp
 
         }
 
+        private static IQueryBus QueryBus => Container.Resolve<IQueryBus>();
+        private static ICommandBus CommandBus => Container.Resolve<ICommandBus>();
+
         static async Task Main()
         {
 
@@ -102,7 +96,6 @@ namespace ConsoleApp
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
-                //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
@@ -111,9 +104,7 @@ namespace ConsoleApp
             builder.RegisterType<MediaServices>().AsSelf().SingleInstance()
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
-
 
 
             Container = builder.Build();
@@ -141,39 +132,21 @@ namespace ConsoleApp
 
 
 
+
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
             await Dbi();
-            //ResourcesMaintenance.DeleteStuffFromJs();
-
-           // await t.InsertBlobReprocessAsync(51657);
-            //await Dbi();
         }
+
+
+
+
+
 
         private static async Task Dbi()
         {
-            var session = Container.Resolve<ISession>();
-
-            List<PrivateStudyRoom> users;
-            do
-            {
-                users = await session.Query<PrivateStudyRoom>()
-                    .Where(w => w.TopologyType == StudyRoomTopologyType.PeerToPeer)
-                    .Take(100).ToListAsync();
-
-                foreach (var user in users)
-                {
-                    using var uow = Container.Resolve<IUnitOfWork>();
-                    user.ChangeTopologyDbi();
-                  
-                    await uow.CommitAsync();
-
-                    Console.WriteLine("no");
-                }
-            } while (users.Count > 0);
-
-           // await DeleteOldStuff.ResyncTutorRead();
+            await DeleteOldStuff.ResyncTutorReadAsync();
         }
 
         private static async Task UpdateTwilioParticipants()

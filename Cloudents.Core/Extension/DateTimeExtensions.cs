@@ -20,6 +20,28 @@ namespace Cloudents.Core.Extension
         {
             return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds);
         }
+
+        public static DateTime RoundUp(this DateTime dt, TimeSpan d)
+        {
+            var modTicks = dt.Ticks % d.Ticks;
+            var delta = modTicks != 0 ? d.Ticks - modTicks : 0;
+            return new DateTime(dt.Ticks + delta, dt.Kind);
+        }
+
+        public static DateTime RoundDown(this DateTime dt, TimeSpan d)
+        {
+            var delta = dt.Ticks % d.Ticks;
+            return new DateTime(dt.Ticks - delta, dt.Kind);
+        }
+
+        public static DateTime RoundToNearest(this DateTime dt, TimeSpan d)
+        {
+            var delta = dt.Ticks % d.Ticks;
+            bool roundUp = delta > d.Ticks / 2;
+            var offset = roundUp ? d.Ticks : 0;
+
+            return new DateTime(dt.Ticks + offset - delta, dt.Kind);
+        }
     }
 
     public static class CultureInfoExtensions
@@ -50,6 +72,22 @@ namespace Cloudents.Core.Extension
                 return cultureInfo;
             }
             return new CultureInfo($"{cultureInfo.ToString().Split('-')[0]}-{country}");
+        }
+    }
+
+    public static class LinqExtensions
+    {
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>
+            (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey>();
+            foreach (TSource element in source)
+            {
+                if (seenKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
         }
     }
 }

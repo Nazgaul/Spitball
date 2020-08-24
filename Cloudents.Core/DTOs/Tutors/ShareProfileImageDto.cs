@@ -6,7 +6,7 @@ namespace Cloudents.Core.DTOs.Tutors
     public class ShareProfileImageDto
     {
 
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         //public string CountryStr { get; set; }
 

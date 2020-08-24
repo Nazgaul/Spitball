@@ -10,15 +10,11 @@ namespace Cloudents.Core.DTOs.Tutors
         public bool EmailVerified { get; set; }
         public bool EditProfile { get; set; }
         public BookedSession? BookedSession { get; set; }
-        public bool Courses { get; set; }
 
         public bool StripeAccount { get; set; }
         public bool CalendarShared { get; set; }
-        public bool HaveHours { get; set; }
-
         public bool LiveSession { get; set; }
 
-        public bool UploadContent { get; set; }
     }
 
     public class TutorNotificationDto
@@ -28,6 +24,21 @@ namespace Cloudents.Core.DTOs.Tutors
         public int UnansweredQuestion { get; set; }
         public int LiveClassRegisteredUser { get; set; }
         public int FollowerNoCommunication { get; set; }
+    }
+
+    public class UpcomingStudyRoomDto
+    {
+        public long CourseId { get; set; }
+
+        public string CourseName { get; set; }
+
+        public int StudentEnroll { get; set; }
+
+        public Guid StudyRoomId { get; set; }
+
+        public string StudyRoomName { get; set; }
+
+        public DateTime BroadcastTime { get; set; }
     }
 
     public class BookedSession

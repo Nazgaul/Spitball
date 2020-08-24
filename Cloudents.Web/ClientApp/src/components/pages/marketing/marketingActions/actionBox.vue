@@ -10,6 +10,7 @@
             color="#4c59ff"
             outlined
             rounded
+            :disabled="props.data.isDisabled"
         >
             {{props.data.buttonText}}
         </v-btn>

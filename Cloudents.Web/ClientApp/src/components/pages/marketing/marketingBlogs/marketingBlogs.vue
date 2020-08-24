@@ -7,7 +7,7 @@
         </div>
 
         <div class="mainBlogs d-flex-column d-sm-flex">
-            <div class="leftBlogs pt-sm-5 pt-2 mr-2" v-if="isMarketingRoute">
+            <div class="leftBlogs pt-sm-5 pt-2 me-2">
                 <div class="titleWrap">
                     <div class="title1 mb-2">
                       {{$t('marketing_blog_text1')}}
@@ -23,7 +23,7 @@
                   <a class="seeAllBlog text-right" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
                 </div>
                 <a class="linkBlog d-flex d-sm-block" :href="blog.url" target="_blank" v-for="(blog, index) in blogs" :key="index">
-                    <div class="top mr-2 mr-sm-0">
+                    <div class="top me-2 me-sm-0">
                         <img :src="blog.image" width="200" height="100" alt="image" />
                     </div>
                     <div class="bottom">
@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import * as routeName from '../../../../routes/routeNames'
-
 export default {
     data: () => ({
         blogs: []
@@ -50,9 +48,6 @@ export default {
     computed: {
       blogsLink() {
         return global.country === "IL" ? 'https://www.blog.spitball.co/blog/categories/hebrew' : 'https://www.blog.spitball.co/blog/categories/english';
-      },
-      isMarketingRoute() {
-        return this.$route.name === routeName.Marketing
       }
     },
     methods: {

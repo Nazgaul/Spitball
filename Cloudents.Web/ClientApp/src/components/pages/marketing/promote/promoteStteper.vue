@@ -1,13 +1,13 @@
 <template>
     <v-stepper class="stepperWrap">
         <v-stepper-header class="elevation-0">
-            <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1" @click="goStep(1)">
+            <v-stepper-step class="stepStteper ps-8" :class="[step === 1 ? 'active' : 'noActive']" step="1" @click="goStep(1)">
                 {{$t('promote_title')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper pl-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(2)">
+            <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(2)">
                 {{$t('promote_choose')}} {{$t('promote_your_content')}}
             </v-stepper-step>
 
@@ -18,7 +18,7 @@
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper pr-6" :class="[step === 4 ? 'active' : 'noActive']" step="4" @click="goStep(4)">
+            <v-stepper-step class="stepStteper pe-6" :class="[step === 4 ? 'active' : 'noActive']" step="4" @click="goStep(4)">
                 {{$t('promote_publish')}}
             </v-stepper-step>
         </v-stepper-header>
@@ -27,7 +27,7 @@
         <div class="mobileLabels px-5 mt-n3 text-center d-none d-sm-flex d-md-none justify-space-between">
             <div class="label1 fontLabel" :class="[step === 1 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
             <div class="label2 fontLabel" :class="[step === 2 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
-            <div class="label3 fontLabel mr-4" :class="[step === 3 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
+            <div class="label3 fontLabel me-4" :class="[step === 3 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
             <div class="label4 fontLabel" :class="[step === 4 ? 'active' : 'noActive']">{{$t('promote_publish')}}</div>
         </div>
 
@@ -43,7 +43,7 @@
                   @selectedDocument="selectedDocument"
                   ref="childComponent">
                 </component>
-                <div class="text-sm-right text-center">
+                <div class="text-sm-end text-center">
                   <v-alert type="error" class="text-left mt-4 mb-0" v-show="error">{{$t('promote_table_error')}}</v-alert>
                   <v-btn class="white--text mt-10" width="120" depressed v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
                   <v-btn class="white--text mt-10" width="120" depressed v-if="step == 4" :to="{name: routeNames.Dashboard}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
@@ -96,14 +96,16 @@ export default {
           title2: this.$t('promote_createOffer_title2'),
           image: require('../images/promoteVideo.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteVideos
+          action: this.promoteVideos,
+          isDisabled:true
         },
         box3: {
           title1: this.$t('promote_createVideo_title1'),
           title2: this.$t('promote_createVideo_title2'),
           image: require('../images/promoteContent.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteDocuments
+          action: this.promoteDocuments,
+          isDisabled:true
         }
       }
     }

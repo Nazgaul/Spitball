@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Enum;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
@@ -38,12 +37,12 @@ namespace Cloudents.Core.Entities
         {
         }
 
-
+        public const decimal CashOutValue = 250;
         public static CashOutTransaction CashOut()
         {
             return new CashOutTransaction
             {
-                Price = -1000,
+                Price = -CashOutValue,
                 Action = TransactionActionType.CashOut,
                 Type = TransactionType.Spent
             };
@@ -82,14 +81,14 @@ namespace Cloudents.Core.Entities
 
     public class BuyPointsTransaction : Transaction
     {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public BuyPointsTransaction(decimal price, string transactionId)
-        {
-            TransactionId = transactionId;
-            Price = Math.Abs(price);
-            Action = TransactionActionType.Buy;
-            Type = TransactionType.Earned;
-        }
+        //[SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        //public BuyPointsTransaction(decimal price, string transactionId)
+        //{
+        //    TransactionId = transactionId;
+        //    Price = Math.Abs(price);
+        //    Action = TransactionActionType.Buy;
+        //    Type = TransactionType.Earned;
+        //}
 
         public virtual string TransactionId { get; protected set; }
 
@@ -141,20 +140,20 @@ namespace Cloudents.Core.Entities
     /// <summary>
     /// Question Transaction - we keep this because of older transactions
     /// </summary>
-    public class QuestionTransaction : Transaction
-    {
+    //public class QuestionTransaction : Transaction
+    //{
 
 
-        public virtual Question Question { get; set; }
-        public virtual Answer Answer { get; protected set; }
+    //    public virtual Question Question { get; set; }
+    //    public virtual Answer Answer { get; protected set; }
 
-        protected QuestionTransaction()
-        {
+    //    protected QuestionTransaction()
+    //    {
 
-        }
+    //    }
 
 
-    }
+    //}
 
     public class ReferUserTransaction : Transaction
     {
@@ -189,26 +188,26 @@ namespace Cloudents.Core.Entities
 
         public virtual Document Document { get; protected set; }
 
-        public static Transaction Buyer(Document document)
-        {
-            return new DocumentTransaction(document)
-            {
-                Action = TransactionActionType.PurchaseDocument,
-                Price = -document.DocumentPrice.Price,
-                Type = TransactionType.Spent
-            };
-        }
+        //public static Transaction Buyer(Document document)
+        //{
+        //    return new DocumentTransaction(document)
+        //    {
+        //        Action = TransactionActionType.PurchaseDocument,
+        //        Price = -document.DocumentPrice.Price,
+        //        Type = TransactionType.Spent
+        //    };
+        //}
 
-        public static Transaction Seller(Document document)
-        {
-            return new DocumentTransaction(document)
-            {
-                Action = TransactionActionType.SoldDocument,
-                Price = document.DocumentPrice.Price,
-                Type = TransactionType.Earned,
+        //public static Transaction Seller(Document document)
+        //{
+        //    return new DocumentTransaction(document)
+        //    {
+        //        Action = TransactionActionType.SoldDocument,
+        //        Price = document.DocumentPrice.Price,
+        //        Type = TransactionType.Earned,
 
-            };
-        }
+        //    };
+        //}
 
     }
 

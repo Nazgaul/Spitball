@@ -1,3 +1,4 @@
+<!--We are putting is in its own file because we are using mounted and destroy-->
 <template>
    <div></div>
 </template>
@@ -31,7 +32,13 @@ export default {
                if (audioTag){
                   previewContainer.removeChild(audioTag)
                }
-               previewContainer.appendChild(self.participantAudio.audio.attach());
+               let audioElement = self.participantAudio.audio.attach();
+               previewContainer.appendChild(audioElement);
+               //https://github.com/twilio/twilio-video.js/issues/922#issuecomment-607038582
+               if (navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)) {
+                  audioElement.pause();
+                  audioElement.play();
+               }
             })
          }
       },

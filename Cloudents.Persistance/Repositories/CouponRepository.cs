@@ -14,9 +14,9 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-        public async Task<Coupon> GetCouponAsync(string coupon, CancellationToken token)
+        public Task<Coupon> GetCouponAsync(string coupon, CancellationToken token)
         {
-            return await Session.Query<Coupon>().SingleOrDefaultAsync(x =>
+            return Session.Query<Coupon>().SingleOrDefaultAsync(x =>
                 x.Code == coupon && x.Expiration.GetValueOrDefault(DateTime.UtcNow.AddDays(1)) > DateTime.UtcNow, cancellationToken: token);
         }
     }

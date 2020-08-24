@@ -5,17 +5,16 @@
          <div class="profileReviewsBox_state_container">
             <div class="profileReviewsBox_state_score">
                <div class="profileReviewsBox_state_score_title">
-                  {{getProfile.user.tutorData.rate.toFixed(1)}}
+                  {{getAverageRate.toFixed(1)}}
                </div>
                <div class="profileReviewsBox_state_score_rating">
-                  <userRating class="state_score_rating" :showRateNumber="false" :rating="getProfile.user.tutorData.rate" :size="'20'" />
-                  <span class="state_score_rating_span pl-1" >{{$tc('resultTutor_review_one',getProfile.user.tutorData.reviewCount)}}</span>
-                
+                  <userRating class="state_score_rating" :showRateNumber="false" :rating="getAverageRate" :size="'20'" />
+                  <span class="state_score_rating_span ps-1" >{{$tc('resultTutor_review_one',getProfile.user.reviewCount)}}</span>
                </div>
             </div>
             <div class="profileReviewsBox_state_stats">
                <div class="profileReviewsBox_state_stats_lines" v-if="!$vuetify.breakpoint.xsOnly">
-                  <v-progress-linear v-for="(rate, index) in rates" :key="index" class="mr-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
+                  <v-progress-linear v-for="(rate, index) in rates" :key="index" class="me-3" color="#ffca54" height="13" :value="rate.rate * 20"/>
                </div>
                <div class="profileReviewsBox_state_stats_stars">
                   <div class="profileReviewsBox_state_stats_stars_row" v-for="(rate, index) in rates" :key="index">
@@ -55,7 +54,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getProfile','getProfileReviews']),
+      ...mapGetters(['getProfile','getProfileReviews','getAverageRate']),
       reviewsText() {
          if(this.isExpand) {
             return this.$t('reviewBox_see_less')
@@ -93,26 +92,24 @@ export default {
 
 .profileReviewsBox{
   max-width: 960px;
-  margin: 0 auto;
+  margin: 80px auto;
 //   height: 512px;
   border-radius: 8px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+//   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
-  padding: 14px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: #43425d;
+    padding: 12px 14px;
+    color: #43425d;
    // @media (max-width: @screen-sm) {
    //    margin: 0 20px;
    // }
   @media (max-width: @screen-xs) {
-     border-radius: 0;
-      margin: 0;
-     padding: 12px 0;
+      border-radius: 0;
+      margin: 0 0 40px;
+      padding: 12px 0;
   }
   .profileReviewsBox_state{
       .profileReviewsBox_state_title{
-         font-size: 18px;
+         font-size: 24px;
          font-weight: 600;
          padding-bottom: 12px;
          text-transform: capitalize;
@@ -124,9 +121,8 @@ export default {
          }
       }
       .profileReviewsBox_state_container{
-         padding: 0 10px;
-         padding-bottom: 24px;
-         display: flex;
+          padding: 0 10px 24px;
+          display: flex;
          justify-content: space-between;
                @media (max-width: @screen-xs) {
                   padding-bottom: 26px;

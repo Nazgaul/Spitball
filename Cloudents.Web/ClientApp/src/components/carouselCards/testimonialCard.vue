@@ -15,7 +15,7 @@
             <template>
                 <div class="user-rate-testimonialCard mt-1">
                     <userRating :rating="item.tutorCount? item.tutorReviews : item.tutorCount" :showRateNumber="false" :size="'14'" />
-                    <span class="reviews-ts ml-1">{{$tc('resultTutor_review_one', item.tutorCount)}}</span>
+                    <span class="reviews-ts ms-1">{{$tc('resultTutor_review_one', item.tutorCount)}}</span>
                    
                 </div>
             </template>
@@ -74,9 +74,8 @@ export default {
         .testimonialCard-txt{
             width: 100%;
             .giveEllipsisUpdated(16px, 1.75, 5, 140px);
-            margin: 0;
             padding: 0;
-            margin-top: 12px;
+            margin: 12px 0 0;
             font-size: 16px;
             font-weight: normal;
             font-stretch: normal;

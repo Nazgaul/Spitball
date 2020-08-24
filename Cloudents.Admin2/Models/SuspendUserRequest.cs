@@ -26,19 +26,12 @@ namespace Cloudents.Admin2.Models
         public string Reason { get; set; }
     }
 
-    public enum SuspendTime
-    {
-        Day,
-        Week,
-        Undecided
-    }
 
-
-    public class SuspendUserResponse
-    {
-        /// <summary>
-        /// The User Email
-        /// </summary>
-        public IEnumerable<string> Email { get; set; }
-    }
+    //public class SuspendUserResponse
+    //{
+    //    /// <summary>
+    //    /// The User Email
+    //    /// </summary>
+    //    public IEnumerable<string> Email { get; set; }
+    //}
 }

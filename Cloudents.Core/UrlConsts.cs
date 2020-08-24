@@ -34,19 +34,19 @@ namespace Cloudents.Core
 
         }
 
-        public string BuildWalletEndPoint(string token)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = "my-sales" };
-            builder.AddQuery(new { token });
-            return builder.ToString();
-        }
+        //public string BuildWalletEndPoint(string token)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = "my-sales" };
+        //    builder.AddQuery(new { token });
+        //    return builder.ToString();
+        //}
 
-        public string BuildShareEndPoint(string token)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint);
-            builder.AddQuery(new { token, open = "referral" });
-            return builder.ToString();
-        }
+        //public string BuildShareEndPoint(string token)
+        //{
+        //    var builder = new UriBuilder(_webSiteEndPoint);
+        //    builder.AddQuery(new { token, open = "referral" });
+        //    return builder.ToString();
+        //}
 
         public string BuildCourseEndPoint(string courseName)
         {
@@ -54,13 +54,7 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildQuestionEndPoint
-            (long id, object? parameters = null)
-        {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"question/{id}" };
-            builder.AddQuery(parameters);
-            return builder.ToString();
-        }
+
 
         public string BuildProfileEndPoint(long id)
         {
@@ -112,14 +106,22 @@ namespace Cloudents.Core
 
         public string BuildDocumentEndPoint(long id, object? parameters = null)
         {
-            var base62 = new Base62(id);
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"document/{base62}" };
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"d/{id}" };
             builder.AddQuery(parameters);
             return builder.ToString();
         }
 
 
         public const string ImageFunctionDocumentRoute = "image/document/{id}";
+        public string BuildCourseThumbnailEndPoint(long id,int version, object? parameters = null)
+        {
+            var path = $"image/studyRoom/{id}";//
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            builder.AddQuery(("version", version.ToString()));
+            return builder.ToString();
+        }
+
         public string BuildDocumentThumbnailEndpoint(long id, object? parameters = null)
         {
             var path = ImageFunctionDocumentRoute.InjectSingleValue("id", id);
@@ -129,10 +131,19 @@ namespace Cloudents.Core
         }
 
 
+        //public string BuildStudyRoomThumbnailEndPoint(Guid id, object? parameters = null)
+        //{
+        //    var path = $"image/studyRoom/{id}";//
+        //    var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+        //    builder.AddQuery(parameters);
+        //    return builder.ToString();
+        //}
+
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
-        public string BuildUserImageEndpoint(long id, string imageName, string? userName, object? parameters = null)
+        //public const string ImageFunctionStudyRoomRoute = "image/studyroom/{id}";
+        public string BuildUserImageEndpoint(long id, string? imageName, string? userName, object? parameters = null)
         {
 
             var injectionObj = new
@@ -168,9 +179,11 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
-        public string BuildStudyRoomEndPoint(Guid id)
+        public string BuildStudyRoomEndPoint(Guid id, object? parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"StudyRoom/{id}" };
+            builder.AddQuery(parameters);
+            builder.AddQuery(new {channel = CommunicationChannel.Email.ToString("G")});
             return builder.ToString();
         }
 

@@ -9,12 +9,13 @@ namespace Cloudents.Persistence.Maps
     {
         public StudyRoomMap()
         {
+            DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Identifier).Not.Nullable().Unique();
             References(x => x.Tutor).Not.Nullable();
 
             Map(x => x.TopologyType).Column("Type");
-            Map(x => x.Name).Length(500);
+           
             Component(x => x.DateTime, z => {
                 z.Map(m => m.CreationTime).Column("DateTime");
                 z.Map(m => m.UpdateTime).Column("Updated");
@@ -25,7 +26,8 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
 
 
-            HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore).ExtraLazyLoad()
+            //TODO do not extra lazy load on set
+            HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             Map(x => x.OldPrice).Column("Price").CustomType(nameof(NHibernateUtil.Currency));
@@ -37,7 +39,8 @@ namespace Cloudents.Persistence.Maps
 
 
             HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
-
+            HasMany(x => x.StudyRoomPayments).Access.CamelCaseField(Prefix.Underscore)
+                .Inverse().Cascade.AllDeleteOrphan();
 
             //HasMany(x => x.UserTokens)
             //    .Access.CamelCaseField(Prefix.Underscore)
@@ -55,6 +58,7 @@ namespace Cloudents.Persistence.Maps
     {
         public PrivateStudyRoomMap()
         {
+            Map(x => x.Name).Length(500);
             DiscriminatorValue(StudyRoomType.Private.ToString());
         }
     }
@@ -63,9 +67,19 @@ namespace Cloudents.Persistence.Maps
     {
         public BroadCastStudyRoomMap()
         {
+            DynamicUpdate();
             DiscriminatorValue(StudyRoomType.Broadcast.ToString());
             Map(x => x.BroadcastTime);
             Map(x => x.Description).Length(4000).Nullable();
+            //Cannot put not nullable because no inverse on course.
+            References(x => x.Course).Column("CourseId")/*.Not.Nullable()*/.ForeignKey("StudyRoom_course2");
+
+            //Component(x => x.Schedule, z =>
+            //{
+            //    z.Map(x => x!.End).Column("ScheduleEnd");
+            //    z.Map(x => x!.CronString).Column("ScheduleCron");
+            //    z.Map(x => x!.Start).Column("ScheduleStart");
+            //});
         }
     }
 

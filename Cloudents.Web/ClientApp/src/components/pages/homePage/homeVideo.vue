@@ -82,7 +82,6 @@ export default {
         line-height: 1.5;
         margin: 0 auto 50px;
         @media (max-width: @screen-xs) {
-          margin: 0;
           width: 100%;
           max-width: 320px;
           margin: 0 auto;

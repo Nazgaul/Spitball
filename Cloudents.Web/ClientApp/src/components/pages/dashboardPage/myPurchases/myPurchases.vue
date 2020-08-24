@@ -19,12 +19,12 @@
             <template v-slot:header="{props}">
                <thead>
                   <tr>
-                     <th class="text-left"
+                     <th class="text-start"
                         v-for="header in props.headers"
                         :key="header.value"
                         :class="['column',{'sortable':header.sortable}]"
                         @click="changeSort(header.value)">
-                        <span class="text-left">{{ header.text }}
+                        <span class="text-start">{{ header.text }}
                            <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
                         </span>
                      </th>
@@ -38,9 +38,9 @@
                   <td>
                      <tableInfoTd :item="props.item"/>
                   </td>
-                  <td class="text-left" v-text="dictionary.types[props.item.type]"/>
-                  <td class="text-left" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-left">{{ $d(new Date(props.item.date)) }}</td> 
+                  <td class="text-start" v-text="dictionary.types[props.item.type]"/>
+                  <td class="text-start" v-text="formatPrice(props.item.price,props.item.type)"/>
+                  <td class="text-start">{{$moment(props.item.date).format('MMM D')}}</td> 
                   
                   
                   <td class="text-center">
@@ -140,7 +140,7 @@ export default {
 
 <style lang="less">
 .myPurchases{
-   max-width: 1334px;
+   // max-width: 1334px;
    .myPurchases_title{
       font-size: 22px;
       color: #43425d;
@@ -148,7 +148,7 @@ export default {
       padding: 30px;
       line-height: 1.3px;
       background: #fff;
-      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
+      // box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    thead{
       tr{
@@ -167,7 +167,7 @@ export default {
    }
    .myPurchases_table_tr {
       td {
-         font-size: 13px !important;
+         // font-size: 13px !important;
          &:first-child {
             padding-right: 0;   
          }
@@ -188,7 +188,6 @@ export default {
    .v-data-footer {
       padding: 6px 0;
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;

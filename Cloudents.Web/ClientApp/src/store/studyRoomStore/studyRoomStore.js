@@ -1,6 +1,7 @@
 import studyRoomService from '../../services/studyRoomService.js';
 import {studyRoom_SETTERS} from '../constants/studyRoomConstants.js';
 import {twilio_SETTERS} from '../constants/twilioConstants.js';
+import Vue from 'vue';
 
 import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService.js'
 function _getRoomParticipantsWithoutTutor(roomParticipants,roomTutor){
@@ -17,10 +18,6 @@ function _getIdFromIdentity(identity){
 }
 function _getNameFromIdentity(identity){
    return identity.split('_')[1]
-}
-function _newObjectPointer(obj){
-   // object assign cuz we need to create new object to vuex listen to
-   return Object.assign({}, obj);
 }
 function _checkPayment(context) {
    let isTutor = context.getters.getRoomIsTutor;
@@ -67,13 +64,14 @@ const state = {
    studyRoomFooterState:true,
    isBrowserNotSupport:false,
    roomNetworkQuality: null,
+   roomEnrolled:null,
 }
 
 const mutations = {
    [studyRoom_SETTERS.ACTIVE_NAV_EDITOR]: (state, navEditor) => state.activeNavEditor = navEditor,
    [studyRoom_SETTERS.ROOM_PROPS](state, props) {
       state.roomOnlineDocument = props.onlineDocument;
-      state.roomIsTutor = this.getters.accountUser.id == props.tutorId;
+      state.roomIsTutor = this.getters.accountUser?.id == props.tutorId;
       state.roomTutor = {
          tutorId: props.tutorId,
          tutorName: props.tutorName,
@@ -86,7 +84,8 @@ const mutations = {
       state.roomType = props.type;
       state.roomName = props.name;
       state.roomDate = props.broadcastTime;
-      state.roomTopologyType = props.topologyType; 
+      state.roomTopologyType = props.topologyType;
+      state.roomEnrolled = props.enrolled;
    },
    [studyRoom_SETTERS.DIALOG_END_SESSION]: (state, val) => state.dialogEndSession = val,
    [studyRoom_SETTERS.ROOM_ACTIVE]: (state, isConnected) => {
@@ -101,16 +100,19 @@ const mutations = {
       state.roomOnlineDocument = null;
       state.roomIsTutor = false;
       state.roomIsNeedPayment = false;
+      state.roomConversationId = null;
       state.roomTutor = {};
       state.studyRoomId = null;
       state.dialogEndSession = false;
       state.roomProps = null;
       state.roomType = null;
       state.roomName = null;
+      state.roomDate = null;
       state.isBrowserNotSupport = false;
       state.roomParticipants = {};
       state.roomTopologyType = 'PeerToPeer';
       state.roomNetworkQuality = null;
+      state.roomEnrolled = null;
    },
    [studyRoom_SETTERS.DIALOG_USER_CONSENT]: (state, val) => state.dialogUserConsent = val,
    [studyRoom_SETTERS.DIALOG_SNAPSHOT]: (state, val) => state.dialogSnapshot = val,
@@ -123,35 +125,31 @@ const mutations = {
          name: _getNameFromIdentity(participant.identity),
          id: participantId
       }
-      state.roomParticipants[participantId] = participantObj;
-      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+      Vue.set(state.roomParticipants, participantId, participantObj);
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT]: (state, participant) => {
       let participantId = _getIdFromIdentity(participant.identity)
-      delete state.roomParticipants[participantId];
-      state.roomParticipants = _newObjectPointer(state.roomParticipants)
+      Vue.delete(state.roomParticipants, participantId)
    },
    [studyRoom_SETTERS.ADD_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       if(track.attach){
          let participantId = _getIdFromIdentity(track.identity);
          let isParticipantTutor = (participantId == state.roomTutor.tutorId)
          if(track.name == 'screenTrack' && isParticipantTutor){
-            state.roomParticipants[participantId].screen = track;
+            Vue.set(state.roomParticipants[participantId], 'screen', track);
          }else{
-            state.roomParticipants[participantId][track.kind] = track;
+            Vue.set(state.roomParticipants[participantId], track.kind, track);
          }
-         state.roomParticipants = _newObjectPointer(state.roomParticipants)
       }
    },
    [studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK]: (state, track) => {
       let participantId = _getIdFromIdentity(track.identity);
       let isParticipantTutor = (participantId == state.roomTutor.tutorId);
       if(track.name == 'screenTrack' && isParticipantTutor){
-         state.roomParticipants[participantId].screen = undefined;
+         Vue.delete(state.roomParticipants[participantId], 'screen')
       }else{
-         state.roomParticipants[participantId][track.kind] = undefined;
+         Vue.delete(state.roomParticipants[participantId], track.kind)
       }
-      state.roomParticipants = _newObjectPointer(state.roomParticipants)
    },
    toggleAudioVideoDialog(state,val){
       state.audioVideoDialog = val;
@@ -205,7 +203,7 @@ const getters = {
    },
    getIsBrowserNotSupport:state => state.isBrowserNotSupport, 
    getRoomTopologyType:state => state.roomTopologyType, 
-   getRoomNetworkQuality:state => state.roomNetworkQuality, 
+   getRoomNetworkQuality:state => state.roomNetworkQuality,
    getRoomParticipantsAudio:state =>{
       return Object.entries(state.roomParticipants).map(e=>({
             id: e[1].id,
@@ -232,21 +230,6 @@ const actions = {
             context.dispatch('updateActiveNavEditor',ROOM_MODE.SCREEN_MODE)
          }
       }
-      // let className = 'fullscreenMode';
-      // if(elId){
-      //    let interval = setInterval(() => {
-      //       let vidEl = document.querySelector(`#${elId}`);
-      //       if(vidEl){
-      //          vidEl.classList.add(className);
-      //          clearInterval(interval)
-      //       }
-      //    }, 50);
-      // }else{
-      //    let x = document.querySelector(`.${className}`);
-      //    if (x) {
-      //       x.classList.remove(className);
-      //    }
-      // }
    },
    updateDialogSnapshot({ commit }, val) {
       commit(studyRoom_SETTERS.DIALOG_SNAPSHOT, val);
@@ -281,7 +264,7 @@ const actions = {
       }
    },
    updateStudyRoomInformation({ getters, dispatch, commit }, roomId) {
-      if (getters.getRoomIdSession) {
+      if (getters.getRoomIdSession == roomId) {
          return dispatch('studyRoomMiddleWare')
       } else {
          return studyRoomService.getRoomInformation(roomId).then((roomProps) => {
@@ -302,41 +285,54 @@ const actions = {
       })
       return Promise.resolve();
    },
-   updateEndTutorSession({ commit, state ,getters}) {
+   updateEndSession({ commit, state ,getters,dispatch}){
+      if(getters.getIsShareScreen){
+         dispatch('updateShareScreen',false)
+      }
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       if(getters.getIsRecording){
          studyRoomRecordingService.stopRecord();
       }
-      studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
-         commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
-      })
+      if(getters.getRoomIsTutor){
+         studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
+            commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
+         })
+      }
    },
    updateResetRoom({dispatch, commit }) {
       commit(studyRoom_SETTERS.ROOM_ACTIVE, false);
       commit(studyRoom_SETTERS.ROOM_RESET)
       dispatch('updateReviewDialog',false)
    },
-   updateCreateStudyRoom({getters,commit},params){
-      return studyRoomService.createRoom(params).then(({data})=>{
-         let newStudyRoomParams = {
-            date: params.date || new Date().toISOString(),
-            id: data.studyRoomId,
-            currency: params.currency || '',
-            name: params.name,
-            price: params.price,
-            conversationId: data.identifier,
-            lastSession: params.date || new Date().toISOString()
-         }
-         let myStudyRooms = getters.getStudyRoomItems;
-         myStudyRooms.unshift(newStudyRoomParams);
-         commit('setStudyRoomItems',myStudyRooms);
-         let chatParams = {
-            conversationId:data.identifier,
-            studyRoomId:data.studyRoomId
-         }
-         commit('ADD_CONVERSATION_STUDYROOM',chatParams)
-         return
+   updateLiveImage(context, formData) {
+      return studyRoomService.updateImage(formData)
+   },
+   updateCreateStudyRoomPrivate({dispatch}, params) {
+      return studyRoomService.createPrivateRoom(params).then(({data}) => {
+         dispatch('updateCreateStudyRoom', {data, params})
       })
+   },
+   updateCreateStudyRoom({commit, getters}, {data, params}) {
+      let newStudyRoomParams = {
+         date: params.date || new Date().toISOString(),
+         id: data.studyRoomId,
+         currency: params.currency || '',
+         name: params.name,
+         price: params.price,
+         conversationId: data.identifier,
+            lastSession: params.date || new Date().toISOString(),
+            tutorId: getters.getAccountId,
+            tutorName: getters.getAccountName
+      }
+      let myStudyRooms = getters.getStudyRoomItems;
+      myStudyRooms.unshift(newStudyRoomParams);
+      commit('setStudyRoomItems', myStudyRooms);
+      let chatParams = {
+         conversationId:data.identifier,
+         studyRoomId:data.studyRoomId
+      }
+      commit('ADD_CONVERSATION_STUDYROOM',chatParams)
+
    },
    updateRoomDisconnected({commit,getters,dispatch}){
       commit(twilio_SETTERS.VIDEO_AVAILABLE,false);

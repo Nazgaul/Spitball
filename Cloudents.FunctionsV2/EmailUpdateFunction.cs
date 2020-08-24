@@ -6,7 +6,6 @@ using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.Azure.WebJobs;
-using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
@@ -15,9 +14,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.FunctionsV2.Models;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using Course = Cloudents.FunctionsV2.Models.Course;
+using Document = Cloudents.FunctionsV2.Models.Document;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -28,7 +30,7 @@ namespace Cloudents.FunctionsV2
         public const string EnglishTemplateId = "d-535f822f33c341d78253b97b3e35e853";
 
         [FunctionName("EmailUpdateFunction")]
-        public static async Task RunOrchestrator(
+        public static async Task RunOrchestratorAsync(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             CancellationToken token)
         {
@@ -59,7 +61,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("EmailUpdateFunction_UserQuery")]
-        public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQuery(
+        public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQueryAsync(
             [ActivityTrigger] GetUpdatesEmailUsersQuery query,
             [Inject] IQueryBus queryBus,
             CancellationToken token)
@@ -72,7 +74,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("EmailUpdateFunction_Process")]
-        public static async Task SendEmail(
+        public static async Task SendEmailAsync(
             [ActivityTrigger] UpdateUserEmailDto user,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
@@ -123,21 +125,21 @@ namespace Cloudents.FunctionsV2
                             UserImage = BuildUserImage(document.UserId, document.UserImage, document.UserName, hostUriService)
                         };
                     }),
-                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
-                    {
-                        QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId, new { token = code }),
-                        QuestionText = question.QuestionText,
-                        UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName, hostUriService),
-                        UserName = question.UserName,
-                        AnswerText = question.AnswerText
-                    })
+                    //Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
+                    //{
+                    //    QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId, new { token = code }),
+                    //    QuestionText = question.QuestionText,
+                    //    UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName, hostUriService),
+                    //    UserName = question.UserName,
+                    //    AnswerText = question.AnswerText
+                    //})
                 };
             });
 
             var templateData = new UpdateEmail(user.UserName, user.ToEmailAddress, user.Language.TextInfo.IsRightToLeft)
             {
                 DocumentCountUpdate = result.OfType<DocumentUpdateEmailDto>().Count(),
-                QuestionCountUpdate = result.OfType<QuestionUpdateEmailDto>().Count(),
+                //QuestionCountUpdate = result.OfType<QuestionUpdateEmailDto>().Count(),
                 Courses = courses
             };
 
@@ -174,7 +176,7 @@ namespace Cloudents.FunctionsV2
             await emailProvider.FlushAsync(token);
         }
 
-        private static string BuildUserImage(long id, string image, string name, IHostUriService hostUriService)
+        private static string BuildUserImage(long id, string? image, string name, IHostUriService hostUriService)
         {
 
             var uri = hostUriService.GetHostUri();
@@ -195,7 +197,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
-        public static async Task TimerStart(
+        public static async Task TimerStartAsync(
             [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
             [DurableClient]IDurableOrchestrationClient starter,
             ILogger log)
@@ -235,104 +237,18 @@ namespace Cloudents.FunctionsV2
 
 
     }
-    public class UpdateEmail
-    {
-        private int _questionCountUpdate;
-        private int _documentCountUpdate;
 
-        [JsonProperty("userName")]
-        public string UserName { get; set; }
-
-        [JsonProperty("numUpdates")]
-        public int TotalUpdates => QuestionCountUpdate.GetValueOrDefault() + DocumentCountUpdate.GetValueOrDefault();
-
-        [JsonProperty("oneUpdate")] public bool OneUpdate => TotalUpdates == 1;
-
-        [JsonProperty("xQuestions")]
-        public int? QuestionCountUpdate
-        {
-            get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate;
-            set => _questionCountUpdate = value.GetValueOrDefault();
-        }
-
-        [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
-
-
-        [JsonProperty("xNewItems")]
-        public int? DocumentCountUpdate
-        {
-            get => _documentCountUpdate == 0 ? (int?)null : _documentCountUpdate;
-            set => _documentCountUpdate = value.GetValueOrDefault();
-        }
-
-        [JsonProperty("oneItem")] public bool OneItem => DocumentCountUpdate == 1;
-
-        [JsonProperty("to")]
-        public string To { get; set; }
-
-        [JsonProperty("courseUpdates")]
-        public IEnumerable<Course> Courses { get; set; }
-
-        [JsonProperty("direction")]
-        public string Direction { get; set; }
-
-        public UpdateEmail(string userName, string to, bool isRtl)
-        {
-            UserName = userName;
-            To = to;
-            Direction = isRtl ? "rtl" : "ltr";
-        }
-
-    }
-
-    public class Course
-    {
-        [JsonProperty("courseName")]
-        public string Name { get; set; }
-        [JsonProperty("courseUrl")]
-        public string Url { get; set; }
-
-        [JsonProperty("questions")]
-
-        public IEnumerable<Question> Questions { get; set; }
-        [JsonProperty("documents")]
-
-        public IEnumerable<Document> Documents { get; set; }
-
-        [JsonProperty("extraUpdates")]
-        public bool NeedMore { get; set; }
-    }
-
-    public abstract class Item
-    {
-
-    }
-
-    public class Question : Item
-    {
-        [JsonProperty("questionUrl")]
-        public string QuestionUrl { get; set; }
-        [JsonProperty("userPicture")]
-        public string UserImage { get; set; }
-        [JsonProperty("asker")]
-        public string UserName { get; set; }
-        [JsonProperty("questionTxt")]
-        public string QuestionText { get; set; }
-        [JsonProperty("answerText")]
-        public string AnswerText { get; set; } //NEW
-    }
-
-    public class Document : Item
-    {
-        [JsonProperty("fileUrl")]
-        public string Url { get; set; }
-        [JsonProperty("fileName")]
-        public string Name { get; set; }
-        [JsonProperty("uploader")]
-        public string UserName { get; set; }
-        [JsonProperty("imgSource")]
-        public string DocumentPreview { get; set; }
-
-        [JsonProperty("uploaderImage")] public string UserImage { get; set; }
-    }
+    //public class Question : Item
+    //{
+    //    [JsonProperty("questionUrl")]
+    //    public string QuestionUrl { get; set; }
+    //    [JsonProperty("userPicture")]
+    //    public string UserImage { get; set; }
+    //    [JsonProperty("asker")]
+    //    public string UserName { get; set; }
+    //    [JsonProperty("questionTxt")]
+    //    public string QuestionText { get; set; }
+    //    [JsonProperty("answerText")]
+    //    public string AnswerText { get; set; } //NEW
+    //}
 }

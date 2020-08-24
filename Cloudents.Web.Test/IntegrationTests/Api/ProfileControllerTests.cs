@@ -26,8 +26,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/profile/159489")]
         [InlineData("api/profile/159489/about")]
-        [InlineData("api/profile/159489/documents")]
-        [InlineData("api/profile/160171/studyRoom")]
+        [InlineData("api/profile/159489/courses")]
+        //[InlineData("api/profile/159489/documents")]
+        //[InlineData("api/profile/160171/studyRoom")]
         public async Task GetAsync_Profile_OkAsync(string uri)
         {
             var response = await _client.GetAsync(uri);

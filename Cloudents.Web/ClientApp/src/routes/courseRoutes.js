@@ -1,48 +1,55 @@
-import { staticComponents } from './routesUtils.js';
-
+import store from '../store'
+import { staticComponents } from './routesUtils'
+import { CourseCreate, CourseUpdate } from './routeNames'
 export const courseRoutes = [
-    {
-        path: "/courses/",
-        name: "setCourse",
-        children: [
-            {
-                path: '',
-                redirect: 'edit',
-                meta: {
-                    requiresAuth: true
-                }
-            },
-            {
-                path: 'add',
-                name: 'addCourse',
-                component: () => import('../components/courses/addCourses/addCourses.vue'),
-                meta: {
-                    requiresAuth: true
-                }
-            },
-            {
-                path: 'edit',
-                name: 'editCourse',
-                component: () => import('../components/courses/editCourses/editCourses.vue'),
-                meta: {
-                    requiresAuth: true
-                }
-            },
-            {
-                path: '*',
-                redirect: 'edit',
-                meta: {
-                    requiresAuth: true
-                }
+   {
+      path: "/courses",
+      redirect: "/",
+      children: [
+         {
+            path: '*',
+            redirect: '/',
+         }
+      ]
+   },
+   {
+      path: '/course',
+      components: {
+         default: () => import(`../components/pages/coursePage/coursePage.vue`),
+         ...staticComponents(['banner', 'header', 'sideMenu']),
+      },
+      children: [
+         {
+            path: '/',
+            redirect: 'create'
+         },
+         {
+            path: 'create',
+            name: CourseCreate,
+         },
+         {
+            path: 'edit/:id',
+            name: CourseUpdate,
+            beforeEnter: (to, from, next) => {
+               store.dispatch('getCourseInfo', to.params.id).then(()=>{
+                  next()
+               })
             }
-        ],
-        components: {
-            default: () => import('../components/courses/courses.vue'),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
-
-        },
-        meta: {
-            requiresAuth: true
-        }
-    },
+         },
+         {
+            path: '*',
+            redirect: 'create',
+         }
+      ],
+      meta: {
+         requiresAuth: true,
+      },
+      beforeEnter: (to, from, next) => {
+         if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
+             next()
+             return
+         }
+         next('/')
+     }
+   }
 ]

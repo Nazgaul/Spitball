@@ -6,25 +6,25 @@ using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.Email
 {
-    public class EmailDto
-    {
-        [EntityBind(nameof(User.Email))] public string ToEmailAddress { get; set; }
-        [EntityBind(nameof(User.Language))] public string Language { get; set; }
+    //public class EmailDto
+    //{
+    //    [EntityBind(nameof(User.Email))] public string ToEmailAddress { get; set; }
+    //    [EntityBind(nameof(User.Language))] public string Language { get; set; }
 
 
-        [EntityBind(nameof(User.Id))] public long UserId { get; set; }
-    }
+    //    [EntityBind(nameof(User.Id))] public long UserId { get; set; }
+    //}
 
-    public class DocumentPurchaseEmailDto : EmailDto
-    {
-        [EntityBind(nameof(Document.Course.Id))]
-        public string CourseName { get; set; }
+    //public class DocumentPurchaseEmailDto : EmailDto
+    //{
+    //    [EntityBind(nameof(Document.OldCourse.Id))]
+    //    public string CourseName { get; set; }
 
-        [EntityBind(nameof(Document.Name))] public string DocumentName { get; set; }
+    //    [EntityBind(nameof(Document.Name))] public string DocumentName { get; set; }
 
-        [EntityBind(nameof(Transaction.Price))]
-        public decimal Tokens { get; set; }
-    }
+    //    [EntityBind(nameof(Transaction.Price))]
+    //    public decimal Tokens { get; set; }
+    //}
 
     //public class AnswerAcceptedEmailDto : EmailDto
     //{
@@ -64,13 +64,13 @@ namespace Cloudents.Core.DTOs.Email
         public DateTime Since { get; set; }
     }
 
-    public class QuestionUpdateEmailDto : UpdateEmailDto
-    {
-        public long QuestionId { get; set; }
-        public string QuestionText { get; set; }
-        public string AnswerText { get; set; }
+    //public class QuestionUpdateEmailDto : UpdateEmailDto
+    //{
+    //    public long QuestionId { get; set; }
+    //    public string QuestionText { get; set; }
+    //    public string AnswerText { get; set; }
 
-    }
+    //}
 
     public class DocumentUpdateEmailDto : UpdateEmailDto
     {

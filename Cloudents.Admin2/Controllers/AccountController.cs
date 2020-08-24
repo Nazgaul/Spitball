@@ -31,10 +31,6 @@ namespace Cloudents.Admin2.Controllers
         public IActionResult LogIn()
         {
             return View();
-            //var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
-            //return Challenge(
-            //    new AuthenticationProperties { RedirectUri = redirectUrl },
-            //    OpenIdConnectDefaults.AuthenticationScheme);
         }
 
 

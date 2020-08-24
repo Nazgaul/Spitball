@@ -38,6 +38,7 @@ namespace Cloudents.Query.Admin
                 User userAlias = null!;
                 DocumentTransaction transactionAlias = null!;
                 Document documentAlias = null!;
+                Course courseAlias = null!;
 
                 UserSoldItemsDto userSoldDto = null!;
 
@@ -52,6 +53,7 @@ namespace Cloudents.Query.Admin
                 var t = _session.QueryOver(() => transactionAlias)
                     .Inner.JoinAlias(r => r.Document, () => documentAlias, r => r.Id == transactionAlias.Document.Id)
                     .Inner.JoinAlias(r => r.User, () => userAlias, r => r.Id == transactionAlias.User.Id)
+                    .JoinAlias(()=>documentAlias.Course,()=>courseAlias)
                     .WithSubquery.WhereProperty(w => w.Document.Id).In(cte);
 
                 if (!string.IsNullOrEmpty(query.Country))
@@ -66,7 +68,7 @@ namespace Cloudents.Query.Admin
                         .Select(x => x.Document.Id).WithAlias(() => userSoldDto.ItemId)
                         .Select(x => documentAlias.Name).WithAlias(() => userSoldDto.ItemName)
                         .Select(x => documentAlias.TimeStamp.CreationTime).WithAlias(() => userSoldDto.ItemCreated)
-                        .Select(x => documentAlias.Course.Id).WithAlias(() => userSoldDto.ItemCourse)
+                        .Select(() => courseAlias.Name).WithAlias(() => userSoldDto.ItemCourse)
                         .Select(x => documentAlias.Status.State).WithAlias(() => userSoldDto.ItemState)
                         .Select(x => documentAlias.DocumentType).WithAlias(() => userSoldDto.ItemType)
                         .Select(x => userAlias.Name).WithAlias(() => userSoldDto.PurchasedUserName)

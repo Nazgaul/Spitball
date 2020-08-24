@@ -11,7 +11,6 @@ using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
-using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -27,7 +26,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cloudents.Web.Api
 {
@@ -44,6 +45,7 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<TutorController> _stringLocalizer;
         private readonly IUrlBuilder _urlBuilder;
+
 
 
         public TutorController(IQueryBus queryBus, SbUserManager userManager,
@@ -70,7 +72,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client,
-            VaryByQueryKeys = new[] {"*"})]
+            VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
             string term, string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)]
@@ -98,7 +100,7 @@ namespace Cloudents.Web.Api
                 {
                     Result = result.Result,
                     Count = result.Count,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page})
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
                 };
             }
             else
@@ -108,7 +110,7 @@ namespace Cloudents.Web.Api
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new {page = ++page, term}),
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term }),
                     Count = result.Count
                 };
             }
@@ -120,32 +122,7 @@ namespace Cloudents.Web.Api
 
 
 
-        /// <summary>
-        /// Return relevant tutors base on user course - on specific course tab - feed
-        /// </summary>
-        /// <param name="course">The course name</param>
-        /// <param name="profile"></param>
-        /// <param name="count">Number of tutor result</param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] {"*"})]
-        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course,
-            [ProfileModelBinder(ProfileServiceQuery.Country)]
-            UserProfile profile,
-            int? count,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId, profile.CountryRegion, count.GetValueOrDefault(10));
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal.Select(item =>
-            {
-                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-                return item;
-            });
 
-        }
 
         [HttpPost("request"), ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -159,86 +136,6 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            //if (!_userManager.TryGetLongUserId(User, out var userId))
-            //{
-            //    if (model.Email == null)
-            //    {
-            //        ModelState.AddModelError("error", _stringLocalizer["Need to have email"]);
-
-            //        client.TrackTrace("Need to have email 1");
-            //        return BadRequest(ModelState);
-            //    }
-
-            //    if (model.Phone == null)
-            //    {
-            //        ModelState.AddModelError("error", _stringLocalizer["Need to have phone"]);
-            //        client.TrackTrace("Need to have phone 2");
-            //        return BadRequest(ModelState);
-            //    }
-
-
-            //    var query = new CountryByIpQuery(HttpContext.GetIpAddress().ToString());
-            //    var location = await _queryBus.QueryAsync(query, token);
-
-            //    var user = await _userManager.FindByEmailAsync(model.Email);
-            //    if (user != null)
-            //    {
-            //        if (user.PhoneNumber == null)
-            //        {
-
-            //            var result =
-            //                await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
-            //                    token);
-            //            if (result != IdentityResult.Success)
-            //            {
-            //                if (string.Equals(result.Errors.First().Code, "Duplicate",
-            //                    StringComparison.OrdinalIgnoreCase))
-            //                {
-            //                    client.TrackTrace("Invalid Phone number");
-            //                    ModelState.AddModelError("error", _stringLocalizer["Phone number Already in use"]);
-            //                    return BadRequest(ModelState);
-            //                }
-
-            //                client.TrackTrace("Invalid Phone number");
-            //                ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
-            //                return BadRequest(ModelState);
-            //            }
-            //        }
-
-            //        userId = user.Id;
-            //    }
-            //    else
-            //    {
-            //        user = await _userManager.FindByPhoneAsync(model.Phone, location?.CallingCode);
-            //        if (user != null)
-            //        {
-            //            userId = user.Id;
-            //        }
-            //        else
-            //        {
-            //            var country = await countryService.GetUserCountryAsync(token);
-
-            //            user = new User(model.Email, model.Name, null, CultureInfo.CurrentCulture, country);
-
-            //            var createUserCommand = new CreateUserCommand(user, model.Course);
-            //            await _commandBus.DispatchAsync(createUserCommand, token);
-
-            //            var result =
-            //                await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
-            //                    token);
-            //            if (result != IdentityResult.Success)
-            //            {
-            //                ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
-
-            //                client.TrackTrace("Invalid Phone number 2");
-            //                return BadRequest(ModelState);
-            //            }
-
-            //            userId = user.Id;
-            //        }
-            //    }
-            //}
-
             try
             {
                 var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
@@ -248,7 +145,7 @@ namespace Cloudents.Web.Api
                     userId,
 
                     referer.AbsoluteUri,
-                    model.Text, model.TutorId, utmSource, model.MoreTutors);
+                    model.Text, model.TutorId, utmSource);
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (ArgumentException)
@@ -322,7 +219,7 @@ namespace Cloudents.Web.Api
             }
             catch (NotFoundException)
             {
-                return StatusCode(555, new {massege = "permission denied"});
+                return StatusCode(555, new { massege = "permission denied" });
             }
         }
 
@@ -366,7 +263,7 @@ namespace Cloudents.Web.Api
             }
             catch (NotFoundException)
             {
-                return StatusCode(555, new {massege = "permission denied"});
+                return StatusCode(555, new { massege = "permission denied" });
             }
         }
 
@@ -414,7 +311,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("{tutorId:long}/subscribe"),Authorize]
+        [HttpPost("{tutorId:long}/subscribe"), Authorize]
         public async Task<IActionResult> SubscribeToTutorAsync(
             long tutorId,
             [FromHeader(Name = "referer")] string referer,
@@ -439,6 +336,18 @@ namespace Cloudents.Web.Api
             {
                 sessionId = result
             });
+        }
+
+
+        [HttpPost("becomeTutor"), Authorize]
+        public async Task<IActionResult> BecomeTutorAsync([FromServices] SignInManager<User> signInManager, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new BecomeTutorCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            var user = await _userManager.GetUserAsync(User);
+            await signInManager.RefreshSignInAsync(user);
+            return Ok();
         }
     }
 }

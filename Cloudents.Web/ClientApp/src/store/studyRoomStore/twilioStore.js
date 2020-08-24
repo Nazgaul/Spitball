@@ -42,10 +42,13 @@ const getters = {
    settings_getIsVideo: state => state.settings_isVideo,
    getVideoDeviceId: state => state.videoDeviceId,
    getAudioDeviceId: state => state.audioDeviceId,
+   getIsAudioAvailable: (state) => state.isAudioAvailable,
+   getIsVideoAvailable: (state) => state.isVideoAvailable,
+   
 }
 const actions = {
-   updateToggleAudioParticipants({commit,state}){
-      commit(twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS,!state.isAudioParticipants)
+   updateToggleAudioParticipants({commit}){
+      commit(twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS,false)
    },
    updateJwtToken({commit},token){
       commit(twilio_SETTERS.JWT_TOKEN,token)

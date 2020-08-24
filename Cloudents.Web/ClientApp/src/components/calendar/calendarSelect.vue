@@ -81,6 +81,7 @@ export default {
                 border-radius: 4px !important;
             }
     .calendarSelect{
+        
         width: fit-content;
         margin: auto;
         // margin-top: 12px !important;
@@ -104,13 +105,13 @@ export default {
             max-height: 256px;
             overflow-x: hidden;
             max-width: 410px;
-            margin: auto;
             @media (max-width: @screen-xs) {
                 min-height: inherit;
                 max-height: inherit;
                 overflow-x: inherit;
             }
-            margin-bottom: 20px;
+            margin: auto auto 20px;
+
             .divider-calendar{
                 margin-bottom: 12px;
                 border-color: #dddddd !important;
@@ -131,10 +132,8 @@ export default {
                     span{
                         .giveMeEllipsisOne();
                         font-size: 14px;
-                        line-height: 2.14;
                         letter-spacing: -0.36px;
                         color: @global-purple;
-                        line-height: normal;
                         display: inline-block;
                         width: calc(~"100% - 32px");
                         vertical-align: middle;
