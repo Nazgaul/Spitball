@@ -3,14 +3,15 @@
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
 
 
-      <v-content style="width: 100%;">
+      <v-content style="width: 100%;" class="d-flex flex-grow-0 flex-shrink-0">
          <component style="width:100%" :is="currentMode"></component>
+         <mobileControllers/>
       </v-content>
 
 
-         <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
+         <!-- <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
             <mobileControllers/>
-         </div>
+         </div> -->
 
 
          <div class="studyRoomMobileChatHeader mt-4">

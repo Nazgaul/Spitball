@@ -106,6 +106,8 @@ export default {
    width: 100%;
    height: 100%;
    position: absolute;
+   top: 0;
+   bottom: 0;
    .tutorName{
       position: absolute;
       font-size: 14px;

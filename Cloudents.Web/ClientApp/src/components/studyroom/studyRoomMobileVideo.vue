@@ -1,13 +1,13 @@
 <template>
    <div :id="elementId" class="d-flex align-center flex-grow-0 flex-shrink-0">
       <span class="tutorName">{{roomTutorName}}</span>
-      <div class="videoLiner">
+      <!-- <div class="videoLiner">
          <v-btn icon @click="toggleAudio" sel="audio_enabling"
          :class="['micControl','drawerControlsBtn',{'btnIgnore':!isAudioActive},'mb-2']" >
             <v-icon v-if="isAudioActive" size="30" color="white">sbf-microphone</v-icon>
             <v-icon v-else size="30" color="white">sbf-mic-ignore</v-icon>
          </v-btn>
-      </div>
+      </div> -->
    </div>  
 </template>
 

@@ -211,7 +211,29 @@ const getters = {
             audio: e[1].audio
          })
       ).filter(e=>e.audio)
-   }
+   },
+   getStudyroomEnrolled:state => state.roomEnrolled,
+   // getSessionRecurring: () => (nextEvents) => {
+   //    if(!nextEvents) return null;
+   //    let times = nextEvents.length;
+
+   //    let daysObj = nextEvents.map(day=>{
+   //       return {
+   //          text: Moment(day).format('ddd'),
+   //          digit:Moment(day).format('d')
+   //       }
+   //    }).sort((a,b)=>a.digit - b.digit)
+
+   //    let days = Array.from(new Set(daysObj.map(d=>d.text))).join(', ');
+   //    let start = nextEvents[0];
+   //    let startNext = nextEvents.filter(dateEvent=> Moment(dateEvent).isAfter())[0];
+   //    return {
+   //       times,
+   //       days,
+   //       start,
+   //       startNext
+   //    }
+   // },
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){
