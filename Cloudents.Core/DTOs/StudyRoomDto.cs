@@ -17,6 +17,9 @@ namespace Cloudents.Core.DTOs
         [NonSerialized] public bool EnrolledStudyRoom;
         [NonSerialized] public bool EnrolledCourse;
 
+        [NonSerialized] public int AmountOfPayments;
+        [NonSerialized] public int AmountOfSessions;
+
 
         public bool Enrolled => EnrolledStudyRoom || EnrolledCourse;
 
@@ -31,7 +34,13 @@ namespace Cloudents.Core.DTOs
         {
             get
             {
+                
                 if (TutorPrice.Cents == 0)
+                {
+                    return false;
+                }
+
+                if (EnrolledCourse)
                 {
                     return false;
                 }
