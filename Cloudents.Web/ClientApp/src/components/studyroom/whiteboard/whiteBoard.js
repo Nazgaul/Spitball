@@ -445,6 +445,13 @@ export default {
             return size
         },
         getWindowHeight(){
+            if (window.innerWidth < 960){
+                if(window.innerWidth > window.innerHeight){
+                    return window.innerHeight
+                }else{
+                    return 300
+                }
+            }
             let windowHeight = document.querySelector('main').clientHeight;
             let paddingTop = HeaderHeight;
             let paddingBottom = +document.querySelector('main').style.paddingBottom.replace('px','') + tabsHeight;
