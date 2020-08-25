@@ -3,9 +3,10 @@
       <v-divider></v-divider>
       <div class="profileSingleReview_review">
          <div class="profileSingleReview_img">
+              <!-- :userId="review.id" -->
             <userAvatar  
                :size="isMobile? '34' : '42'" 
-               :userId="review.id"
+             
                :userImageUrl="review.image" 
                :user-name="review.name"/>
          </div>
