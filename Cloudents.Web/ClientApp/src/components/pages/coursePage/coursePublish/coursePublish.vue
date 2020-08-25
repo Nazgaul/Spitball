@@ -19,14 +19,20 @@ export default {
     name: 'coursePublish',
     computed: {
         canCreateCourse() {
-            return this.$store.getters.getIsCanCreateCourse
+            let price = this.$store.getters.getFollowerPrice
+            let canCreate = this.$store.getters.getIsCanCreateCourse
+            let needPayment = this.$store.getters.getAccountNeedPayment
+            if(global.country === 'IL') {
+                return parseInt(price) === 0 || !needPayment
+            }
+            return canCreate
         },
         IsCourseVisible() {
             return this.$store.getters.getCourseVisible
         },
         courseVisible: {
             get() {
-                return this.$store.getters.getCourseVisible
+                return this.IsCourseVisible
             },
             set(val) {
                 this.$store.commit('setShowCourse', val)
