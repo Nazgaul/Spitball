@@ -32,10 +32,7 @@ namespace Cloudents.FunctionsV2
                 var str = await blob.DownloadTextAsync();
                 query = JsonConvert.DeserializeObject<TutorSyncAzureSearchQuery>(str);
             }
-
-
             var nextQuery = new TutorSyncAzureSearchQuery(query.Version);
-
             bool updateOccur;
             do
             {
