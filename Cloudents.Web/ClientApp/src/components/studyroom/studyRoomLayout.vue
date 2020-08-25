@@ -15,7 +15,7 @@
     </template>
     
     <studyRoomAudio/>
-    <studyRoomSettingsDialog v-if="!isRoomActive"/>
+    <studyRoomSettingsDialog v-if="!isRoomActiveAndUpdated"/>
     <studyRoomDialogs/>
     <slot name="appInjections"></slot>
   </v-app>
@@ -74,6 +74,13 @@ export default {
     },
     isRoomActive(){
       return this.$store.getters.getRoomIsActive;
+    },
+    isRoomActiveAndUpdated(){
+      if(this.$store.getters.getRoomIsTutor){
+        return this.isRoomActive;
+      }else{
+        return this.isRoomActive && this.$store.getters.getIsRoomUpdated;
+      }
     },
     isRoomEnabled(){
       return this.$store.getters.getJwtToken

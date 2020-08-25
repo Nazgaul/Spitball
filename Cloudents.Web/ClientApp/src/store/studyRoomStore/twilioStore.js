@@ -12,6 +12,7 @@ const state = {
    settings_isVideo:false,
    videoDeviceId: global.localStorage.getItem('sb-videoTrackId'),
    audioDeviceId: global.localStorage.getItem('sb-audioTrackId'),
+   isUpdated:false
 }
 const mutations = {
    settings_setIsVideo(state,val){
@@ -30,6 +31,7 @@ const mutations = {
    [twilio_SETTERS.TOGGLE_AUDIO_PARTICIPANTS]:(state,val)=> state.isAudioParticipants = val,
    [twilio_SETTERS.VIDEO_DEVICE_ID]:(state,id)=> state.videoDeviceId = id,
    [twilio_SETTERS.AUDIO_DEVICE_ID]:(state,id)=> state.audioDeviceId = id,
+   setIsRoomUpdated: (state,val) => state.isUpdated = val,
 }
 
 const getters = {
@@ -44,7 +46,7 @@ const getters = {
    getAudioDeviceId: state => state.audioDeviceId,
    getIsAudioAvailable: (state) => state.isAudioAvailable,
    getIsVideoAvailable: (state) => state.isVideoAvailable,
-   
+   getIsRoomUpdated: (state) => state.isUpdated,
 }
 const actions = {
    updateToggleAudioParticipants({commit}){

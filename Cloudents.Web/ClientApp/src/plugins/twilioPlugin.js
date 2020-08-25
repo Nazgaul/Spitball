@@ -201,6 +201,7 @@ function _twilioListeners(room,store) {
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
          isStateInit = true; // to prevent multiple initials 
+         store.commit('setIsRoomUpdated',true);
          return;
       }
       if (data.type === "muteAll") {
@@ -467,6 +468,7 @@ export default () => {
                   isTwilioStarted = false;
                   store.dispatch('updateRoomDisconnected');
                   store.dispatch('updateRoomIsJoined',null);
+                  store.commit('setIsRoomUpdated',false);
                }
             }
             if (mutation.type === twilio_SETTERS.TOGGLE_TUTOR_FULL_SCREEN) {
