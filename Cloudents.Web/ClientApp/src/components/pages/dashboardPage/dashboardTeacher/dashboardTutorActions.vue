@@ -140,8 +140,7 @@ export default {
                         params: {
                             id: this.userId,
                             name: this.userName
-                        },
-                        hash: '#tutorEdit'
+                        }
                     }
                 },
                 [constants.SESSIONS]: {

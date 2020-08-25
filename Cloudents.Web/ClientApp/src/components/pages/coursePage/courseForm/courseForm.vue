@@ -16,7 +16,7 @@
         </div>
         <div class="courseRightSide ms-6">
             <coursePublish />
-            <coursePromote />
+            <!-- <coursePromote /> -->
         </div>
     </div>
 </template>
@@ -28,7 +28,7 @@ import courseInfo from '../courseInfo/courseInfo.vue';
 import courseTeaching from '../courseTeaching/courseTeaching.vue';
 import courseUpload from '../courseUpload/courseUpload.vue';
 import coursePublish from '../coursePublish/coursePublish.vue';
-import coursePromote from '../coursePromote/coursePromote.vue';
+// import coursePromote from '../coursePromote/coursePromote.vue';
 
 export default {
     components: {
@@ -36,7 +36,7 @@ export default {
         courseTeaching,
         courseUpload,
         coursePublish,
-        coursePromote,
+        // coursePromote,
     },
     data() {
         return {

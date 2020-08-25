@@ -106,6 +106,8 @@ export default {
    width: 100%;
    height: 100%;
    position: absolute;
+   top: 0;
+   bottom: 0;
    .tutorName{
       position: absolute;
       font-size: 14px;
@@ -119,7 +121,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
+      //background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.1) 74%, rgba(0, 0, 0, 0.64));
       display: flex;
       align-items: flex-end;
       justify-content: center;

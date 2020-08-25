@@ -63,7 +63,7 @@
             </v-btn>
          </template>
          <v-list>
-            <v-list-item class="menuStudyRoomOption" @click="toggleRecord">
+            <!-- <v-list-item class="menuStudyRoomOption" @click="toggleRecord">
                <template v-if="!getIsRecording">
                      <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
                      {{$t('tutor_begain_recording')}}
@@ -72,7 +72,7 @@
                      <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
                      {{$t('tutor_stop_recording')}}
                </template>
-            </v-list-item>
+            </v-list-item> -->
             <v-list-item class="menuStudyRoomOption" sel="setting_draw" @click="openSettingsDialog">
                   <v-icon color="7a798c" class="me-2" size="20">sbf-settings</v-icon> 
                   {{$t('studyRoom_menu_settings')}}

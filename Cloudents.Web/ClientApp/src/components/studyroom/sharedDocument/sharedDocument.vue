@@ -26,6 +26,7 @@ export default {
 
 <style scoped lang="less">
 .shared-document-container {
+  min-height: 30vh;
     position: relative;
 //   .iframe-container {
 //     position: relative;

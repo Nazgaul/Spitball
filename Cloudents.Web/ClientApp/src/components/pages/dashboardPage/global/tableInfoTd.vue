@@ -5,7 +5,8 @@
             <span>{{$t('dashboardPage_info_buy_points')}}</span>
          </div>
       </template>
-      <router-link v-else class="tableInfo_router" :to="dynamicRouter(item)">
+       <!-- :to="dynamicRouter(item)" -->
+      <div v-else class="tableInfo_router">
          <template v-if="item.type === 'TutoringSession'">
             <div class="text-truncate">
                <div v-if="item.roomName" class="text-truncate">
@@ -41,7 +42,7 @@
             <span class="font-weight-bold" v-t="'dashboardPage_course'"></span>
             <span>{{item.course}}</span>
          </div>
-      </router-link>
+      </div>
    </div>
 </template>
 <script>
@@ -52,25 +53,22 @@ export default {
          required:true
       }
    },
-   methods: {
-      dynamicRouter(item){
-         if(item.url){
-            return item.url;
-         }
-         // if(item.type === 'Question' || item.type === 'Answer'){
-         //    return {path:'/question/'+item.id}
-         // }
-         if(item.type === 'TutoringSession'){
-            return {name: 'profile',params: {id: item.id, name: item.name}}
-         }
-         if(item.conversationId){
-            return {name: 'profile',params: {id: item.userId, name: item.name}}
-         }
-         if(item.userId && !item.conversationId && !item.type){
-            return {name: 'profile',params: {id: item.userId, name: item.name}}
-         }
-      },   
-   },
+   // methods: {
+   //    dynamicRouter(item){
+   //       if(item.url){
+   //          return item.url;
+   //       }
+   //       if(item.type === 'TutoringSession'){
+   //          return {name: 'profile',params: {id: item.id, name: item.name}}
+   //       }
+   //       if(item.conversationId){
+   //          return {name: 'profile',params: {id: item.userId, name: item.name}}
+   //       }
+   //       if(item.userId && !item.conversationId && !item.type){
+   //          return {name: 'profile',params: {id: item.userId, name: item.name}}
+   //       }
+   //    },   
+   // },
    
 }
 </script>

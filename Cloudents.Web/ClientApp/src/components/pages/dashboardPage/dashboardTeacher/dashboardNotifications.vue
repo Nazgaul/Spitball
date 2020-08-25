@@ -6,26 +6,28 @@
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
 
-        <router-link 
-            class="center py-4 d-flex align-center justify-space-between"
-            tag="div"
-            v-for="notification in notifyItems"
-            :key="notification.name"
-            :to="{ name: notification.routeName }"
-        >
-            <div class="notifyWrap d-flex align-center" :class="{'ms-2': !notification.amount}">
-                <div class="blueDot" v-if="notification.amount > 0"></div>
-                <bellIcon class="" width="20px" />
-                <div class="notificateText mx-4">{{notification.text}}</div>
-            </div>
-            <!-- <arrowRight width="20" class="arrowRight d-sm-none" />  -->
-        </router-link>
+        <template v-if="Object.keys(notifications).length">
+            <router-link 
+                class="center py-4 d-flex align-center justify-space-between"
+                v-for="notification in notifyFilter"
+                :key="notification.id"
+                :to="{ name: notification.routeName }"
+            >
+                <div class="notifyWrap d-flex align-center" :class="{'ms-2': !notification.amount}">
+                    <div class="blueDot" v-if="notification.amount > 0"></div>
+                    <bellIcon class="" width="20px" />
+                    <div class="notificateText mx-4">{{notification.text}}</div>
+                </div>
+                <!-- <arrowRight width="20" class="arrowRight d-sm-none" />  -->
+            </router-link>
+        </template>
 
+        <div class="notificationEmpty" v-else v-t="'notification_empty'"></div>
     </div>
 </template>
 
 <script>
-// import * as routeName from '../../../../routes/routeNames'
+import { MessageCenter, MyCourses, MySales } from '../../../../routes/routeNames'
 import constants from '../../../../store/constants/dashboardConstants'
 
 import fillBellIcon from './images/fillBell.svg'
@@ -45,44 +47,52 @@ export default {
         }
     },
     computed: {
+        notifications() {
+            return this.$store.getters.getUserNotifications
+        },
+        notifyFilter() {
+            return Object.keys(this.notifyItems).filter((n) => {
+                if(this.notifyItems[n].amount !== 0) {
+                    return this.notifyItems[n]
+                }
+            }).reduce((obj, key) => {
+                return {
+                    ...obj,
+                    [key]: this.notifyItems[key]
+                };
+            }, {});
+        },
         notifyItems() {
-            let notifylist = this.$store.getters.getUserNotifications
+            let notifylist = this.notifications
 
             return {
                 [constants.CHAT]: {
+                    id: 1,
                     text: this.$tc('dashboardTeacher_notify_chat', notifylist[constants.CHAT]),
-                    amount: notifylist[constants.CHAT]
-                    // routeName: routeName.MessageCenter
+                    amount: notifylist[constants.CHAT],
+                    routeName: MessageCenter
                 },
                 [constants.BROADCAST]: {
+                    id: 2,
                     text: this.$tc('dashboardTeacher_notify_broadcast', notifylist[constants.BROADCAST]),
-                    amount: notifylist[constants.BROADCAST]
+                    amount: notifylist[constants.BROADCAST],
+                    routeName: MyCourses
                 },
                 [constants.FOLLOWERS]: {
+                    id: 3,
                     text: this.$tc('dashboardTeacher_notify_follower', notifylist[constants.FOLLOWERS]),
-                    amount: notifylist[constants.FOLLOWERS]
+                    amount: notifylist[constants.FOLLOWERS],
+                    routeName: MessageCenter
                 },
              
                 [constants.PAYMENTS]: {
+                    id: 4,
                     text: this.$tc('dashboardTeacher_notify_payments', notifylist[constants.PAYMENTS]),
-                    amount: notifylist[constants.PAYMENTS]
-                    // routeName: routeName.MySales
+                    amount: notifylist[constants.PAYMENTS],
+                    routeName: MySales
                 }
             }
         },
-        // tutorNotificationsFilterList() {
-        //     return this.tutorNotifications.filter(notify => notify.value === true) 
-        // },
-        // tutorNotifications() {
-        //     let notifylist = this.$store.getters.getUserNotifications
-        //     return Object.keys(notifylist).map(notify => {
-        //         return {
-        //             ...this.notifyItems[notify],
-        //             amount: notifylist[notify],
-        //             name: notify
-        //         }
-        //     })
-        // }
     },
     created() {
         this.$store.dispatch('updateTutorNotifications')
@@ -138,6 +148,10 @@ export default {
             //     vertical-align: bottom;
             //     width: 10px;
             // }
+        }
+        .notificationEmpty {
+            font-size: 16px;
+            color: @global-purple;
         }
     }
 </style>

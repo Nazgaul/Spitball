@@ -37,7 +37,7 @@
                 <userAvatar size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="user.id"/>
                 <div class="uM_top_txts">
                     <h1 class="uM_title">{{$t('menuList_greets', { '0': user.name })}}</h1>
-                    <h2 class="uM_subtitle">{{$t('menuList_balance', { '0': userBalance(user.balance)})}}</h2>
+                    <!-- <h2 class="uM_subtitle">{{$t('menuList_balance', { '0': userBalance(user.balance)})}}</h2> -->
                 </div>
             </div>
         </template>
@@ -169,11 +169,11 @@ export default {
         this.updateReferralDialog(true);
       });
     },
-    userBalance(balance){
-      if(!balance) return
-      let balanceFixed = +balance.toFixed()
-      return balanceFixed.toLocaleString(`${global.lang}`)
-    },
+    // userBalance(balance){
+    //   if(!balance) return
+    //   let balanceFixed = +balance.toFixed()
+    //   return balanceFixed.toLocaleString(`${global.lang}`)
+    // },
     openLoginDialog() {
       this.$store.commit('setComponent', 'login');
       this.$emit('closeMenu')
@@ -221,11 +221,11 @@ export default {
         font-weight: 600;
         line-height: 1.57;
       }
-      .uM_subtitle {
-        font-size: 12px;
-        font-weight: normal;
-        line-height: 1.83;
-      }
+      // .uM_subtitle {
+      //   font-size: 12px;
+      //   font-weight: normal;
+      //   line-height: 1.83;
+      // }
     }
   }
   .menuListTopNotLogged {

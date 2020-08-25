@@ -74,9 +74,6 @@ export default {
             if(this.isMyProfile) return
             if(this.isLogged) {
                 this.$emit('setCalendarActive', true)
-                this.$nextTick(() => {
-                    this.$vuetify.goTo(this.$parent.$refs.calendarTab)
-                })
             } else {
                 sessionStorage.setItem('calendar', true)
                 this.$store.commit('setComponent', 'register')
