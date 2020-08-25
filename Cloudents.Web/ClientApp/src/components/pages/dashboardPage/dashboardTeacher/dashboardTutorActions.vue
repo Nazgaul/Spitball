@@ -22,7 +22,8 @@
                             params: {
                                 id: this.userId,
                                 name: this.userName
-                            }
+                            },
+                            hash: '#tutorEdit'
                         }"
                         v-if="isEditActionComplete"
                         rounded
