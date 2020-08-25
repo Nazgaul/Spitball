@@ -287,7 +287,6 @@ export default {
                     @media (max-width: @screen-xs) {
                         padding-top: 0;
                     }
-                    padding-top: 10px;
                     @-moz-document url-prefix(){
                        padding-top: 0;
                     }
