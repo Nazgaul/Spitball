@@ -1,8 +1,8 @@
 <template>
-    <div class="nav-container">
+    <div class="nav-container" >
             <!-- <v-tooltip bottom>
                 <template v-slot:activator="{on}" id="languagesListPop" > -->
-                    <v-btn text @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
+                    <v-btn :disabled="isMobile" text @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
                         <div class="name_img">
                         <img style="width: 24px; margin-right: 5px;" :src="getLangImg(currentLang.langIcon)" >
                             {{currentLang.langName}}
@@ -83,6 +83,9 @@ export default {
         currentLang(){
             return this.getCurrentLang
         },
+        isMobile(){
+            return this.$vuetify.breakpoint.smAndDown;
+        }
         // themeMode:{
         //     get(){
         //         return !this.getIsDarkTheme
@@ -101,54 +104,55 @@ export default {
 }
 </script>
 
-// <style lang="less">
-// @import '../../../styles/colors.less';
-// .nav-container {
-//     //position: relative;
-//         .selected-lang{
-//                 display: flex;
-//                 align-items: center;
-//                 font-size: 16px;
-//                 border-radius: 4px;
-//                 border: solid 1px @color-main;
-//                 padding: 0 5px;
-//                 width: 160px;
-//                 height: 36px;
-//                 align-self: center;
-//                 .name_img{
-//                         display: flex;
-//                         align-items: inherit;
-//                 }
-//                 .v-btn__content{
-//                     justify-content: space-between;
-//                     padding: 0 8px;
-//                 }
-//         }
+<style lang="less">
+@import '../../../styles/colors.less';
+.nav-container {
+    position: relative;
+        .selected-lang{
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+                border-radius: 4px;
+                border: solid 1px @color-main;
+                padding: 0 5px;
+                width: 160px;
+                height: 36px;
+                align-self: center;
+                .name_img{
+                        display: flex;
+                        align-items: inherit;
+                }
+                .v-btn__content{
+                    justify-content: space-between;
+                    padding: 0 8px;
+                }
+        }
 
-//     .list-lang-cont{
-//         width: 410px;
-//         position: absolute;
-//         padding: 5px;
-//         top: 52px;
-//         left: 8px;
-//         font-size: 14px;
-//         .list-lang{
-//             cursor: pointer;
-//             // padding: 5px;
-//             width: 120px;
-//             float: left;
-//             display: flex;
-//             padding: 8px;
-//             margin-right: 9px;
-//         }
-//         .list-lang:hover{
-//             background-color: rgb(204, 204, 204);
-//         }
-//     }
-//             .nav-action {
-//                 .switch{
-//                     margin: 0;
-//                 }
-//             }
-//         }
-// </style>
+    .list-lang-cont{
+        z-index: 10;
+        width: 410px;
+        position: absolute;
+        padding: 5px;
+        top: 52px;
+        left: 8px;
+        font-size: 14px;
+        .list-lang{
+            cursor: pointer;
+            // padding: 5px;
+            width: 120px;
+            float: left;
+            display: flex;
+            padding: 8px;
+            margin-right: 9px;
+        }
+        .list-lang:hover{
+            background-color: rgb(204, 204, 204);
+        }
+    }
+            .nav-action {
+                .switch{
+                    margin: 0;
+                }
+            }
+        }
+</style>

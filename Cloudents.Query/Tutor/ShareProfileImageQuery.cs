@@ -10,7 +10,7 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Tutor
 {
-    public class ShareProfileImageQuery : IQuery<ShareProfileImageDto>
+    public class ShareProfileImageQuery : IQuery<ShareProfileImageDto?>
     {
         public ShareProfileImageQuery(long id)
         {
@@ -20,7 +20,7 @@ namespace Cloudents.Query.Tutor
         private long Id { get;  }
 
 
-        internal sealed class ShareProfileImageQueryHandler : IQueryHandler<ShareProfileImageQuery,ShareProfileImageDto>
+        internal sealed class ShareProfileImageQueryHandler : IQueryHandler<ShareProfileImageQuery,ShareProfileImageDto?>
         {
             private readonly IStatelessSession _statelessSession;
 
@@ -30,8 +30,9 @@ namespace Cloudents.Query.Tutor
             }
 
             [Cache(TimeConst.Minute * 10, "share-production", false)]
-            public Task<ShareProfileImageDto> GetAsync(ShareProfileImageQuery query, CancellationToken token)
+            public Task<ShareProfileImageDto?> GetAsync(ShareProfileImageQuery query, CancellationToken token)
             {
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
                 return _statelessSession.Query<ReadTutor>()
                     .WithOptions(w => w.SetComment(nameof(ShareProfileImageQuery)))
                     .Where(w => w.Id == query.Id)
@@ -40,8 +41,9 @@ namespace Cloudents.Query.Tutor
                         Image = s.ImageName,
                         Name = s.Name,
                         Rate = s.Rate.GetValueOrDefault(),
-                        Description = s.Description
+                        Description = s.Description,
                     }).SingleOrDefaultAsync(token);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
             }
         }
     }
