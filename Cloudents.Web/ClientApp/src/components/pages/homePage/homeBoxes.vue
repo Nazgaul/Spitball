@@ -7,7 +7,7 @@
             </div>
             <h3 class="desc mt-6 mb-3" v-t="'homePage_online_teach'"></h3>
             <div class="d-flex justify-center align-center">
-                <router-link :to="{ name: routeNames.StudyRoom }" target="_blank" class="link onlineTeach me-3" v-t="'homePage_online_teach_link'"></router-link>
+                <span class="link onlineTeach me-3" v-t="'homePage_online_teach_link'"></span>
                 <arrow class="arrow purpleArrow" />
             </div>
         </div>
@@ -18,8 +18,10 @@
             </div>
             <h3 class="desc mt-6 mb-3" v-t="'homePage_pay_and_receive'"></h3>
             <div class="d-flex justify-center align-center">
-                <a target="_blank" :href="payAndReceiveLink" class="link payments me-3" v-t="'homePage_pay_and_receive_link'"></a>
-                <arrow class="arrow blueArrow" />
+                <a target="_blank" :href="payAndReceiveLink">
+                    <span class="link payments me-3" v-t="'homePage_pay_and_receive_link'"></span>
+                    <arrow class="arrow blueArrow" />
+                </a>
             </div>
         </div>
         <div class="box mb-11 mb-sm-0">
@@ -29,8 +31,10 @@
             </div>
             <h3 class="desc mt-6 mb-3" v-t="'homePage_find_relevant'"></h3>
             <div class="d-flex justify-center align-center">
-                <router-link :to="{ name: routeNames.Learning }" class="link relevant me-3" target="_blank"  v-t="'homePage_find_relevant_link'"></router-link>
-                <arrow class="arrow yellowArrow" />
+                <router-link :to="{ name: routeNames.Learning }" class="link relevant me-3" target="_blank">
+                    <span class="me-3" v-t="'homePage_find_relevant_link'"></span>
+                    <arrow class="arrow yellowArrow" />
+                </router-link>
             </div>
         </div>
     </div>
@@ -111,18 +115,19 @@ export default {
         }
         .arrow {
             transform: scaleX(1)/*rtl:scaleX(-1)*/; 
-            cursor: pointer;
             &.purpleArrow {
                 path {
                     fill: #a052f3;
                 }
             }
             &.blueArrow {
+                cursor: pointer;
                 path {
                     fill: #3293f6;
                 }
             }
             &.yellowArrow {
+                cursor: pointer;
                 path {
                     fill: #f5a623;
                 }
