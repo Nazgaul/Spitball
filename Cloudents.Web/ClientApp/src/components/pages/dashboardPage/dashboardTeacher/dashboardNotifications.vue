@@ -21,7 +21,6 @@
                 <!-- <arrowRight width="20" class="arrowRight d-sm-none" />  -->
             </router-link>
         </template>
-
         <div class="notificationEmpty" v-else v-t="'notification_empty'"></div>
     </div>
 </template>
