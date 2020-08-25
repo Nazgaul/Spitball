@@ -3,7 +3,7 @@ h<template>
         <v-layout align-center class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
-                    <a :href="link.url" v-if="isShowBlog(link)" class="footer-link">{{link.title}}</a>
+                    <a :href="link.url" v-if="isShowBlog(link)" target="_blank" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
             <div class="footer-contact-box">
