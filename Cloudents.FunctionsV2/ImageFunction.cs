@@ -181,15 +181,25 @@ namespace Cloudents.FunctionsV2
             [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
             [Blob("spitball-files/files/{id}/preview-0.jpg")] CloudBlockBlob blob,
+            IConfigurationKeys configuration,
             CancellationToken token)
         {
             var mutation = ImageMutation.FromQueryString(req.Query);
 
             try
             {
-                await using var sr = await blob.OpenReadAsync();
-                var image = ProcessImage(sr, mutation);
-                return new ImageResult(image, TimeSpan.FromDays(365));
+                return await CacheWrapperAsync(binder, configuration, blob, mutation, async (blob2, imageMutation) =>
+                {
+                    mutation.CenterCords = await GetCenterCordsFromBlobAsync(blob2);
+                    await using var sr2 = await blob.OpenReadAsync();
+                    return ProcessImage(sr2, mutation);
+
+                });
+
+
+                //await using var sr = await blob.OpenReadAsync();
+                //var image = ProcessImage(sr, mutation);
+                //return new ImageResult(image, TimeSpan.FromDays(365));
             }
             catch (ImageFormatException ex)
             {
