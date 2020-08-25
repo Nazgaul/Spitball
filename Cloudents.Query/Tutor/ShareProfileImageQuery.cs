@@ -29,7 +29,7 @@ namespace Cloudents.Query.Tutor
                 _statelessSession = statelessSession;
             }
 
-            [Cache(TimeConst.Minute * 10, "share-production", false)]
+            //[Cache(TimeConst.Minute * 10, "share-production", false)]
             public Task<ShareProfileImageDto?> GetAsync(ShareProfileImageQuery query, CancellationToken token)
             {
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
