@@ -124,6 +124,13 @@ export default {
         }
     },
     watch: {
+      calendarActive(val) {
+        if(val) {
+          setTimeout(() => {
+            this.$vuetify.goTo(this.$refs.calendarTab)
+          }, 200)
+        }
+      },
         "$route.params.id": function(val, oldVal) {
             let old = Number(oldVal,10);
             let newVal = Number(val,10);

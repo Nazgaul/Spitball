@@ -53,11 +53,9 @@ export default {
         notifyFilter() {
             return Object.keys(this.notifyItems).filter((n) => {
                 if(this.notifyItems[n].amount !== 0) {
-                    console.log(this.notifyItems[n].amount);
                     return this.notifyItems[n]
                 }
             }).reduce((obj, key) => {
-                console.log(key);
                 return {
                     ...obj,
                     [key]: this.notifyItems[key]
