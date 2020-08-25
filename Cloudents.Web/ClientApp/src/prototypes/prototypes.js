@@ -19,11 +19,16 @@ Vue.prototype.$loadStyle = function(url,id){
         return resolve();
     });
 };
-Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
-    let usedMode = mode ? mode : 'crop';
+Vue.prototype.$proccessImageUrl = function(url, width, height, mode, background){
     if(url){
-        let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
-        return returnedUrl;
+        var returnedUrl = new URL(url);
+        returnedUrl.searchParams.append("width",width);
+        returnedUrl.searchParams.append("height",height);
+        returnedUrl.searchParams.append("mode",mode || 'crop');
+        if (background) {
+            returnedUrl.searchParams.append("background",background);
+        }
+        return returnedUrl.toString();
     }else{
         return '';
     }
