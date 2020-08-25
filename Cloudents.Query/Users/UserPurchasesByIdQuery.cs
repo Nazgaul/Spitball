@@ -60,7 +60,7 @@ namespace Cloudents.Query.Users
                                 && query.Id != w.StudyRoom.Tutor.Id)
                     .Where(w => w.Ended != null)
                     .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
-                    .Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
+                    //.Where(w=>w.Duration > StudyRoomSession.BillableStudyRoomSession)
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,

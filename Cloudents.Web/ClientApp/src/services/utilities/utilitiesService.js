@@ -23,6 +23,7 @@ const init = function(){
       };
 };
 
+//Obselete
 const proccessImageUrl = function(url, width, height, mode, type){
   let usedMode = mode ? mode : 'crop';
   if(url){

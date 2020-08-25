@@ -181,7 +181,7 @@ namespace Cloudents.FunctionsV2
             [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
             [Blob("spitball-files/files/{id}/preview-0.jpg")] CloudBlockBlob blob,
-            IConfigurationKeys configuration,
+            [Inject]  IConfigurationKeys configuration,
             CancellationToken token)
         {
             var mutation = ImageMutation.FromQueryString(req.Query);
