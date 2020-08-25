@@ -54,8 +54,6 @@
 
 <script>
 import {  mapGetters } from 'vuex';
-import utillitiesService from "../../../../../services/utilities/utilitiesService";
-
 const sbVideoPlayer = () => import('../../../../sbVideoPlayer/sbVideoPlayer.vue');
 const unlockItem = () => import('../unlockItem/unlockItem.vue');
 
