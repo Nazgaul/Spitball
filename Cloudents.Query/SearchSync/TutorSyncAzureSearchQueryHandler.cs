@@ -3,6 +3,7 @@ using Dapper;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Query.SearchSync
 {
@@ -49,10 +50,11 @@ t.price,
 t.imageName as Image,
 t.rating as OverAllRating,
 t.SubsidizedPrice  as SubsidizedPrice,
+t.State
 cTable.*
 from sb.ReadTutor  t
 CROSS APPLY CHANGETABLE(VERSION sb.readTutor, (Id), (t.Id)) AS cTable
-where t.State = 'Ok'
+
 order by t.id
 offset @pageSize * @PageNumber rows
 fetch next @pageSize Rows only";
@@ -72,10 +74,10 @@ t.price,
 t.imageName as Image,
 t.rating as OverAllRating,
 t.SubsidizedPrice  as SubsidizedPrice,
+t.State,
 cTable.* 
 from sb.ReadTutor  t
 right outer join CHANGETABLE (changes sb.[readTutor], @version) AS cTable ON t.Id = cTable.id
-where t.State = 'Ok'
 order by t.id
 offset @pageSize * @PageNumber rows
 fetch next @pageSize Rows only";
@@ -93,7 +95,7 @@ fetch next @pageSize Rows only";
 
 
 
-                var lookUp = result.ToLookup(x => x.SYS_CHANGE_OPERATION == "D");
+                var lookUp = result.ToLookup(x => x.SYS_CHANGE_OPERATION == "D" || x.State != ItemState.Ok);
                 return new SearchWrapperDto<TutorSearchDto>()
                 {
                     Update = lookUp[false],

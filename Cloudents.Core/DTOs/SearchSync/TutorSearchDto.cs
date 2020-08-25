@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -30,6 +31,8 @@ namespace Cloudents.Core.DTOs.SearchSync
         public long Id { get; set; }
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Database value")]
         public string SYS_CHANGE_OPERATION { get; set; }
+
+        public ItemState State { get; set; }
 
         public double OverAllRating { get; set; }
 

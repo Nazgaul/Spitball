@@ -26,7 +26,7 @@ namespace Cloudents.Core.DTOs.Users
         private ItemState? _isTutor;
 
 
-        public decimal Balance { get; set; }
+      //  public decimal Balance { get; set; }
 
         public string Email { get; set; }
         public long Id { get; set; }
