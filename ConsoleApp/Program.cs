@@ -166,7 +166,7 @@ namespace ConsoleApp
             var statelessSession = Container.Resolve<IStatelessSession>();
             var dbResult = await statelessSession.Query<StudyRoomSession>()
                 .Where(w => w.StudyRoomVersion == StudyRoomSession.StudyRoomNewVersion)
-                .Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession)
+                //.Where(w => w.Duration > StudyRoomSession.BillableStudyRoomSession)
                 .Where(w => !statelessSession.Query<StudyRoomSessionUser>().Any(w2 => w2.StudyRoomSession.Id == w.Id))
                 .OrderByDescending(o => o.Created)
                 .ToListAsync();
