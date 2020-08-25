@@ -16,7 +16,7 @@
                <div class="pt-3">{{$t('starts_on',[$moment(courseDate).format('MMMM Do, HH:mm')])}}</div>
                <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
                <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-                  {{$t('enter_room')}}
+                  {{isButtonDisabled? $t('waiting'):$t('enter_room')}}
                </v-btn>
             </template>
          </div>
@@ -186,6 +186,10 @@ export default {
                font-size: 22px;
                font-weight: 600;
                color: white;
+               span{
+                  flex: initial;
+                  white-space: normal;
+               }
                @media(max-width: @screen-xs) {
                   margin-top: 10px;
                   font-size: 24px;
