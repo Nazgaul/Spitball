@@ -18,8 +18,12 @@ namespace Cloudents.Core.Extension
             return uriBuilder.Uri;
         }
 
-        public static Uri ChangeHost(this Uri uri, string newHost)
+        public static Uri ChangeHost(this Uri uri, string? newHost)
         {
+            if (newHost == null)
+            {
+                return uri;
+            }
             var uriBuilder = new UriBuilder(uri)
             {
                 Host = newHost

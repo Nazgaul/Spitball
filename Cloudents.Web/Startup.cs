@@ -109,7 +109,9 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()
                     ),
-                Storage = Configuration["Storage"],
+                Storage = new StorageCredentials() {
+                   ConnectionString = Configuration["Storage"]
+                },
                 ServiceBus = Configuration["ServiceBus"],
             };
 

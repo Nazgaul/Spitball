@@ -5,6 +5,7 @@
     //"AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "ConnectionString": "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     "IsDevelop": "True",
+    "StorageCdnEndpoint": "spitball-dev-storage.azureedge.net",
     "Redis": "sb-dev.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False",
     "SearchServiceAdminApiKey": "5B0433BFBBE625C9D60F7330CFF103F0",
     "SearchServiceName": "cloudents",
@@ -20,6 +21,6 @@
     "Local": "UseDevelopmentStorage=true",
     "Prod": "DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==",
     "EventHubConnectionAppSetting": "Endpoint=sb://spitball-dev2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EWBm3pK6ia4eBBPRz6tjduByCo+eiYsW8AHKnHLeu3Q=",
-    "FUNCTIONS_V2_COMPATIBILITY_MODE":  "true" 
+    "FUNCTIONS_V2_COMPATIBILITY_MODE": "true"
   }
 }

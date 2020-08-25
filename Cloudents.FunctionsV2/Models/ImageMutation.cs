@@ -12,8 +12,11 @@ namespace Cloudents.FunctionsV2.Models
             int.TryParse(query["round"], out var round);
             Enum.TryParse(query["anchorPosition"], true, out AnchorPositionMode position);
 
-
             var imageMutation = new ImageMutation(position, round);
+            if (int.TryParse(query["version"], out var version))
+            {
+                imageMutation.Version = version;
+            }
             if (int.TryParse(query["width"], out var width) &&
                 int.TryParse(query["height"], out var height))
             {
@@ -24,52 +27,47 @@ namespace Cloudents.FunctionsV2.Models
                 imageMutation.Resize = (mode,width,height);
             }
 
+            if (!string.IsNullOrEmpty(query["background"].ToString()))
+            {
+                imageMutation.Background = query["background"];
+            }
+
             return imageMutation;
+        }
 
-            //if (width == 0)
-            //{
-            //    width = 50;
-            //}
+        public string CacheString()
+        {
+            return
+                $"{RoundCorner}_{BlurEffect}_{Position}_{Background}_{Version}_{Resize?.Mode}_{Resize?.Height}_{Resize?.Width}";
+        }
 
-            //if (height == 0)
-            //{
-            //    height = 50;
-            //}
-
-            ////var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
-
-            //return new ImageMutation( position, round)
-            //{
-            //    Resize = 
-            //};
+        public override string ToString()
+        {
+            return $"{nameof(CenterCords)}: {CenterCords}," +
+                   $" {nameof(RoundCorner)}: {RoundCorner}," +
+                   $" {nameof(Resize)}: {Resize}," +
+                   $" {nameof(BlurEffect)}: {BlurEffect}," +
+                   $" {nameof(Position)}: {Position}," +
+                   $" {nameof(Background)}: {Background}";
         }
 
         private ImageMutation(
-            // int width, int height, 
-            // ResizeMode mode,
             AnchorPositionMode position, int roundCorner)
         {
-            //Width = width;
-            //Height = height;
-            //Mode = mode;
             Position = position;
             RoundCorner = roundCorner;
-            //CenterCords = centerCords ?? Array.Empty<float>();
-
         }
 
         public (float x,float y)? CenterCords { get; set; }
-        //  public int Width { get; }
-        // public int Height { get; }
 
         public int RoundCorner { get; }
-
-        // public ResizeMode Mode { get; }
 
         public (ResizeMode Mode, int Width, int Height)? Resize { get; private set; }
 
         public ImageProperties.BlurEffect BlurEffect { get; set; }
         public AnchorPositionMode Position { get; }
         public string? Background { get; set; }
+
+        public int Version { get; private set; }
     }
 }
