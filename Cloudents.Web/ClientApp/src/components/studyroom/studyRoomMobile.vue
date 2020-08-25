@@ -245,18 +245,7 @@ export default {
       }
       .white-board + .landscapeNotSupported,
       .shared-document + .landscapeNotSupported, .code-editor + .landscapeNotSupported{
-         background: #fff;
          display: none;
-         .unSupportedText {
-            font-size: 20px;
-            line-height: 1.6;
-            text-align: center;
-            color: #43425d;
-         }
-         .svgIcon {
-            height: auto;
-            width: 120px;
-         }
          @media (max-width: @screen-sm) and (orientation: landscape) {
             display: block;
             position: fixed;
@@ -265,7 +254,17 @@ export default {
             left: 0;
             right: 0;
             bottom: 0;
-
+            background: #fff;
+            .unSupportedText {
+               font-size: 20px;
+               line-height: 1.6;
+               text-align: center;
+               color: #43425d;
+            }
+            .svgIcon {
+               height: auto;
+               width: 120px;
+            }
          }
 
       }
