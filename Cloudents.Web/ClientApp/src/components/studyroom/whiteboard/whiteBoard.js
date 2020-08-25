@@ -98,7 +98,9 @@ export default {
             'getImgLoader',
             'getShowBoxHelper',
             'getShapesSelected',
-            'getFontSize']),
+            'getFontSize',
+            'getRoomIsActive',
+        ]),
         isReadOnly(){
             return window.innerWidth < 960
         },
@@ -155,6 +157,13 @@ export default {
         }
     },
     watch: {
+        getRoomIsActive:{
+            handler(newVal,oldVal){
+                if(!newVal && oldVal){
+                    this.clearCanvas();
+                }
+            }
+        },
         canvasData:{
             deep:true,
             handler(newVal){
