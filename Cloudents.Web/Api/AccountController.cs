@@ -99,7 +99,6 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("referrals")]
-        [ResponseCache(Duration = TimeConst.Minute * 30, Location = ResponseCacheLocation.Client)]
         public async Task<UserReferralsDto> GetReferralsAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
