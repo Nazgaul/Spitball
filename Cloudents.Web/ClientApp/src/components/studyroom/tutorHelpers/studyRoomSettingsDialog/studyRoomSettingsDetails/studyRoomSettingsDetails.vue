@@ -44,10 +44,12 @@
         </div>
 
         <template>
-            <v-btn :loading="loadings.student" v-if="!isRoomTutor" @click="studentEnterRoom()" class="joinNow white--text px-8"
-                :disabled="isJoinButton" height="50" block color="#5360FC" rounded depressed>
-                {{$t('studyRoomSettings_join_now')}}
-            </v-btn>
+            <div v-if="!isRoomTutor" style="max-width:320px;" class="mx-auto mx-sm-0">
+                <v-btn :loading="loadings.student"  @click="studentEnterRoom()" class="joinNow white--text px-8"
+                    :disabled="isJoinButton" height="50" block color="#5360FC" rounded depressed>
+                    {{$t('studyRoomSettings_join_now')}}
+                </v-btn>
+            </div>
 
             <div v-else dense class="tutorActions text-center text-md-left d-sm-flex d-block">
                 <div>
