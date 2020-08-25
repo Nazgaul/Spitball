@@ -18,7 +18,7 @@ namespace Cloudents.Infrastructure.Storage
 
         public QueueProvider(IConfigurationKeys connectionString, IJsonSerializer jsonSerializer)
         {
-            _connectionString = connectionString.Storage;
+            _connectionString = connectionString.Storage.ConnectionString;
             _jsonSerializer = jsonSerializer;
             // _queueClient = storageProvider.GetQueueClient();
         }

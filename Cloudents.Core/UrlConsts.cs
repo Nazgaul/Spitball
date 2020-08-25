@@ -11,7 +11,7 @@ namespace Cloudents.Core
     {
         private readonly Uri? _webSiteEndPoint;
         private readonly Uri? _functionEndPoint;
-        private readonly Uri? _indiaWebSiteEndpoint;
+      //  private readonly Uri? _indiaWebSiteEndpoint;
 
         public UrlConst(IConfigurationKeys configuration)
         {
@@ -26,10 +26,10 @@ namespace Cloudents.Core
                 _functionEndPoint = new Uri(siteEndPoints.FunctionSite.TrimEnd('/'));
             }
 
-            if (siteEndPoints.IndiaSite != null)
-            {
-                _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/'));
-            }
+            //if (siteEndPoints.IndiaSite != null)
+            //{
+            //    _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/'));
+            //}
 
 
         }
@@ -85,10 +85,10 @@ namespace Cloudents.Core
         {
             var nvc = new NameValueCollection();
             var webSiteEndpoint = _webSiteEndPoint;
-            if (country == Country.India)
-            {
-                webSiteEndpoint = _indiaWebSiteEndpoint;
-            }
+            //if (country == Country.India)
+            //{
+            //    webSiteEndpoint = _indiaWebSiteEndpoint;
+            //}
 
             var builder = new UriBuilder(webSiteEndpoint) { Path = $"go/{identifier}" };
             builder.AddQuery(nvc);

@@ -32,12 +32,12 @@ namespace Cloudents.Infrastructure.Storage
         public BlobProviderContainer(IConfigurationKeys storageProvider)
         {
             _storageProvider = storageProvider;
-            _client = new BlobServiceClient(storageProvider.Storage);
+            _client = new BlobServiceClient(storageProvider.Storage.ConnectionString);
         }
 
         public BlobProviderContainer(IConfigurationKeys storageProvider, StorageContainer container)
         {
-            _client = new BlobServiceClient(storageProvider.Storage);
+            _client = new BlobServiceClient(storageProvider.Storage.ConnectionString);
             _storageProvider = storageProvider;
             _cloudContainer = _client.GetBlobContainerClient(container.Name.ToLowerInvariant());
 
@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Storage
         private Dictionary<string, string> ParseConnectionString()
         {
             var settings = new Dictionary<string, string>();
-            var splitted = _storageProvider.Storage.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            var splitted = _storageProvider.Storage.ConnectionString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var nameValue in splitted)
             {

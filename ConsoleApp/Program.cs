@@ -58,7 +58,10 @@ namespace ConsoleApp
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
                             ConfigurationManager.AppSettings["AzureSearchKey"], true),
                         Redis = ConfigurationManager.AppSettings["Redis"],
-                        Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
+                        Storage = new StorageCredentials() {
+                            ConnectionString = ConfigurationManager.AppSettings["StorageConnectionString"]
+                        },
+
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                         Stripe = "sk_test_Ihn6pkUZV9VFpDo7JWUGwT8700FAQ3Gbhf"
                     };
@@ -73,7 +76,10 @@ namespace ConsoleApp
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],
                             ConfigurationManager.AppSettings["AzureSearchKey"], false),
                         Redis = ConfigurationManager.AppSettings["Redis"],
-                        Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
+                        
+                        Storage = new StorageCredentials() {
+                            ConnectionString = ConfigurationManager.AppSettings["StorageConnectionStringProd"]
+                        },
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 default:

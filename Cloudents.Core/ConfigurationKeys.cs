@@ -15,7 +15,7 @@ namespace Cloudents.Core
         public DbConnectionString Db { get; set; }
         public SearchServiceCredentials Search { get; set; }
         public string Redis { get; set; }
-        public string Storage { get; set; }
+        public StorageCredentials Storage { get; set; }
 
         //public PayPalCredentials PayPal { get; set; }
 
@@ -25,6 +25,12 @@ namespace Cloudents.Core
         public string Stripe { get; set; }
         public SiteEndPoints SiteEndPoint { get; set; }
         public string ServiceBus { get; set; }
+    }
+
+    public class StorageCredentials
+    {
+        public string ConnectionString { get; set; }
+        public string? CdnEndpoint { get; set; }
     }
 
     public class SearchServiceCredentials
@@ -46,7 +52,7 @@ namespace Cloudents.Core
     {
         public string SpitballSite { get; set; }
         public string FunctionSite { get; set; }
-        public string IndiaSite { get; set; }
+      //  public string IndiaSite { get; set; }
     }
 
 

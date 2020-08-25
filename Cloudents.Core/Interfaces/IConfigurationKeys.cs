@@ -7,7 +7,7 @@
 
 
         string Redis { get; }
-        string Storage { get; }
+        StorageCredentials Storage { get; }
 
         SiteEndPoints SiteEndPoint { get; }
 
