@@ -123,11 +123,12 @@ export default {
                     return this.document.preview;
                 }
                 let result = this.document.preview.map(preview => {
-                    return utillitiesService.proccessImageURL(
+                    return this.$proccessImageUrl(
                         preview,
                         this.dynamicWidthAndHeight.width,
                         this.dynamicWidthAndHeight.height,
-                        "pad"
+                        "pad",
+                        "ffffff"
                     );
                 });
                 return result;
