@@ -2,7 +2,7 @@
     <form class="resetPassword" @submit.prevent="change">
         <p>{{$t('loginRegister_resetpass_title')}}</p>
         <sb-input
-                :errorMessage="errorMessages.password"
+                :errorMessage="errorMessages.Password"
                 :hint="passHint"
                 :class="[hintClass,'widther']"
                 v-model="password"
@@ -12,7 +12,7 @@
 				name="pass" type="password"/>
 
 		<sb-input 
-            :errorMessage="errorMessages.confirmPassword"
+            :errorMessage="errorMessages.ConfirmPassword"
             v-model="confirmPassword"
             class="mt-4 widther"
             :placeholder="$t('loginRegister_resetpass_input_confirm')"  
@@ -33,9 +33,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
+import scoreMixin from '../../global/dialogInjection/globalDialogs/auth/scoreMixin';
 
 export default {
     name: 'resetPassword',
+    mixins: [scoreMixin],
     components:{
         SbInput
     },
@@ -43,38 +45,20 @@ export default {
 		return {
 			password: '',
 			confirmPassword: '',
-         	score: {
-				default: 0,
-				required: false
-			},
+            errorMessages: {
+                Password: '',
+                ConfirmPassword: '',
+            }
 		}
     },
     computed: {
-        ...mapGetters(['getGlobalLoading','getPassScoreObj','getErrorMessages']),
+        ...mapGetters(['getGlobalLoading']),
         loading(){
             return this.getGlobalLoading
         },
-        errorMessages(){
-			return this.getErrorMessages
-		},
-        passHint(){
-			if(this.password.length > 0){
-			let passScoreObj = this.getPassScoreObj
-				this.changeScore()
-				return `${passScoreObj[this.score].name}`
-            }
-            return null
-        },
-        hintClass(){
-			let passScoreObj = this.getPassScoreObj
-			if(this.passHint){
-				return passScoreObj[this.score].className;
-            } 
-            return null;
-        }
     },
     methods: {
-        ...mapActions(['changePassword','updateStep']),
+        ...mapActions(['changePassword']),
         change(){
             let paramsObj = {
                 id: this.$route.query['Id'] ? this.$route.query['Id'] : '',
@@ -82,17 +66,14 @@ export default {
                 password: this.password,
                 confirmPassword: this.confirmPassword
             }
-            this.changePassword(paramsObj)
+            let self = this
+            this.changePassword(paramsObj).catch((res) => {
+                Object.keys(res.response.data).map(e => {
+                    console.log(res.response.data[e]);
+                    self.errorMessages[e] = res.response.data[e][0]
+                })
+            })
         },
-        changeScore() {
-            this.score = global.zxcvbn(this.password).score;
-        }
-    },
-    created(){
-        // if(!this.$route.query['code'] || !this.$route.query['Id']){
-        //     this.updateStep('getStarted')
-        // }
-        this.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
     }
 }
 </script>
