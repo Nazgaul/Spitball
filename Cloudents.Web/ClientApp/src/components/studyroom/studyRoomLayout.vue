@@ -15,7 +15,7 @@
     </template>
     
     <studyRoomAudio/>
-    <studyRoomSettingsDialog v-if="!isRoomActiveAndUpdated"/>
+    <studyRoomSettingsDialog v-if="!isRoomActiveAndUpdated && !$store.getters.getIsBrowserNotSupport"/>
     <studyRoomDialogs/>
     <slot name="appInjections"></slot>
   </v-app>
