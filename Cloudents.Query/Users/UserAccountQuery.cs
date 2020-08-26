@@ -37,7 +37,7 @@ namespace Cloudents.Query.Users
                     .Select(s => new UserAccountDto
                     {
                         Id = s.Id,
-                       // Balance = s.Transactions.Balance,
+                        Balance = s.Transactions.Balance,
                         FirstName = s.FirstName,
                         LastName = s.LastName,
                         Image = s.ImageName,
