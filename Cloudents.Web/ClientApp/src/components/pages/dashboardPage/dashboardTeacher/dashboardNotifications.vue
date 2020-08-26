@@ -5,8 +5,7 @@
             <fillBellIcon class="flex-shrink-0" width="40" />
             <div class="notificationTitle ms-4 text-truncate" v-t="'dashboardTeacher_notification_title'"></div>
         </div>
-
-        <template v-if="Object.keys(notifications).length">
+        <template v-if="Object.keys(notifyFilter).length">
             <router-link 
                 class="center py-4 d-flex align-center justify-space-between"
                 v-for="notification in notifyFilter"
