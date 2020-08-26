@@ -109,8 +109,9 @@ namespace Cloudents.Web
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()
                     ),
-                Storage = new StorageCredentials() {
-                   ConnectionString = Configuration["Storage"]
+                Storage = new StorageCredentials()
+                {
+                    ConnectionString = Configuration["Storage"]
                 },
                 ServiceBus = Configuration["ServiceBus"],
             };
@@ -241,11 +242,11 @@ namespace Cloudents.Web
                         return new BadRequestObjectResult(actionContext.ModelState);
                     };
                 })
-                .AddFluentValidation(fv=>
+                .AddFluentValidation(fv =>
                 {
-                    
+
                     fv.RegisterValidatorsFromAssemblyContaining<UpdateCourseLandingCommandValidator>();
-                  //  fv.ImplicitlyValidateChildProperties = true;
+                    //  fv.ImplicitlyValidateChildProperties = true;
                 });
             if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {
@@ -317,13 +318,23 @@ namespace Cloudents.Web
 
             services.AddAuthorization(o =>
             {
-                 o.AddPolicy("Tutor",x=>x.RequireClaim(AppClaimsPrincipalFactory.TutorClaim,bool.TrueString));
+                o.AddPolicy("Tutor", x => x.RequireClaim(AppClaimsPrincipalFactory.TutorClaim, bool.TrueString));
             });
             services.AddAuthentication().AddGoogle(options =>
             {
+                options.Events.OnRemoteFailure = context =>
+                {
+
+                    context.HandleResponse();
+                    context.Response.Redirect("/");
+
+                    return Task.CompletedTask;
+                };
+
+
                 options.ClientId = "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com";
                 options.ClientSecret = "lSncxmb-F0cmii1OdDiKXrs-";
-                options.ClaimActions.MapJsonKey("image","picture");
+                options.ClaimActions.MapJsonKey("image", "picture");
 
             });
 
@@ -346,9 +357,9 @@ namespace Cloudents.Web
                     app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                     {
                         HotModuleReplacement = true,
-                        ProjectPath =   Path.Combine(Directory.GetCurrentDirectory(), "ClientApp"),
+                        ProjectPath = Path.Combine(Directory.GetCurrentDirectory(), "ClientApp"),
                         ConfigFile = "webpack.config.js"
-                        
+
                     });
                 }
 
@@ -430,7 +441,7 @@ namespace Cloudents.Web
                 app.UseAzureSignalR(routes =>
                 {
                     routes.MapHub<SbHub>("/SbHub");
-                  //  routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+                    //  routes.MapHub<StudyRoomHub>("/StudyRoomHub");
                 });
             }
 
@@ -442,7 +453,7 @@ namespace Cloudents.Web
 #pragma warning disable 162
                 {
                     endpoints.MapHub<SbHub>("/SbHub");
-                   // endpoints.MapHub<StudyRoomHub>("/StudyRoomHub");
+                    // endpoints.MapHub<StudyRoomHub>("/StudyRoomHub");
                 }
 #pragma warning restore 162
 
