@@ -7,14 +7,13 @@
                 <message :message="{...singleMessage, isLastMessage:index === messages.length - 1}" v-for="(singleMessage, index) in messages" :key="index"></message>
             </div>
             <span class="error-file-span" v-if="fileError" v-t="'chat_file_error'"></span>
-            <div class="messages-input" :class="{'messages-input-disabled': !getIsSignalRConnected}">
+            <div class="messages-input">
                 <span class="messages-mobile-button" v-if="typing" @click="sendMessage"><v-icon class="">sbf-path</v-icon></span>
                 <chat-upload-file :typing="typing"></chat-upload-file>
                 <v-textarea 
                     rows="1" 
                     class="pa-2 messages-textarea" solo 
                     type="text" hide-details 
-                    :disabled="!getIsSignalRConnected" 
                     :placeholder="$t('chat_type_message')" 
                     @keydown.enter.prevent="sendMessage" 
                     ref="chatTextArea"
@@ -40,7 +39,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getMessages', 'getChatLoader', 'getIsSignalRConnected','getFileError']),
+        ...mapGetters(['getMessages', 'getChatLoader','getFileError']),
         showSkeleton(){
             return typeof this.$store.getters.getMessages == 'undefined';
         },
@@ -146,15 +145,6 @@ export default {
                         height: 30px;
                     }
                 }
-                &.messages-input-disabled{
-                    background: #b9b9b9;
-                    border-radius: 0;
-                    .v-input--is-disabled{
-                        .v-input__slot{
-                            background: #b9b9b9;
-                        }
-                    }
-                }
                 .messages-textarea {
                     font-size: 14px;
                     .v-input__control {
@@ -174,12 +164,6 @@ export default {
                       }
                     }
                 }
-                // @media(max-width: @screen-xs) {
-                //     position: absolute;
-                //     bottom: 0;
-                //     top: auto;
-                //     width: 100%;
-                // }
             }
         }
     }
