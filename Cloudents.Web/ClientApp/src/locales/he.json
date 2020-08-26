@@ -103,7 +103,7 @@
   "course_imgVideo": "העלאת תמונה",
   "course_name": "שם הקורס",
   "course_need_payment": "כדי לפתוח את החשבון צריך חשבון ב PAYME. אנא פנה לתמיכה הטכנית",
-  "course_not_visible": "הקורס אינו פעיל",
+  "course_not_visible": "לא ניתן לערוך את דף הקורס כיוון שהקורס לא פעיל",
   "course_pending": "הקורס נמצא במצב המתנה",
   "course_visible": "הצג קורס זה באתר שלך",
   "create_broadcast_error": "שגיאה ביצירת חדר שידור חי. נסה שוב מאוחר יותר",
