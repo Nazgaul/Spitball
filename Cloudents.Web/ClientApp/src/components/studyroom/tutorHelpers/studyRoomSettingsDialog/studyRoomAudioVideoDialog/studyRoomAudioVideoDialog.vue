@@ -13,7 +13,7 @@
             </div>
 
             <div class="mainWrap pa-5 pt-0 ">
-                <component :streamsArray="streamsArray" :is="currenctComponent"></component>
+                <component :isBeforeClose="isBeforeClose" :streamsArray="streamsArray" :is="currenctComponent"></component>
 
                 <div class="text-sm-right text-center btnWrap">
                     <v-btn
@@ -47,6 +47,7 @@ export default {
   },
   data() {
     return {
+      isBeforeClose:false,
       toggleVideoActiveClass: true,
       toggleAudioActiveClass: false,
       currenctComponent: "studyRoomVideoSetting"
@@ -55,6 +56,7 @@ export default {
   props:['streamsArray'],
   methods: {
     closeDialog(){
+      this.isBeforeClose = true;
       this.$emit('closeAudioVideoSettingDialog',false)
       this.$store.commit('toggleAudioVideoDialog',false)
     },
