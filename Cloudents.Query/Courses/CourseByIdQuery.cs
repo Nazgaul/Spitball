@@ -67,7 +67,7 @@ namespace Cloudents.Query.Courses
                             Id = s2.Id,
                             DateTime = s2.BroadcastTime,
                             Name = s2.Description,
-                            OnGoing = _statelessSession.Query<StudyRoomSession>().Any(w => w.Ended != null && w.StudyRoom.Id == s2.Id)
+                            OnGoing = _statelessSession.Query<StudyRoomSession>().Any(w => w.Ended == null && w.StudyRoom.Id == s2.Id)
                         }).ToFuture();
 
 
