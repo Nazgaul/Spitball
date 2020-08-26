@@ -33,21 +33,19 @@ export default {
         },
         courseVisible: {
             get() {
-                let price = this.followerPrice
-                if(price === 0) return true
                 return this.$store.getters.getCourseVisible
             },
             set(val) {
-                let needPayment = this.$store.getters.getAccountNeedPayment
-                if(needPayment && global.country === 'IL' && this.followerPrice > 0) {
-                    this.$store.commit('setShowCourse', false)
-                    this.$store.commit('setComponentKey')
-                    this.showSnackbar = true
-                    this.$emit('showError', {
-                        text: this.$t('course_need_payment')
-                    })
-                    return
-                }
+                // let needPayment = this.$store.getters.getAccountNeedPayment
+                // if(needPayment && global.country === 'IL' && this.followerPrice > 0) {
+                //     this.$store.commit('setShowCourse', false)
+                //     this.$store.commit('setComponentKey')
+                //     this.showSnackbar = true
+                //     this.$emit('showError', {
+                //         text: this.$t('course_need_payment')
+                //     })
+                //     return
+                // }
                 this.$store.commit('setShowCourse', val)
             }
         }

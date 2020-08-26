@@ -277,7 +277,7 @@ export default {
                 self.goStep(3)
             })
         }
-        this.showCourseNotVisible()
+        // this.showCourseNotVisible()
     }
 }
 </script>
