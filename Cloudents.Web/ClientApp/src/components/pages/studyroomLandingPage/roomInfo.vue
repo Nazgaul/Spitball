@@ -140,6 +140,9 @@ export default {
          return this.$store.getters.getCourseDetails;
       },
       enrollBtnText(){
+         if(!this.courseDetails){
+            return ''
+         }
          if(!this.courseNextSession?.id && this.$store.getters.getCourseItems?.length == 0){
             return this.$t('expired');
          }
