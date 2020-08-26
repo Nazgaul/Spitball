@@ -339,7 +339,7 @@ namespace Cloudents.Core.Entities
             }
             var follow = new Follow(this, follower, true);
             _followers.Add(follow);
-            AddEvent(new SubscribeToTutorEvent(this));
+            AddEvent(new SubscribeToTutorEvent(follow));
         }
 
 

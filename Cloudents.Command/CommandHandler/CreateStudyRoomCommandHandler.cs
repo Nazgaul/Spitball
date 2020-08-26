@@ -50,7 +50,6 @@ namespace Cloudents.Command.CommandHandler
             await _studyRoomRepository.AddAsync(studyRoom, token);
             message.StudyRoomId = studyRoom.Id;
             message.Identifier = studyRoom.Identifier;
-            //return new CreateStudyRoomCommandResult(studyRoom.Id, studyRoom.Identifier);
         }
     }
 }
