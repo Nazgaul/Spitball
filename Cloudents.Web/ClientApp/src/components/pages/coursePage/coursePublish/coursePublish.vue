@@ -5,7 +5,6 @@
             <v-switch
                 v-model="courseVisible"
                 :key="$store.getters.getComponentKey"
-                :disabled="!canCreateCourse"
                 class="ma-0 pa-0"
                 hide-details
             ></v-switch>
@@ -22,15 +21,16 @@ export default {
         followerPrice() {
             return this.$store.getters.getFollowerPrice
         },
-        canCreateCourse() {
-            let price = this.$store.getters.getFollowerPrice
-            let canCreate = this.$store.getters.getIsCanCreateCourse
-            let needPayment = this.$store.getters.getAccountNeedPayment
-            if(global.country === 'IL') {
-                return parseInt(price) === 0 || !needPayment
-            }
-            return canCreate
-        },
+        // canCreateCourse() {
+        //     return this.$store.getters.getIsCanCreateCourse
+        //     // let price = this.$store.getters.getFollowerPrice
+        //     // let canCreate = this.$store.getters.getIsCanCreateCourse
+        //     // let needPayment = this.$store.getters.getAccountNeedPayment
+        //     // if(global.country === 'IL') {
+        //     //     return parseInt(price) === 0 || !needPayment
+        //     // }
+        //     // return canCreate
+        // },
         courseVisible: {
             get() {
                 return this.$store.getters.getCourseVisible

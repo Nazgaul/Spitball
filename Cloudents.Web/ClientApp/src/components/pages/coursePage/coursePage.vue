@@ -42,11 +42,13 @@
         >
             <div class="white--text text-center">{{errorText}}</div>
         </v-snackbar>
+
     </div>
 </template>
 
 <script>
 import { MyCourses,CoursePage } from '../../../routes/routeNames'
+import {COURSE_PAYMENT_DIALOG} from '../../pages/global/toasterInjection/componentConsts'
 
 import courseCreate from './courseCreate/courseCreate.vue';
 import courseForm from './courseForm/courseForm.vue';
@@ -100,6 +102,16 @@ export default {
                 this.$router.push({name: MyCourses})
                 return
             }
+            
+            if(this.step === 1 && global.country === 'IL') {
+                let visible = this.$store.getters.getCourseVisible
+                let price = this.$store.getters.getFollowerPrice
+                let needPayment = this.$store.getters.getAccountNeedPayment
+                if(needPayment && price > 0 && visible) {
+                    this.$store.commit('addComponent', COURSE_PAYMENT_DIALOG)
+                }
+            }
+
             let form = this.$refs.createCourse
             if(form.validate()) {
                 this.loading = true
