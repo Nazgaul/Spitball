@@ -234,9 +234,9 @@ export default {
                 let serverFormat = {
                     firstName: this.editedFirstName ||  this.firstName,
                     lastName: this.editedLastName || this.lastName,
-                    shortParagraph: this.editShortParagraph || this.shortParagraph, 
-                    bio: this.editedBio || this.bio, 
-                    title: this.editTitle || this.title
+                    shortParagraph: this.editShortParagraph, //|| this.shortParagraph, 
+                    title: this.editTitle, // || this.title,
+                    bio: this.editedBio || this.bio
                 };
                 this.$store.dispatch('saveUserInfo', serverFormat)
                     .then(() => {
