@@ -102,6 +102,7 @@
   "course_free": "This course is free",
   "course_imgVideo": "upload Image",
   "course_name": "Course Name",
+  "course_need_payment": "You need to open account in Payme in order to proceed. Please contact support",
   "course_not_visible": "Course is not visible",
   "course_pending": "The course is in pending status",
   "course_visible": "Show course on your site",
