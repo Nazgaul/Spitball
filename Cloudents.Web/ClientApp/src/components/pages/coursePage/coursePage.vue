@@ -134,11 +134,9 @@ export default {
                         self.$router.push({
                             name: CoursePage,
                             params:{
-                                id:self.currentCreatedCourseId
-                            },
-                            query:{
+                                id:self.currentCreatedCourseId,
                                 edit:true
-                            }
+                            },
                         })
                         // self.goStep(3)
                         return
@@ -271,7 +269,7 @@ export default {
         this.$store.commit('resetUploadFiles')
     },
     mounted() {
-        if(this.$route.query?.step == 3){
+        if(this.$route.params?.step == 3){
             let self = this;
             this.$nextTick(()=>{
                 self.goStep(3)

@@ -53,7 +53,7 @@ export default {
          }
       },
       isPointerNone(){
-         return this.$route.query?.edit
+         return this.$route.params?.edit
       }
    },
    beforeRouteLeave (to, from, next) {

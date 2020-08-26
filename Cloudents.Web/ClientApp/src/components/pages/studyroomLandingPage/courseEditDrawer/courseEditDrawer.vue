@@ -58,11 +58,9 @@ export default {
 				this.$router.push({
 					name: CourseUpdate,
 					params:{
-						id:courseId
+						id:courseId,
+						step:3
 					},
-					query:{
-						step: 3
-					}
 				})
 			})
 		}
