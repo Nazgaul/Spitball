@@ -34,7 +34,7 @@
             <div class="menuListTopPosition"></div>
 
             <div class="userMenu_top text-center py-5">
-                <userAvatar class="avatarMenu" @click.native="openEditStudentInfo" size="80" :userImageUrl="user.image" :user-name="user.name"/>
+                <userAvatar class="avatarMenu" @click.native="!getIsTeacher ? openEditStudentInfo() : ''" size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="getIsTeacher ? user.id : null" />
                 <div class="uM_top_txts">
                     <h1 class="uM_title">{{$t('menuList_greets', { '0': user.name })}}</h1>
                     <!-- <h2 class="uM_subtitle">{{$t('menuList_balance', { '0': userBalance(user.balance)})}}</h2> -->
@@ -129,7 +129,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser', 'getUserLoggedInStatus']),
+    ...mapGetters(['accountUser', 'getUserLoggedInStatus', 'getIsTeacher']),
     
     menuListUserType() {      
       let userType = 'default'
