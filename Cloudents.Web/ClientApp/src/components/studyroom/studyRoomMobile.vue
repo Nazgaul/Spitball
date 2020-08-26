@@ -6,10 +6,13 @@
       <v-content style="width: 100%;" class="d-flex flex-grow-0 flex-shrink-0">
          <mobileControllers/>
          <component class="roomWrapper" :class="currentEditor" style="width:100%" :is="currentMode"></component>
-         <div class="landscapeNotSupported text-center">
-            <unSupportSvg class="svgIcon mt-5" />
-            <div class="unSupportedText my-4 px-5" v-t="'unsupported_feature_ls'"></div>
-            <div class="unSupportedText" v-t="'unsupported_feature2'"></div>
+         <div class="landscapeNotSupported">
+            <div class="d-flex flex-column align-center justify-center mt-12">
+               <div><landscape class="svgIcon"/></div>
+               <div class="unSupportedText">
+                  {{$t('unsupported_feature3')}}
+               </div>
+            </div>
          </div>
       </v-content>
 
@@ -41,7 +44,7 @@
 </template>
 
 <script>
-import unSupportSvg from '../pages/coursePage/unSupported.svg';
+import landscape from './landscape.svg';
 
 import mobileControllers from './layouts/mobileControllers/mobileControllers.vue';
 import studyRoomWrapper from './windows/studyRoomWrapper.vue'
@@ -55,7 +58,7 @@ export default {
       mobileControllers,
       studyRoomMobileVideo,
       studyRoomWrapper,
-      unSupportSvg
+      landscape
    },
    data() {
       return {
@@ -141,14 +144,15 @@ export default {
                bottom: 0;
                background: #fff;
                .unSupportedText {
+                  margin-top: 20px;
                   font-size: 20px;
                   line-height: 1.6;
                   text-align: center;
                   color: #43425d;
+                  max-width: 314px;
                }
                .svgIcon {
-                  height: auto;
-                  width: 120px;
+                  width: 80px;
                }
             }
          }
