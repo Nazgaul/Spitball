@@ -83,8 +83,7 @@ export default {
          this.$store.commit('setComponent', 'applyCoupon');
       },
       enterStudyRoom(){
-         let id = this.courseSessions[0].id;
-         //let id = this.$route.params?.id;
+         let id = this.courseNextSession?.id;
          let routeData = this.$router.resolve({
             name: routeNames.StudyRoom,
             params: { id }
@@ -98,7 +97,7 @@ export default {
          }
          if(this.loadingBtn) return;
          if(this.isCourseTutor){
-            if(this.courseSessions.length !== 0){
+            if(this.courseNextSession?.id){
                this.enterStudyRoom()
             }else{
                return;
@@ -116,6 +115,9 @@ export default {
    computed: {
       courseName(){
          return this.$store.getters.getCourseNamePreview;
+      },
+      courseNextSession(){
+         return this.$store.getters.getNextCourseSession;
       },
       courseImage(){
          let img = this.$store.getters.getCourseImagePreview;
@@ -138,7 +140,7 @@ export default {
          return this.$store.getters.getCourseDetails;
       },
       enrollBtnText(){
-         if(this.courseSessions?.length == 0 && this.$store.getters.getCourseItems?.length == 0){
+         if(!this.courseNextSession?.id && this.$store.getters.getCourseItems?.length == 0){
             return this.$t('expired');
          }
          if(this.isCourseFull){
