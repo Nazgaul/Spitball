@@ -36,7 +36,7 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
-            [QueueTrigger(QueueName.EmailQueueName)] CloudQueueMessage cloudMessage,
+            [QueueTrigger(QueueName.EmailQueueName, Connection = "Local")] CloudQueueMessage cloudMessage,
             [SendGrid(ApiKey = "SendgridKey")] IAsyncCollector<SendGridMessage> emailProvider,
             ILogger log,
             CancellationToken token)

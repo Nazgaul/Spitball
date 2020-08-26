@@ -77,7 +77,6 @@ export default {
         requestTutorFromRegisterStep() {
             // if there is an account, it's mean that the user not coming from register and dont need to call requestTutor api twice
             // if(this.accountUser) return
-            
             let serverObj = {
                 captcha: null,
                 text: this.getCourseDescription,
@@ -85,7 +84,7 @@ export default {
                 email: null,
                 phone: null,
                 course: this.courseName || this.getSelectedCourse,
-                tutorId: this.tutorId || this.$store.getters.getCurrentTutorIdFromRegister,
+                tutorId: this.tutorId || this.$store.getters.getCurrentTutorIdFromRegister || this.$store.getters.getCurrTutor?.id,
               
             } 
             let self = this;

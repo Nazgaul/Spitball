@@ -9,7 +9,6 @@ namespace Cloudents.Core.EventHandler
 {
     public class OperationsEventHandler :
         IEventHandler<LeadEvent>
-      //  IEventHandler<AddUserBroadcastStudyRoomEvent>
     {
         private readonly IQueueProvider _queueProvider;
 
@@ -24,9 +23,5 @@ namespace Cloudents.Core.EventHandler
             return _queueProvider.InsertMessageAsync(message, token);
         }
 
-        //public async Task HandleAsync(AddUserBroadcastStudyRoomEvent eventMessage, CancellationToken token)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
     }
 }
