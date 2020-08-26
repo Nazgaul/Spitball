@@ -362,6 +362,7 @@
   "loginRegister_setpass_input_email": "אימייל ",
   "loginRegister_setphone_input": "מספר טלפון נייד",
   "loginRegister_setphone_main_title": "הרשמה לספיטבול",
+  "loginRegister_setphone_main_title_phone": "הוסף מספר טלפון",
   "loginRegister_setphone_sub_title": "הכניסו את מספר הטלפון שלכם",
   "loginRegister_smsconfirm_input": "קוד אימות",
   "loginRegister_smsconfirm_resend_code": "שלח קוד אימות שוב",

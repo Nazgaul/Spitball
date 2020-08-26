@@ -362,6 +362,7 @@
   "loginRegister_setpass_input_email": "Email address",
   "loginRegister_setphone_input": "Phone number",
   "loginRegister_setphone_main_title": "Sign up to Spitball",
+  "loginRegister_setphone_main_title_phone": "Add phone number",
   "loginRegister_setphone_sub_title": "Enter your phone number",
   "loginRegister_smsconfirm_input": "Confirmation code",
   "loginRegister_smsconfirm_resend_code": "Resend code",
