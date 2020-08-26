@@ -69,6 +69,15 @@ export default {
          }
       },
    },
+   beforeCreate() {
+      let conversationsList = this.$store.getters.getConversations
+      if(conversationsList.length){
+        next()
+        return
+      }else{
+        this.$store.dispatch("getAllConversations")
+      }
+   },
    beforeDestroy(){
       this.$store.dispatch('setActiveConversationObj',chatService.createActiveConversationObj({}));
    }

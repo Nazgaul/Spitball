@@ -1,30 +1,27 @@
 const state = {
-    isConnected: true
+    // isConnected: true
 };
 
 const getters = {
-    getIsSignalRConnected:state => state.isConnected
+    // getIsSignalRConnected:state => state.isConnected
 };
 
 const mutations = {
-    setIsSignalRConnected(state, val){
-        state.isConnected = val;
-    },
+    // setIsSignalRConnected(state, val){
+    //     state.isConnected = val;
+    // },
     signalR_emit() {
 
     },
     signalR_reconnect() {
 
-    },
-    signalR_disconnect() {
-
     }
 };
 
 const actions = {
-    setIsSignalRConnected({commit}, val){
-        commit('setIsSignalRConnected', val);
-    }
+    // setIsSignalRConnected({commit}, val){
+    //     commit('setIsSignalRConnected', val);
+    // }
 };
 
 export default {

@@ -63,12 +63,12 @@
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ms-2"/>
                                     </div>
                                 </div>
-                            </template>
+                            </template> -->
                             <template>
                                 <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
                                     <hamburgerIcon class="hamburgerIcon"/>
                                 </v-btn>
-                            </template> -->
+                            </template>
                         </div>
                     </template>
                     <menuList v-if="!$vuetify.breakpoint.xsOnly"/>

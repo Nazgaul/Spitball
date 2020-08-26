@@ -112,6 +112,9 @@ const mutations = {
 
   setEditedDetailsByType(state, { type, val }) {
     Vue.set(state.courseEditedDetails, type, val);
+  },
+  initEditedDetails(state){
+    state.courseEditedDetails = {};
   }
 }
 const getters = {
