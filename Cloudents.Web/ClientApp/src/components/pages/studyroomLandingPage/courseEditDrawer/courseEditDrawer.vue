@@ -96,7 +96,9 @@ export default {
         position: sticky;
 		  bottom: 0;
         background: white;
-        padding: 10px;
+		  padding: 10px;
+		  max-width: 310px;
+		  margin: 0 auto;
 		}
 		.courseEditSections{
 
