@@ -128,6 +128,8 @@ export default {
                   type:'previewImage',
                   val: window.URL.createObjectURL(previewImage[0])
                })
+            }).catch(()=>{
+               self.loaded()
             })
          }
       },

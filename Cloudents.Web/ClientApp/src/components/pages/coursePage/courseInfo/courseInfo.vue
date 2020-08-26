@@ -133,6 +133,11 @@ export default {
                 return this.$store.getters.getFollowerPrice
             },
             set(price) {
+                let needPayment = this.$store.getters.getAccountNeedPayment
+                if(needPayment && global.country === 'IL') {
+                    this.$store.commit('setShowCourse', parseInt(price) === 0 ? true : false)
+                    this.$store.commit('setComponentKey')
+                }
                 this.$store.commit('setFollowerPrice', price)
             }
         },
@@ -173,6 +178,8 @@ export default {
                     self.previewImage = window.URL.createObjectURL(previewImage[0])
                     self.newLiveImage = data.fileName
                     self.$store.commit('setCourseCoverImage', self.newLiveImage)
+                }).catch(()=>{
+                    self.loaded()
                 })
             }
         },
