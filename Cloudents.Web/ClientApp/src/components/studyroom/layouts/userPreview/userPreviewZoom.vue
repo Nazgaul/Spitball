@@ -46,6 +46,9 @@
             <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
          </v-tooltip>
       </div>
+      <span v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg pb-4">
+         {{$t('lownetwork',[userName])}}
+      </span>
       <template v-if="audioTrack && !isCurrentParticipant">
          <v-progress-linear class="audioMeterUser" rounded absolute color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
       </template>
@@ -68,10 +71,14 @@ export default {
          audioTrack:null,
          isExpandVideoMode:false,
          audioLevel:0,
+         isShowLowNetwork:false,
       }
    },
    computed: {
       ...mapGetters(['getRoomParticipants']),
+      videoSize(){
+         return this.videoTrack?.dimensions.width;
+      },
       currentParticipant(){
         return this.getRoomParticipants[this.participant.id];
       },
@@ -157,8 +164,6 @@ export default {
             if(!this.isCurrentParticipant){
                this.videoTrack.setPriority('standard')
             }  
-            this.videoTrack.dimensions.width = 1280;
-            this.videoTrack.dimensions.height = 720;
          }
          if (el.classList.contains('OT_big')) {
             el.classList.remove('OT_big');
@@ -182,6 +187,57 @@ export default {
          handler(val){
             this.handleAudioTrack(val);
             this.handleVideoTrack(val);
+         }
+     },
+      videoSize:{
+         immediate:true,
+         handler(val){
+            let self = this;
+            this.$nextTick(()=>{
+               let box = document.getElementById(this.participant.id);
+               let videoEl = box?.querySelector('video');
+               if(videoEl){
+                  let videoWidth;
+                  // let videoHeight;
+                  switch (val) {
+                     case 960:
+                        videoWidth = 1280;
+                        // videoHeight = 720;
+                        break;
+                     case 640:
+                        videoWidth = 960;
+                        // videoHeight = 540;
+                        break;
+                     case 480:
+                        videoWidth = 640;
+                        // videoHeight = 480;
+                        break;
+                     case 320:
+                        videoWidth = 480;
+                        // videoHeight = 480;
+                        break;
+                     case 240:
+                        videoWidth = 320;
+                        // videoHeight = 480;
+                        break;
+                     case 176:
+                        videoWidth = 240;
+                        // videoHeight = 240;
+                        break;
+                  }
+                  if(videoWidth){
+                     videoEl.style.width = `${videoWidth}px`;
+                     let isLowNetwork = videoWidth <= 640 && box.clientWidth >= 640;
+                     if(isLowNetwork){
+                        self.isShowLowNetwork = true;
+                     }else{
+                        self.isShowLowNetwork = false;
+                     }
+                  }else{
+                     self.isShowLowNetwork = false;
+                  }
+               }
+            })
          }
       }
    },
@@ -255,13 +311,21 @@ export default {
          }
       }
    }
+   .lowNetworkMsg{
+      color: #fff;
+      font-size: 14px;
+      z-index: 1;
+   }
    video {
-      width: 100%;
-      height: 100%;
+      // width: 100%;
+      // height: 100%;
       object-fit: cover;
       object-position: center;
       background-repeat: no-repeat;
       // border-radius: 6px !important;
+      max-width: 100%;
+      max-height: 100%;
+      min-width: auto;
    }
 }
 </style>
