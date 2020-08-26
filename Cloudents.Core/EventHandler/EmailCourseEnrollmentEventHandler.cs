@@ -17,7 +17,7 @@ namespace Cloudents.Core.EventHandler
         {
             var enrollment = eventMessage.Enrollment;
             var tutor = enrollment.Course.Tutor;
-            var email = new EnrollCourseMessage(tutor.User.FirstName,enrollment.User.FirstName,enrollment.Course.Name,enrollment.User.Email);
+            var email = new EnrollCourseMessage(tutor.User.Email,tutor.User.FirstName,enrollment.User.FirstName,enrollment.Course.Name,enrollment.User.Email);
             await SendEmailAsync(email, token);
         }
     }
