@@ -4,7 +4,7 @@
             <div class="courseStickyTitle" v-t="'visible'"></div>
             <v-switch
                 v-model="courseVisible"
-                :key="componentKeyRender"
+                :key="$store.getters.getComponentKey"
                 :disabled="!canCreateCourse"
                 class="ma-0 pa-0"
                 hide-details
@@ -18,12 +18,10 @@
 <script>
 export default {
     name: 'coursePublish',
-    data() {
-        return {
-            componentKeyRender: 0
-        }
-    },
     computed: {
+        followerPrice() {
+            return this.$store.getters.getFollowerPrice
+        },
         canCreateCourse() {
             let price = this.$store.getters.getFollowerPrice
             let canCreate = this.$store.getters.getIsCanCreateCourse
@@ -35,13 +33,15 @@ export default {
         },
         courseVisible: {
             get() {
+                let price = this.followerPrice
+                if(price === 0) return true
                 return this.$store.getters.getCourseVisible
             },
             set(val) {
                 let needPayment = this.$store.getters.getAccountNeedPayment
-                if(needPayment && global.country === 'IL') {
+                if(needPayment && global.country === 'IL' && this.followerPrice > 0) {
                     this.$store.commit('setShowCourse', false)
-                    this.componentKeyRender += 1
+                    this.$store.commit('setComponentKey')
                     this.showSnackbar = true
                     this.$emit('showError', {
                         text: this.$t('course_need_payment')
