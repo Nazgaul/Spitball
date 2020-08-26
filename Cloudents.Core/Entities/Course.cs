@@ -168,7 +168,7 @@ namespace Cloudents.Core.Entities
 
         public virtual DomainTimeStamp DomainTime { get; protected set; }
 
-        public virtual CourseDetails Details { get; set; }
+        public virtual CourseDetails Details { get; protected set; }
 
         private readonly ISet<CourseEnrollment> _courseEnrollments = new HashSet<CourseEnrollment>();
         private DateTime? _startTime;
@@ -181,7 +181,11 @@ namespace Cloudents.Core.Entities
         {
             var courseEnrollment = new CourseEnrollment(user, this, receipt, price);
 
-            _courseEnrollments.Add(courseEnrollment);
+            if (_courseEnrollments.Add(courseEnrollment))
+            {
+                AddEvent(new CourseEnrollmentEvent(courseEnrollment));
+            }
+
             foreach (var broadCastStudyRoom in _studyRooms)
             {
                 broadCastStudyRoom.AddUserToStudyRoom(user);

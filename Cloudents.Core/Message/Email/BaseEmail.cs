@@ -26,7 +26,6 @@ namespace Cloudents.Core.Message.Email
 
         public string To { get; private set; } = null!;
 
-       // public virtual string[] Bcc { get; protected set; } = null!;
 
         public string? TemplateId { get; protected set; }
         public string Subject { get; protected set; } = null!;
@@ -86,7 +85,5 @@ namespace Cloudents.Core.Message.Email
         }
     }
 
-    //public interface IEmailMessage {
 
-    //}
 }
