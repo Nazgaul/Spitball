@@ -25,6 +25,7 @@
                             :is="stepComponent"
                             ref="childComponent"
                             :currentCreatedCourseId="currentCreatedCourseId"
+                            @showError="showError"
                         >
                         </component>
                     </v-stepper-content>
@@ -259,6 +260,10 @@ export default {
             if(!isCourseVisible) {
                 this.$store.commit('setShowCourse', false)
             }
+        },
+        showError(text) {
+            this.showSnackbar = true
+            this.errorText = text
         }
     },
     beforeDestroy(){

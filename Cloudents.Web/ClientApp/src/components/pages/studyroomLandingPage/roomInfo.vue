@@ -138,8 +138,11 @@ export default {
          return this.$store.getters.getCourseDetails;
       },
       enrollBtnText(){
+         if(this.courseSessions?.length == 0 && this.$store.getters.getCourseItems?.length == 0){
+            return this.$t('expired');
+         }
          if(this.isCourseFull){
-            return this.$t('room_full')
+            return this.$t('room_full');
          }else{
             if(this.$store.getters.getCourseButtonPreview) return this.$store.getters.getCourseButtonPreview;
             else{

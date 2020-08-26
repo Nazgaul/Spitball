@@ -15,7 +15,7 @@
             <courseUpload ref="courseUpload" />
         </div>
         <div class="courseRightSide ms-6">
-            <coursePublish />
+            <coursePublish @showError="({text}) => $emit('showError', text)" />
             <!-- <coursePromote /> -->
         </div>
     </div>
