@@ -85,7 +85,7 @@ export default {
       let rtl = global.country === 'IL';
       //TODO: move to store
       if(this.dataType === 'profile') {
-        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}`
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&v=1`
       } 
       return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=1?&width=420&height=220&mode=crop`
     },
