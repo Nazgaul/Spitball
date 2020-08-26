@@ -16,7 +16,9 @@ namespace Cloudents.Web.Models
         [StringLength(100, ErrorMessage = "StringLength")]
         public string? ShortParagraph { get; set; }
 
-        //[StringLength(1000, MinimumLength = 0, ErrorMessage = "StringLength")]
         public string? Paragraph { get; set; }
+
+        public string Avatar { get; set; }
+        public string Cover { get; set; }
     }
 }

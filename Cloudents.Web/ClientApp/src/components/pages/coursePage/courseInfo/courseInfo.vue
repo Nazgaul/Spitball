@@ -178,6 +178,8 @@ export default {
                     self.previewImage = window.URL.createObjectURL(previewImage[0])
                     self.newLiveImage = data.fileName
                     self.$store.commit('setCourseCoverImage', self.newLiveImage)
+                }).catch(()=>{
+                    self.loaded()
                 })
             }
         },
