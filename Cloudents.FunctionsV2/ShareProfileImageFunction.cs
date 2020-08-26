@@ -79,7 +79,7 @@ namespace Cloudents.FunctionsV2
             IActionResult RedirectToBlob()
             {
                 var redirectUrl = cacheBlob.Uri.ChangeHost(configuration.Storage.CdnEndpoint);
-                return new RedirectResult(redirectUrl.AbsoluteUri, true);
+                return new RedirectResult(redirectUrl.AbsoluteUri, false);
             }
 
 

@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
             if (user is null)
             {
                 _logClient.TrackTrace("can find user", model.AsDictionary());
-                ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
+                ModelState.AddModelError(nameof(model.Password), _localizer["EmailNotFound"]);
                 return BadRequest(ModelState);
             }
 
