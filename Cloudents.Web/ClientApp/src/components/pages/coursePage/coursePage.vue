@@ -8,7 +8,7 @@
                             {{$route.params.id ? $t('update_course') : $t('create_course')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
+                        <v-stepper-step class="ps-8" :class="[{'stepStteper': courseVisible},step === 2 ? 'active' : 'noActive']" step="2">
                             {{$t('eedit_page')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
@@ -63,6 +63,12 @@ export default {
         unSupportedFeature
     },
     computed: {
+        stepperTitle() {
+            if(this.step === 1) {
+                return this.$route.params.id ? this.$t('update_course') : this.$t('create_course')
+            }
+            return this.$t('promote_course')
+        },
         canCreateCourse() {
             return this.$store.getters.getIsCanCreateCourse
         },
@@ -127,15 +133,19 @@ export default {
                 }
 
                 if(documentsValidation === 0 && studyRooms === 0) {
-                    this.errorText = this.$t('required_files_or_studyroom')
-                    this.showSnackbar = true
-                    this.loading = false
-                    this.goTo('courseUpload')
+                    this.fileAndStudyroomError()
                     return 
                 }
 
                 studyRooms = studyRooms === 0 ? [] : studyRooms
                 let documents = this.documentMap(files);
+
+                let isAllFilesNotVisible = documents.every(f => f.visible === false)
+                
+                if(isAllFilesNotVisible && documents.length) {
+                    this.fileAndStudyroomError()
+                    return 
+                }
 
                 let id = this.$route.params.id ? this.$route.params.id : undefined
                 let methodName = id ? 'update' : 'create'
@@ -143,14 +153,12 @@ export default {
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
                     if(self.courseVisible) {
                         self.currentCreatedCourseId = data?.id || id
-                        self.$router.push({
+                        self.$router.replace({
                             name: CoursePage,
                             params:{
-                                id:self.currentCreatedCourseId
-                            },
-                            query:{
+                                id:self.currentCreatedCourseId,
                                 edit:true
-                            }
+                            },
                         })
                         // self.goStep(3)
                         return
@@ -276,6 +284,13 @@ export default {
         showError(text) {
             this.showSnackbar = true
             this.errorText = text
+        },
+        fileAndStudyroomError() {
+            this.errorText = this.$t('required_files_or_studyroom')
+            this.showSnackbar = true
+            this.loading = false
+            this.goTo('courseUpload')
+            return 
         }
     },
     beforeDestroy(){
@@ -283,7 +298,7 @@ export default {
         this.$store.commit('resetUploadFiles')
     },
     mounted() {
-        if(this.$route.query?.step == 3){
+        if(this.$route.params?.step == 3){
             let self = this;
             this.$nextTick(()=>{
                 self.goStep(3)

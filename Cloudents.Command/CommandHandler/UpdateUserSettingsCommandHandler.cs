@@ -23,7 +23,15 @@ namespace Cloudents.Command.CommandHandler
             {
                 user.Tutor.UpdateSettings(message.ShortParagraph,message.Title,message.Paragraph);
             }
-            await _userRepository.UpdateAsync(user, token);
+
+            if (message.Avatar != null)
+            {
+                user.UpdateUserImage(message.Avatar);
+            }
+            if (message.Cover != null)
+            {
+                user.UpdateCoverImage(message.Cover);
+            }
         }
     }
 }

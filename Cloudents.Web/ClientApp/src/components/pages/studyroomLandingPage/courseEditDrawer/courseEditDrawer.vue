@@ -58,11 +58,9 @@ export default {
 				this.$router.push({
 					name: CourseUpdate,
 					params:{
-						id:courseId
+						id:courseId,
+						step:3
 					},
-					query:{
-						step: 3
-					}
 				})
 			})
 		}
@@ -98,7 +96,9 @@ export default {
         position: sticky;
 		  bottom: 0;
         background: white;
-        padding: 10px;
+		  padding: 10px;
+		  max-width: 310px;
+		  margin: 0 auto;
 		}
 		.courseEditSections{
 

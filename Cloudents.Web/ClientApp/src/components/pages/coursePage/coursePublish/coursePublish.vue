@@ -33,6 +33,8 @@ export default {
         // },
         courseVisible: {
             get() {
+                let price = this.followerPrice
+                if(price === 0) return true
                 return this.$store.getters.getCourseVisible
             },
             set(val) {

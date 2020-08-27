@@ -12,6 +12,7 @@ const state = {
     isUserLoggedIn:false,
     user: null,
     usersReferred: 0,
+    accountPreviewImage: ''
 };
 
 const getters = {
@@ -32,6 +33,7 @@ const getters = {
     getAccountNeedPayment: state => state.user?.needPayment,
     getIsCanCreateCourse: state => state.user?.canCreateCourse,
     getIsAccountChat: state => state.user?.chatUnread !== null && state.user?.chatUnread !== undefined,    
+    getAccountPreviewImage: state => state.accountPreviewImage,
 };
 
 const mutations = {
@@ -49,6 +51,9 @@ const mutations = {
     },
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
+    },
+    setAccountPreviewPicture(state, imageUrl) {
+        state.accountPreviewImage = imageUrl
     },
     setUserPendingPayment(state, payments) {
         state.user.pendingSessionsPayments = payments
@@ -81,10 +86,16 @@ const mutations = {
         state.user.firstName = firstName
         state.user.lastName = lastName
     },
-    setAccountTutorInfo(state, { firstName, lastName }) {
+    setAccountTutorInfo(state, { firstName, lastName, avatarImageUrl }) {
         state.user.name = `${firstName} ${lastName}`
         state.user.firstName = firstName
         state.user.lastName = lastName
+        if(avatarImageUrl) {
+            state.user.image = avatarImageUrl
+        }
+    },
+    resetAccount(state) {
+        state.accountPreviewImage = '';
     }
 };
 
@@ -121,8 +132,11 @@ const actions = {
     uploadAccountImage({ commit }, obj) {
         return accountInstance.post('/image', obj).then(({data}) => {
             let imageUrl = data;
-            commit('setAccountPicture', imageUrl);
-            commit('setProfilePicture', imageUrl)
+            commit('setAccountPreviewPicture', imageUrl)
+            commit('setProfilePreviewPicture', imageUrl)
+
+            // commit('setAccountPicture', imageUrl);
+            // commit('setProfilePicture', imageUrl)
             return true;
         })
     },
@@ -146,17 +160,22 @@ const actions = {
         })
     },
     saveUserInfo({getters, commit}, params) {
-       let passData =  {
-           firstName: params.firstName,
-           lastName: params.lastName,
-           title: params.title,
-           shortParagraph: params.shortParagraph,
-           paragraph: params.bio
-       }
+        let passData =  {
+            firstName: params.firstName,
+            lastName: params.lastName,
+            title: params.title,
+            shortParagraph: params.shortParagraph,
+            paragraph: params.bio,
+            avatar: params.avatar || undefined, // || getters.getAccountImage,
+            cover: params.cover || undefined // || getters.getProfileCoverImage
+        }
+
+        let avatarImageUrl = getters.getAccountPreviewImage.url
+        let coverImageUrl = getters.getProfilePreviewCoverImage.url
         return accountInstance.post('/settings', passData).then(() => {
             if(getters.getIsTeacher) {
-                commit('setProfileTutorInfo', params)
-                commit('setAccountTutorInfo', params)
+                commit('setProfileTutorInfo', {passData, coverImageUrl})
+                commit('setAccountTutorInfo', {passData, avatarImageUrl})
                 return
             }
             commit('setAccountStudentInfo', params)

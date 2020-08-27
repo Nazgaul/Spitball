@@ -47,7 +47,7 @@ export default {
   name: "sideMenu",
   data() {
     return {
-      isMiniSideMenuState: false,
+      isMiniSideMenuState: true,
       drawer: false,
       dashboardList: {
         myDashboard:{name: this.$t('schoolBlock_dashboard'), route: routeNames.Dashboard, icon:'sbf-dashboard-sideMenu', sel:'sidemenu_dashboard_overview'},

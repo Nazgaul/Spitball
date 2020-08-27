@@ -51,6 +51,9 @@ export default {
         microphoneImage,
         speakerImage
     },
+    props:{
+        isBeforeClose:{}
+    },
     data(){
         return{
             microphoneList: [],
@@ -59,6 +62,13 @@ export default {
             audio: null,
             isPlaying: false,
             audioLevel:0
+        }
+    },
+    watch: {
+        isBeforeClose(val){
+            if(val){
+                this.stopSound()
+            }
         }
     },
     methods: {

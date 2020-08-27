@@ -53,15 +53,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
                 return BadRequest(ModelState);
             }
-            //var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
-            //var phoneConfirmed = await _userManager.IsPhoneNumberConfirmedAsync(user);
             var userLockedOut = await _userManager.GetLockoutEndDateAsync(user) ?? DateTimeOffset.MinValue;
-
-            //if (phoneConfirmed && !emailConfirmed)
-            //{
-            //    await GenerateEmailAsync(user, token);
-            //    return Ok();
-            //}
 
             if (userLockedOut == DateTimeOffset.MaxValue)
             {

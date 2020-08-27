@@ -15,14 +15,17 @@
                 <uploadImage
                     sel="photo"
                     class="editImage"
+                    :fromProfile="true"
                     v-show="avatarLoading || !$store.getters.getAccountImage"
                     @setProfileAvatarLoading="val => avatarLoading = val"
+                    @setLiveImage="handleAvatarImage"
                 />
                 <userAvatarNew
                     sel="avatar_image"
                     class="pUb_dS_img"
                     :userName="$store.getters.getAccountName"
-                    :userImageUrl="$store.getters.getAccountImage"
+                    :userImageUrl="$store.getters.getAccountPreviewImage.url || $store.getters.getAccountImage"
+                    :previewImage="true"
                     :width="134"
                     :height="164"
                     :userId="$store.getters.getAccountId"
@@ -38,7 +41,11 @@
 
         <label class="profileCover mb-12" @click="$vuetify.goTo('#profileCover')">
             <div class="coverTitle mt-8 mb-3" v-t="'profile cover'"></div>
-            <cover  />
+            <cover
+                @setPreviewCoverImage="setPreviewCoverImage"
+                :newCoverImage="newCoverImage"
+                :fromProfile="true"
+            />
             <div class="coverRecommended text-center mt-2" v-t="'profile_cover_recommended'"></div>
         </label>
 
@@ -153,6 +160,10 @@ export default {
             valid: false,
             btnLoading: false,
             avatarLoading: false,
+            newAvatarFileName: '',
+            newCoverFileName: '',
+            newCoverImage: undefined,
+            newAvatarImage: undefined,
             rules: {
                 required: (value) => validationRules.required(value),
                 minimum: (value) => validationRules.minimumChars(value, 10),
@@ -234,9 +245,11 @@ export default {
                 let serverFormat = {
                     firstName: this.editedFirstName ||  this.firstName,
                     lastName: this.editedLastName || this.lastName,
-                    shortParagraph: this.editShortParagraph || this.shortParagraph, 
-                    bio: this.editedBio || this.bio, 
-                    title: this.editTitle || this.title
+                    shortParagraph: this.editShortParagraph, //|| this.shortParagraph, 
+                    title: this.editTitle, // || this.title,
+                    bio: this.editedBio,// || this.bio,
+                    cover: this.newCoverFileName,
+                    avatar: this.newAvatarFileName
                 };
                 this.$store.dispatch('saveUserInfo', serverFormat)
                     .then(() => {
@@ -253,12 +266,34 @@ export default {
             this.$store.commit('setFakeShorParagraph', '')
             this.$store.commit('setFakeBio', '')
             this.$store.commit('setFakeShortTitle', '')
+            this.$store.commit('resetPreviewCover')
+            this.$store.commit('resetAccount');
             this.editedBio = ''
             this.editTitle = ''
             this.editShortParagraph = ''
             this.editedFirstName = ''
             this.editedLastName = ''
-        }
+        },
+        setPreviewCoverImage(file) {
+            this.newCoverImage = window.URL.createObjectURL(file);
+            this.$store.commit('showPreviewCoverImage', this.newCoverImage)
+            this.newCoverFileName = this.$store.getters.getProfilePreviewCoverImage?.fileName
+        },
+        handleAvatarImage(previewImage) {
+            if(previewImage) {
+                this.newAvatarImage = window.URL.createObjectURL(previewImage)
+                this.newAvatarFileName = this.$store.getters.getAccountPreviewImage?.fileName
+            }
+        },
+    },
+    created() {
+        this.$store.commit('setFakeShortTitle',this.$store.getters.getProfileTitle);
+        this.$store.commit('setFakeShorParagraph',this.$store.getters.getProfileBio);
+        this.$store.commit('setFakeBio',this.$store.getters.getProfileParagraph);
+
+        this.editTitle = this.$store.getters.getProfileTitle;
+        this.editShortParagraph =  this.$store.getters.getProfileBio;
+        this.editedBio = this.$store.getters.getProfileParagraph;
     }
 };
 </script>

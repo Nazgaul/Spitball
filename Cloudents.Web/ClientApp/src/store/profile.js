@@ -14,6 +14,9 @@ const state = {
    tempTitle: '',
    tempBio: '',
    tempParagraph: '',
+   previewCoverImage: '',
+   profilePreviewImage: '',
+   coverPreview: ''
 }
 
 const getters = {
@@ -32,13 +35,13 @@ const getters = {
    getIsSubscriber: state => state.profile?.user?.tutorData?.isSubscriber,
    getProfileTitle: state => state.profile?.user?.tutorData?.title,
    getProfileTempTitle: state => state.tempTitle,
-
    getProfileBio: state => state.profile?.user?.tutorData?.bio,
    getProfileTempBio: state => state.tempBio,
-
+   
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
    getProfileTempParagraph: state => state.tempParagraph,
-
+   getPreviewCover: state => state.coverPreview,
+   getProfilePreviewCoverImage: state => state.previewCoverImage,
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
    getProfileFaq: state => state.faq,
@@ -120,6 +123,7 @@ const mutations = {
       state.profile = null;
       state.profileCoverLoading = false;
       state.profileDrawerState = false
+      state.profilePreviewImage = '';
    },
    setProfileFollower(state, val) {
       if(state.profile?.user) {
@@ -131,24 +135,32 @@ const mutations = {
          }
       }
    },
-   setProfileTutorInfo(state, newData) {
-      state.profile.user.name = `${newData.firstName} ${newData.lastName}`;
-      state.profile.user.firstName = newData.firstName;
-      state.profile.user.lastName = newData.lastName;
-      state.profile.user.tutorData.bio =  newData.shortParagraph;
-      state.profile.user.tutorData.title = newData.title;
-      state.profile.user.tutorData.paragraph = newData.bio;
-   },
-   setProfilePicture(state, imageUrl) {
-      if (state.profile && state.profile.user) {
-         state.profile.user.image = imageUrl;
+   setProfileTutorInfo(state, {passData, coverImageUrl}) {
+      state.profile.user.name = `${passData.firstName} ${passData.lastName}`;
+      state.profile.user.firstName = passData.firstName;
+      state.profile.user.lastName = passData.lastName;
+      state.profile.user.tutorData.bio =  passData.shortParagraph;
+      state.profile.user.tutorData.title = passData.title;
+      state.profile.user.tutorData.paragraph = passData.paragraph;
+      if(coverImageUrl) {
+         state.profile.user.cover = coverImageUrl;
       }
    },
+   setProfilePreviewPicture(state, imageUrl) {
+      state.profilePreviewImage = imageUrl;
+   },
+   resetPreviewCover(state) {
+      state.coverPreview = '' 
+   },
    setCoverPicture(state, imageUrl) {
-      state.profile.user.cover = imageUrl;
+      state.previewCoverImage = imageUrl
+      // state.profile.user.cover = imageUrl;
    },
    setProfileCoverLoading(state, val) {
       state.profileCoverLoading = val;
+   },
+   showPreviewCoverImage(state, coverImage) {
+      state.coverPreview = coverImage
    },
    setProfileCourses(state,courses){
       state.courses = courses.map(course => new Course(course))

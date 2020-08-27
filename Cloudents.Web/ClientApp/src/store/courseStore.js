@@ -86,7 +86,9 @@ const mutations = {
         return {
           id: session.id,
           name: session.name,
-          date: session.dateTime
+          date: session.dateTime,
+          onGoing: session.onGoing,
+          past: new Date() > new Date(session.dateTime) && !session.onGoing,
         }
       });
 
@@ -151,10 +153,7 @@ const getters = {
   getCourseLoadingButton: state => state.loadingEditCourseBtn,
 
 
-  getNextCourseSession: (state, getters) => {
-    // TODO: get the nearest date;
-    return getters.getCourseSessionsPreview[0]
-  },
+  getNextCourseSession: (state, getters) => getters.getCourseSessionsPreview.find(s=> s.onGoing || !s.past),
   getIsCourseTutor: (state, getters) => state.courseDetails?.tutorId == getters.getAccountId,
   getCoursePrice: state => state.courseDetails?.price || null,
   getCourseItems: state => state.courseDetails?.items || [],

@@ -24,7 +24,8 @@
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
                 <span v-t="'tutorRequest_cancel'"/>
             </v-btn>
-            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded sel="submit_tutor_request" @click="!isLoggedIn? next() : sumbit()" color="#4452fc">
+            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded sel="submit_tutor_request"
+             @click="!isLoggedIn? next() : sumbit()" color="#4452fc">
                 <span v-if="!isLoggedIn" v-t="'tutorRequest_next'"/> 
                 <span v-else v-t="'tutorRequest_submit'"/>
             </v-btn>

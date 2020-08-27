@@ -12,4 +12,14 @@ namespace Cloudents.Core.Event
 
         public Document Document { get; }
     }
+
+    public class CourseEnrollmentEvent : IEvent
+    {
+        public CourseEnrollmentEvent(CourseEnrollment enrollment)
+        {
+            Enrollment = enrollment;
+        }
+
+        public CourseEnrollment Enrollment { get;  }
+    }
 }

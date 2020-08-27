@@ -70,9 +70,20 @@ namespace Cloudents.Web.Models
 
             if (!StudyRooms.Any() && !Documents.Any())
             {
-                yield return new ValidationResult("Need documents or live sessions");
+                if (!Documents.Any())
+                {
+                    yield return new ValidationResult(
+                        "You must set a live class or upload content to make an active course");
+                }
+
+                if (Documents.All(a => !a.Visible))
+                {
+                    yield return new ValidationResult(
+                        "You must set a live class or upload content to make an active course");
+                }
 
             }
+
 
             if (StudyRooms.GroupBy(g => g.Date).Any(w => w.Count() > 1))
             {

@@ -20,6 +20,11 @@ export default {
         cover,
         editIcon
     },
+    data() {
+        return {
+            newCoverImage: undefined,
+        }
+    },
     computed: {
         drawer() {
             return this.$store.getters.getProfileCoverDrawer
@@ -31,7 +36,12 @@ export default {
     methods: {
         openEdit() {
             this.$store.commit('setToggleProfileDrawer', !this.drawer)
-        }
+            this.$store.commit('resetAccount')
+            this.$store.commit('resetPreviewCover')
+        },
+        setPreviewCoverImage(file) {
+            this.newCoverImage = window.URL.createObjectURL(file);
+        },
     }
 }
 </script>

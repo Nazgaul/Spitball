@@ -141,9 +141,8 @@ namespace Cloudents.Web.Api
                 var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
                 queryString.TryGetValue("utm_source", out var utmSource);
                 var command = new RequestTutorCommand(
-                    _stringLocalizer["RequestTutorChatMessage", model.Text ?? string.Empty],
+                    _stringLocalizer["RequestTutorChatMessage", model.Text],
                     userId,
-
                     referer.AbsoluteUri,
                     model.Text, model.TutorId, utmSource);
                 await _commandBus.DispatchAsync(command, token);

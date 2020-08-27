@@ -241,7 +241,8 @@ namespace Cloudents.Core.Entities
 
         public override string ToString()
         {
-            return $"{nameof(Amount)}: {Amount}, {nameof(Currency)}: {Currency}";
+            return $"{Amount:F} {new RegionInfo(Currency).CurrencySymbol}";
+            //return $"{nameof(Amount)}: {Amount}, {nameof(Currency)}: {Currency}";
         }
         //public Money Add(Money other)
 
