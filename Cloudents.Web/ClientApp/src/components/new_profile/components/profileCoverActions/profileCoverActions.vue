@@ -54,7 +54,7 @@ export default {
             return this.$store.getters.getIsMyProfile
         },
         title() {
-            return this.$store.getters.getProfileTempTitle || this.$store.getters.getProfileTitle
+            return this.$store.getters.getProfileCoverDrawer ?   this.$store.getters.getProfileTempTitle : this.$store.getters.getProfileTitle
         },
         paragraph() {
             return this.$store.getters.getProfileTempParagraph || this.$store.getters.getProfileBio

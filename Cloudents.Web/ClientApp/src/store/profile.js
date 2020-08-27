@@ -141,7 +141,7 @@ const mutations = {
       state.profile.user.lastName = passData.lastName;
       state.profile.user.tutorData.bio =  passData.shortParagraph;
       state.profile.user.tutorData.title = passData.title;
-      state.profile.user.tutorData.paragraph = passData.bio;
+      state.profile.user.tutorData.paragraph = passData.paragraph;
       if(coverImageUrl) {
          state.profile.user.cover = coverImageUrl;
       }
