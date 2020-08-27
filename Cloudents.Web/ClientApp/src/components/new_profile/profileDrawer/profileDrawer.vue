@@ -288,6 +288,9 @@ export default {
     },
     created() {
         this.$store.commit('setFakeShortTitle',this.$store.getters.getProfileTitle);
+        this.$store.commit('setFakeShorParagraph',this.$store.getters.getProfileBio);
+        this.$store.commit('setFakeBio',this.$store.getters.getProfileParagraph);
+
         this.editTitle = this.$store.getters.getProfileTitle;
         this.editShortParagraph =  this.$store.getters.getProfileBio;
         this.editedBio = this.$store.getters.getProfileParagraph;

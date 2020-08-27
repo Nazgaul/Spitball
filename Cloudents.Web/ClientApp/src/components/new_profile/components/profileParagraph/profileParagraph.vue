@@ -11,7 +11,7 @@ export default {
     name: 'profileParagraph',
     computed: {
         bio() {
-            return this.$store.getters.getProfileTempBio || this.$store.getters.getProfileParagraph
+            return this.$store.getters.getProfileCoverDrawer ? this.$store.getters.getProfileTempBio : this.$store.getters.getProfileParagraph
         },
     }
 }
