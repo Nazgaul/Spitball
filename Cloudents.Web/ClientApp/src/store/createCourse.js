@@ -2,7 +2,7 @@ const COURSE_API = 'course';
 
 const state = {
     componentKeyRender: 0,
-    numberOfLecture: 1,
+    numberOfLecture: 0,
     courseName: '',
     followerPrice: 0,
     subscribePrice: 0,
