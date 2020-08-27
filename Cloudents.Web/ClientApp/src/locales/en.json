@@ -745,6 +745,7 @@
   "tutor_tooltip_equation": "Equation",
   "tutor_tooltip_eraser": "Eraser",
   "tutor_tooltip_fullscreen": "Full screen",
+  "tutor_tooltip_fullscreen_exit": "close full screen",
   "tutor_tooltip_iink": "Handwriting",
   "tutor_tooltip_line": "Line",
   "tutor_tooltip_mic_mute": "Mute",
