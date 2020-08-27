@@ -532,7 +532,7 @@
   "remoteVideoReceive": "remote Video received: {0}",
   "repeat": "Repeat on",
   "repeat label": "Repeat",
-  "required_files_or_studyroom": "Please shcedule a live class or upload content",
+  "required_files_or_studyroom": "You must set a live class or upload content to make an active course",
   "resultNote_action_apply_name": "Rename",
   "resultNote_action_cancel": "Cancel",
   "resultTutor_courses": "Course:",
