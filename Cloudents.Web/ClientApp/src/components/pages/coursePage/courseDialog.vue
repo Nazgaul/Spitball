@@ -13,7 +13,7 @@
                 <span v-t="'course_payment_btn_connect'" /> 
             </v-btn>
             <v-btn @click="closeDialog" class="coursePaymentBtnBack text" color="white" width="150" height="40" depressed rounded>
-                <span v-t="'tutorRequest_cancel'"/>
+                <span v-t="'courseBtn_cancel'"/>
             </v-btn>
           <div class="coursePaymentHelp mt-8" v-t="'course_payment_detail'"></div>
         </div>
