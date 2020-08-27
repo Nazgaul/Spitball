@@ -102,7 +102,6 @@ export default {
                 this.$router.push({name: MyCourses})
                 return
             }
-            debugger;
             if(this.step === 1 && global.country === 'IL') {
                 let visible = this.$store.getters.getCourseVisible
                 let price = this.$store.getters.getFollowerPrice
