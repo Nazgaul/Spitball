@@ -73,7 +73,7 @@ namespace Cloudents.Web.Hubs
                 new
                 {
                     id = currentUserId,
-                    online = true
+                    online = isOnline
                 });
             await Clients.All.SendAsync(MethodName, message);
         }

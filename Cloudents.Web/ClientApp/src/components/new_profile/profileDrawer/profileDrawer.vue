@@ -247,7 +247,7 @@ export default {
                     lastName: this.editedLastName || this.lastName,
                     shortParagraph: this.editShortParagraph, //|| this.shortParagraph, 
                     title: this.editTitle, // || this.title,
-                    bio: this.editedBio || this.bio,
+                    bio: this.editedBio,// || this.bio,
                     cover: this.newCoverFileName,
                     avatar: this.newAvatarFileName
                 };
@@ -285,6 +285,15 @@ export default {
                 this.newAvatarFileName = this.$store.getters.getAccountPreviewImage?.fileName
             }
         },
+    },
+    created() {
+        this.$store.commit('setFakeShortTitle',this.$store.getters.getProfileTitle);
+        this.$store.commit('setFakeShorParagraph',this.$store.getters.getProfileBio);
+        this.$store.commit('setFakeBio',this.$store.getters.getProfileParagraph);
+
+        this.editTitle = this.$store.getters.getProfileTitle;
+        this.editShortParagraph =  this.$store.getters.getProfileBio;
+        this.editedBio = this.$store.getters.getProfileParagraph;
     }
 };
 </script>
