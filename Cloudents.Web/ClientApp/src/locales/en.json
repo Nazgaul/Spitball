@@ -92,6 +92,7 @@
   "coupon_placeholder": "Enter Coupon Code",
   "coupon_title": "Claim your discount",
   "coupon_toaster_copy": "Coupon code copied to clipboard",
+  "coupon_tutor": "You cannot apply a coupon and purchase your own course",
   "coupon_type_flat": "Flat discount",
   "coupon_type_percentage": "Percentage",
   "courseItemsAccsess": "Here is a preview of the course content",
