@@ -15,7 +15,7 @@
             <v-btn @click="closeDialog" class="coursePaymentBtnBack text" color="white" width="150" height="40" depressed rounded>
                 <span v-t="'courseBtn_cancel'"/>
             </v-btn>
-          <div class="coursePaymentHelp mt-8" v-t="'course_payment_detail'"></div>
+          <a class="coursePaymentHelp mt-8" href="https://help.spitball.co/he/article/payme-hebrew" target="_blank" v-t="'course_payment_detail'"></a>
         </div>
     </div>
   </v-dialog>
@@ -66,6 +66,7 @@ export default {
       }
     }
     .coursePaymentHelp {
+      display: block;
       font-size: 12px;
     }
 }
