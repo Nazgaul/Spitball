@@ -9,7 +9,7 @@
         <div class="coursePaymeSubTitle mt-6 px-12" v-t="'course_payment_subTitle'"></div>
         </bdi>
         <div class="coursePaymentActions mb-4">
-            <v-btn class="coursePaymentBtnConnect white--text" tag="a" href="https://spitball.payme.co.il/onboarding/5d4c0b6d0aee19001ceec9bb" width="150" height="40" depressed rounded color="#4452fc">
+            <v-btn class="coursePaymentBtnConnect white--text" tag="a" target="_blank" href="https://spitball.payme.co.il/onboarding/5d4c0b6d0aee19001ceec9bb" width="150" height="40" depressed rounded color="#4452fc">
                 <span v-t="'course_payment_btn_connect'" /> 
             </v-btn>
             <v-btn @click="closeDialog" class="coursePaymentBtnBack text" color="white" width="150" height="40" depressed rounded>
