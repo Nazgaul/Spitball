@@ -51,9 +51,9 @@
                                     :userImageUrl="userImageUrl"
                                     :userName="userName"
                                     :fontSize="14"
-                                    :loading="avatarUpdate"
-                                    @setAvatarLoaded="val => avatarUpdate = val"
                                 />
+                                    <!-- :loading="avatarUpdate"
+                                    @setAvatarLoaded="val => avatarUpdate = val" -->
                             </div>
                             <!-- <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
@@ -111,7 +111,7 @@ export default {
 components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
-            avatarUpdate: false,
+            // avatarUpdate: false,
             drawer: false,
             profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
@@ -201,9 +201,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 this.closeDrawer();
             })
         })
-        this.$root.$on("avatarUpdate", (val) => {
-            this.avatarUpdate = val
-        })
+        // this.$root.$on("avatarUpdate", (val) => {
+        //     this.avatarUpdate = val
+        // })
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;

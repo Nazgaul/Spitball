@@ -83,6 +83,10 @@ export default {
         loading: {
             type: Boolean,
             required: false
+        },
+        previewImage: {
+            type: Boolean,
+            required: false
         }
     },
     data(){
@@ -120,6 +124,9 @@ export default {
             return sum
         },
         imageUrl(){
+            if(this.previewImage) {
+                return this.userImageUrl?.url || this.userImageUrl
+            }
             return utilitiesService.proccessImageURL(this.userImageUrl, this.width, this.height)
         }
     },

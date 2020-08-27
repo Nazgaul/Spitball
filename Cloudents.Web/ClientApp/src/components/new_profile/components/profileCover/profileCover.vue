@@ -31,6 +31,7 @@ export default {
     methods: {
         openEdit() {
             this.$store.commit('setToggleProfileDrawer', !this.drawer)
+            this.$store.commit('resetAccount')
         }
     }
 }

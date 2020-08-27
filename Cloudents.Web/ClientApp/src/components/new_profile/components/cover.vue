@@ -52,7 +52,12 @@ export default {
     mainCoverImage: {
       type: Boolean,
       required: false
-    }
+    },
+    fromProfile: {
+      type: Boolean,
+      required: false
+    },
+    newCoverImage: {}
   },
   data() {
     return {
@@ -77,9 +82,12 @@ export default {
       let profileUser = this.$store.getters.getProfile?.user;
       if (profileUser) {
         let size = this.coverImageSize
-        let coverImage = this.$store.getters.getProfileCoverImage
+        let coverImage = this.$store.getters.getProfileCoverImage?.url || this.$store.getters.getProfileCoverImage
         let profileDrawerState = this.$store.getters.getProfileCoverDrawer
         let width = profileDrawerState ? size.width - 338 : size.width
+        if(this.fromProfile && this.newCoverImage) {
+          return this.newCoverImage
+        }
         return utilitiesService.proccessImageURL(
           coverImage,
           width,
@@ -120,6 +128,9 @@ export default {
       let file = self.$refs.profileImage.files[0];
       formData.append("file", file);
       this.$store.dispatch('uploadCoverImage', formData).then(() => {
+        if(self.fromProfile) {
+          self.$emit('setPreviewCoverImage', file)
+        }
         // this.updateToasterParams({
         //    // toasterText: this.$t("chat_file_error"),
         //     showToaster: true
