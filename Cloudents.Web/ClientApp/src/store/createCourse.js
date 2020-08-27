@@ -86,7 +86,7 @@ const mutations = {
         state.showFiles = val
     },
     resetCreateCourse(state) {
-        state.numberOfLecture = 1,
+        state.numberOfLecture = 0,
         state.courseName = '',
         state.followerPrice = 0,
         state.subscribePrice = 0,
