@@ -8,7 +8,7 @@
                             {{$route.params.id ? $t('update_course') : $t('create_course')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
-                        <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
+                        <v-stepper-step class="ps-8" :class="[{'stepStteper': courseVisible},step === 2 ? 'active' : 'noActive']" step="2">
                             {{$t('eedit_page')}}
                         </v-stepper-step>
                         <v-divider></v-divider>
