@@ -266,6 +266,7 @@ export default {
             this.$store.commit('setFakeShorParagraph', '')
             this.$store.commit('setFakeBio', '')
             this.$store.commit('setFakeShortTitle', '')
+            this.$store.commit('resetPreviewCover')
             this.$store.commit('resetAccount');
             this.editedBio = ''
             this.editTitle = ''
@@ -275,6 +276,7 @@ export default {
         },
         setPreviewCoverImage(file) {
             this.newCoverImage = window.URL.createObjectURL(file);
+            this.$store.commit('showPreviewCoverImage', this.newCoverImage)
             this.newCoverFileName = this.$store.getters.getProfilePreviewCoverImage?.fileName
         },
         handleAvatarImage(previewImage) {

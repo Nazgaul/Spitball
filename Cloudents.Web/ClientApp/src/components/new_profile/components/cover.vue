@@ -85,8 +85,9 @@ export default {
         let coverImage = this.$store.getters.getProfileCoverImage?.url || this.$store.getters.getProfileCoverImage
         let profileDrawerState = this.$store.getters.getProfileCoverDrawer
         let width = profileDrawerState ? size.width - 338 : size.width
-        if(this.fromProfile && this.newCoverImage) {
-          return this.newCoverImage
+        let previewCover = this.$store.getters.getPreviewCover
+        if(previewCover) {
+          return previewCover
         }
         return utilitiesService.proccessImageURL(
           coverImage,

@@ -21,6 +21,7 @@ Vue.prototype.$loadStyle = function(url,id){
 };
 Vue.prototype.$proccessImageUrl = function(url, width, height, mode, background){
     if(url){
+        try {
         var returnedUrl = new URL(url);
         returnedUrl.searchParams.append("width",width);
         returnedUrl.searchParams.append("height",height);
@@ -29,6 +30,13 @@ Vue.prototype.$proccessImageUrl = function(url, width, height, mode, background)
             returnedUrl.searchParams.append("background",background);
         }
         return returnedUrl.toString();
+        } catch {
+            let host = location.origin;
+            let relativePath = this.message.src;
+            let fullPath = `${host}${relativePath}`;
+            return this.$proccessImageUrl(fullPath,width,height,mode,background);
+        }
+
     }else{
         return '';
     }

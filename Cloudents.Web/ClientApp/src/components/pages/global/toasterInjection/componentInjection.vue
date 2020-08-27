@@ -29,6 +29,7 @@ const SESSION_CREATE_DIALOG = () => import('../../dashboardPage/myStudyRooms/cre
 const teacherBillOfflineDialog = () => import('../dialogInjection/globalDialogs/teacherApproval/teacherBillOffline.vue');
 const ITEM_DIALOG = () => import('../itemDialog/itemDialog.vue');
 
+const paymentDialog = () => import('../../../pages/coursePage/courseDialog.vue');
 export default {
     components: {
         PAYMENT_DIALOG,
@@ -45,13 +46,17 @@ export default {
         studRoomSettings,
         SESSION_CREATE_DIALOG,
         teacherBillOfflineDialog,
-        ITEM_DIALOG
+        ITEM_DIALOG,
+        paymentDialog
     },
     data() {
         return {
             component: {},
             componentObj: {
                 // DIALOGS:
+                [componentConsts.COURSE_PAYMENT_DIALOG]:{
+                    name: 'paymentDialog'
+                },
                 [componentConsts.ITEM_DIALOG]:{
                     name:componentConsts.ITEM_DIALOG,
                     params:{

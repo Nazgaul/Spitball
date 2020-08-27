@@ -5,7 +5,6 @@
             <v-switch
                 v-model="courseVisible"
                 :key="$store.getters.getComponentKey"
-                :disabled="!canCreateCourse"
                 class="ma-0 pa-0"
                 hide-details
             ></v-switch>
@@ -22,15 +21,16 @@ export default {
         followerPrice() {
             return this.$store.getters.getFollowerPrice
         },
-        canCreateCourse() {
-            let price = this.$store.getters.getFollowerPrice
-            let canCreate = this.$store.getters.getIsCanCreateCourse
-            let needPayment = this.$store.getters.getAccountNeedPayment
-            if(global.country === 'IL') {
-                return parseInt(price) === 0 || !needPayment
-            }
-            return canCreate
-        },
+        // canCreateCourse() {
+        //     return this.$store.getters.getIsCanCreateCourse
+        //     // let price = this.$store.getters.getFollowerPrice
+        //     // let canCreate = this.$store.getters.getIsCanCreateCourse
+        //     // let needPayment = this.$store.getters.getAccountNeedPayment
+        //     // if(global.country === 'IL') {
+        //     //     return parseInt(price) === 0 || !needPayment
+        //     // }
+        //     // return canCreate
+        // },
         courseVisible: {
             get() {
                 let price = this.followerPrice
@@ -38,16 +38,16 @@ export default {
                 return this.$store.getters.getCourseVisible
             },
             set(val) {
-                let needPayment = this.$store.getters.getAccountNeedPayment
-                if(needPayment && global.country === 'IL' && this.followerPrice > 0) {
-                    this.$store.commit('setShowCourse', false)
-                    this.$store.commit('setComponentKey')
-                    this.showSnackbar = true
-                    this.$emit('showError', {
-                        text: this.$t('course_need_payment')
-                    })
-                    return
-                }
+                // let needPayment = this.$store.getters.getAccountNeedPayment
+                // if(needPayment && global.country === 'IL' && this.followerPrice > 0) {
+                //     this.$store.commit('setShowCourse', false)
+                //     this.$store.commit('setComponentKey')
+                //     this.showSnackbar = true
+                //     this.$emit('showError', {
+                //         text: this.$t('course_need_payment')
+                //     })
+                //     return
+                // }
                 this.$store.commit('setShowCourse', val)
             }
         }

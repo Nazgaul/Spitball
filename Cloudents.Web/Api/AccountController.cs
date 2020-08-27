@@ -194,7 +194,6 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-       
 
         [HttpGet("purchases")]
         public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync(CancellationToken token)

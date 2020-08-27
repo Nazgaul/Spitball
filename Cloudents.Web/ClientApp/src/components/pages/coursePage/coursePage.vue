@@ -42,11 +42,13 @@
         >
             <div class="white--text text-center">{{errorText}}</div>
         </v-snackbar>
+
     </div>
 </template>
 
 <script>
 import { MyCourses,CoursePage } from '../../../routes/routeNames'
+import {COURSE_PAYMENT_DIALOG} from '../../pages/global/toasterInjection/componentConsts'
 
 import courseCreate from './courseCreate/courseCreate.vue';
 import courseForm from './courseForm/courseForm.vue';
@@ -61,6 +63,12 @@ export default {
         unSupportedFeature
     },
     computed: {
+        stepperTitle() {
+            if(this.step === 1) {
+                return this.$route.params.id ? this.$t('update_course') : this.$t('create_course')
+            }
+            return this.$t('promote_course')
+        },
         canCreateCourse() {
             return this.$store.getters.getIsCanCreateCourse
         },
@@ -100,6 +108,16 @@ export default {
                 this.$router.push({name: MyCourses})
                 return
             }
+            if(this.step === 1 && global.country === 'IL') {
+                let visible = this.$store.getters.getCourseVisible
+                let price = this.$store.getters.getFollowerPrice
+                let canCreateCourse = this.$store.getters.getIsCanCreateCourse;
+                if(!canCreateCourse && price > 0 && visible) {
+                    this.$store.commit('addComponent', COURSE_PAYMENT_DIALOG)
+                    return;
+                }
+            }
+
             let form = this.$refs.createCourse
             if(form.validate()) {
                 this.loading = true
@@ -115,15 +133,19 @@ export default {
                 }
 
                 if(documentsValidation === 0 && studyRooms === 0) {
-                    this.errorText = this.$t('required_files_or_studyroom')
-                    this.showSnackbar = true
-                    this.loading = false
-                    this.goTo('courseUpload')
+                    this.fileAndStudyroomError()
                     return 
                 }
 
                 studyRooms = studyRooms === 0 ? [] : studyRooms
                 let documents = this.documentMap(files);
+
+                let isAllFilesNotVisible = documents.every(f => f.visible === false)
+                
+                if(isAllFilesNotVisible && documents.length) {
+                    this.fileAndStudyroomError()
+                    return 
+                }
 
                 let id = this.$route.params.id ? this.$route.params.id : undefined
                 let methodName = id ? 'update' : 'create'
@@ -262,6 +284,13 @@ export default {
         showError(text) {
             this.showSnackbar = true
             this.errorText = text
+        },
+        fileAndStudyroomError() {
+            this.errorText = this.$t('required_files_or_studyroom')
+            this.showSnackbar = true
+            this.loading = false
+            this.goTo('courseUpload')
+            return 
         }
     },
     beforeDestroy(){
@@ -275,7 +304,7 @@ export default {
                 self.goStep(3)
             })
         }
-        this.showCourseNotVisible()
+        // this.showCourseNotVisible()
     }
 }
 </script>

@@ -83,11 +83,10 @@ export default {
     publishImage() {
       let user = this.user;
       let rtl = global.country === 'IL';
-      let version = parseInt(this.$store.getters.getCourseCoverImage.split('?')[1].split('=')[1])
-      //TODO: move to store
-      if(this.dataType === 'profile') {
-        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}`
+       if(this.dataType === 'profile') {
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&v=1`
       } 
+      let version = parseInt(this.$store.getters.getCourseCoverImage.split('?')[1].split('=')[1])
       return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=${version++}&width=420&height=220&mode=crop`
     },
   },
