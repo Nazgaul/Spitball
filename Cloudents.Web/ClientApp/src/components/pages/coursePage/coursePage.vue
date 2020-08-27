@@ -127,15 +127,19 @@ export default {
                 }
 
                 if(documentsValidation === 0 && studyRooms === 0) {
-                    this.errorText = this.$t('required_files_or_studyroom')
-                    this.showSnackbar = true
-                    this.loading = false
-                    this.goTo('courseUpload')
+                    this.fileAndStudyroomError()
                     return 
                 }
 
                 studyRooms = studyRooms === 0 ? [] : studyRooms
                 let documents = this.documentMap(files);
+
+                let isAllFilesNotVisible = documents.every(f => f.visible === false)
+
+                if(isAllFilesNotVisible) {
+                    this.fileAndStudyroomError()
+                    return 
+                }
 
                 let id = this.$route.params.id ? this.$route.params.id : undefined
                 let methodName = id ? 'update' : 'create'
@@ -274,6 +278,13 @@ export default {
         showError(text) {
             this.showSnackbar = true
             this.errorText = text
+        },
+        fileAndStudyroomError() {
+            this.errorText = this.$t('required_files_or_studyroom')
+            this.showSnackbar = true
+            this.loading = false
+            this.goTo('courseUpload')
+            return 
         }
     },
     beforeDestroy(){
