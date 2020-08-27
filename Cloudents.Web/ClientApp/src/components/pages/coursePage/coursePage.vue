@@ -110,6 +110,7 @@ export default {
                 if(needPayment && price > 0 && visible) {
                     this.$store.commit('addComponent', COURSE_PAYMENT_DIALOG)
                 }
+                return;
             }
 
             let form = this.$refs.createCourse
