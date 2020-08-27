@@ -2,7 +2,7 @@
   <div class="conversation-container">
     <v-flex class="avatar-container">
         <user-avatar :size="'49'" :userImageUrl="userImg" :user-name="conversation.name"/>
-        <div v-if="conversation.online" class="onlineDot"></div>
+        <div v-if="isOnline" class="onlineDot"></div>
     </v-flex>
     <v-flex class="user-detail-container text-truncate">
       <v-flex class="top-detail-container">
@@ -54,8 +54,15 @@ export default {
     },
     isConversationUnread(){
       return this.conversation.unread > 0;
+    },
+    isOnline(){
+      if(this.conversation.conversationId.split('_').length === 2){
+        return this.$store.getters.getUserStatus[this.conversation.users[0]?.userId]
+      }else{
+        return this.conversation.online
+      }
     }
-  }
+  },
 };
 </script>
 
