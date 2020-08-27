@@ -2,7 +2,7 @@ const COURSE_API = 'course';
 
 const state = {
     componentKeyRender: 0,
-    numberOfLecture: 1,
+    numberOfLecture: 0,
     courseName: '',
     followerPrice: 0,
     subscribePrice: 0,
@@ -100,7 +100,7 @@ const mutations = {
 const actions = {
     getCourseInfo({commit}, id) {
         return this.$axios.get(`${COURSE_API}/${id}/edit`).then(({data}) => {
-            commit('setNumberOfLecture', data.studyRooms.length)
+            commit('setNumberOfLecture', data.studyRooms.length || 1)
             commit('setCourseName', data.name)
             commit('setFollowerPrice', data.price.amount)
             commit('setSubscriberPrice', data.subscriptionPrice?.amount)
