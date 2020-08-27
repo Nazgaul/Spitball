@@ -50,7 +50,7 @@ t.price,
 t.imageName as Image,
 t.rating as OverAllRating,
 t.SubsidizedPrice  as SubsidizedPrice,
-t.State
+t.State,
 cTable.*
 from sb.ReadTutor  t
 CROSS APPLY CHANGETABLE(VERSION sb.readTutor, (Id), (t.Id)) AS cTable

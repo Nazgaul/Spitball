@@ -79,7 +79,8 @@ namespace Cloudents.FunctionsV2
             IActionResult RedirectToBlob()
             {
                 var redirectUrl = cacheBlob.Uri.ChangeHost(configuration.Storage.CdnEndpoint);
-                return new RedirectResult(redirectUrl.AbsoluteUri, true);
+                //On client its the same url all the time - can do 301 in case of db change of value
+                return new RedirectResult(redirectUrl.AbsoluteUri, false);
             }
 
 

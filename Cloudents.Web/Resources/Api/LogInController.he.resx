@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BadLogin" xml:space="preserve">
-    <value>כתובת דוא"ל או סיסמה שגויה</value>
+    <value>סיסמה שגויה</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
     <value>חשבון לא קיים, בבקשה הרשם</value>

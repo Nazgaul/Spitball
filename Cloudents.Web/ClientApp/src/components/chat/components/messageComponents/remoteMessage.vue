@@ -61,7 +61,9 @@ export default {
       border-radius: 8px 8px 8px 0 !important;
    }
    max-width: 70%;
+   width: -moz-fit-content;
    width: fit-content;
+
    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25) !important;
    margin-right: auto;
    margin-left: unset;
