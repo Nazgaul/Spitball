@@ -21,7 +21,6 @@ export default {
         followerPrice() {
             return this.$store.getters.getFollowerPrice
         },
-        },
         // canCreateCourse() {
         //     return this.$store.getters.getIsCanCreateCourse
         //     // let price = this.$store.getters.getFollowerPrice
@@ -53,7 +52,7 @@ export default {
             }
         }
     }
-
+}
 </script>
 
 <style lang="less">
