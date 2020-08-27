@@ -54,6 +54,13 @@
          </v-skeleton-loader>
          <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
       </div>
+        <v-snackbar
+            v-model="tutorSnackbar"
+            top
+            :timeout="3000"
+        >
+            <div class="text-center" v-t="'enroll_tutor'"></div>
+        </v-snackbar>
    </div>
 </template>
 
@@ -71,6 +78,7 @@ export default {
          isSessionNow:false,
          loadingBtn:false,
          imgLoaded:false,
+         tutorSnackbar:false
       }
    },
    methods: {
@@ -100,6 +108,7 @@ export default {
             if(this.courseNextSession?.id){
                this.enterStudyRoom()
             }else{
+               this.tutorSnackbar = true
                return;
             }
          }
