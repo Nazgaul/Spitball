@@ -4,7 +4,7 @@
             <div class="courseStickyTitle" v-t="'visible'"></div>
             <v-switch
                 v-model="courseVisible"
-                :disabled="!canCreateCourse"
+                :key="$store.getters.getComponentKey"
                 class="ma-0 pa-0"
                 hide-details
             ></v-switch>
@@ -18,17 +18,34 @@
 export default {
     name: 'coursePublish',
     computed: {
-        canCreateCourse() {
-            return this.$store.getters.getIsCanCreateCourse
+        followerPrice() {
+            return this.$store.getters.getFollowerPrice
         },
-        IsCourseVisible() {
-            return this.$store.getters.getCourseVisible
-        },
+        // canCreateCourse() {
+        //     return this.$store.getters.getIsCanCreateCourse
+        //     // let price = this.$store.getters.getFollowerPrice
+        //     // let canCreate = this.$store.getters.getIsCanCreateCourse
+        //     // let needPayment = this.$store.getters.getAccountNeedPayment
+        //     // if(global.country === 'IL') {
+        //     //     return parseInt(price) === 0 || !needPayment
+        //     // }
+        //     // return canCreate
+        // },
         courseVisible: {
             get() {
                 return this.$store.getters.getCourseVisible
             },
             set(val) {
+                // let needPayment = this.$store.getters.getAccountNeedPayment
+                // if(needPayment && global.country === 'IL' && this.followerPrice > 0) {
+                //     this.$store.commit('setShowCourse', false)
+                //     this.$store.commit('setComponentKey')
+                //     this.showSnackbar = true
+                //     this.$emit('showError', {
+                //         text: this.$t('course_need_payment')
+                //     })
+                //     return
+                // }
                 this.$store.commit('setShowCourse', val)
             }
         }

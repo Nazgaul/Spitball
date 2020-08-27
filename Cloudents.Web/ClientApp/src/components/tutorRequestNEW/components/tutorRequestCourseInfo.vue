@@ -8,7 +8,7 @@
                     v-model="description"
                     :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
-            <fieldset  class="fieldset-select px-2">
+            <!-- <fieldset  class="fieldset-select px-2">
                 <legend v-t="'tutorRequest_select_course_placeholder'"/>
                 <v-combobox sel="course_request"
                     class="text-truncate"
@@ -18,7 +18,7 @@
                     v-model="tutorCourse"
                     :rules="[rules.required]"
                     :items="suggestsCourses"/>
-            </fieldset>
+            </fieldset> -->
     </v-form>
         <div class="tutorRequest-bottom mt-6">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
@@ -287,7 +287,6 @@ export default {
                     @media (max-width: @screen-xs) {
                         padding-top: 0;
                     }
-                    padding-top: 10px;
                     @-moz-document url-prefix(){
                        padding-top: 0;
                     }

@@ -2,7 +2,7 @@
 {
     public class RequestTutorCommand : ICommand
     {
-        public RequestTutorCommand(string course,
+        public RequestTutorCommand(
             string chatText,
             long userId,
             string referer,
@@ -11,7 +11,6 @@
             long? tutorId,
             string utmSource)
         {
-            Course = course;
             ChatText = chatText;
 
             UserId = userId;
@@ -23,7 +22,6 @@
             UtmSource = utmSource;
         }
 
-        public string Course { get; }
         public long UserId { get; }
         public string ChatText { get; }
         public string Referer { get; }

@@ -193,6 +193,7 @@
 
 
 .code-editor-wrap {
+    min-height: 30vh;
    // height: ~"calc(100vh - 108px)";
     //width: ~"calc(100% - 333px)";
    // position: relative;

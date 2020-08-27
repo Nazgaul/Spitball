@@ -1,6 +1,7 @@
 const COURSE_API = 'course';
 
 const state = {
+    componentKeyRender: 0,
     numberOfLecture: 1,
     courseName: '',
     followerPrice: 0,
@@ -13,6 +14,7 @@ const state = {
 }
 
 const getters = {
+    getComponentKey: state => state.componentKeyRender,
     getNumberOfLecture: state => state.numberOfLecture,
     getCourseName: state => state.courseName,
     getFollowerPrice: state => state.followerPrice,
@@ -35,6 +37,9 @@ const getters = {
 }
 
 const mutations = {
+    setComponentKey(state) {
+        state.componentKeyRender++
+    },
     setNumberOfLecture(state, num) {
         state.numberOfLecture = num;
     },

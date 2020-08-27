@@ -67,6 +67,9 @@ export default {
 			})
 		}
 	},
+	beforeDestroy() {
+		this.$store.commit('initEditedDetails');
+	},
 };
 </script>
 

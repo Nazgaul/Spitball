@@ -1,23 +1,12 @@
 <template>
   <div class="EmailConfirmed">
-    <div class="top">{{titleText}}</div>
-    <div class="middle" v-if="isRegisterPath">
-      <span>
-        <span class="email">{{userEmail}}</span>
-      </span>
-      <p
-        class="notYou font-weight-bold"
-        @click="goToRegister()"
-        v-t="'loginRegister_emailconfirm_notyou'"
-      />
-    </div>
+    <div class="top" v-t="'loginRegister_emailconfirm_title_reset'"></div>
     <div>
       <div class="bottom">
-        <span>{{bottomText}}</span>
-        <span v-if="!isRegisterPath" v-t="'loginRegister_emailconfirm_bottom_reset_or'"></span>
+        <span v-t="'loginRegister_emailconfirm_bottom_reset'"></span>
+        <span v-t="'loginRegister_emailconfirm_bottom_reset_or'"></span>
         <div>
           <span class="link" @click="resend()" v-t="'loginRegister_emailconfirm_resend'" />&nbsp;
-          <span v-if="isRegisterPath" v-t="'loginRegister_emailconfirm_rest'" />
         </div>
       </div>
     </div>
@@ -25,34 +14,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
-//import { RegisterEmailConfirmed } from '../../../../../routes/routeNames'
+import { mapActions } from "vuex";
 
 export default {
-  computed: {
-    ...mapGetters(["getEmail1"]),
-    titleText() {
-      if (this.isRegisterPath) {
-        return this.$t("loginRegister_emailconfirm_title");
-      }
-      return this.$t("loginRegister_emailconfirm_title_reset");
-    },
-    bottomText() {
-      if (this.isRegisterPath) {
-        return this.$t("loginRegister_emailconfirm_bottom");
-      }
-      return this.$t("loginRegister_emailconfirm_bottom_reset");
-    },
-    userEmail() {
-      return this.getEmail1;
-    }
-    // isRegisterPath(){
-    //     return (this.$route.name === RegisterEmailConfirmed)
-    // }
-  },
   methods: {
-    ...mapActions(["resetState", "resendEmail", "resendEmailPassword"]),
+    ...mapActions(["resetState", "resendEmailPassword"]),
     goToRegister() {
       this.resetState();
     },
@@ -83,23 +49,6 @@ export default {
     .responsive-property(margin-top, null, null, 42px);
     text-align: center;
     color: @color-login-text-title;
-  }
-  .middle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #000000;
-    font-size: 18px;
-    .responsive-property(margin-bottom, 85px, null, 42px);
-    .email {
-      color: #4d4b69;
-    }
-    .notYou {
-      margin: 5px 0 0;
-      font-size: 14px;
-      color: @global-blue;
-      cursor: pointer;
-    }
   }
   .bottom {
     @media (max-width: @screen-xs) {

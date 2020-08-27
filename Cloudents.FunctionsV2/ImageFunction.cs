@@ -40,36 +40,71 @@ namespace Cloudents.FunctionsV2
         public static async Task<IActionResult> RunStudyRoomImageAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/studyRoom/{id}")]
             HttpRequest req, string id,
-            [Blob("spitball-files/study-room/{id}/0.jpg")]
-            CloudBlockBlob blob,
-            [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")]CloudBlockBlob fallback)
+            [Blob("spitball-files/study-room/{id}/0.jpg")] CloudBlockBlob blob,
+            IBinder binder,
+            [Inject] IConfigurationKeys configuration,
+            [Blob("spitball-user/DefaultThumbnail/live-thumbnail-default.png")] CloudBlockBlob fallback)
         {
+
+
             var mutation = ImageMutation.FromQueryString(req.Query);
 
             async Task<IActionResult> ProcessBlob(CloudBlockBlob cloudBlockBlob)
             {
-                await using var sr = await cloudBlockBlob.OpenReadAsync();
-                var image = ProcessImage(sr, mutation);
-                return new ImageResult(image, TimeSpan.FromDays(365));
+                return await CacheWrapperAsync(binder, configuration, cloudBlockBlob, mutation, async (blob, imageMutation) =>
+                 {
+                     await using var sr = await blob.OpenReadAsync();
+                     return ProcessImage(sr, mutation);
+                 });
             }
 
-           
             try
             {
                 return await ProcessBlob(blob);
             }
-            catch (StorageException e) when(e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+            catch (StorageException e) when (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
             {
                 return await ProcessBlob(fallback);
             }
+        }
+
+        private static async Task<IActionResult> CacheWrapperAsync(IBinder binder, IConfigurationKeys configuration, CloudBlockBlob cloudBlockBlob,
+            ImageMutation mutation,
+            Func<CloudBlockBlob, ImageMutation, Task<Image>> processImageAsync)
+        {
+            var cacheBlob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute($"spitball-cache/{cloudBlockBlob.Name}_{mutation.CacheString()}"));
+
+            IActionResult RedirectToBlob()
+            {
+                var redirectUrl = cacheBlob.Uri.ChangeHost(configuration.Storage.CdnEndpoint);
+                return new RedirectResult(redirectUrl.AbsoluteUri, true);
+            }
+
+            if (await cacheBlob.ExistsAsync())
+            {
+                return RedirectToBlob();
+            }
+            var image = await processImageAsync(cloudBlockBlob, mutation);
+
+            var cacheTimeout = TimeSpan.FromDays(365);
+            cacheBlob.Properties.CacheControl =
+                $"public, max-age={cacheTimeout.TotalSeconds}, s-max-age={cacheTimeout.TotalSeconds}";
+            cacheBlob.Properties.ContentType = "image/jpg";
+
+            await using var streamWriteCache = await cacheBlob.OpenWriteAsync();
+            image.SaveAsJpeg(streamWriteCache);
+
+            return RedirectToBlob();
         }
 
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
             HttpRequest req, long id, string file,
-            [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
-            [Blob("spitball-user/DefaultThumbnail/cover-default.png")]CloudBlockBlob coverDefault,
+            [Blob("spitball-user/profile/{id}/{file}")] CloudBlockBlob blob,
+            [Blob("spitball-user/DefaultThumbnail/cover-default.png")] CloudBlockBlob coverDefault,
+            IBinder binder,
+            [Inject] IConfigurationKeys configuration,
             Microsoft.Extensions.Logging.ILogger logger
         )
         {
@@ -79,12 +114,22 @@ namespace Cloudents.FunctionsV2
             var mutation = ImageMutation.FromQueryString(req.Query);
             if (isBlob)
             {
+
+
                 try
                 {
-                    mutation.CenterCords = await GetCenterCordsFromBlobAsync(blob);
-                    await using var sr = await blob.OpenReadAsync();
-                    var image = ProcessImage(sr, mutation);
-                    return new ImageResult(image, TimeSpan.FromDays(365));
+                    return await CacheWrapperAsync(binder, configuration, blob, mutation, async (blob2, imageMutation) =>
+                     {
+                         mutation.CenterCords = await GetCenterCordsFromBlobAsync(blob2);
+                         await using var sr = await blob.OpenReadAsync();
+                         return ProcessImage(sr, mutation);
+
+                     });
+
+
+                    //await using var sr = await blob.OpenReadAsync();
+                    //var image = ProcessImage(sr, mutation);
+                    //return new ImageResult(image, TimeSpan.FromDays(365));
                 }
                 catch (InvalidDataException ex)
                 {
@@ -135,16 +180,26 @@ namespace Cloudents.FunctionsV2
             IBinder binder,
             [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
-            [Blob("spitball-files/files/{id}/preview-0.jpg")]CloudBlockBlob blob,
+            [Blob("spitball-files/files/{id}/preview-0.jpg")] CloudBlockBlob blob,
+            [Inject]  IConfigurationKeys configuration,
             CancellationToken token)
         {
             var mutation = ImageMutation.FromQueryString(req.Query);
 
             try
             {
-                await using var sr = await blob.OpenReadAsync();
-                var image = ProcessImage(sr, mutation);
-                return new ImageResult(image, TimeSpan.FromDays(365));
+                return await CacheWrapperAsync(binder, configuration, blob, mutation, async (blob2, imageMutation) =>
+                {
+                    mutation.CenterCords = await GetCenterCordsFromBlobAsync(blob2);
+                    await using var sr2 = await blob.OpenReadAsync();
+                    return ProcessImage(sr2, mutation);
+
+                });
+
+
+                //await using var sr = await blob.OpenReadAsync();
+                //var image = ProcessImage(sr, mutation);
+                //return new ImageResult(image, TimeSpan.FromDays(365));
             }
             catch (ImageFormatException ex)
             {
@@ -279,8 +334,7 @@ namespace Cloudents.FunctionsV2
                     return null;
                 }
 
-                return (arr[0].result, arr[1].result);// new float[] { arr[0].result, arr[1].result };
-                //mutation.CenterCords = new float[] { arr[0].result, arr[1].result };
+                return (arr[0].result, arr[1].result);
             }
             return null;
         }
@@ -305,7 +359,7 @@ namespace Cloudents.FunctionsV2
                         v.CenterCoordinates = new PointF(mutation.CenterCords.Value.x / image.Width,
                             mutation.CenterCords.Value.y / image.Height);
                     }
-                
+
 
                     x.Resize(v);
                 }
@@ -332,7 +386,7 @@ namespace Cloudents.FunctionsV2
                     image.Mutate(x => x.BoxBlur(5));
                     break;
             }
-            
+
 
             return image;
 

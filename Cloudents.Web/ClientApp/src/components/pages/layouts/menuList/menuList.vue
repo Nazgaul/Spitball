@@ -34,10 +34,10 @@
             <div class="menuListTopPosition"></div>
 
             <div class="userMenu_top text-center py-5">
-                <userAvatar size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="user.id"/>
+                <userAvatar class="avatarMenu" @click.native="!getIsTeacher ? openEditStudentInfo() : ''" size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="getIsTeacher ? user.id : null" />
                 <div class="uM_top_txts">
                     <h1 class="uM_title">{{$t('menuList_greets', { '0': user.name })}}</h1>
-                    <h2 class="uM_subtitle">{{$t('menuList_balance', { '0': userBalance(user.balance)})}}</h2>
+                    <!-- <h2 class="uM_subtitle">{{$t('menuList_balance', { '0': userBalance(user.balance)})}}</h2> -->
                 </div>
             </div>
         </template>
@@ -129,7 +129,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser', 'getUserLoggedInStatus']),
+    ...mapGetters(['accountUser', 'getUserLoggedInStatus', 'getIsTeacher']),
     
     menuListUserType() {      
       let userType = 'default'
@@ -153,7 +153,10 @@ export default {
   },
   methods: {           
     ...mapActions(['updateReferralDialog']),
-
+    openEditStudentInfo() {
+      this.$store.commit('setComponent', 'editStudentInfo');
+      this.$emit('closeMenu')
+    },
     logout() {
       this.$store.commit('logout')
     },
@@ -169,11 +172,11 @@ export default {
         this.updateReferralDialog(true);
       });
     },
-    userBalance(balance){
-      if(!balance) return
-      let balanceFixed = +balance.toFixed()
-      return balanceFixed.toLocaleString(`${global.lang}`)
-    },
+    // userBalance(balance){
+    //   if(!balance) return
+    //   let balanceFixed = +balance.toFixed()
+    //   return balanceFixed.toLocaleString(`${global.lang}`)
+    // },
     openLoginDialog() {
       this.$store.commit('setComponent', 'login');
       this.$emit('closeMenu')
@@ -213,6 +216,9 @@ export default {
     background-position: bottom;
   }
   .userMenu_top {
+    .avatarMenu {
+      cursor: pointer;
+    }
     .uM_top_txts {
       color: #43425d;
       padding-top: 10px;
@@ -221,11 +227,11 @@ export default {
         font-weight: 600;
         line-height: 1.57;
       }
-      .uM_subtitle {
-        font-size: 12px;
-        font-weight: normal;
-        line-height: 1.83;
-      }
+      // .uM_subtitle {
+      //   font-size: 12px;
+      //   font-weight: normal;
+      //   line-height: 1.83;
+      // }
     }
   }
   .menuListTopNotLogged {

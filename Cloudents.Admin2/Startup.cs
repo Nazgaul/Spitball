@@ -138,7 +138,10 @@ namespace Cloudents.Admin2
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()
                     ),
-                Storage = Configuration["Storage"],
+                Storage = new StorageCredentials()
+                {
+                    ConnectionString = Configuration["Storage"]
+                },
                 Redis = Configuration["Redis"],
                 ServiceBus = Configuration["ServiceBus"],
                 Stripe = Configuration["Stripe:ClientSecret"]

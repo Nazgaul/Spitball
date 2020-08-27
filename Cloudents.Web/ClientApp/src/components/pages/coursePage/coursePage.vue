@@ -25,6 +25,7 @@
                             :is="stepComponent"
                             ref="childComponent"
                             :currentCreatedCourseId="currentCreatedCourseId"
+                            @showError="showError"
                         >
                         </component>
                     </v-stepper-content>
@@ -41,11 +42,13 @@
         >
             <div class="white--text text-center">{{errorText}}</div>
         </v-snackbar>
+
     </div>
 </template>
 
 <script>
 import { MyCourses,CoursePage } from '../../../routes/routeNames'
+import {COURSE_PAYMENT_DIALOG} from '../../pages/global/toasterInjection/componentConsts'
 
 import courseCreate from './courseCreate/courseCreate.vue';
 import courseForm from './courseForm/courseForm.vue';
@@ -99,6 +102,16 @@ export default {
                 this.$router.push({name: MyCourses})
                 return
             }
+            if(this.step === 1 && global.country === 'IL') {
+                let visible = this.$store.getters.getCourseVisible
+                let price = this.$store.getters.getFollowerPrice
+                let canCreateCourse = this.$store.getters.getIsCanCreateCourse;
+                if(!canCreateCourse && price > 0 && visible) {
+                    this.$store.commit('addComponent', COURSE_PAYMENT_DIALOG)
+                    return;
+                }
+            }
+
             let form = this.$refs.createCourse
             if(form.validate()) {
                 this.loading = true
@@ -259,6 +272,10 @@ export default {
             if(!isCourseVisible) {
                 this.$store.commit('setShowCourse', false)
             }
+        },
+        showError(text) {
+            this.showSnackbar = true
+            this.errorText = text
         }
     },
     beforeDestroy(){
@@ -272,7 +289,7 @@ export default {
                 self.goStep(3)
             })
         }
-        this.showCourseNotVisible()
+        // this.showCourseNotVisible()
     }
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
     <v-navigation-drawer
       v-model="drawer"
+      v-click-outside="clickedOutside"
       class="sideMenu"
       :class="{'higherIndex':isMediumAndUp}"
       :mini-variant.sync="isMiniSideMenu"
@@ -9,13 +10,13 @@
       :permanent="!$vuetify.breakpoint.xsOnly"
       width="220"
       mini-variant-width="62"
+      hide-overlay
       app
       fixed
       clipped
       touchless
     >
       <div class="sideMenu_cont">
-          <div @click="isMiniSideMenu = true" v-if="isMediumAndUp && !$vuetify.breakpoint.xsOnly" class="sideMenu_btn"></div>
           <v-list class="sideMenu_list_cont" dense>
                 <v-list-item
                   v-for="(item, key) in dashboardList"
@@ -78,11 +79,17 @@ export default {
     },
   },
   methods: {
+    clickedOutside() {
+      if(this.$vuetify.breakpoint.mdAndDown) {
+        this.isMiniSideMenuState = true
+      }
+    },
     goTo(name){
       if(this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown) {
         this.isMiniSideMenuState = false
         return
       }
+      this.isMiniSideMenuState = true
       this.$router.push({name})
     },
     currentPageChecker(pathName){

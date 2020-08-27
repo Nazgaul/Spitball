@@ -156,9 +156,7 @@ export default {
          if(!this.isExpandVideoMode){
             if(!this.isCurrentParticipant){
                this.videoTrack.setPriority('standard')
-            }  
-            this.videoTrack.dimensions.width = 1280;
-            this.videoTrack.dimensions.height = 720;
+            }
          }
          if (el.classList.contains('OT_big')) {
             el.classList.remove('OT_big');
@@ -183,7 +181,7 @@ export default {
             this.handleAudioTrack(val);
             this.handleVideoTrack(val);
          }
-      }
+      },
    },
    destroyed() {
       if(this.videoTrack){
