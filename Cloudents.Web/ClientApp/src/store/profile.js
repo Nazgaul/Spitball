@@ -15,7 +15,8 @@ const state = {
    tempBio: '',
    tempParagraph: '',
    previewCoverImage: '',
-   profilePreviewImage: ''
+   profilePreviewImage: '',
+   coverPreview: ''
 }
 
 const getters = {
@@ -39,7 +40,7 @@ const getters = {
    
    getProfileParagraph: state => state.profile?.user?.tutorData?.paragraph,
    getProfileTempParagraph: state => state.tempParagraph,
-   
+   getPreviewCover: state => state.coverPreview,
    getProfilePreviewCoverImage: state => state.previewCoverImage,
    getAverageRate: state => ( state.amountOfReviews/state.profile?.user?.reviewCount) || 0,
    getProfileIsCalendar: state => state.profile?.user?.calendarShared,
@@ -148,17 +149,18 @@ const mutations = {
    setProfilePreviewPicture(state, imageUrl) {
       state.profilePreviewImage = imageUrl;
    },
-   // setProfilePicture(state, imageUrl) {
-   //    if (state.profile && state.profile.user) {
-   //       state.profile.user.image = imageUrl;
-   //    }
-   // },
+   resetPreviewCover(state) {
+      state.coverPreview = '' 
+   },
    setCoverPicture(state, imageUrl) {
       state.previewCoverImage = imageUrl
       // state.profile.user.cover = imageUrl;
    },
    setProfileCoverLoading(state, val) {
       state.profileCoverLoading = val;
+   },
+   showPreviewCoverImage(state, coverImage) {
+      state.coverPreview = coverImage
    },
    setProfileCourses(state,courses){
       state.courses = courses.map(course => new Course(course))
