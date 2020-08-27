@@ -131,7 +131,7 @@ export default {
                 this.$store.dispatch(this.saveMethodsName[methodName], {documents, studyRooms, id}).then(({data}) => {
                     if(self.courseVisible) {
                         self.currentCreatedCourseId = data?.id || id
-                        self.$router.push({
+                        self.$router.replace({
                             name: CoursePage,
                             params:{
                                 id:self.currentCreatedCourseId,
