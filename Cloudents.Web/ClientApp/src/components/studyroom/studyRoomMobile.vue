@@ -237,6 +237,9 @@ export default {
                .message_wrap{
                   &:last-child{
                      margin-bottom: 0; //override
+                     @media (max-width: @screen-xs) {
+                        margin-bottom: 50px; //override
+                     }
                   }
                }
             }
