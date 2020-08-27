@@ -102,11 +102,12 @@ export default {
                 this.$router.push({name: MyCourses})
                 return
             }
+            debugger;
             if(this.step === 1 && global.country === 'IL') {
                 let visible = this.$store.getters.getCourseVisible
                 let price = this.$store.getters.getFollowerPrice
-                let needPayment = this.$store.getters.getAccountNeedPayment
-                if(needPayment && price > 0 && visible) {
+                let canCreateCourse = this.$store.getters.getIsCanCreateCourse;
+                if(!canCreateCourse && price > 0 && visible) {
                     this.$store.commit('addComponent', COURSE_PAYMENT_DIALOG)
                     return;
                 }
