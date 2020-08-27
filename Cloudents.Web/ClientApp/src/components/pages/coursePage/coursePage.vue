@@ -63,6 +63,12 @@ export default {
         unSupportedFeature
     },
     computed: {
+        stepperTitle() {
+            if(this.step === 1) {
+                return this.$route.params.id ? this.$t('update_course') : this.$t('create_course')
+            }
+            return this.$t('promote_course')
+        },
         canCreateCourse() {
             return this.$store.getters.getIsCanCreateCourse
         },
@@ -135,8 +141,8 @@ export default {
                 let documents = this.documentMap(files);
 
                 let isAllFilesNotVisible = documents.every(f => f.visible === false)
-
-                if(isAllFilesNotVisible) {
+                
+                if(isAllFilesNotVisible && documents.length) {
                     this.fileAndStudyroomError()
                     return 
                 }
