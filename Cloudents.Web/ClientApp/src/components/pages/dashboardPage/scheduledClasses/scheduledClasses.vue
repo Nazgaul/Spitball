@@ -105,7 +105,7 @@ import unSupportedFeature from '../../coursePage/unSupportedFeature.vue';
             name: c.studyRoomName || '',
             id: c.studyRoomId,
             start: this.$moment(c.broadcastTime).format('YYYY-MM-DD HH:mm'),
-            end: this.$moment(c.broadcastTime).format('YYYY-MM-DD HH:mm'),
+            end: this.$moment(c.broadcastTime).add(1, 'hours').format('YYYY-MM-DD HH:mm'),
             color: this.$moment(c.broadcastTime).isBefore()? 'grey' : colors[coursesIdxs.findIndex(i=> i===c.courseId)]
           }
         })
