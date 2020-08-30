@@ -73,7 +73,6 @@ export default {
     data() {
         return {
             tableLoading: false,
-            coupons: [],
             headers:[
                 {
                     text: this.$t('marketing_tableCoupon_code'),
@@ -108,13 +107,16 @@ export default {
             ],
         }
     },
+    computed: {
+        coupons(){
+            return this.$store.getters.getCouponList
+        }
+    },
     methods: {
       getCoupons() {
         let self = this;
         self.tableLoading = true;
-        self.$store.dispatch('getUserCoupons').then(coupons => {
-          self.coupons = coupons;
-        }).catch(ex => {
+        self.$store.dispatch('getUserCoupons').catch(ex => {
           self.$appInsights.trackException({exception: new Error(ex)});
         }).finally(() => {
             self.tableLoading = false;
