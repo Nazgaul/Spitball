@@ -57,7 +57,7 @@
           <div class="succes-title pb-9 pb-sm-12 pt-2 pt-sm-6">{{$t('coupon_create_succes')}}</div>
           <div class="coupon-box">
             <img class="coupon-box_img" src="./images/b.png" alt="">
-            <span class="coupon-box_code" v-text="couponCode"/>            
+            <span ref="inputCopy" class="coupon-box_code" v-text="couponCode"/>            
           </div>
         </template>
       </div>
@@ -136,7 +136,7 @@ export default {
     copyCode(){
       let self = this;
       this.loadingBtn = true;
-      this.$copyText(this.couponCode).then(() => {
+      this.$copyText(this.couponCode,this.$refs.inputCopy).then(() => {
           self.loadingBtn = false;
           self.snackbar = true;
       })
@@ -175,9 +175,9 @@ export default {
   },
   mounted() {
     this.placeHoldersEmpty = ' '
-    setTimeout(()=>{
-      this.dateFormatted = this.formatDate(new Date().FormatDateToString())
-    })
+    // setTimeout(()=>{
+    //   this.dateFormatted = this.formatDate(new Date().FormatDateToString())
+    // })
   },
     beforeDestroy(){
       if(!this.$store.state.hasOwnProperty('couponStore')) {
@@ -188,6 +188,10 @@ export default {
       if(!this.$store.state.hasOwnProperty('couponStore')) {
         storeService.registerModule(this.$store, 'couponStore', couponStore);
       }
+
+      var date = this.$moment().add(1,'y');
+      this.dateFormatted =  this.date = date.format('YYYY-MM-DD');// new Date(date);
+      console.log(this.date);
     },
 };
 </script>

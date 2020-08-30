@@ -10,7 +10,8 @@ const state = {
     courseVisible: true,
     showFiles: false,
     courseCoverImage: null,
-    teachingDates: []
+    teachingDates: [],
+    teachingNext:[]
 }
 
 const getters = {
@@ -33,7 +34,8 @@ const getters = {
             currentMinutes = 0;
         }
         return `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`
-    }
+    },
+    getTeachingNext: state => state.teachingNext,
 }
 
 const mutations = {
@@ -68,6 +70,9 @@ const mutations = {
             hour: teachObj.hour || state.teachingDates[teachObj.index]?.hour,
             date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
+    },
+    setNextSession(state,sessions){
+        state.teachingNext = sessions.sort((a,b)=> new Date(a.dateTime) - new Date(b.dateTime)).filter(session=> new Date() < new Date(session.dateTime))[0];
     },
     removeLecture(state, index) {
         state.numberOfLecture -= 1
@@ -107,6 +112,7 @@ const actions = {
             commit('setCourseDescription', data.description)
             commit('setCourseCoverImage', data.image)
             commit('setShowCourse', data.visible)
+            commit('setNextSession',data.studyRooms)
             
             let i = 0, studyRooms = data.studyRooms
             for (i = 0; i < studyRooms.length; i++) {

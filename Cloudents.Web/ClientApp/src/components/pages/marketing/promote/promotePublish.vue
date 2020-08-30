@@ -59,14 +59,23 @@ export default {
       let user = this.user;
       if(this.document) {
         let courseName = this.$store.getters.getCourseName
-        let courseDescription = this.$store.getters.getDescription
+        // let courseDescription = this.$store.getters.getDescription;
+        let nextSession = this.$store.getters.getTeachingNext
+        let emailBody;
+        let teacherName = this.$store.getters.accountUser.name;
+        if(nextSession){
+          let time = this.$moment(nextSession.dateTime).format('MMMM Do, HH:mm');
+          emailBody = this.$t('shareContent_course_email_b',[courseName,time,urlLink,teacherName])
+        }else{
+          emailBody = this.$t('shareContent_course_email_ba',[urlLink,teacherName])
+        }
         return {
           link: urlLink,
-          twitter: this.$t('shareContent_course_twitter_whatsapp',[courseName]),
-          whatsApp: this.$t('shareContent_course_twitter_whatsapp',[courseName]),
+          twitter: this.$t('shareContent_course_twitter',[courseName,urlLink]),
+          whatsApp: this.$t('shareContent_course_whatsapp',[courseName,urlLink]),
           email: {
-            subject: this.$t('shareContent_course_email_subject',[courseName]),
-            body: this.$t('shareContent_course_email_body',[courseName, courseDescription]),
+            subject: this.$t('shareContent_course_email',[courseName]),
+            body: emailBody,
           }
         }
       }
@@ -84,7 +93,8 @@ export default {
       let user = this.user;
       let rtl = global.country === 'IL';
        if(this.dataType === 'profile') {
-        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&v=1`
+         
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&t=${Date.now()}`
       } 
       let version = parseInt(this.$store.getters.getCourseCoverImage.split('?')[1].split('=')[1])
       return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=${version++}&width=420&height=220&mode=crop`

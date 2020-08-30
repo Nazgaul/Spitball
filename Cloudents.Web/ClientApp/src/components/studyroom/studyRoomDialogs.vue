@@ -35,7 +35,7 @@
                   :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
          <endSessionConfirm/>
       </v-dialog>
-      <v-dialog v-model="getAudioVideoDialog" max-width="570px" content-class="studyRoomAudioVideoDialog"
+      <v-dialog v-if="getAudioVideoDialog" v-model="getAudioVideoDialog" max-width="570px" content-class="studyRoomAudioVideoDialog"
                 :fullscreen="$vuetify.breakpoint.xsOnly" persistent
                   :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
          <studyRoomAudioVideoDialog/>

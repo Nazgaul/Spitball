@@ -45,6 +45,7 @@
                     outlined
                     dense
                     placeholder=" "
+                    autocomplete="off"
                 >
                 </v-text-field>
             </template>

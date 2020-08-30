@@ -24,7 +24,7 @@
             <div class="videoOverlay" :class="{'videoPlaceholderWrap': !cameraOn || !placeholder}"></div>
         </v-row>
     </v-responsive>
-        <v-dialog v-model="settingDialogState" max-width="570px" content-class="studyRoomAudioVideoDialog"
+        <v-dialog v-if="settingDialogState" v-model="settingDialogState" max-width="570px" content-class="studyRoomAudioVideoDialog"
                     :fullscreen="$vuetify.breakpoint.xsOnly" persistent
                     :transition="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'">
             <studyRoomAudioVideoDialog :streamsArray="streamsArray" @closeAudioVideoSettingDialog="val => settingDialogState = val"/>
