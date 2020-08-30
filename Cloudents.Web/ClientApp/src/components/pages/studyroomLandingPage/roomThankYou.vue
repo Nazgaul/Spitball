@@ -7,7 +7,7 @@
          </div>
          <img class="mt-5 mt-sm-16" src="./images/circleCheck.png" width="50px" height="50px" alt="">
          <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
-         <div class="thankSubTitle" v-t="'we_will_email'"/>
+         <div class="thankSubTitle">{{courseName}}</div>
          <div class="thankBox">
             <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image">
             </v-skeleton-loader>
@@ -42,6 +42,9 @@ export default {
    computed: {
       courseDate(){
          return this.$store.getters.getCourseDetails?.startTime;
+      },
+      courseName() {
+            return this.$store.getters.getCourseDetails?.name;
       },
       courseImage(){
          return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, 402, 268)
