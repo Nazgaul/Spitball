@@ -59,7 +59,7 @@ export default {
       let user = this.user;
       if(this.document) {
         let courseName = this.$store.getters.getCourseName
-        let courseDescription = this.$store.getters.getDescription;
+        // let courseDescription = this.$store.getters.getDescription;
         let nextSession = this.$store.getters.getTeachingNext
         let emailBody;
         let teacherName = this.$store.getters.accountUser.name;

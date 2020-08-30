@@ -7,11 +7,13 @@ const couponInstance = axios.create({
 const state = {
     couponError: false,
     couponDialog: false,
+    couponList:[]
 };
 
 const getters = {
     getCouponError: state => state.couponError,
     //getCouponDialog: state => state.couponDialog,
+    getCouponList: state => state.couponList,
 };
 
 const mutations = {
@@ -19,12 +21,35 @@ const mutations = {
     setCouponDialog(state, val){ 
         state.couponDialog = val;
         state.couponError = false;
+    },
+    addCoupon(state,coupon){
+        state.couponList.unshift({
+            code: coupon.code,
+            couponType: coupon.couponType,
+            value: coupon.value,
+            expiration: coupon.expiration,
+            amountOfUsers: 0,
+            createTime: new Date().toISOString()
+        })
+    },
+    setCouponList(state, coupons){ 
+        state.couponList = coupons.map(coupon => new Coupon(coupon));
+        function Coupon(objInit) {
+            this.code = objInit.code;
+            this.couponType = objInit.couponType;
+            this.value = objInit.value;
+            this.createTime = objInit.createTime;
+            this.expiration = objInit.expiration;
+            this.amountOfUsers = objInit.amountOfUsers;
+        }
     }
 };
 
 const actions = {
-    createCoupon(context, params){
-        return couponInstance.post('', params)
+    createCoupon({commit}, params){
+        return couponInstance.post('', params).then(()=>{
+            commit('addCoupon',params)
+        })
     },
     updateCoupon({commit, getters}, params){
         return couponInstance.post('/apply', params).then(({data}) => {
@@ -40,17 +65,9 @@ const actions = {
             return Promise.reject()
         });
     },
-    getUserCoupons() {
+    getUserCoupons({commit}) {
         return couponInstance.get().then(({data}) => {
-            function Coupon(objInit) {
-                this.code = objInit.code;
-                this.couponType = objInit.couponType;
-                this.value = objInit.value;
-                this.createTime = objInit.createTime;
-                this.expiration = objInit.expiration;
-                this.amountOfUsers = objInit.amountOfUsers;
-            }
-            return data.map(coupon => new Coupon(coupon))
+            commit('setCouponList',data)
         })
     }
 };
