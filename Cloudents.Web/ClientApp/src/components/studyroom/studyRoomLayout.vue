@@ -79,7 +79,7 @@ export default {
       if(this.$store.getters.getRoomIsTutor){
         return this.isRoomActive;
       }else{
-        return this.isRoomActive && this.$store.getters.getIsRoomUpdated;
+        return this.isRoomActive;
       }
     },
     isRoomEnabled(){
