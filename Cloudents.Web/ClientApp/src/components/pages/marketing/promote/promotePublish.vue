@@ -93,7 +93,8 @@ export default {
       let user = this.user;
       let rtl = global.country === 'IL';
        if(this.dataType === 'profile') {
-        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&v=1`
+         
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&t=${Date.now()}`
       } 
       let version = parseInt(this.$store.getters.getCourseCoverImage.split('?')[1].split('=')[1])
       return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=${version++}&width=420&height=220&mode=crop`
