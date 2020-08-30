@@ -175,9 +175,9 @@ export default {
   },
   mounted() {
     this.placeHoldersEmpty = ' '
-    setTimeout(()=>{
-      this.dateFormatted = this.formatDate(new Date().FormatDateToString())
-    })
+    // setTimeout(()=>{
+    //   this.dateFormatted = this.formatDate(new Date().FormatDateToString())
+    // })
   },
     beforeDestroy(){
       if(!this.$store.state.hasOwnProperty('couponStore')) {
@@ -188,6 +188,10 @@ export default {
       if(!this.$store.state.hasOwnProperty('couponStore')) {
         storeService.registerModule(this.$store, 'couponStore', couponStore);
       }
+
+      var date = this.$moment().add(1,'y');
+      this.dateFormatted =  this.date = date.format('YYYY-MM-DD');// new Date(date);
+      console.log(this.date);
     },
 };
 </script>
