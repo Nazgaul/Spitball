@@ -6,8 +6,12 @@ using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.StudyRooms;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Blob;
 using SendGrid.Helpers.Mail;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -104,6 +108,17 @@ Time: {BroadCastTime:T} UTC
 Looking forward to see you at the Live Class";
 
 
+
+        [FunctionName("StudyRoomConnect")]
+        public static string RunStudyRoomImage(
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "studyRoom/code/")]
+            HttpRequest req, 
+            [Inject] IDataProtectionService dataProtectionService
+           )
+        {
+            var code = dataProtectionService.ProtectData(638.ToString(), DateTimeOffset.UtcNow.AddDays(2));
+            return code;
+        }
 
         //[FunctionName("UpdateBroadcastTime")]
         //public static async Task UpdateBroadcastTimeAsync([TimerTrigger("0 0 * * * *")] TimerInfo myTimer,
