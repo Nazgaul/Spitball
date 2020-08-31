@@ -659,6 +659,8 @@
   "studyRoom_stop_present_text": "הנך משתף מסך",
   "studyRoom_toaster_added_to_room": "סטודנט/ית נכנס/ה לחדר",
   "studyRoom_toaster_left_the_room": "סטודנט/ית עזב/ה את החדר",
+  "studyRoom_toaster_tutor_added_to_room": "המורה התחבר/ה מחדש",
+  "studyRoom_toaster_tutor_left_the_room": " המורה התנתק/ה באופן בלתי צפוי מהכיתה, צפוי/ה להתחבר מחדש בקרוב",
   "studyRoom_user_preview_you": "You",
   "subscriber": "מנויים:",
   "subscriber_price": "מחיר למנויים",

@@ -141,6 +141,18 @@ export default {
                         name: componentConsts.PURCHASE_TRANSACTION
                     }
                 },
+                simpleToaster_tutorConnected:{
+                    name:'simpleToaster',
+                    params: {
+                        text: this.$t('studyRoom_toaster_tutor_added_to_room'),
+                    }
+                },
+                simpleToaster_tutorLeft:{
+                    name:'simpleToaster',
+                    params: {
+                        text: this.$t('studyRoom_toaster_tutor_left_the_room'),
+                    }
+                },
                 simpleToaster_userConnected:{
                     name:'simpleToaster',
                     params: {

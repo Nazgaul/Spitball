@@ -659,6 +659,8 @@
   "studyRoom_stop_present_text": "You are presenting to everyone",
   "studyRoom_toaster_added_to_room": "A student has entered the room",
   "studyRoom_toaster_left_the_room": "A student has left the room",
+  "studyRoom_toaster_tutor_added_to_room": "Teacher has reconnected",
+  "studyRoom_toaster_tutor_left_the_room": "The teacher has unexpectedly disconnected from the class, should reconnect shortly",
   "studyRoom_user_preview_you": "You",
   "subscriber": "Subscribers:",
   "subscriber_price": "Price for subscribers",
