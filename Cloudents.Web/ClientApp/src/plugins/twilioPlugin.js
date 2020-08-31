@@ -281,6 +281,7 @@ export default () => {
       let _localAudioTrack = null;
       let _localScreenTrack = null;
       let _debugMode;
+      let isRecordingBot;
       store.subscribe((mutation) => {
          if (mutation.type === 'setRouteStack' && mutation.payload.name === routeNames.StudyRoom) {
             import('twilio-video').then(async (Twilio) => { 
@@ -290,6 +291,7 @@ export default () => {
                }
             });
             _debugMode = mutation.payload.query?.debug ? 'debug' : 'off';
+            isRecordingBot = mutation.payload.query?.recordingBot;
          }
          if (mutation.type === twilio_SETTERS.JWT_TOKEN && mutation.payload && store.getters.getRouteStack[0].name === routeNames.StudyRoom) {
             if(store.getters.getIsBrowserNotSupport){
@@ -298,7 +300,7 @@ export default () => {
             if(_activeRoom?.state == 'connected'){
                return
             }
-            if(!store.getters.getRoomIsJoined){
+            if(!store.getters.getRoomIsJoined && !isRecordingBot){
                return
             }
             let isRoomNeedPayment = store.getters.getRoomIsNeedPayment;
