@@ -111,6 +111,7 @@
   "course_payment_subTitle": "כדי למכור קורסים בתשלום עלייך להרשם למערכת הסליקה הישירה של payme - isracard",
   "course_payment_title": "מכירת קורסים דרך ספיטבול",
   "course_pending": "The course is in pending status",
+  "course_publish_status": "The course was set to inactive, while we wait for Isracard to get back to us",
   "course_visible": "Show course on your site",
   "create_broadcast_error": "Error creating new live session. Try again later",
   "create_coupon": "Create a coupon code",

@@ -33,6 +33,11 @@ export default {
   methods: {
     closeDialog() {
         this.$store.commit('removeComponent', COURSE_PAYMENT_DIALOG)
+        this.$store.commit('setShowCourse', false)
+        this.$store.dispatch('updateToasterParams', {
+          toasterText: this.$t("course_publish_status"),
+          showToaster: true,
+        })
     }
   }
 }
