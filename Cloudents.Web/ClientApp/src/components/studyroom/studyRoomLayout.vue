@@ -15,7 +15,7 @@
     </template>
     
     <studyRoomAudio/>
-    <studyRoomSettingsDialog v-if="!isRoomActiveAndUpdated && !$store.getters.getIsBrowserNotSupport"/>
+    <studyRoomSettingsDialog v-if="!isRecordingBot && !isRoomActiveAndUpdated && !$store.getters.getIsBrowserNotSupport"/>
     <studyRoomDialogs/>
     <slot name="appInjections"></slot>
   </v-app>
@@ -45,6 +45,7 @@ export default {
       id: this.$route.params.id,
       showRoomMutedToaster:false,
       isReady:false,
+      isRecordingBot:false,
     }
   },
   components: {
@@ -144,6 +145,9 @@ export default {
   beforeDestroy() {
     this.$store.dispatch('updateResetRoom');
     global.onbeforeunload = function() { };
+  },
+  created() {
+    this.isRecordingBot = this.$route.query?.recordingBot
   },
 };
 </script>
