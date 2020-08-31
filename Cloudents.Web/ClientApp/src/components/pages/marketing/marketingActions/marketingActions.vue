@@ -1,11 +1,26 @@
 <template>
     <v-row class="marketingActions pa-0 text-center">
-        <v-col class="pa-0 mb-6 d-block d-sm-none justify-space-between" cols="12">
+        <!-- <v-col class="pa-0 mb-6 d-block d-sm-none justify-space-between" cols="12">
             <div class="text text-left" v-t="'marketing_title'"></div>
-        </v-col>
-        
-        <template v-for="(data, index) in resource">
-            <actionBox :key="index" :data="data" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard"></actionBox>
+        </v-col> -->
+        <template v-for="(data, index, i) in resource">
+            <actionBox :key="index" :index="i" :currentCourseItem="currentCourseItem" :data="data" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard">
+                <template #courseSelect v-if="i === 1">
+                    <v-select
+                        v-model="currentCourseItem"
+                        :items="$store.getters.getCoursesItems"
+                        hide-details
+                        dense
+                        item-text="name"
+                        item-value="id"
+                        menu-props="auto"
+                        return-object
+                        class="promoteCourseSelect me-3"
+                        :label="$t('choose_course')"
+                        outlined
+                    ></v-select>
+                </template>
+            </actionBox>
         </template>
     </v-row>
 </template>
@@ -27,8 +42,13 @@ export default {
     },
     data() {
         return {
-            routeNames
+            routeNames,
+            currentCourseItem: {},
+            items: []
         }
+    },
+    created() {
+        this.$store.dispatch('updateCoursesItems')
     }
 }
 </script>
@@ -74,6 +94,17 @@ export default {
                 @media (max-width: @screen-xs) {
                     border-bottom: 1px solid #dddddd;
                     border-right: none;
+                }
+            }
+        }
+        .promoteCourseSelect {
+            border-radius: 20px;
+            width: 190px;
+            
+            .v-select__slot {
+                label {
+                    font-size: 14px;
+                    color: @global-purple;
                 }
             }
         }

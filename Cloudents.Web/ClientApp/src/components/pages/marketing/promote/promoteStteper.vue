@@ -92,21 +92,28 @@ export default {
           action: this.promoteProfile
         },
         box2: {
-          title1: this.$t('promote_createOffer_title1'),
-          title2: this.$t('promote_createOffer_title2'),
+          title1: this.$t('promote_your_course'),
+          title2: this.$t('promote_sharePost_title2'),
           image: require('../images/promoteVideo.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteVideos,
-          isDisabled:true
-        },
-        box3: {
-          title1: this.$t('promote_createVideo_title1'),
-          title2: this.$t('promote_createVideo_title2'),
-          image: require('../images/promoteContent.png'),
-          buttonText: this.$t('promote_lets_go'),
-          action: this.promoteDocuments,
-          isDisabled:true
+          action: this.promoteCourse
         }
+        // box2: {
+          // title1: this.$t('promote_createOffer_title1'),
+          // title2: this.$t('promote_createOffer_title2'),
+          // image: require('../images/promoteVideo.png'),
+          // buttonText: this.$t('promote_lets_go'),
+          // action: this.promoteVideos,
+          // isDisabled:true
+        // },
+        // box3: {
+        //   title1: this.$t('promote_createVideo_title1'),
+        //   title2: this.$t('promote_createVideo_title2'),
+        //   image: require('../images/promoteContent.png'),
+        //   buttonText: this.$t('promote_lets_go'),
+        //   action: this.promoteDocuments,
+        //   isDisabled:true
+        // }
       }
     }
   },
@@ -133,6 +140,9 @@ export default {
       this.document = null;
       this.dataType = 'profile';
       this.stepComponent = this.stepComponents[`step${this.step}`]
+    },
+    promoteCourse() {
+      console.log("promote your course");
     },
     promoteVideos () {
       this.dataType = 'Video';
