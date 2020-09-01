@@ -49,7 +49,7 @@
 
 
             <template v-slot:item.couponType="{value}">
-                {{value === 'Flat' ? $t('marketing_coupon_type_flat') : $t('marketing_coupon_type_percentage')}}
+                {{value.toLowerCase() === 'flat' ? $t('marketing_coupon_type_flat') : $t('marketing_coupon_type_percentage')}}
             </template>
             <template v-slot:item.createTime="{value}">
                 {{$d(new Date(value), 'tableDate')}}
