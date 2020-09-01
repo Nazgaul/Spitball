@@ -179,7 +179,7 @@ export default {
                 border: none;
                border-radius: initial;
                height: auto;
-                padding: 0 0 50px;
+                padding: 0 0 30px;
             }
             .saveBtn{
                width: 100%;
@@ -195,7 +195,7 @@ export default {
                }
                @media(max-width: @screen-xs) {
                   margin-top: 10px;
-                  font-size: 24px;
+                  font-size: 20px;
                }
             }
             .thankYouCounter{
