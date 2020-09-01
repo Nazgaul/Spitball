@@ -50,7 +50,6 @@ export default {
                 //     })
                 //     return
                 // }
-                debugger
                 this.$store.commit('setShowCourse', val)
             }
         }
