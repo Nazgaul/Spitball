@@ -10,6 +10,7 @@
                         v-model="currentCourseItem"
                         :items="$store.getters.getCoursesItems"
                         hide-details
+                        color="#304FFE"
                         dense
                         item-text="name"
                         item-value="id"

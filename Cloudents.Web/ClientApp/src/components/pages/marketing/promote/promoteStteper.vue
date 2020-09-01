@@ -7,20 +7,22 @@
 
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(2)">
-                {{$t('promote_choose')}} {{$t('promote_your_content')}}
-            </v-stepper-step>
-
-            <v-divider></v-divider>
-
-            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3" @click="goStep(3)">
+            <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(3)">
+                <!-- {{$t('promote_choose')}} {{$t('promote_your_content')}} -->
                 {{$t('promote_choose')}} {{$t('promote_template')}}
             </v-stepper-step>
+
             <v-divider></v-divider>
+
+            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3" @click="goStep(4)">
+                <!-- {{$t('promote_choose')}} {{$t('promote_template')}} -->
+                {{$t('promote_publish')}}
+            </v-stepper-step>
+            <!-- <v-divider></v-divider>
 
             <v-stepper-step class="stepStteper pe-6" :class="[step === 4 ? 'active' : 'noActive']" step="4" @click="goStep(4)">
                 {{$t('promote_publish')}}
-            </v-stepper-step>
+            </v-stepper-step> -->
         </v-stepper-header>
 
         <!-- Mobile stepper label -->
