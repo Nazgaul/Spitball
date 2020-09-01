@@ -85,7 +85,7 @@ export default {
       }
     },
     goTo(name){
-      if(this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown) {
+      if(this.isMiniSideMenuState && this.$vuetify.breakpoint.mdAndDown && !this.$vuetify.breakpoint.xsOnly) {
         this.isMiniSideMenuState = false
         return
       }

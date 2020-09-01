@@ -1,4 +1,4 @@
-import { ENROLLED_ERROR } from '../components/pages/global/toasterInjection/componentConsts.js';
+import { ENROLLED_ERROR,ENROLLED_ERROR_2 } from '../components/pages/global/toasterInjection/componentConsts.js';
 import Vue from 'vue';
 
 const COURSE_API = 'course';
@@ -179,8 +179,15 @@ const actions = {
         dispatch('goStripe', x)
         return;
       } else {
-        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe', session);
-        location.href = x;
+        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe', session)
+          .catch(err=>{
+            commit('setComponent', ENROLLED_ERROR_2);
+            commit('trackException', err);
+            return;
+          });
+        if(x){
+          location.href = x;
+        }
         return;
       }
     }

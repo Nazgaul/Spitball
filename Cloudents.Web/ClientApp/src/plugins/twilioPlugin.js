@@ -237,6 +237,10 @@ function _twilioListeners(room,store) {
                },500);
             }
          })
+      }else{
+         if(store.getters.getRoomTutor.tutorId == participant.identity.split('_')[0]){
+            store.commit('setComponent', 'simpleToaster_tutorConnected');
+         }
       }
       _insightEvent('TwilioParticipantConnected', {participant: participant.identity}, null);
    })
@@ -246,6 +250,10 @@ function _twilioListeners(room,store) {
       store.commit(studyRoom_SETTERS.ROOM_PARTICIPANT_COUNT,room.participants.size)
       if(store.getters.getRoomIsTutor){
          store.commit('setComponent', 'simpleToaster_userLeft');
+      }else{
+         if(store.getters.getRoomTutor.tutorId == participant.identity.split('_')[0]){
+            store.commit('setComponent', 'simpleToaster_tutorLeft');
+         }
       }
       let params = {
          participant: participant.identity,

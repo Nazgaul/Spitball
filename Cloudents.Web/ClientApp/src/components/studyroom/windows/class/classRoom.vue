@@ -88,9 +88,9 @@ export default {
    methods: {
       updateLayoutValues(){
          this.layout = initLayoutContainer(this.layoutEl, {
-         maxRatio: 3/2,    
+         maxRatio: 3/4,    
          minRatio: 9/16,   
-         fixedRatio: true,  
+         fixedRatio: false,  
          bigPercentage: 0.8,
          bigFixedRatio: false,
          bigMaxRatio: 3/2,
@@ -103,6 +103,7 @@ export default {
          bigAlignItems: 'center',
          bigMaxWidth: 'Infinity',
          smallAlignItems: 'center',
+         animate: true,
          }).layout;
       },
       getRatio(){
