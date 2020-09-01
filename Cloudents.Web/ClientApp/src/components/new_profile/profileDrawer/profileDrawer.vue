@@ -9,49 +9,9 @@
             <!-- <div class="mainTitle" v-t="'upload images'"></div> -->
             <!-- <v-icon class="closeIcon" size="12" @click="closeDialog">{{$vuetify.icons.values.close}}</v-icon> -->
         <!-- </div> -->
-        <div class="profilePicture mb-5 mt-2">
-            <div class="pictureTitle mb-3" v-t="'profile picture'"></div>
-            <div class="profileEditAvatarWrap">
-                <uploadImage
-                    sel="photo"
-                    class="editImage"
-                    :fromProfile="true"
-                    v-show="avatarLoading || !$store.getters.getAccountImage"
-                    @setProfileAvatarLoading="val => avatarLoading = val"
-                    @setLiveImage="handleAvatarImage"
-                />
-                <userAvatarNew
-                    sel="avatar_image"
-                    class="pUb_dS_img"
-                    :userName="$store.getters.getAccountName"
-                    :userImageUrl="$store.getters.getAccountPreviewImage.url || $store.getters.getAccountImage"
-                    :previewImage="true"
-                    :width="134"
-                    :height="164"
-                    :userId="$store.getters.getAccountId"
-                    :fontSize="36"
-                    :borderRadius="8"
-                    :tile="true"
-                    :loading="avatarLoading"
-                    @setAvatarLoaded="val => avatarLoading = val"
-                />
-            </div>
-            <div class="avatrRecommended mt-0" v-t="'profile_pic_recommended'"></div>
-        </div>
-
-        <label class="profileCover mb-12" @click="$vuetify.goTo('#profileCover')">
-            <div class="coverTitle mt-8 mb-3" v-t="'profile cover'"></div>
-            <cover
-                @setPreviewCoverImage="setPreviewCoverImage"
-                :newCoverImage="newCoverImage"
-                :fromProfile="true"
-            />
-            <div class="coverRecommended text-center mt-2" v-t="'profile_cover_recommended'"></div>
-        </label>
-
-        <v-row no-gutters class="profileInfo">
-            <v-col cols="12" class="my-4">
-                <div class="infoTitle mt-8" v-t="'profile_personal_details'"></div>
+        <v-row no-gutters>
+            <v-col cols="12" class="mb-4">
+                <div class="infoTitle" v-t="'profile_personal_details'"></div>
             </v-col>
             <v-col cols="12" sm="6">
                 <v-text-field
@@ -73,6 +33,51 @@
                     height="44"
                     outlined
                 ></v-text-field>
+            </v-col>
+        </v-row>
+
+        <div class="profilePicture mb-5 mt-1">
+            <div class="profileEditAvatarWrap">
+                <uploadImage
+                    sel="photo"
+                    class="editImage"
+                    :fromProfile="true"
+                    v-show="avatarLoading || !$store.getters.getAccountImage"
+                    @setProfileAvatarLoading="val => avatarLoading = val"
+                    @setLiveImage="handleAvatarImage"
+                />
+                <userAvatarNew
+                    sel="avatar_image"
+                    class="pUb_dS_img"
+                    :userName="$store.getters.getAccountName"
+                    :userImageUrl="$store.getters.getAccountPreviewImage.url || $store.getters.getAccountImage"
+                    :previewImage="true"
+                    :width="130"
+                    :height="160"
+                    :userId="$store.getters.getAccountId"
+                    :fontSize="36"
+                    :borderRadius="8"
+                    :tile="true"
+                    :loading="avatarLoading"
+                    @setAvatarLoaded="val => avatarLoading = val"
+                />
+            </div>
+            <div class="avatrRecommended mt-0" v-t="'profile_pic_recommended'"></div>
+        </div>
+
+        <label class="profileCover" @click="$vuetify.goTo('#profileCover')">
+            <div class="coverTitle mt-8 mb-3" v-t="'profile cover'"></div>
+            <cover
+                @setPreviewCoverImage="setPreviewCoverImage"
+                :newCoverImage="newCoverImage"
+                :fromProfile="true"
+            />
+            <div class="coverRecommended text-center mt-2 mb-10" v-t="'profile_cover_recommended'"></div>
+        </label>
+
+        <v-row no-gutters class="profileInfo">
+            <v-col>
+                <div class="profileInfoTitle mb-3" v-t="'profile info_title'"></div>
             </v-col>
             <v-col cols="12">
                 <v-textarea
@@ -326,11 +331,7 @@ export default {
             background: #fff;
             border-radius: 8px;
         }
-        .pictureTitle {
-            font-size: 16px;
-            font-weight: 600;
-            color: #131415;
-        }
+
         .profileEditAvatarWrap {
             width: max-content;
             // margin: 0 auto;
@@ -385,27 +386,32 @@ export default {
             color: #a4a7ab;
         }
     }
+    .infoTitle {
+        font-size: 16px;
+        font-weight: 600;
+        color: #43425d;
+    }
     .profileInfo {
-        .infoTitle {
+        .profileInfoTitle {
             font-size: 16px;
             font-weight: 600;
-            color: #43425d;
+            color: #131415;
         }
-        .v-textarea, .v-input {
-            .v-input__slot {
-                fieldset {
-                    border: 1px solid #b8c0d1;
-                }
-                .v-label {
-                    color: @global-purple;
-                }
-            }
-            &.error--text {
-                fieldset {
-                    border: 2px solid #ff5252;
-                }
-            }
-        }
+        // .v-textarea, .v-input {
+        //     .v-input__slot {
+        //         fieldset {
+        //             border: 1px solid #b8c0d1;
+        //         }
+        //         .v-label {
+        //             color: @global-purple;
+        //         }
+        //     }
+        //     &.error--text {
+        //         fieldset {
+        //             border: 2px solid #ff5252;
+        //         }
+        //     }
+        // }
         textarea {
             resize: none;
             margin-top: 10px !important;
@@ -413,6 +419,26 @@ export default {
                 color: #a4a7ab;
                 font-size: 14px;
             }
+        }
+    }
+    .v-textarea, .v-input {
+        .v-input__slot {
+            fieldset {
+                border: 1px solid #b8c0d1;
+            }
+            .v-label {
+                color: @global-purple;
+            }
+        }
+        &.error--text {
+            fieldset {
+                border: 2px solid #ff5252;
+            }
+        }
+    }
+    .v-input--is-focused:not(.error--text) {
+        fieldset {
+            border: 2px solid #304FFE !important;
         }
     }
     .profileDrawerSticky {

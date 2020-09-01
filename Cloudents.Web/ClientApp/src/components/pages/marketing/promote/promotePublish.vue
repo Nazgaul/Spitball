@@ -34,6 +34,9 @@ export default {
     },
     resource: {
       required: false
+    },
+    currentCourseItem: {
+      required: true
     }
   },
   data() {
@@ -47,10 +50,12 @@ export default {
     },
     urlLink() {
       let urlLink;
-      if(this.document) {
+      if(this.dataType === 'Document') {
         urlLink = `${global.location.origin}/course/${this.document.id}?t=${Date.now()}`;
-      } else {
+      } else if(this.dataType === 'profile') {
         urlLink = `${global.location.origin}/p/${this.user.id}?t=${Date.now()}`;
+      } else if(this.dataType === 'Courses') {
+        urlLink = `${global.location.origin}/course/${this.currentCourseItem.id || this.courseId}/?t=${Date.now()}`;
       }
       return urlLink;
     },
@@ -92,13 +97,16 @@ export default {
     publishImage() {
       let user = this.user;
       let rtl = global.country === 'IL';
+
        if(this.dataType === 'profile') {
-         
         return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}&t=${Date.now()}`
-      } 
-      let version = parseInt(this.$store.getters.getCourseCoverImage.split('?')[1].split('=')[1])
-      return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=${version++}&width=420&height=220&mode=crop`
-    },
+      } else if(this.dataType === 'Courses') {
+        return this.$proccessImageUrl(this.currentCourseItem.image, 420, 220)
+      } else {
+        let version = parseInt(this.$store.getters.getCourseCoverImage.split('?')[1].split('=')[1])
+        return `${window.functionApp}/api/image/studyRoom/${this.document.id}?version=${version++}&width=420&height=220&mode=crop`
+      }
+    }
   },
   methods: {
     onLoad() {

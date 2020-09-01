@@ -86,10 +86,10 @@ const mutations = {
         state.user.firstName = firstName
         state.user.lastName = lastName
     },
-    setAccountTutorInfo(state, { firstName, lastName, avatarImageUrl }) {
-        state.user.name = `${firstName} ${lastName}`
-        state.user.firstName = firstName
-        state.user.lastName = lastName
+    setAccountTutorInfo(state,{passData, avatarImageUrl}) {
+        state.user.name = `${passData.firstName} ${passData.lastName}`
+        state.user.firstName = passData.firstName
+        state.user.lastName = passData.lastName
         if(avatarImageUrl) {
             state.user.image = avatarImageUrl
         }
@@ -159,10 +159,10 @@ const actions = {
             commit('setComponent', '')
         })
     },
-    saveUserInfo({getters, commit}, params) {
+    saveUserInfo({state,getters, commit}, params) {
         let passData =  {
-            firstName: params.firstName,
-            lastName: params.lastName,
+            firstName: params.firstName || state.user?.firstName,
+            lastName: params.lastName || state.user?.lastName,
             title: params.title,
             shortParagraph: params.shortParagraph,
             paragraph: params.bio,

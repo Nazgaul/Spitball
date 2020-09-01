@@ -105,6 +105,13 @@ export default {
                         name: componentConsts.ENROLLED_ERROR
                     }
                 },
+                [componentConsts.ENROLLED_ERROR_2]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t('profile_enroll_error_2'),
+                        name: componentConsts.ENROLLED_ERROR_2
+                    }
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
@@ -139,6 +146,18 @@ export default {
                         text: this.$t('buyTokens_success_transaction'),
                         timeout: 30000,
                         name: componentConsts.PURCHASE_TRANSACTION
+                    }
+                },
+                simpleToaster_tutorConnected:{
+                    name:'simpleToaster',
+                    params: {
+                        text: this.$t('studyRoom_toaster_tutor_added_to_room'),
+                    }
+                },
+                simpleToaster_tutorLeft:{
+                    name:'simpleToaster',
+                    params: {
+                        text: this.$t('studyRoom_toaster_tutor_left_the_room'),
                     }
                 },
                 simpleToaster_userConnected:{

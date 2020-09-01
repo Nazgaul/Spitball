@@ -1,19 +1,23 @@
 <template functional>
-    <v-col class="box pa-0 px-sm-3" cols="12" :sm="props.isDashboard ? '6' : '4'">
+ <!-- :sm="props.isDashboard ? '6' : '4'" -->
+    <v-col class="box pa-0 px-sm-3" cols="6">
         <img class="boxImage mb-4 mt-4 mt-sm-0" :src="props.data.image" alt="">
         <div class="text1 mb-1">{{props.data.title1}}</div>
         <div class="text2 mb-3">{{props.data.title2}}</div>
-        <v-btn 
-            @click="props.data.action ? props.data.action() : ''"
-            :to="props.data.route ? props.data.route : ''"
-            class="marketingbtn mb-4 mb-sm-0"
-            color="#4c59ff"
-            outlined
-            rounded
-            :disabled="props.data.isDisabled"
-        >
-            {{props.data.buttonText}}
-        </v-btn>
+        <div class="d-flex align-center">
+            <slot name="courseSelect"></slot>
+            <v-btn 
+                @click="props.data.action ? props.data.action() : ''"
+                :to="props.data.route ? props.data.route : ''"
+                class="marketingbtn mb-4 mb-sm-0"
+                color="#4c59ff"
+                outlined
+                rounded
+                :disabled="props.index === 1 && Object.keys(props.currentCourseItem).length === 0"
+            >
+                {{props.data.buttonText}}
+            </v-btn>
+        </div>
     </v-col>
 </template>
 
