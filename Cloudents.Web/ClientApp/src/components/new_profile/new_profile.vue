@@ -4,7 +4,11 @@
       <div class="flex-grow-1">
         <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
             <profileCover />
-            <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
+            <profileCoverActions
+              @setCalendarActive="val => calendarActive = val"
+              @handleFollowMyProfile="showSnack = true"
+              v-if="isCoverImageLoaded"
+            />
         </div>
         <profileStats v-if="showProfileStats" />
         <profileParagraph />
@@ -22,9 +26,17 @@
         </div>
 
       </div>
-        <profileFloatingBtn/>
-        <profileFooter />
-
+      <profileFloatingBtn/>
+      <profileFooter />
+          
+      <v-snackbar
+        v-model="showSnack"
+        :timeout="6000"
+        color="error"
+        top
+      >
+        <div class="white--text text-center">{{$t('profile_follow_myself')}}</div>
+      </v-snackbar>
     </div>
 </template>
 
@@ -65,6 +77,7 @@ export default {
     },
     data() {
         return {
+            showSnack: false,
             calendarActive: false,
             componentRenderKey: 0
         };

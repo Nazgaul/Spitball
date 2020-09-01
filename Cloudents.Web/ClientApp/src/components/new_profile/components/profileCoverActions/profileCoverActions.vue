@@ -83,7 +83,10 @@ export default {
             }
         },
         toggleFollowing(){
-            if(this.isMyProfile) return;
+            if(this.isMyProfile) {
+                this.$emit('handleFollowMyProfile')
+                return
+            };
             if(this.isLogged){
                 if(this.isLoading) return;
                 let self = this;
