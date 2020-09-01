@@ -84,11 +84,11 @@ import { mapActions, mapGetters } from 'vuex';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
 import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
-import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
+// import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
 export default {
    name:'mySales',
-   components:{tableInfoTd,billOfflineLayout,redeemPointsLayout},
+   components:{tableInfoTd,billOfflineLayout},
    props:{
       dictionary:{
          type: Object,
