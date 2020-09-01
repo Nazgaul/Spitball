@@ -163,7 +163,8 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            let showRoutes = [routeNames.Profile, routeNames.Document, routeNames.Learning];
+            // , routeNames.Learning
+            let showRoutes = [routeNames.Profile, routeNames.Document];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {

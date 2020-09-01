@@ -70,7 +70,7 @@ export const landingRoutes = [
         name: routeNames.Learning,
         components: {
             default: () => import(`../components/tutorLandingPage/tutorLandingPage.vue`),
-            ...staticComponents(['banner', 'header', 'footer']),
+            ...staticComponents(['banner', 'header', 'footer', 'sideMenu']),
         },
         meta: {
             showMobileFooter: true, 
