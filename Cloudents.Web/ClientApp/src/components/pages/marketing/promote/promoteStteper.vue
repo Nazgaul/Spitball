@@ -169,7 +169,7 @@ export default {
       color: @global-purple !important;
     }
     &.noActive {
-      cursor: pointer;
+      // cursor: pointer;
       .v-stepper__step__step {
         background: transparent !important;
         border: 2px solid #4452fc !important;
