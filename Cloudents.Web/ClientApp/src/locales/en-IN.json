@@ -471,6 +471,7 @@
   "profile_enroll_error": "An error has occured",
   "profile_enroll_error_2": "Ops... there is a problem with this course, please contact support.",
   "profile_firstName_label": "First Name",
+  "profile_follow_myself": "You cannot follow yourself",
   "profile_lastName_label": "Last Name",
   "profile_personal_details": "Personal details",
   "profile_pic_recommended": "130 x 160px (recommended)",
