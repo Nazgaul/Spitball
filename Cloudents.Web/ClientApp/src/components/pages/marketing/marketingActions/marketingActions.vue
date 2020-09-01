@@ -14,7 +14,7 @@
                         dense
                         item-text="name"
                         item-value="id"
-                        menu-props="auto"
+                        :menu-props="{ contentClass: 'promoteCourseMenu', auto: true }"
                         return-object
                         class="promoteCourseSelect me-3"
                         :label="$t('choose_course')"
@@ -108,6 +108,11 @@ export default {
                     color: @global-purple;
                 }
             }
+        }
+    }
+    .promoteCourseMenu {
+        .v-list-item__title {
+            line-height: 1.2 !important;
         }
     }
 </style>
