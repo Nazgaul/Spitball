@@ -404,7 +404,7 @@
   "marketing_tableCoupon_amount": "Users",
   "marketing_tableCoupon_code": "Code",
   "marketing_tableCoupon_created": "Created",
-  "marketing_tableCoupon_expired": "Expired",
+  "marketing_tableCoupon_expired": "Expiration",
   "marketing_tableCoupon_noCoupons": "No coupons created yet",
   "marketing_tableCoupon_title": "Coupon history",
   "marketing_tableCoupon_type": "Type",

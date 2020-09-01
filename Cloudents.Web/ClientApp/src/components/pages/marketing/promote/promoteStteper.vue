@@ -41,8 +41,10 @@
                   :document="document"
                   :dataType="dataType"
                   :resource="resource"
+                  :currentCourseItem="currentCourseItem"
                   @selectedTemplate="selectedTemplate"
                   @selectedDocument="selectedDocument"
+                  @setCurrentCourse="handleCurrentCourse"
                   ref="childComponent">
                 </component>
                 <div class="text-sm-end text-center">
@@ -72,6 +74,7 @@ export default {
   },
   data() {
     return {
+      currentCourseItem: {},
       routeNames,
       dataType: '',
       step: 1,
@@ -81,9 +84,9 @@ export default {
       stepComponent: 'marketingActions',
       stepComponents: {
         step1: 'marketingActions',
-        step2: 'promoteTable',
-        step3: 'promoteTemplate',
-        step4: 'promotePublish'
+        // step2: 'promoteTable',
+        step2: 'promoteTemplate',
+        step3: 'promotePublish'
       },
       resource: {
         box1: {
@@ -123,7 +126,11 @@ export default {
     nextStep() {
       let ref = this.$refs.childComponent;
       if(ref.selected || this.step === 1) {
-        this.step += 1;
+        if(this.dataType === 'Courses') {
+          this.step = 3
+        } else {
+          this.step += 1;
+        }
         this.stepComponent = this.stepComponents[`step${this.step}`];
         return;
       }
@@ -133,18 +140,23 @@ export default {
       this.document = document;
       this.error = false;
     },
+    handleCurrentCourse(item) {
+      this.dataType = 'Courses';
+      this.currentCourseItem = item
+    },
     selectedTemplate(theme) {
       this.theme = theme;
       this.nextStep()
     },
     promoteProfile() {
-      this.step = 4;
+      this.step = 3;
       this.document = null;
       this.dataType = 'profile';
       this.stepComponent = this.stepComponents[`step${this.step}`]
     },
     promoteCourse() {
-      console.log("promote your course");
+      this.dataType = 'Courses';
+      this.nextStep();
     },
     promoteVideos () {
       this.dataType = 'Video';
@@ -156,7 +168,7 @@ export default {
     },
     goStep(step) {
       if(this.step < step) return
-      if(this.dataType === 'profile' && this.step === 4 && step !== 1) return;
+      if(this.dataType === 'profile' && this.step === 3 && step !== 1) return;
 
       this.error = false
       this.step = step;
