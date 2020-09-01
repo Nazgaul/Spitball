@@ -324,7 +324,7 @@ export default {
             position: sticky;
             z-index: 9;
             top: 70px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.15);
             .courseStepHeader {
                 background: #fff;
                 .stepStteper {
