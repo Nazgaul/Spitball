@@ -4,7 +4,6 @@
             <div class="courseStickyTitle" v-t="'visible'"></div>
             <v-switch
                 v-model="courseVisible"
-                :key="$store.getters.getComponentKey"
                 class="ma-0 pa-0"
                 hide-details
             ></v-switch>
@@ -51,6 +50,7 @@ export default {
                 //     })
                 //     return
                 // }
+                debugger
                 this.$store.commit('setShowCourse', val)
             }
         }
