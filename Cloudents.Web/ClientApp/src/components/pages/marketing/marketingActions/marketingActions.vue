@@ -12,6 +12,7 @@
                         hide-details
                         color="#304FFE"
                         dense
+                        :no-data-text="$t('promote_no_courses')"
                         item-text="name"
                         item-value="id"
                         :menu-props="{ contentClass: 'promoteCourseMenu', auto: true }"
