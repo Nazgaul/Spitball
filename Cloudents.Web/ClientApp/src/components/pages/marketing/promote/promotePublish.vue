@@ -55,7 +55,7 @@ export default {
       } else if(this.dataType === 'profile') {
         urlLink = `${global.location.origin}/p/${this.user.id}?t=${Date.now()}`;
       } else if(this.dataType === 'Courses') {
-        urlLink = `${global.location.origin}/course/${this.currentCourseItem.id}/?t=${Date.now()}`;
+        urlLink = `${global.location.origin}/course/${this.currentCourseItem.id || this.courseId}/?t=${Date.now()}`;
       }
       return urlLink;
     },
