@@ -105,6 +105,13 @@ export default {
                         name: componentConsts.ENROLLED_ERROR
                     }
                 },
+                [componentConsts.ENROLLED_ERROR_2]:{
+                    name:'simpleErrorToaster',
+                    params:{
+                        text: this.$t('profile_enroll_error_2'),
+                        name: componentConsts.ENROLLED_ERROR_2
+                    }
+                },
                 teacherBillOfflineDialog:{
                     name:'teacherBillOfflineDialog'
                 },
