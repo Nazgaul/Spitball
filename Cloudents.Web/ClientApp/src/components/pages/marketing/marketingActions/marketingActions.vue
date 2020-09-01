@@ -7,7 +7,7 @@
             <actionBox :key="index" :index="i" :currentCourseItem="currentCourseItem" :data="data" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard">
                 <template #courseSelect v-if="i === 1">
                     <v-select
-                        v-model="currentCourseItem"
+                        v-model="item"
                         :items="$store.getters.getCoursesItems"
                         hide-details
                         color="#304FFE"
@@ -39,13 +39,24 @@ export default {
         resource: {
             type: Object,
             required: true
+        },
+        currentCourseItem: {
+            required: true
         }
     },
     data() {
         return {
             routeNames,
-            currentCourseItem: {},
             items: []
+        }
+    },
+    computed: {
+        item: {
+            get() {
+                return this.currentCourseItem
+            }, set(item) {
+                this.$emit('setCurrentCourse', item)
+            }
         }
     },
     created() {
