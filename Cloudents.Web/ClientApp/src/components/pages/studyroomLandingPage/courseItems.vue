@@ -1,8 +1,8 @@
 <template>
-   <div id="courseContentSection" class="courseItems mt-7 pb-0 py-5 px-4 px-sm-4 px-lg-0" v-if="courseItemsList.length">
+   <div id="courseContentSection" :class="{'courseItemsSpace': isEnrolled}" class="courseItems pb-0 px-4 px-sm-4 px-lg-0" v-if="courseItemsList.length">
       <div class="courseTitle">{{courseItemsTitle}}</div>
       <v-divider class="mt-3" width="118" style="min-height:3px" color="#41c4bc"></v-divider>
-      <div class="courseSubtitle pt-4 pb-8 pe-12">{{courseItemsSubtitle}}</div>
+      <div class="courseSubtitle pt-3 pb-6 pe-12">{{courseItemsSubtitle}}</div>
       <v-row class="itemsWrapper">
          <v-col class="px-0 px-sm-3 py-2 py-sm-3" v-for="(item) in itemToPreview" :key="item.id" cols="12" md="3" sm="6" >
             <itemCard :item="item"/>
@@ -24,6 +24,11 @@ import itemCard from '../../carouselCards/itemCard.vue';
 export default {
    components:{
       itemCard
+   },
+   props: {
+      isEnrolled: {
+         type: Boolean
+      }
    },
    data() {
       return {
@@ -76,11 +81,21 @@ export default {
 </script>
 
 <style lang="less">
+   @import '../../../styles/mixin.less';
    .courseItems{
       background: white;
       width: 100%;
       color: #43425d;
-
+      margin-top: 80px !important;
+      @media (max-width: @screen-xs) {
+         margin-top: 60px !important;
+      }
+      &.courseItemsSpace {
+         margin-bottom: 80px !important;
+         @media (max-width: @screen-xs) {
+            margin-bottom: 60px !important;
+         }
+      }
       .courseTitle{
          font-size: 28px;
          font-weight: 600;

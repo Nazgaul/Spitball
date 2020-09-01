@@ -16,7 +16,7 @@
             </v-window-item>
          </v-window>
          <courseSessions class="content" />
-         <courseItems  class="content"/>
+         <courseItems :isEnrolled="isCourseEnrolled" class="content"/>
          <hostInfo v-if="!isCourseEnrolled"  class="content"/>
       </div>
    </div>
