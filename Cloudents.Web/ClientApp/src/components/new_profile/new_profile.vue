@@ -1,7 +1,7 @@
 <template>
     <div class="profilePage">
       <profileDrawer v-if="isMyProfile && $store.getters.getProfileCoverDrawer" />
-      <div>
+      <div class="flex-grow-1">
         <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
             <profileCover />
             <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
