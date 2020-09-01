@@ -65,9 +65,9 @@
                                 </div>
                             </template> -->
                             <template>
-                                <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
+                                <!-- <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
                                     <hamburgerIcon class="hamburgerIcon"/>
-                                </v-btn>
+                                </v-btn> -->
                             </template>
                         </div>
                     </template>
@@ -163,8 +163,7 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             return global.country === 'IL' && this.isHomePage;
         },
         showHamburgerIcon() {
-            // , routeNames.Learning
-            let showRoutes = [routeNames.Profile, routeNames.Document];
+            let showRoutes = [routeNames.Profile, routeNames.Document, routeNames.Learning];
             return this.getIsTeacher && showRoutes.indexOf(this.currentRoute) === -1
         },
         classChangeHamburgerTutorMenu() {
