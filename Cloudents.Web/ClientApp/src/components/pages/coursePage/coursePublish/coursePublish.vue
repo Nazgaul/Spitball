@@ -4,7 +4,6 @@
             <div class="courseStickyTitle" v-t="'visible'"></div>
             <v-switch
                 v-model="courseVisible"
-                :key="$store.getters.getComponentKey"
                 class="ma-0 pa-0"
                 hide-details
             ></v-switch>
@@ -33,8 +32,11 @@ export default {
         // },
         courseVisible: {
             get() {
-                let price = this.followerPrice
-                if(price === 0) return true
+                // let canCreateCourse = this.$store.getters.getIsCanCreateCourse
+                // let price = this.followerPrice
+                // if(price === 0) return true
+                // return true
+                // return this.$store.getters.getIsCanCreateCourse
                 return this.$store.getters.getCourseVisible
             },
             set(val) {

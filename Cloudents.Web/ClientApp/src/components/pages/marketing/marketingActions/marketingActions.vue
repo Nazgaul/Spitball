@@ -1,11 +1,28 @@
 <template>
     <v-row class="marketingActions pa-0 text-center">
-        <v-col class="pa-0 mb-6 d-block d-sm-none justify-space-between" cols="12">
+        <!-- <v-col class="pa-0 mb-6 d-block d-sm-none justify-space-between" cols="12">
             <div class="text text-left" v-t="'marketing_title'"></div>
-        </v-col>
-        
-        <template v-for="(data, index) in resource">
-            <actionBox :key="index" :data="data" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard"></actionBox>
+        </v-col> -->
+        <template v-for="(data, index, i) in resource">
+            <actionBox :key="index" :index="i" :currentCourseItem="currentCourseItem" :data="data" :isMobile="$vuetify.breakpoint.xsOnly" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard">
+                <template #courseSelect v-if="i === 1">
+                    <v-select
+                        v-model="item"
+                        :items="$store.getters.getCoursesItems"
+                        hide-details
+                        color="#304FFE"
+                        dense
+                        :no-data-text="$t('promote_no_courses')"
+                        item-text="name"
+                        item-value="id"
+                        :menu-props="{ contentClass: 'promoteCourseMenu', auto: true }"
+                        return-object
+                        class="promoteCourseSelect me-0 me-sm-3 mb-4 mb-sm-0"
+                        :label="$t('choose_course')"
+                        outlined
+                    ></v-select>
+                </template>
+            </actionBox>
         </template>
     </v-row>
 </template>
@@ -23,12 +40,28 @@ export default {
         resource: {
             type: Object,
             required: true
+        },
+        currentCourseItem: {
+            required: true
         }
     },
     data() {
         return {
-            routeNames
+            routeNames,
+            items: []
         }
+    },
+    computed: {
+        item: {
+            get() {
+                return this.currentCourseItem
+            }, set(item) {
+                this.$emit('setCurrentCourse', item)
+            }
+        }
+    },
+    created() {
+        this.$store.dispatch('updateCoursesItems')
     }
 }
 </script>
@@ -39,7 +72,11 @@ export default {
     .marketingActions {
         width: 100%;
         margin: 0 auto;
-
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column !important;
+            align-items: center;  
+        }
         .text {
             color: @global-purple;
             font-weight: 600;
@@ -76,6 +113,27 @@ export default {
                     border-right: none;
                 }
             }
+        }
+        .promoteCourseSelect {
+            @media (max-width: @screen-xs) {
+                margin-top: 4px;
+            }
+            border-radius: 20px;
+            width: 190px;
+
+            .v-select__slot {
+                font-size: 14px !important;
+                label {
+                    font-size: 14px;
+                    color: @global-purple;
+                }
+
+            }
+        }
+    }
+    .promoteCourseMenu {
+        .v-list-item__title {
+            line-height: 1.2 !important;
         }
     }
 </style>

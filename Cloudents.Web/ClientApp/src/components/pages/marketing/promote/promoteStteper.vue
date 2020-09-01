@@ -7,20 +7,22 @@
 
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(2)">
-                {{$t('promote_choose')}} {{$t('promote_your_content')}}
-            </v-stepper-step>
-
-            <v-divider></v-divider>
-
-            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3" @click="goStep(3)">
+            <v-stepper-step class="stepStteper ps-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(3)">
+                <!-- {{$t('promote_choose')}} {{$t('promote_your_content')}} -->
                 {{$t('promote_choose')}} {{$t('promote_template')}}
             </v-stepper-step>
+
             <v-divider></v-divider>
+
+            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3" @click="goStep(4)">
+                <!-- {{$t('promote_choose')}} {{$t('promote_template')}} -->
+                {{$t('promote_publish')}}
+            </v-stepper-step>
+            <!-- <v-divider></v-divider>
 
             <v-stepper-step class="stepStteper pe-6" :class="[step === 4 ? 'active' : 'noActive']" step="4" @click="goStep(4)">
                 {{$t('promote_publish')}}
-            </v-stepper-step>
+            </v-stepper-step> -->
         </v-stepper-header>
 
         <!-- Mobile stepper label -->
@@ -39,14 +41,16 @@
                   :document="document"
                   :dataType="dataType"
                   :resource="resource"
+                  :currentCourseItem="currentCourseItem"
                   @selectedTemplate="selectedTemplate"
                   @selectedDocument="selectedDocument"
+                  @setCurrentCourse="handleCurrentCourse"
                   ref="childComponent">
                 </component>
                 <div class="text-sm-end text-center">
                   <v-alert type="error" class="text-left mt-4 mb-0" v-show="error">{{$t('promote_table_error')}}</v-alert>
                   <v-btn class="white--text mt-10" width="120" depressed v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
-                  <v-btn class="white--text mt-10" width="120" depressed v-if="step == 4" :to="{name: routeNames.Dashboard}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
+                  <v-btn class="white--text mt-10" width="120" depressed v-if="step == 3" :to="{name: routeNames.Dashboard}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
                 </div>
             </v-stepper-content>
         </v-stepper-items>
@@ -70,6 +74,7 @@ export default {
   },
   data() {
     return {
+      currentCourseItem: {},
       routeNames,
       dataType: '',
       step: 1,
@@ -79,9 +84,9 @@ export default {
       stepComponent: 'marketingActions',
       stepComponents: {
         step1: 'marketingActions',
-        step2: 'promoteTable',
-        step3: 'promoteTemplate',
-        step4: 'promotePublish'
+        // step2: 'promoteTable',
+        step2: 'promoteTemplate',
+        step3: 'promotePublish'
       },
       resource: {
         box1: {
@@ -92,21 +97,28 @@ export default {
           action: this.promoteProfile
         },
         box2: {
-          title1: this.$t('promote_createOffer_title1'),
-          title2: this.$t('promote_createOffer_title2'),
+          title1: this.$t('promote_your_course'),
+          title2: this.$t('promote_sharePost_title2'),
           image: require('../images/promoteVideo.png'),
           buttonText: this.$t('promote_lets_go'),
-          action: this.promoteVideos,
-          isDisabled:true
-        },
-        box3: {
-          title1: this.$t('promote_createVideo_title1'),
-          title2: this.$t('promote_createVideo_title2'),
-          image: require('../images/promoteContent.png'),
-          buttonText: this.$t('promote_lets_go'),
-          action: this.promoteDocuments,
-          isDisabled:true
+          action: this.promoteCourse
         }
+        // box2: {
+          // title1: this.$t('promote_createOffer_title1'),
+          // title2: this.$t('promote_createOffer_title2'),
+          // image: require('../images/promoteVideo.png'),
+          // buttonText: this.$t('promote_lets_go'),
+          // action: this.promoteVideos,
+          // isDisabled:true
+        // },
+        // box3: {
+        //   title1: this.$t('promote_createVideo_title1'),
+        //   title2: this.$t('promote_createVideo_title2'),
+        //   image: require('../images/promoteContent.png'),
+        //   buttonText: this.$t('promote_lets_go'),
+        //   action: this.promoteDocuments,
+        //   isDisabled:true
+        // }
       }
     }
   },
@@ -114,7 +126,11 @@ export default {
     nextStep() {
       let ref = this.$refs.childComponent;
       if(ref.selected || this.step === 1) {
-        this.step += 1;
+        if(this.dataType === 'Courses') {
+          this.step = 3
+        } else {
+          this.step += 1;
+        }
         this.stepComponent = this.stepComponents[`step${this.step}`];
         return;
       }
@@ -124,15 +140,23 @@ export default {
       this.document = document;
       this.error = false;
     },
+    handleCurrentCourse(item) {
+      this.dataType = 'Courses';
+      this.currentCourseItem = item
+    },
     selectedTemplate(theme) {
       this.theme = theme;
       this.nextStep()
     },
     promoteProfile() {
-      this.step = 4;
+      this.step = 3;
       this.document = null;
       this.dataType = 'profile';
       this.stepComponent = this.stepComponents[`step${this.step}`]
+    },
+    promoteCourse() {
+      this.dataType = 'Courses';
+      this.nextStep();
     },
     promoteVideos () {
       this.dataType = 'Video';
@@ -144,7 +168,7 @@ export default {
     },
     goStep(step) {
       if(this.step < step) return
-      if(this.dataType === 'profile' && this.step === 4 && step !== 1) return;
+      if(this.dataType === 'profile' && this.step === 3 && step !== 1) return;
 
       this.error = false
       this.step = step;
