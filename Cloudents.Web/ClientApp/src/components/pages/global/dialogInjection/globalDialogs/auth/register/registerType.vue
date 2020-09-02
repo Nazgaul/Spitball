@@ -11,7 +11,7 @@
             <div class="mainTitle" v-t="'loginRegister_registerType_mainTitle'"></div>
 
             <v-expansion-panels class="panels d-block px-0 px-sm-8">
-                <v-expansion-panel class="panel panel_student mb-5" @click="$emit('goTo', 'register')">
+                <v-expansion-panel class="panel panel_student mb-5" @click="updateStudentType">
                     <v-expansion-panel-header class="ps-0 py-0" expand-icon="">
                         <span class="panelImage flex-grow-0 px-4">
                             <studentIcon />
@@ -60,6 +60,10 @@ export default {
         closeRegister() {
             this.$store.commit('setComponent', '')
             this.$store.commit('setRequestTutor')
+        },
+        updateStudentType() {
+            this.$emit('updateRegisterType', false)
+            this.$emit('goTo', 'register')
         },
         updateTeacherType() {
             this.$emit('updateRegisterType', true)
