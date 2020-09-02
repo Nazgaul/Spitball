@@ -48,9 +48,9 @@
       </div>
 
 
-      <!-- <span v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg pb-4">
+      <span v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg pb-4">
          {{$t('lownetwork',[userName])}}
-      </span> -->
+      </span>
 
 
       <template v-if="audioTrack && !isCurrentParticipant">
@@ -76,14 +76,11 @@ export default {
          isExpandVideoMode:false,
          audioLevel:0,
 
-         // isShowLowNetwork:false,
+         isShowLowNetwork:false,
       }
    },
    computed: {
       ...mapGetters(['getRoomParticipants']),
-      // videoSize(){
-      //    return this.videoTrack?.dimensions.width;
-      // },
       currentParticipant(){
         return this.getRoomParticipants[this.participant.id];
       },
@@ -150,11 +147,13 @@ export default {
                return;
             }else{
                this.videoTrack = participant.video;
+               let self = this;
                this.$nextTick(()=>{
                   let previewContainer = document.getElementById(participant.id);
                   let videoTag = previewContainer.querySelector("video");
                   if (videoTag) {previewContainer.removeChild(videoTag)}
                   previewContainer.appendChild(participant.video.attach());
+                  participant.video.attach().addEventListener('resize', self.onVideoResolutionChange);
                })
             }
          }
@@ -183,6 +182,35 @@ export default {
       },
       stopShareScreen(){
          this.$store.dispatch('updateShareScreen',false)
+      },
+      onVideoResolutionChange(e){
+         let videoWidth = getNextResByCurrent(e.target.videoWidth);
+         let isMobileVideo = e.target.videoWidth < e.target.videoHeight
+         let box = document.getElementById(this.participant.id);
+         let videoEl = box?.querySelector('video');
+         videoEl.width = videoWidth;
+         console.log('videoWidth <= 640:',videoWidth <= 640)
+         console.log('box.clientWidth >= 640:',box.clientWidth >= 640)
+         let isLowNetwork = (
+            (videoWidth <= 640 && !isMobileVideo) || 
+            videoWidth <= 480 && isMobileVideo)
+          && box.clientWidth >= 640;
+         if(isLowNetwork){
+            this.isShowLowNetwork = true;
+         }else{
+            this.isShowLowNetwork = false;
+         }
+
+         function getNextResByCurrent(width){
+            if(width >= 960) return 1280;// height = 720;
+            if(width >= 640) return 960;// height = 540;
+            if(width >= 480) return 640;// height = 480;
+            if(width >= 320) return 480;// height = 240;
+            if(width >= 240) return 320;
+            if(width >= 176) return 240;
+         }
+         // console.log(videoWidth)
+         // console.log([e.target.videoWidth,e.target.videoHeight].join('x'))
       }
    },
    watch: {
@@ -194,60 +222,6 @@ export default {
             this.handleVideoTrack(val);
          }
      },
-
-      // videoSize:{
-      //    immediate:true,
-      //    handler(val){
-      //       let self = this;
-      //       this.$nextTick(()=>{
-      //          let box = document.getElementById(this.participant.id);
-      //          let videoEl = box?.querySelector('video');
-      //          if(videoEl){
-      //             let videoWidth;
-      //             // let videoHeight;
-      //             switch (val) {
-      //                case 960:
-      //                   videoWidth = 1280;
-      //                   // videoHeight = 720;
-      //                   break;
-      //                case 640:
-      //                   videoWidth = 960;
-      //                   // videoHeight = 540;
-      //                   break;
-      //                case 480:
-      //                   videoWidth = 640;
-      //                   // videoHeight = 480;
-      //                   break;
-      //                case 320:
-      //                   videoWidth = 480;
-      //                   // videoHeight = 480;
-      //                   break;
-      //                case 240:
-      //                   videoWidth = 320;
-      //                   // videoHeight = 480;
-      //                   break;
-      //                case 176:
-      //                   videoWidth = 240;
-      //                   // videoHeight = 240;
-      //                   break;
-      //             }
-      //             if(videoWidth){
-      //                videoEl.style.width = `${videoWidth}px`;
-      //                let isLowNetwork = videoWidth <= 640 && box.clientWidth >= 640;
-      //                if(isLowNetwork){
-      //                   self.isShowLowNetwork = true;
-      //                }else{
-      //                   self.isShowLowNetwork = false;
-      //                }
-      //             }else{
-      //                self.isShowLowNetwork = false;
-      //             }
-      //          }
-      //       })
-      //    }
-      // }
-
-
    },
    destroyed() {
       if(this.videoTrack){
