@@ -147,6 +147,7 @@ export default {
         @media (max-width: @screen-xs) {
             box-shadow: none;
             border-radius: 0;
+            margin: 8px 0;
         }
         .myCoupons_title {
             font-weight: 600;
