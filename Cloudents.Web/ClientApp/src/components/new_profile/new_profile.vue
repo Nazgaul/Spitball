@@ -19,7 +19,13 @@
               :showCalendarTab="calendarActive"
               class="mt-sm-12 mt-2 mx-auto"
             />
-            <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
+            <profileSubscription
+              id="subscription"
+              :userId="id"
+              v-if="showProfileSubscription"
+              ref="profileSubscription"
+              @handleFollowMyProfile="handleSnackBarError"
+            />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" :key="componentRenderKey" />
             <profileReviewsBox v-if="showProfileReviews"/>
             <!-- <profileFAQ /> -->

@@ -39,10 +39,17 @@ export default {
         },
         isLogged() {
             return this.$store.getters.getUserLoggedInStatus
-        }
+        },
+        isMyProfile() {
+            return this.$store.getters.getIsMyProfile
+        },
     },
     methods: {
         subscribeNow() {
+            if(this.isMyProfile) {
+                this.$emit('handleFollowMyProfile', this.$t('profile_subscribe_myself'))
+                return
+            }
             if(!this.isLogged) {
                 sessionStorage.setItem('hash','#subscription');
                 this.$store.commit('setComponent', 'register')
