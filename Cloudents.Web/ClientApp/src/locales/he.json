@@ -481,6 +481,7 @@
   "profile_read_less": "הסתר",
   "profile_read_more": "קרא עוד",
   "profile_subscribe_btn": "מנוי חודשי",
+  "profile_subscribe_myself": "אין אפשרות להירשם כמנוי לעצמך",
   "profile_subscribe_no_contract": "תשלום חודשי, ללא התחייבות - בטל בכל עת",
   "profile_subscribe_price_month": "/ לחודש",
   "profile_subscribe_subtitle": "הנחה למנויים עבור כל הקורסים של {0}",

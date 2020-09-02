@@ -481,6 +481,7 @@
   "profile_read_less": "Read less",
   "profile_read_more": "Read More",
   "profile_subscribe_btn": "Subscribe now",
+  "profile_subscribe_myself": "You can not subscribe to yourself",
   "profile_subscribe_no_contract": "Monthly, no contract - Cancel any time",
   "profile_subscribe_price_month": "/ Month",
   "profile_subscribe_subtitle": "subscriber discounts to {0}'s Courses and Live Classes",
