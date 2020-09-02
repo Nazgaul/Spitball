@@ -46,9 +46,11 @@
             <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
          </v-tooltip>
       </div>
-      <span v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg pb-4">
-         <span class="me-1">💡</span>{{$t('lownetwork',[userName])}}
-      </span>
+      <div v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg">
+         <span class="lowNetworkMsg_span">
+            <span class="me-1">💡</span>{{$t('lownetwork',[userName])}}
+         </span>
+      </div>
       <template v-if="audioTrack && !isCurrentParticipant">
          <v-progress-linear class="audioMeterUser" rounded absolute color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
       </template>
@@ -188,7 +190,7 @@ export default {
          // console.log('box.clientWidth >= 640:',box.clientWidth >= 640)
          let isLowNetwork = (
             (videoWidth <= 640 && !isMobileVideo) || 
-            videoWidth <= 480 && isMobileVideo)
+            videoWidth <= 350 && isMobileVideo)
           && box.clientWidth >= 640;
          if(isLowNetwork){
             this.isShowLowNetwork = true;
@@ -292,6 +294,16 @@ export default {
       color: #fff;
       font-size: 14px;
       z-index: 1;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      .lowNetworkMsg_span{
+         background: #0000006e;
+         padding: 5px;
+      }
    }
    video {
       // width: 100%;
