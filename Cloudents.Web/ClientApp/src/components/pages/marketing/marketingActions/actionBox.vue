@@ -1,10 +1,10 @@
 <template functional>
  <!-- :sm="props.isDashboard ? '6' : '4'" -->
-    <v-col class="box pa-0 px-sm-3" cols="6">
+    <v-col class="box pa-0 px-sm-3" :cols="props.isMobile? 12 : 6">
         <img class="boxImage mb-4 mt-4 mt-sm-0" :src="props.data.image" alt="">
         <div class="text1 mb-1">{{props.data.title1}}</div>
         <div class="text2 mb-3">{{props.data.title2}}</div>
-        <div class="d-flex align-center">
+        <div class="d-flex align-center flex-column flex-sm-row">
             <slot name="courseSelect"></slot>
             <v-btn 
                 @click="props.data.action ? props.data.action() : ''"
@@ -52,6 +52,7 @@
 
             @media (max-width: @screen-xs) {
                 border-bottom: 1px solid #dddddd;
+                margin-bottom: 16px;
                 border-right: none;
             }
         }

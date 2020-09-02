@@ -81,10 +81,10 @@ const mutations = {
         
         state.user = user
     },
-    setAccountStudentInfo(state, { firstName, lastName }) {
-        state.user.name = `${firstName} ${lastName}`
-        state.user.firstName = firstName
-        state.user.lastName = lastName
+    setAccountStudentInfo(state, {passData}) {
+        state.user.name = `${passData.firstName} ${passData.lastName}`
+        state.user.firstName = passData.firstName
+        state.user.lastName = passData.lastName
     },
     setAccountTutorInfo(state,{passData, avatarImageUrl}) {
         state.user.name = `${passData.firstName} ${passData.lastName}`
@@ -178,8 +178,8 @@ const actions = {
                 commit('setAccountTutorInfo', {passData, avatarImageUrl})
                 return
             }
-            commit('setAccountStudentInfo', params)
-
+            commit('setAccountStudentInfo', { passData })
+            commit('setAccountPicture', avatarImageUrl)
         })
     },
     updateUserStats(context, days) {

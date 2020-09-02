@@ -1,5 +1,5 @@
 <template>
-    <div id="courseSessionSection" class="courseSession my-7" v-if="sessions.length">
+    <div id="courseSessionSection" :class="{'courseSessionNoSessions': courseItemsList}" class="courseSession my-8" v-if="sessions.length">
         <div class="courseSessionTitle mb-3" v-t="'live_lecture'"></div>
         <div class="courseSessionWrapper">
             <div class="courseSessionRow mb-5 d-flex" v-for="(session, index) in sessions" :key="session.id">
@@ -26,6 +26,9 @@
 export default {
     name: 'courseSession',
     computed: {
+        courseItemsList(){
+            return this.$store.getters.getCourseItems;
+        },
         sessions() {
             return this.$store.getters.getCourseSessionsPreview
         }
@@ -39,6 +42,12 @@ export default {
 .courseSession {
     @media (max-width: @screen-xs) {
         margin: 0 16px !important;
+    }
+    &.courseSessionNoSessions {
+        margin-bottom: 80px !important;
+        @media (max-width: @screen-xs) {
+            margin-bottom: 60px !important;
+        }
     }
     .courseSessionTitle {
         font-size: 22px;

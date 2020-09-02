@@ -41,10 +41,8 @@ namespace Cloudents.Admin2.Api
             {
                 var command = new CreateCouponCommand(model.Code,
                     model.CouponType,
-                    model.TutorId,
                     model.Value,
-                    model.Expiration,
-                    model.Description
+                    model.Expiration
                    
                 );
                 await _commandBus.DispatchAsync(command, token);

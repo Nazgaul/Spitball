@@ -54,16 +54,18 @@ export default {
    .hostInfo{
       width: 100%;
       padding: 34px 24px 48px;
+      // padding: 34px 24px 48px;
+
+      background-color: #f5f5f5;
+      margin-top: 80px !important; // shiran required
+      // margin-top: 54px !important; //for now
+      margin-bottom: 80px !important; //for now
+      color: #43425d;
       @media(max-width: @screen-xs) {
          background: none;
          padding: 0;
-         margin-bottom: 40px;
+         margin: 60px 0 !important;
       }
-
-      background-color: #f5f5f5;
-      margin-top: 54px !important; //for now
-      margin-bottom: 80px !important; //for now
-      color: #43425d;
       .hostTitle{
          text-align: center;
          font-size: 28px;

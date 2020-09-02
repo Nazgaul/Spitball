@@ -1,10 +1,14 @@
 <template>
     <div class="profilePage">
       <profileDrawer v-if="isMyProfile && $store.getters.getProfileCoverDrawer" />
-      <div>
+      <div class="flex-grow-1">
         <div class="coverWrapper" id="profileCover" :key="componentRenderKey">
             <profileCover />
-            <profileCoverActions @setCalendarActive="val => calendarActive = val" v-if="isCoverImageLoaded" />
+            <profileCoverActions
+              @setCalendarActive="val => calendarActive = val"
+              @handleFollowMyProfile="handleSnackBarError"
+              v-if="isCoverImageLoaded"
+            />
         </div>
         <profileStats v-if="showProfileStats" />
         <profileParagraph />
@@ -15,16 +19,32 @@
               :showCalendarTab="calendarActive"
               class="mt-sm-12 mt-2 mx-auto"
             />
-            <profileSubscription id="subscription" :userId="id" v-if="showProfileSubscription" ref="profileSubscription" />
+            <profileSubscription
+              id="subscription"
+              :userId="id"
+              v-if="showProfileSubscription"
+              ref="profileSubscription"
+              @handleFollowMyProfile="handleSnackBarError"
+            />
             <profileBroadcasts id="broadcast" :userId="id" ref="profileLiveClassesElement" :key="componentRenderKey" />
             <profileReviewsBox v-if="showProfileReviews"/>
             <!-- <profileFAQ /> -->
         </div>
 
       </div>
-        <profileFloatingBtn/>
-        <profileFooter />
-
+      <profileFloatingBtn  
+        @handleFollowMyProfile="handleSnackBarError"
+      />
+      <profileFooter />
+          
+      <v-snackbar
+        v-model="snack.state"
+        :timeout="6000"
+        color="error"
+        top
+      >
+        <div class="white--text text-center">{{snack.text}}</div>
+      </v-snackbar>
     </div>
 </template>
 
@@ -65,11 +85,19 @@ export default {
     },
     data() {
         return {
+            snack: {
+              state: false,
+              text: ''
+            },
             calendarActive: false,
             componentRenderKey: 0
         };
     },
     methods: {
+        handleSnackBarError(text) {
+          this.snack.state = true
+          this.snack.text = text
+        },
         fetchData() {
             let self = this
             this.$store.dispatch('syncProfile', this.id)

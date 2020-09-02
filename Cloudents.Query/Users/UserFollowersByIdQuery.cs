@@ -32,15 +32,13 @@ namespace Cloudents.Query.Users
                 return await _session.Query<Follow>()
                        .Fetch(f => f.Follower)
                        .Where(w => w.User.Id == query.UserId)
-                       .Where(w=>w.User.SbCountry == w.Follower.SbCountry)
-                       .Select(s => new FollowersDto()
+                       .Select(s => new FollowersDto
                        {
                            Email = s.Follower.Email,
                            Created = s.Created,
                            Name = s.Follower.Name,
                            Image = s.Follower.ImageName,
                            UserId = s.Follower.Id,
-                           HasCreditCard = s.Follower.PaymentExists == PaymentStatus.Done
                        }).ToListAsync(token);
 
             }

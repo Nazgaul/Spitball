@@ -53,27 +53,27 @@ namespace Cloudents.Web.Api
 
 
 
-        [HttpPost("redeem")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> RedeemAsync(CancellationToken token)
-        {
-            try
-            {
-                var command = new CashOutCommand(_userManager.GetLongUserId(User)/*, model.Amount*/);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (InvalidOperationException e)
-            {
-                _logger.Exception(e, new Dictionary<string, string>()
-                {
-                    ["user"] = _userManager.GetUserId(User)
-                });
-                return BadRequest();
-            }
-        }
+        //[HttpPost("redeem")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> RedeemAsync(CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var command = new CashOutCommand(_userManager.GetLongUserId(User)/*, model.Amount*/);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (InvalidOperationException e)
+        //    {
+        //        _logger.Exception(e, new Dictionary<string, string>()
+        //        {
+        //            ["user"] = _userManager.GetUserId(User)
+        //        });
+        //        return BadRequest();
+        //    }
+        //}
 
         #region PayMe
 

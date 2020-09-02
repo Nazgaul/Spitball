@@ -48,7 +48,7 @@
             <div class="getStartedBottom mt-2">
                 <div class="text-center mt-2">
                     <span class="needAccount" v-t="'loginRegister_getstarted_signup_text'"></span>
-                    <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'register')"></span>
+                    <span class="link" v-t="'loginRegister_getstarted_signup_link'" @click="$emit('goTo', 'registerType')"></span>
                 </div>
             </div>
         </div>

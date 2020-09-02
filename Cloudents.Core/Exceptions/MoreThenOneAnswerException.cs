@@ -1,9 +1,9 @@
-﻿using System;
+﻿//using System;
 
-namespace Cloudents.Core.Exceptions
-{
-    public class MoreThenOneAnswerException : Exception
-    {
+//namespace Cloudents.Core.Exceptions
+//{
+//    public class MoreThenOneAnswerException : Exception
+//    {
 
-    }
-}
+//    }
+//}

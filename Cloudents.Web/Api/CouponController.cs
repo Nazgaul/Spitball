@@ -37,6 +37,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
+        [Authorize(Policy = "Tutor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -50,12 +51,9 @@ namespace Cloudents.Web.Api
             }
             catch (DuplicateRowException)
             {
-                return Ok();
+                return Conflict();
             }
-            catch (SqlConstraintViolationException)
-            {
-                return BadRequest("User need to be a tutor");
-            }
+            
             catch (ArgumentOutOfRangeException)
             {
                 return BadRequest("Invalid Value");
@@ -89,6 +87,10 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest("Invalid Coupon");
             }
+            catch (DuplicateCouponException)
+            {
+                return Conflict();
+            }
             //catch (DuplicateRowException)
             //{
             //    return BadRequest("This coupon already in use");
@@ -97,6 +99,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
+        [Authorize(Policy = "Tutor")]
         public async Task<IEnumerable<CouponDto>> GetUserCouponsAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

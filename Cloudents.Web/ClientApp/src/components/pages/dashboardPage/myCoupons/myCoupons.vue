@@ -49,7 +49,7 @@
 
 
             <template v-slot:item.couponType="{value}">
-                {{value === 'Flat' ? $t('marketing_coupon_type_flat') : $t('marketing_coupon_type_percentage')}}
+                {{value.toLowerCase() === 'flat' ? $t('marketing_coupon_type_flat') : $t('marketing_coupon_type_percentage')}}
             </template>
             <template v-slot:item.createTime="{value}">
                 {{$moment(value).format('MMM Do, YYYY')}}
@@ -147,6 +147,7 @@ export default {
         @media (max-width: @screen-xs) {
             box-shadow: none;
             border-radius: 0;
+            margin: 8px 0;
         }
         .myCoupons_title {
             font-weight: 600;

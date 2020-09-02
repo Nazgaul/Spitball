@@ -4,7 +4,7 @@
             <div class="text text-left" v-t="'marketing_title'"></div>
         </v-col> -->
         <template v-for="(data, index, i) in resource">
-            <actionBox :key="index" :index="i" :currentCourseItem="currentCourseItem" :data="data" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard">
+            <actionBox :key="index" :index="i" :currentCourseItem="currentCourseItem" :data="data" :isMobile="$vuetify.breakpoint.xsOnly" :len="resource.length" :isDashboard="$route.name === routeNames.Dashboard">
                 <template #courseSelect v-if="i === 1">
                     <v-select
                         v-model="item"
@@ -17,7 +17,7 @@
                         item-value="id"
                         :menu-props="{ contentClass: 'promoteCourseMenu', auto: true }"
                         return-object
-                        class="promoteCourseSelect me-3"
+                        class="promoteCourseSelect me-0 me-sm-3 mb-4 mb-sm-0"
                         :label="$t('choose_course')"
                         outlined
                     ></v-select>
@@ -72,7 +72,11 @@ export default {
     .marketingActions {
         width: 100%;
         margin: 0 auto;
-
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column !important;
+            align-items: center;  
+        }
         .text {
             color: @global-purple;
             font-weight: 600;
@@ -111,14 +115,19 @@ export default {
             }
         }
         .promoteCourseSelect {
+            @media (max-width: @screen-xs) {
+                margin-top: 4px;
+            }
             border-radius: 20px;
             width: 190px;
-            
+
             .v-select__slot {
+                font-size: 14px !important;
                 label {
                     font-size: 14px;
                     color: @global-purple;
                 }
+
             }
         }
     }
