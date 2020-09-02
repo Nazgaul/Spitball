@@ -69,14 +69,14 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("offline")]
-        public async Task<IActionResult> OfflinePaymentAsync([FromBody] OfflinePaymentRequest model, CancellationToken token)
-        {
-            var tutorId = _userManager.GetLongUserId(User);
-            var command = new CreateOfflineSessionPaymentCommand(tutorId, model.UserId, TimeSpan.FromMinutes(model.DurationInMinutes), model.Price);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("offline")]
+        //public async Task<IActionResult> OfflinePaymentAsync([FromBody] OfflinePaymentRequest model, CancellationToken token)
+        //{
+        //    var tutorId = _userManager.GetLongUserId(User);
+        //    var command = new CreateOfflineSessionPaymentCommand(tutorId, model.UserId, TimeSpan.FromMinutes(model.DurationInMinutes), model.Price);
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         [HttpGet("session/{id}")]
         public async Task<PaymentDetailDto> GetPaymentAsync([FromRoute] Guid id, /*[FromQuery] long userId,*/ CancellationToken token)
