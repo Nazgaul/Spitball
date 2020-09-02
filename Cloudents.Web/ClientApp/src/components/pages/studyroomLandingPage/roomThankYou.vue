@@ -6,8 +6,10 @@
             <logo :menuList="true" class="logoThankYouMobile"></logo>
          </div>
          <img class="mt-5 mt-sm-16" src="./images/circleCheck.png" width="50px" height="50px" alt="">
-         <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
-         <div class="thankSubTitle">{{courseName}}</div>
+         <div class="thankTitle pt-2 pt-sm-0">
+            {{isSessions? $t('seat_saved_c') : $t('seat_saved')}}
+         </div>
+         <div v-if="!isSessions" class="thankSubTitle">{{courseName}}</div>
          <div class="thankBox">
             <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image">
             </v-skeleton-loader>
