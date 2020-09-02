@@ -97,6 +97,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet]
+        [Authorize(Policy = "Tutor")]
         public async Task<IEnumerable<CouponDto>> GetUserCouponsAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

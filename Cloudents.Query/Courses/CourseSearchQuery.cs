@@ -12,13 +12,13 @@ namespace Cloudents.Query.Courses
 {
     public class CourseSearchQuery : IQuery<IEnumerable<CourseNameDto>>
     {
-        public CourseSearchQuery(long userId, string? term)
+        public CourseSearchQuery(string? term)
         {
-            UserId = userId;
+          //  UserId = userId;
             Term = term;
         }
 
-        private long UserId { get; }
+      //  private long UserId { get; }
         private string? Term { get; }
 
 
@@ -36,10 +36,10 @@ namespace Cloudents.Query.Courses
             {
                 var dbQuery = _statelessSession.Query<Course>();
 
-                if (query.UserId > 0)
-                {
-                    dbQuery = dbQuery.Where(w => w.Tutor.Id == query.UserId);
-                }
+                //if (query.UserId > 0)
+                //{
+                //    dbQuery = dbQuery.Where(w => w.Tutor.Id == query.UserId);
+                //}
 
 
                 if (!string.IsNullOrEmpty(query.Term))
