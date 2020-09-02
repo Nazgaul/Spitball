@@ -2,14 +2,14 @@
    <div class="mySales">
       <div class="pa-4">
          <div class="mySales_title" v-t="'financial_status'"></div>
-         <v-layout wrap class="mySales_wallet mb-2" v-if="!!accountUser && accountUser.id">
-            <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
-               <div class="mySales_actions">
+         <!-- <v-layout wrap class="mySales_wallet mb-2" v-if="!!accountUser && accountUser.id"> -->
+            <!-- <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]"> -->
+               <!-- <div class="mySales_actions"> -->
                   <!-- <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/> -->
-                  <billOfflineLayout class="my-2 my-md-0"/>
-               </div>
-            </v-flex>
-         </v-layout>
+                  <!-- <billOfflineLayout class="my-2 my-md-0"/> -->
+               <!-- </div> -->
+            <!-- </v-flex> -->
+         <!-- </v-layout> -->
       </div>
 
       <v-data-table 
