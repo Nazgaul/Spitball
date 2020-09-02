@@ -46,13 +46,9 @@
             <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
          </v-tooltip>
       </div>
-
-
       <span v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg pb-4">
-         {{$t('lownetwork',[userName])}}
+         <span class="me-1">💡</span>{{$t('lownetwork',[userName])}}
       </span>
-
-
       <template v-if="audioTrack && !isCurrentParticipant">
          <v-progress-linear class="audioMeterUser" rounded absolute color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
       </template>
@@ -189,8 +185,8 @@ export default {
          let box = document.getElementById(this.participant.id);
          let videoEl = box?.querySelector('video');
          videoEl.width = videoWidth;
-         console.log('videoWidth <= 640:',videoWidth <= 640)
-         console.log('box.clientWidth >= 640:',box.clientWidth >= 640)
+         // console.log('videoWidth <= 640:',videoWidth <= 640)
+         // console.log('box.clientWidth >= 640:',box.clientWidth >= 640)
          let isLowNetwork = (
             (videoWidth <= 640 && !isMobileVideo) || 
             videoWidth <= 480 && isMobileVideo)
