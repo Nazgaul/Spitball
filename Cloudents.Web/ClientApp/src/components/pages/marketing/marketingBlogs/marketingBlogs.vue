@@ -1,7 +1,7 @@
 <template>
     <div class="spitballBlogs">
 
-        <div class="headerBlogs pa-0 mb-4 d-flex justify-space-between">
+        <div class="headerBlogs pa-0 mb-4 d-flex justify-space-between align-baseline">
           <div class="titleBlog">{{$t('dashboardTeacher_spitball_tips')}}</div>
           <a  class="seeAllBlog d-sm-block d-none" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </div>

@@ -14,7 +14,7 @@
                           :placeholder="$t('tutorListLanding_search_placeholder')"
                           prepend-icon="sbf-search">
             </v-text-field>
-                <v-list class="search-menu" v-show="showSuggestions">
+                <v-list class="search-menu" v-show="showSuggestions" v-click-outside="closeSuggestions">
                     <template v-for="(item, index) in suggests">
                         <v-list-item class="suggestion" @click="selectors(item)" :key="index" :class="{'list__tile--highlighted': index === focusedIndex}">
                             <v-list-item-content>
@@ -95,10 +95,15 @@ export default {
             }
         },
         getSuggestionList(term){
+            let self = this
             courseService.getCourse({term}).then(data=>{
-                this.suggests = data;
+              self.suggests = data;
             }).finally(()=>{
-                this.openSuggestions();
+              if(self.suggests.length) {
+                self.openSuggestions();
+                return
+              }
+              self.showSuggestions = false
             });
 
         },
@@ -279,12 +284,13 @@ export default {
     background: @color-white !important;
     max-height: 440px;
     margin-top: 1px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15) !important;
     overflow: auto;
     padding: 0;
     border-top: none;
     @media (max-width: @screen-xs) {
       max-height: 290px;
+      // margin-top: 10px;
     }
 
     .suggestion {

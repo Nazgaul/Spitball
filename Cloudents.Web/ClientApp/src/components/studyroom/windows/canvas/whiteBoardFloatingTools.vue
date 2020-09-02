@@ -262,6 +262,7 @@ export default {
    left: 0;
    right: 0;
    margin: 0 auto;
+   max-width: -moz-fit-content;
    max-width: fit-content !important;
    top: 12px;
    padding: 0 6px;
