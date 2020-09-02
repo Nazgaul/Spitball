@@ -28,7 +28,7 @@ namespace Cloudents.FunctionsV2
 (Select ID from sb.TutorHistory where created> getdate()-2
 except
 Select ID from sb.Tutor)
-and id not in (525015,525046,525055)";
+and id not in (525015,525046,525055,525010)";
 
             var result = await statelessSession.CreateSQLQuery(sql).ListAsync();
             if (result.Count > 0)
