@@ -35,7 +35,7 @@
 
             <div class="userMenu_top text-center py-5">
                 <userAvatar class="avatarMenu" @click.native="!getIsTeacher ? openEditStudentInfo() : ''" size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="getIsTeacher ? user.id : null" />
-                <div class="uM_top_txts">
+                <div class="uM_top_txts" @click="!getIsTeacher ? openEditStudentInfo() : goTeacherProfile()">
                     <h1 class="uM_title">{{$t('menuList_greets', { '0': user.name })}}</h1>
                     <!-- <h2 class="uM_subtitle">{{$t('menuList_balance', { '0': userBalance(user.balance)})}}</h2> -->
                 </div>
@@ -153,6 +153,9 @@ export default {
   },
   methods: {           
     ...mapActions(['updateReferralDialog']),
+    goTeacherProfile() {
+      this.$router.push({name: routeNames.Profile})
+    },
     openEditStudentInfo() {
       this.$store.commit('setComponent', 'editStudentInfo');
       this.$emit('closeMenu')
@@ -222,6 +225,7 @@ export default {
     .uM_top_txts {
       color: #43425d;
       padding-top: 10px;
+      cursor: pointer;
       .uM_title {
         font-size: 14px;
         font-weight: 600;
