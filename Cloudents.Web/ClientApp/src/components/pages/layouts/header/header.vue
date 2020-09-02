@@ -51,11 +51,11 @@
                                     :userImageUrl="userImageUrl"
                                     :userName="userName"
                                     :fontSize="14"
-                                    :loading="avatarUpdate"
-                                    @setAvatarLoaded="val => avatarUpdate = val"
                                 />
+                                    <!-- :loading="avatarUpdate"
+                                    @setAvatarLoaded="val => avatarUpdate = val" -->
                             </div>
-                            <template v-if="loggedIn">
+                            <!-- <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
                                     <span class="ur_greets">{{$t('header_greets', [userName])}}</span>
                                     <div class="ur_balance">
@@ -63,7 +63,7 @@
                                         <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ms-2"/>
                                     </div>
                                 </div>
-                            </template>
+                            </template> -->
                             <template>
                                 <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
                                     <hamburgerIcon class="hamburgerIcon"/>
@@ -111,7 +111,7 @@ export default {
 components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
-            avatarUpdate: false,
+            // avatarUpdate: false,
             drawer: false,
             profileRoute: routeNames.Profile,
             currentRoute: this.$route.name,
@@ -201,9 +201,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
                 this.closeDrawer();
             })
         })
-        this.$root.$on("avatarUpdate", (val) => {
-            this.avatarUpdate = val
-        })
+        // this.$root.$on("avatarUpdate", (val) => {
+        //     this.avatarUpdate = val
+        // })
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;
@@ -456,34 +456,38 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
             .hamburgerIcon{
                 fill: rgba(0, 0, 0, 0.54)
             }
-            .gh_i_r_userInfo{
-                margin-left: 12px;
-                color: #43425d;
-                font-weight: 600;
-                max-width: 150px;
-                  @media (max-width: @screen-xs) {
-                    max-width: 100px;
-                    margin-bottom: 4px;
-                  }
+            // .gh_i_r_userInfo{
+            //     margin-left: 12px;
+            //     color: #43425d;
+            //     font-weight: 600;
+            //     max-width: 150px;
+            //       @media (max-width: @screen-xs) {
+            //         max-width: 100px;
+            //         margin-bottom: 4px;
+            //       }
                 
-                .ur_greets{
-                    font-size: 14px;
-                }
-                .ur_balance{
-                    font-size: 12px;
-                    .fixed-content{
-                        position:fixed;
-                        top: 50px !important;
-                    }
-                    .ur_balance_drawer{
-                        cursor: pointer;
-                        width: 11px;
-                    }
-                }
-            }
+            //     .ur_greets{
+            //         font-size: 14px;
+            //     }
+            //     .ur_balance{
+            //         font-size: 12px;
+            //         .fixed-content{
+            //             position:fixed;
+            //             top: 50px !important;
+            //         }
+            //         .ur_balance_drawer{
+            //             cursor: pointer;
+            //             width: 11px;
+            //         }
+            //     }
+            // }
             .gH_i_r_menuList {
                 display: flex;
                 cursor: pointer;
+
+                .v-lazy {
+                    display: flex;
+                }
             }
         }
     }

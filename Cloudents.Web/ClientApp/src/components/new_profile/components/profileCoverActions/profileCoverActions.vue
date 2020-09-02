@@ -54,10 +54,10 @@ export default {
             return this.$store.getters.getIsMyProfile
         },
         title() {
-            return this.$store.getters.getProfileTempTitle || this.$store.getters.getProfileTitle
+            return this.$store.getters.getProfileCoverDrawer ? this.$store.getters.getProfileTempTitle : this.$store.getters.getProfileTitle
         },
         paragraph() {
-            return this.$store.getters.getProfileTempParagraph || this.$store.getters.getProfileBio
+            return this.$store.getters.getProfileCoverDrawer ? this.$store.getters.getProfileTempParagraph : this.$store.getters.getProfileBio
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly
@@ -74,9 +74,6 @@ export default {
             if(this.isMyProfile) return
             if(this.isLogged) {
                 this.$emit('setCalendarActive', true)
-                this.$nextTick(() => {
-                    this.$vuetify.goTo(this.$parent.$refs.calendarTab)
-                })
             } else {
                 sessionStorage.setItem('calendar', true)
                 this.$store.commit('setComponent', 'register')

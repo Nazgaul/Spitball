@@ -5,8 +5,8 @@
          <v-layout wrap class="mySales_wallet mb-2" v-if="!!accountUser && accountUser.id">
             <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
                <div class="mySales_actions">
-                  <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/>
-                  <billOfflineLayout class="my-2 my-md-0 mx-lg-2"/>
+                  <!-- <redeemPointsLayout class="my-2 my-md-0 me-lg-2 "/> -->
+                  <billOfflineLayout class="my-2 my-md-0"/>
                </div>
             </v-flex>
          </v-layout>
@@ -31,12 +31,12 @@
             itemsPerPageOptions: [5]
          }">
             <template v-slot:item.preview="{item}">
-               <router-link class="d-flex justify-center" v-if="item.preview" :to="item.url">
+               <div class="d-flex justify-center" v-if="item.preview">
                   <v-avatar size="68">
                      <img :src="item.preview">
                   </v-avatar>
-               </router-link>
-               <router-link v-if="item.sessionId" :to="{name: 'profile',params: {id: item.id, name: item.name}}">
+               </div>
+               <div v-if="item.sessionId">
                   <userAvatarNew
                      class="mySalesUserAvatar"
                      :userImageUrl="item.image"
@@ -45,7 +45,7 @@
                      :height="68"
                      :fontSize="14"
                   />
-               </router-link>
+               </div>
             </template>
             <template v-slot:item.info="{item}">
                <tableInfoTd :item="item"/>
@@ -69,7 +69,7 @@
                   width="100"
                   depressed
                   rounded
-                  v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession'"
+                  v-if="item.paymentStatus === 'PendingTutor' && item.type === 'TutoringSession' && item.price > 0"
                   @click="$openDialog('teacherApproval', {item: item})">
                      {{$t('dashboardPage_btn_approve')}}
                </v-btn>
@@ -84,11 +84,11 @@ import { mapActions, mapGetters } from 'vuex';
 
 import tableInfoTd from '../global/tableInfoTd.vue';
 import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
-import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
+// import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
 
 export default {
    name:'mySales',
-   components:{tableInfoTd,billOfflineLayout,redeemPointsLayout},
+   components:{tableInfoTd,billOfflineLayout},
    props:{
       dictionary:{
          type: Object,

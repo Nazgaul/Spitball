@@ -82,6 +82,8 @@ namespace Cloudents.Core.DTOs
         public DateTime DateTime { get; set; }
         public string Name { get; set; }
         public Guid Id { get; set; }
+
+        public bool OnGoing { get; set; }
       
     }
 

@@ -1,9 +1,27 @@
 <template>
    <div class="studyRoomMobile">
       <div class="studyRoomMobileContent flex-column d-flex justify-space-between align-center">
-         <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
-            <mobileControllers/>
+
+
+      <v-content style="width: 100%;" class="d-flex flex-grow-0 flex-shrink-0">
+         <mobileControllers/>
+         <component class="roomWrapper" :class="currentEditor" style="width:100%" :is="currentMode"></component>
+         <div class="landscapeNotSupported">
+            <div class="d-flex flex-column align-center justify-center mt-12">
+               <div><landscape class="svgIcon"/></div>
+               <div class="unSupportedText">
+                  {{$t('unsupported_feature3')}}
+               </div>
+            </div>
          </div>
+      </v-content>
+
+
+         <!-- <div :id="elementId" class="d-flex flex-grow-0 flex-shrink-0">
+            <mobileControllers/>
+         </div> -->
+
+
          <div class="studyRoomMobileChatHeader mt-4">
             <div class="px-4 headerTitle mb-5 text-truncate">{{$store.getters.getRoomName}}</div>
             <div class="px-4 headerInfo d-flex justify-space-between mb-2">
@@ -26,13 +44,21 @@
 </template>
 
 <script>
+import landscape from './landscape.svg';
+
 import mobileControllers from './layouts/mobileControllers/mobileControllers.vue';
+import studyRoomWrapper from './windows/studyRoomWrapper.vue'
 import chat from '../chat/components/messages.vue';
+import studyRoomMobileVideo from './studyRoomMobileVideo.vue';
+
 import { mapGetters } from 'vuex';
 export default {
    components:{
       chat,
-      mobileControllers
+      mobileControllers,
+      studyRoomMobileVideo,
+      studyRoomWrapper,
+      landscape
    },
    data() {
       return {
@@ -44,6 +70,27 @@ export default {
       ...mapGetters(['getRoomTutorParticipant']),
       tutorVideoTrack(){
          return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
+      },
+      currentMode(){
+         switch(this.currentEditor) {
+            case this.roomModes.WHITE_BOARD:
+            return 'studyRoomWrapper'
+            //    break;
+            case this.roomModes.TEXT_EDITOR:
+               return 'studyRoomWrapper'
+               // break;
+            case this.roomModes.CODE_EDITOR:
+               return 'studyRoomWrapper'
+               // break;
+            default:
+               return 'studyRoomMobileVideo'
+         }
+      },
+      currentEditor(){
+         return this.$store.getters.getActiveNavEditor 
+      },
+      roomModes(){
+         return this.$store.getters.getRoomModeConsts;
       },
    },
    watch: {
@@ -78,6 +125,39 @@ export default {
    .studyRoomMobile {
       width: 100%;
       .studyRoomMobileContent{
+         .landscapeNotSupported{
+            display: none;
+         }
+         .white-board + .landscapeNotSupported,
+         .shared-document + .landscapeNotSupported, 
+         .code-editor + .landscapeNotSupported{
+            @media (max-width: @screen-sm) and (orientation: portrait) {
+               display: none;
+            }
+            @media (max-width: @screen-sm) and (orientation: landscape) {
+               display: block;
+               position: fixed;
+               z-index: 150;
+               top:0;
+               left: 0;
+               right: 0;
+               bottom: 0;
+               background: #fff;
+               .unSupportedText {
+                  margin-top: 20px;
+                  font-size: 20px;
+                  line-height: 1.6;
+                  text-align: center;
+                  color: #43425d;
+                  max-width: 314px;
+               }
+               .svgIcon {
+                  width: 80px;
+               }
+            }
+         }
+
+
             ::-webkit-scrollbar-track {
                   background: #f5f5f5; 
             }
@@ -130,7 +210,6 @@ export default {
                display: none !important;
             }
             width: 100%;
-            // padding: 0 12px;
             .headerTitle{
                font-size: 14px;
                font-weight: 600;
@@ -158,6 +237,9 @@ export default {
                .message_wrap{
                   &:last-child{
                      margin-bottom: 0; //override
+                     @media (max-width: @screen-xs) {
+                        margin-bottom: 50px; //override
+                     }
                   }
                }
             }
@@ -200,5 +282,6 @@ export default {
             }
          }
       }
+
    }
 </style>

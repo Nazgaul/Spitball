@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
+using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.Binders;
-using Cloudents.FunctionsV2.Di;
 using Cloudents.FunctionsV2.Extensions;
 using Cloudents.FunctionsV2.Models;
 using Cloudents.Query;
@@ -22,6 +25,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Point = SixLabors.ImageSharp.Point;
 
 namespace Cloudents.FunctionsV2
@@ -42,6 +46,8 @@ namespace Cloudents.FunctionsV2
             [HttpClientFactory] HttpClient client,
             [Inject] IQueryBus queryBus,
             ILogger log,
+            IBinder binder,
+            [Inject] IConfigurationKeys configuration,
             CancellationToken token)
         {
             InitData(directoryBlobs);
@@ -52,13 +58,39 @@ namespace Cloudents.FunctionsV2
 
             int.TryParse(req.Query["width"].ToString(), out var width);
             int.TryParse(req.Query["height"].ToString(), out var height);
+
+
             var query = new ShareProfileImageQuery(id);
             var dbResult = await queryBus.QueryAsync(query, token);
+
+
 
             if (dbResult?.Image is null)
             {
                 return new BadRequestResult();
             }
+
+
+
+            var cacheString = CalculateCacheVersion(dbResult, isRtl, width, height);
+            var cacheBlob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute($"spitball-cache/profile-share/{id}/{cacheString}.jpg"), token);
+
+
+            IActionResult RedirectToBlob()
+            {
+                var redirectUrl = cacheBlob.Uri.ChangeHost(configuration.Storage.CdnEndpoint);
+                //On client its the same url all the time - can do 301 in case of db change of value
+                return new RedirectResult(redirectUrl.AbsoluteUri, false);
+            }
+
+
+            if (await cacheBlob.ExistsAsync())
+            {
+                return RedirectToBlob();
+            }
+
+
+
             var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port.GetValueOrDefault(443))
             {
                 Path = "api/" + UrlConst.ImageFunctionUserRoute.Inject(new
@@ -151,11 +183,38 @@ namespace Cloudents.FunctionsV2
                 image.Mutate(m => m.Resize(width, height));
             }
 
+            var cacheTimeout = TimeSpan.FromDays(365);
+            cacheBlob.Properties.CacheControl =
+                $"public, max-age={cacheTimeout.TotalSeconds}, s-max-age={cacheTimeout.TotalSeconds}";
+            cacheBlob.Properties.ContentType = "image/jpg";
+
+            await using var streamWriteCache = await cacheBlob.OpenWriteAsync();
+            image.SaveAsJpeg(streamWriteCache);
+
+            return RedirectToBlob();
 
             //image.Mutate(x=>x.DrawImage());
-            return new ImageResult(image, TimeSpan.FromDays(30));
+            //return new ImageResult(image, TimeSpan.FromDays(30));
 
         }
+
+        private static string CalculateCacheVersion(ShareProfileImageDto dbResult, in bool isRtl, in int width, in int height)
+        {
+            var cacheStr = $"{width}_{height}_{isRtl.ToString()[0]}_{dbResult.Rate:F1}_{dbResult.Image}_{dbResult.Description}_{dbResult.Name}";
+            var bytes = Encoding.UTF8.GetBytes(cacheStr);
+            using var md5 = MD5.Create();
+            var hashBytes = md5.ComputeHash(bytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString();
+
+
+        }
+
+        
 
         private static async Task<Image<Rgba32>> BuildDescriptionImageAsync(string? description)
         {
@@ -163,7 +222,7 @@ namespace Cloudents.FunctionsV2
 
             const int descriptionSize = 225;
             const int marginBetweenQuote = 28;
-            var quoteImage = Image.Load(quoteSr);
+            var quoteImage = await Image.LoadAsync(quoteSr);
 
             var descriptionImage = new Image<Rgba32>(675, descriptionSize + marginBetweenQuote + quoteImage.Height);
             descriptionImage.Mutate(context =>
@@ -175,7 +234,7 @@ namespace Cloudents.FunctionsV2
 
                 context.DrawText(description, 38, "#43425d", new Size(size.Width, descriptionSize), location);
                 context.CropBottomEdge();
-                
+
             });
             return descriptionImage;
         }
@@ -188,18 +247,18 @@ namespace Cloudents.FunctionsV2
             {
                 pointX = context.GetCurrentSize().Width - pointX - 330;
             }
-            context.DrawText(name, 32, "#fff", new Size(nameMaxWidth, 40), new Point(pointX,419));
+            context.DrawText(name, 32, "#fff", new Size(nameMaxWidth, 40), new Point(pointX, 419));
         }
 
-        internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
-        {
-            var blobNameWithDirectory = $"share-placeholder/{blobName}";
-            var blob = Blobs.Single(s => s.Name == blobNameWithDirectory);
-            await using var stream = await blob.OpenReadAsync();
-            return Image.Load<Rgba32>(stream);
+        //internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
+        //{
+        //    var blobNameWithDirectory = $"share-placeholder/{blobName}";
+        //    var blob = Blobs.Single(s => s.Name == blobNameWithDirectory);
+        //    await using var stream = await blob.OpenReadAsync();
+        //    return Image.Load<Rgba32>(stream);
 
-        }
-        
+        //}
+
 
         private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
         {
@@ -209,12 +268,12 @@ namespace Cloudents.FunctionsV2
             {
                 pointX = context.GetCurrentSize().Width - offsetOfImage - profileImage.Width;
             }
-            
+
             profileImage.Mutate(x => x.ApplyRoundedCorners(SquareProfileImageDimension / 2f));
             context.DrawImage(profileImage, new Point(pointX, 135), new GraphicsOptions());
         }
 
-        internal static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
+        private static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
             if (Blobs.Count == 0)
             {

@@ -30,8 +30,8 @@ function Conversation(objInit){
     }
     if(objInit.users !== undefined){
         let isRoom =  this.users.length > 1; 
-        this.image = isRoom? '':  this.users[0].image;
-        this.online = !isRoom?  this.users[0].online : false;
+        this.image = isRoom? '':  this.users[0]?.image;
+        this.online = !isRoom?  this.users[0]?.online : false;
         this.name =  this.users.map(u=>u.name).join(" ,");
     }else{
         this.image = objInit.image;

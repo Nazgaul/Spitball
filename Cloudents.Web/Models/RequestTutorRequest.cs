@@ -4,15 +4,15 @@ namespace Cloudents.Web.Models
 {
     public class RequestTutorRequest
     {
-        public string? Text { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public string Course { get; set; }
+        [Required]
+        public string Text { get; set; }
 
+        [Required]
         public long? TutorId { get; set; }
 
 
-        [Captcha]
-        public string Captcha { get; set; }
+        //[Captcha]
+        //public string Captcha { get; set; }
 
     }
 }

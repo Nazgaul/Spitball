@@ -99,7 +99,6 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("referrals")]
-        [ResponseCache(Duration = TimeConst.Minute * 30, Location = ResponseCacheLocation.Client)]
         public async Task<UserReferralsDto> GetReferralsAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -134,9 +133,13 @@ namespace Cloudents.Web.Api
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserImageCommand(userId, fileName);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok(url);
+          //  var command = new UpdateUserImageCommand(userId, fileName);
+          //  await _commandBus.DispatchAsync(command, token);
+            return Ok(new
+            {
+                url,
+                fileName
+            });
         }
 
 
@@ -166,11 +169,16 @@ namespace Cloudents.Web.Api
             }
 
             var fileName = uri.AbsolutePath.Split('/').Last();
-            var command = new UpdateUserCoverImageCommand(userId, fileName);
-            await _commandBus.DispatchAsync(command, token);
+
+            //var command = new UpdateUserCoverImageCommand(userId, fileName);
+            //await _commandBus.DispatchAsync(command, token);
 
             var url = _urlBuilder.BuildUserImageEndpoint(userId, fileName);
-            return Ok(url);
+            return Ok(new
+            {
+                url,
+                fileName
+            });
         }
 
 
@@ -181,28 +189,11 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
-                model.Title, model.ShortParagraph, model.Paragraph);
+                model.Title, model.ShortParagraph, model.Paragraph,model.Avatar,model.Cover);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        //[HttpGet("content")]
-        //public async Task<IEnumerable<UserContentDto>> GetUserContentAsync(CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    var query = new UserContentByIdQuery(userId);
-        //    var result = await _queryBus.QueryAsync(query, token);
-
-        //    return result.Select(s =>
-        //    {
-        //        if (s is UserDocumentsDto d)
-        //        {
-        //            d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-        //            d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
-        //        }
-        //        return s;
-        //    });
-        //}
 
         [HttpGet("purchases")]
         public async Task<IEnumerable<UserPurchaseDto>> GetUserPurchasesAsync(CancellationToken token)

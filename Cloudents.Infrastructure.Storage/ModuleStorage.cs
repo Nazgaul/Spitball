@@ -11,7 +11,7 @@ namespace Cloudents.Infrastructure.Storage
             builder.Register(c =>
             {
                 var key = c.Resolve<IConfigurationKeys>().Storage;
-                return new CloudStorageProvider(key);
+                return new CloudStorageProvider(key.ConnectionString);
             }).SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<BlobProviderContainer>().As<IBlobProvider>();

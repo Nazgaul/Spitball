@@ -51,7 +51,7 @@ namespace Cloudents.FunctionsV2.Di
                 SiteEndPoint =
                 {
                     SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co",
-                    IndiaSite = _configuration["IndiaSiteEndPoint"] ?? "https://www.frymo.com"
+                    //IndiaSite = _configuration["IndiaSiteEndPoint"] ?? "https://www.frymo.com"
                 },
                 Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"], DbConnectionString.DataBaseIntegration.None),
                 Redis = _configuration["Redis"],
@@ -61,7 +61,10 @@ namespace Cloudents.FunctionsV2.Di
                     bool.Parse(_configuration["IsDevelop"])
                 ),
                 ServiceBus = _configuration["AzureWebJobsServiceBus"],
-                Storage = _configuration["AzureWebJobsStorage"]
+                Storage = new StorageCredentials() {
+                   ConnectionString = _configuration["AzureWebJobsStorage"],
+                   CdnEndpoint = _configuration["StorageCdnEndpoint"]
+                }
             };
 
 

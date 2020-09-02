@@ -1,4 +1,4 @@
-import { ENROLLED_ERROR } from '../components/pages/global/toasterInjection/componentConsts.js';
+import { ENROLLED_ERROR,ENROLLED_ERROR_2 } from '../components/pages/global/toasterInjection/componentConsts.js';
 import Vue from 'vue';
 
 const COURSE_API = 'course';
@@ -86,7 +86,9 @@ const mutations = {
         return {
           id: session.id,
           name: session.name,
-          date: session.dateTime
+          date: session.dateTime,
+          onGoing: session.onGoing,
+          past: new Date() > new Date(session.dateTime) && !session.onGoing,
         }
       });
 
@@ -112,6 +114,9 @@ const mutations = {
 
   setEditedDetailsByType(state, { type, val }) {
     Vue.set(state.courseEditedDetails, type, val);
+  },
+  initEditedDetails(state){
+    state.courseEditedDetails = {};
   }
 }
 const getters = {
@@ -148,10 +153,7 @@ const getters = {
   getCourseLoadingButton: state => state.loadingEditCourseBtn,
 
 
-  getNextCourseSession: (state, getters) => {
-    // TODO: get the nearest date;
-    return getters.getCourseSessionsPreview[0]
-  },
+  getNextCourseSession: (state, getters) => getters.getCourseSessionsPreview.find(s=> s.onGoing || !s.past),
   getIsCourseTutor: (state, getters) => state.courseDetails?.tutorId == getters.getAccountId,
   getCoursePrice: state => state.courseDetails?.price || null,
   getCourseItems: state => state.courseDetails?.items || [],
@@ -177,8 +179,15 @@ const actions = {
         dispatch('goStripe', x)
         return;
       } else {
-        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe', session);
-        location.href = x;
+        let x = await dispatch('updateStudyroomLiveSessionsWithPricePayMe', session)
+          .catch(err=>{
+            commit('setComponent', ENROLLED_ERROR_2);
+            commit('trackException', err);
+            return;
+          });
+        if(x){
+          location.href = x;
+        }
         return;
       }
     }

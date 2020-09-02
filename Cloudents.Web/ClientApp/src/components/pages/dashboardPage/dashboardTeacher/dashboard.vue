@@ -2,7 +2,7 @@
   <div class="dashboardMain me-md-6">
     <dashboardTutorActions />
     <dashboardNotifications />
-    <dashboardMarketingTools />
+    <!-- <dashboardMarketingTools /> -->
     <marketingBlogs v-if="$vuetify.breakpoint.xsOnly" />
     <spitballTips v-else />
   </div>
@@ -12,7 +12,7 @@
 const marketingBlogs = () => import('../../marketing/marketingBlogs/marketingBlogs.vue')
 const dashboardTutorActions = () => import('./dashboardTutorActions.vue');
 const dashboardNotifications = () => import('./dashboardNotifications.vue');
-const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')
+// const dashboardMarketingTools = () => import('../dashboardTeacher/dashboardMarketingTools.vue')
 const spitballTips = () => import('./spitballTips.vue');
 
 export default {
@@ -20,7 +20,7 @@ export default {
     dashboardTutorActions,
     dashboardNotifications,
     marketingBlogs,
-    dashboardMarketingTools,
+    // dashboardMarketingTools,
     spitballTips,
   }
 }

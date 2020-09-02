@@ -2,12 +2,12 @@
   <v-sheet color="#f5f5f5" height="100%" width="100%" class="flex-column d-flex canvas-window">
     <div class="d-flex flex-grow-1">
       <whiteBoard></whiteBoard>
-      <whiteBoardFloatingTools/>
+      <whiteBoardFloatingTools v-if="!isReadOnly"/>
     </div>
-    <v-slide-y-transition>
-    <div class="d-flex flex-grow-0 flex-shrink-0 tabs">
-      <whiteBoardTabs/>
-    </div>
+    <v-slide-y-transition v-if="!isReadOnly">
+      <div class="d-flex flex-grow-0 flex-shrink-0 tabs">
+        <whiteBoardTabs/>
+      </div>
     </v-slide-y-transition>
       <v-dialog 
          v-model="$store.getters.getDialogSnapshot" 
@@ -30,6 +30,11 @@ export default {
     whiteBoardFloatingTools,
     whiteBoardTabs,
     snapshotDialog
+  },
+  computed: {
+    isReadOnly(){
+      return this.$vuetify.breakpoint.smAndDown;
+    }
   },
   methods: {
     initMathjax(){

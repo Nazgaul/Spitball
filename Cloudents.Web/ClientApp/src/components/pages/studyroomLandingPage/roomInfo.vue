@@ -41,7 +41,7 @@
             <v-btn class="saveBtn" :loading="loadingBtn" @click="enrollSession" :disabled="isCourseFull" depressed :height="btnHeight" color="#1b2441">
                {{enrollBtnText}}
             </v-btn>
-            <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseTutor || isCourseFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
+            <v-btn v-if="coursePrice && coursePrice.amount" block :disabled="isCourseFull" @click="applyCoupon" class="couponText" tile text>{{$t('apply_coupon_code')}}</v-btn>
         
          </div>
          <div class="bottomLeft" v-if="courseDetails">
@@ -54,6 +54,10 @@
          </v-skeleton-loader>
          <img v-show="imgLoaded" @load="()=>imgLoaded = true" :src="courseImage">
       </div>
+
+      <v-snackbar v-model="tutorSnackbar" top :timeout="3000">
+         <div class="text-center">{{snackbarText}}</div>
+      </v-snackbar>
    </div>
 </template>
 
@@ -71,6 +75,8 @@ export default {
          isSessionNow:false,
          loadingBtn:false,
          imgLoaded:false,
+         tutorSnackbar:false,
+         snackbarText:''
       }
    },
    methods: {
@@ -79,12 +85,17 @@ export default {
             this.$store.commit('setComponent', 'register')
             return
          }
+         if(this.isCourseTutor){
+            this.snackbarText = this.$t('coupon_tutor')
+            this.tutorSnackbar = true
+            return;
+         }
+
          if(this.loadingBtn) return;
          this.$store.commit('setComponent', 'applyCoupon');
       },
       enterStudyRoom(){
-         let id = this.courseSessions[0].id;
-         //let id = this.$route.params?.id;
+         let id = this.courseNextSession?.id;
          let routeData = this.$router.resolve({
             name: routeNames.StudyRoom,
             params: { id }
@@ -98,9 +109,11 @@ export default {
          }
          if(this.loadingBtn) return;
          if(this.isCourseTutor){
-            if(this.courseSessions.length !== 0){
+            if(this.courseNextSession?.id){
                this.enterStudyRoom()
             }else{
+               this.snackbarText = this.$t('enroll_tutor')
+               this.tutorSnackbar = true
                return;
             }
          }
@@ -116,6 +129,9 @@ export default {
    computed: {
       courseName(){
          return this.$store.getters.getCourseNamePreview;
+      },
+      courseNextSession(){
+         return this.$store.getters.getNextCourseSession;
       },
       courseImage(){
          let img = this.$store.getters.getCourseImagePreview;
@@ -138,8 +154,14 @@ export default {
          return this.$store.getters.getCourseDetails;
       },
       enrollBtnText(){
+         if(!this.courseDetails){
+            return ''
+         }
+         if(!this.courseNextSession?.id && this.$store.getters.getCourseItems?.length == 0){
+            return this.$t('expired');
+         }
          if(this.isCourseFull){
-            return this.$t('room_full')
+            return this.$t('room_full');
          }else{
             if(this.$store.getters.getCourseButtonPreview) return this.$store.getters.getCourseButtonPreview;
             else{

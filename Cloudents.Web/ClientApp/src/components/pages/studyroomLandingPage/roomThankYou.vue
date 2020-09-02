@@ -7,7 +7,7 @@
          </div>
          <img class="mt-5 mt-sm-16" src="./images/circleCheck.png" width="50px" height="50px" alt="">
          <div class="thankTitle pt-2 pt-sm-0" v-t="'seat_saved'"/>
-         <div class="thankSubTitle" v-t="'we_will_email'"/>
+         <div class="thankSubTitle">{{courseName}}</div>
          <div class="thankBox">
             <v-skeleton-loader v-if="!imgLoaded" width="100%" height="100%" type="image">
             </v-skeleton-loader>
@@ -16,7 +16,7 @@
                <div class="pt-3">{{$t('starts_on',[$moment(courseDate).format('MMMM Do, HH:mm')])}}</div>
                <sessionStartCounter v-show="!isTimmerFinished" class="thankYouCounter" @updateCounterMinsLeft="isRoomReady = true" @updateCounterFinish="isTimmerFinished = true"/>
                <v-btn :disabled="isButtonDisabled" @click="enterStudyRoom" class="saveBtn" depressed :height="btnHeight" color="#1b2441">
-                  {{$t('enter_room')}}
+                  {{isButtonDisabled? $t('waiting'):$t('enter_room')}}
                </v-btn>
             </template>
          </div>
@@ -43,6 +43,9 @@ export default {
       courseDate(){
          return this.$store.getters.getCourseDetails?.startTime;
       },
+      courseName() {
+            return this.$store.getters.getCourseDetails?.name;
+      },
       courseImage(){
          return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, 402, 268)
       },
@@ -57,11 +60,11 @@ export default {
       },
       isButtonDisabled(){
          if(this.$store.getters.getJwtToken || this.$store.getters.getCourseDetails?.sessionStarted) return false;
-         if(this.$store.getters.getCourseSessionsPreview?.length === 0) return true;
+         if(this.$store.getters.getNextCourseSession?.id) return true;
          else return !this.isRoomReady
       },
       isSessions(){
-         return this.$store.getters.getCourseSessionsPreview?.length
+         return this.$store.getters.getNextCourseSession;
       }
       
    },
@@ -186,6 +189,10 @@ export default {
                font-size: 22px;
                font-weight: 600;
                color: white;
+               span{
+                  flex: initial;
+                  white-space: normal;
+               }
                @media(max-width: @screen-xs) {
                   margin-top: 10px;
                   font-size: 24px;

@@ -15,11 +15,6 @@ namespace Cloudents.Core.Message.Email
             Link = link;
         }
 
-        //protected RegistrationEmail() : base()
-        //{
-            
-        //}
-
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Using it with reflection")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Using it with reflection")]
         public string Link { get; private set; }

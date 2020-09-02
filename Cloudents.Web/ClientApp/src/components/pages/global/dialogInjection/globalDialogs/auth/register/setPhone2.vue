@@ -7,7 +7,7 @@
             </div>
 
             <template v-if="setPhoneState">
-                <div class="setphone_title mb-8" v-t="'loginRegister_setphone_main_title'"></div>
+                <div class="setphone_title mb-8" v-t="'loginRegister_setphone_main_title_phone'"></div>
                 <div class="setphone_sub_title mb-9" v-t="'loginRegister_setphone_sub_title'"></div>
 
                 <v-select 
@@ -45,6 +45,7 @@
                     outlined
                     dense
                     placeholder=" "
+                    autocomplete="off"
                 >
                 </v-text-field>
             </template>

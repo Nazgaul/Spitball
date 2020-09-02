@@ -12,9 +12,4 @@ namespace Cloudents.Core.Message.Email
 
         public Guid LeadId{ get; private set; }
     }
-
-    public class EnrollStudyRoomMessage : ISystemQueueMessage
-    {
-
-    }
 }

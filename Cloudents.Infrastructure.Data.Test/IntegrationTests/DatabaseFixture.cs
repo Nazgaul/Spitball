@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
                 SiteEndPoint = new SiteEndPoints()
                 {
                     FunctionSite = "https://www.spitball.co",
-                    IndiaSite = "https://www.spitball.co",
+                    //IndiaSite = "https://www.spitball.co",
                     SpitballSite = "https://www.spitball.co"
                 }
 

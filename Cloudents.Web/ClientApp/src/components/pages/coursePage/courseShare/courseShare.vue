@@ -1,7 +1,7 @@
 <template>
     <div class="courseShare">
         <div class="promotePublishWrap">
-            <promotePublish :document="{id: courseId}"/>
+            <promotePublish :document="{id: courseId}" :currentCourseItem="currentCourseItem" dataType="Courses" />
         </div>
         <marketingBlogs />  
     </div>
@@ -21,6 +21,12 @@ export default {
         marketingBlogs
     },
     computed: {
+        currentCourseItem() {
+            return {
+                image: this.$store.getters.getCourseCoverImage,
+                id: this.courseId
+            }
+        },
         courseId(){
             return this.currentCreatedCourseId || this.$route.params?.id;
         }       

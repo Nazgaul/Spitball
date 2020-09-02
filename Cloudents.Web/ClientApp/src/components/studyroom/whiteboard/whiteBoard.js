@@ -24,6 +24,7 @@ export default {
     },
     data() {
         return {
+            canvasElementId: 'canvas',
             windowWidth: this.getWindowWidth(),
             windowHeight: this.getWindowHeight(),
             canvas: null,
@@ -97,7 +98,12 @@ export default {
             'getImgLoader',
             'getShowBoxHelper',
             'getShapesSelected',
-            'getFontSize']),
+            'getFontSize',
+            'getRoomIsActive',
+        ]),
+        isReadOnly(){
+            return window.innerWidth < 960
+        },
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
@@ -151,6 +157,13 @@ export default {
         }
     },
     watch: {
+        getRoomIsActive:{
+            handler(newVal,oldVal){
+                if(!newVal && oldVal){
+                    this.clearCanvas();
+                }
+            }
+        },
         canvasData:{
             deep:true,
             handler(newVal){
@@ -229,7 +242,13 @@ export default {
                 };
                 let transferDataObj = {
                     type: "passData",
-                    data: data
+                    data: {
+                        ...data,
+                        sizes:{
+                            width: window.innerWidth,
+                            height: window.innerHeight,
+                        }
+                    }
                 };
                 let normalizedData = JSON.stringify(transferDataObj);
                 this.$store.dispatch('sendDataTrack',normalizedData)
@@ -276,7 +295,7 @@ export default {
             if (isPressedF10) {
                 let link = document.createElement('a');
                 link.download = `${this.getCurrentSelectedTab.name}.png`;
-                link.href = document.getElementById('canvas').toDataURL("image/png");
+                link.href = document.getElementById(this.canvasElementId).toDataURL("image/png");
                 link.click();
             }
             //signalR should be fired Here
@@ -315,7 +334,7 @@ export default {
         // },
         registerCanvasEvents(canvas, canvasWrapper) {
             let self = this;
-            // global.addEventListener('resize', this.resizeCanvas, false);
+            global.addEventListener('resize', this.resizeCanvas, false);
             let dropArea = canvas;
             dropArea.addEventListener('dragenter', () =>{
             }, false);
@@ -435,6 +454,13 @@ export default {
             return size
         },
         getWindowHeight(){
+            if (window.innerWidth < 960){
+                if(window.innerWidth > window.innerHeight){
+                    return window.innerHeight
+                }else{
+                    return 300
+                }
+            }
             let windowHeight = document.querySelector('main').clientHeight;
             let paddingTop = HeaderHeight;
             let paddingBottom = +document.querySelector('main').style.paddingBottom.replace('px','') + tabsHeight;
@@ -445,6 +471,7 @@ export default {
     },
     mounted() {
         this.windowChangeEvent()
+        
         this.canvas = document.querySelector('canvas');
         let canvasWrapper = document.querySelector('.canvas-wrapper');
         this.canvas.width = this.windowWidth;

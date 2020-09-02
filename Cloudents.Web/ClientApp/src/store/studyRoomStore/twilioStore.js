@@ -44,7 +44,6 @@ const getters = {
    getAudioDeviceId: state => state.audioDeviceId,
    getIsAudioAvailable: (state) => state.isAudioAvailable,
    getIsVideoAvailable: (state) => state.isVideoAvailable,
-   
 }
 const actions = {
    updateToggleAudioParticipants({commit}){

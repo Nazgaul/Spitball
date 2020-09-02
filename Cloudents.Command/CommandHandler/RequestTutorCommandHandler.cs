@@ -32,8 +32,8 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(RequestTutorCommand message, CancellationToken token)
         {
-
             Tutor? tutor = null;
+
             if (message.TutorId.HasValue)
             {
                 if (message.UserId == message.TutorId.Value)
@@ -45,7 +45,7 @@ namespace Cloudents.Command.CommandHandler
 
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var lead = new Lead(message.Course, message.LeadText,
+            var lead = new Lead(message.LeadText,
                  message.Referer, user,
                 tutor, message.UtmSource);
             await _leadRepository.AddAsync(lead, token);

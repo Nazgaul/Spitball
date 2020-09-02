@@ -28,24 +28,24 @@ export default ({ hubPath }) => {
             });
             
             connection.on("studyRoomToken", (jwtToken,studyRoomId) => {
-              if(store.getters.getRoomIdSession == studyRoomId || store.getters.getCourseSessionsPreview[0]?.id == studyRoomId) {
+              if(store.getters.getRoomIdSession == studyRoomId || store.getters.getNextCourseSession?.id == studyRoomId) {
                 store.dispatch('updateJwtToken', jwtToken);
               }
             });
         
             // signalR Reconnecting
             connection.onreconnecting(() => {
-              store.dispatch('setIsSignalRConnected', false);
+              // store.commit('setIsSignalRConnected', false);
               insightService.track.event(insightService.EVENT_TYPES.LOG, 'SignalR-onreconnecting');
             });
             connection.onreconnected(() => {
-              store.dispatch('setIsSignalRConnected', true);
+              // store.commit('setIsSignalRConnected', true);
               insightService.track.event(insightService.EVENT_TYPES.LOG, 'SignalR-onreconnected');
             });
 
             if (connection.state === 'Disconnected') {
               connection.start().then(() => {
-                store.dispatch('setIsSignalRConnected', true);
+                // store.commit('setIsSignalRConnected', true);
               });
             }
         })
@@ -57,9 +57,6 @@ export default ({ hubPath }) => {
           insightService.track.event(insightService.EVENT_TYPES.LOG, 'SignalR-reconnect');
           connection.stopConnection().then(() => { connection.start() });
           break;
-        // case 'signalR_disconnect':
-
-        //   break;
         // case 'ROOM_PROPS':
         // //  connection.invoke("addStudyRoomGroup", mutation.roomId);
         //     debugger;

@@ -52,10 +52,11 @@
                 {{value === 'Flat' ? $t('marketing_coupon_type_flat') : $t('marketing_coupon_type_percentage')}}
             </template>
             <template v-slot:item.createTime="{value}">
-                {{$d(new Date(value), 'tableDate')}}
+                {{$moment(value).format('MMM Do, YYYY')}}
+                <!-- {{$d(new Date(value), 'tableDate')}} -->
             </template>
             <template v-slot:item.expiration="{value}">
-                {{value ? $d(new Date(value), 'tableDate') : ''}}
+                {{$moment(value).format('MMM Do, YYYY')}}
             </template>
             <template v-slot:no-data>
                 {{$t('marketing_tableCoupon_noCoupons')}}
@@ -73,7 +74,6 @@ export default {
     data() {
         return {
             tableLoading: false,
-            coupons: [],
             headers:[
                 {
                     text: this.$t('marketing_tableCoupon_code'),
@@ -108,13 +108,16 @@ export default {
             ],
         }
     },
+    computed: {
+        coupons(){
+            return this.$store.getters.getCouponList
+        }
+    },
     methods: {
       getCoupons() {
         let self = this;
         self.tableLoading = true;
-        self.$store.dispatch('getUserCoupons').then(coupons => {
-          self.coupons = coupons;
-        }).catch(ex => {
+        self.$store.dispatch('getUserCoupons').catch(ex => {
           self.$appInsights.trackException({exception: new Error(ex)});
         }).finally(() => {
             self.tableLoading = false;

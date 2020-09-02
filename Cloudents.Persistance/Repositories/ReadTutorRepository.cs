@@ -60,7 +60,7 @@ namespace Cloudents.Persistence.Repositories
 
             var lessonsFutureValue = Session.Query<StudyRoomSession>()
 .Fetch(f => f.StudyRoom)
-.Where(w => w.StudyRoom.Tutor.Id == userId && w.Duration > StudyRoomSession.BillableStudyRoomSession)
+.Where(w => w.StudyRoom.Tutor.Id == userId)
 .GroupBy(g => 1)
 .Select(s => s.Count())
 .ToFutureValue();

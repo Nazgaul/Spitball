@@ -91,7 +91,7 @@ export default {
                return this.$store.getters.getCourseButtonPreview;
             }
             else{
-               return this.$store.getters.getCoursePrice?.coursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
+               return this.$store.getters.getCoursePrice?.amount? this.$t('save_spot') : this.$t('free_enroll')
             }
          },
          set(val){
@@ -128,6 +128,8 @@ export default {
                   type:'previewImage',
                   val: window.URL.createObjectURL(previewImage[0])
                })
+            }).catch(()=>{
+               self.loaded()
             })
          }
       },

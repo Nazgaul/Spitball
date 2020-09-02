@@ -32,9 +32,9 @@ export default {
         srcImg(){
             let isMobile = this.$vuetify.breakpoint.xsOnly;
             if(isMobile){
-                return this.$proccessImageUrl(this.item.preview,344,196)
+                return this.$proccessImageUrl(this.item.preview,344,196,'crop','ffffff')
             }else{
-                return this.$proccessImageUrl(this.item.preview,248,150)
+                return this.$proccessImageUrl(this.item.preview,248,150,'crop','ffffff')
             }
         }
     },

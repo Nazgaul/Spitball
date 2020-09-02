@@ -34,6 +34,9 @@ export default {
          return this.$store.getters.accountUser?.name
       },
       fileSrc(){
+         // let host = location.origin;
+         // let relativePath = this.message.src;
+         // let fullPath = `${host}${relativePath}`;
          return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
       },
       messageDate(){

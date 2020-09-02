@@ -5,11 +5,11 @@ namespace Cloudents.Core.Event
 {
     public class SubscribeToTutorEvent : IEvent
     {
-        private User user;
+        public Follow Follow { get; }
 
-        public SubscribeToTutorEvent(User user)
+        public SubscribeToTutorEvent(Follow follow)
         {
-            this.user = user;
+            Follow = follow;
         }
     }
 }

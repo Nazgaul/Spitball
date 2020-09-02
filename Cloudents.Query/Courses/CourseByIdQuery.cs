@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
@@ -61,12 +60,15 @@ namespace Cloudents.Query.Courses
 
                 var futureStudyRoom = _statelessSession.Query<BroadCastStudyRoom>()
                     .Where(w => w.Course.Id == query.Id)
-                    .Where(w => w.BroadcastTime > DateTime.UtcNow.AddHours(-1)).Select(
+                    .OrderBy(o=>o.BroadcastTime)
+                    //.Where(w => w.BroadcastTime > DateTime.UtcNow.AddHours(-1))
+                    .Select(
                         s2 => new FutureBroadcastStudyRoomDto()
                         {
                             Id = s2.Id,
                             DateTime = s2.BroadcastTime,
-                            Name = s2.Description
+                            Name = s2.Description,
+                            OnGoing = _statelessSession.Query<StudyRoomSession>().Any(w => w.Ended == null && w.StudyRoom.Id == s2.Id)
                         }).ToFuture();
 
 

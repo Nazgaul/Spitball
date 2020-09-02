@@ -1,7 +1,8 @@
 const COURSE_API = 'course';
 
 const state = {
-    numberOfLecture: 1,
+    componentKeyRender: 0,
+    numberOfLecture: 0,
     courseName: '',
     followerPrice: 0,
     subscribePrice: 0,
@@ -9,10 +10,12 @@ const state = {
     courseVisible: true,
     showFiles: false,
     courseCoverImage: null,
-    teachingDates: []
+    teachingDates: [],
+    teachingNext:[]
 }
 
 const getters = {
+    getComponentKey: state => state.componentKeyRender,
     getNumberOfLecture: state => state.numberOfLecture,
     getCourseName: state => state.courseName,
     getFollowerPrice: state => state.followerPrice,
@@ -31,10 +34,14 @@ const getters = {
             currentMinutes = 0;
         }
         return `${currentHour}:${currentMinutes.toString().padStart(2,'0')}`
-    }
+    },
+    getTeachingNext: state => state.teachingNext,
 }
 
 const mutations = {
+    setComponentKey(state) {
+        state.componentKeyRender++
+    },
     setNumberOfLecture(state, num) {
         state.numberOfLecture = num;
     },
@@ -64,6 +71,9 @@ const mutations = {
             date: teachObj.date || state.teachingDates[teachObj.index]?.date
         })
     },
+    setNextSession(state,sessions){
+        state.teachingNext = sessions.sort((a,b)=> new Date(a.dateTime) - new Date(b.dateTime)).filter(session=> new Date() < new Date(session.dateTime))[0];
+    },
     removeLecture(state, index) {
         state.numberOfLecture -= 1
         state.teachingDates.splice(index-1, 1)
@@ -81,7 +91,7 @@ const mutations = {
         state.showFiles = val
     },
     resetCreateCourse(state) {
-        state.numberOfLecture = 1,
+        state.numberOfLecture = 0,
         state.courseName = '',
         state.followerPrice = 0,
         state.subscribePrice = 0,
@@ -95,13 +105,14 @@ const mutations = {
 const actions = {
     getCourseInfo({commit}, id) {
         return this.$axios.get(`${COURSE_API}/${id}/edit`).then(({data}) => {
-            commit('setNumberOfLecture', data.studyRooms.length)
+            commit('setNumberOfLecture', data.studyRooms.length || 1)
             commit('setCourseName', data.name)
             commit('setFollowerPrice', data.price.amount)
             commit('setSubscriberPrice', data.subscriptionPrice?.amount)
             commit('setCourseDescription', data.description)
             commit('setCourseCoverImage', data.image)
             commit('setShowCourse', data.visible)
+            commit('setNextSession',data.studyRooms)
             
             let i = 0, studyRooms = data.studyRooms
             for (i = 0; i < studyRooms.length; i++) {

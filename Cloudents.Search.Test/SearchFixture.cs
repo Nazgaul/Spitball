@@ -21,7 +21,10 @@ namespace Cloudents.Search.Test
                 Db = new DbConnectionString(
                     "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
                     null, DbConnectionString.DataBaseIntegration.None),
-                Storage =  "DefaultEndpointsProtocol=https;AccountName=spitballdev;AccountKey=fEzJ1MJZyIQMCoGRK/8lnwCHRLm3A3g0+ZnvoIxed7Bl5MlWw/FkbPKrDhCIlWzasWVCK6q0U4HQZ3qCLnXelg==;EndpointSuffix=core.windows.net"
+                Storage = new StorageCredentials()
+                {
+                    ConnectionString = "DefaultEndpointsProtocol=https;AccountName=spitballdev;AccountKey=fEzJ1MJZyIQMCoGRK/8lnwCHRLm3A3g0+ZnvoIxed7Bl5MlWw/FkbPKrDhCIlWzasWVCK6q0U4HQZ3qCLnXelg==;EndpointSuffix=core.windows.net"
+                }
             };
             var builder = new ContainerBuilder();
             builder.Register(_ => configuration).As<IConfigurationKeys>();
@@ -36,19 +39,19 @@ namespace Cloudents.Search.Test
             {
                 return new SearchService("5B0433BFBBE625C9D60F7330CFF103F0", "cloudents", true);
             }).AsSelf().As<ISearchService>().SingleInstance();
-           
+
 
             Container = builder.Build();
 
-          //  DocumentsSearch = Container.Resolve<IDocumentsSearch>();
+            //  DocumentsSearch = Container.Resolve<IDocumentsSearch>();
             TutorSearch = Container.Resolve<ITutorSearch>();
             QueryBus = Container.Resolve<IQueryBus>();
         }
 
-        public ITutorSearch TutorSearch { get;  }
+        public ITutorSearch TutorSearch { get; }
 
-        
-      //  public IDocumentsSearch DocumentsSearch { get; }
+
+        //  public IDocumentsSearch DocumentsSearch { get; }
         public IQueryBus QueryBus { get; }
 
         public void Dispose()

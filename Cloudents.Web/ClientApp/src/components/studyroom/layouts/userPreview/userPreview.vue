@@ -19,7 +19,7 @@
                   {{isExpandVideoMode? 'sbf-minis':'sbf-exp'}}
             </v-icon>
          </template>
-         <span v-text="$t(isExpandVideoMode?'tutor_tooltip_fullscreen_exit':'tutor_tooltip_fullscreen')"/>
+         <span v-text="isExpandVideoMode ? $t('tutor_tooltip_fullscreen_exit') : $t('tutor_tooltip_fullscreen')"/>
       </v-tooltip>
    </div>
       <span class="name">{{userName}}</span>
