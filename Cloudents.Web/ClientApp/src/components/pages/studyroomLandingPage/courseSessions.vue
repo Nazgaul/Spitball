@@ -1,5 +1,5 @@
 <template>
-    <div id="courseSessionSection" :class="{'courseSessionNoSessions': courseItemsList}" class="courseSession my-8" v-if="sessions.length">
+    <div id="courseSessionSection" :class="{'courseSessionNoSessions': courseItemsList}" class="courseSession my-8 px-sm-4 px-lg-0" v-if="sessions.length">
         <div class="courseSessionTitle mb-3" v-t="'live_lecture'"></div>
         <div class="courseSessionWrapper">
             <div class="courseSessionRow mb-5 d-flex" v-for="(session, index) in sessions" :key="session.id">
@@ -41,7 +41,7 @@ export default {
 @import '../../../styles/mixin.less';
 .courseSession {
     @media (max-width: @screen-xs) {
-        margin: 0 16px !important;
+        margin: auto 16px !important;
     }
     &.courseSessionNoSessions {
         margin-bottom: 80px !important;
