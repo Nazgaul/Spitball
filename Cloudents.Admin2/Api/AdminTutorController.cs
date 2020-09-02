@@ -66,11 +66,12 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
         {
-            var command = new DeleteTutorCommand(id);
+            var userId = User.GetIdClaim();
+            var command = new DeleteTutorCommand(id, userId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
-        
+
 
         [HttpPost("suspend")]
         public async Task<IActionResult> SuspendTutorAsync([FromBody] SuspendTutorRequest model, CancellationToken token)
