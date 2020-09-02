@@ -46,6 +46,9 @@
             <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
          </v-tooltip>
       </div>
+      <span v-if="!isCurrentParticipant && isShowLowNetwork" class="lowNetworkMsg pb-4">
+         <span class="me-1">💡</span>{{$t('lownetwork',[userName])}}
+      </span>
       <template v-if="audioTrack && !isCurrentParticipant">
          <v-progress-linear class="audioMeterUser" rounded absolute color="#16eab1" height="6" :value="audioLevel" buffer-value="0"></v-progress-linear>
       </template>
@@ -68,6 +71,7 @@ export default {
          audioTrack:null,
          isExpandVideoMode:false,
          audioLevel:0,
+         isShowLowNetwork:false,
       }
    },
    computed: {
@@ -138,11 +142,13 @@ export default {
                return;
             }else{
                this.videoTrack = participant.video;
+               let self = this;
                this.$nextTick(()=>{
                   let previewContainer = document.getElementById(participant.id);
                   let videoTag = previewContainer.querySelector("video");
                   if (videoTag) {previewContainer.removeChild(videoTag)}
                   previewContainer.appendChild(participant.video.attach());
+                  participant.video.attach().addEventListener('resize', self.onVideoResolutionChange);
                })
             }
          }
@@ -171,6 +177,35 @@ export default {
       },
       stopShareScreen(){
          this.$store.dispatch('updateShareScreen',false)
+      },
+      onVideoResolutionChange(e){
+         let videoWidth = getNextResByCurrent(e.target.videoWidth);
+         let isMobileVideo = e.target.videoWidth < e.target.videoHeight
+         let box = document.getElementById(this.participant.id);
+         let videoEl = box?.querySelector('video');
+         videoEl.width = videoWidth;
+         // console.log('videoWidth <= 640:',videoWidth <= 640)
+         // console.log('box.clientWidth >= 640:',box.clientWidth >= 640)
+         let isLowNetwork = (
+            (videoWidth <= 640 && !isMobileVideo) || 
+            videoWidth <= 480 && isMobileVideo)
+          && box.clientWidth >= 640;
+         if(isLowNetwork){
+            this.isShowLowNetwork = true;
+         }else{
+            this.isShowLowNetwork = false;
+         }
+
+         function getNextResByCurrent(width){
+            if(width >= 960) return 1280;// height = 720;
+            if(width >= 640) return 960;// height = 540;
+            if(width >= 480) return 640;// height = 480;
+            if(width >= 320) return 480;// height = 240;
+            if(width >= 240) return 320;
+            if(width >= 176) return 240;
+         }
+         // console.log(videoWidth)
+         // console.log([e.target.videoWidth,e.target.videoHeight].join('x'))
       }
    },
    watch: {
@@ -253,13 +288,21 @@ export default {
          }
       }
    }
+   .lowNetworkMsg{
+      color: #fff;
+      font-size: 14px;
+      z-index: 1;
+   }
    video {
-      width: 100%;
-      height: 100%;
+      // width: 100%;
+      // height: 100%;
       object-fit: cover;
       object-position: center;
       background-repeat: no-repeat;
       // border-radius: 6px !important;
+      max-width: 100%;
+      max-height: 100%;
+      min-width: auto;
    }
 }
 </style>
