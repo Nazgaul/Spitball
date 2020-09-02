@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -31,11 +32,12 @@ using Point = SixLabors.ImageSharp.Point;
 namespace Cloudents.FunctionsV2
 {
 
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Function")]
     public static class ShareProfileImageFunction
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
-        internal static List<CloudBlockBlob> Blobs = new List<CloudBlockBlob>();
+        private static List<CloudBlockBlob> _blobs = new List<CloudBlockBlob>();
 
         private const int SquareProfileImageDimension = 245;
 
@@ -108,7 +110,7 @@ namespace Cloudents.FunctionsV2
 
             await using var profileImageStream = await clientResponse.Content.ReadAsStreamAsync();
             var bgBlobName = $"share-placeholder/bg-profile-{(isRtl ? "rtl" : "ltr")}.jpg";
-            var bgBlob = Blobs.Single(s => s.Name == bgBlobName);
+            var bgBlob = _blobs.Single(s => s.Name == bgBlobName);
 
 
 
@@ -218,7 +220,7 @@ namespace Cloudents.FunctionsV2
 
         private static async Task<Image<Rgba32>> BuildDescriptionImageAsync(string? description)
         {
-            await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
+            await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
             const int descriptionSize = 225;
             const int marginBetweenQuote = 28;
@@ -275,9 +277,9 @@ namespace Cloudents.FunctionsV2
 
         private static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
-            if (Blobs.Count == 0)
+            if (_blobs.Count == 0)
             {
-                Blobs = directoryBlobs.ToList();
+                _blobs = directoryBlobs.ToList();
             }
         }
 
@@ -289,7 +291,7 @@ namespace Cloudents.FunctionsV2
                 return v;
             }
 
-            var blob = Blobs.Single(s => s.Name == star.BlobPath);
+            var blob = _blobs.Single(s => s.Name == star.BlobPath);
             var bytes = new byte[blob.Properties.Length];
             await blob.DownloadToByteArrayAsync(bytes, 0);
 
