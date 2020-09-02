@@ -134,10 +134,10 @@ export default {
          // border: 1px solid #fff;
          transition-property: all;
          transition-duration: 0.5s;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         flex-direction: column;
+         // display: flex;
+         // align-items: center;
+         // justify-content: center;
+         // flex-direction: column;
       }
    }
    // .classRoomCards{
