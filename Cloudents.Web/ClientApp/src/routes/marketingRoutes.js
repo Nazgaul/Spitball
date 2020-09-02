@@ -12,7 +12,8 @@ export const marketingRoutes = [
             ...staticComponents(['banner', 'header', 'sideMenu']),
         },
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            showMobileFooter: true,
         },
         beforeEnter: (to, from, next) => {
             if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
