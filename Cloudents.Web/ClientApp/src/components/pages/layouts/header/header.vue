@@ -65,9 +65,9 @@
                                 </div>
                             </template> -->
                             <template>
-                                <!-- <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
+                                <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
                                     <hamburgerIcon class="hamburgerIcon"/>
-                                </v-btn> -->
+                                </v-btn>
                             </template>
                         </div>
                     </template>
