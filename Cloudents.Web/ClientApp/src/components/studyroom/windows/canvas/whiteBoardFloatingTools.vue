@@ -263,6 +263,7 @@ export default {
    right: 0;
    margin: 0 auto;
    max-width: fit-content !important;
+   max-width: -moz-fit-content;
    top: 12px;
    padding: 0 6px;
    .nav-action{
