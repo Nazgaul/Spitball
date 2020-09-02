@@ -84,6 +84,7 @@
   "coupon_btn_copy": "Copy",
   "coupon_btn_exit": "Exit",
   "coupon_btn_submit": "Submit",
+  "coupon_course_appliy": "A coupon has already been applied to this course",
   "coupon_create_succes": "You have successfully created a coupon code",
   "coupon_create_title": "Create a coupon",
   "coupon_label_code": "Coupon code",

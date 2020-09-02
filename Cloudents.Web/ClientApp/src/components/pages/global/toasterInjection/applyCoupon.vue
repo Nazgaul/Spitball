@@ -87,7 +87,13 @@ export default {
             .then(() => {
                 EventBus.$emit('applyCouponDone');
                 self.closeCouponDialog();
-            }).finally(() => {
+            })
+            .catch(err => {
+                if (err.response.status === 409) {
+                    this.$store.commit('setCouponError', this.$t('coupon_course_appliy'));
+                }
+            })
+            .finally(() => {
                 self.coupon = ''
                 self.disableApplyBtn = false;
                 if(!self.getCouponError) {
