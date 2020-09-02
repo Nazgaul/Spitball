@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -27,7 +28,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string? Paragraph2 { get; protected set; }
 
-        public virtual string? Title { get;protected set; }
+        public virtual string? Title { get; protected set; }
 
         public virtual string? Paragraph3 { get; protected set; }
 
@@ -40,8 +41,16 @@ namespace Cloudents.Core.Entities
         private readonly ICollection<UserCoupon> _userCoupons =new List<UserCoupon>();
        
         public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
+        //private readonly ISet<UserCoupon> _userCoupons = new HashSet<UserCoupon>();
 
-        protected internal virtual ICollection<Coupon> Coupons { get; set; }
+        //public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
+
+        
+        private readonly ISet<Coupon> _coupons = new HashSet<Coupon>();
+
+        public virtual ICollection<Coupon> Coupons => _coupons;
+
+
         protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
 
 
@@ -66,14 +75,14 @@ namespace Cloudents.Core.Entities
 
         public virtual void UpdateSettings(string? shortParagraph, string? title, string? paragraph)
         {
-        
+
             Paragraph2 = shortParagraph;
             Paragraph3 = paragraph;
             Title = title;
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
-     
+
 
         public virtual void Approve()
         {
@@ -108,14 +117,14 @@ namespace Cloudents.Core.Entities
         protected internal virtual ICollection<StudyRoom> StudyRooms { get; set; }
 
         protected internal virtual ICollection<Lead> Leads { get; set; }
-        public virtual string? SellerKey { get;protected set; }
+        public virtual string? SellerKey { get; protected set; }
 
         public virtual void SetSellerKey(string key)
         {
             SellerKey = key ?? throw new ArgumentNullException(nameof(key));
-            foreach (var course in Courses.Where(w=>w.State == ItemState.Pending))
+            foreach (var course in Courses.Where(w => w.State == ItemState.Pending))
             {
-                
+
                 course.State = ItemState.Ok;
             }
         }
@@ -170,13 +179,24 @@ namespace Cloudents.Core.Entities
                 AdminUsers.Add(value);
             }
         }
-      
+
 
         public virtual Course AddCourse(Course course)
         {
-            Courses.Insert(0,course);
+            Courses.Insert(0, course);
             AddEvent(new NewCourseEvent(course));
             return course;
+        }
+
+        public virtual void AddCoupon(string code, CouponType couponType, decimal value, DateTime? expiration)
+        {
+            var coupon = new Coupon(code, couponType, this, value, expiration);
+
+            var result = _coupons.Add(coupon);
+            if (!result)
+            {
+                throw new DuplicateRowException();
+            }
         }
 
 
@@ -190,6 +210,6 @@ namespace Cloudents.Core.Entities
             }
         }
 
-      
+
     }
 }

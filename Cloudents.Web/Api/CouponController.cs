@@ -37,6 +37,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost]
+        [Authorize(Policy = "Tutor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -50,12 +51,9 @@ namespace Cloudents.Web.Api
             }
             catch (DuplicateRowException)
             {
-                return Ok();
+                return Conflict();
             }
-            catch (SqlConstraintViolationException)
-            {
-                return BadRequest("User need to be a tutor");
-            }
+            
             catch (ArgumentOutOfRangeException)
             {
                 return BadRequest("Invalid Value");
