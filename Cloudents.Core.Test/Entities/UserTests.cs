@@ -89,34 +89,12 @@ namespace Cloudents.Core.Test.Entities
             var tutorMoq = new Mock<Tutor>();
             tutorMoq.Setup(s => s.Id).Returns(50);
             user.ApplyCoupon(couponMoq1.Object, tutorMoq.Object);
-            //user.UseCoupon(tutorMoq.Object);
 
-            user.ApplyCoupon(couponMoq2.Object, tutorMoq.Object);
+            Assert.Throws<DuplicateCouponException>(() => user.ApplyCoupon(couponMoq2.Object, tutorMoq.Object));
 
-
-            // user.UserCoupon.Should().HaveCount(1);
-            //user.UserCoupon.Single().Coupon.Code.Should().BeEquivalentTo(couponCode);
         }
 
-        //[Fact]
-        //public void ApplyCoupon_HaveOneAlready_OverrideExisting()
-        //{
-        //    var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
-        //        null);
-        //    var coupon2 = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
-        //        null);
-        //    var userMoq = new Mock<User>();
-        //    userMoq.Setup(s => s.Id).Returns(1);
-        //    var tutorMoq = new Mock<Tutor>();
-        //    tutorMoq.Setup(s => s.Id).Returns(2);
-
-        //    coupon.ApplyCoupon(userMoq.Object, tutorMoq.Object);
-        //    coupon2.ApplyCoupon(userMoq.Object, tutorMoq.Object);
-
-
-
-        //    //Assert.Throws<ArgumentException>(() => coupon.ApplyCoupon(userMoq.Object, tutorMoq.Object));
-        //}
+       
 
 
     }
