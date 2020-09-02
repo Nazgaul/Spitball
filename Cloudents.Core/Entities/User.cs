@@ -206,20 +206,6 @@ namespace Cloudents.Core.Entities
             Payment = payment;
         }
 
-
-
-        //public virtual void ChangeOnlineStatus(bool isOnline)
-        //{
-        //    if (IsSuspended())
-        //    {
-        //        throw new UserLockoutException();
-        //    }
-        //    Online = isOnline;
-        //    LastOnline = DateTime.UtcNow;
-        //}
-
-
-
         public virtual void ChangeName(string firstName, string? lastName)
         {
             FirstName = firstName;
@@ -370,23 +356,23 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual void CashOutMoney(/*decimal price*/)
-        {
-            var t = CashOutTransaction.CashOut();
-            MakeTransaction(t);
-        }
+        //public virtual void CashOutMoney(/*decimal price*/)
+        //{
+        //    var t = CashOutTransaction.CashOut();
+        //    MakeTransaction(t);
+        //}
 
         public virtual void ReferUser(User user)
         {
-            const int maxRefer = 5;
+            //const int maxRefer = 5;
             if (Id == user.Id)
             {
                 return;
                 
             }
             var referCount = Transactions.TransactionsReadOnly.AsQueryable().Count(w => w is ReferUserTransaction);
-            var price = referCount > maxRefer || SbCountry == Entities.Country.India ? 0 : 10;
-            MakeTransaction(new ReferUserTransaction(user, price));
+            //var price = referCount > maxRefer || SbCountry == Entities.Country.India ? 0 : 10;
+            MakeTransaction(new ReferUserTransaction(user, 0));
         }
 
       

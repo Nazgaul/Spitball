@@ -2,10 +2,10 @@ import store from '../../store/index'
 
 export const signlaREvents = {
     user:{
-        update:function(arrEventObj){
-            arrEventObj.forEach((user)=>{
-                store.dispatch('signalR_SetBalance', user.balance);
-            });
+        update:function(/*arrEventObj*/){
+            // arrEventObj.forEach((user)=>{
+            //     store.dispatch('signalR_SetBalance', user.balance);
+            // });
         },
         action: function(arrEventObj){
             // noinspection JSUnusedGlobalSymbols
