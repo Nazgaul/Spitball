@@ -16,7 +16,7 @@ namespace Cloudents.Query.Users
             UserId = userId;
         }
 
-        private long UserId { get;}
+        private long UserId { get; }
 
         internal sealed class UserCouponsQueryHandler : IQueryHandler<UserCouponsQuery, IEnumerable<CouponDto>>
         {
@@ -33,6 +33,7 @@ namespace Cloudents.Query.Users
                 return await _session.Query<Coupon>()
                     .WithOptions(w => w.SetComment(nameof(UserCouponsQuery)))
                     .Where(w => w.Tutor!.Id == query.UserId)
+                    .OrderByDescending(o => o.CreateTime)
                     .Select(s => new CouponDto()
                     {
                         Code = s.Code,
