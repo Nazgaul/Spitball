@@ -12,8 +12,8 @@ namespace Cloudents.Core.Test.Entities
 
         public CouponTests()
         {
-            var mock = new Mock<Tutor>();
-            _tutor = mock.Object;
+            var mock = new Mock<User>();
+            _tutor = new Tutor(mock.Object);
         }
         [Theory]
         [InlineData("a")]
@@ -54,9 +54,12 @@ namespace Cloudents.Core.Test.Entities
         public void CanApplyCoupon_ExpiredCoupon_RaiseException()
         {
 
+           // _tutor.AddCoupon("xx",CouponType.Flat,5,DateTime.UtcNow.AddDays(-1));
             var couponMock = new Mock<Coupon>();
 
             couponMock.SetupProperty(s => s.Expiration, DateTime.UtcNow.AddDays(-1));
+            couponMock.Setup(s => s.CanApplyCoupon()).CallBase();
+            
             //var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null,  
             //    null);
 
