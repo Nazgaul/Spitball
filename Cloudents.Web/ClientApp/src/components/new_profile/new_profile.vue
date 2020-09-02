@@ -6,7 +6,7 @@
             <profileCover />
             <profileCoverActions
               @setCalendarActive="val => calendarActive = val"
-              @handleFollowMyProfile="showSnack = true"
+              @handleFollowMyProfile="handleSnackBarError"
               v-if="isCoverImageLoaded"
             />
         </div>
@@ -26,16 +26,18 @@
         </div>
 
       </div>
-      <profileFloatingBtn/>
+      <profileFloatingBtn  
+        @handleFollowMyProfile="handleSnackBarError"
+      />
       <profileFooter />
           
       <v-snackbar
-        v-model="showSnack"
+        v-model="snack.state"
         :timeout="6000"
         color="error"
         top
       >
-        <div class="white--text text-center">{{$t('profile_follow_myself')}}</div>
+        <div class="white--text text-center">{{snack.text}}</div>
       </v-snackbar>
     </div>
 </template>
@@ -77,12 +79,19 @@ export default {
     },
     data() {
         return {
-            showSnack: false,
+            snack: {
+              state: false,
+              text: ''
+            },
             calendarActive: false,
             componentRenderKey: 0
         };
     },
     methods: {
+        handleSnackBarError(text) {
+          this.snack.state = true
+          this.snack.text = text
+        },
         fetchData() {
             let self = this
             this.$store.dispatch('syncProfile', this.id)

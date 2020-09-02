@@ -49,9 +49,9 @@
                 let file = self.$refs.profileImage.files[0];
                 formData.append("file", file);
                 self.uploadAccountImage(formData).then((res) => {
-                    if(self.fromProfile) {
+                    // if(self.fromProfile) {
                         self.$emit('setLiveImage', file)
-                    }
+                    // }
                     if(!res) {
                         this.updateToasterParams({
                             toasterText: this.$t("chat_file_error"),

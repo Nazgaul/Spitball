@@ -21,7 +21,10 @@ export default {
    },
    methods: {
       sendMessage() {
-         if(this.$store.getters.getIsMyProfile) return;
+         if(this.$store.getters.getIsMyProfile) {
+            this.$emit('handleFollowMyProfile', this.$t('profile_message_myself'))
+            return
+         }
          let currentProfile = this.$store.getters.getProfile;
          if(!this.$store.getters.getUserLoggedInStatus) {
             this.$ga.event('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
