@@ -12,11 +12,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.CouponType).Not.Nullable();
             References(x => x.Tutor).Nullable();
             Map(x => x.Value).Not.Nullable();
-            //Map(x => x.AmountOfUsers).Nullable();
-            //Map(x => x.AmountOfUsePerUser).Not.Nullable();
             Map(x => x.Expiration).Nullable();
             Map(x => x.Description).Nullable().Length(8000);
-            //Map(x => x.Owner).Nullable();
             Map(x => x.CreateTime).Insert().Not.Update();
 
             HasMany(x => x.UserCoupon)

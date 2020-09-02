@@ -229,6 +229,7 @@ export default {
             .liveImage {
                 border: solid 1px #c6cdda;
                 border-radius: 4px;
+                object-fit: cover;
             }
             .recommendedImage {
                 font-size: 16px;

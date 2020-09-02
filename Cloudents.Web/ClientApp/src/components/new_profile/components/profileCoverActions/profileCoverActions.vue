@@ -71,7 +71,10 @@ export default {
     },
     methods: {
         openCalendar() {
-            if(this.isMyProfile) return
+            if(this.isMyProfile) {
+                this.$emit('handleFollowMyProfile', this.$t('profile_calendar_myself'))
+                return
+            }
             if(this.isLogged) {
                 this.$emit('setCalendarActive', true)
             } else {
@@ -83,7 +86,10 @@ export default {
             }
         },
         toggleFollowing(){
-            if(this.isMyProfile) return;
+            if(this.isMyProfile) {
+                this.$emit('handleFollowMyProfile', this.$t('profile_follow_myself'))
+                return
+            }
             if(this.isLogged){
                 if(this.isLoading) return;
                 let self = this;

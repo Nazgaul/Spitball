@@ -97,7 +97,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("אלגברה ל")]
         public async Task CourseSearchQuery_Ok(string term)
         {
-            var query = new CourseSearchQuery(638, term);
+            var query = new CourseSearchQuery(term);
             var x = await fixture.QueryBus.QueryAsync(query, default);
         }
 

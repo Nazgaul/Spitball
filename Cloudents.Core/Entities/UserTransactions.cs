@@ -1,8 +1,10 @@
-﻿using Cloudents.Core.Exceptions;
+﻿using System;
+using Cloudents.Core.Exceptions;
 using System.Collections.Generic;
 
 namespace Cloudents.Core.Entities
 {
+    [Obsolete]
     public sealed class UserTransactions
     {
         public UserTransactions()
@@ -26,10 +28,10 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public void UpdateBalance(decimal balance)
-        {
-            Balance = balance;
-        }
+        //public void UpdateBalance(decimal balance)
+        //{
+        //    Balance = balance;
+        //}
 
     }
 }

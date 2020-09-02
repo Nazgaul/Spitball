@@ -51,8 +51,8 @@ export default {
             isLoading:false,
             validRequestTutorForm: false,
             description:'',
-            tutorCourse: '',
-            suggestsCourses: [],
+            tutorCourse: '', //TODO no need
+            suggestsCourses: [], //TODO no need
             rules: {
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
                 notSpaces: (value) => validationRules.notSpaces(value),
@@ -86,6 +86,7 @@ export default {
             this.updateRequestDialog(false);
             this.resetRequestTutor()
         },
+        //TODO - no need
         searchCourses: debounce(function(ev){
             this.isFromMounted = false;
             let term = ev.target.value.trim()

@@ -21,7 +21,7 @@
                                 sel="avatar_image"
                                 class="pUb_dS_img"
                                 :userName="$store.getters.getAccountName"
-                                :userImageUrl="$store.getters.getAccountImage"
+                                :userImageUrl="$store.getters.getAccountPreviewImage.url || $store.getters.getAccountImage"
                                 :width="isMobile ? 130: 160"
                                 :height="isMobile ? 161 : 200"
                                 :userId="$store.getters.getAccountId"
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="text-center mt-5">
-                    <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="$store.commit('setComponent', '')">
+                    <v-btn :disabled="btnLoading" width="120" depressed color="#4452fc" class="shallow-blue ms-0" rounded outlined primary @click="closeDialog">
                         <span v-t="'cancel'"></span>
                     </v-btn>
                     <v-btn class="blue-btn white--text ms-4" width="120" depressed color="#4452fc" rounded @click="saveChanges" :loading="btnLoading">
@@ -142,6 +142,10 @@ export default {
         },
     },
     methods: {
+        closeDialog() {
+            this.$store.commit('resetAccount')
+            this.$store.commit('setComponent', '')
+        },
         becomeTutor() {
             this.$store.dispatch('becomeTutor').then(() => {
                 window.location = '/'
@@ -152,7 +156,8 @@ export default {
                 this.btnLoading = true;
                 let studentInfo = {
                     firstName: this.editedFirstName || this.firstName,
-                    lastName: this.editedLastName || this.lastName
+                    lastName: this.editedLastName || this.lastName,
+                    avatar: this.$store.getters.getAccountPreviewImage.fileName
                 };
                 //TODO: Account new store clean @idan
                 this.$store.dispatch('saveUserInfo', studentInfo).then(() => {

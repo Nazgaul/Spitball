@@ -12,7 +12,7 @@ namespace Cloudents.Core.DTOs
         public string Email { get; set; }
        // public string? PhoneNumber { get; set; }
 
-        public bool HasCreditCard { get; set; }
+        //public bool HasCreditCard { get; set; }
     }
 
 

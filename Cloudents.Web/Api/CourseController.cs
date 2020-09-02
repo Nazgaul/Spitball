@@ -186,10 +186,10 @@ namespace Cloudents.Web.Api
            [FromQuery] CourseSearchRequest request,
             CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User, out var userId);
+          //  _userManager.TryGetLongUserId(User, out var userId);
 
 
-            var query = new CourseSearchQuery(userId, request.Term);
+            var query = new CourseSearchQuery(request.Term);
             var temp = await _queryBus.QueryAsync(query, token);
 
 
