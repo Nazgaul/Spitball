@@ -1,35 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Admin2.Models
 {
     public class CouponRequest
     {
-
-       
-
-        /// <summary>
-        /// meta description
-        /// </summary>
-        public string? Description { get; set; }
-
         /// <summary>
         /// optional - When the coupon expire
         /// </summary>
         public DateTime? Expiration { get; set; }
-
-
-        /// <summary>
-        /// optinal - The amount of coupons
-        /// </summary>
-        public int? Amount { get; set; }
-
-
-        /// <summary>
-        /// optinal - The amount of coupons
-        /// </summary>
-        public int? UsePerUser { get; set; }
 
         /// <summary>
         /// The value of the coupon
@@ -37,10 +18,7 @@ namespace Cloudents.Admin2.Models
         [Required]
         public decimal Value { get; set; }
 
-        /// <summary>
-        /// optional - if the coupon belong to specific tutor if so the tutor id
-        /// </summary>
-        public long? TutorId { get; set; }
+      
         /// <summary>
         /// Code of the coupon - e.g Friends10
         /// </summary>

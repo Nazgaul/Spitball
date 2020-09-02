@@ -152,13 +152,15 @@ export default {
         }
         let self = this;
         this.createCoupon(params).then(()=>{
-          self.loadingBtn = false;
           self.showSuccess = true;
           self.couponErr = '';
-        }).catch(()=>{
-          self.couponErr = this.$t('coupon_already_exists');
+        }).catch((err)=>{
+          if (err.response.status === 409)  {
+            self.couponErr = this.$t('coupon_already_exists');
+          }
+        }).finally(() => {
           self.loadingBtn = false;
-        })
+        });
       }
     },
     formatDate (date) {

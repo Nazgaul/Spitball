@@ -1,35 +1,47 @@
 ﻿using System;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Moq;
 using Xunit;
 
 namespace Cloudents.Core.Test.Entities
 {
     public class CouponTests
     {
+        private readonly Tutor _tutor;
+
+        public CouponTests()
+        {
+            var mock = new Mock<Tutor>();
+            _tutor = mock.Object;
+        }
         [Theory]
         [InlineData("a")]
         [InlineData("aaaaaaaaaaaaaaaaa")]
         public void InitCoupon_CodeNotInRange_RaiseException(string code)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon(code, CouponType.Flat, null, 50, null,  null));
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                _tutor.AddCoupon(code, CouponType.Flat, 50, null));
+
 
         }
         [Fact]
         public void InitCoupon_NoCode_RaiseException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Coupon(null!, CouponType.Flat, null, 50, null,  null));
+            Assert.Throws<ArgumentNullException>(() => _tutor.AddCoupon(null!, CouponType.Flat, 50, null));
         }
 
         [Fact]
         public void InitCoupon_CouponTypePercentageOver100_RaiseException()
         {
-            Assert.Throws<ArgumentException>(() => new Coupon("SomeCode", CouponType.Percentage, null, 150, null,  null));
+            Assert.Throws<ArgumentException>(() => _tutor.AddCoupon("SomeCode", CouponType.Percentage, 150, null));
         }
 
         [Fact]
         public void InitCoupon_CouponTypeValueMinus_RaiseException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon("SomeCode", CouponType.Percentage, null, -5, null,  null));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _tutor.AddCoupon("SomeCode", CouponType.Percentage, -5, null));
         }
 
         //[Fact]
@@ -41,22 +53,26 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void CanApplyCoupon_ExpiredCoupon_RaiseException()
         {
-            var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null,  
-                null);
+
+            var couponMock = new Mock<Coupon>();
+
+            couponMock.SetupProperty(s => s.Expiration, DateTime.UtcNow.AddDays(-1));
+            //var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null,  
+            //    null);
 
             // ReSharper disable once PossibleNullReferenceException
-            typeof(Coupon).GetProperty("Expiration").SetValue(coupon, DateTime.UtcNow.AddDays(-1));
+            //typeof(Coupon).GetProperty("Expiration").SetValue(coupon, DateTime.UtcNow.AddDays(-1));
 
-            Assert.Throws<ArgumentException>(() => coupon.CanApplyCoupon());
+            Assert.Throws<ArgumentException>(() => couponMock.Object.CanApplyCoupon());
         }
 
         [Fact]
         public void InitCoupon_Valid_Ok()
         {
-            var _ = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 
-                null);
+            _tutor.AddCoupon("SomeCode", CouponType.Percentage, 5, null);
 
-            
+
+
         }
 
         //[Fact]
@@ -79,13 +95,13 @@ namespace Cloudents.Core.Test.Entities
         //    // ReSharper disable once PossibleNullReferenceException
         //    typeof(Coupon).GetProperty("UserCoupon", BindingFlags.NonPublic | BindingFlags.Instance)
         //        .SetValue(coupon, usedCoupon);
-            
-            
+
+
 
         //    Assert.Throws<OverflowException>(() => coupon.CanApplyCoupon());
 
         //}
 
-        
+
     }
 }

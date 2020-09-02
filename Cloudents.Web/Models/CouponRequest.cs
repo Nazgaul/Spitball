@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Models
 {

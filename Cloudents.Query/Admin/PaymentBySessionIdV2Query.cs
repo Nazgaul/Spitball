@@ -6,6 +6,7 @@ using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Query.Admin
 {

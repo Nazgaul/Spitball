@@ -1,23 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Entities
 {
-    public enum CouponType
-    {
-        Flat,
-        Percentage
-
-    }
-
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class Coupon
+    public class Coupon :Entity<Guid>
     {
         public const int MinimumLength = 5, MaxLength = 12;
-        public Coupon(string code, CouponType couponType, Tutor? tutor, decimal value,
-            DateTime? expiration, string? description)
+
+        public Coupon(string code, CouponType couponType, decimal value,
+            DateTime? expiration) : this(code, couponType, null, value, expiration)
+        {
+        //    if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
+        //    if (couponType == CouponType.Percentage && value > 100)
+        //    {
+        //        throw new ArgumentException("value cannot be more than 100");
+        //    }
+
+        //    if (code is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(code));
+        //    }
+        //    if (!code.Length.IsBetween(MinimumLength, MaxLength))
+        //    {
+        //        throw new ArgumentOutOfRangeException(nameof(code));
+        //    }
+
+        //    Code = code;
+
+        //    CouponType = couponType;
+        //    Value = value;
+        //    Expiration = expiration;
+        //    CreateTime = DateTime.UtcNow;
+        //    UserCoupon = new HashSet<UserCoupon>();
+
+        }
+
+        internal Coupon(string code, CouponType couponType, Tutor? tutor, decimal value,
+            DateTime? expiration)
         {
             if (value <= 0) throw new ArgumentOutOfRangeException(nameof(value));
             if (couponType == CouponType.Percentage && value > 100)
@@ -40,7 +63,6 @@ namespace Cloudents.Core.Entities
             Tutor = tutor;
             Value = value;
             Expiration = expiration;
-            Description = description;
             CreateTime = DateTime.UtcNow;
             UserCoupon = new HashSet<UserCoupon>();
 
@@ -52,8 +74,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual Guid Id { get; protected set; }
-
+     
         public virtual string Code { get; protected set; }
 
         public virtual CouponType CouponType { get; protected set; }
@@ -85,17 +106,7 @@ namespace Cloudents.Core.Entities
             return true;
         }
 
-        //public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)
-        //{
-        //    var result = type switch
-        //    {
-        //        CouponType.Flat => (price - couponValue),
-        //        CouponType.Percentage => (price * ((100 - couponValue) / 100)),
-        //        _ => throw new ArgumentOutOfRangeException()
-        //    };
-
-        //    return Math.Max(result, 0);
-        //}
+       
 
         public static double CalculatePrice(CouponType type, double price, decimal couponValue)
         {
@@ -108,6 +119,30 @@ namespace Cloudents.Core.Entities
             };
 
             return Math.Max(result, 0);
+        }
+
+
+        protected bool Equals(Coupon other)
+        {
+            return Equals(Tutor.Id, other.Tutor.Id)
+                   && Equals(Code, other.Code);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Coupon)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return HashCode.Combine(Tutor.Id.GetHashCode(), Code.GetHashCode(StringComparison.OrdinalIgnoreCase),
+                    127);
+            }
         }
 
     }
