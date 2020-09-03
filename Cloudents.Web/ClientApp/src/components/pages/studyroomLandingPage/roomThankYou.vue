@@ -49,7 +49,7 @@ export default {
             return this.$store.getters.getCourseDetails?.name;
       },
       courseImage(){
-         return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, 402, 268)
+         return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, {width:402, height:268})
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;

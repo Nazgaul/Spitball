@@ -37,7 +37,7 @@ export default {
          // let host = location.origin;
          // let relativePath = this.message.src;
          // let fullPath = `${host}${relativePath}`;
-         return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
+         return this.$proccessImageUrl(this.message.src, {width:190, height:140})
       },
       messageDate(){
          let momentDate = this.$moment(this.message.dateTime);

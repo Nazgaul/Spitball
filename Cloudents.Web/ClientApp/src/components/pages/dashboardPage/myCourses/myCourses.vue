@@ -43,16 +43,8 @@
                   <td class="text-start">
                      <div class="tablePreview d-flex align-center">
                         <div class="tableIndex me-2">{{(page - 1) * itemsPerPage + index + 1}}.</div>
-                        <UserAvatarNew
-                           :userName="'image'"
-                           :userImageUrl="item.image"
-                           :width="127"
-                           :height="80"
-                           :fontSize="0"
-                           :tile="true"
-                        />
-                        <!-- <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
-                        <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, 127, 80)" class="tablePreview_img" width="127" height="80" /> -->
+                        <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
+                        <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, {width:127, height:80})" class="tablePreview_img" width="127" height="80" />
                      </div>
                   </td>
                   <td class="text-start">

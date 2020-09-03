@@ -138,7 +138,7 @@ export default {
          if(img && img.includes('blob')){
             return img;
          }else{
-            return this.$proccessImageUrl(img, 528, 357)
+            return this.$proccessImageUrl(img, {width:528, height:357})
          }
       },
       courseSessions(){

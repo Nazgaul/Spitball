@@ -56,7 +56,11 @@ export default {
       type: Boolean,
       required: false
     },
-    newCoverImage: {}
+    newCoverImage: {},
+    isEditDrawer:{
+      type:Boolean,
+      required:false
+    }
   },
   data() {
     return {
@@ -90,11 +94,9 @@ export default {
         }
         return this.$proccessImageUrl(
           coverImage,
-          width,
-          size.height,
-          undefined,//mode
-          undefined,//background
           {
+            width,
+            height:size.height,
             type:'cover',
             anchorPosition:'center',
             c:'v2'

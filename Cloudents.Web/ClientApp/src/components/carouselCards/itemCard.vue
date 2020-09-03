@@ -33,13 +33,13 @@ export default {
             let isMobile = this.$vuetify.breakpoint.xsOnly;
             return this.$proccessImageUrl(
                 this.item.preview,
-                isMobile? 344 : 248,
-                isMobile? 196 : 150,
-                'crop',
-                'ffffff',
                 {
+                    width: isMobile? 344 : 248,
+                    height:isMobile? 196 : 150,
+                    mode: 'crop',
+                    background: 'ffffff',
                     c:'v2'
-                }
+                },
             );
         }
     },

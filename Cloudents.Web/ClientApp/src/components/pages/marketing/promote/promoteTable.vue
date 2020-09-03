@@ -35,7 +35,7 @@
                             <v-radio :value="`radio-${props.index}`" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
                         </v-radio-group>
                       <div class="d-flex align-center">
-                        <img :src="$proccessImageUrl(props.item.preview, 120, 68)" alt="">
+                        <img :src="$proccessImageUrl(props.item.preview, {width:120, height:68})" alt="">
                       </div>
                       <div class="description ms-2">
                         <div class="intro text-truncate mb-1">
