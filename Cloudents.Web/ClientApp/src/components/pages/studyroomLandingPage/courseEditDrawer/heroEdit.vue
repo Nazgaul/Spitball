@@ -150,6 +150,7 @@ export default {
       }
          .liveImageWrap {
              cursor: pointer;
+             max-width: -moz-fit-content;
              max-width: fit-content;
              text-align: center;
              position: relative;

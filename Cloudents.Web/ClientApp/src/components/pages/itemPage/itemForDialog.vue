@@ -70,6 +70,7 @@ export default {
   }
   .sticky-item {
     position: sticky;
+    height: -moz-fit-content;
     height: fit-content;
     top: 80px;
     &.sticky-item_bannerActive {
