@@ -97,7 +97,7 @@ export default {
           {
             type:'cover',
             anchorPosition:'center',
-            c:'v1'
+            c:'v2'
           }
         );
       }

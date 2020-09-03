@@ -126,7 +126,10 @@ export default {
                         this.dynamicWidthAndHeight.width,
                         this.dynamicWidthAndHeight.height,
                         "pad",
-                        "ffffff"
+                        "ffffff",
+                        {
+                            c:'v2'
+                        }
                     );
                 });
                 return result;
