@@ -176,9 +176,9 @@ namespace Cloudents.Admin2.Api
         [HttpDelete("{id}")]
         public async Task DeleteUserAsync([FromRoute] long id, CancellationToken token)
         {
-            var userId = User.GetIdClaim();
-            var command = new DeleteUserCommand(id, userId);
-            await _commandBus.DispatchAsync(command, token);
+            //var userId = User.GetIdClaim();
+            //var command = new DeleteUserCommand(id, userId);
+            //await _commandBus.DispatchAsync(command, token);
         }
 
 

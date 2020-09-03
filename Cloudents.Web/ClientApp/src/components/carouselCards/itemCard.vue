@@ -31,11 +31,16 @@ export default {
         },
         srcImg(){
             let isMobile = this.$vuetify.breakpoint.xsOnly;
-            if(isMobile){
-                return this.$proccessImageUrl(this.item.preview,344,196,'crop','ffffff')
-            }else{
-                return this.$proccessImageUrl(this.item.preview,248,150,'crop','ffffff')
-            }
+            return this.$proccessImageUrl(
+                this.item.preview,
+                isMobile? 344 : 248,
+                isMobile? 196 : 150,
+                'crop',
+                'ffffff',
+                {
+                    c:'v2'
+                }
+            );
         }
     },
     methods: {

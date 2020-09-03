@@ -66,9 +66,9 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
         {
-            var userId = User.GetIdClaim();
-            var command = new DeleteTutorCommand(id, userId);
-            await _commandBus.DispatchAsync(command, token);
+            //var userId = User.GetIdClaim();
+            //var command = new DeleteTutorCommand(id, userId);
+            //await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 

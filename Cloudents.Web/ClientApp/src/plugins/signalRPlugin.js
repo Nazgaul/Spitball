@@ -28,9 +28,20 @@ export default ({ hubPath }) => {
             });
             
             connection.on("studyRoomToken", (jwtToken,studyRoomId) => {
-              if(store.getters.getRoomIdSession == studyRoomId || store.getters.getNextCourseSession?.id == studyRoomId) {
+              if(store.getters.getRoomIdSession == studyRoomId){
                 store.dispatch('updateJwtToken', jwtToken);
+                return;
               }
+              if(store.getters.getCourseSessionsPreview){
+                store.commit('setSessionOnGoing',studyRoomId)
+                if(store.getters.getNextCourseSession?.id == studyRoomId){
+                  store.dispatch('updateJwtToken', jwtToken);
+                  return
+                }
+              }
+              // if(store.getters.getRoomIdSession == studyRoomId || store.getters.getNextCourseSession?.id == studyRoomId) {
+              //   store.dispatch('updateJwtToken', jwtToken);
+              // }
             });
         
             // signalR Reconnecting
