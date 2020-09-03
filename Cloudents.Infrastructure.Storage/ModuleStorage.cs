@@ -39,7 +39,7 @@ namespace Cloudents.Infrastructure.Storage
                 .Keyed<IBlobProvider>(StorageContainer.Admin);
 
 
-            builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
+            builder.RegisterType<QueueProvider>().AsSelf().AsImplementedInterfaces();
             builder.RegisterType<ServiceBusProvider>().As<IServiceBusProvider>();
         }
     }

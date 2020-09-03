@@ -178,27 +178,22 @@ namespace Cloudents.Infrastructure.Storage
 
         public async Task DeleteDirectoryAsync(string id, CancellationToken token)
         {
-            //TODO we can do it in batch
-            var l = new List<Task>();
+            var list = new List<Uri>();
             await foreach (var page in _cloudContainer
-                .GetBlobsByHierarchyAsync(prefix: $"{_container.RelativePath}/{id}").AsPages().WithCancellation(token))
+                .GetBlobsByHierarchyAsync(prefix: $"{_container.RelativePath}/{id}/",delimiter:"/").AsPages(null,null).WithCancellation(token))
             {
                 foreach (var blobHierarchyItem in page.Values)
                 {
                     if (blobHierarchyItem.IsBlob)
                     {
+                        
                         var blobClient = _cloudContainer.GetBlobClient(blobHierarchyItem.Blob.Name);
-                        var t = blobClient.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, cancellationToken: token);
-                        l.Add(t);
+                        list.Add(blobClient.Uri);
                     }
                 }
             }
-
-            //   var x = _client.GetBlobBatchClient();
-
-
-            await Task.WhenAll(l);
-
+            var batch = this._client.GetBlobBatchClient();
+            await batch.DeleteBlobsAsync(list, cancellationToken: token);
         }
 
         public async IAsyncEnumerable<Uri> FilesInDirectoryAsync(string prefix, string directory, [EnumeratorCancellation] CancellationToken token)
