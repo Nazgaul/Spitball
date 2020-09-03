@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import utilitiesService from "../../../services/utilities/utilitiesService";
 
 let typeingTimer;
 export default {
@@ -89,12 +88,17 @@ export default {
         if(previewCover) {
           return previewCover
         }
-        return utilitiesService.proccessImageURL(
+        return this.$proccessImageUrl(
           coverImage,
           width,
           size.height,
-          'anchorPosition=center',
-          'cover'
+          undefined,//mode
+          undefined,//background
+          {
+            type:'cover',
+            anchorPosition:'center',
+            c:'v1'
+          }
         );
       }
       return "";
