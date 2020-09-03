@@ -39,6 +39,7 @@
                @end="handleEndMove"
                tag="tbody"
             >
+            
                <tr v-for="(item, index) in props.items" :key="item.id" @click.stop="handleRowClick(item)">
                   <td class="text-start">
                      <div class="tablePreview d-flex align-center">
