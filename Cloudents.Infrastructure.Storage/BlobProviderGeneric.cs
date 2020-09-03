@@ -192,8 +192,12 @@ namespace Cloudents.Infrastructure.Storage
                     }
                 }
             }
-            var batch = this._client.GetBlobBatchClient();
-            await batch.DeleteBlobsAsync(list, cancellationToken: token);
+            var batch = _client.GetBlobBatchClient();
+            foreach (var enumerable in list.Page(100))
+            {
+                await batch.DeleteBlobsAsync(enumerable, cancellationToken: token);
+
+            }
         }
 
         public async IAsyncEnumerable<Uri> FilesInDirectoryAsync(string prefix, string directory, [EnumeratorCancellation] CancellationToken token)

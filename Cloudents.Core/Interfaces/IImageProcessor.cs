@@ -4,6 +4,6 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IImageProcessor
     {
-        Stream ConvertToJpg(Stream read,  int quality = 80);
+        Stream ConvertToJpg(Stream read, int quality = 80, int? maxWidth = null);
     }
 }
