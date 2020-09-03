@@ -16,7 +16,6 @@ namespace Cloudents.FunctionsV2
 {
     public static class UpdateFunction
     {
-
         [FunctionName("DeleteTutorsForEidan")]
         public static async Task DeleteTutorCheckForEidan(
             [TimerTrigger("0 0 * * * *")] TimerInfo timer,
@@ -24,7 +23,7 @@ namespace Cloudents.FunctionsV2
             [Inject] IConfigurationKeys configuration,
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             CancellationToken token
-            )
+        )
         {
             if (configuration.Search.IsDevelop)
             {
