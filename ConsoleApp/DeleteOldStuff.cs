@@ -23,7 +23,7 @@ namespace ConsoleApp
 
         public static async Task DoStuffAsync()
         {
-            await DeleteFlaggedDocumentAsync();
+          //  await DeleteFlaggedDocumentAsync();
             // await DeleteFlaggedDocument();
            // await DeleteOldQuestionAsync();
             await DeleteOldDocumentsAsync();
@@ -241,7 +241,7 @@ COMMIT;  ";
 
                 var deletedDocuments = await statelessSession.Query<Document>()
                     .Where(w => w.Status.State == ItemState.Deleted && w.Status.DeletedOn < DateTime.UtcNow
-                    .AddDays(-60))
+                    .AddDays(-45))
                     .Take(30)
                     .Select(s => s.Id)
                     .ToListAsync();

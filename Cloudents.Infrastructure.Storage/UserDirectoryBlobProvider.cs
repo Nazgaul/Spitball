@@ -10,6 +10,8 @@ namespace Cloudents.Infrastructure.Storage
 {
     public class UserDirectoryBlobProvider : BlobProviderContainer, IUserDirectoryBlobProvider
     {
+        private readonly IImageProcessor _imageProcessor;
+
 
         public static readonly Dictionary<string, string> MimeTypeMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -20,15 +22,16 @@ namespace Cloudents.Infrastructure.Storage
             ["image/bmp"] = ".bmp",
         };
 
-        public UserDirectoryBlobProvider(IConfigurationKeys storageProvider)
+        public UserDirectoryBlobProvider(IConfigurationKeys storageProvider, IImageProcessor imageProcessor)
             : base(storageProvider, StorageContainer.User)
         {
+            _imageProcessor = imageProcessor;
         }
 
         public async Task<Uri> UploadImageAsync(long userId, string file,
                          Stream stream, string contentType, CancellationToken token)
         {
-           
+
             if (!MimeTypeMapping.ContainsKey(contentType))
             {
                 throw new ArgumentException($"content type not supported {contentType}");
@@ -39,10 +42,11 @@ namespace Cloudents.Infrastructure.Storage
             {
                 extension = MimeTypeMapping[contentType];
             }
+
             var fileName = $"{userId}/{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{extension}";
             var fileUri = GetBlobUrl(fileName);
-
-            await UploadStreamAsync(fileName, stream,
+            await using var sr = _imageProcessor.ConvertToJpg(stream, maxWidth: 1920);
+            await UploadStreamAsync(fileName, sr,
                                   contentType, TimeSpan.FromDays(365), token: token);
             return fileUri;
         }
@@ -52,7 +56,7 @@ namespace Cloudents.Infrastructure.Storage
     public class StudyRoomBlobProvider : BlobProviderContainer, IStudyRoomBlobProvider
     {
         private readonly IImageProcessor _imageProcessor;
-       
+
 
         public StudyRoomBlobProvider(IConfigurationKeys storageProvider, IImageProcessor imageProcessor)
             : base(storageProvider, StorageContainer.StudyRoom)
