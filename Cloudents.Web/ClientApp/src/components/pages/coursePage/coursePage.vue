@@ -109,10 +109,10 @@ export default {
                 return
             }
             if(this.step === 1 && global.country === 'IL') {
-                // let visible = this.$store.getters.getCourseVisible
-                let price = this.$store.getters.getFollowerPrice
+                let visible = this.$store.getters.getCourseVisible
+                let price = parseInt(this.$store.getters.getFollowerPrice)
                 let canCreateCourse = this.$store.getters.getIsCanCreateCourse;
-                if(!canCreateCourse && price > 0) {
+                if(!canCreateCourse && price > 0 && visible) {
                     this.$store.commit('addComponent', COURSE_PAYMENT_DIALOG)
                     return;
                 }
