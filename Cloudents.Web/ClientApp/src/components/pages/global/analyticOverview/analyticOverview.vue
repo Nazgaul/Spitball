@@ -241,8 +241,12 @@ export default {
           }
         }
         .minus {
+          min-height: 66px;
           font-size: 40px;
           color: @global-purple;
+          @media (max-width: @screen-xs) {
+          min-height: unset;
+          }
         }
       }
       &:last-child .borderSide {
