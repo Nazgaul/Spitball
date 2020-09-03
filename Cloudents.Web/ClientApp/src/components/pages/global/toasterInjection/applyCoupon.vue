@@ -32,9 +32,10 @@
                             </div>
                             <div
                                 class="profile-coupon_error"
-                                v-t="'coupon_apply_error'"
                                 v-if="isCouponError"
-                            ></div>
+                            >
+                            {{couponErrorText}}
+                            </div>
                         </div>
                     </div>
                 </v-flex>
@@ -53,6 +54,7 @@ export default {
     name: 'applyCoupon',
     data() {
         return {
+            couponErrorText: '',
             coupon: '',
             disableApplyBtn: false,
         }
@@ -89,9 +91,12 @@ export default {
                 self.closeCouponDialog();
             })
             .catch(err => {
-                if (err.response.status === 409) {
-                    this.$store.commit('setCouponError', this.$t('coupon_course_appliy'));
+                if (err?.response.status === 409) {
+                    this.couponErrorText = this.$t('coupon_course_appliy')
+                } else {
+                    this.couponErrorText = this.$t('coupon_apply_error')
                 }
+                this.$store.commit('setCouponError', true);
             })
             .finally(() => {
                 self.coupon = ''

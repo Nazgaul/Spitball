@@ -117,6 +117,15 @@ const mutations = {
   },
   initEditedDetails(state){
     state.courseEditedDetails = {};
+  },
+  setSessionOnGoing(state,sessionId){
+    let courseSessions = [...state.courseDetails?.studyRooms];
+    courseSessions.forEach(session => {
+      if(session.id == sessionId){
+        session.onGoing = true;
+      }
+    })
+    Vue.set(state.courseDetails, 'studyRooms', courseSessions);
   }
 }
 const getters = {

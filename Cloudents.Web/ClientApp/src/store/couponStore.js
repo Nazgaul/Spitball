@@ -58,11 +58,11 @@ const actions = {
             
             commit('setCouponError', false);
             commit('setCouponDialog', false);
-
+            return
         }).catch(ex => {
             commit('setCouponError', true);
             console.error(ex);
-            return Promise.reject()
+            return Promise.reject(ex)
         });
     },
     getUserCoupons({commit}) {
