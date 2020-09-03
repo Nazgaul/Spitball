@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,7 +11,14 @@ namespace Cloudents.Infrastructure.Framework
     public class ImageProcessor : IPreviewProvider, IDisposable
     {
 
-
+        public ImageProcessor()
+        {
+            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
+            {
+                var license = new License();
+                license.SetLicense(sr);
+            }
+        }
 
         private Stream _sr;
         public void Init(Func<Stream> stream)
@@ -35,12 +43,26 @@ namespace Cloudents.Infrastructure.Framework
             using (var ms = new MemoryStream())
             using (var image = Image.Load(_sr))
             {
-                image.Resize(1024, 768);
+                if (image.Width > 1920)
+                {
+                    int originalWidth = image.Width;
+                    int originalHeight = image.Height;
+
+                    // To preserve the aspect ratio
+                    float ratioX = (float)1920 / (float)originalWidth;
+
+                    // New width and height based on aspect ratio
+                    int newWidth = (int)(originalWidth * ratioX);
+                    int newHeight = (int)(originalHeight * ratioX);
+                    image.Resize(newWidth, newHeight);
+                }
+
                 image.Save(ms, new Aspose.Imaging.ImageOptions.JpegOptions()
                 {
-                    Quality = 90
+                    Quality = 80
                 });
-                await pagePreviewCallback(_sr, "0.jpg");
+                
+                await pagePreviewCallback(ms, "0.jpg");
             }
         }
 
