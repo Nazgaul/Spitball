@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ImageProcessor : IPreviewProvider, IDisposable
+    public sealed class ImageProcessor : IPreviewProvider, IDisposable
     {
 
         public ImageProcessor()
@@ -40,30 +40,28 @@ namespace Cloudents.Infrastructure.Framework
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
-            using (var ms = new MemoryStream())
-            using (var image = Image.Load(_sr))
+            using var image = Image.Load(_sr);
+            if (image.Width > 1920)
             {
-                if (image.Width > 1920)
-                {
-                    int originalWidth = image.Width;
-                    int originalHeight = image.Height;
+                using var ms = new MemoryStream();
+                int originalWidth = image.Width;
+                int originalHeight = image.Height;
 
-                    // To preserve the aspect ratio
-                    float ratioX = (float)1920 / (float)originalWidth;
+                // To preserve the aspect ratio
+                float ratioX = (float)1920 / (float)originalWidth;
 
-                    // New width and height based on aspect ratio
-                    int newWidth = (int)(originalWidth * ratioX);
-                    int newHeight = (int)(originalHeight * ratioX);
-                    image.Resize(newWidth, newHeight);
-                }
-
+                // New width and height based on aspect ratio
+                int newWidth = (int)(originalWidth * ratioX);
+                int newHeight = (int)(originalHeight * ratioX);
+                image.Resize(newWidth, newHeight);
                 image.Save(ms, new Aspose.Imaging.ImageOptions.JpegOptions()
                 {
                     Quality = 80
                 });
-                
                 await pagePreviewCallback(ms, "0.jpg");
+
             }
+            await pagePreviewCallback(_sr, "0.jpg");
         }
 
         public void Dispose()
