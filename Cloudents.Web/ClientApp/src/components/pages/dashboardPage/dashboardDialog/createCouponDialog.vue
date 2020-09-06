@@ -16,7 +16,7 @@
               </v-flex>
               <v-flex sm3 v-if="!$vuetify.breakpoint.xsOnly">
                 <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
-                  :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                  :placeholder="placeHoldersEmpty" autocomplete="off" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
                   dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
               </v-flex>
 
