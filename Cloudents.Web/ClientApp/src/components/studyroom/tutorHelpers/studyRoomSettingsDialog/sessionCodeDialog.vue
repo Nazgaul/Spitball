@@ -9,6 +9,7 @@
             <v-layout justify-space-between wrap class="inputs-coupon">
               <v-flex xs12 pb-1 pb-sm-0>
                 <v-text-field 
+                :error-messages="codeErr"
                 v-model="sessionCodeValue"
                 autofocus 
                 :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
@@ -35,6 +36,7 @@
 
 <script>
 import { validationRules } from '../../../../services/utilities/formValidationRules';
+import * as routeName from '../../../../routes/routeNames.js';
 
 export default {
   data() {
@@ -43,11 +45,12 @@ export default {
       seesionCode:false,
       rules: {
         required: (value) => validationRules.required(value),
-        minimumChars: (value) => validationRules.minimumChars(value, 5),
-        maximumChars: (value) => validationRules.maximumChars(value, 12),
+        minimumChars: (value) => validationRules.minimumChars(value, 8),
+        maximumChars: (value) => validationRules.maximumChars(value, 8),
         notSpaces: (value) => validationRules.notSpaces(value),
       },
       loadingBtn:false,
+      codeErr:''
     }
   },
   methods: {
@@ -62,7 +65,21 @@ export default {
           roomId: this.$route.params.id,
           code:this.sessionCodeValue
         }
-        this.$store.dispatch('updateTailorEd',params).finally(()=>{
+        self.codeErr = '';
+        this.$store.dispatch('updateTailorEd',params)
+          .then(()=>{
+            let x = self.$router.resolve({
+              name:routeName.StudyRoom,
+              params:{
+                id:params.roomId
+              }
+            });
+            location.href = x.href
+          })
+          .catch((err=>{
+            self.codeErr = 'text text error';
+          }))
+          .finally(()=>{
           self.loadingBtn = false;
         })
       }
