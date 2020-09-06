@@ -366,15 +366,18 @@ namespace Cloudents.Web
                 app.UseDeveloperExceptionPage();
 
             }
-            else
+
+            if (!env.IsDevelopment() && !env.IsStaging())
             {
                 app.UseHsts();
+
             }
+           
 
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
                 .Add(new RemoveTrailingSlash());
-            if (!env.IsDevelopment())
+            if (!env.IsDevelopment() && !env.IsStaging())
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
             }
@@ -389,7 +392,7 @@ namespace Cloudents.Web
             {
                 OnPrepareResponse = ctx =>
                 {
-                    if (!env.IsDevelopment())
+                    if (!env.IsDevelopment()  && !env.IsStaging())
                     {
                         ctx.Context.Response.Headers.Add("Cache-Control", $"public,max-age={TimeConst.Year}");
                         ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
@@ -403,7 +406,11 @@ namespace Cloudents.Web
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.RoutePrefix = "swagger";
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
             }
 
             app.UseRouting();

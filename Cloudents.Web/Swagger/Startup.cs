@@ -18,7 +18,6 @@ namespace Cloudents.Web.Swagger
                 c.IncludeXmlComments(xmlPath);
                 c.DescribeAllEnumsAsStrings();
                 c.DescribeAllParametersInCamelCase();
-                //c.OperationFilter<FormFileOperationFilter>();
                 c.ResolveConflictingActions(f =>
                 {
                     var descriptions = f.ToList();
