@@ -76,9 +76,9 @@ export default {
             });
             location.href = x.href
           })
-          .catch((err=>{
+          .catch(()=>{
             self.codeErr = self.$t('sessionCode_err');
-          }))
+          })
           .finally(()=>{
           self.loadingBtn = false;
         })
