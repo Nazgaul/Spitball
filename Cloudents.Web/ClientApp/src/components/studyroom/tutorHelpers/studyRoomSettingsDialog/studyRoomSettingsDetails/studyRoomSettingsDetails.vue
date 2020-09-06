@@ -80,6 +80,7 @@
                 </div>
             </div>
         </template>
+        <sessionCodeDialog @closeSessionCode="isSessionCodeDialog = false" v-if="isSessionCodeDialog"/>
         <registerToJoinDialog @closeRegisterToJoin="isRegisterToJoinDialog = false" v-if="isRegisterToJoinDialog"/>
     </div>
 </template>
@@ -89,6 +90,7 @@ import registerToJoinDialog from '../../../layouts/registerToJoinDialog/register
 import sessionStartCounter from '../../sessionStartCounter/sessionStartCounter.vue'
 import shareContent from '../../../../pages/global/shareContent/shareContent.vue'
 
+import sessionCodeDialog from '../sessionCodeDialog.vue';
 import whiteboardSvg from '../images/whiteboard.svg'
 import presentSvg from '../images/present.svg'
 import fullviewSvg from '../images/fullview.svg'
@@ -100,7 +102,8 @@ export default {
         whiteboardSvg,
         presentSvg,
         fullviewSvg,
-        registerToJoinDialog
+        registerToJoinDialog,
+        sessionCodeDialog
     },
     props: {
         isRoomActive: {
@@ -110,6 +113,7 @@ export default {
     },
     data() {
         return {
+            isSessionCodeDialog:false,
             isRegisterToJoinDialog:false,
             waitingForTutor:false,
             clickOccur: false,
@@ -251,6 +255,14 @@ export default {
         fullview() {
             this.$store.dispatch('updateToggleTutorFullScreen',true)
             this.selectedRoomMode = ''
+        }
+    },
+    mounted() {
+        let self = this;
+        if(self.$route.query.type === 'tailorEd' && !this.isLoggedIn){
+            this.$nextTick(()=>{
+                self.isSessionCodeDialog = true
+            })
         }
     },
     beforeDestroy() {

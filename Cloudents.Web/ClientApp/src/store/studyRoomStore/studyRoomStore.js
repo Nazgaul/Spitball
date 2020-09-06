@@ -372,6 +372,9 @@ const actions = {
          dispatch('updateJwtToken',null);
       }
    },
+   updateTailorEd(context,{roomId,code}){
+      return studyRoomService.tailorEd({roomId,code});
+   }
 }
 export default {
    state,
