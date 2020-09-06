@@ -71,13 +71,13 @@
                     @setLiveImage="handleLiveImage"
                     class="editLiveImage"
                 />
-                <div class="noDefaultImage" v-if="!$route.params.id && !previewImage && !image">
+                <div class="noDefaultImage" v-if="!$route.params.id && !previewImage && !image && isLoaded">
                     <v-icon size="40" color="#bdc0d1">sbf-plus-sign</v-icon>
                 </div>
                 <template v-else>
-                    <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
                     <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, {width:250, height:140})" width="250" height="140" alt="">
                 </template>
+                <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </label>
         </div>
