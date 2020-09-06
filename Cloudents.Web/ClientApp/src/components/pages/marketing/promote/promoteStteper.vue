@@ -141,6 +141,7 @@ export default {
       this.error = false;
     },
     handleCurrentCourse(item) {
+      this.document = item;
       this.dataType = 'Courses';
       this.currentCourseItem = item
     },
