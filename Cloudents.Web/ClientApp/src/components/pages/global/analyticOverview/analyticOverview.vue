@@ -136,7 +136,7 @@ export default {
   @import '../../../../styles/colors.less';
 
   .analyticOverview {
-    padding: 16px;
+    padding: 20px;
     background: white;
     border-radius: 8px;
     width: 100%;
