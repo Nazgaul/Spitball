@@ -157,7 +157,7 @@ namespace ConsoleApp
             continer.Flush();
 
 
-            var c = new CreateTailorEdStudyRoomCommand("Some name",2);
+            var c = new CreateTailorEdStudyRoomCommand(2);
             await CommandBus.DispatchAsync(c);
         }
 

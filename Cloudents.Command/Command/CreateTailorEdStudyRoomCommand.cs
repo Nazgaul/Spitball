@@ -6,15 +6,17 @@ namespace Cloudents.Command.Command
     public class CreateTailorEdStudyRoomCommand : ICommand
     {
 
-        public CreateTailorEdStudyRoomCommand(string name, int amountOfUsers)
+        public CreateTailorEdStudyRoomCommand(int amountOfUsers)
         {
-            Name = name;
+            //Name = name;
             AmountOfUsers = amountOfUsers;
         }
 
         public int AmountOfUsers { get; }
-        public string Name { get; }
+        //public string Name { get; }
         public Guid StudyRoomId { get; set; }
-        public IEnumerable<string> Codes { get; set; } 
+        public IEnumerable<string> Codes { get; set; }
+
+        public long TutorId { get; set; }
     }
 }
