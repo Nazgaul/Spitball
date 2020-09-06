@@ -21,9 +21,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Query.StudyRooms;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -40,14 +43,17 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<BaseUser> _signInManager;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
-            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer)
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, 
+            SignInManager<BaseUser> signInManager)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
             _localizer = localizer;
+            _signInManager = signInManager;
         }
 
         [HttpPost("private")]
@@ -331,13 +337,23 @@ namespace Cloudents.Web.Api
 
 
         [AllowAnonymous]
-        [HttpPost("tailor-ed/{id}/code")]
+        [HttpPost("tailor-ed/{id}")]
         public async Task<IActionResult> CreateTailorEdPrivateStudyRoom(
             [FromRoute] Guid id,
             [FromBody] EnterTailorEdRoomRequest model,
             CancellationToken token)
         {
-            return Ok();
+
+            var query = new TailorEdCodeQuery(id,model.Code );
+            var result = await _queryBus.QueryAsync(query, token);
+            if (result)
+            {
+                
+                return Ok();
+            }
+
+            return BadRequest("Invalid code");
+
             //var command = new CreateTailorEdStudyRoomCommand(model.Name, model.AmountOfUsers);
             //await _commandBus.DispatchAsync(command, token);
             //return Created(
