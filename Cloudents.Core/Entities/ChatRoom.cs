@@ -120,6 +120,11 @@ namespace Cloudents.Core.Entities
         {
             if (StudyRoom != null)
             {
+                if (StudyRoom is TailorEdStudyRoom _)
+                {
+                    var chatUser = new ChatUser(this, user);
+                    Users.Add(chatUser);
+                }
                 if (StudyRoom is BroadCastStudyRoom _)
                 {
                     var chatUser = new ChatUser(this, user);

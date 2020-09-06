@@ -15,18 +15,23 @@ namespace Cloudents.Core.Entities
             {
                 throw new ArgumentException();
             }
+            Identifier = Guid.NewGuid().ToString();
+            ChatRoom = ChatRoom.FromStudyRoom(this);
+
             foreach (var user in users)
             {
                 _users.Add(new StudyRoomUser(user.user, this)
                 {
                     Code = user.code
                 });
+                ChatRoom.AddUserToChat(user.user);
 
             }
             //Name = name;
-            Identifier = Guid.NewGuid().ToString();
             OnlineDocumentUrl = onlineDocumentUrl;
-            ChatRoom = ChatRoom.FromStudyRoom(this);
+
+
+
             if (_users.Count < 4 && _users.Count > 0)
             {
                 TopologyType = StudyRoomTopologyType.SmallGroup;

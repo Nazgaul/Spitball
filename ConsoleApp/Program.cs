@@ -145,6 +145,18 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
+            var continer = Container.Resolve<ISession>();
+            var tailorEd = continer.Query<TailorEdStudyRoom>().ToList();
+
+            
+            foreach(var x in tailorEd)
+            {
+                continer.Delete(x);
+            }
+
+            continer.Flush();
+
+
             var c = new CreateTailorEdStudyRoomCommand("Some name",2);
             await CommandBus.DispatchAsync(c);
         }

@@ -7,13 +7,13 @@ using FluentNHibernate.Mapping;
 namespace Cloudents.Persistence.Maps
 {
     
-    public class UserMap : SubclassMap<User>
+    public class UserMap : ClassMap<User>
     {
         public UserMap()
         {
 
             DynamicUpdate();
-            DiscriminatorValue(false);
+           // DiscriminatorValue(false);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.PhoneNumberConfirmed);
             Map(e => e.PasswordHash).Nullable();
@@ -22,6 +22,12 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.LockoutEnabled);
             Map(e => e.LockoutReason);
           
+            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
+            Map(e => e.Email)/*.Not.Nullable()*/.Unique();
+            Map(e => e.Name).Not.Nullable();
+            Map(x => x.FirstName);
+            Map(e => e.ImageName).Length(5000).Nullable();
+
 
             HasMany(x => x.UserLogins)
                 .Inverse()
@@ -140,10 +146,10 @@ namespace Cloudents.Persistence.Maps
          
 
             Table("User"); //if not there is sql error
-
+            DiscriminateSubClassesOnColumn<bool>("Fictive", false);
             DynamicUpdate();
-           // OptimisticLock.Version();
-           // Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
+            OptimisticLock.Version();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
 

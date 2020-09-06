@@ -21,12 +21,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Query.StudyRooms;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -43,11 +41,11 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<BaseUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
             IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, 
-            SignInManager<BaseUser> signInManager)
+            SignInManager<User> signInManager)
         {
             _commandBus = commandBus;
             _userManager = userManager;
@@ -346,9 +344,10 @@ namespace Cloudents.Web.Api
 
             var query = new TailorEdCodeQuery(id,model.Code );
             var result = await _queryBus.QueryAsync(query, token);
-            if (result)
+            if (result != null)
             {
-                
+                var user = await _userManager.FindByIdAsync(result.UserId.ToString());
+                await _signInManager.SignInAsync(user, false);
                 return Ok();
             }
 

@@ -28,6 +28,6 @@ export default {
       return studyRoomInstance.post('image', params);
    },
    async tailorEd({roomId,code}){
-      return await studyRoomInstance.post(`tailor-ed/${roomId}/code`,{code});
+      return await studyRoomInstance.post(`tailor-ed/${roomId}`,{code});
    },
 }

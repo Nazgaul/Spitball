@@ -10,7 +10,7 @@ using System.Linq;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class User  : BaseUser
+    public class User  : Entity<long>, IAggregateRoot
     {
         /// <summary>
         /// Create a new user
@@ -69,6 +69,11 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Mapping")]
         protected internal virtual ICollection<UserLocation> UserLocations { get; protected set; }
 
+        public virtual byte[] Version { get; protected set; }
+        public virtual string Email { get; set; }
+        public virtual string Name { get; protected set; }
+        public virtual string FirstName { get; protected set; }
+        public virtual string? ImageName { get; protected set; }
 
         [SuppressMessage("ReSharper", "CollectionNeverUpdated.Local")]
         private readonly ICollection<ChatUser> _chatUsers = new List<ChatUser>();
