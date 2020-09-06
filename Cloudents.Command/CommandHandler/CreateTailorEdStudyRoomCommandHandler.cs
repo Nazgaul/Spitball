@@ -38,7 +38,7 @@ namespace Cloudents.Command.CommandHandler
                 var user = await _userRepository.GetRandomFictiveUserAsync(i, token);
                 students.Add((user, _shortIdGenerator.GenerateShortId(8)));
             }
-            var documentName = $"{message.Name}-{Guid.NewGuid()}";
+            var documentName = $"{Guid.NewGuid()}";
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
             StudyRoom studyRoom = new TailorEdStudyRoom(tutor, students, googleDocUrl);

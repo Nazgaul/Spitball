@@ -25,6 +25,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Query.StudyRooms;
+using Cloudents.Web.Services;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -316,10 +317,17 @@ namespace Cloudents.Web.Api
         [HttpPost("tailor-ed")]
         public async Task<IActionResult> CreateTailorEdPrivateStudyRoom([FromBody]
             CreateTailorEdStudyRoomRequest model,
+            [FromServices]  IDataProtect dataProtect,
             CancellationToken token)
         {
-            var command = new CreateTailorEdStudyRoomCommand(model.Name, model.AmountOfUsers);
+            var command = new CreateTailorEdStudyRoomCommand(model.AmountOfUsers);
             await _commandBus.DispatchAsync(command, token);
+            var tutorId = dataProtect.Protect(command.TutorId.ToString(), DateTimeOffset.UtcNow.AddDays(30));
+            var tutorUrl = Url.RouteUrl("StudyRoomRoute", new
+            {
+                id = command.StudyRoomId,
+                token = tutorId
+            });
             return Created(
                 Url.RouteUrl("StudyRoomRoute", new
                 {
@@ -328,7 +336,9 @@ namespace Cloudents.Web.Api
                 }),
                 new
                 {
-                    codes = command.Codes
+                    codes = command.Codes,
+                    tutorLink = tutorUrl
+                    //TODO link of tutor ath
                 }
             );
         }

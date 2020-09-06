@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
+using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
@@ -24,7 +25,7 @@ namespace Cloudents.Web.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [Route("StudyRoom/{id:guid}",Name="StudyRoomRoute")]
+        [Route("StudyRoom/{id:guid}", Name = "StudyRoomRoute"), SignInWithToken]
         public async Task<IActionResult> Index(Guid id, [FromQuery] string? dialog, CancellationToken token)
         {
             ViewBag.isRtl = false;
@@ -39,7 +40,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            ViewBag.title =$"{result.Name} | {result.TutorName}";
+            ViewBag.title = $"{result.Name} | {result.TutorName}";
             ViewBag.metaDescription = result.Description;
             ViewBag.ogImage = "https://" + _httpContextAccessor.HttpContext.Request.Host + "/images/3rdParty/fb-share-Spitball-live.png";
             return View("Index");
@@ -47,10 +48,10 @@ namespace Cloudents.Web.Controllers
 
         [Route("live/{id:guid}")]
         [Route("course/{id:guid}")]
-        public async Task<IActionResult> RedirectLive(Guid id,[FromServices] IStatelessSession session)
+        public async Task<IActionResult> RedirectLive(Guid id, [FromServices] IStatelessSession session)
         {
             var course = await session.Query<BroadCastStudyRoom>().Where(w => w.Id == id)
-                .Select(s => new {s.Course.Id, s.Course.Name}).SingleOrDefaultAsync();
+                .Select(s => new { s.Course.Id, s.Course.Name }).SingleOrDefaultAsync();
             if (course == null)
             {
                 return NotFound();
