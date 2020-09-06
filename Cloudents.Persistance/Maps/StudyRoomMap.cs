@@ -62,7 +62,7 @@ namespace Cloudents.Persistence.Maps
     {
         public TailorEdStudyRoomMap()
         {
-            //Map(x => x.Name).Length(500);
+            Map(x => x.Name).Length(500);
             DiscriminatorValue(StudyRoomType.TailorEd.ToString());
         }
     }

@@ -353,19 +353,7 @@ namespace Cloudents.Web.Api
 
             return BadRequest("Invalid code");
 
-            //var command = new CreateTailorEdStudyRoomCommand(model.Name, model.AmountOfUsers);
-            //await _commandBus.DispatchAsync(command, token);
-            //return Created(
-            //    Url.RouteUrl("StudyRoomRoute", new
-            //    {
-            //        id = command.StudyRoomId,
-            //        type = "tailorEd"
-            //    }),
-            //    new
-            //    {
-            //        codes = command.Codes
-            //    }
-            //);
+           
         }
 
         #endregion

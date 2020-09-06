@@ -27,7 +27,7 @@ namespace Cloudents.Core.Entities
                 ChatRoom.AddUserToChat(user.user);
 
             }
-            //Name = name;
+            Name = "Tailor Ed";
             OnlineDocumentUrl = onlineDocumentUrl;
 
 
@@ -50,6 +50,7 @@ namespace Cloudents.Core.Entities
         }
         public override StudyRoomType Type => StudyRoomType.TailorEd;
 
+        public virtual string Name { get; protected set; }
 
         public override void AddUserToStudyRoom(User user)
         {
