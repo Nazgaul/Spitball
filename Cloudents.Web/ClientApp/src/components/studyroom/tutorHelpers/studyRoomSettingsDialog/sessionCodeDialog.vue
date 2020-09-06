@@ -4,7 +4,7 @@
       <v-icon class="close-dialog" v-text="'sbf-close'" @click="onClose"></v-icon>
       <div class="text-wrap pt-4 pt-sm-0">
         <template>
-          <div class="dialog-title pb-10 pb-sm-11">Welcome to Tailor-ed interactive class</div>
+          <div class="dialog-title pb-10 pb-sm-11">{{$t('sessionCode_title')}}</div>
           <v-form v-model="seesionCode" ref="seesionCode">
             <v-layout justify-space-between wrap class="inputs-coupon">
               <v-flex xs12 pb-1 pb-sm-0>
@@ -13,7 +13,7 @@
                 v-model="sessionCodeValue"
                 autofocus 
                 :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
-                :label="'Enter your 8 digit code'" 
+                :label="$t('sessionCode_label')" 
                 placeholder=" " 
                 autocomplete="nope"
                 dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
@@ -77,7 +77,7 @@ export default {
             location.href = x.href
           })
           .catch((err=>{
-            self.codeErr = 'text text error';
+            self.codeErr = self.$t('sessionCode_err');
           }))
           .finally(()=>{
           self.loadingBtn = false;
