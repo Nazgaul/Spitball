@@ -4,7 +4,7 @@
       <v-data-table
          v-else
          :headers="headers"
-         :items="$store.getters.getCoursesItems"
+         :items="courseItems"
          :items-per-page="5"
          @pagination="handlePaginationIndexPosition"
          :mobile-breakpoint="0"
@@ -44,8 +44,8 @@
                   <td class="text-start">
                      <div class="tablePreview d-flex align-center">
                         <div class="tableIndex me-2">{{(page - 1) * itemsPerPage + index + 1}}.</div>
-                        <v-skeleton-loader class="my-2" v-if="!isLoaded" height="80" width="127" type="image"></v-skeleton-loader>
-                        <img v-show="isLoaded" @load="loaded" :src="$proccessImageUrl(item.image, {width:127, height:80})" class="tablePreview_img" width="127" height="80" />
+                        <v-skeleton-loader class="my-2" v-if="!item.imgLoaded" height="80" width="127" type="image"></v-skeleton-loader>
+                        <img v-show="item.imgLoaded" @load="loaded(item)" :src="$proccessImageUrl(item.image, {width:127, height:80})" class="tablePreview_img" width="127" height="80" />
                      </div>
                   </td>
                   <td class="text-start">
@@ -145,6 +145,17 @@ export default {
          ]
       }
    },
+   computed: {
+      courseItems() {
+         // return this.$store.getters.getCoursesItems
+         return this.$store.getters.getCoursesItems.map(item => {
+            return {
+               ...item,
+               imgLoaded: false
+            }
+         })
+      }
+   },
    methods: {
       goEdit(item) {
          this.$router.push({name: this.uppdateCourseRoute, params: { id: item.id }})
@@ -182,8 +193,8 @@ export default {
          }
          this.$router.push({name: CoursePage, params: { id: item.id }})
       },
-      loaded() {
-         this.isLoaded = true;
+      loaded(item) {
+         item.imgLoaded = true
       },
    },
    beforeDestroy() {
