@@ -174,13 +174,17 @@ export default {
             if(val) {
               let hashes = {
                 broadcast: '#broadcast',
-                subscription: '#subscription'
+                subscription: '#subscription',
+                calendarTab: '#calendarTab'
               }
               let self = this
               this.$nextTick(() => {
                 // added time out for component that load after getting data from server and not immediate live
                 setTimeout(() => {
                   if(self.$route.hash === hashes[self.$route.hash.slice(1)]) {
+                    if(self.$route.hash === '#calendarTab') {
+                      self.calendarActive = true
+                    }
                     self.$vuetify.goTo(self.$route.hash, {offset: 20})
                   }                
                 }, 400)
@@ -208,6 +212,7 @@ export default {
          this.$router.push({hash:hash});
          sessionStorage.clear();
       }
+      
       this.getProfileDataItems()
     }
 }

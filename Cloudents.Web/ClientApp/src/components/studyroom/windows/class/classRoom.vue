@@ -133,12 +133,13 @@ export default {
          // background-color: #000;
          // display: inline-block;
          // border: 1px solid #fff;
-         transition-property: all;
-         transition-duration: 0.5s;
          display: flex;
          align-items: center;
          justify-content: center;
          flex-direction: column;
+         transition-property: all;
+         transition-duration: 0.5s;
+         margin:8px
       }
    }
    // .classRoomCards{

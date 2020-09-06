@@ -123,11 +123,11 @@ export default {
                 let result = this.document.preview.map(preview => {
                     return this.$proccessImageUrl(
                         preview,
-                        this.dynamicWidthAndHeight.width,
-                        this.dynamicWidthAndHeight.height,
-                        "pad",
-                        "ffffff",
                         {
+                            width:this.dynamicWidthAndHeight.width,
+                            height:this.dynamicWidthAndHeight.height,
+                            mode: 'pad',
+                            background:'ffffff',
                             c:'v2'
                         }
                     );

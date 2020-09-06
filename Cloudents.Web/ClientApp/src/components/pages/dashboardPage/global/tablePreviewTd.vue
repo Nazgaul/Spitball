@@ -47,11 +47,10 @@ export default {
          return sum % 11
       },
       formatImg(item){
-         if(item.preview){
-            return this.$proccessImageUrl(item.preview,80,80)
-         }
-         if(item.image){
-            return this.$proccessImageUrl(item.image,80,80)
+         console.log('yeeess')
+         if(item.preview || item.image){
+            let url = item.preview || item.image;
+            return this.$proccessImageUrl(url,{width:80,height:80})
          }
          // if(item.type === 'Question' || item.type === 'Answer'){
          //    return require('./images/qs.png')

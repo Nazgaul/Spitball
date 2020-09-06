@@ -11,7 +11,7 @@
                 
               <v-flex xs12 sm9 pe-0 pe-sm-4 pb-1 pb-sm-0>
                 <v-text-field :error-messages="couponErr" autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
-                    v-model="couponCode" :label="$t('coupon_label_code')" :placeholder="placeHoldersEmpty" autocomplete="nope"
+                    v-model="couponCode" :label="$t('coupon_label_code')" :placeholder="placeHoldersEmpty" autocomplete="off"
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
               </v-flex>
               <v-flex sm3 v-if="!$vuetify.breakpoint.xsOnly">

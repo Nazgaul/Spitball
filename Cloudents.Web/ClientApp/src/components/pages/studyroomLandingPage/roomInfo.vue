@@ -1,6 +1,6 @@
 <template>
    <div id="courseInfoSection" class="roomInfoContainer d-flex flex-column">
-      <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
+      <div style="width:-moz-fit-content;width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
          <logo :menuList="true" class="logoRoom"></logo>
       </div>
 
@@ -138,7 +138,7 @@ export default {
          if(img && img.includes('blob')){
             return img;
          }else{
-            return this.$proccessImageUrl(img, 528, 357)
+            return this.$proccessImageUrl(img, {width:528, height:357})
          }
       },
       courseSessions(){
@@ -326,6 +326,7 @@ export default {
                }
             }
             .couponText{
+               min-width: -moz-fit-content;
                min-width: fit-content !important;
                margin: 0 auto;
                font-size: 20px;

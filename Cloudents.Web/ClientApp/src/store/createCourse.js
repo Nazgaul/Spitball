@@ -114,6 +114,10 @@ const actions = {
             commit('setShowCourse', data.visible)
             commit('setNextSession',data.studyRooms)
             
+            if(!data.studyRooms.length) {
+                commit('setNumberOfLecture', 0)
+            }
+            
             let i = 0, studyRooms = data.studyRooms
             for (i = 0; i < studyRooms.length; i++) {
                 const elem = studyRooms[i]

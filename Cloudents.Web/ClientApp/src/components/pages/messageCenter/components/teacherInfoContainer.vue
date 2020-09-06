@@ -14,7 +14,7 @@
             </div>
             <div class="actionBoxs pt-4">
                <v-btn v-if="isBookSession" block depressed text class="actionBox mb-3 cursor-pointer" 
-                  :to="{name: profileRoute,params: {id: currentTutor.id,name: currentTutor.name}}">
+                  :to="{name: profileRoute,params: {id: currentTutor.id,name: currentTutor.name}, hash: '#calendarTab'}">
                   <v-icon color="#4c59ff" size="20">sbf-book-calendar</v-icon>
                   <div class="actionName" v-t="'chat_teacher_btn_book'"/>
                </v-btn>

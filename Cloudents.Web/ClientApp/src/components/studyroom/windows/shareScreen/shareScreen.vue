@@ -117,6 +117,7 @@ export default {
          margin-top: 140px;
          width: 540px;
          // height: 264px;
+         height: -moz-fit-content;
          height: fit-content;
          border-radius: 6px;
          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

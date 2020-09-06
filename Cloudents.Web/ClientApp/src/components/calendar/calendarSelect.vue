@@ -81,7 +81,7 @@ export default {
                 border-radius: 4px !important;
             }
     .calendarSelect{
-        
+        width: -moz-fit-content;
         width: fit-content;
         margin: auto;
         // margin-top: 12px !important;
