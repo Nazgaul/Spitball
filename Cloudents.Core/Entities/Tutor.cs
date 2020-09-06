@@ -38,23 +38,16 @@ namespace Cloudents.Core.Entities
 
         public virtual IList<Course> Courses { get; protected set; }
 
-        private readonly ICollection<UserCoupon> _userCoupons =new List<UserCoupon>();
-       
+        private readonly ICollection<UserCoupon> _userCoupons = new List<UserCoupon>();
+
         public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
-        //private readonly ISet<UserCoupon> _userCoupons = new HashSet<UserCoupon>();
 
-        //public virtual IEnumerable<UserCoupon> UserCoupons => _userCoupons;
-
-        
         private readonly ISet<Coupon> _coupons = new HashSet<Coupon>();
 
-        public virtual ICollection<Coupon> Coupons => _coupons;
+        public virtual IEnumerable<Coupon> Coupons => _coupons;
 
 
         protected internal virtual ICollection<ChatRoom> ChatRooms { get; set; }
-
-
-
 
         public virtual void ChangeSubscriptionPrice(double price)
         {
@@ -168,6 +161,8 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
 
 
+        public virtual TutorType? Type { get; set; }
+
         protected internal virtual ICollection<AdminTutor> AdminUsers { get; set; }
 
         public virtual AdminTutor AdminUser
@@ -181,11 +176,10 @@ namespace Cloudents.Core.Entities
         }
 
 
-        public virtual Course AddCourse(Course course)
+        public virtual void AddCourse(Course course)
         {
             Courses.Insert(0, course);
             AddEvent(new NewCourseEvent(course));
-            return course;
         }
 
         public virtual void AddCoupon(string code, CouponType couponType, decimal value, DateTime? expiration)

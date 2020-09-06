@@ -9,67 +9,16 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
-    public class PrivateStudyRoom : StudyRoom
-    {
-        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public PrivateStudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
-            string name, decimal price) : base(tutor,users,  price)
-        {
-            if (_users.Count == 0)
-            {
-                throw new ArgumentException();
-            }
-
-            Name = name;
-            Identifier = ChatRoom.BuildChatRoomIdentifier(
-                _users.Select(s => s.User.Id).Union(new[] { tutor.Id }));
-            OnlineDocumentUrl = onlineDocumentUrl;
-            if (_users.Count < 4 && _users.Count > 0)
-            {
-                TopologyType = StudyRoomTopologyType.SmallGroup;
-            }
-            else
-            {
-                TopologyType = StudyRoomTopologyType.GroupRoom;
-            }
-        }
-        protected PrivateStudyRoom(): base()
-        {
-        }
-
-        public virtual string Name { get; set; }
-
-        public override void AddUserToStudyRoom(User user)
-        {
-            if (Tutor.User.Id == user.Id)
-            {
-                return;
-            }
-            var _ = Users.AsQueryable().Single(s => s.User.Id == user.Id);
-        }
-
-        public virtual void AddPayment(User user,string receipt)
-        {
-            var studyRoomPayment = new StudyRoomPayment(this, user, receipt);
-            _studyRoomPayments.Add(studyRoomPayment);
-        }
-
-        public override StudyRoomType Type => StudyRoomType.Private;
-    }
-
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public abstract class StudyRoom : Entity<Guid>, IAggregateRoot
     {
-        public StudyRoom(Tutor tutor, IEnumerable<User> users, 
+        public StudyRoom(Tutor tutor, 
              decimal price) : this()
         {
-            if (users == null) throw new ArgumentNullException(nameof(users));
+            //if (users == null) throw new ArgumentNullException(nameof(users));
             if (price < 0) throw new ArgumentException(nameof(price));
-            _users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
+           // _users = new HashSet<StudyRoomUser>();
             Tutor = tutor;
-            //OnlineDocumentUrl = onlineDocumentUrl;
-            //Name = name;
-          
 
             DateTime = new DomainTimeStamp();
             OldPrice = price;
@@ -96,11 +45,6 @@ namespace Cloudents.Core.Entities
             }
         }
 
-
-      //  public virtual StudyRoomType StudyRoomType { get; protected set; }
-
-        
-
         public virtual Tutor Tutor { get; protected set; }
 
         protected readonly ISet<StudyRoomUser> _users = new HashSet<StudyRoomUser>();
@@ -124,11 +68,7 @@ namespace Cloudents.Core.Entities
 
 
         public virtual Money Price { get; protected set; }
-        public virtual void SetPrice(decimal price)
-        {
-            OldPrice = price;
-            Price = new Money(price,Tutor.User.SbCountry.RegionInfo.ISOCurrencySymbol);
-        }
+      
 
         public virtual StudyRoomSession? GetCurrentSession()
         {
@@ -142,34 +82,16 @@ namespace Cloudents.Core.Entities
 
         public virtual StudyRoomTopologyType TopologyType { get; protected set; }
 
-        public virtual void ChangeTopologyDbi()
-        {
-            if (_users.Count() < 4 && _users.Count() > 0)
-            {
-                TopologyType = StudyRoomTopologyType.SmallGroup;
-            }
-            else
-            {
-                TopologyType = StudyRoomTopologyType.GroupRoom;
-            }
-        }
-
+       
         public virtual void AddSession(string sessionName)
         {
             var session = new StudyRoomSession(this, sessionName);
             _sessions.Add(session);
-          
-           
             DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
         public abstract void AddUserToStudyRoom(User user);
         public abstract StudyRoomType Type { get; }
-
-
-        
-
-      
 
     }
 }

@@ -82,7 +82,7 @@ namespace Cloudents.Web.Api
             }
         }
 
-       
+
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteStudyRoomAsync(Guid id, CancellationToken token)
@@ -106,7 +106,7 @@ namespace Cloudents.Web.Api
             }
         }
 
-       
+
 
         /// <summary>
         /// Get Study Room data and sessionId if opened
@@ -155,7 +155,7 @@ namespace Cloudents.Web.Api
 
 
 
-            
+
             result.Jwt = jwtToken;
             return result;
         }
@@ -192,7 +192,7 @@ namespace Cloudents.Web.Api
              CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new UserStudyRoomQuery(userId ,type);
+            var query = new UserStudyRoomQuery(userId, type);
             var result = await _queryBus.QueryAsync(query, token);
             return result.Where(w => w.Type == type);
 
@@ -305,5 +305,30 @@ namespace Cloudents.Web.Api
         }
 
 
+        #region Talior-Ed
+
+
+        [AllowAnonymous]
+        [HttpPost("tailor-ed")]
+        public async Task<IActionResult> CreateTailorEdPrivateStudyRoom([FromBody]
+            CreateTailorEdStudyRoomRequest model,
+            CancellationToken token)
+        {
+            var command = new CreateTailorEdStudyRoomCommand(model.Name, model.AmountOfUsers);
+            await _commandBus.DispatchAsync(command, token);
+            return Created(
+                Url.RouteUrl("StudyRoomRoute", new
+                {
+                    id = command.StudyRoomId,
+                    type = "tailorEd"
+                }),
+                new
+                {
+
+                }
+            );
+        }
+
+        #endregion
     }
 }

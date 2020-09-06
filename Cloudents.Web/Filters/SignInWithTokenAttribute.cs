@@ -71,10 +71,6 @@ namespace Cloudents.Web.Filters
                         {
                             case CommunicationChannel.None:
                                 break;
-                            //case CommunicationChannel.Phone:
-                            //    user.PhoneNumberConfirmed = true;
-
-                            //    break;
                             case CommunicationChannel.Email:
                                 user.EmailConfirmed = true;
                                 break;
@@ -104,11 +100,6 @@ namespace Cloudents.Web.Filters
                         //If we see this persist then maybe we need to increase the amount of time
                         _logger.LogError(ex, "on trying to log with old token ");
                     }
-                    //var result = await SignInUserAsync(token,c);
-
-
-
-                    //var link = Url.Link("ResetPassword", new { user.Id, code });
                     var url = GetUrlWithoutTokenQuery(context);
 
                     context.Result = new RedirectResult(url);

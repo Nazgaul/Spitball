@@ -13,19 +13,20 @@ using NHibernate.Linq;
 namespace Cloudents.Persistence.Repositories
 {
 
-    //public class FictiveUserRepository : NHibernateRepository<SystemUser>, IFictiveUserRepository
-    //{
-    //    public FictiveUserRepository(ISession session) : base(session)
-    //    {
-    //    }
-    //    public Task<SystemUser> GetRandomFictiveUserAsync(string country, CancellationToken token)
-    //    {
-    //        return Session.QueryOver<SystemUser>().Where(w => w.Country == country)
-    //            .OrderByRandom()
-    //            .Take(1)
-    //            .SingleOrDefaultAsync<SystemUser>(token);
-    //    }
-    //}
+    public class FictiveUserRepository : NHibernateRepository<SystemUser>, IFictiveUserRepository
+    {
+        public FictiveUserRepository(ISession session) : base(session)
+        {
+        }
+        public Task<SystemUser> GetRandomFictiveUserAsync(int index, CancellationToken token)
+        {
+            return Session.Query<SystemUser>()
+                .Skip(index)
+                .Take(1)
+                .OrderBy(o => o.Id)
+                .SingleOrDefaultAsync<SystemUser>(token);
+        }
+    }
 
     public class RegularUserRepository : NHibernateRepository<User>, IRegularUserRepository
     {
@@ -91,11 +92,11 @@ namespace Cloudents.Persistence.Repositories
             await Session.CreateSQLQuery("delete from sb.question where userId = :Id")
                 .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
 
-         
-        
+
+
             await Session.CreateSQLQuery("delete from sb.UsersCourses where userId = :Id")
                     .SetInt64("Id", entity.Id).ExecuteUpdateAsync(token);
-        
+
 
             var sqlQuery2 =
                 Session.CreateSQLQuery("delete from sb.UsersTags where userId = :Id");

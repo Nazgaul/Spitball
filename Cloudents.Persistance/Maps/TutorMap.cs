@@ -54,6 +54,7 @@ namespace Cloudents.Persistence.Maps
                 .Cascade.AllDeleteOrphan().Inverse();
 
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
+            Map(x => x.Type).Column("TutorType").CustomType<GenericEnumStringType<TutorType>>();
             Map(e => e.Created).Insert().Not.Update();
             //Map(x => x.ManualBoost).LazyLoad().Nullable();
           //  Map(e => e.IsShownHomePage);

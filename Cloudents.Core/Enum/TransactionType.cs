@@ -10,4 +10,11 @@ namespace Cloudents.Core.Enum
         [ResourceDescription(typeof(EnumResources), "TransactionTypeSpent")]
         Spent
     }
+
+    public enum TutorType
+    {
+        Regular,
+        Admin,
+        TailorEd
+    }
 }

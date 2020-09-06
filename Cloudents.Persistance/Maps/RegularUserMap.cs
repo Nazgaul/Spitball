@@ -6,13 +6,14 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class UserMap : ClassMap<User>
+    
+    public class UserMap : SubclassMap<User>
     {
         public UserMap()
         {
 
             DynamicUpdate();
-            //DiscriminatorValue(false);
+            DiscriminatorValue(false);
             Map(e => e.PhoneNumber).Column("PhoneNumberHash");
             Map(e => e.PhoneNumberConfirmed);
             Map(e => e.PasswordHash).Nullable();
@@ -45,7 +46,6 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.LastOnline);
             Map(x => x.FinishRegistrationDate).Column("FinishRegistration");
 
-            Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.CoverImage);
 
@@ -107,16 +107,12 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Leads)
                 .Cascade.AllDeleteOrphan();
 
-            Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
-            Map(e => e.Email)/*.Not.Nullable()*/.Unique();
-            Map(e => e.Name).Not.Nullable();
+           // Id(x => x.Id).GeneratedBy.HiLo(nameof(HiLoGenerator), nameof(HiLoGenerator.NextHi), "10", $"{nameof(HiLoGenerator.TableName)}='User'");
+           // Map(e => e.Email)/*.Not.Nullable()*/.Unique();
+          //  Map(e => e.Name).Not.Nullable();
             Map(e => e.EmailConfirmed);
 
-            //Map(e => e.NormalizedName);
-            //Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
-            // Map(e => e.Image).Length(5000).Nullable();
-            Map(e => e.ImageName).Length(5000).Nullable();
             Map(e => e.AuthenticatorKey);
             // Map(e => e.Culture);
 
@@ -146,8 +142,8 @@ namespace Cloudents.Persistence.Maps
             Table("User"); //if not there is sql error
 
             DynamicUpdate();
-            OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
+           // OptimisticLock.Version();
+           // Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
 

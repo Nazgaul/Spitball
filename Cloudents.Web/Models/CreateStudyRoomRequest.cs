@@ -29,4 +29,12 @@ namespace Cloudents.Web.Models
 
         
     }
+
+    public class CreateTailorEdStudyRoomRequest
+    {
+        public string Name { get; set; }
+
+        [Range(1,50)]
+        public int AmountOfUsers { get; set; }
+    }
 }

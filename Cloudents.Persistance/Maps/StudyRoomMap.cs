@@ -35,20 +35,15 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Price)
                 .CustomType<MoneyCompositeUserType>();
            
-            //Map(x => x.StudyRoomType).CustomType<GenericEnumStringType<StudyRoomType>>();
 
 
             HasMany(x => x.ChatRooms).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
             HasMany(x => x.StudyRoomPayments).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
 
-            //HasMany(x => x.UserTokens)
-            //    .Access.CamelCaseField(Prefix.Underscore)
-            //    .Cascade.AllDeleteOrphan();
 
             
-            DiscriminateSubClassesOnColumn("StudyRoomType");//,StudyRoomType.Private.ToString())
-                //.CustomType<GenericEnumStringType<StudyRoomType>>().Not.Nullable();
+            DiscriminateSubClassesOnColumn("StudyRoomType");
 
         }
 
@@ -60,6 +55,15 @@ namespace Cloudents.Persistence.Maps
         {
             Map(x => x.Name).Length(500);
             DiscriminatorValue(StudyRoomType.Private.ToString());
+        }
+    }
+
+    public class TailorEdStudyRoomMap : SubclassMap<TailorEdStudyRoom>
+    {
+        public TailorEdStudyRoomMap()
+        {
+            //Map(x => x.Name).Length(500);
+            DiscriminatorValue(StudyRoomType.TailorEd.ToString());
         }
     }
 
@@ -90,7 +94,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.User).Not.Nullable();
             References(x => x.Room).Column("StudyRoomId").Not.Nullable();
-           // Map(x => x.Online).Not.Nullable();
+            Map(x => x.Code).Nullable();
         }
     }
 

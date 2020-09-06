@@ -31,6 +31,7 @@
     <PackageReference Include="GoogleMeasurementProtocol" Version="2.1.0" />
     <PackageReference Include="Nager.Country" Version="1.0.4" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
+    <PackageReference Include="shortid" Version="2.0.3" />
     <PackageReference Include="Stripe.net" Version="37.17.0" />
     <PackageReference Include="Twilio" Version="5.37.1" />
     <PackageReference Include="protobuf-net" Version="2.4.4" />

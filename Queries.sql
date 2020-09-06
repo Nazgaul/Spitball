@@ -1,5 +1,13 @@
-﻿--Need to delete azure sync tutors
---Need to add configuration of cache cdn
+﻿update sb.[user]
+set Fictive = 0
+where Fictive is null
+
+ALTER TABLE [sb].[Tutor]
+    ADD [TutorType] /*new_column_name*/ nvarchar(255) /*new_column_datatype*/ NULL /*new_column_nullability*/
+GO
 
 
-ALTER TABLE sb.lead ALTER COLUMN courseId nvarchar(150) null;
+ALTER TABLE [sb].[studyRoomUser]
+    ADD [Code] /*new_column_name*/ nvarchar(255) /*new_column_datatype*/ NULL /*new_column_nullability*/
+GO
+--need to create tailored tutor

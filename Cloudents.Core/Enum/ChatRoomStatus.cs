@@ -97,16 +97,17 @@ namespace Cloudents.Core.Enum
     public enum StudyRoomType
     {
         Private,
-        Broadcast
+        Broadcast,
+        TailorEd
     }
 
-    public enum StudyRoomRepeat
-    {
-        None,
-        Daily,
-        Weekly,
-        Custom
-    }
+    //public enum StudyRoomRepeat
+    //{
+    //    None,
+    //    Daily,
+    //    Weekly,
+    //    Custom
+    //}
 
 
    

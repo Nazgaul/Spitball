@@ -24,7 +24,7 @@ namespace Cloudents.Web.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [Route("StudyRoom/{id:guid}")]
+        [Route("StudyRoom/{id:guid}",Name="StudyRoomRoute")]
         public async Task<IActionResult> Index(Guid id, [FromQuery] string? dialog, CancellationToken token)
         {
             ViewBag.isRtl = false;

@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public BroadCastStudyRoom(
              Course course, DateTime broadcastTime, string description)
-            : base(course.Tutor, Enumerable.Empty<User>(),  0)
+            : base(course.Tutor,  0)
         {
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);

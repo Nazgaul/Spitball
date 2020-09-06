@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "nHibernate")]
     public class AdminTutor
     {
-      
+
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "nhibernate")]
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "nhibernate")]
         [SuppressMessage("ReSharper", "CS8618", Justification = "nhibernate")]

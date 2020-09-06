@@ -10,7 +10,7 @@ using System.Linq;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
-    public class User  : Entity<long>, IAggregateRoot
+    public class User  : BaseUser
     {
         /// <summary>
         /// Create a new user
@@ -84,11 +84,9 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
 
-        public virtual string Name { get; protected set; }
         public virtual string? SecurityStamp { get; set; }
 
       
-        public virtual string? ImageName { get; protected set; }
 
         public virtual string AuthenticatorKey { get; set; }
 
@@ -98,7 +96,6 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime Created { get; protected set; }
 
-        public virtual string Email { get; set; }
         public virtual bool EmailConfirmed { get; set; }
 
 
@@ -112,7 +109,6 @@ namespace Cloudents.Core.Entities
         public virtual string Country { get; protected set; }
         public virtual Country SbCountry { get; protected set; }
 
-        public virtual byte[] Version { get; protected set; }
 
 
         public virtual void BecomeTutor()
@@ -181,7 +177,6 @@ namespace Cloudents.Core.Entities
 
         public virtual UserTransactions Transactions { get; protected set; }
 
-        public virtual string FirstName { get; protected set; }
         public virtual string? LastName { get; protected set; }
       
         public virtual string CoverImage { get; protected set; }

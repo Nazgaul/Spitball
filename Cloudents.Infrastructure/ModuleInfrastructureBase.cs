@@ -28,9 +28,9 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<TwilioProvider>().AsSelf().As<IPhoneValidator>().As<IStudyRoomProvider>().SingleInstance();
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
             builder.RegisterType<WixBlogProvider>().As<IBlogProvider>();
-           // builder.RegisterType<CronService>().As<ICronService>();
             builder.RegisterType<IpStackProvider>().As<IIpToLocation>();
             builder.RegisterType<ImageProcessor>().As<IImageProcessor>();
+            builder.RegisterType<ShortIdGenerator>().As<IShortIdGenerator>();
         }
     }
 }

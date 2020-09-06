@@ -24,7 +24,7 @@ using Cloudents.Core.Storage;
 using Cloudents.Infrastructure;
 using Cloudents.Query;
 using NHibernate.Linq;
-
+using Cloudents.Command.Command;
 
 namespace ConsoleApp
 {
@@ -145,8 +145,8 @@ namespace ConsoleApp
         [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting")]
         private static async Task RamMethod()
         {
-            await DeleteOldStuff.DoStuffAsync();
-            await ReduPreviewProcessingAsync();
+            var c = new CreateTailorEdStudyRoomCommand("Some name",2);
+            await CommandBus.DispatchAsync(c);
         }
 
 
