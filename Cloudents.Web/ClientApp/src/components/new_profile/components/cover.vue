@@ -87,7 +87,7 @@ export default {
         let size = this.coverImageSize
         let coverImage = this.$store.getters.getProfileCoverImage?.url || this.$store.getters.getProfileCoverImage
         let profileDrawerState = this.$store.getters.getProfileCoverDrawer
-        let width = profileDrawerState ? size.width - 338 : size.width
+        let width = (!profileDrawerState && !this.$vuetify.breakpoint.xsOnly) ? size.width - 338 : size.width
         let previewCover = this.$store.getters.getPreviewCover
         if(previewCover) {
           return previewCover
