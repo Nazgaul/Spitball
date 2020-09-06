@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-    <v-app-bar :class="{'homePageWrapper': isHomePage, 'borderBottom': isShowBorderBottom}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
+    <v-app-bar :class="{'homePageWrapper': isHomePage}" class="globalHeader borderBottom elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <v-btn v-if="showHamburgerIcon" class="d-sm-none" :class="[{'d-block': classChangeHamburgerTutorMenu}]" :ripple="false" icon @click="$root.$emit('openSideMenu')">
             <hamburgerIcon class="ms-2 hamburgerIcon"/>
         </v-btn>
@@ -149,11 +149,10 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
         showChat(){
             return this.$store.getters.getIsAccountChat
         },
-        isShowBorderBottom(){
-            let filteredRoutes = [routeNames.Profile, routeNames.Document];
-            return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
-        },
-      
+        // isShowBorderBottom(){
+        //     let filteredRoutes = [routeNames.Profile, routeNames.Document];
+        //     return filteredRoutes.indexOf(this.$route.name) > -1;
+        // },
         isHomePage(){
             let showRoutes = [routeNames.Learning,routeNames.HomePage];
             return showRoutes.indexOf(this.currentRoute) !== -1
