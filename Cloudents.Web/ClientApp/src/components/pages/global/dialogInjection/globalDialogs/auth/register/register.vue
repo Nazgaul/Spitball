@@ -7,26 +7,26 @@
                 </div>
 
                 <div class="mainTitle text-center mb-8" v-t="'loginRegister_setemailpass_title'"></div>
-<template v-if="cIsWebView">
-                <v-btn 
-                    :loading="btnLoading"
-                    @click="gmailRegister"
-                    depressed
-                    block
-                    height="40"
-                    sel="gmail"
-                    color="#da6156"
-                    class="btns white--text mb-6"
-                >
-                    <gIcon class="me-2" />
-                    <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
-                </v-btn>
+                <template v-if="cIsWebView">
+                    <v-btn 
+                        :loading="gmailBtnLodaing"
+                        @click="gmailRegister"
+                        depressed
+                        block
+                        height="40"
+                        sel="gmail"
+                        color="#da6156"
+                        class="btns white--text mb-6"
+                    >
+                        <gIcon class="me-2" />
+                        <span class="googleBtnText" v-t="'loginRegister_getstarted_btn_google_signup'"></span>
+                    </v-btn>
 
-                <div class="d-flex justify-center text-center mb-6">
-                    <div class="divider"></div>
-                    <div class="or" v-t="'loginRegister_or'"></div>
-                    <div class="divider"></div>
-                </div>
+                    <div class="d-flex justify-center text-center mb-6">
+                        <div class="divider"></div>
+                        <div class="or" v-t="'loginRegister_or'"></div>
+                        <div class="divider"></div>
+                    </div>
                 </template>
 
                 <component 

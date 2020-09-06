@@ -19,33 +19,51 @@ Vue.prototype.$loadStyle = function(url,id){
         return resolve();
     });
 };
-Vue.prototype.$proccessImageUrl = function(url, width, height, mode, background, extraParams){
+Vue.prototype.$proccessImageUrl = function(url,extraParams){
     if(url){
+        let paramObject = {...extraParams, mode: extraParams.mode || 'crop'}
         try {
-        var returnedUrl = new URL(url);
-        returnedUrl.searchParams.append("width",width);
-        returnedUrl.searchParams.append("height",height);
-        returnedUrl.searchParams.append("mode",mode || 'crop');
-        if (background) {
-            returnedUrl.searchParams.append("background",background);
-        }
-        if(extraParams){
-            for(let param in extraParams){
-                returnedUrl.searchParams.append(param,extraParams[param]);
+            var returnedUrl = new URL(url);
+            for(let param in paramObject){
+                returnedUrl.searchParams.append(param,paramObject[param]);
             }
-        }
-        return returnedUrl.toString();
+            return returnedUrl.toString();
         } catch {
             let host = location.origin;
-            let relativePath = this.message.src;
-            let fullPath = `${host}${relativePath}`;
-            return this.$proccessImageUrl(fullPath,width,height,mode,background);
+            let fullPath = `${host}${url}`;
+            return this.$proccessImageUrl(fullPath,paramObject);
         }
-
     }else{
         return '';
     }
-};
+}
+// Vue.prototype.$proccessImageUrl = function(url, width, height, mode, background, extraParams){
+//     if(url){
+//         try {
+//         var returnedUrl = new URL(url);
+//         returnedUrl.searchParams.append("width",width);
+//         returnedUrl.searchParams.append("height",height);
+//         returnedUrl.searchParams.append("mode",mode || 'crop');
+//         if (background) {
+//             returnedUrl.searchParams.append("background",background);
+//         }
+//         if(extraParams){
+//             for(let param in extraParams){
+//                 returnedUrl.searchParams.append(param,extraParams[param]);
+//             }
+//         }
+//         return returnedUrl.toString();
+//         } catch {
+//             let host = location.origin;
+//             let relativePath = url;
+//             let fullPath = `${host}${relativePath}`;
+//             return this.$proccessImageUrl(fullPath,width,height,mode,background);
+//         }
+
+//     }else{
+//         return '';
+//     }
+// };
 
 Vue.directive('visible', function(el, binding) {
 	el.style.visibility = !!binding.value ? 'visible' : 'hidden';

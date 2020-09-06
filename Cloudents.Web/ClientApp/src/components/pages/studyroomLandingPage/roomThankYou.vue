@@ -2,7 +2,7 @@
    <div class="roomThankYou d-flex">
       <logo :menuList="true" class="logoThankYou cursor-pointer" v-if="!isMobile" @click.native="$router.push('/')"></logo>
       <div class="thankYouWrapper px-4">
-         <div style="width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
+         <div style="width:-moz-fit-content;width: fit-content" class="cursor-pointer" v-if="isMobile" @click="$router.push('/')">
             <logo :menuList="true" class="logoThankYouMobile"></logo>
          </div>
          <img class="mt-5 mt-sm-16" src="./images/circleCheck.png" width="50px" height="50px" alt="">
@@ -49,7 +49,7 @@ export default {
             return this.$store.getters.getCourseDetails?.name;
       },
       courseImage(){
-         return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, 402, 268)
+         return this.$proccessImageUrl(this.$store.getters.getCourseDetails?.image, {width:402, height:268})
       },
       isMobile(){
          return this.$vuetify.breakpoint.xsOnly;

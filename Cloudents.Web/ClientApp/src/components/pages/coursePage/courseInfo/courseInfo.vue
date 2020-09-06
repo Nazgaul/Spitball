@@ -76,7 +76,7 @@
                 </div>
                 <template v-else>
                     <v-skeleton-loader v-if="!isLoaded" height="140" width="250" type="image"></v-skeleton-loader>
-                    <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, 250, 140)" width="250" height="140" alt="">
+                    <img v-show="isLoaded" @load="loaded" class="liveImage" :src="previewImage || $proccessImageUrl(image || liveImage, {width:250, height:140})" width="250" height="140" alt="">
                 </template>
                 <div class="recommendedImage mt-2" v-t="'image resolution'"></div>
             </label>
@@ -213,6 +213,7 @@ export default {
         }
         .liveImageWrap {
             cursor: pointer;
+            max-width: -moz-fit-content;
             max-width: fit-content;
             text-align: center;
             position: relative;

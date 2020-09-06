@@ -34,7 +34,7 @@ export default {
          return this.message.name
       },
       fileSrc(){
-         return this.$proccessImageUrl(this.message.src, 190, 140, 'crop')
+         return this.$proccessImageUrl(this.message.src, {width:190, height:140})
       },
       messageDate(){
          let momentDate = this.$moment(this.message.dateTime);

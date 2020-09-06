@@ -133,7 +133,13 @@ export default {
             )
         },
         liveImage(session) {
-            return this.$proccessImageUrl(session.image, 290, 192, 'crop')
+            return this.$proccessImageUrl(
+                session.image,
+                {
+                    width:290,
+                    height:192,
+                })
+
         },
     },
     created() {

@@ -7,6 +7,7 @@
             sort-by
             :item-key="'date'"
             :items-per-page="5"
+            mobile-breakpoint="0"
             hide-default-header
             :footer-props="{
                showFirstLastPage: false,

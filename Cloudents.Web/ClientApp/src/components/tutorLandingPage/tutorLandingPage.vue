@@ -13,8 +13,10 @@
                 </span>
             </v-flex>
         </v-layout>
-        <v-layout class="tutor-landing-page-search" :class="{'sticky-active': activateSticky}" align-center justify-center>
-            <div class="tutor-search-container" :class="{'sticky-active': activateSticky, 'strech': activateStickyMobile}">
+        <!-- :class="{'sticky-active': activateSticky}" -->
+        <v-layout class="tutor-landing-page-search"  align-center justify-center>
+             <!-- :class="{'sticky-active': activateSticky, 'strech': activateStickyMobile}" -->
+            <div class="tutor-search-container">
                 <tutor-search-component></tutor-search-component>
             </div>
         </v-layout>
@@ -81,7 +83,7 @@ export default {
                 pageSize: 10,
             },
             showEmptyState: false,
-            topOffset: 0,
+            // topOffset: 0,
         }
     },
     computed:{
@@ -89,20 +91,20 @@ export default {
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
-        activateSticky(){
-            if(!this.isMobile){
-                return this.topOffset > 240;
-            }else{
-                return false
-            }
-        },
-        activateStickyMobile(){
-            if(this.isMobile){
-                return this.topOffset > 280;
-            }else{
-                return false
-            }
-        }
+        // activateSticky(){
+        //     if(!this.isMobile){
+        //         return this.topOffset > 240;
+        //     }else{
+        //         return false
+        //     }
+        // },
+        // activateStickyMobile(){
+        //     if(this.isMobile){
+        //         return this.topOffset > 280;
+        //     }else{
+        //         return false
+        //     }
+        // }
     },
     watch:{
         '$route'(val){
@@ -220,21 +222,24 @@ export default {
         position: -o-sticky;
         position: sticky;
         z-index: 11;
+        top: 100px;
         @media (max-width: @screen-xs) {
             // z-index: unset;
+            border-top: 0;
+            top: 90px
         }
 
         // top:30px;
         // top:30px;
         // z-index: 99;
-        &.sticky-active{
-            position: fixed;
-            top:70px;
-            background: #fff;
-            width: 100%;
-            height: 70px;
-            box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
-        }
+        // &.sticky-active{
+        //     position: fixed;
+        //     top:70px;
+        //     background: #fff;
+        //     width: 100%;
+        //     height: 70px;
+        //     box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
+        // }
         .tutor-search-container{
             width: 90%;
             max-width: 740px;
@@ -242,11 +247,11 @@ export default {
             bottom: -26px;
             box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.28);
             border-radius: 4px;
-            &.sticky-active{
-                bottom: 6px;
-                box-shadow: unset;
-                border: 1px solid #b4b4b4;
-            }
+            // &.sticky-active{
+            //     bottom: 6px;
+            //     box-shadow: unset;
+            //     border: 1px solid #b4b4b4;
+            // }
             // @media (max-width: @screen-xs) {
             //     &.strech{
             //     //    width: 100%;

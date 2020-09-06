@@ -36,7 +36,7 @@
                         </td>
                         <td>
                             <div class="d-flex align-center">
-                                <input type="number" class="durationInput" maxlength="4" @keypress="inputRestriction" v-model.number="newSessionDuration" />
+                                <input type="number" class="durationInput" maxlength="4" @keypress="inputRestrictionDuration" v-model.number="newSessionDuration" />
                                 <span class="ms-2" v-t="'teacherApproval_minutes'"></span>
                             </div>
                         </td>
@@ -47,7 +47,7 @@
                             <div class="py-4" v-t="'teacherApproval_lesson_per_hour'"></div>
                         </td>
                         <td>
-                            <input type="number" class="durationInput" maxlength="4" @keypress="inputRestriction" v-model.number="tutorPricePerHour" />
+                            <input type="number" class="durationInput" maxlength="4" @keypress="inputRestrictionPerHour" v-model.number="tutorPricePerHour" />
                             <i18n-n :value="0" :format="'currency'">
                                 <template v-slot:currency="slotProps"><span>{{slotProps.currency}}</span></template>
                                 <!-- Dont show the integer value only the currency symbol -->
@@ -176,15 +176,24 @@ export default {
             }         
             this.totalPrice = total;
         },
-        inputRestriction(e) {
+        inputRestrictionDuration(e) {
             this.modifyDurationError = false;
             if (!/\d/.test(e.key)) {
                 e.preventDefault();
             }
             const x = parseInt(this.newSessionDuration + e.key, 10);
-            if (x >= this.MAX_DIGITS) {
+            if (x > this.MAX_DIGITS) {
                 e.preventDefault();
-                
+            }
+        },
+        inputRestrictionPerHour(e) {
+            this.modifyDurationError = false;
+            if (!/\d/.test(e.key)) {
+                e.preventDefault();
+            }
+            const y = parseInt(this.tutorPricePerHour + e.key, 10);
+            if (y > this.MAX_DIGITS) {
+                e.preventDefault();
             }
         },
         openIntercom() {

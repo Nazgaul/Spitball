@@ -82,7 +82,7 @@ export default {
          if(img && img.includes('blob')){
             return img;
          }else{
-            return this.$proccessImageUrl(img, 200, 130)
+            return this.$proccessImageUrl(img,{width:200, height:130})
          }
       },
       courseBtnText:{
@@ -150,6 +150,7 @@ export default {
       }
          .liveImageWrap {
              cursor: pointer;
+             max-width: -moz-fit-content;
              max-width: fit-content;
              text-align: center;
              position: relative;

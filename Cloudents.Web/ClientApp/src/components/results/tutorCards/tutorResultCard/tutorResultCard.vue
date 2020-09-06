@@ -46,6 +46,7 @@
                 <v-rating 
                   v-model="tutorData.rating"
                   color="#ffca54"
+                  half-increments
                   background-color="#ffca54"
                   :length="isReviews ? 5 : 1"
                   :size="18" readonly
