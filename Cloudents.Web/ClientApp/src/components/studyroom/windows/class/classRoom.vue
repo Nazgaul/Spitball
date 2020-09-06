@@ -137,9 +137,9 @@ export default {
          align-items: center;
          justify-content: center;
          flex-direction: column;
-         border: 10px solid black;
          transition-property: all;
          transition-duration: 0.5s;
+         margin:8px
       }
    }
    // .classRoomCards{
