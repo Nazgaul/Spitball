@@ -12,17 +12,14 @@ namespace Cloudents.Core.Entities
         public PrivateStudyRoom(Tutor tutor, IEnumerable<User> users, string onlineDocumentUrl,
             string name, decimal price) : base(tutor, price)
         {
-            if (_users.Count == 0)
-            {
-                throw new ArgumentException();
-            }
-
-            //_users = new HashSet<StudyRoomUser>(users.Select(s => new StudyRoomUser(s, this)));
-
             foreach (var user in users)
             {
                 _users.Add(new StudyRoomUser(user, this));
 
+            }
+            if (_users.Count == 0)
+            {
+                throw new ArgumentException();
             }
 
             Name = name;

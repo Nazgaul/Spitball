@@ -324,9 +324,33 @@ namespace Cloudents.Web.Api
                 }),
                 new
                 {
-
+                    codes = command.Codes
                 }
             );
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("tailor-ed/{id}/code")]
+        public async Task<IActionResult> CreateTailorEdPrivateStudyRoom(
+            [FromRoute] Guid id,
+            [FromBody] EnterTailorEdRoomRequest model,
+            CancellationToken token)
+        {
+            return Ok();
+            //var command = new CreateTailorEdStudyRoomCommand(model.Name, model.AmountOfUsers);
+            //await _commandBus.DispatchAsync(command, token);
+            //return Created(
+            //    Url.RouteUrl("StudyRoomRoute", new
+            //    {
+            //        id = command.StudyRoomId,
+            //        type = "tailorEd"
+            //    }),
+            //    new
+            //    {
+            //        codes = command.Codes
+            //    }
+            //);
         }
 
         #endregion

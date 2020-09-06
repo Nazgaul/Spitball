@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
             IList<(SystemUser user,string code)> users,
             string onlineDocumentUrl) : base(tutor,  0)
         {
-            if (_users.Count == 0)
+            if (users.Count == 0)
             {
                 throw new ArgumentException();
             }
@@ -37,6 +37,11 @@ namespace Cloudents.Core.Entities
             }
 
           
+        }
+
+        protected TailorEdStudyRoom()
+        {
+            
         }
         public override StudyRoomType Type => StudyRoomType.TailorEd;
 
