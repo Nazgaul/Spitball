@@ -13,9 +13,12 @@ namespace Cloudents.Admin2.Extensions
 
         public static T? Get<T>(this ITempDataDictionary tempData, string key) where T : class
         {
-            object? o;
-            tempData.TryGetValue(key, out o);
-            return o == null ? null : JsonConvert.DeserializeObject<T>((string)o);
+            tempData.TryGetValue(key, out var o);
+            if (o is null)
+            {
+                return null;
+            }
+            return JsonConvert.DeserializeObject<T>((string)o);
         }
     }
 }

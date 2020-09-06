@@ -114,7 +114,6 @@ namespace Cloudents.Admin2.Api
             return Task.FromResult(response);
         }
 
-        //[HttpPost("upload"), ApiExplorerSettings(IgnoreApi = true)]
         private async Task<UploadEndResponce> Upload(UploadRequestFinish model, CancellationToken token)
         {
             var tempDataProvider = _tempDataDictionaryFactory.GetTempData(HttpContext);

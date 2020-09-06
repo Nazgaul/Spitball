@@ -63,7 +63,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTutorAsync(long id,
+        public IActionResult DeleteTutor(long id,
                 CancellationToken token)
         {
             //var userId = User.GetIdClaim();
