@@ -49,6 +49,11 @@ namespace Cloudents.Web.Api
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
                     d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
+                if (s is CourseSaleDto c)
+                {
+                    c.Preview = urlBuilder.BuildCourseThumbnailEndPoint(c.Id, c.version);
+                    //d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+                }
                 if (s is SessionSaleDto ss)
                 {
                     ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
