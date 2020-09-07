@@ -21,7 +21,7 @@
                </div>
             </div>
          </template>
-         <template v-if="item.type === 'Document' || item.type === 'Video'">
+         <template v-if="item.type === 'Document' || item.type === 'Video' || item.type === 'Course'">
             <div class="text-truncate">
                <span>{{item.name}}</span>
             </div>

@@ -12,6 +12,9 @@ function itemTypeChecker(type){
    if(type.toLowerCase() === 'buypoints'){
       return 'BuyPoints';
    }
+   if(type.toLowerCase() === 'course'){
+      return 'Course';
+   }
    return console.error('type:',type,'is not defined');
 }
 
@@ -84,6 +87,14 @@ const Item = {
       this.couponType = objInit.couponType;
       this.couponValue = objInit.couponValue;
       this.couponTutor = objInit.couponTutor;
+   },
+   Course: function(objInit) {
+      this.date = objInit.date;
+      this.id = objInit.id;
+      this.name = objInit.name;
+      this.preview = objInit.preview;
+      this.price = objInit.price;
+      this.type = objInit.type;
    }
 };
 // function StudyRoomItem(objInit){

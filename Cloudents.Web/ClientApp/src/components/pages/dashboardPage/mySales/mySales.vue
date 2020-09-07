@@ -131,7 +131,7 @@ export default {
             price = Math.round(+price).toLocaleString();
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
+         if(type === 'TutoringSession' || type === 'BuyPoints' || type === 'Course'){
             // TODO: Currency Change
             return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
          }
