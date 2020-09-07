@@ -30,7 +30,8 @@ export default {
                'Document': this.$t('dashboardPage_document'),
                'Video': this.$t('dashboardPage_video'),
                'TutoringSession': this.$t('dashboardPage_tutor_session'),
-               'BuyPoints': this.$t('dashboardPage_type_buy_points')
+               'BuyPoints': this.$t('dashboardPage_type_buy_points'),
+               'Course':this.$t('course')
             },
             headers:{
                'preview': {text: '', align:'', sortable: false, value:'preview'},
