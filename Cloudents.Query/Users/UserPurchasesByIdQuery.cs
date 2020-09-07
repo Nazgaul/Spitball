@@ -47,7 +47,7 @@ namespace Cloudents.Query.Users
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Name,
-                        Type = (ContentType)s.Document.DocumentType,
+                        type = (ContentType)s.Document.DocumentType,
                         Date = s.Created,
                         Price = s.Price
 
@@ -89,7 +89,17 @@ namespace Cloudents.Query.Users
                     }).ToFuture<UserPurchaseDto>();
 
 
-
+                var courseFuture = _session.Query<CourseEnrollment>()
+                    .Where(w => w.User.Id == query.Id)
+                    .Select(s => new PurchaseCourseDto()
+                    {
+                        Id = s.Course.Id,
+                        Price = s.Course.Price.Amount,
+                        Date = s.Create,
+                        Name = s.Course.Name,
+                        version = s.Course.Version,
+                        
+                    }).ToFuture<UserPurchaseDto>();
 
 
                 var buyPointsFuture = _session.Query<BuyPointsTransaction>()
@@ -107,7 +117,10 @@ namespace Cloudents.Query.Users
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
                 var buyPointsResult = await buyPointsFuture.GetEnumerableAsync(token);
                 var newSession = await newSessionFuture.GetEnumerableAsync(token);
-                return documentResult.Union(sessionResult).Union(newSession).Union(buyPointsResult).OrderByDescending(o => o.Date);
+                var courses = await courseFuture.GetEnumerableAsync(token);
+                return documentResult.Union(sessionResult).Union(newSession)
+                    .Union(courses)
+                    .Union(buyPointsResult).OrderByDescending(o => o.Date);
             }
         }
     }
