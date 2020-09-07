@@ -1,19 +1,15 @@
 <template>
-   <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
+   <v-app-bar height="62" app clipped-right color="#00A99D" class="studyRoomHeader elevation-0">
       <a @click="resetItems()">
          <img src="../../../app/logo/2020-09-07.png" alt="">
       </a>
-      <div class="roundShape"></div>
-      <v-toolbar-title class="white--text me-7">
-         <span class="liveText">{{$t('studyRoom_live')}}</span>
-         </v-toolbar-title>
       <template v-if="isRoomTutor" >
          <template v-for="(navTab, objectKey) in navTabs">
             <v-divider :key="`${objectKey}_1`" height="33px" class="divider" vertical inset color="white"></v-divider>
             <button :key="objectKey" @click="actionHandler(objectKey)"
                :class="['tutorNavTab', 'd-flex','flex-md-column','px-lg-5','px-md-4','align-md-center','flex-lg-row','justify-md-center',
                   {'tutorNavTab-active': navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon}]" >
-                  <v-icon class="me-md-0 me-lg-2" style="vertical-align: sub;" size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#4c59ff':'white'">
+                  <v-icon class="me-md-0 me-lg-2" style="vertical-align: sub;" size="15" :color="navTab.icon == navTabs[getIsCurrentMode(currentEditorMode)].icon?'#00A99D':'white'">
                      {{navTab.icon}}
                   </v-icon>
                   <span>
@@ -24,7 +20,7 @@
       </template>
       <template v-else>
          <button :class="['tutorNavTab','tutorNavTab-active','px-5']" style="cursor:initial" >
-               <v-icon class="me-2" style="vertical-align: sub;" size="15" color="#4c59ff">
+               <v-icon class="me-2" style="vertical-align: sub;" size="15" color="#00A99D">
                   {{navTabs[getIsCurrentMode(currentEditorMode)].icon}}
                </v-icon>
                <span>
@@ -123,14 +119,6 @@ export default {
                icon:'sbf-shareScreen',
                text: this.$t('studyRoom_nav_screen')
             },
-            [this.roomModes.TEXT_EDITOR]:{
-               icon:'sbf-text',
-               text: this.$t('studyRoom_nav_text')
-            },
-            [this.roomModes.CODE_EDITOR]:{
-               icon:'sbf-code',
-               text: this.$t('studyRoom_nav_code')
-            },
          }
       }
    },
@@ -159,12 +147,6 @@ export default {
       setWhiteboard() {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.WHITE_BOARD)
       },
-      setTextEditor() {
-         this.$store.dispatch('updateActiveNavEditor',this.roomModes.TEXT_EDITOR)
-      },
-      setCodeEditor() {
-         this.$store.dispatch('updateActiveNavEditor',this.roomModes.CODE_EDITOR)
-      },
       setClass() {
          this.$store.dispatch('updateActiveNavEditor',this.roomModes.CLASS_MODE)
       },
@@ -182,8 +164,6 @@ export default {
       actionHandler(editorType){
          let actionsOptions = {
             [this.roomModes.WHITE_BOARD]:this.setWhiteboard,
-            [this.roomModes.TEXT_EDITOR]:this.setTextEditor,
-            [this.roomModes.CODE_EDITOR]:this.setCodeEditor,
             [this.roomModes.CLASS_MODE]:this.setClass,
             [this.roomModes.SCREEN_MODE]:this.setShareScreen,
          }
@@ -231,7 +211,7 @@ export default {
 
          &.tutorNavTab-active{
             border-radius: initial;
-            color: #4c59ff;
+            color: #00A99D;
             background: white;
             border-top-right-radius: 6px;
             border-top-left-radius: 6px;
@@ -255,7 +235,7 @@ export default {
          height: 36px;
          border-radius: 18.5px;
          padding: 0 18px;
-         color: #4c59ff;
+         color: #00A99D;
          font-size: 14px;
          font-weight: 600;
          display: flex;
@@ -267,7 +247,7 @@ export default {
             border-radius: 3px;
             margin-right: 12px;
             margin-top: 2px;
-            background-color: #4c59ff;
+            background-color: #00A99D;
          }
       }
       .net{
@@ -318,21 +298,9 @@ export default {
          margin-top: 9px;
          height: 30px;
       }
-      .roundShape {
-         width: 8px;
-         height: 8px;
-         background-color: #fff;
-         border-radius: 50%;
-         margin: 0 5px 2px 2px;
-      }
       .v-toolbar__title{
          flex-shrink: 0;
          flex-grow: 0;
-      }
-      .liveText{
-         font-size: 22px;
-         font-weight: 600;
-         vertical-align: super;
       }
    }
 </style>
