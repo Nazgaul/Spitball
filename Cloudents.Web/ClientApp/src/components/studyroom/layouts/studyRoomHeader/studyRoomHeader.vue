@@ -1,7 +1,7 @@
 <template>
    <v-app-bar height="62" app clipped-right color="#4c59ff" class="studyRoomHeader elevation-0">
       <a @click="resetItems()">
-         <logoComponent class="studyRoomMainLogo"/>
+         <img src="../../../app/logo/2020-09-07.png" alt="">
       </a>
       <div class="roundShape"></div>
       <v-toolbar-title class="white--text me-7">
@@ -90,12 +90,8 @@
 import studyRoomRecordingService from '../../studyRoomRecordingService.js';
 import intercomSettings from '../../../../services/intercomService';
 
-import logoComponent from "../../../app/logo/logo.vue";
 import { mapGetters } from 'vuex';
 export default {
-   components:{
-      logoComponent,
-   },
    computed: {
       ...mapGetters(['getIsRecording']),
       roomNetworkQualityLevel(){
@@ -157,7 +153,7 @@ export default {
          this.$store.dispatch('updateResetRoom');
          this.$ga.event("tutoringRoom", 'resetItems');
          global.onbeforeunload = function() { };
-         window.location = '/'
+         window.location = 'https://www.tailor-ed.com/israel'
          }
       },
       setWhiteboard() {
@@ -220,11 +216,6 @@ export default {
          padding-bottom: 0;
          padding-top: 10px;
          padding-right: 6px;
-      }
-      .studyRoomMainLogo {
-         .logo {
-            fill: #fff !important;
-         }
       }
       .tutorNavTab{
          outline: none;

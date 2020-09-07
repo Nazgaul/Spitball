@@ -1,8 +1,7 @@
 <template>
     <div>
-        <img src="./2020-09-07.png" alt="">
-        <!-- <app-frymo v-if="isFrymo" class="logo frymo-logo"></app-frymo>
-        <component v-else :is="spLogo" class="logo"></component> -->
+        <app-frymo v-if="isFrymo" class="logo frymo-logo"></app-frymo>
+        <component v-else :is="spLogo" class="logo"></component>
         <!-- <app-logo ></app-logo> -->
     </div>
 </template>
