@@ -80,7 +80,7 @@
                 </div>
             </div>
         </template>
-        <sessionCodeDialog @closeSessionCode="isSessionCodeDialog = false" v-if="isSessionCodeDialog"/>
+        <sessionCodeDialog v-if="isSessionCodeDialog"/>
         <registerToJoinDialog @closeRegisterToJoin="isRegisterToJoinDialog = false" v-if="isRegisterToJoinDialog"/>
     </div>
 </template>

@@ -1,7 +1,6 @@
 <template>
-  <v-dialog :value="true" max-width="550px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
+  <v-dialog overlay-opacity="0.9" :value="true" max-width="550px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
     <div class="createCouponDialog">
-      <v-icon class="close-dialog" v-text="'sbf-close'" @click="onClose"></v-icon>
       <div class="text-wrap pt-4 pt-sm-0">
         <template>
           <div class="dialog-title pb-10 pb-sm-11">{{$t('sessionCode_title')}}</div>
@@ -23,9 +22,6 @@
         </template>
       </div>
       <div class="btns-wrap">
-        <v-btn @click="onClose" class="dialog-btn btn-cancel me-1 me-sm-3" color="white" height="40" rounded depressed>
-          <span> {{$t('coupon_btn_cancel')}} </span>
-        </v-btn>
         <v-btn @click="enterSessionCode" :loading="loadingBtn" class="ms-1 ms-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
           <span> {{$t('coupon_btn_submit')}} </span>
         </v-btn>
@@ -54,9 +50,6 @@ export default {
     }
   },
   methods: {
-    onClose(){
-      this.$emit('closeSessionCode')
-    },
     enterSessionCode() {
       if(this.$refs.seesionCode.validate()){
         this.loadingBtn = true;
@@ -104,19 +97,6 @@ export default {
     height: 100%;
     padding: 10px 14px 14px;
   }
-  .close-dialog {
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    font-size: 12px;
-    padding-top: 6px;
-    padding-right: 16px;
-    color: #b8c0d1;
-      @media (max-width: @screen-xs) {
-        padding-top: 0;
-        padding-right: 10px;
-      }
-  }
   .text-wrap {
     color: #43425d;
     height: inherit;
@@ -151,10 +131,6 @@ export default {
       text-transform: capitalize;
       font-size: 14px;
       font-weight: 600;
-      &.btn-cancel {
-        color: #4c59ff;
-        border: 1px solid #4c59ff !important;
-      }
     }
   }
 }
