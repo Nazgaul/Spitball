@@ -5,7 +5,7 @@ namespace Cloudents.Core.DTOs.Users
 {
     public abstract class UserPurchaseDto
     {
-        public virtual ContentType Type { get; set; }
+        public abstract ContentType Type { get;  }
        
         public DateTime Date { get; set; }
     }
@@ -18,6 +18,10 @@ namespace Cloudents.Core.DTOs.Users
         public string Preview { get; set; }
         public string Url { get; set; }
         public decimal Price { get; set; }
+
+        [NonSerialized] public ContentType type;
+
+        public override ContentType Type => type;
     }
 
     public class PurchasedSessionDto : UserPurchaseDto
@@ -38,6 +42,21 @@ namespace Cloudents.Core.DTOs.Users
         public long TutorId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
         public double Price => _price ?? (double) _oldPrice;
+    }
+
+    public class PurchaseCourseDto : UserPurchaseDto
+    {
+        public long Id { get; set; }
+
+        public double Price { get; set; }
+        public override ContentType Type => ContentType.Course;
+
+
+
+        public string Preview { get; set; }
+        public string Name { get; set; }
+
+        [NonSerialized] public int version;
     }
 
     public class PurchasedBuyPointsDto : UserPurchaseDto

@@ -209,6 +209,10 @@ namespace Cloudents.Web.Api
                     d.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
                     d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
+                if (s is PurchaseCourseDto c)
+                {
+                    c.Preview = _urlBuilder.BuildCourseThumbnailEndPoint(c.Id,c.version);
+                }
                 return s;
             });
         }
