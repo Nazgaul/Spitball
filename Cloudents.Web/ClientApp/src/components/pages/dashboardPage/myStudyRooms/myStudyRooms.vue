@@ -45,7 +45,7 @@
         </div>
       </template>
 
-      <template v-slot:item.date="{item}">{{$moment(item.date).format('MMM D')}}</template>
+      <template v-slot:item.date="{item}">{{$moment(item.date).format('MMM D, YYYY')}}</template>
       <template v-slot:item.name="{item}">{{item.name}}</template>
 
       <template v-slot:item.type>
@@ -70,7 +70,7 @@
       </template>
 
       <template v-slot:item.lastSession="{item}">
-        <template v-if="item.lastSession">{{$moment(item.lastSession).format('MMM D')}}</template>
+        <template v-if="item.lastSession">{{$moment(item.lastSession).format('MMM D, YYYY')}}</template>
       </template>
 
       <template v-slot:item.price="{item}">{{$price(item.price,item.currency,true)}}</template>
