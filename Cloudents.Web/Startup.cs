@@ -127,14 +127,12 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 
 
-            //containerBuilder.RegisterType<SeoDocumentBuilder>()
-            //    .Keyed<IBuildSeo>(SeoType.Document);
+
             containerBuilder.RegisterType<SeoTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Tutor);
             containerBuilder.RegisterType<SeoStaticBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Static);
-            //containerBuilder.RegisterType<SeoQuestionBuilder>()
-            //    .Keyed<IBuildSeo>(SeoType.Question);
+
 
             containerBuilder.RegisterType<SeoCourseTutorBuilder>()
                 .Keyed<IBuildSeo>(SeoType.TutorList);
@@ -246,7 +244,6 @@ namespace Cloudents.Web
                 {
 
                     fv.RegisterValidatorsFromAssemblyContaining<UpdateCourseLandingCommandValidator>();
-                    //  fv.ImplicitlyValidateChildProperties = true;
                 });
             if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {
@@ -307,7 +304,6 @@ namespace Cloudents.Web
 
 
             //TODO: not sure we need those
-            //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddSingleton<ConfigurationService>();
@@ -372,7 +368,7 @@ namespace Cloudents.Web
                 app.UseHsts();
 
             }
-           
+
 
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             var reWriterOptions = new RewriteOptions()
@@ -392,7 +388,7 @@ namespace Cloudents.Web
             {
                 OnPrepareResponse = ctx =>
                 {
-                    if (!env.IsDevelopment()  && !env.IsStaging())
+                    if (!env.IsDevelopment() && !env.IsStaging())
                     {
                         ctx.Context.Response.Headers.Add("Cache-Control", $"public,max-age={TimeConst.Year}");
                         ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
