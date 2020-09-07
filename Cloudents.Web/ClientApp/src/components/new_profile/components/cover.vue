@@ -6,7 +6,7 @@
       :class="{'mainCoverImage': mainCoverImage}"
       type="image"
       :min-width="mainCoverImage ? coverImageSize.width : '100%'"
-      :height="mainCoverImage ? coverImageSize.height : '100%'"
+      :height="mainCoverImage ? coverImageSize.height : '150px'"
     >
     </v-skeleton-loader>
     <img

@@ -353,6 +353,9 @@ export default {
                 .user-avatar-rect-img {
                     border: solid 1px #c6cdda;
                     border-radius: 3px !important;
+                    height: 160px;
+                    width: 100%;
+                    object-fit: cover;
                 }
             }
         }
