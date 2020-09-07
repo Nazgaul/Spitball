@@ -179,7 +179,9 @@ const actions = {
                 return
             }
             commit('setAccountStudentInfo', { passData })
-            commit('setAccountPicture', avatarImageUrl)
+            if(avatarImageUrl) {
+                commit('setAccountPicture', avatarImageUrl)
+            }
         })
     },
     updateUserStats(context, days) {
