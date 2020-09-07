@@ -9,6 +9,18 @@ namespace Cloudents.Core.DTOs
         public abstract double Price { get; }
     }
 
+    public class CourseSaleDto : SaleDto
+    {
+        public long Id { get; set; }
+
+        public string Preview { get; set; }
+        public override double Price => price;
+        public string Name { get; set; }
+
+        [NonSerialized] public double price;
+        [NonSerialized] public int version;
+    }
+
     public class DocumentSaleDto : SaleDto
     {
         public string Course { get; set; }
@@ -20,24 +32,10 @@ namespace Cloudents.Core.DTOs
 
         [NonSerialized] public decimal _price;
 
-      //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
-      public override double Price => (double) _price;
+        public override double Price => (double)_price;
     }
 
-    //public class QuestionSaleDto : SaleDto
-    //{
-    //    public long Id{ get; set; }
-    //    public string Course { get; set; }
-    //    public string Text { get; set; }
-    //    public string AnswerText { get; set; }
-    //   // public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
-    //    public override ContentType Type => ContentType.Question;
-
-    //    [NonSerialized] public decimal _price;
-
-    //    //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
-    //    public override double Price => (double) _price;
-    //}
+    
     public class SessionSaleDto : SaleDto
     {
         public string StudyRoomName { get; set; }
@@ -59,7 +57,7 @@ namespace Cloudents.Core.DTOs
         [NonSerialized] public double? _price;
 
         //  public override PaymentStatus PaymentStatus => PaymentStatus.Approved;
-        public override double Price => _price.GetValueOrDefault((double) _oldPrice);
+        public override double Price => _price.GetValueOrDefault((double)_oldPrice);
 
 
     }
@@ -75,7 +73,8 @@ namespace Cloudents.Core.DTOs
         Document,
         Video,
         TutoringSession,
-      //  Question,
-        BuyPoints
+        BuyPoints,
+        Course
+
     }
 }

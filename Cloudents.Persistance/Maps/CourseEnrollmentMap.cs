@@ -13,6 +13,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Receipt);
             Map(x => x.Create).Not.Nullable();
+            Map(x => x.Price).CustomType<MoneyCompositeUserType>();
 
         }
     }
