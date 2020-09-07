@@ -44,6 +44,7 @@ namespace Cloudents.Command.CommandHandler
             StudyRoom studyRoom = new TailorEdStudyRoom(tutor, students, googleDocUrl);
             await _studyRoomRepository.AddAsync(studyRoom, token);
             message.StudyRoomId = studyRoom.Id;
+            message.TutorId = tutor.Id;
             message.Codes = students.Select(s => s.code);
         }
     }
