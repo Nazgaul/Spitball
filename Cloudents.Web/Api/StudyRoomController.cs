@@ -337,7 +337,12 @@ namespace Cloudents.Web.Api
                 new
                 {
                     codes = command.Codes,
-                    tutorLink = tutorUrl
+                    tutorLink = tutorUrl,
+                    studentLink = Url.RouteUrl("StudyRoomRoute", new
+                    {
+                        id = command.StudyRoomId,
+                        type = "tailorEd"
+                    })
                     //TODO link of tutor ath
                 }
             );
