@@ -44,7 +44,7 @@ export default {
             tr td:first-child{
             padding-right: 6px;
             white-space:nowrap;
-            vertical-align: baseline;
+            // vertical-align: baseline;
             padding-top: 4px;
             }
         }
