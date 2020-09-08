@@ -32,7 +32,7 @@
          }">
             <template v-slot:item.preview="{item}">
                <div class="d-flex justify-center" v-if="item.preview">
-                  <v-avatar size="68">
+                  <v-avatar size="68" :class="{'cursor-pointer':item.type == 'Course'}"  @click="item.type == 'Course'? goToCourse(item):''">
                      <img :src="item.preview">
                   </v-avatar>
                </div>
@@ -81,7 +81,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import * as routeNames from '../../../../routes/routeNames.js';
 import tableInfoTd from '../global/tableInfoTd.vue';
 // import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
 // import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
@@ -122,6 +122,15 @@ export default {
    },
    methods: {
       ...mapActions(['updateSalesItems']),
+      goToCourse(item){
+         this.$router.push({
+            name: routeNames.CoursePage,
+            params: {
+               id:item.id,
+               name:item.name
+            }
+         })
+      },
       formatPrice(price,type){
          if(isNaN(price)) return;
          if(price < 0){
