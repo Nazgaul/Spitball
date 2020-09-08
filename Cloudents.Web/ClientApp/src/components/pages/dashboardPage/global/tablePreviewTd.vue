@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import * as routeNames from '../../../../routes/routeNames.js';
 export default {
    props:{
       item:{
@@ -23,6 +24,15 @@ export default {
    },
    methods: {
       dynamicRouter(item){
+         if(item.type == 'Course'){
+            return {
+                    name: routeNames.CoursePage,
+                    params: {
+                        id:item.id,
+                        name:item.name
+                    }
+                }
+         }
          if(item.url){
             return item.url;
          }
