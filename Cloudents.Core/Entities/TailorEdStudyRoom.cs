@@ -24,6 +24,7 @@ namespace Cloudents.Core.Entities
                 {
                     Code = user.code
                 });
+                ChatRoom.AddUserToChat(tutor.User);
                 ChatRoom.AddUserToChat(user.user);
 
             }
