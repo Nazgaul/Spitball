@@ -41,7 +41,7 @@
                   </td>
                   <td class="text-start" v-text="dictionary.types[props.item.type]"/>
                   <td class="text-start" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-start">{{$moment(props.item.date).format('MMM D')}}</td> 
+                  <td class="text-start">{{$moment(props.item.date).format('MMM D, YYYY')}}</td> 
                   
                   
                   <td class="text-center">
