@@ -167,12 +167,18 @@ export default {
                this.videoTrack.setPriority('standard')
             }
          }
-         if (el.classList.contains('OT_big')) {
-            el.classList.remove('OT_big');
-         } else {
-            el.classList.add('OT_big');
+         let videoTag = el.querySelector('video');
+
+         if (videoTag.requestFullscreen) {
+            videoTag.requestFullscreen();
+         } else if (videoTag.webkitRequestFullscreen) {
+            videoTag.webkitRequestFullscreen();
+         } else if (videoTag.mozRequestFullScreen) {
+            videoTag.mozRequestFullScreen();
+         } else if (videoTag.msRequestFullscreen) {
+            videoTag.msRequestFullscreen();
          }
-         this.$parent.layout()
+         videoTag.classList.toggle('noAnimation')
          this.isExpandVideoMode = !this.isExpandVideoMode;
       },
       startShareScreen(){
@@ -227,6 +233,15 @@ export default {
             detachedElement.remove();
          });
       }
+   },
+   mounted() {
+      document.addEventListener('fullscreenchange',(ev)=>{
+         if(!document.fullscreen){
+            let videoTag = document.getElementById(this.participant.id).querySelector('video');
+            videoTag.classList.remove('noAnimation')
+            this.isExpandVideoMode = false;
+         }
+      },false)
    },
 }
 </script>
@@ -316,6 +331,16 @@ export default {
       max-width: 100%;
       max-height: 100%;
       min-width: auto;
+      transition: all .8s linear;
+      &.noAnimation{
+         transition: none;
+      }
+   }
+   video::-webkit-media-controls-enclosure {
+      display: none !important;
+   }
+   video::-webkit-media-controls {
+      display:none !important;
    }
 }
 </style>
