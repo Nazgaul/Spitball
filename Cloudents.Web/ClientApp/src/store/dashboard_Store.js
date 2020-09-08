@@ -72,7 +72,7 @@ const getters = {
 
 const actions = {
    updateSalesItems({commit}) {
-      dashboardService.getSalesItems().then(items=>{
+      return dashboardService.getSalesItems().then(items=>{
          commit('setSalesItems', items);
       });
    },

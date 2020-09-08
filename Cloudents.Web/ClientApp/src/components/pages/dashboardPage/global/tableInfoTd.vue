@@ -6,7 +6,7 @@
          </div>
       </template>
        <!-- :to="dynamicRouter(item)" -->
-      <div v-else class="tableInfo_router">
+      <div v-else :class="{'cursor-pointer':item.type == 'Course'}" class="tableInfo_router" @click="item.type == 'Course' ? goToCourse(item) :''">
          <template v-if="item.type === 'TutoringSession'">
             <div class="text-truncate">
                <div v-if="item.roomName" class="text-truncate">
@@ -22,6 +22,11 @@
             </div>
          </template>
          <template v-if="item.type === 'Document' || item.type === 'Video'">
+            <div class="text-truncate">
+               <span>{{item.name}}</span>
+            </div>
+         </template>
+         <template v-if="item.type === 'Course'">
             <div class="text-truncate">
                <span>{{item.name}}</span>
             </div>
@@ -46,6 +51,7 @@
    </div>
 </template>
 <script>
+import * as routeNames from '../../../../routes/routeNames.js';
 export default {
    props:{
       item:{
@@ -53,7 +59,16 @@ export default {
          required:true
       }
    },
-   // methods: {
+   methods: {
+      goToCourse(item){
+         this.$router.push({
+            name: routeNames.CoursePage,
+            params: {
+               id:item.id,
+               name:item.name
+            }
+         })
+      }
    //    dynamicRouter(item){
    //       if(item.url){
    //          return item.url;
@@ -68,7 +83,7 @@ export default {
    //          return {name: 'profile',params: {id: item.userId, name: item.name}}
    //       }
    //    },   
-   // },
+   },
    
 }
 </script>
