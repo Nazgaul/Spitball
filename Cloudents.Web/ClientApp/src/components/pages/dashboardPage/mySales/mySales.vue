@@ -13,6 +13,7 @@
       </div>
 
       <v-data-table 
+         :loading="!isReady"
          calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
@@ -33,7 +34,7 @@
             <template v-slot:item.preview="{item}">
                <div class="d-flex justify-center" v-if="item.preview">
                   <v-avatar size="68" :class="{'cursor-pointer':item.type == 'Course'}"  @click="item.type == 'Course'? goToCourse(item):''">
-                     <img :src="item.preview">
+                     <img :src="$proccessImageUrl(item.preview, {width:68, height:68}) ">
                   </v-avatar>
                </div>
                <div v-if="item.sessionId">
@@ -97,6 +98,7 @@ export default {
    },
    data() {
       return {
+         isReady:false,
          paginationModel:{
             page:1
          },
@@ -158,7 +160,10 @@ export default {
       },
    },
    created() {
-      this.updateSalesItems()
+      let self = this;
+      this.updateSalesItems().finally(()=>{
+         self.isReady = true
+      })
    }
 }
 </script>
