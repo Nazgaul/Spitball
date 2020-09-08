@@ -150,7 +150,8 @@ export default {
                   let videoTag = previewContainer.querySelector("video");
                   if (videoTag) {previewContainer.removeChild(videoTag)}
                   previewContainer.appendChild(participant.video.attach());
-                  participant.video.attach().addEventListener('resize', self.onVideoResolutionChange);
+                  let videoTagForEvent = previewContainer.querySelector("video");
+                  videoTagForEvent.addEventListener('resize', self.onVideoResolutionChange);
                })
             }
          }
