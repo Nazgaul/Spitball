@@ -327,7 +327,7 @@ namespace Cloudents.Web.Api
             {
                 id = command.StudyRoomId,
                 token = tutorId
-            });
+            },"https");
             return Created(
                 Url.RouteUrl("StudyRoomRoute", new
                 {
@@ -342,7 +342,7 @@ namespace Cloudents.Web.Api
                     {
                         id = command.StudyRoomId,
                         type = "tailorEd"
-                    })
+                    },"https")
                     //TODO link of tutor ath
                 }
             );
