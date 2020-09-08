@@ -202,7 +202,7 @@
             closeReviewDialog() {
                 this.updateReviewDialog(false);
                 global.onbeforeunload = function() { };
-                window.location = '/'
+                window.location = 'https://www.tailor-ed.com/israel'
             }
         },
         mounted(){

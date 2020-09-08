@@ -3,7 +3,7 @@
         <div class="settings">
             <div class="settingsHeader">
                 <a @click="resetItems" class="logo-link">
-                    <appLogo />
+                  <img :height="isMobile?'34px':'40px' " src="../../../app/logo/2020-09-07.png" alt="">
                 </a>
             </div>
 
@@ -18,13 +18,11 @@
 </template>
 
 <script>
-import appLogo from '../../../app/logo/logo.vue'
 import studyRoomSettingDetails from "./studyRoomSettingsDetails/studyRoomSettingsDetails.vue";
 import studyRoomVideo from "./studyRoomVideo/studyRoomVideo.vue";
 
 export default {
   components: {
-    appLogo,
     studyRoomSettingDetails,
     studyRoomVideo,
   },
@@ -37,6 +35,9 @@ export default {
     roomIsActive() {
       return this.$store.getters.getRoomIsActive
     },
+    isMobile(){
+      return this.$vuetify.breakpoint.smAndDown;
+    }
   },
   methods:{
     closeDialog(){
@@ -48,7 +49,7 @@ export default {
         this.$ga.event("tutoringRoom", 'resetItems');
         this.closeDialog()
         global.onbeforeunload = function() { };
-        window.location = '/'
+        window.location = 'https://www.tailor-ed.com/israel'
       }
     }
   },
@@ -69,7 +70,9 @@ export default {
         display: flex;
         align-items: end;
         justify-content: space-between;
-  
+      @media (max-width: @screen-xs) {
+        padding-top: 4px;
+      }
         button {
           outline: none;
         }

@@ -8,27 +8,6 @@
                         <td class="" v-t="'studyRoomSettings_tutor_name'"></td>
                         <td class="ps-4">{{roomTutor.tutorName}}</td>
                     </tr>
-                    <tr v-if="!isMyRoom">
-                        <td class="" v-t="'studyRoomSettings_price'"></td>
-                        <td class="ps-4 d-flex">
-                            <span class="pe-2" v-if="roomPrice">{{roomPrice}}</span>
-                            <span v-else v-t="'studyRoomSettings_free'"></span>
-                            <button v-if="showApplyCouponBtn" class="couponBtn" v-t="'studyRoomSettings_apply_coupon'" @click="$store.commit('setComponent', 'applyCoupon')"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="" v-t="'studyRoomSettings_share'"></td>
-                        <td class="ps-1">
-                            <shareContent
-                                class="settingShareContent pa-0"
-                                :link="shareContentParams.link"
-                                :twitter="shareContentParams.twitter"
-                                :whatsApp="shareContentParams.whatsApp"
-                                :email="shareContentParams.email"
-                                :roomSetting="true"
-                            />
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -80,7 +59,7 @@
                 </div>
             </div>
         </template>
-        <sessionCodeDialog @closeSessionCode="isSessionCodeDialog = false" v-if="isSessionCodeDialog"/>
+        <sessionCodeDialog v-if="isSessionCodeDialog"/>
         <registerToJoinDialog @closeRegisterToJoin="isRegisterToJoinDialog = false" v-if="isRegisterToJoinDialog"/>
     </div>
 </template>
@@ -88,7 +67,6 @@
 <script>
 import registerToJoinDialog from '../../../layouts/registerToJoinDialog/registerToJoinDialog.vue';
 import sessionStartCounter from '../../sessionStartCounter/sessionStartCounter.vue'
-import shareContent from '../../../../pages/global/shareContent/shareContent.vue'
 
 import sessionCodeDialog from '../sessionCodeDialog.vue';
 import whiteboardSvg from '../images/whiteboard.svg'
@@ -98,7 +76,6 @@ import fullviewSvg from '../images/fullview.svg'
 export default {
     components: {
         sessionStartCounter,
-        shareContent,
         whiteboardSvg,
         presentSvg,
         fullviewSvg,
@@ -160,49 +137,15 @@ export default {
         isRoomDisabled(){
             return !this.$store.getters.getJwtToken;
         },
-        shareContentParams(){
-            let urlLink = `${window.origin}${this.$route.fullPath}?t=${Date.now()}`;
-            let paramObJ = {
-                link: urlLink,
-                twitter: this.$t('shareContent_share_profile_twitter',[this.roomTutor.tutorName,urlLink]),
-                whatsApp: this.$t('shareContent_share_profile_whatsapp',[this.roomTutor.tutorName,urlLink]),
-                email: {
-                    subject: this.$t('shareContent_share_profile_email_subject',[this.roomTutor.tutorName]),
-                    body: this.$t('shareContent_share_profile_email_body',[this.roomTutor.tutorName,urlLink]),
-                }
-            }
-            return paramObJ
-        },
         isRoomTutor(){
             return this.$store.getters.getRoomIsTutor;
         },
         roomName() {
             return this.$store.getters?.getRoomName
         },
-        currencySymbol() {
-            return this.$store.getters.accountUser?.currencySymbol
-        },
-        roomPrice(){
-            let priceObj = this.roomTutor?.tutorPrice
-            if(priceObj?.amount > 0){
-                // TODO: Currency Change
-                return this.$price(priceObj.amount, priceObj.currency)
-                // return this.$n(this.roomTutor.tutorPrice, {'style':'currency','currency': this.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
-            }
-            return 0
-        },
-        isMyRoom() {
-            return this.roomTutor?.tutorId === this.$store.getters.accountUser?.id
-        },
         roomTutor() {
             return this.$store.getters.getRoomTutor
         },
-        showApplyCouponBtn(){
-            if(this.isRoomBroadcast) return false;
-            else{
-                return this.isLoggedIn && this.roomPrice
-            }
-        }
         // roomLink() {
         //     // @idan - I think this better approach getting the room id with $route.params instead of passing props
         //     // TODO: Make room link getter from store
@@ -296,26 +239,6 @@ export default {
                 &:first-child {
                     width: 120px;
                 }
-            }
-            .settingShareContent {
-                height: 19px;
-                svg {
-                    width: 16px !important;
-                }
-                .btnWrapper {
-                    .shareBtns:first-child {
-                         svg {
-                            width: 8px !important;
-                        }
-                    }
-                }
-                .option.link  {
-                    visibility: hidden !important;
-                }
-            }
-            .couponBtn {
-                outline: none;
-                color: #bbb;
             }
         }
     }
