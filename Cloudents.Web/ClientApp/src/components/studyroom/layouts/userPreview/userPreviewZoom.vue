@@ -235,7 +235,7 @@ export default {
       }
    },
    mounted() {
-      document.addEventListener('fullscreenchange',(ev)=>{
+      document.addEventListener('fullscreenchange',()=>{
          if(!document.fullscreen){
             let videoTag = document.getElementById(this.participant.id).querySelector('video');
             videoTag.classList.remove('noAnimation')
