@@ -57,7 +57,6 @@ namespace Cloudents.Query.Users
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
-                    //.Where(w => w.Duration!.Value > StudyRoomSession.BillableStudyRoomSession)
                     .Where(w => w.StudyRoomVersion.GetValueOrDefault(0) == 0)
                     .Select(s => new SessionSaleDto()
                     {
@@ -78,12 +77,23 @@ namespace Cloudents.Query.Users
                             .FirstOrDefault()
                     }).ToFuture<SaleDto>();
 
+                var courseFuture = _session.Query<CourseEnrollment>()
+                    .Where(w => w.Course.Tutor.Id == query.Id)
+                    .Select(s => new CourseSaleDto()
+                    {
+                        Date = s.Create,
+                        Type = ContentType.Course,
+                        Name = s.Course.Name,
+                        price = s.Course.Price.Amount,
+                        version = s.Course.Version,
+                        Id = s.Course.Id
+                    }).ToFuture();
+
+
 
                
                 var sessionFuture2 = _session.Query<StudyRoomPayment>()
                     .Fetch(f=>f.StudyRoomSessionUser)
-                    // .Fetch(f => f.StudyRoomSession)
-                    // .ThenFetch(f => f.StudyRoom)
                     .Where(w=>w.Tutor.Id == query.Id )
                     .Select(s => new SessionSaleDto()
                     {
@@ -104,10 +114,12 @@ namespace Cloudents.Query.Users
                 var documentResult = await documentFuture.GetEnumerableAsync(token);
                 var sessionResult = await sessionFuture.GetEnumerableAsync(token);
                 var sessionV2Result = await sessionFuture2.GetEnumerableAsync(token);
+                var courseResult = await courseFuture.GetEnumerableAsync(token);
 
                 return documentResult
                     .Union(sessionResult)
                     .Union(sessionV2Result)
+                    .Union(courseResult)
                     .OrderByDescending(o => o.Date);
             }
         }

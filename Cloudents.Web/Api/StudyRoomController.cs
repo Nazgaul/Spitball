@@ -323,27 +323,27 @@ namespace Cloudents.Web.Api
             var command = new CreateTailorEdStudyRoomCommand(model.AmountOfUsers);
             await _commandBus.DispatchAsync(command, token);
             var tutorId = dataProtect.Protect(command.TutorId.ToString(), DateTimeOffset.UtcNow.AddDays(30));
-            var tutorUrl = Url.RouteUrl("StudyRoomRoute", new
+            var tutorUrl = Url.RouteUrl(Controllers.StudyRoomController.StudyRoomRouteName, new
             {
                 id = command.StudyRoomId,
-                token = tutorId
+                token = tutorId,
+                culture = model.Culture
             },"https");
+
+
+            var studentUrl = Url.RouteUrl(Controllers.StudyRoomController.StudyRoomRouteName, new
+            {
+                id = command.StudyRoomId,
+                type = "tailorEd",
+                culture = model.Culture
+            }, "https");
             return Created(
-                Url.RouteUrl("StudyRoomRoute", new
-                {
-                    id = command.StudyRoomId,
-                    type = "tailorEd"
-                }),
+                studentUrl,
                 new
                 {
                     codes = command.Codes,
                     tutorLink = tutorUrl,
-                    studentLink = Url.RouteUrl("StudyRoomRoute", new
-                    {
-                        id = command.StudyRoomId,
-                        type = "tailorEd"
-                    },"https")
-                    //TODO link of tutor ath
+                    studentLink = studentUrl
                 }
             );
         }

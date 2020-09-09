@@ -41,11 +41,11 @@
                   </td>
                   <td class="text-start" v-text="dictionary.types[props.item.type]"/>
                   <td class="text-start" v-text="formatPrice(props.item.price,props.item.type)"/>
-                  <td class="text-start">{{$moment(props.item.date).format('MMM D')}}</td> 
+                  <td class="text-start">{{$moment(props.item.date).format('MMM D, YYYY')}}</td> 
                   
                   
                   <td class="text-center">
-                     <button v-if="props.item.type !== 'TutoringSession' && props.item.type !== 'BuyPoints'" @click="dynamicAction(props.item)" class="myPurchases_action">
+                     <button v-if="props.item.type !== 'TutoringSession' && props.item.type !== 'BuyPoints' && props.item.type !== 'Course'" @click="dynamicAction(props.item)" class="myPurchases_action">
                         {{dynamicResx(props.item.type)}}
                      </button>
                   </td> 
@@ -104,7 +104,7 @@ export default {
          if(type === 'Document' || type === 'Video' ){
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
+         if(type === 'TutoringSession' || type === 'BuyPoints' || type === 'Course'){
             return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol});
          }
       },
