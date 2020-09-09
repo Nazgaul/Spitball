@@ -22,5 +22,16 @@ namespace Cloudents.Core.Event
         public Course UserCourse { get; private set; }
     }
 
+
+    public class DeleteCourseEvent : IEvent
+    {
+        public DeleteCourseEvent(Course userCourse)
+        {
+            UserCourse = userCourse;
+        }
+
+        public Course UserCourse { get; private set; }
+    }
+
    
 }
