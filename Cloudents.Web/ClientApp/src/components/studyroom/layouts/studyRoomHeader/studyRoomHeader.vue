@@ -1,6 +1,6 @@
 <template>
    <v-app-bar height="62" app clipped-right color="#00A99D" class="studyRoomHeader elevation-0">
-      <a @click="resetItems()">
+      <a @click="resetItems()" class="me-7">
          <img src="../../../app/logo/2020-09-07.png" alt="">
       </a>
       <template v-if="isRoomTutor" >

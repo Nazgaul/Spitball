@@ -46,6 +46,15 @@ const mutations = {
         global.location.replace("/logout");
         //intercomeService.restrartService();
     },
+    logoutTailorEd(state){
+        global.onbeforeunload = function() { };
+        state.isUserLoggedIn = false;
+        state.user = null;
+
+        let logOutPath = new URL(`${location.origin}/logout`);
+        logOutPath.searchParams.append('returnUrl','https://www.tailor-ed.com/israel')
+        global.location.replace(logOutPath.toString());
+    },
     changeLoginStatus(state, val) {
         state.isUserLoggedIn = val;
     },

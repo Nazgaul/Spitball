@@ -318,6 +318,7 @@ const actions = {
       if(getters.getRoomIsTutor){
          studyRoomService.endTutoringSession(state.studyRoomId).then(() => {
             commit(studyRoom_SETTERS.DIALOG_END_SESSION, false)
+            commit('logoutTailorEd');
          })
       }
    },
@@ -356,12 +357,12 @@ const actions = {
       commit('ADD_CONVERSATION_STUDYROOM',chatParams)
 
    },
-   updateRoomDisconnected({commit,getters,dispatch}){
+   updateRoomDisconnected({commit,getters}){
       commit(twilio_SETTERS.VIDEO_AVAILABLE,false);
       commit(twilio_SETTERS.AUDIO_AVAILABLE,false);
       commit(studyRoom_SETTERS.RESET_ROOM_PARTICIPANTS);
       if(!getters.getRoomIsTutor){
-         dispatch('updateReviewDialog',true)
+         commit('logoutTailorEd');
       }
    },
    updateRoomIsJoined({ commit,getters ,dispatch}, val) {
