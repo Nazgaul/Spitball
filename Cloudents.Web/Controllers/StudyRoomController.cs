@@ -16,6 +16,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class StudyRoomController : Controller
     {
+        internal const string StudyRoomRouteName = "StudyRoomRoute";
         private readonly IQueryBus _queryBus;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -25,7 +26,7 @@ namespace Cloudents.Web.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        [Route("StudyRoom/{id:guid}", Name = "StudyRoomRoute"), SignInWithToken]
+        [Route("StudyRoom/{id:guid}", Name = StudyRoomRouteName), SignInWithToken]
         public async Task<IActionResult> Index(Guid id, [FromQuery] string? dialog, CancellationToken token)
         {
             ViewBag.isRtl = false;
