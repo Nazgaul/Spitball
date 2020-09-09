@@ -8,32 +8,29 @@ namespace Cloudents.Core.Entities
     public class TailorEdStudyRoom : StudyRoom
     {
         public TailorEdStudyRoom(Tutor tutor,
-            IList<(SystemUser user,string code)> users,
+            //IList<SystemUser> users,
+            int amountOfUsers,
+            string code,
             string onlineDocumentUrl) : base(tutor,  0)
         {
-            if (users.Count == 0)
+            if (amountOfUsers == 0)
             {
                 throw new ArgumentException();
             }
             Identifier = Guid.NewGuid().ToString();
             ChatRoom = ChatRoom.FromStudyRoom(this);
+            ChatRoom.AddUserToChat(tutor.User);
+            //foreach (var user in users)
+            //{
+            //    _users.Add(new StudyRoomUser(user, this));
+              
+            //    ChatRoom.AddUserToChat(user);
 
-            foreach (var user in users)
-            {
-                _users.Add(new StudyRoomUser(user.user, this)
-                {
-                    Code = user.code
-                });
-                ChatRoom.AddUserToChat(tutor.User);
-                ChatRoom.AddUserToChat(user.user);
-
-            }
+            //}
             Name = "Tailor Ed";
             OnlineDocumentUrl = onlineDocumentUrl;
-
-
-
-            if (_users.Count < 4 && _users.Count > 0)
+            Code = code;
+            if (amountOfUsers < 4 /*&& _users.Count > 0*/)
             {
                 TopologyType = StudyRoomTopologyType.SmallGroup;
             }
@@ -52,6 +49,17 @@ namespace Cloudents.Core.Entities
         public override StudyRoomType Type => StudyRoomType.TailorEd;
 
         public virtual string Name { get; protected set; }
+
+        public virtual string Code { get; set; }
+
+
+        public virtual void AddFictiveUser(SystemUser user)
+        {
+            _users.Add(new StudyRoomUser(user, this));
+              
+            ChatRoom.AddUserToChat(user);
+        }
+
 
         public override void AddUserToStudyRoom(User user)
         {

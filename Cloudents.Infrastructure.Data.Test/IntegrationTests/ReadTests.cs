@@ -59,14 +59,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Theory]
-        [InlineData("7090965f-a968-41ac-b5a6-ac2e00b6b925", "jCub5fjd")]
-        public async Task TailorEdCodeQuery_Ok(string studyRoomId, string code)
-        {
-            var query = new TailorEdCodeQuery(Guid.Parse(studyRoomId),code );
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //[Theory]
+        //[InlineData("7090965f-a968-41ac-b5a6-ac2e00b6b925", "jCub5fjd")]
+        //public async Task TailorEdCodeQuery_Ok(string studyRoomId, string code)
+        //{
+        //    var query = new TailorEdCodeQuery(Guid.Parse(studyRoomId),code );
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
 
-        }
+        //}
 
 
         [Theory]

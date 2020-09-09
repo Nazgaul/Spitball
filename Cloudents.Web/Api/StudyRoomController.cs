@@ -341,7 +341,7 @@ namespace Cloudents.Web.Api
                 studentUrl,
                 new
                 {
-                    codes = command.Codes,
+                    code = command.Code,
                     tutorLink = tutorUrl,
                     studentLink = studentUrl
                 }
@@ -356,19 +356,16 @@ namespace Cloudents.Web.Api
             [FromBody] EnterTailorEdRoomRequest model,
             CancellationToken token)
         {
-
-            var query = new TailorEdCodeQuery(id,model.Code );
-            var result = await _queryBus.QueryAsync(query, token);
-            if (result != null)
+            try
             {
-                var user = await _userManager.FindByIdAsync(result.UserId.ToString());
-                await _signInManager.SignInAsync(user, false);
+                var command = new EnterTailorEdStudyRoomCodeCommand(model.Code, id);
+                await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
-
-            return BadRequest("Invalid code");
-
-           
+            catch (UnauthorizedAccessException)
+            {
+                return BadRequest("Invalid code");
+            }
         }
 
         #endregion

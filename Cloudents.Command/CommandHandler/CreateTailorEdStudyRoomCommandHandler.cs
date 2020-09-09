@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command.Command;
@@ -32,20 +31,21 @@ namespace Cloudents.Command.CommandHandler
         {
             var tutor = await _tutorRepository.GetTailorEdTutorAsync(token);
 
-            var students = new List<(SystemUser user,string code)>();
-            for (int i = 0; i < message.AmountOfUsers; i++)
-            {
-                var user = await _userRepository.GetRandomFictiveUserAsync(i, token);
-                students.Add((user, _shortIdGenerator.GenerateShortId(8)));
-            }
+            //var students = new List<SystemUser>();
+            //for (int i = 0; i < message.AmountOfUsers; i++)
+            //{
+            //    var user = await _userRepository.GetRandomFictiveUserAsync(i, token);
+            //    students.Add(user);
+            //}
             var documentName = $"{Guid.NewGuid()}";
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
-            StudyRoom studyRoom = new TailorEdStudyRoom(tutor, students, googleDocUrl);
+            var studentCode = _shortIdGenerator.GenerateShortId(8);
+            StudyRoom studyRoom = new TailorEdStudyRoom(tutor, message.AmountOfUsers, googleDocUrl,studentCode);
             await _studyRoomRepository.AddAsync(studyRoom, token);
             message.StudyRoomId = studyRoom.Id;
             message.TutorId = tutor.Id;
-            message.Codes = students.Select(s => s.code);
+            message.Code = studentCode;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Cloudents.Command.Command
         public int AmountOfUsers { get; }
         //public string Name { get; }
         public Guid StudyRoomId { get; set; }
-        public IEnumerable<string> Codes { get; set; }
+        public string Code { get; set; }
 
         public long TutorId { get; set; }
     }
