@@ -18,7 +18,7 @@ namespace Cloudents.Command.CommandHandler
 
         public CreateTailorEdStudyRoomCommandHandler(IFictiveUserRepository userRepository,
             ITutorRepository tutorRepository, IRepository<StudyRoom> studyRoomRepository,
-            IGoogleDocument googleDocument,  IShortIdGenerator shortIdGenerator)
+            IGoogleDocument googleDocument, IShortIdGenerator shortIdGenerator)
         {
             _userRepository = userRepository;
             _tutorRepository = tutorRepository;
@@ -41,7 +41,7 @@ namespace Cloudents.Command.CommandHandler
             var googleDocUrl = await _googleDocument.CreateOnlineDocAsync(documentName, token);
 
             var studentCode = _shortIdGenerator.GenerateShortId(8);
-            StudyRoom studyRoom = new TailorEdStudyRoom(tutor, message.AmountOfUsers, googleDocUrl,studentCode);
+            StudyRoom studyRoom = new TailorEdStudyRoom(tutor, message.AmountOfUsers, studentCode, googleDocUrl);
             await _studyRoomRepository.AddAsync(studyRoom, token);
             message.StudyRoomId = studyRoom.Id;
             message.TutorId = tutor.Id;

@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Query.StudyRooms;
 using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Api
@@ -45,7 +46,7 @@ namespace Cloudents.Web.Api
         private readonly SignInManager<User> _signInManager;
 
         public StudyRoomController(ICommandBus commandBus, UserManager<User> userManager,
-            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer, 
+            IQueryBus queryBus, IStringLocalizer<StudyRoomController> localizer,
             SignInManager<User> signInManager)
         {
             _commandBus = commandBus;
@@ -317,7 +318,7 @@ namespace Cloudents.Web.Api
         [HttpPost("tailor-ed")]
         public async Task<IActionResult> CreateTailorEdPrivateStudyRoom([FromBody]
             CreateTailorEdStudyRoomRequest model,
-            [FromServices]  IDataProtect dataProtect,
+            [FromServices] IDataProtect dataProtect,
             CancellationToken token)
         {
             var command = new CreateTailorEdStudyRoomCommand(model.AmountOfUsers);
@@ -328,7 +329,7 @@ namespace Cloudents.Web.Api
                 id = command.StudyRoomId,
                 token = tutorId,
                 culture = model.Culture
-            },"https");
+            }, "https");
 
 
             var studentUrl = Url.RouteUrl(Controllers.StudyRoomController.StudyRoomRouteName, new
@@ -360,6 +361,15 @@ namespace Cloudents.Web.Api
             {
                 var command = new EnterTailorEdStudyRoomCodeCommand(model.Code, id);
                 await _commandBus.DispatchAsync(command, token);
+
+
+                var user = await _userManager.FindByIdAsync(command.UserId.ToString());
+                await _signInManager.SignInAsync(user, new AuthenticationProperties()
+                {
+                    IsPersistent = false,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddHours(3),
+                    AllowRefresh = false
+                });
                 return Ok();
             }
             catch (UnauthorizedAccessException)

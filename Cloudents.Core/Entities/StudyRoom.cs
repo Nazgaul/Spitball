@@ -57,9 +57,28 @@ namespace Cloudents.Core.Entities
         public virtual string Identifier { get; protected set; }
         public virtual DomainTimeStamp DateTime { get; protected set; }
 
-        public virtual string? OnlineDocumentUrl { get; set; }
+        public virtual string? OnlineDocumentUrl
+        {
+            get => _onlineDocumentUrl;
+            set
+            {
+                if (value == null)
+                {
+                    throw new NullReferenceException();
+                }
+                if (value.StartsWith("http"))
+                {
+                    _onlineDocumentUrl = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
         private readonly IList<StudyRoomSession> _sessions = new List<StudyRoomSession>();
+        private string? _onlineDocumentUrl;
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 

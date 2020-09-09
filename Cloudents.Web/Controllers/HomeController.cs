@@ -58,8 +58,9 @@ namespace Cloudents.Web.Controllers
 
         [Route("logout")]
         public async Task<IActionResult> LogOutAsync(
+            [FromQuery] string? returnUrl,
             [FromServices] SignInManager<User> signInManager,
-            [FromServices] IHubContext<SbHub> hubContext, CancellationToken token)
+            CancellationToken token)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -74,7 +75,10 @@ namespace Cloudents.Web.Controllers
             //}, token);
             await signInManager.SignOutAsync();
             TempData.Clear();
-
+            if (returnUrl != null)
+            {
+                return Redirect(returnUrl);
+            }
 
             return Redirect("/");
         }
