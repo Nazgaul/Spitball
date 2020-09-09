@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 
 namespace Cloudents.Web.Filters
@@ -91,7 +92,11 @@ namespace Cloudents.Web.Filters
                             //Need to change user to enter password
                         }
                         await _userManager.UpdateAsync(user);
-                        await _signInManager.SignInAsync(user, false);
+                        await _signInManager.SignInAsync(user,new AuthenticationProperties() {
+                                IsPersistent = false,
+                                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(3),
+                                AllowRefresh = false
+                            });
 
                     }
                     catch (CryptographicException ex)
