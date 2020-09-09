@@ -13,6 +13,7 @@
       </div>
 
       <v-data-table 
+         :loading="!isReady"
          calculate-widths
          :page.sync="paginationModel.page"
          :headers="headers"
@@ -32,8 +33,8 @@
          }">
             <template v-slot:item.preview="{item}">
                <div class="d-flex justify-center" v-if="item.preview">
-                  <v-avatar size="68">
-                     <img :src="item.preview">
+                  <v-avatar size="68" :class="{'cursor-pointer':item.type == 'Course'}"  @click="item.type == 'Course'? goToCourse(item):''">
+                     <img :src="$proccessImageUrl(item.preview, {width:68, height:68}) ">
                   </v-avatar>
                </div>
                <div v-if="item.sessionId">
@@ -81,7 +82,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import * as routeNames from '../../../../routes/routeNames.js';
 import tableInfoTd from '../global/tableInfoTd.vue';
 // import billOfflineLayout from './buyPointsLayout/billOfflineLayout.vue'
 // import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
@@ -97,6 +98,7 @@ export default {
    },
    data() {
       return {
+         isReady:false,
          paginationModel:{
             page:1
          },
@@ -122,6 +124,15 @@ export default {
    },
    methods: {
       ...mapActions(['updateSalesItems']),
+      goToCourse(item){
+         this.$router.push({
+            name: routeNames.CoursePage,
+            params: {
+               id:item.id,
+               name:item.name
+            }
+         })
+      },
       formatPrice(price,type){
          if(isNaN(price)) return;
          if(price < 0){
@@ -131,7 +142,7 @@ export default {
             price = Math.round(+price).toLocaleString();
             return `${price} ${this.$t('dashboardPage_pts')}`
          }
-         if(type === 'TutoringSession' || type === 'BuyPoints'){
+         if(type === 'TutoringSession' || type === 'BuyPoints' || type === 'Course'){
             // TODO: Currency Change
             return this.$n(price, {'style':'currency','currency': this.accountUser.currencySymbol, minimumFractionDigits: 0, maximumFractionDigits: 0})
          }
@@ -149,7 +160,10 @@ export default {
       },
    },
    created() {
-      this.updateSalesItems()
+      let self = this;
+      this.updateSalesItems().finally(()=>{
+         self.isReady = true
+      })
    }
 }
 </script>
