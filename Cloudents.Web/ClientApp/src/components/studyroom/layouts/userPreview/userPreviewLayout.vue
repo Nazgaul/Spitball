@@ -1,6 +1,6 @@
 <template>
    <v-card :id="participant.id" color="black" 
-   :class="['userPreviewZoom']" >
+   :class="['userPreviewLayout']" >
    <div :class="['previewControls']">
       <v-tooltip top>
          <template v-slot:activator="{ on }">
@@ -247,7 +247,7 @@ export default {
 </script>
 
 <style lang="less">
-.userPreviewZoom{
+.userPreviewLayout{
    border-radius: 0 !important;
    position: relative;
    .previewControls{
