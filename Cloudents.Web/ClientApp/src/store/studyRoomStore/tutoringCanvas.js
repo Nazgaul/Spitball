@@ -1,5 +1,6 @@
 import studyRoomService from '../../services/studyRoomService.js'
 import whiteBoardService from '../../components/studyroom/whiteboard/whiteBoardService'
+import isEqual from "lodash/isEqual";
 
 const state = {
     canvasStore:{},
@@ -61,6 +62,11 @@ const getters = {
 const mutations = {
     setCanvasStore(state,val){
         state.canvasStore = {...val}
+    },
+    setDragObjsByRemote(state,val){
+        if(!isEqual(state.dragData,val)){
+            state.dragData = val
+        }
     },
     setDragData(state, val) {
         let tab = val.tab.id;
@@ -130,6 +136,10 @@ const mutations = {
     };
 
 const actions = {
+    updateDragObjsByRemote({state,commit},val){
+        commit('setDragObjsByRemote',val);
+        whiteBoardService.redraw(state.canvasStore);
+    },
     tempUpdateCanvasStore({commit},val){
         commit('setCanvasStore',val)
     },

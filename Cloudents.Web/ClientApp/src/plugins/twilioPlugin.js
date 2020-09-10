@@ -30,6 +30,7 @@ function _changeState(localParticipant) {
          tab: STORE.getters.getCurrentSelectedTab,
          canvas: STORE.getters.canvasDataStore
       },
+      canvasObjects: STORE.getters.getAllDragData,
       mute : STORE.getters.getIsAudioParticipants,
       // fullScreen: null
    };
@@ -199,6 +200,7 @@ function _twilioListeners(room,store) {
          store.dispatch('updateActiveNavEditor', data.tab)
          store.dispatch('updateAudioToggleByRemote',data.mute);
          store.dispatch('tempWhiteBoardTabChanged', data.canvasTab)
+         store.dispatch('updateDragObjsByRemote', data.canvasObjects)
          store.dispatch('sendDataTrack', JSON.stringify({type : CURRENT_STATE_UPDATED}));
          isStateInit = true; // to prevent multiple initials 
          return;
