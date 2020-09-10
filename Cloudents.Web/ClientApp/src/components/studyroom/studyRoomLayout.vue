@@ -62,7 +62,7 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['getRoomIsNeedPayment']),
+    ...mapGetters(['getRoomIsNeedPayment','getAllDragData']),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -87,6 +87,16 @@ export default {
     }
   },
   watch: {
+    getAllDragData:{
+      deep:true,
+      handler(val){
+        if(this.$store.getters.getRoomIsTutor){
+          let storageName = this.$store.getters.getSessionStorageName;
+          let localStorageObj = JSON.stringify(this.$store.getters.getAllDragData);
+          localStorage.setItem(storageName,localStorageObj);
+        }
+      }
+    },
     isRoomActive:{
       immediate:true,
       handler(val){

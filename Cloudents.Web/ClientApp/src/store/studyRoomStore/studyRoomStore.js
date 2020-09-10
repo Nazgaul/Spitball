@@ -234,6 +234,7 @@ const getters = {
    //       startNext
    //    }
    // },
+   getSessionStorageName: (state) => `s_${state.studyRoomId}`,
 }
 const actions = {
    updateToggleTutorFullScreen({dispatch,commit},val){

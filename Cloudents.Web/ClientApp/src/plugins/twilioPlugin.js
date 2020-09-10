@@ -322,6 +322,9 @@ export default () => {
 
             _insightEvent('connectToRoom', {'token': jwtToken}, null);
             twillioClient.connect(jwtToken, roomOptions).then((room) => {
+               if(store.getters.getRoomIsTutor){
+                  _getCanvasDataFromStorage();
+               }
                _activeRoom = room; // for global using in this plugin
                _insightEvent('TwilioConnect', _activeRoom, null);
                _twilioListeners(_activeRoom,store); // start listen to twilio events;
@@ -589,4 +592,12 @@ function _addParticipantTrack(track,participant){
 function _deleteParticipantTrack(track,participant){
    track.identity = participant.identity;
    STORE.commit(studyRoom_SETTERS.DELETE_ROOM_PARTICIPANT_TRACK,track)
+}
+function _getCanvasDataFromStorage(){
+   let storageName = STORE.getters.getSessionStorageName;
+   let storage = localStorage.getItem(storageName);
+   if(storage){
+      storage = JSON.parse(storage);
+      STORE.dispatch('updateDragObjsByRemote',storage);
+   }
 }
