@@ -89,7 +89,7 @@ export default {
   watch: {
     getAllDragData:{
       deep:true,
-      handler(val){
+      handler(){
         if(this.$store.getters.getRoomIsTutor){
           let storageName = this.$store.getters.getSessionStorageName;
           let localStorageObj = JSON.stringify(this.$store.getters.getAllDragData);
