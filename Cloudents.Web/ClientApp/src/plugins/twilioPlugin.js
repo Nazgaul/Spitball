@@ -383,17 +383,17 @@ export default () => {
                   navigator.mediaDevices.getDisplayMedia({video:true,audio: false}).then(stream=>{
                      _localScreenTrack = new twillioClient.LocalVideoTrack(stream.getTracks()[0],{
                         name:SCREEN_TRACK_NAME,
-                        video: document.body.clientWidth < 960 ?
-                        {
-                            height: 480,
-                            frameRate: 15,
-                            width: 640 
-                        } 
-                           : 
-                        { height: 720,
-                          frameRate: 15,
-                          width: 1280 
-                        },
+                        // video: document.body.clientWidth < 960 ?
+                        // {
+                        //     height: 480,
+                        //     frameRate: 15,
+                        //     width: 640 
+                        // } 
+                        //    : 
+                        // { height: 720,
+                        //   frameRate: 15,
+                        //   width: 1280 
+                        // },
 
                      });
                      let isRoomStudent = !store.getters.getRoomIsTutor;
