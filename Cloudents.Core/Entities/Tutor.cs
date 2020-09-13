@@ -182,6 +182,14 @@ namespace Cloudents.Core.Entities
             AddEvent(new NewCourseEvent(course));
         }
 
+
+        public virtual void RemoveCourse(long courseId)
+        {
+            var course = Courses.First(f => f.Id == courseId);
+            Courses.Remove(course);
+            AddEvent(new DeleteCourseEvent(course));
+        }
+
         public virtual void AddCoupon(string code, CouponType couponType, decimal value, DateTime? expiration)
         {
             var coupon = new Coupon(code, couponType, this, value, expiration);

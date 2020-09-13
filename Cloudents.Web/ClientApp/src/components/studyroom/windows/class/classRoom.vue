@@ -2,7 +2,7 @@
    <div class="classRoom">
      <div id="layout">
       <template v-if="roomParticipants">
-         <userPreviewZoom class="userPreviewZoomTEST" v-for="participant in roomParticipants" :key="Object.values(participant)[0].id"
+         <userPreviewLayout v-for="participant in roomParticipants" :key="Object.values(participant)[0].id"
                 :participant="Object.values(participant)[0]"
                 :style="`height:480;width:${480 * getRatio()}`"
                 />
@@ -10,25 +10,17 @@
       </template>
 
      </div>
-      <!-- <template v-if="roomParticipants"> -->
-         <!-- <userPreviewZoom 
-               v-for="participant in roomParticipants" 
-               :key="Object.values(participant)[0].id" :participant="Object.values(participant)[0]"
-               class="ma-2 classRoomCards"/> -->
-      <!-- </template> -->
    </div>
 </template>
 
 <script>
 import {initLayoutContainer} from 'video-layout';
 
-// import userPreview from '../../layouts/userPreview/userPreview.vue';
-import userPreviewZoom from '../../layouts/userPreview/userPreviewZoom.vue';
+import userPreviewLayout from '../../layouts/userPreview/userPreviewLayout.vue';
 import { mapGetters } from 'vuex';
 export default {
    components:{
-      // userPreview
-      userPreviewZoom
+      userPreviewLayout
    },
    data() {
       return {
@@ -60,18 +52,10 @@ export default {
    watch: {
       getStudyRoomDrawerState:{
          handler(){
-         let self = this;
-         setTimeout(()=>{
-            self.layout();
-         },500)
-         // this.$nextTick(()=>{
-         //    self.layout();
-         // })
-            // if(newVal){
-            // }else{
-            //    this.layout();
-
-            // }
+            let self = this;
+            setTimeout(()=>{
+               self.layout();
+            },500)
          }
       },
       roomParticipants:{
@@ -124,15 +108,11 @@ export default {
    position: relative;
    #layout {
       position: absolute;
-      // top: 140px;
       top:0;
       left: 0;
       right: 0;
       bottom: 0;
-      .userPreviewZoom {
-         // background-color: #000;
-         // display: inline-block;
-         // border: 1px solid #fff;
+      .userPreviewLayout {
          display: flex;
          align-items: center;
          justify-content: center;
@@ -142,10 +122,5 @@ export default {
          margin:8px
       }
    }
-   // .classRoomCards{
-   //    float: left;
-   //    width: 236px;
-   //    height: 149px;
-   // }
 }
 </style>

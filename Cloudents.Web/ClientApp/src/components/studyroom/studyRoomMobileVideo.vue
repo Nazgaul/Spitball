@@ -23,6 +23,12 @@ export default {
    computed: {
       ...mapGetters(['getRoomTutorParticipant']),
       tutorVideoTrack(){
+         if(this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.SCREEN_MODE){
+            return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
+         }
+         if(this.$store.getters.getActiveNavEditor == this.$store.getters.getRoomModeConsts.CLASS_MODE){
+            return this.getRoomTutorParticipant?.video || this.getRoomTutorParticipant?.screen
+         }
          return this.getRoomTutorParticipant?.screen || this.getRoomTutorParticipant?.video
       },
       roomTutorName(){

@@ -1,32 +1,7 @@
 <template>
    <div class="classFullScreen">
-      <div class="videoContainer">
-         <div id="classFullScreenVideo"></div>
-         <div class="videoTools" v-if="isRoomTutor">
-            <v-row class="videoBtns" justify="center">
-               <v-tooltip top>
-                  <template v-slot:activator="{ on }">
-                     <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isVideoActive}]" icon @click="toggleVideo" sel="video_class_enabling">
-                        <v-icon v-if="isVideoActive" size="20" class="ms-1" color="white">sbf-video-camera</v-icon>
-                        <v-icon v-else size="30" color="white">sbf-camera-ignore</v-icon>
-                     </v-btn>
-                  </template>
-                  <span v-text="$t(isVideoActive?'tutor_tooltip_video_pause':'tutor_tooltip_video_resume')"/>
-               </v-tooltip>
-               <v-tooltip top>
-                  <template v-slot:activator="{ on }">
-                     <v-btn v-on="on" :class="['controlsBtn',{'btnIgnoreClass':!isAudioActive},'ms-3']" icon @click="toggleAudio" sel="audio_class_enabling">
-                        <v-icon v-if="isAudioActive" size="22" color="white">sbf-microphone</v-icon>
-                        <v-icon v-else size="28" color="white">sbf-mic-ignore</v-icon>
-                     </v-btn>
-                  </template>
-                  <span v-text="$t(isAudioActive?'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute')"/>
-               </v-tooltip>
-            </v-row>
-            <div class="videoMinimizeBtn" @click="closeFullScreen">
-               <v-icon size="30" color="white">sbf-minis</v-icon>
-            </div>
-         </div>
+      <div id="tutorVideoLayout">
+         <tutorFullScreen class="tutorFullScreen_p" :style="`height:480;width:${480 * getRatio()}`"/>
       </div>
       <v-footer :height="124" inset app fixed color="#212123" class="classFooter pa-0 py-3 ps-2">
          <v-slide-group
@@ -47,42 +22,34 @@
 </template>
 
 <script>
+import {initLayoutContainer} from 'video-layout';
+import tutorFullScreen from '../../layouts/userPreview/tutorFullScreen.vue';
 import userPreview from '../../layouts/userPreview/userPreview.vue'
 import { mapGetters } from 'vuex';
 export default {
-   components:{
-      userPreview
-   },
-   watch: {
-      tutorVideoTrack:{
-         immediate:true,
-         deep:true,
-         handler(track){
-            if(track){
-               this.$nextTick(()=>{
-                  const localMediaContainer = document.getElementById('classFullScreenVideo');
-                  let videoTag = localMediaContainer.querySelector("video");
-                  if (videoTag) {localMediaContainer.removeChild(videoTag)}
-                  localMediaContainer.appendChild(track.attach());
-               })
-            }
-         }
+   data() {
+      return {
+         layout: undefined,
+         ratios: [4/3, 3/4, 16/9],
+         layoutEl: undefined,
       }
    },
+   components:{
+      userPreview,
+      tutorFullScreen
+   },
+   watch: {
+      getStudyRoomDrawerState:{
+         handler(){
+            let self = this;
+            setTimeout(()=>{
+               self.layout();
+            },500)
+         }
+      },
+   },
    computed: {
-      ...mapGetters(['getRoomTutorParticipant']),
-      tutorVideoTrack(){
-         return this.getRoomTutorParticipant?.video;
-      },
-      isVideoActive() {
-         return this.$store.getters.getIsVideoActive;
-      },
-      isAudioActive() {
-         return this.$store.getters.getIsAudioActive;
-      },
-      isRoomTutor(){
-         return this.$store.getters.getRoomIsTutor;
-      },
+      ...mapGetters(['getStudyRoomDrawerState']),
       roomParticipants(){
          if(this.$store.getters.getRoomParticipants){
             let participants = Object.entries(this.$store.getters.getRoomParticipants).map((e) => ( { [e[0]]: e[1] } ));
@@ -102,18 +69,34 @@ export default {
       }
    },
    methods: {
-      toggleVideo() {
-         this.$ga.event("tutoringRoom", "toggleVideo");
-         this.$store.dispatch("updateVideoToggle");
+      updateLayoutValues(){
+         this.layout = initLayoutContainer(this.layoutEl, {
+         maxRatio: 3/4,    
+         minRatio: 9/16,   
+         fixedRatio: false,  
+         bigPercentage: 0.8,
+         bigFixedRatio: false,
+         bigMaxRatio: 3/2,
+         bigMinRatio: 9/16,
+         bigFirst: true,
+         alignItems: 'center',
+         smallMaxWidth: 'Infinity',
+         bigMaxHeight: 'Infinity',
+         smallMaxHeight: 'Infinity',
+         bigAlignItems: 'center',
+         bigMaxWidth: 'Infinity',
+         smallAlignItems: 'center',
+         animate: true,
+         }).layout;
       },
-      toggleAudio() {
-         this.$ga.event("tutoringRoom", "toggleAudio");
-         this.$store.dispatch("updateAudioToggle");
+      getRatio(){
+         return this.ratios[Math.round(Math.random() * (this.ratios.length - 1))]
       },
-
-      closeFullScreen(){
-         this.$store.dispatch('updateToggleTutorFullScreen',false);
-      }
+   },
+   mounted() {
+      this.layoutEl = document.getElementById("tutorVideoLayout");
+      this.updateLayoutValues();
+      this.layout();
    },
 }
 </script>
@@ -122,53 +105,23 @@ export default {
 .classFullScreen{
    background-color: #212123;
    display: block; //Just to remove cache
+   position: relative;
    .v-footer{
       justify-content: center;
    }
-   .videoContainer{
-      width: 100%;
-      height: 100%;
-      max-height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
-      overflow: hidden;
-      position: relative;
-      #classFullScreenVideo{
-         height: ~"calc(100vh - 186px)"; // 124px footer + 62px header
-
-         video {
-            width: 100%;
-            height: 100%;
-            // object-fit: cover;
-            object-position: center;
-         }
-           video::-webkit-media-controls-enclosure {
-              display: none !important;
-           }
-      }
-      .videoTools{
-         position: absolute;
-         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 32%, rgba(0, 0, 0, 0.13) 61%, rgba(0, 0, 0, 0.49)) !important;
-         width: 100%;
-         height: 118px;
-         bottom: 0;
-         .videoMinimizeBtn{
-            position: absolute;
-            bottom: 14px;
-            right: 12px;
-         }
-         .videoBtns{
-            height: 100%;
-            align-items: center;
-            padding-top: 30px;
-            .controlsBtn{
-               width: 60px;
-               height: 60px;
-               background-color: rgba(0, 0, 0, 0.25);
-               border-radius: 50%;
-               &.btnIgnoreClass{
-                  background-color: rgba(255, 0, 0, 0.589);
-               }
-            }
-         }
+   #tutorVideoLayout {
+      position: absolute;
+      top:0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: black;
+      .tutorFullScreen_p {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         transition-property: all;
+         transition-duration: 0.5s;
       }
    }
    .classFooter{
