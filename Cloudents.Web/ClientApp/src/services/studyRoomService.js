@@ -27,7 +27,7 @@ export default {
    updateImage(params) {
       return studyRoomInstance.post('image', params);
    },
-   async tailorEd({roomId,code}){
-      return await studyRoomInstance.post(`tailor-ed/${roomId}`,{code});
+   tailorEd({roomId,code}){
+      return studyRoomInstance.post(`tailor-ed/${roomId}`,{code});
    },
 }

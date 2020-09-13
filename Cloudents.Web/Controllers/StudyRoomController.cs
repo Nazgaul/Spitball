@@ -7,6 +7,7 @@ using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.Linq;
@@ -19,21 +20,36 @@ namespace Cloudents.Web.Controllers
         internal const string StudyRoomRouteName = "StudyRoomRoute";
         private readonly IQueryBus _queryBus;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly SignInManager<User> _signInManager;
 
-        public StudyRoomController(IQueryBus queryBus, IHttpContextAccessor httpContextAccessor)
+        public StudyRoomController(IQueryBus queryBus, IHttpContextAccessor httpContextAccessor, SignInManager<User> signInManager)
         {
             _queryBus = queryBus;
             _httpContextAccessor = httpContextAccessor;
+            _signInManager = signInManager;
         }
 
         [Route("StudyRoom/{id:guid}", Name = StudyRoomRouteName), SignInWithToken]
-        public async Task<IActionResult> Index(Guid id, [FromQuery] string? dialog, CancellationToken token)
+        public async Task<IActionResult> Index(Guid id,
+            [FromQuery] string? dialog,
+            [FromQuery] string? type,
+            CancellationToken token)
         {
             ViewBag.isRtl = false;
             if (dialog == "payment")
             {
                 // this hotfix that happens on client side
                 return RedirectToAction("Index");
+            }
+
+            if (string.Equals(type, Api.StudyRoomController.TailorEdStudyRoomTypeQueryString,
+                StringComparison.OrdinalIgnoreCase) && _signInManager.IsSignedIn(User))
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", new
+                {
+                    type =  Api.StudyRoomController.TailorEdStudyRoomTypeQueryString
+                });
             }
 
             var result = await _queryBus.QueryAsync(new SeoStudyRoomQuery(id), token);

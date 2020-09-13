@@ -38,7 +38,7 @@ namespace Cloudents.Web.Api
     [SuppressMessage("ReSharper", "AsyncConverter.AsyncAwaitMayBeElidedHighlighting", Justification = "Api")]
     public class StudyRoomController : ControllerBase
     {
-
+        internal const string TailorEdStudyRoomTypeQueryString = "tailorEd";
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly IStringLocalizer<StudyRoomController> _localizer;
@@ -335,7 +335,7 @@ namespace Cloudents.Web.Api
             var studentUrl = Url.RouteUrl(Controllers.StudyRoomController.StudyRoomRouteName, new
             {
                 id = command.StudyRoomId,
-                type = "tailorEd",
+                type = TailorEdStudyRoomTypeQueryString,
                 culture = model.Culture
             }, "https");
             return Created(
