@@ -13,7 +13,6 @@ const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const postcssRtl = require('postcss-rtl')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const logging = require('webpack/lib/logging/runtime');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -268,7 +267,7 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin({
-                match (originalTag, { kebabTag, camelTag, path, component }) {
+                match (originalTag, { kebabTag, camelTag}) {
                     let listOfTags = ['v-menu', 'v-btn','v-img', 'v-avatar', 'v-dialog' ];
                     if (listOfTags.indexOf(kebabTag) > -1) {
                         return[camelTag,`const {${camelTag}} = () => import( /* webpackChunkName: "${camelTag}" */ 'vuetify/lib/components/${camelTag}');`]
