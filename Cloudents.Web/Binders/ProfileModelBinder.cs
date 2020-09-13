@@ -1,10 +1,5 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Models;
-using Cloudents.Query;
-using Cloudents.Query.Users;
-using Cloudents.Web.Extensions;
+﻿using Cloudents.Core.Models;
 using Cloudents.Web.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Threading.Tasks;
@@ -13,15 +8,19 @@ namespace Cloudents.Web.Binders
 {
     public class ProfileModelBinder : IModelBinder
     {
-        private readonly IQueryBus _queryBus;
+        //private readonly IQueryBus _queryBus;
         private readonly ICountryService _countryProvider;
-        private readonly UserManager<User> _userManager;
+        //private readonly UserManager<User> _userManager;
 
-        public ProfileModelBinder(IQueryBus queryBus, ICountryService countryProvider, UserManager<User> userManager)
+        public ProfileModelBinder(
+           // IQueryBus queryBus,
+            ICountryService countryProvider
+          //  UserManager<User> userManager
+            )
         {
-            _queryBus = queryBus;
+          //  _queryBus = queryBus;
             _countryProvider = countryProvider;
-            _userManager = userManager;
+           // _userManager = userManager;
         }
 
 
@@ -48,18 +47,18 @@ namespace Cloudents.Web.Binders
                     case ProfileServiceQuery.Country:
                         profile.Country = await _countryProvider.GetUserCountryAsync(token);
                         break;
-                    case ProfileServiceQuery.Subscribers:
-                        //case ProfileServiceQuery.Course:
-                        if (bindingContext.HttpContext.User.Identity.IsAuthenticated)
-                        {
-                            var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
+                    //case ProfileServiceQuery.Subscribers:
+                    //    //case ProfileServiceQuery.Course:
+                    //    if (bindingContext.HttpContext.User.Identity.IsAuthenticated)
+                    //    {
+                    //        var userId = _userManager.GetLongUserId(bindingContext.HttpContext.User);
 
-                            var query = new UserSubscribersQuery(userId);
-                            var result = await _queryBus.QueryAsync(query, token);
-                            profile.Subscribers = result;
+                    //        var query = new UserSubscribersQuery(userId);
+                    //        var result = await _queryBus.QueryAsync(query, token);
+                    //        profile.Subscribers = result;
                             
-                        }
-                        break;
+                    //    }
+                    //    break;
                         // throw new ArgumentOutOfRangeException();
                 }
             }

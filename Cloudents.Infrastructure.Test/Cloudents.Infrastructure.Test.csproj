@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\Repositories\" />
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,6 @@ namespace Cloudents.Web.Binders
         None,
         Country = 2,
         //  Course = 4,
-        Subscribers = 8
+       // Subscribers = 8
     }
 }

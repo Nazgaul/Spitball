@@ -5,7 +5,7 @@ namespace Cloudents.Core.Models
 {
     public class UserProfile
     {
-        public HashSet<long>? Subscribers { get; set; }
+        //public HashSet<long>? Subscribers { get; set; }
 
 
         public string? Country { get; set; }
