@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuetify, { VBtn, VImg, VAvatar,VContainer, VDialog, VLayout, VFlex, VIcon, VRow, VCol } from 'vuetify/lib';
+import Vuetify from 'vuetify/lib';
 import { Touch, ClickOutside} from 'vuetify/lib/directives'
 
 
@@ -8,7 +8,7 @@ Vue.use(Vuetify, {
     Touch,
     ClickOutside
   },
-  components: { VBtn, VImg, VAvatar, VDialog, VLayout, VIcon,VFlex,VRow,VCol,VContainer }
+  //components: {   VAvatar, VDialog, VLayout, VIcon,VFlex,VRow,VCol,VContainer }
 });
 
 import he from '../../node_modules/vuetify/src/locale/he.ts';

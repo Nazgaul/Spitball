@@ -4,7 +4,6 @@ const webpack = require("webpack");
 const bundleOutputDir = "./../wwwroot/dist";
 const MiniCssExtractPluginRtl = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-//const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
@@ -14,6 +13,7 @@ const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
 const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const postcssRtl = require('postcss-rtl')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const logging = require('webpack/lib/logging/runtime');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -267,7 +267,18 @@ module.exports = (env) => {
                     NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
                 }
             }),
-            new VuetifyLoaderPlugin(),
+            new VuetifyLoaderPlugin({
+                match (originalTag, { kebabTag, camelTag, path, component }) {
+                    let listOfTags = ['v-menu', 'v-btn','v-img', 'v-avatar', 'v-dialog' ];
+                    if (listOfTags.indexOf(kebabTag) > -1) {
+                        return[camelTag,`const {${camelTag}} = () => import( /* webpackChunkName: "${camelTag}" */ 'vuetify/lib/components/${camelTag}');`]
+                    }
+                    if (kebabTag.startsWith('core-')) {
+                      return [camelTag, `import ${camelTag} from '@/components/core/${camelTag.substring(4)}.vue'`]
+                    }
+                  }
+                  
+            }),
             new MomentLocalesPlugin({
                 localesToKeep: ['he'],
             }),
