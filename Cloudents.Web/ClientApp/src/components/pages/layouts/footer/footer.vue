@@ -90,15 +90,7 @@ import logoComponent from '../../../app/logo/logo.vue';
             isShowBlog(link){
                 return !(link.name == 'blog' && global.siteName == 'frymo');
             },
-            // footerLinksRoute(link) {
-            //     if(link === 'blog') {
-            //         window.open('https://medium.com/@spitballstudy')
-            //     }else if(link ===  'feedback') {
-            //         Intercom('showNewMessage')
-            //     }else {
-            //         this.$router.push({name: link});
-            //     }
-            // },
+            
             checkParams(){
                 if(this.$route.name === 'tutorLandingPage'){
                     if(!!this.$route.params && this.$route.params.course){

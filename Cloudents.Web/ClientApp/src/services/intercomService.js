@@ -12,25 +12,25 @@ function ctor() {
         // let id = {
         //     user_id: typeof (settings.id) === "number" ? "Sb_" + settings.id : null 
         // }
-        let globalSettings = {
-            app_id: "njmpgayv",
-            hide_default_launcher: true,
-            alignment: global.isRtl ? 'left' : 'right',
-            language_override: global.lang,
-        };
-        if (global.Intercom) {
-            global.Intercom('boot', globalSettings);
-        }
+        // let globalSettings = {
+        //     app_id: "njmpgayv",
+        //     hide_default_launcher: true,
+        //     alignment: global.isRtl ? 'left' : 'right',
+        //     language_override: global.lang,
+        // };
+        // if (global.Intercom) {
+        //     global.Intercom('boot', globalSettings);
+        // }
     }
     intercom.stop = function () {
-        if (global.Intercom) {
-            global.Intercom('shutdown');
-        }
+        // if (global.Intercom) {
+        //     global.Intercom('shutdown');
+        // }
     }
     intercom.showDialog = function () {
-        if (global.Intercom) {
-            global.Intercom('showNewMessage');
-        }
+        // if (global.Intercom) {
+        //     global.Intercom('showNewMessage');
+        // }
     }
 
     tawk.start = function (settings) {
@@ -55,46 +55,7 @@ function ctor() {
 ctor();
 
 let services = [intercom, tawk];
-//const IntercomSettings = new IntercomSettingsObj();
 
-
-// function IntercomSettingsObj() {
-//     this.user_id = null;
-//     this.user_name = null;
-//     this.user_email = null;
-//     this.user_phoneNumber = null;
-//     this.is_tutor = false;
-// }
-
-// IntercomSettingsObj.prototype.set = function ({ id, name, email, phoneNumber, isTutor }) {
-//     if (IntercomStatus) {
-//         this.user_id = id ? "Sb_" + id : this.user_id;
-//         this.user_name = name ? name : this.user_name;
-//         this.user_email = email ? email : this.user_email;
-//         this.user_phoneNumber = phoneNumber ? phoneNumber : this.user_phoneNumber;
-//         this.is_tutor = isTutor !== undefined ? isTutor : this.is_tutor;
-//         startIntercom();
-//     }
-// };
-
-// IntercomSettingsObj.prototype.reset = function(){
-//     if(IntercomStatus){
-//        // shutIntercom();
-//         //this.custom_launcher_selector = '#gH_i_r_intercom';
-//         this.user_id = null;
-//         this.user_name = null;
-//         this.user_email = null;
-//         this.user_phoneNumber = null;
-//         this.is_tutor = false;
-//         //this.hide_default_launcher = true;    
-//         //this.alignment = global.isRtl ? 'left' : 'right';
-//         startIntercom();
-//     }
-// };
-
-// function createIntercomSettings(){
-//     return new IntercomSettingsObj();
-//}
 function restrartService() {
     stopService();
     startService();

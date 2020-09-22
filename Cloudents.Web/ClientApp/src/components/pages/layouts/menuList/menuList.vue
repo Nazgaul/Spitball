@@ -79,7 +79,7 @@ import { mapGetters, mapActions } from "vuex";
 
 import languagesLocales from "../../../../services/language/localeLanguage";
 import satelliteService from '../../../../services/satelliteService';
-import intercomSettings from '../../../../services/intercomService';
+//import intercomSettings from '../../../../services/intercomService';
 
 import * as routeNames from '../../../../routes/routeNames'
 
@@ -117,7 +117,7 @@ export default {
         { title: this.$t('menuList_terms_of_service'), icon: 'sbf-terms', url: satelliteService.getSatelliteUrlByName('terms') },
         { title: this.$t('menuList_privacy_policy'), icon: 'sbf-privacy', url: satelliteService.getSatelliteUrlByName('privacy') },
         { title: this.$t('menuList_referral_spitball'), icon: 'sbf-user', action: this.openReferralDialog },
-        { title: this.$t('menuList_feedback'), icon: 'sbf-feedbackNew', action: this.startIntercom }
+        // { title: this.$t('menuList_feedback'), icon: 'sbf-feedbackNew', action: this.startIntercom }
       ],
       menuListStudent: [
         { title: this.$t('menuList_account_setting'), icon: 'sbf-settings', action: this.openEditInfo },
@@ -166,9 +166,9 @@ export default {
     changeLanguage(id) {
       this.$store.dispatch('changeLanguage', id)
     },
-    startIntercom() {
-      intercomSettings.showDialog();
-    },
+    // startIntercom() {
+    //   intercomSettings.showDialog();
+    // },
     openReferralDialog() {
       this.$emit('closeMenu')
       setTimeout(() => {

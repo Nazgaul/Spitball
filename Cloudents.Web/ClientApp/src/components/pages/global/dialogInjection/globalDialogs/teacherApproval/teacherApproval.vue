@@ -1,3 +1,4 @@
+
 <template>
    <v-dialog :value="true" persistent :maxWidth="'580'" :content-class="'teacherApproval'" :fullscreen="$vuetify.breakpoint.xsOnly">
         <div class="py-4 pa-sm-4 text-center wrapper">
@@ -75,7 +76,7 @@
             </div>
 
             <div class="d-flex bottom px-4 px-sm-0">
-                <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
+                <!-- <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn> -->
 
                 <div class="bottomActions d-flex text-center">
                     <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block me-3" rounded outlined v-closeDialog>{{$t('teacherApproval_btn_cancel')}}</v-btn>
@@ -88,14 +89,14 @@
 </template>
 
 <script>
-import intercomService from "../../../../../../services/intercomService"
-import needHelpIcon from './need_help.svg'
+//import intercomService from "../../../../../../services/intercomService"
+//import needHelpIcon from './need_help.svg'
 import whiteWarn from './whiteWarn.svg'
 
 export default {
     name: 'teacherApproval',
     components: {
-        needHelpIcon,
+        //needHelpIcon,
         whiteWarn
     },
     data() {
@@ -196,9 +197,9 @@ export default {
                 e.preventDefault();
             }
         },
-        openIntercom() {
-            intercomService.showDialog();
-        }
+        // openIntercom() {
+        //     intercomService.showDialog();
+        // }
     },
     mounted() {
         let self = this;

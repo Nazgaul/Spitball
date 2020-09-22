@@ -18,12 +18,12 @@
                     <component :is="$route.meta.headerSlot"/>
                 </div>
                 <template v-if="!isMobile" >
-                    <v-tooltip bottom>
+                    <!-- <v-tooltip bottom>
                         <template v-slot:activator="{on}">
                             <helpIcon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" />
                         </template>
                         <span v-t="'header_tooltip_help'"/>
-                    </v-tooltip>
+                    </v-tooltip> -->
                     <template v-if="showChat">
                         <v-tooltip bottom v-if="loggedIn">
                             <template v-slot:activator="{on}">
@@ -97,7 +97,7 @@ import languagesLocales from "../../../../services/language/localeLanguage";
 import * as routeNames from '../../../../routes/routeNames.js';
 
 import menuList from '../menuList/menuList.vue';
-import intercomService from "../../../../services/intercomService";
+//import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
 import helpIcon from '../../../../font-icon/help-icon.svg';
@@ -187,9 +187,9 @@ components: {menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,ar
         closeDrawer() {
             this.drawer = !this.drawer;
         },       
-        startIntercom() {
-            intercomService.showDialog();
-        },
+        // startIntercom() {
+        //     intercomService.showDialog();
+        // },
         changeLanguage() {
             this.$store.dispatch('changeLanguage', this.languageChoisesAval.id)
         },

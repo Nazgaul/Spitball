@@ -63,24 +63,14 @@
             </v-btn>
          </template>
          <v-list>
-            <!-- <v-list-item class="menuStudyRoomOption" @click="toggleRecord">
-               <template v-if="!getIsRecording">
-                     <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
-                     {{$t('tutor_begain_recording')}}
-               </template>
-               <template v-else>
-                     <v-icon color="7a798c" class="me-2" size="20">sbf-record</v-icon> 
-                     {{$t('tutor_stop_recording')}}
-               </template>
-            </v-list-item> -->
             <v-list-item class="menuStudyRoomOption" sel="setting_draw" @click="openSettingsDialog">
                   <v-icon color="7a798c" class="me-2" size="20">sbf-settings</v-icon> 
                   {{$t('studyRoom_menu_settings')}}
             </v-list-item>
-            <v-list-item class="menuStudyRoomOption" sel="help_draw" @click="showIntercom">
+            <!-- <v-list-item class="menuStudyRoomOption" sel="help_draw" @click="showIntercom">
                   <v-icon color="7a798c" class="me-2" size="20">sbf-help-icon</v-icon> 
                   {{$t('studyRoom_menu_help')}}
-            </v-list-item>
+            </v-list-item> -->
             </v-list>
          </v-menu>
    </v-app-bar>
@@ -88,7 +78,7 @@
 
 <script>
 import studyRoomRecordingService from '../../studyRoomRecordingService.js';
-import intercomSettings from '../../../../services/intercomService';
+//import intercomSettings from '../../../../services/intercomService';
 
 import logoComponent from "../../../app/logo/logo.vue";
 import { mapGetters } from 'vuex';
@@ -143,10 +133,10 @@ export default {
          this.$ga.event("tutoringRoom", 'toggleRecord');
          studyRoomRecordingService.toggleRecord(this.isRoomTutor);
       },
-      showIntercom(){
-         this.$ga.event("tutoringRoom", 'showIntercom');
-         intercomSettings.showDialog();
-      },
+      // showIntercom(){
+      //    this.$ga.event("tutoringRoom", 'showIntercom');
+      //    intercomSettings.showDialog();
+      // },
       openSettingsDialog(){
          this.$ga.event("tutoringRoom", "openSettingsDialog");
          this.$store.commit('toggleAudioVideoDialog',true)

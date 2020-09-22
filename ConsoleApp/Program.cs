@@ -73,7 +73,8 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://www.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
-                            ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
+                            ConfigurationManager.AppSettings["Redis"],
+                            DbConnectionString.DataBaseIntegration.None, TimeSpan.FromMinutes(20)),
                         Search = new SearchServiceCredentials(
 
                             ConfigurationManager.AppSettings["AzureSearchServiceName"],

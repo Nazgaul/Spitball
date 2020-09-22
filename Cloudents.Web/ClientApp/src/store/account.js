@@ -1,6 +1,6 @@
 import axios from 'axios'
 import analyticsService from '../services/analytics.service';
-import intercomeService from '../services/intercomService';
+//import intercomeService from '../services/intercomService';
 import * as componentConsts from '../components/pages/global/toasterInjection/componentConsts.js'
 import { dollarCalculate } from "./constants";
 
@@ -111,7 +111,7 @@ const actions = {
                 const userAccount = state.user
     
                 analyticsService.sb_setUserId(userAccount.id);
-                intercomeService.startService(userAccount);
+               // intercomeService.startService(userAccount);
                 global.appInsights.setAuthenticatedUserContext(`${userAccount.id}`);
                 //dispatch("getAllConversations");
                 commit('updateTotalUnread',userAccount.chatUnread || 0)
@@ -119,13 +119,13 @@ const actions = {
     
                 return Promise.resolve(userAccount)
             }).catch(ex => {
-                intercomeService.restrartService();
+              //  intercomeService.restrartService();
                 console.error(ex);
                 commit("changeLoginStatus", false);
             })
         }
         else {
-            intercomeService.startService();
+          //  intercomeService.startService();
             return Promise.resolve()
         }
     },

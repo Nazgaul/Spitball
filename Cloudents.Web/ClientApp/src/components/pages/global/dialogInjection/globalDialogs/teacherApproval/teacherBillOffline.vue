@@ -85,7 +85,7 @@
             </div>
 
             <div class="d-flex bottom px-4 px-sm-0">
-                <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn>
+                <!-- <v-btn icon color="#5A66FF" @click="openIntercom" :ripples="false" depressed><needHelpIcon/></v-btn> -->
 
                 <div class="bottomActions d-flex text-center">
                     <v-btn width="140" height="40" color="#4452fc" class="d-none d-sm-block me-3" rounded outlined @click="closeDialog()">{{$t('teacherApproval_btn_cancel')}}</v-btn>
@@ -98,15 +98,15 @@
 </template>
 
 <script>
-import intercomService from "../../../../../../services/intercomService"
-import needHelpIcon from './need_help.svg'
+// import intercomService from "../../../../../../services/intercomService"
+//import needHelpIcon from './need_help.svg'
 import whiteWarn from './whiteWarn.svg'
 import { validationRules } from '../../../../../../services/utilities/formValidationRules'
 
 export default {
     name: 'teacherBillOffline',
     components: {
-        needHelpIcon,
+      //  needHelpIcon,
         whiteWarn
     },
     data() {
@@ -206,10 +206,10 @@ export default {
                 
             }
         },
-        openIntercom() {
-            intercomService.showDialog();
-        }
-    },
+    //     openIntercom() {
+    //         intercomService.showDialog();
+    //     }
+     },
     created() {
         this.$store.dispatch('updateFollowersItems').then(()=>{
             this.myFollowers = this.$store.getters.getFollowersItems.filter(u=>u.hasCreditCard);
